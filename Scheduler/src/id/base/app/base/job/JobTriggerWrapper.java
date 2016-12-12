@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.quartz.CronTrigger;
 import org.quartz.JobDetail;
+import org.springframework.scheduling.quartz.CronTriggerFactoryBean;
+import org.springframework.scheduling.quartz.JobDetailFactoryBean;
 
 public class JobTriggerWrapper {
 	private List<JobDetail> beans = new ArrayList<JobDetail>();
