@@ -3,14 +3,9 @@ package id.base.app.rest;
 public class RestConstant {
 	public static final String USER_CALLER = "uLUoI0BMv1";
 	public static String REST_SERVICE = "http://localhost:8181/ApplicationService";
-	public static String REPORT_SERVICE = "http://localhost:8181/ReportService";
 	
 	public static void setRestService(String url){
 		REST_SERVICE = url;
-	}
-	
-	public static void setReportService(String url){
-		REPORT_SERVICE = url;
 	}
 	
 	public static final String RM_DASHBOARD = "/dashboard";

@@ -1,10 +1,10 @@
 <%@ taglib uri="/WEB-INF/sitemesh-decorator.tld" prefix="decorator" %>
 <%@ taglib uri="/WEB-INF/sitemesh-page.tld" prefix="page" %>
-<%@page import="id.padiku.app.webMember.SessionConstants"%>
-<%@page import="id.padiku.app.SystemConstant"%>
-<%@page import="id.padiku.app.webMember.SessionConstants"%>
-<%@page import="id.padiku.app.valueobject.AppFunction"%>
-<%@page import="id.padiku.app.valueobject.master.Company"%>
+<%@page import="id.base.app.webMember.SessionConstants"%>
+<%@page import="id.base.app.SystemConstant"%>
+<%@page import="id.base.app.webMember.SessionConstants"%>
+<%@page import="id.base.app.valueobject.AppFunction"%>
+<%@page import="id.base.app.valueobject.master.Company"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.LinkedList"%>
 <!DOCTYPE html>
@@ -15,12 +15,12 @@
 <!--<![endif]-->
     <head>
 		<meta charset="utf-8"/>
-		<title>padiku.co.id &nbsp;-&nbsp; Member Application - <decorator:title default="Welcome!" /></title>
+		<title>base.co.id &nbsp;-&nbsp; Member Application - <decorator:title default="Welcome!" /></title>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta charset="UTF-8" />
-		<meta content="padiku application" name="description"/>
-		<meta content="padiku.id team" name="author"/>
+		<meta content="base application" name="description"/>
+		<meta content="base.id team" name="author"/>
     
     	<link rel="icon" type="image/ico" href="<%=request.getContextPath()%>/images/favicon.ico" />
     	

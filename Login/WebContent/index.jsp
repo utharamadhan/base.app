@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>padiku.id - login</title>
+	<title>BaseApp - login</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8" />
     <link rel="icon" type="image/ico" href="<%=request.getContextPath()%>/images/favicon.ico" />

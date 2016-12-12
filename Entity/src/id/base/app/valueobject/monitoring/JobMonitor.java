@@ -11,12 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-/**
- * A Class representing the current scheduled job state
- * 
- * @author padiku
- *
- */
 @Entity
 @Table(name = "JOB_MONITOR")
 public class JobMonitor implements Serializable {

@@ -1,4 +1,4 @@
-<%@page import="id.padiku.app.LoginSession"%>
+<%@page import="id.base.app.LoginSession"%>
 			<ul class="nav navbar-nav quick-actions">
               <!--li class="dropdown divided">
                 

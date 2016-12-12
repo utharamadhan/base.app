@@ -1,4 +1,4 @@
-<%@page import="id.padiku.app.SystemConstant"%>
+<%@page import="id.base.app.SystemConstant"%>
 <html>
 <head>
 <meta charset="ISO-8859-1">

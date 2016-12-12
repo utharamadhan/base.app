@@ -13,8 +13,7 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
 
 	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 	    <property name="location">
-	       <value>file:/project/padiku/application.properties</value>
-	       <!-- <value>file:/var/lib/tomcat7/webapps/padiku.conf/application.properties</value> -->
+	       <value>file:/project/baseApp/application.properties</value>
 	    </property>
 	</bean>
 	
@@ -28,32 +27,12 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
    		</property>
 	</bean>
 	
-	<bean id="restInitialisation" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
-   		<property name="targetClass" value="id.padiku.app.rest.RestConstant" />
-   		<property name="targetMethod" value="setReportService" />
-   		<property name="arguments">
-      		<list>
-      			<value>${report.service}</value>
-      		</list>
-   		</property>
-	</bean>
-	
 	<bean id="sharedFolderLocationInitialisation" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
-   		<property name="targetClass" value="id.padiku.app.SystemConstant" />
+   		<property name="targetClass" value="id.base.app.SystemConstant" />
    		<property name="targetMethod" value="setSharedFolderLocation" />
    		<property name="arguments">
       		<list>
       			<value>${shared.folder}</value>
-      		</list>
-   		</property>
-	</bean>
-	
-	<bean id="maximumThreadUploadInitialization" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
-		<property name="targetClass" value="id.padiku.app.SystemConstant" />
-   		<property name="targetMethod" value="setMaximumThreadUpload" />
-   		<property name="arguments">
-      		<list>
-      			<value>${maximum.thread.upload}</value>
       		</list>
    		</property>
 	</bean>
@@ -64,8 +43,8 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
         <property name="jpaDialect" ref="jpaDialect" />
         <property name="packagesToScan">
         	<list>
-        		<value>id.padiku.app.valueobject</value>
-        		<value>id.padiku.app.calculation.model</value>
+        		<value>id.base.app.valueobject</value>
+        		<value>id.base.app.calculation.model</value>
         	</list>
         </property>
 		
@@ -79,7 +58,7 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
 				<prop key="hibernate.ejb.metamodel.generation">disabled</prop>
 				<prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
 				<prop key="hibernate.jdbc.batch_size">100</prop>
-				<prop key="hibernate.ejb.interceptor">id.padiku.app.AuditEntityInterceptor</prop>
+				<prop key="hibernate.ejb.interceptor">id.base.app.AuditEntityInterceptor</prop>
         	</props>
         </property>
 		
@@ -129,7 +108,7 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
 	
 	<!-- Scan components for annotations within the configured package -->
 	
-	<context:component-scan base-package="id.padiku.app" />
+	<context:component-scan base-package="id.base.app" />
 	 
     <aop:aspectj-autoproxy/>
 	
@@ -175,7 +154,7 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
 	
 	<bean id="saltGenerator" class="org.jasypt.salt.FixedStringSaltGenerator">
 		<property name="salt">
-			<value>***padiku***</value>
+			<value>***base***</value>
 		</property>
 	</bean>
 

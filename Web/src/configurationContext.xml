@@ -9,17 +9,9 @@ http://www.springframework.org/schema/aop/spring-aop-4.1.xsd">
 
 	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 	    <property name="location">
-	    	<!-- <value>file:/var/lib/tomcat7/webapps/padiku.conf/application.properties</value> -->
-	       	<value>file:/project/padiku/application.properties</value>
+	       	<value>file:/project/baseApp/application.properties</value>
 	    </property>
 	</bean>
-	
-	<!-- <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="oracle.jdbc.OracleDriver"/>
-        <property name="url" value="${jdbc.url}"/>
-        <property name="username" value="${jdbc.username}"/>
-        <property name="password" value="${jdbc.password}"/>
-    </bean> -->
     
     <!-- start mail -->
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
@@ -35,12 +27,6 @@ http://www.springframework.org/schema/aop/spring-aop-4.1.xsd">
 		    </props>
     	</property>
     </bean>
-    
-    <!-- <bean id="mailManager" class="id.padiku.app.basic.mail.VelocityTemplateMailManager">
-		<property name="mailSender" ref="mailSender" />
-		<property name="templateDao" ref="templateDao" />
-		<property name="velocityEngine" ref="velocityEngine" />
-    </bean> -->
 
 	<bean id="mailMessage" class="org.springframework.mail.SimpleMailMessage">
 		<property name="from" value="test@gmail.com"/>
@@ -48,7 +34,7 @@ http://www.springframework.org/schema/aop/spring-aop-4.1.xsd">
    
 	<bean id="saltGenerator" class="org.jasypt.salt.FixedStringSaltGenerator">
 		<property name="salt">
-			<value>***padiku***</value>
+			<value>***base***</value>
 		</property>
 	</bean>
 	

@@ -22,9 +22,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 
-/*@Configuration
-@ComponentScan("id.padiku.app")
-@ImportResource({"classpath:serviceContext.xml"})*/
 public class SchedulerContextConfig {
 	public static Logger LOGGER = LoggerFactory.getLogger(SchedulerContextConfig.class);
 	

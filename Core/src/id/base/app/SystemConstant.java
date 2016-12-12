@@ -196,10 +196,8 @@ public class SystemConstant  {
 		LOGIN_URL = url;
 	}
 	
-	public static String TRANSACTIONAL_URL = "http://app.padiku.id/Web";
 	public static String ADMIN_URL = "http://app.padiku.id/WebAdmin";
-	public static void setGoToUrl(String transUrl, String adminUrl){
-		TRANSACTIONAL_URL = transUrl;
+	public static void setGoToUrl(String adminUrl){
 		ADMIN_URL = adminUrl;
 	}
 	
@@ -265,11 +263,6 @@ public class SystemConstant  {
 			statusMaps.put(ACTIVE, ACTIVE_STR);
 			statusMaps.put(INACTIVE, INACTIVE_STR);
 		}
-	}
-	
-	public static int MAXIMUM_THREAD_UPLOAD = 4;
-	public static void setMaximumThreadUpload(String maximumUploadThread) throws Exception {
-		MAXIMUM_THREAD_UPLOAD = Integer.valueOf(maximumUploadThread);
 	}
 	
 	public static final class ValidFlag {

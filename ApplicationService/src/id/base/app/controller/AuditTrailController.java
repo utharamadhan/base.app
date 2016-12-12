@@ -1,21 +1,14 @@
 package id.base.app.controller;
 
-//import id.padiku.app.service.audittrail.IAuditService;
-
 import id.base.app.exception.SystemException;
 import id.base.app.report.ReportUtils;
-import id.base.app.rest.FileRestCaller;
-import id.base.app.rest.PathInterfaceRestCaller;
 import id.base.app.rest.RestConstant;
-import id.base.app.rest.SpecificRestCaller;
 import id.base.app.service.MaintenanceService;
 import id.base.app.service.audittrail.IAuditService;
 import id.base.app.valueobject.LogAuditTrail;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -78,8 +71,9 @@ public class AuditTrailController extends SuperController<LogAuditTrail>{
 		service.createAuditWithSubCode(code, descr, userName, status, clientHost, subCode);
 	}	
 	
+	@Deprecated
 	private String generateLogAuditTrail(final Integer logGroupCode) {
-		SpecificRestCaller<String> br = new SpecificRestCaller<String>(RestConstant.REPORT_SERVICE, RestConstant.RM_AUDIT, String.class);
+		/*SpecificRestCaller<String> br = new SpecificRestCaller<String>(RestConstant.REPORT_SERVICE, RestConstant.RM_AUDIT, String.class);
 		String fileName = br.executeGet(new PathInterfaceRestCaller() {
 			
 			@Override
@@ -94,17 +88,18 @@ public class AuditTrailController extends SuperController<LogAuditTrail>{
 				return map;
 			}
 		});
-		return fileName;
+		return fileName;*/
+		return "deprecated";
 	}
 
-	private void retrieveAuditTrailExcel(HttpServletResponse response,
-			String fileName) {
-		FileRestCaller frc = new FileRestCaller(RestConstant.REPORT_SERVICE+"/stream/excelReport/AUDIT_TRAIL_EXPORT_DIR/"+fileName, fileName);
+	@Deprecated
+	private void retrieveAuditTrailExcel(HttpServletResponse response, String fileName) {
+		/*FileRestCaller frc = new FileRestCaller(RestConstant.REPORT_SERVICE+"/stream/excelReport/AUDIT_TRAIL_EXPORT_DIR/"+fileName, fileName);
 		try {
 			frc.exportXlsFile(response);
 		} catch (SystemException e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/export/{logGroupCode}")

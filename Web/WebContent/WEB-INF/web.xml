@@ -3,20 +3,19 @@
   <display-name>Web Transaction</display-name>
   <distributable/>
   <filter>
-    <filter-name>Padiku Token Filter</filter-name>
-    <filter-class>id.padiku.app.security.filter.TokenAuthenticationFilter</filter-class>
+    <filter-name>BaseApp Token Filter</filter-name>
+    <filter-class>id.base.app.security.filter.TokenAuthenticationFilter</filter-class>
     <init-param>
       <param-name>enable</param-name>
       <param-value>true</param-value>
     </init-param>
     <init-param>
       <param-name>filterConfigFile</param-name>
-      <!-- <param-value>/var/lib/tomcat7/webapps/padiku.conf/filter.properties</param-value> -->
-      <param-value>/project/padiku/filter.properties</param-value>
+      <param-value>/project/baseApp/filter.properties</param-value>
     </init-param>
   </filter>
   <filter-mapping>
-    <filter-name>Padiku Token Filter</filter-name>
+    <filter-name>BaseApp Token Filter</filter-name>
     <url-pattern>/do/*</url-pattern>
     <url-pattern>*.do</url-pattern>
   </filter-mapping>
@@ -32,7 +31,7 @@
   <filter>
     <display-name>AjaxDetectorFilter</display-name>
     <filter-name>AjaxDetectorFilter</filter-name>
-    <filter-class>id.padiku.app.webMember.AjaxDetectorFilter</filter-class>
+    <filter-class>id.base.app.webMember.AjaxDetectorFilter</filter-class>
   </filter>
   <filter-mapping>
     <filter-name>shortLifeSessionFilter2</filter-name>

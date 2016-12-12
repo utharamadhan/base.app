@@ -6,9 +6,9 @@ import java.util.Set;
 import org.thymeleaf.dialect.AbstractDialect;
 import org.thymeleaf.processor.IProcessor;
 
-public class PadikuDialect extends AbstractDialect {
+public class BaseDialect extends AbstractDialect {
 	
-	public PadikuDialect() {
+	public BaseDialect() {
 		super();
 	}
 

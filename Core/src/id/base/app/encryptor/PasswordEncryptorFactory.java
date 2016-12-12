@@ -43,7 +43,7 @@ public class PasswordEncryptorFactory {
      * Initiate Encyrptor.
      * Read encryptor config from resource bundle.
      * The properties/config file should be put in
-     * package id.padiku.app.collsys.properties with name:
+     * package id.base.app.collsys.properties with name:
      * Encryptor.properties.
      * <b>Should be called from static class initialization</b>
      */

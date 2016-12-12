@@ -1,14 +1,5 @@
-/*
- * Created on Dec 13, 2005
- *
- */
 package id.base.app.encryptor;
 
-
-/**
- * @author padiku
- *
- */
 public class Encrypt {
     public static void main(String[] args) {
         XOREncrypter encrypter = new XOREncrypter();

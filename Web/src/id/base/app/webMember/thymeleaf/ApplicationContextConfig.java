@@ -1,6 +1,6 @@
 package id.base.app.webMember.thymeleaf;
 
-import id.base.app.thymeleaf.PadikuDialect;
+import id.base.app.thymeleaf.BaseDialect;
 
 import java.util.List;
 
@@ -27,7 +27,7 @@ import com.fasterxml.jackson.datatype.hibernate4.Hibernate4Module.Feature;
 @EnableWebMvc
 @Configuration
 @EnableTransactionManagement
-@ComponentScan("id.padiku.app.thymeleaf")
+@ComponentScan("id.base.app.thymeleaf")
 @ImportResource({"classpath:applicationContext.xml","classpath:configurationContext.xml"})
 public class ApplicationContextConfig extends WebMvcConfigurerAdapter{
 	
@@ -55,7 +55,7 @@ public class ApplicationContextConfig extends WebMvcConfigurerAdapter{
 		SpringTemplateEngine templateEngine = new SpringTemplateEngine();
 		templateEngine.setTemplateResolver(templateResolver());
 		templateEngine.setMessageSource(messageSource());
-		templateEngine.addDialect(new PadikuDialect());
+		templateEngine.addDialect(new BaseDialect());
 		return templateEngine;
 	}
 	

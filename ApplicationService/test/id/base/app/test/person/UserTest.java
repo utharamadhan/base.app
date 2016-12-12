@@ -1,4 +1,4 @@
-package id.padiku.app.test.person;
+package id.base.app.test.person;
 
 import id.base.app.SystemParameter;
 import id.base.app.service.MaintenanceService;

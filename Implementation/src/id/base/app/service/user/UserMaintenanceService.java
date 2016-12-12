@@ -179,7 +179,7 @@ public class UserMaintenanceService implements MaintenanceService<AppUser>, IUse
 	}
 	
 	private String resolveContent(AppUser appUser) {
-		String activationLink = SystemConstant.TRANSACTIONAL_URL + "/do/registration/activation/" + appUser.getActivationCode();
+		String activationLink = SystemConstant.ADMIN_URL + "/do/registration/activation/" + appUser.getActivationCode();
 		return "Hallo, "+appUser.getParty().getName()+"<br/><br/>"+
 				"Selamat bergabung didalam program PADIKU. Program PADIKU ini menyediakan aplikasi bisnis bagi pelaku usaha penggilingan padi di Indonesia. Untuk memulai aktivasi akun anda, silahkan klik <a href='" + activationLink + "' target='_blank'>disini</a>.<br/><br/>"+
 				"Jika link diatas tidak bekerja, silahkan copy/paste link berikut di browser anda:<br/>"+

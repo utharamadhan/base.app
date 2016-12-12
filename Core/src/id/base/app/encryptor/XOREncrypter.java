@@ -1,17 +1,8 @@
-/*
- * Created on Dec 13, 2005
- *
- */
 package id.base.app.encryptor;
 
-
-/**
- * @author padiku
- *
- */
 public class XOREncrypter {
 
-    byte[] secret = "Lid/co/Padiku/app/aes/encryptor/XOREncrypter".getBytes();
+    byte[] secret = "Lid/co/base/app/aes/encryptor/XOREncrypter".getBytes();
 
     public String encrypt(String password) {
 

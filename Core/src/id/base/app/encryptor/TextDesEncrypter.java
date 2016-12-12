@@ -30,7 +30,7 @@ public class TextDesEncrypter implements PasswordEncryptor {
         int iterationCount = 19;
 
         public TextDesEncrypter() {
-           this("id/co/Padiku/app/aes/encryptor/TextDesEncrypter");
+           this("id/co/base/app/aes/encryptor/TextDesEncrypter");
         }
 
         TextDesEncrypter(String passPhrase) {

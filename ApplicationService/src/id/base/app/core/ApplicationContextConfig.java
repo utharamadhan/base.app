@@ -30,7 +30,7 @@ import com.fasterxml.jackson.datatype.hibernate4.Hibernate4Module.Feature;
 @Configuration
 @EnableTransactionManagement
 @EnableAsync
-@ComponentScan("id.padiku.app")
+@ComponentScan("id.base.app")
 @ImportResource({"classpath:serviceContext.xml"})
 public class ApplicationContextConfig extends WebMvcConfigurerAdapter implements AsyncConfigurer {
 	@Override
