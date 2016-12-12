@@ -1,9 +1,9 @@
 package id.padiku.app.test.person;
 
-import id.padiku.app.SystemParameter;
-import id.padiku.app.service.MaintenanceService;
-import id.padiku.app.service.parameter.IParameterService;
-import id.padiku.app.valueobject.AppUser;
+import id.base.app.SystemParameter;
+import id.base.app.service.MaintenanceService;
+import id.base.app.service.parameter.IParameterService;
+import id.base.app.valueobject.AppUser;
 
 import java.util.ArrayList;
 import java.util.List;

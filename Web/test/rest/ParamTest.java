@@ -1,10 +1,10 @@
 package rest;
 
-import id.padiku.app.SystemParameter;
-import id.padiku.app.rest.MapRestCaller;
-import id.padiku.app.rest.QueryParamInterfaceRestCaller;
-import id.padiku.app.rest.RestConstant;
-import id.padiku.app.rest.RestServiceConstant;
+import id.base.app.SystemParameter;
+import id.base.app.rest.MapRestCaller;
+import id.base.app.rest.QueryParamInterfaceRestCaller;
+import id.base.app.rest.RestConstant;
+import id.base.app.rest.RestServiceConstant;
 
 import java.util.ArrayList;
 import java.util.HashMap;

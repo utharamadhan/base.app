@@ -1,6 +1,6 @@
 package id.padiku.app.test;
 
-import id.padiku.app.service.mail.EmailAPI;
+import id.base.app.service.mail.EmailAPI;
 
 import javax.transaction.Transactional;
 

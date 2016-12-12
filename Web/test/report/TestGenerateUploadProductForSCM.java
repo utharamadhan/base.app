@@ -1,6 +1,6 @@
 package report;
 
-import id.padiku.app.util.JXlsUtil;
+import id.base.app.util.JXlsUtil;
 
 import java.io.File;
 import java.io.FileInputStream;

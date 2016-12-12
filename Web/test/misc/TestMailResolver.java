@@ -1,8 +1,8 @@
 package misc;
 
-import id.padiku.app.mail.MailDestination;
-import id.padiku.app.mail.MailDestinationLocator;
-import id.padiku.app.mail.MailDestinationResolver;
+import id.base.app.mail.MailDestination;
+import id.base.app.mail.MailDestinationLocator;
+import id.base.app.mail.MailDestinationResolver;
 
 import java.util.List;
 

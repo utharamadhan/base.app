@@ -23,8 +23,8 @@
     </plugins>
   </build>
   <parent>
-  		<groupId>id.padiku.app</groupId>
-		<artifactId>Padiku</artifactId>
+  		<groupId>id.base.app</groupId>
+		<artifactId>BaseApp</artifactId>
 		<version>0.0.1</version>
   </parent>
   <artifactId>Login</artifactId>

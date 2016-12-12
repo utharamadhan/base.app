@@ -1,7 +1,7 @@
 package mail;
 
-import id.padiku.app.SystemParameter;
-import id.padiku.app.mail.MailManager;
+import id.base.app.SystemParameter;
+import id.base.app.mail.MailManager;
 import base.BaseTest;
 
 public class TestMail extends BaseTest{

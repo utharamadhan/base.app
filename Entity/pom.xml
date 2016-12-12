@@ -54,7 +54,7 @@
 		<version>${hibernate.validator.version}</version>
 	</dependency>
   	<dependency>
-  		<groupId>id.padiku.app</groupId>
+  		<groupId>id.base.app</groupId>
   		<artifactId>Core</artifactId>
   		<version>0.0.1</version>
   	</dependency>
@@ -91,8 +91,8 @@
   	</dependency>
   </dependencies>
   <parent>
-		<groupId>id.padiku.app</groupId>
-		<artifactId>Padiku</artifactId>
+		<groupId>id.base.app</groupId>
+		<artifactId>BaseApp</artifactId>
 		<version>0.0.1</version>
 	</parent>
 	<properties>
