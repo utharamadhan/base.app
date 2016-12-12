@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:ifs="http://padiku.id">
+<head>
+<meta charset="ISO-8859-1"/>
+<title>TransIn</title>
+</head>
+<style>
+.dataTables_scrollBody {
+	height : auto !important;
+	min-height : 120px;
+}
+</style>
+<body>
+<div id="content" class="col-md-12">
+	<div id="transIn-detail-container"></div>
+	<div id="transIn-list-container">
+	<div class="pageheader">
+		<h4><i class="fa fa-shopping-basket"></i> Penerimaan / List Penerimaan
+		<span></span></h4>
+	</div>
+	<div class="col-md-4 tile-body no-vpadding" style="margin:10px;">
+		<a href="#" id="transIn-btn-add" class="btn btn-primary" style="margin-bottom:5px"><i class="fa fa-plus dropdown-plus"></i> &nbsp; Tambah</a>
+	</div>
+	<div class="main">
+		<div class="row">
+			<div class="col-md-8">	
+				<section class="tile transparent">
+					<div class="table-responsive">
+						<div class="tile-body rounded-corners">
+	                      	<table id="transIn-list-table" class="table table-datatable table-custom">
+		                        <thead>
+		                          <tr>
+		                            <th>No. Penerimaan</th>
+		                            <th>Jenis Penerimaan</th>
+		                            <th>Tanggal Penerimaan</th>
+									<th>Nama Pemasok</th>
+									<th>E/D</th>
+		                          </tr>
+		                        </thead>
+	                     	</table>
+	                     	<div style="padding-bottom: 3px; bottom: 0;" th:replace="pagingDiv::pager (${pagingWrapper}, ${#dates.createNow()}, 'transIn-list-table', 'contentArea')">
+							</div>
+                     	</div>
+					</div>
+				</section>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script th:inline="javascript">
+	/*<![CDATA[*/
+		function showAdd() {
+	    	var sURL = /*[[@{/do/penerimaan/showAdd?skipdecorator=}]]*/ #;
+	    	showScreen('transIn-list-container', 'transIn-detail-container', sURL);
+		}
+		
+		function showDetail(maintenancePK) {
+			var sURL = /*[[@{/do/penerimaan/showEdit?maintenancePK=}]]*/ #;
+			showScreen('transIn-list-container', 'transIn-detail-container', sURL + maintenancePK + "&skipdecorator=");
+		}
+		
+		function deleteItem(maintenancePK) {
+			var sURL = /*[[@{/do/penerimaan/delete?}]]*/ #;
+			var serializedData = "maintenancePKs=" + maintenancePK;
+			$.post(sURL, serializedData,function(data){
+				if(data.errorList!=null){
+					//show error message
+				}else{
+					search();
+				}
+			});
+		} 
+		
+		function deleteTransIn() {
+			var sURL = /*[[@{/do/penerimaan/deleteTransIn?skipDecorator}]]*/ #;
+			$.post(sURL, $('.transIn-list-check-delete').serialize(), function(data){
+				if(data.errorList!=null){
+					
+				}else{
+					location.reload(true);
+				}
+			});
+		}
+	
+	    $(function(){
+		    setMenuActive('penerimaan');
+		    var colDefs = [{type : "detail", param : [ "pkTransIn", "inNo"] }, 
+		                   { name : "sourceTypeDescr" },
+		                   { name : "inDate" , type : "date" }, 
+		                   { name : "thirdPartyName" },
+	    	               { type : "deleteAndEdit" , param : [ "pkTransIn" ] }
+	    	               ];
+		    var sURL = /*[[@{/do/penerimaan/list?}]]*/ #;
+		    buildDataTable(/*[[@{/}]]*/, sURL, 'transIn-list-table', 450, colDefs, null, null);
+	    });
+	    
+		$('#transIn-btn-add').click(function(){
+			showAdd();
+		});
+		
+		$('#transIn-btn-delete').click(function(){
+			deleteTransIn();
+		});
+		
+	/*]]>*/
+</script>
+</body>
+</html>

@@ -1,0 +1,1 @@
+ALTER TABLE company_master_fee ADD COLUMN is_predefined boolean NOT NULL DEFAULT false;

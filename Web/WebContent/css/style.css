@@ -1,0 +1,39 @@
+.top-filter{
+	color:white;
+}
+#session-company-selected{
+	font-size: 16px;
+    padding: 0px 10px!important;
+    color:black;
+}
+.form-horizontal .control-value{
+	padding-top: 7px;
+    margin-bottom: 0;
+}
+table.transparent-big tbody tr td{
+	font-size: 16px!important;
+    color: black;
+}
+.btn{
+	font-size:16px;
+}
+.table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td{
+	vertical-align:middle;
+}
+
+.input-sm, .form-horizontal .form-group-sm .form-control{
+	font-size:14px;
+}
+label{
+	font-weight:500;
+}
+.required-icon{
+	margin-left:5px;
+	color:red;
+}
+a{
+	color:rgba(255, 255, 255, 0.8);
+}
+a:hover, a:focus{
+	color:#fafafa!important;
+}

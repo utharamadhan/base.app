@@ -1,0 +1,1 @@
+ALTER TABLE LOOKUP ADD COLUMN USAGE character varying(50);

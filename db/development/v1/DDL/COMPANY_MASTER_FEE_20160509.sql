@@ -1,0 +1,1 @@
+ALTER TABLE company_master_fee DROP COLUMN total_fee;

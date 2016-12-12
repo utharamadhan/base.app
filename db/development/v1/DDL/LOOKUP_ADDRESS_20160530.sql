@@ -1,0 +1,1 @@
+alter table lookup_address add coordinate character varying (200);
