@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:ifs="http://padiku.id">
+<head>
+<meta charset="ISO-8859-1"/>
+<title>System Parameter</title>
+</head>
+<style>
+.dataTables_scrollBody {
+	height : auto !important;
+	min-height : 120px;
+}
+</style>
+<body>
+<div id="content" class="col-md-12">
+	<div id="lookup-list-container"></div>
+	<div id="lookup-detail-container"></div>
+	<div id="lookupGroup-list-container">
+	<div class="pageheader">
+		<h4><i class="fa fa-shopping-basket"></i> Administration / System Parameter List
+		<span></span></h4>
+	</div>
+	<div class="main">
+		<div class="row">
+			<div class="col-md-12">	
+				<section class="tile transparent">
+					<div class="table-responsive">
+						<div class="tile-body rounded-corners">
+	                      	<table id="lookupGroup-list-table" class="table table-datatable table-custom">
+		                        <thead>
+		                          <tr>
+		                            <th>Lookup Group</th>
+		                            <th>Description</th>
+									<th>E/D</th>
+		                          </tr>
+		                        </thead>
+	                     	</table>
+	                     	<div style="padding-bottom: 3px; bottom: 0;" th:replace="pagingDiv::pager (${pagingWrapper}, ${#dates.createNow()}, 'lookupGroup-list-table', 'contentArea')">
+							</div>
+                     	</div>
+					</div>
+				</section>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script th:inline="javascript">
+	/*<![CDATA[*/
+		function showAdd() {
+	    	var sURL = /*[[@{/do/lookupGroup/showAdd?skipdecorator=}]]*/ #;
+	    	showScreen('lookupGroup-list-container', 'lookupGroup-detail-container', sURL);
+		}
+		
+		function showDetail(lookupGroup) {
+			var sURL = /*[[@{/do/lookup/showList?lookupGroup=}]]*/ #;
+			showScreen('lookupGroup-list-container', 'lookup-list-container', sURL + lookupGroup + "&skipdecorator=");
+		}
+		
+		function deleteItem(maintenancePK) {
+			var sURL = /*[[@{/do/lookupGroup/delete?}]]*/ #;
+			var serializedData = "maintenancePKs=" + maintenancePK;
+			$.post(sURL, serializedData,function(data){
+				if(data.errorList!=null){
+					//show error message
+				}else{
+					search();
+				}
+			});
+		} 
+		
+		function deleteLookupGroup() {
+			var sURL = /*[[@{/do/lookupGroup/deleteLookupGroup?skipDecorator}]]*/ #;
+			$.post(sURL, $('.lookupGroup-list-check-delete').serialize(), function(data){
+				if(data.errorList!=null){
+					
+				}else{
+					location.reload(true);
+				}
+			});
+		}
+	
+	    $(function(){
+		    setMenuActive('lookupGroup');
+		    var colDefs = [{ name : "name" }, 
+	    	               { name : "description" }, 
+	    	               { type : "deleteAndEdit" , param : [ "name" ] }
+	    	               ];
+		    var sURL = /*[[@{/do/lookupGroup/list?}]]*/ #;
+		    buildDataTable(/*[[@{/}]]*/, sURL, 'lookupGroup-list-table', 450, colDefs, null, null);
+	    });
+	    
+		$('#lookupGroup-btn-add').click(function(){
+			showAdd();
+		});
+		
+		$('#lookupGroup-btn-delete').click(function(){
+			deleteLookupGroup();
+		});
+		
+	/*]]>*/
+</script>
+</body>
+</html>

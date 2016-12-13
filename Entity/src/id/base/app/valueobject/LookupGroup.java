@@ -15,6 +15,7 @@ public class LookupGroup implements Serializable {
 	
 	public static final String NAME = "name";
 	public static final String IS_UPDATABLE = "updatable";
+	public static final String IS_VIEWABLE = "viewable";
 	public static final String IS_COMPANY = "company";
 
 	@Id

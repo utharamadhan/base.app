@@ -7,10 +7,22 @@
 	                      		<i class="fa fa-desktop"></i> Beranda
 	                    	</a>
 	                  	</li>
-	                  	<li id="penerimaan">
-	                    	<a href="/Web/do/penerimaan/showList">
-	                      		<i class="fa fa-shopping-basket"></i> Penerimaan
-	                    	</a>
+	                  	<li id="reports" class="dropdown">
+	                  		<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                     			<i class="fa fa-bar-chart"></i> Administration <b class="fa fa-plus dropdown-plus"></b>
+                   			</a>
+							<ul class="dropdown-menu">
+								<li id="systemParameter">
+									<a href="/Web/do/systemParameter/showList">
+			                        	<i class="fa fa-caret-right"></i> System Parameter
+			                        </a>
+			                  	</li>
+			                  	<li id="reportstok">
+									<a href="/Web/do/lookupGroup/showList">
+			                        	<i class="fa fa-caret-right"></i> Lookup
+			                        </a>
+			                  	</li>
+							</ul>
 	                  	</li>
 	                  	<li id="stock">
 	                    	<a href="/Web/do/stock/showList">

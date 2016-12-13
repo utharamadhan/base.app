@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:ifs="http://padiku.id">
+<head>
+<meta charset="ISO-8859-1"/>
+<title>System Parameter</title>
+</head>
+<style>
+.dataTables_scrollBody {
+	height : auto !important;
+	min-height : 120px;
+}
+</style>
+<body>
+<div id="content" class="col-md-12">
+	<div id="systemParameter-detail-container"></div>
+	<div id="systemParameter-list-container">
+	<div class="pageheader">
+		<h4><i class="fa fa-shopping-basket"></i> Administration / System Parameter List
+		<span></span></h4>
+	</div>
+	<div class="main">
+		<div class="row">
+			<div class="col-md-12">	
+				<section class="tile transparent">
+					<div class="table-responsive">
+						<div class="tile-body rounded-corners">
+	                      	<table id="systemParameter-list-table" class="table table-datatable table-custom">
+		                        <thead>
+		                          <tr>
+		                            <th>Name</th>
+									<th>Description</th>
+									<th>Data Type</th>
+									<th>E/D</th>
+		                          </tr>
+		                        </thead>
+	                     	</table>
+	                     	<div style="padding-bottom: 3px; bottom: 0;" th:replace="pagingDiv::pager (${pagingWrapper}, ${#dates.createNow()}, 'systemParameter-list-table', 'contentArea')">
+							</div>
+                     	</div>
+					</div>
+				</section>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script th:inline="javascript">
+	/*<![CDATA[*/
+		function showAdd() {
+	    	var sURL = /*[[@{/do/systemParameter/showAdd?skipdecorator=}]]*/ #;
+	    	showScreen('systemParameter-list-container', 'systemParameter-detail-container', sURL);
+		}
+		
+		function showDetail(maintenancePK) {
+			var sURL = /*[[@{/do/systemParameter/showEdit?maintenancePK=}]]*/ #;
+			showScreen('systemParameter-list-container', 'systemParameter-detail-container', sURL + maintenancePK + "&skipdecorator=");
+		}
+		
+		function deleteItem(maintenancePK) {
+			var sURL = /*[[@{/do/systemParameter/delete?}]]*/ #;
+			var serializedData = "maintenancePKs=" + maintenancePK;
+			$.post(sURL, serializedData,function(data){
+				if(data.errorList!=null){
+					//show error message
+				}else{
+					search();
+				}
+			});
+		} 
+		
+		function deleteSystemParameter() {
+			var sURL = /*[[@{/do/systemParameter/deleteSystemParameter?skipDecorator}]]*/ #;
+			$.post(sURL, $('.systemParameter-list-check-delete').serialize(), function(data){
+				if(data.errorList!=null){
+					
+				}else{
+					location.reload(true);
+				}
+			});
+		}
+	
+	    $(function(){
+		    setMenuActive('systemParameter');
+		    var colDefs = [{ name : "name" }, 
+	    	               { name : "descr" }, 
+	    	               { name : "dataTypeDescr" }, 
+	    	               { type : "deleteAndEdit" , param : [ "pkAppParameter" ] }
+	    	               ];
+		    var sURL = /*[[@{/do/systemParameter/list?}]]*/ #;
+		    buildDataTable(/*[[@{/}]]*/, sURL, 'systemParameter-list-table', 450, colDefs, null, null);
+	    });
+	    
+		$('#systemParameter-btn-add').click(function(){
+			showAdd();
+		});
+		
+		$('#systemParameter-btn-delete').click(function(){
+			deleteSystemParameter();
+		});
+		
+	/*]]>*/
+</script>
+</body>
+</html>
