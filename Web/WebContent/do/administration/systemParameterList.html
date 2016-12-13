@@ -30,6 +30,7 @@
 		                            <th>Name</th>
 									<th>Description</th>
 									<th>Data Type</th>
+									<th>Value</th>
 									<th>E/D</th>
 		                          </tr>
 		                        </thead>
@@ -83,8 +84,9 @@
 		    setMenuActive('systemParameter');
 		    var colDefs = [{ name : "name" }, 
 	    	               { name : "descr" }, 
-	    	               { name : "dataTypeDescr" }, 
-	    	               { type : "deleteAndEdit" , param : [ "pkAppParameter" ] }
+	    	               { name : "dataTypeDescr" },
+	    	               { name : "value" },
+	    	               { type : "edit" , param : [ "pkAppParameter" ] }
 	    	               ];
 		    var sURL = /*[[@{/do/systemParameter/list?}]]*/ #;
 		    buildDataTable(/*[[@{/}]]*/, sURL, 'systemParameter-list-table', 450, colDefs, null, null);

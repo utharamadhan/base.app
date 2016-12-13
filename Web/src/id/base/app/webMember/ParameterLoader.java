@@ -17,27 +17,7 @@ import id.base.app.valueobject.LookupAddressGroup;
 import id.base.app.valueobject.LookupGroup;
 import id.base.app.valueobject.MasterAddress;
 import id.base.app.valueobject.RuntimeUserLogin;
-import id.base.app.valueobject.business.report.ViewCashFlow;
-import id.base.app.valueobject.business.report.ViewCostExpensesReport;
-import id.base.app.valueobject.business.report.ViewStock;
-import id.base.app.valueobject.business.report.ViewTransInReport;
-import id.base.app.valueobject.forecast.ForecastCallHourly;
-import id.base.app.valueobject.inventory.DispatchOrderNote;
-import id.base.app.valueobject.inventory.GoodsReceiptNote;
-import id.base.app.valueobject.master.Company;
-import id.base.app.valueobject.master.CompanyLookup;
-import id.base.app.valueobject.master.CompanyMachinery;
-import id.base.app.valueobject.master.CompanyMasterFee;
-import id.base.app.valueobject.master.CompanyProduct;
-import id.base.app.valueobject.master.CompanyWarehouse;
-import id.base.app.valueobject.master.Stock;
-import id.base.app.valueobject.master.VWCompanyThirdParty;
 import id.base.app.valueobject.party.Party;
-import id.base.app.valueobject.procurement.PurchaseOrder;
-import id.base.app.valueobject.procurement.TransIn;
-import id.base.app.valueobject.procurement.TransInItem;
-import id.base.app.valueobject.production.TransProd;
-import id.base.app.valueobject.sales.TransOut;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -185,67 +165,5 @@ public class ParameterLoader extends ContextLoader implements ServletContextList
 		
 		RestCaller.BASE_URL.put(RestServiceConstant.MAIL_SERVICE, RestConstant.RM_MAIL);
 		RestCaller.BASE_CLASS.put(RestServiceConstant.MAIL_SERVICE, Object.class);
-		
-		// master
-		RestCaller.BASE_URL.put(RestServiceConstant.COMPANY_SERVICE, RestConstant.RM_COMPANY);
-		RestCaller.BASE_CLASS.put(RestServiceConstant.COMPANY_SERVICE, Company.class);
-		RestCaller.BASE_URL.put(RestServiceConstant.COMPANY_LOOKUP_SERVICE, RestConstant.RM_COMPANY_LOOKUP);
-		RestCaller.BASE_CLASS.put(RestServiceConstant.COMPANY_LOOKUP_SERVICE, CompanyLookup.class);
-		RestCaller.BASE_URL.put(RestServiceConstant.COMPANY_PARTY_SERVICE, RestConstant.RM_COMPANY_PARTY);
-		RestCaller.BASE_CLASS.put(RestServiceConstant.COMPANY_PARTY_SERVICE, Party.class);
-		RestCaller.BASE_URL.put(RestServiceConstant.COMPANY_PRODUCT_SERVICE, RestConstant.RM_COMPANY_PRODUCT);
-		RestCaller.BASE_CLASS.put(RestServiceConstant.COMPANY_PRODUCT_SERVICE, CompanyProduct.class);
-		RestCaller.BASE_URL.put(RestServiceConstant.COMPANY_WAREHOUSE_SERVICE, RestConstant.RM_COMPANY_WAREHOUSE);
-		RestCaller.BASE_CLASS.put(RestServiceConstant.COMPANY_WAREHOUSE_SERVICE, CompanyWarehouse.class);
-		RestCaller.BASE_URL.put(RestServiceConstant.COMPANY_MACHINERY_SERVICE, RestConstant.RM_COMPANY_MACHINERY);
-		RestCaller.BASE_CLASS.put(RestServiceConstant.COMPANY_MACHINERY_SERVICE, CompanyMachinery.class);
-		RestCaller.BASE_URL.put(RestServiceConstant.COMPANY_TRANSPORTER_SERVICE, RestConstant.RM_COMPANY_TRANSPORTER);
-		RestCaller.BASE_CLASS.put(RestServiceConstant.COMPANY_TRANSPORTER_SERVICE, Party.class);
-		RestCaller.BASE_URL.put(RestServiceConstant.COMPANY_THIRD_PARTY_SERVICE, RestConstant.RM_COMPANY_THIRD_PARTY);
-		RestCaller.BASE_CLASS.put(RestServiceConstant.COMPANY_THIRD_PARTY_SERVICE, VWCompanyThirdParty.class);
-		RestCaller.BASE_URL.put(RestServiceConstant.COMPANY_MASTER_FEE_SERVICE, RestConstant.RM_COMPANY_MASTER_FEE);
-		RestCaller.BASE_CLASS.put(RestServiceConstant.COMPANY_MASTER_FEE_SERVICE, CompanyMasterFee.class);
-		RestCaller.BASE_URL.put(RestServiceConstant.STOCK_SERVICE, RestConstant.RM_STOCK);
-		RestCaller.BASE_CLASS.put(RestServiceConstant.STOCK_SERVICE, Stock.class);
-		
-		// procurement
-		RestCaller.BASE_URL.put(RestServiceConstant.PURCHASE_ORDER_SERVICE, RestConstant.RM_PURCHASE_ORDER);
-		RestCaller.BASE_CLASS.put(RestServiceConstant.PURCHASE_ORDER_SERVICE, PurchaseOrder.class);
-		RestCaller.BASE_URL.put(RestServiceConstant.TRANS_IN_SERVICE, RestConstant.RM_TRANS_IN);
-		RestCaller.BASE_CLASS.put(RestServiceConstant.TRANS_IN_SERVICE, TransIn.class);
-		RestCaller.BASE_URL.put(RestServiceConstant.TRANS_IN_ITEM_SERVICE, RestConstant.RM_TRANS_IN_ITEM);
-		RestCaller.BASE_CLASS.put(RestServiceConstant.TRANS_IN_ITEM_SERVICE, TransInItem.class);
-		
-		//production
-		RestCaller.BASE_URL.put(RestServiceConstant.TRANS_PROD_SERVICE, RestConstant.RM_TRANS_PROD);
-		RestCaller.BASE_CLASS.put(RestServiceConstant.TRANS_PROD_SERVICE, TransProd.class);
-		
-		// inventory
-		RestCaller.BASE_URL.put(RestServiceConstant.DISPATCH_ORDER_NOTE_SERVICE, RestConstant.RM_DISPATCH_ORDER_NOTE);
-		RestCaller.BASE_CLASS.put(RestServiceConstant.DISPATCH_ORDER_NOTE_SERVICE, DispatchOrderNote.class);
-		RestCaller.BASE_URL.put(RestServiceConstant.GOODS_RECEIPT_NOTE_SERVICE, RestConstant.RM_GOODS_RECEIPT_NOTE);
-		RestCaller.BASE_CLASS.put(RestServiceConstant.GOODS_RECEIPT_NOTE_SERVICE, GoodsReceiptNote.class);
-		
-		//sales
-		RestCaller.BASE_URL.put(RestServiceConstant.TRANS_OUT_SERVICE, RestConstant.RM_TRANS_OUT);
-		RestCaller.BASE_CLASS.put(RestServiceConstant.TRANS_OUT_SERVICE, TransOut.class);
-		
-		//report
-		RestCaller.BASE_URL.put(RestServiceConstant.REPORT_COST_EXPENSES_SERVICE, RestConstant.RM_REPORT_COST_EXPENSES);
-		RestCaller.BASE_CLASS.put(RestServiceConstant.REPORT_COST_EXPENSES_SERVICE, ViewCostExpensesReport.class);
-		RestCaller.BASE_URL.put(RestServiceConstant.REPORT_STOCK_SERVICE, RestConstant.RM_REPORT_STOCK);
-		RestCaller.BASE_CLASS.put(RestServiceConstant.REPORT_STOCK_SERVICE, ViewStock.class);
-		RestCaller.BASE_URL.put(RestServiceConstant.REPORT_TRANS_IN_SERVICE, RestConstant.RM_REPORT_TRANS_IN);
-		RestCaller.BASE_CLASS.put(RestServiceConstant.REPORT_TRANS_IN_SERVICE, ViewTransInReport.class);
-		RestCaller.BASE_URL.put(RestServiceConstant.REPORT_CASH_FLOW_SERVICE, RestConstant.RM_REPORT_CASH_FLOW);
-		RestCaller.BASE_CLASS.put(RestServiceConstant.REPORT_CASH_FLOW_SERVICE, ViewCashFlow.class);
-		
-		//business report
-		RestCaller.BASE_URL.put(RestServiceConstant.CASH_FLOW_SERVICE, RestConstant.RM_CASH_FLOW);
-		RestCaller.BASE_CLASS.put(RestServiceConstant.CASH_FLOW_SERVICE, ViewCashFlow.class);
-		
-		//forecast weather
-		RestCaller.BASE_URL.put(RestServiceConstant.FORECAST_CALL_SERVICE, RestConstant.RM_FORECAST_CALL);
-		RestCaller.BASE_CLASS.put(RestServiceConstant.FORECAST_CALL_SERVICE, ForecastCallHourly.class);
 	}
 }

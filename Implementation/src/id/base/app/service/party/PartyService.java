@@ -6,7 +6,6 @@ import id.base.app.paging.PagingWrapper;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.valueobject.party.Party;
-import id.base.app.valueobject.party.PartyCompany;
 import id.base.app.valueobject.party.PartyRole;
 
 import java.util.List;
@@ -67,11 +66,6 @@ public class PartyService implements IPartyService {
 	@Override
 	public PartyRole findPartyRole(Long pkParty) throws SystemException {
 		return partyDAO.findPartyRole(pkParty);
-	}
-
-	@Override
-	public PartyCompany findPartyCompanyByPartyAndCompany(Long pkCompany, Long pkParty) throws SystemException {
-		return partyDAO.findPartyCompanyByPartyAndCompany(pkCompany, pkParty);
 	}
 	
 }

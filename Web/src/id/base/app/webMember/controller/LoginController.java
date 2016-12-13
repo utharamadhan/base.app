@@ -15,7 +15,6 @@ import id.base.app.valueobject.AppFunction;
 import id.base.app.valueobject.AppRole;
 import id.base.app.valueobject.AppUser;
 import id.base.app.valueobject.RuntimeUserLogin;
-import id.base.app.valueobject.master.Company;
 import id.base.app.webMember.WebGeneralFunction;
 import id.base.app.webMember.rest.AppFunctionRestCaller;
 import id.base.app.webMember.rest.AuditRestCaller;
@@ -231,28 +230,6 @@ public class LoginController {
 				String stringCookie = mapper.writeValueAsString(accessInfos);
 				runtimeUserLogin.setAccessInfo(stringCookie);
 				
-				//create company cookies of login user
-				final Long pkAppUser = user.getPkAppUser();
-				List<Company> companyList = new SpecificRestCaller<Company>(RestConstant.REST_SERVICE, RestServiceConstant.COMPANY_SERVICE).executeGetList(new PathInterfaceRestCaller() {
-					@Override
-					public String getPath() {
-						return "/getCompaniesByUser/{pkAppUser}";
-					}
-					@Override
-					public Map<String, Object> getParameters() {
-						Map<String, Object> map = new HashMap<>();
-							map.put("pkAppUser", pkAppUser);
-						return map;
-					}
-				});
-				if(companyList != null) {
-					String companyListCookies = mapper.writeValueAsString(companyList);
-					runtimeUserLogin.setCompanyList(companyListCookies);
-					for(Company c : companyList) {
-						runtimeUserLogin.setCompanySelected(c.getPkCompany());
-						break;
-					}
-				}
 				
 				loginDirectoryService.register(runtimeUserLogin);
 				

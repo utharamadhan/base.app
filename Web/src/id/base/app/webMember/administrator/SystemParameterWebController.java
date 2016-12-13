@@ -1,21 +1,23 @@
 package id.base.app.webMember.administrator;
 
+import id.base.app.SystemConstant;
+import id.base.app.exception.ErrorHolder;
 import id.base.app.paging.PagingWrapper;
 import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
 import id.base.app.rest.RestServiceConstant;
+import id.base.app.rest.SpecificRestCaller;
 import id.base.app.util.StringFunction;
 import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.valueobject.AppParameter;
-import id.base.app.valueobject.master.Company;
-import id.base.app.valueobject.sales.TransOut;
 import id.base.app.webMember.DataTableCriterias;
 import id.base.app.webMember.WebGeneralFunction;
 import id.base.app.webMember.controller.BaseController;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -27,6 +29,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Scope(value="request")
 @Controller
@@ -71,17 +74,16 @@ public class SystemParameterWebController extends BaseController<AppParameter> {
 	
 	@RequestMapping(method=RequestMethod.GET, value="showList")
 	public String showList(ModelMap model, HttpServletRequest request){
-		model.addAttribute("pagingWrapper", new PagingWrapper<Company>());
+		model.addAttribute("pagingWrapper", new PagingWrapper<AppParameter>());
 		return getListPath();
 	}
 	
-	public void setDefaultData(ModelMap model) {}
+	public void setDefaultData(ModelMap model) {
+		model.addAttribute("dataTypeOptions", AppParameter.DATA_TYPE_LOOKUP);
+	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="showAdd")
 	public String showAdd(ModelMap model, HttpServletRequest request){
-		Long pkCompany = WebGeneralFunction.getLogin(request).getCompanySelected();
-		setDefaultData(model);
-		model.addAttribute("detail", TransOut.getInstance(pkCompany));
 		return PATH_DETAIL;
 	}
 	
@@ -91,6 +93,22 @@ public class SystemParameterWebController extends BaseController<AppParameter> {
 		AppParameter detail = getRestCaller().findById(maintenancePK);
 		model.addAttribute("detail", detail);
 		return PATH_DETAIL;
+	}
+	
+	@RequestMapping(method=RequestMethod.POST, value="saveSystemParameter")
+	@ResponseBody
+	public Map<String, Object> saveSystemParameter(final AppParameter anObject, HttpServletRequest request) {
+		Map<String, Object> resultMap = new HashMap<>();
+		List<ErrorHolder> errors = new ArrayList<>();
+		try{
+			errors = new SpecificRestCaller<AppParameter>(RestConstant.REST_SERVICE, RestServiceConstant.SYSTEM_PARAMETER_SERVICE).performPut("/update", anObject);
+			if(errors != null && errors.size() > 0){
+				resultMap.put(SystemConstant.ERROR_LIST, errors);
+			}
+		}catch(Exception e){
+			LOGGER.error(e.getMessage(), e);
+		}
+		return resultMap;
 	}
 
 	@Override

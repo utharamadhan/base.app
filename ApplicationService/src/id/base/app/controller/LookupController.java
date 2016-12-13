@@ -148,13 +148,13 @@ public class LookupController extends SuperController<Lookup>{
 			errorHolders.add(new ErrorHolder(messageSource.getMessage("error.lookup.is.not.modifiable", null, Locale.ENGLISH)));
 		}
 		if(StringFunction.isEmpty(anObject.getCode())){
-			errorHolders.add(new ErrorHolder(messageSource.getMessage("error.lookup.code.mandatory", null, Locale.ENGLISH)));
+			errorHolders.add(new ErrorHolder(Lookup.CODE, messageSource.getMessage("error.lookup.code.mandatory", null, Locale.ENGLISH)));
 		}
-		if(StringFunction.isEmpty(anObject.getNameId())){
-			errorHolders.add(new ErrorHolder(messageSource.getMessage("error.lookup.name.mandatory", null, Locale.ENGLISH)));
+		if(StringFunction.isEmpty(anObject.getName())){
+			errorHolders.add(new ErrorHolder(Lookup.NAME, messageSource.getMessage("error.lookup.name.mandatory", null, Locale.ENGLISH)));
 		}
 		if(StringFunction.isEmpty(anObject.getDescr())){
-			errorHolders.add(new ErrorHolder(messageSource.getMessage("error.lookup.descr.mandatory", null, Locale.ENGLISH)));
+			errorHolders.add(new ErrorHolder(Lookup.DESCRIPTION, messageSource.getMessage("error.lookup.descr.mandatory", null, Locale.ENGLISH)));
 		}
 		if(errorHolders.size()>0){
 			throw new SystemException(errorHolders);

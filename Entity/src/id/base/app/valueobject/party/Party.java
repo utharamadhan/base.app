@@ -113,10 +113,6 @@ public class Party extends BaseEntity implements Serializable{
 	@Column
 	private List<PartyContact> partyContacts = new ArrayList<PartyContact>();
 	
-	@OneToMany(mappedBy="party", cascade=CascadeType.ALL)
-	@Column
-	private Set<PartyCompany> partyCompanies = new HashSet<PartyCompany>();
-	
 	@Column(name = "STATUS")
 	private Integer status;
 
@@ -194,21 +190,7 @@ public class Party extends BaseEntity implements Serializable{
 			this.partyContacts.addAll(partyContacts);
 		}
 	}
-
-	public Set<PartyCompany> getPartyCompanies() {
-		return partyCompanies;
-	}
-	public void setPartyCompanies(Set<PartyCompany> partyRmus) {
-		this.partyCompanies = partyRmus;
-	}
-	@Transient
-	public void addPartyCompany(Party party, Long pkCompany) {
-		if(this.partyCompanies == null) {
-			this.partyCompanies = new HashSet<>();
-		}
-		this.partyCompanies.add(PartyCompany.getInstance(party, pkCompany));
-	}
-
+	
 	public Integer getStatus() {
 		return status;
 	}

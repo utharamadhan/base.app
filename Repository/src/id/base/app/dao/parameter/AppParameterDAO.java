@@ -67,10 +67,7 @@ public class AppParameterDAO extends AbstractHibernateDAO<AppParameter,Long> imp
 			
 			@Override
 			public AppParameter transformTuple(Object[] arg0, String[] arg1) {
-				AppParameter parameter = new AppParameter();
-				parameter.setName(String.valueOf(arg0[0]));
-				parameter.setValue(String.valueOf(arg0[1]));
-				return parameter;
+				return AppParameter.getInstance(String.valueOf(arg0[0]), String.valueOf(arg0[1]));
 			}
 			
 			@Override

@@ -6,6 +6,7 @@ import id.base.app.exception.SystemException;
 import id.base.app.rest.RestConstant;
 import id.base.app.service.MaintenanceService;
 import id.base.app.service.parameter.IParameterService;
+import id.base.app.util.IntegerFunction;
 import id.base.app.util.StringFunction;
 import id.base.app.valueobject.AppParameter;
 
@@ -56,12 +57,7 @@ public class SystemParameterController extends SuperController<AppParameter>{
 	@Override
 	public AppParameter preUpdate(AppParameter anObject) throws SystemException {
 		AppParameter dbObject = maintenanceService.findById(anObject.getPkAppParameter());
-		
-		//start set unchanged property of object, if massive set, please create private method
-		anObject.setDatatype(dbObject.getDatatype());
-		anObject.setIsViewable(dbObject.getIsViewable());
-		//finish
-		
+			anObject.setIsViewable(dbObject.getIsViewable());
 		return validate(anObject);
 	}
 
@@ -77,34 +73,29 @@ public class SystemParameterController extends SuperController<AppParameter>{
 		if(StringFunction.isEmpty(anObject.getValue())){
 			errorHolders.add(new ErrorHolder(messageSource.getMessage("error.message.parameter.value.mandatory", null, Locale.ENGLISH)));
 		}else{
-			if(anObject.getDatatype().equals(new Long(SystemConstant.FIELD_TYPE_INT))){
-				try {
-					Integer temp = Integer.parseInt(anObject.getValue());
-				} catch (NumberFormatException e) {
-					e.printStackTrace();
-					errorHolders.add(new ErrorHolder(messageSource.getMessage("error.message.parameter.value.invalid.integer", null, Locale.ENGLISH)));
-				}
-			}else if(anObject.getDatatype().equals(new Long(SystemConstant.FIELD_TYPE_BOOLEAN))){
-				if(!(anObject.getValue().equalsIgnoreCase("false") || anObject.getValue().equalsIgnoreCase("true"))){
-					errorHolders.add(new ErrorHolder(messageSource.getMessage("error.message.parameter.value.invalid.boolean", null, Locale.ENGLISH)));
-				}
-			}else if(anObject.getDatatype().equals(new Long(SystemConstant.FIELD_TYPE_DATE))){
+			if(anObject.getDatatype().equals(SystemConstant.FIELD_TYPE_INT) && !IntegerFunction.isInteger(anObject.getValue())){
+				errorHolders.add(new ErrorHolder(AppParameter.VALUE, messageSource.getMessage("error.message.parameter.value.invalid.integer", null, Locale.ENGLISH)));
+			}else if(anObject.getDatatype().equals(SystemConstant.FIELD_TYPE_BOOLEAN) && !StringFunction.isBoolean(anObject.getValue())){
+				errorHolders.add(new ErrorHolder(AppParameter.VALUE, messageSource.getMessage("error.message.parameter.value.invalid.boolean", null, Locale.ENGLISH)));
+			}else if(anObject.getDatatype().equals(SystemConstant.FIELD_TYPE_DATE)){
 				if(!DateValidator.getInstance().isValid(anObject.getValue(), SystemConstant.SYSTEM_DATE_MASK_2, true)){
-					errorHolders.add(new ErrorHolder(messageSource.getMessage("error.message.parameter.value.invalid.date", null, Locale.ENGLISH)));
+					errorHolders.add(new ErrorHolder(AppParameter.VALUE, messageSource.getMessage("error.message.parameter.value.invalid.date", null, Locale.ENGLISH)));
 				}
-			}else if(anObject.getDatatype().equals(new Long(SystemConstant.FIELD_TYPE_DOUBLE))){
+			}else if(anObject.getDatatype().equals(SystemConstant.FIELD_TYPE_DOUBLE)){
 				try {
-					Double temp = Double.parseDouble(anObject.getValue());
+					Double.parseDouble(anObject.getValue());
 				} catch (NumberFormatException e) {
-					e.printStackTrace();
-					errorHolders.add(new ErrorHolder(messageSource.getMessage("error.message.parameter.value.invalid.double", null, Locale.ENGLISH)));
+					errorHolders.add(new ErrorHolder(AppParameter.VALUE, messageSource.getMessage("error.message.parameter.value.invalid.double", null, Locale.ENGLISH)));
 				}
-			}else if(anObject.getDatatype().equals(new Long(SystemConstant.FIELD_TYPE_LONG))){
+			}else if(anObject.getDatatype().equals(SystemConstant.FIELD_TYPE_LONG)){
 				try {
-					Long temp = Long.parseLong(anObject.getValue());
+					Long.parseLong(anObject.getValue());
 				} catch (NumberFormatException e) {
-					e.printStackTrace();
-					errorHolders.add(new ErrorHolder(messageSource.getMessage("error.message.parameter.value.invalid.long", null, Locale.ENGLISH)));
+					errorHolders.add(new ErrorHolder(AppParameter.VALUE, messageSource.getMessage("error.message.parameter.value.invalid.long", null, Locale.ENGLISH)));
+				}
+			}else if(anObject.getDatatype().equals(SystemConstant.FIELD_TYPE_CRON)) {
+				if(!org.quartz.CronExpression.isValidExpression(anObject.getValue())){
+					errorHolders.add(new ErrorHolder(AppParameter.VALUE, messageSource.getMessage("error.message.parameter.value.invalid.cron", null, Locale.ENGLISH)));
 				}
 			}
 		}

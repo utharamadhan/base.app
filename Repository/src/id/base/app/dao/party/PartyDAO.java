@@ -9,9 +9,7 @@ import id.base.app.util.StringFunction;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.valueobject.AppParameter;
-import id.base.app.valueobject.master.Company;
 import id.base.app.valueobject.party.Party;
-import id.base.app.valueobject.party.PartyCompany;
 import id.base.app.valueobject.party.PartyRole;
 
 import java.util.List;
@@ -131,48 +129,6 @@ public class PartyDAO extends AbstractHibernateDAO<Party,Long> implements IParty
 			crit.add(Restrictions.eq("party.pkParty", pkParty));
 			crit.setMaxResults(1);
 		return (PartyRole) crit.uniqueResult();
-	}
-
-	@Override
-	public PartyCompany findPartyCompanyByPartyAndCompany(Long pkCompany, Long pkParty) throws SystemException {
-		Criteria crit = getSession().createCriteria(PartyCompany.class);
-			crit.createAlias("company", "company");
-			crit.createAlias("party", "party");
-			crit.add(Restrictions.eq("company.pkCompany", pkCompany));
-			crit.add(Restrictions.eq("party.pkParty", pkParty));
-			crit.setMaxResults(1);
-			crit.setProjection(Projections.projectionList().
-					add(Projections.property("pkPartyCompany")).
-					add(Projections.property("company.pkCompany")).
-					add(Projections.property("party.pkParty")));
-			crit.setResultTransformer(new ResultTransformer() {
-				@Override
-				public Object transformTuple(Object[] tuple, String[] aliases) {
-					PartyCompany pc = new PartyCompany();
-					try{
-						BeanUtils.copyProperty(pc, "pkPartyCompany", tuple[0]);
-						if(tuple[1]!=null){
-							Company co = new Company();
-							BeanUtils.copyProperty(co, "pkCompany", tuple[1]);
-							BeanUtils.copyProperty(pc, "company", co);
-						}
-						if(tuple[2]!=null){
-							Party pa = new Party();
-							BeanUtils.copyProperty(pa, "pkParty", tuple[2]);
-							BeanUtils.copyProperty(pc, "party", pa);
-						}
-					}catch(Exception e){
-						LOGGER.error(e.getMessage(), e);
-					}
-					return pc;
-				}
-				
-				@Override
-				public List transformList(List collection) {
-					return collection;
-				}
-			});
-		return (PartyCompany) crit.uniqueResult();
 	}
 	
 }

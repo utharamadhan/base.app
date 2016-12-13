@@ -2,7 +2,8 @@ package id.base.app.valueobject;
 
 import id.base.app.SystemConstant;
 
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,14 +22,41 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class AppParameter extends BaseEntity {
 
 	private static final long serialVersionUID = 5933206321367656004L;
+	
+	public static AppParameter getInstance() {
+		return new AppParameter();
+	}
+	
+	public static AppParameter getInstance(String name, String value) {
+		AppParameter obj = new AppParameter();
+			obj.setName(name);
+			obj.setValue(value);
+		return obj;
+	}
 
+	public static final String IS_VIEWABLE	= "isViewable";
+	public static final String NAME 		= "name";
+	public static final String VALUE 		= "value";
+	public static final String DATA_TYPE	= "datatype";
+	
 	private static final String INTEGER = "INTEGER";
 	private static final String LONG    = "LONG";
 	private static final String DOUBLE  = "DOUBLE";
 	private static final String STRING  = "STRING";
 	private static final String DATE    = "DATE";
 	private static final String BOOLEAN = "BOOLEAN";
-	// Fields
+	private static final String CRON	= "CRON";
+	
+	public static final List<Lookup> DATA_TYPE_LOOKUP = new ArrayList<>();
+	
+	static {
+		DATA_TYPE_LOOKUP.add(Lookup.getInstanceShort(SystemConstant.FIELD_TYPE_INT.toString(), INTEGER));
+		DATA_TYPE_LOOKUP.add(Lookup.getInstanceShort(SystemConstant.FIELD_TYPE_LONG.toString(), LONG));
+		DATA_TYPE_LOOKUP.add(Lookup.getInstanceShort(SystemConstant.FIELD_TYPE_DOUBLE.toString(), DOUBLE));
+		DATA_TYPE_LOOKUP.add(Lookup.getInstanceShort(SystemConstant.FIELD_TYPE_STRING.toString(), STRING));
+		DATA_TYPE_LOOKUP.add(Lookup.getInstanceShort(SystemConstant.FIELD_TYPE_DATE.toString(), DATE));
+		DATA_TYPE_LOOKUP.add(Lookup.getInstanceShort(SystemConstant.FIELD_TYPE_BOOLEAN.toString(), BOOLEAN));
+	}
 
 	@Id
 	@GeneratedValue
@@ -37,44 +65,28 @@ public class AppParameter extends BaseEntity {
 	@Null(groups=CreateEntity.class, message="{error.message.create.not.allowed}")
 	private Long pkAppParameter;
 	
-	@Column(name = "NAME", length = 200)
+	@Column(name = "NAME")
 	private String name;
-	@Column(name = "VALUE", length = 200)
+	
+	@Column(name = "VALUE")
 	private String value;
-	@Column(name = "DESCR", length = 500)
+	
+	@Column(name = "DESCR")
 	private String descr;
-	@Column(name = "IS_VIEWABLE",nullable=false)
+	
+	@Column(name = "IS_VIEWABLE")
 	private Boolean isViewable;
+	
 	@Column(name = "DATATYPE")
 	private Integer datatype;
+	
 	@Transient
 	private String dataTypeDescr;
 	
-	public static final String IS_VIEWABLE="isViewable";
-	public static final String NAME = "name";
-	public static final String VALUE = "value";
-	
-	// Constructors
-
-	/** default constructor */
-	public AppParameter() {
-	}
-
-	/** full constructor */
-	public AppParameter(String name, String value, String descr,
-			Boolean isForSecurity, Boolean isViewable, Integer datatype,
-			Date lastModificationDate) {
-		this.name = name;
-		this.value = value;
-		this.descr = descr;
-		this.isViewable = isViewable;
-		this.datatype = datatype;
-	}
 
 	public Long getPkAppParameter() {
 		return pkAppParameter;
 	}
-
 	public void setPkAppParameter(Long pkAppParameter) {
 		this.pkAppParameter = pkAppParameter;
 	}
@@ -82,7 +94,6 @@ public class AppParameter extends BaseEntity {
 	public String getName() {
 		return this.name;
 	}
-
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -90,7 +101,6 @@ public class AppParameter extends BaseEntity {
 	public String getValue() {
 		return this.value;
 	}
-
 	public void setValue(String value) {
 		this.value = value;
 	}
@@ -98,7 +108,6 @@ public class AppParameter extends BaseEntity {
 	public String getDescr() {
 		return this.descr;
 	}
-
 	public void setDescr(String descr) {
 		this.descr = descr;
 	}
@@ -106,7 +115,6 @@ public class AppParameter extends BaseEntity {
 	public Boolean getIsViewable() {
 		return this.isViewable;
 	}
-
 	public void setIsViewable(Boolean isViewable) {
 		this.isViewable = isViewable;
 	}
@@ -114,28 +122,30 @@ public class AppParameter extends BaseEntity {
 	public Integer getDatatype() {
 		return datatype;
 	}
-
 	public void setDatatype(Integer datatype) {
 		this.datatype = datatype;
 	}
 
-	public String getDataTypeDesc() {
+	@Transient
+	public String getDataTypeDescr() {
 		if(datatype!=null){
-	        switch (datatype.intValue()) {
-	            case SystemConstant.FIELD_TYPE_INT :
-	                return INTEGER;
-	            case SystemConstant.FIELD_TYPE_LONG :
-	                return LONG;
-	            case SystemConstant.FIELD_TYPE_DOUBLE :
-	                return DOUBLE;
-	            case SystemConstant.FIELD_TYPE_STRING :
-	                return STRING;
-	            case SystemConstant.FIELD_TYPE_DATE :
-	                return DATE;
-	            case SystemConstant.FIELD_TYPE_BOOLEAN :
-	                return BOOLEAN;
-	        }
+			if(datatype.equals(SystemConstant.FIELD_TYPE_INT)) {
+				return INTEGER;
+			}else if(datatype.equals(SystemConstant.FIELD_TYPE_LONG)) {
+				return LONG;
+			}else if(datatype.equals(SystemConstant.FIELD_TYPE_DOUBLE)) {
+				return DOUBLE;
+			}else if(datatype.equals(SystemConstant.FIELD_TYPE_STRING)) {
+				return STRING;
+			}else if(datatype.equals(SystemConstant.FIELD_TYPE_DATE)) {
+				return DATE;
+			}else if(datatype.equals(SystemConstant.FIELD_TYPE_BOOLEAN)) {
+				return BOOLEAN;
+			}else if(datatype.equals(SystemConstant.FIELD_TYPE_CRON)) {
+				return CRON;
+			}
 		}
         return null;
     }
+	
 }

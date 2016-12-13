@@ -1,7 +1,5 @@
 package id.base.app.valueobject;
 
-import id.base.app.util.StringFunction;
-
 import java.io.Serializable;
 
 import javax.persistence.Column;
@@ -62,13 +60,12 @@ public class Lookup extends BaseEntity implements Comparable<Lookup>, Serializab
 	public static final String ORDER_NO_STRING 		= "orderNo";
 	public static final String CODE 				= "code";
 	public static final String STATUS				= "status";
-	public static final String NAME_ID				= "nameId";
-	public static final String NAME_EN				= "nameEn";
+	public static final String NAME					= "name";
 	public static final String DESCRIPTION 			= "descr";
 	public static final String USAGE				= "usage";
 	
 	public static final String[] MAINTENANCE_LIST_FIELDS = {
-		Lookup.ID, Lookup.CODE, Lookup.NAME_ID, Lookup.NAME_EN, Lookup.ORDER_NO_STRING, Lookup.STATUS
+		Lookup.ID, Lookup.CODE, Lookup.NAME, Lookup.ORDER_NO_STRING, Lookup.STATUS
 	};
 	
 	@Id
@@ -89,13 +86,7 @@ public class Lookup extends BaseEntity implements Comparable<Lookup>, Serializab
 	@Column(name = "CODE", length = 100)
 	private String code;
 	
-	@Column(name="NAME_ID", length = 100)
-	private String nameId;
-	
-	@Column(name="NAME_EN", length = 100)
-	private String nameEn;
-	
-	@Transient
+	@Column(name="NAME")
 	private String name;
 	
 	@Column(name = "DESCR")
@@ -113,7 +104,6 @@ public class Lookup extends BaseEntity implements Comparable<Lookup>, Serializab
 	public Long getPkLookup() {
 		return pkLookup;
 	}
-
 	public void setPkLookup(Long pkLookup) {
 		this.pkLookup = pkLookup;
 	}
@@ -121,15 +111,13 @@ public class Lookup extends BaseEntity implements Comparable<Lookup>, Serializab
 	public String getLookupGroupString() {
 		return lookupGroupString;
 	}
-
 	public void setLookupGroupString(String lookupGroupString) {
 		this.lookupGroupString = lookupGroupString;
 	}
-
+	
 	public LookupGroup getLookupGroup() {
 		return lookupGroup;
 	}
-
 	public void setLookupGroup(LookupGroup lookupGroup) {
 		this.lookupGroup = lookupGroup;
 	}
@@ -137,30 +125,13 @@ public class Lookup extends BaseEntity implements Comparable<Lookup>, Serializab
 	public String getCode() {
 		return code;
 	}
-
 	public void setCode(String code) {
 		this.code = code;
-	}
-
-	@Transient
-	public String getName() {
-		if(StringFunction.isEmpty(nameEn)){
-			return nameId;
-		}else if(StringFunction.isNotEmpty(nameId)){
-			return nameId + " (" + nameEn + ")"; 
-		}else{
-			return null;
-		}
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public String getDescr() {
 		return descr;
 	}
-
 	public void setDescr(String descr) {
 		this.descr = descr;
 	}
@@ -168,31 +139,20 @@ public class Lookup extends BaseEntity implements Comparable<Lookup>, Serializab
 	public Long getOrderNo() {
 		return orderNo;
 	}
-
 	public void setOrderNo(Long orderNo) {
 		this.orderNo = orderNo;
 	}
 	
-	public String getNameId() {
-		return nameId;
+	public String getName() {
+		return name;
 	}
-
-	public void setNameId(String nameId) {
-		this.nameId = nameId;
-	}
-
-	public String getNameEn() {
-		return nameEn;
-	}
-
-	public void setNameEn(String nameEn) {
-		this.nameEn = nameEn;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getUsage() {
 		return usage;
 	}
-
 	public void setUsage(String usage) {
 		this.usage = usage;
 	}
@@ -200,7 +160,6 @@ public class Lookup extends BaseEntity implements Comparable<Lookup>, Serializab
 	public Integer getStatus() {
 		return status;
 	}
-
 	public void setStatus(Integer status) {
 		this.status = status;
 	}

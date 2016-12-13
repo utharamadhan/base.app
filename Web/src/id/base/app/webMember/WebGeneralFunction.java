@@ -6,7 +6,6 @@ import id.base.app.LoginSession;
 import id.base.app.SystemConstant;
 import id.base.app.exception.ErrorHolder;
 import id.base.app.exception.SystemException;
-import id.base.app.rest.PathInterfaceRestCaller;
 import id.base.app.rest.QueryParamInterfaceRestCaller;
 import id.base.app.rest.RestConstant;
 import id.base.app.rest.RestServiceConstant;
@@ -17,7 +16,6 @@ import id.base.app.valueobject.AppFunction;
 import id.base.app.valueobject.AppRole;
 import id.base.app.valueobject.AppUser;
 import id.base.app.valueobject.RuntimeUserLogin;
-import id.base.app.valueobject.master.Company;
 import id.base.app.webMember.rest.AppFunctionRestCaller;
 import id.base.app.webMember.rest.LoginRestCaller;
 
@@ -161,7 +159,6 @@ public class WebGeneralFunction {
 		ObjectMapper om = new ObjectMapper();
 		
 		HashMap<String, Object> accessInfos;
-		List<Company> companyList;
 		try {
 			accessInfos = om.readValue(login.getAccessInfo(), new TypeReference<HashMap<String,Object>>() {});
 			HashMap<String,Boolean> permissions = new HashMap<String, Boolean>();
@@ -176,13 +173,6 @@ public class WebGeneralFunction {
 			loginSession.setCompanySelected(login.getCompanySelected());
 			request.getSession().setAttribute(SessionConstants.USER_OBJECT_KEY, loginSession);
 			request.getSession(false).setAttribute("menus", menus);
-			if(login.getCompanyList()!=null){
-				companyList = om.readValue(login.getCompanyList(), new TypeReference<List<Company>>(){});
-				request.getSession(false).setAttribute(SessionConstants.COMPANY_LIST, companyList);
-			}
-			if(login.getCompanySelected()!=null){
-				request.getSession(false).setAttribute(SessionConstants.COMPANY_SELECTED, login.getCompanySelected());
-			}
 			if(user.getInitialWizardStep() == null || !user.getInitialWizardStep().equals(SystemConstant.InitialWizard.DONE)) {
 				request.getSession(false).setAttribute(SessionConstants.INITIAL_WIZARD, Boolean.TRUE);
 			} else {
@@ -324,29 +314,6 @@ public class WebGeneralFunction {
 			ObjectMapper mapper = new ObjectMapper();
 			String stringCookie = mapper.writeValueAsString(accessInfos);
 			runtimeUserLogin.setAccessInfo(stringCookie);
-			
-			//create company cookies of login user
-			final Long pkAppUser = user.getPkAppUser();
-			List<Company> companyList = new SpecificRestCaller<Company>(RestConstant.REST_SERVICE, RestServiceConstant.COMPANY_SERVICE).executeGetList(new PathInterfaceRestCaller() {
-				@Override
-				public String getPath() {
-					return "/getCompaniesByUser/{pkAppUser}";
-				}
-				@Override
-				public Map<String, Object> getParameters() {
-					Map<String, Object> map = new HashMap<>();
-						map.put("pkAppUser", pkAppUser);
-					return map;
-				}
-			});
-			if(companyList != null) {
-				String companyListCookies = mapper.writeValueAsString(companyList);
-				runtimeUserLogin.setCompanyList(companyListCookies);
-				for(Company c : companyList) {
-					runtimeUserLogin.setCompanySelected(c.getPkCompany());
-					break;
-				}
-			}
 			
 			loginDirectoryService.register(runtimeUserLogin);
 			request.getSession().setAttribute(SessionConstants.USER_OBJECT_KEY, loginSession);

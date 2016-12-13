@@ -83,7 +83,7 @@
 		    setMenuActive('lookupGroup');
 		    var colDefs = [{ name : "name" }, 
 	    	               { name : "description" }, 
-	    	               { type : "deleteAndEdit" , param : [ "name" ] }
+	    	               { type : "edit" , param : [ "name" ] }
 	    	               ];
 		    var sURL = /*[[@{/do/lookupGroup/list?}]]*/ #;
 		    buildDataTable(/*[[@{/}]]*/, sURL, 'lookupGroup-list-table', 450, colDefs, null, null);

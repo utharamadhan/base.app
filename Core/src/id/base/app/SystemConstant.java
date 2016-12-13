@@ -79,13 +79,13 @@ public class SystemConstant  {
    public static final String CLOSE_ON_HOLIDAY="TIDAK";
    public static final String OPEN_ON_HOLIDAY="YA";
 
-    // Field case spec (FCS) type
-    public static final int FIELD_TYPE_INT = 0;
-    public static final int FIELD_TYPE_LONG = 1;
-    public static final int FIELD_TYPE_DOUBLE = 2;
-    public static final int FIELD_TYPE_STRING = 3;
-    public static final int FIELD_TYPE_DATE = 4;
-    public static final int FIELD_TYPE_BOOLEAN = 5;
+    public static final Integer FIELD_TYPE_INT = 0;
+    public static final Integer FIELD_TYPE_LONG = 1;
+    public static final Integer FIELD_TYPE_DOUBLE = 2;
+    public static final Integer FIELD_TYPE_STRING = 3;
+    public static final Integer FIELD_TYPE_DATE = 4;
+    public static final Integer FIELD_TYPE_BOOLEAN = 5;
+    public static final Integer FIELD_TYPE_CRON = 6;
 
     /*** Data type for profile builder and FCS ***/
     public static final int DATATYPE_NUMBER = 0;

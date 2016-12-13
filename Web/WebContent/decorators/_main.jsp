@@ -4,7 +4,6 @@
 <%@page import="id.base.app.SystemConstant"%>
 <%@page import="id.base.app.webMember.SessionConstants"%>
 <%@page import="id.base.app.valueobject.AppFunction"%>
-<%@page import="id.base.app.valueobject.master.Company"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.LinkedList"%>
 <!DOCTYPE html>
@@ -113,37 +112,6 @@
           </div>
           <!-- Branding end -->
           
-          <!-- Dropdown Company -->
-          <div class="col-md-5" style="display: inline-block;margin-left: -25px;">
-          	<div class="form-horizontal form-group" style="padding:5px">
-            	<label for="input07" class="col-sm-5 control-label input-sm top-filter"> Pilih Penggilingan Padi:</label>
-				<div class="col-sm-7">
-					<select id="session-company-selected" class="chosen-select form-control input-sm" readonly="" id="input07">
-					<% 
-						ArrayList<Company> companyList = (ArrayList<Company>) session.getAttribute(SessionConstants.COMPANY_LIST);
-						Long companySelected = (Long) session.getAttribute(SessionConstants.COMPANY_SELECTED);
-						if(companyList != null && companyList.size() > 0) {
-							for(Company company : companyList) {
-								String companyName = company.getName();
-								Long pkCompany = company.getPkCompany();
-								if(companySelected == pkCompany){
-									%>
-				                        <option value="<%=pkCompany%>" selected="selected"><%=companyName%></option>
-									<%
-								}else{
-									%>
-			                        	<option value="<%=pkCompany%>"><%=companyName%></option>
-									<%
-									
-								}
-							}
-						}
-					%>
-					</select>
-				</div>
-				</div>
-			</div>
-
           <!-- .nav-collapse -->
           <div class="navbar-collapse">
           	

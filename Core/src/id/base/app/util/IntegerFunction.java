@@ -9,6 +9,15 @@ public class IntegerFunction {
         return empty;
     }
 	
+	public static boolean isInteger(String value) {
+		try {
+			Integer.parseInt(value);
+		} catch (Exception e) {
+			return Boolean.FALSE;
+		}
+		return Boolean.TRUE;
+	}
+	
 	public static Integer concateInteger(Integer front, Integer back){
 		String s = "";
 		if(null != front){

@@ -8,7 +8,6 @@ import id.base.app.rest.SpecificRestCaller;
 import id.base.app.valueobject.business.report.ViewCashFlow;
 import id.base.app.valueobject.forecast.ForecastCallDaily;
 import id.base.app.valueobject.forecast.ForecastCallHourly;
-import id.base.app.valueobject.master.Stock;
 import id.base.app.webMember.WebGeneralFunction;
 
 import java.math.BigDecimal;
@@ -123,28 +122,5 @@ public class DashboardWebController{
 		}
 		return null;
 	}
-
-	@RequestMapping(method=RequestMethod.GET, value="getStockForDashboard")
-	@ResponseBody
-	public List<Stock> getStockForDashboard(HttpServletRequest request) throws SystemException {
-		try{
-			final Long pkCompany = WebGeneralFunction.getLogin(request).getCompanySelected();
-			return new SpecificRestCaller<Stock>(RestConstant.REST_SERVICE, RestServiceConstant.STOCK_SERVICE).executeGetList(new PathInterfaceRestCaller() {
-				@Override
-				public String getPath() {
-					return "/getStockForDashboard/{pkCompany}";
-				}
-				
-				@Override
-				public Map<String, Object> getParameters() {
-					Map<String, Object> map = new HashMap<>();
-						map.put("pkCompany", pkCompany);
-					return map;
-				}
-			});
-		}catch(Exception e){
-			LOGGER.error(e.getMessage(), e);
-		}
-		return null;
-	}
+	
 }

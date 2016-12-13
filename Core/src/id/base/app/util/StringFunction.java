@@ -5,6 +5,7 @@
 package id.base.app.util;
 
 import id.base.app.SystemConstant;
+import id.base.app.exception.ErrorHolder;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -12,6 +13,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -486,5 +488,14 @@ public class StringFunction extends DateTimeFunction {
 		StringWriter errors = new StringWriter();
 		t.printStackTrace(new PrintWriter(errors));		
 		return errors.toString();
+	}
+	
+	public static Boolean isBoolean(String value) {
+		try {
+			if((value.equalsIgnoreCase("false") || value.equalsIgnoreCase("true"))){
+				return Boolean.TRUE;
+			}
+		} catch (Exception e) {}
+		return Boolean.FALSE;
 	}
 }
