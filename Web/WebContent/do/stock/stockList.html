@@ -302,7 +302,7 @@
 		      
 		      $('.buying-click').click(function(){
 		    	  $('#bar-stock-wrapper').hide();
-		    	  currentSource = /*[[${T(id.padiku.app.SystemConstant.TransInSourceType).BUYING}]]*/ #;
+		    	  currentSource = /*[[${T(id.base.app.SystemConstant.TransInSourceType).BUYING}]]*/ #;
 		    	  $('.list-wrapper').hide();
 		    	  $('#buying-wrapper').show();
 		    	  if(isBuyingClick==0){
@@ -324,7 +324,7 @@
 		      
 		      $('.maklon-click').click(function(){
 		    	  $('#bar-stock-wrapper').hide();
-		    	  currentSource = /*[[${T(id.padiku.app.SystemConstant.TransInSourceType).MAKLON}]]*/ #;
+		    	  currentSource = /*[[${T(id.base.app.SystemConstant.TransInSourceType).MAKLON}]]*/ #;
 		    	  $('.list-wrapper').hide();
 		    	  $('#maklon-wrapper').show();
 		    	  if(isMaklonClick==0){
@@ -352,7 +352,7 @@
 						displayErrorParsley(data.errorList);
 			        }else{
 			        	$('#warehouseModal').modal('hide');
-			        	if(currentSource==/*[[${T(id.padiku.app.SystemConstant.TransInSourceType).BUYING}]]*/){
+			        	if(currentSource==/*[[${T(id.base.app.SystemConstant.TransInSourceType).BUYING}]]*/){
 			        		reloadDataTableSearch('buying-list-table');
 			        	}else{
 			        		reloadDataTableSearch('maklon-list-table');

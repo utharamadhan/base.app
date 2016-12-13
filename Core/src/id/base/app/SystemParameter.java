@@ -14,8 +14,6 @@ import org.slf4j.LoggerFactory;
  * THis class will be used in run time.
  * TO update this value, Sysparam maintenance will call updateSystemEnvironment(String,String)
  * Before use, please load using SystemParameterLoader.
- * @see id.padiku.app.collsys.SysParamLoaderDAO
- * @see #updateSystemEnvironment(String, String)
  */
 public class SystemParameter {
 	

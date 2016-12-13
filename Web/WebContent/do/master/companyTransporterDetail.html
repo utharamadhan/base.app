@@ -320,7 +320,7 @@
 				$('.detail-kecamatan').html('<option value="">[ Pilih Kecamatan ]</option>');
 				$('.detail-kelurahan').html('<option value="">[ Pilih Kelurahan ]</option>');
 				$('.detail-postal-code').val('');
-				var groupSource = /*[[${T(id.padiku.app.ILookupAddressGroupConstant).PROVINSI}]]*/ #;
+				var groupSource = /*[[${T(id.base.app.ILookupAddressGroupConstant).PROVINSI}]]*/ #;
 				var firstOption = '[ Pilih Provinsi ]';
 				populateOptions(groupSource, $(this), 'detail-kab-kota', firstOption, false);
 				
@@ -330,7 +330,7 @@
 				$('.detail-kecamatan').html('<option value="">[ Pilih Kecamatan ]</option>');
 				$('.detail-kelurahan').html('<option value="">[ Pilih Kelurahan ]</option>');
 				$('.detail-postal-code').val('');
-				var groupSource = /*[[${T(id.padiku.app.ILookupAddressGroupConstant).KAB_KOTA}]]*/ #;
+				var groupSource = /*[[${T(id.base.app.ILookupAddressGroupConstant).KAB_KOTA}]]*/ #;
 				var firstOption = '[ Pilih Kabupaten / Kota ]';
 				populateOptions(groupSource, $(this), 'detail-kecamatan', firstOption, false);
 			});
@@ -338,7 +338,7 @@
 			$('.detail-kecamatan').change(function(){
 				$('.detail-kelurahan').html('<option value="">[ Pilih Kelurahan ]</option>');
 				$('.detail-postal-code').val('');
-				var groupSource = /*[[${T(id.padiku.app.ILookupAddressGroupConstant).KECAMATAN}]]*/ #;
+				var groupSource = /*[[${T(id.base.app.ILookupAddressGroupConstant).KECAMATAN}]]*/ #;
 				var firstOption = '[ Pilih Kecamatan ]';
 				populateOptions(groupSource, $(this), 'detail-kelurahan', firstOption, true);
 			});
