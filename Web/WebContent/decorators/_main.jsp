@@ -150,19 +150,11 @@
           	<!-- Quick Actions -->
           	<page:applyDecorator name="_header" page="/headerPage.jsp" />
           	<!-- /Quick Actions -->
-          
-          	<% 
-       		Object isInitialWizard = session.getAttribute(SessionConstants.INITIAL_WIZARD);
-       		if (isInitialWizard != null && ((Boolean) isInitialWizard) == true) {
-          	%>
-          		<!-- Sidebar -->
-          		<page:applyDecorator name="_wizardSideBar" page="/wizardSideBar.jsp" />
-          		<!-- Sidebar end -->
-          	<%  } else { %>
-	          	<!-- Sidebar -->
-	          	<page:applyDecorator name="_menu" page="/menuPage.jsp" />
-	          	<!-- Sidebar end -->
-          	<%  } %>
+          	
+          	<!-- Sidebar -->
+          	<page:applyDecorator name="_menu" page="/menuPage.jsp" />
+          	<!-- Sidebar end -->
+          	
           </div>
           <!--/.nav-collapse -->
          

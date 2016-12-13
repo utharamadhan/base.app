@@ -257,13 +257,14 @@ public class LoginController {
 				loginDirectoryService.register(runtimeUserLogin);
 				
 				if(menus!=null && menus.size()>0 ){
-					if(user.getInitialWizardStep() == null || !user.getInitialWizardStep().equals(SystemConstant.InitialWizard.DONE)) {
+					// activate this following code if you need initial wizard every time new user logins
+					/*if(user.getInitialWizardStep() == null || !user.getInitialWizardStep().equals(SystemConstant.InitialWizard.DONE)) {
 						//redirect to initial wizard
 						redirect = setInitialWizardAndGetRedirectURL(user, userService);
 					} else {
 						redirect = null;
-					}
-					
+					}*/
+					redirect = null;
 					if(redirect == null) {					
 						AppFunction objF=menus.get(0);
 						redirect=new RedirectView(objF.getAccessPage(),true, false);

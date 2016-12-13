@@ -45,12 +45,12 @@ public class DashboardWebController{
 		model.addAttribute("UIEmail",WebGeneralFunction.getLogin(request).getEmail());
 		BigDecimal debit = BigDecimal.ZERO;
 		BigDecimal kredit = BigDecimal.ZERO;
-		List<ViewCashFlow> vcfList = getCashFlowFee(request);
+		/*List<ViewCashFlow> vcfList = getCashFlowFee(request);
 		for (ViewCashFlow vcf : vcfList) {
 			model.addAttribute(vcf.getSource(),vcf);
 			debit = debit.add(vcf.getDebit());
 			kredit = kredit.add(vcf.getKredit());
-		}
+		}*/
 		model.addAttribute("debit",debit);
 		model.addAttribute("kredit",kredit);
 		model.addAttribute("cash",debit.subtract(kredit));
