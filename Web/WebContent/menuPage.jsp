@@ -7,7 +7,7 @@
 	                      		<i class="fa fa-desktop"></i> Beranda
 	                    	</a>
 	                  	</li>
-	                  	<li id="reports" class="dropdown">
+	                  	<li id="administration" class="dropdown">
 	                  		<a href="#" class="dropdown-toggle" data-toggle="dropdown">
                      			<i class="fa fa-bar-chart"></i> Administration <b class="fa fa-plus dropdown-plus"></b>
                    			</a>
@@ -30,6 +30,28 @@
 			                  	<li id="appRoleMaintenance">
 									<a href="/Web/do/appRoleMaintenance/showList">
 			                        	<i class="fa fa-caret-right"></i> Role
+			                        </a>
+			                  	</li>
+							</ul>
+	                  	</li>
+	                  	<li id="aboutUs" class="dropdown">
+	                  		<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                     			<i class="fa fa-bar-chart"></i> About Us Editor <b class="fa fa-plus dropdown-plus"></b>
+                   			</a>
+							<ul class="dropdown-menu">
+								<li id="commonPost">
+									<a href="/Web/do/aboutUs/commonPost/showList">
+			                        	<i class="fa fa-caret-right"></i> Common Post
+			                        </a>
+			                  	</li>
+			                  	<li id="engagement">
+									<a href="/Web/do/aboutUs/engagement/showList">
+			                        	<i class="fa fa-caret-right"></i> Engagement
+			                        </a>
+			                  	</li>
+			                  	<li id="program">
+									<a href="/Web/do/aboutUs/program/showList">
+			                        	<i class="fa fa-caret-right"></i> Program
 			                        </a>
 			                  	</li>
 							</ul>

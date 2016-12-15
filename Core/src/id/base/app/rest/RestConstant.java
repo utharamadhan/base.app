@@ -47,45 +47,11 @@ public class RestConstant {
 	public static final String RM_PARTY_ID = "/partyID";
 	public static final String RM_PARTY_CONTACT = "/partyContact";
 	
-	//master
-	public static final String RM_COMPANY = "/company";
-	public static final String RM_COMPANY_LOOKUP = "/companyLookup";
-	public static final String RM_COMPANY_PARTY = "/companyParty";
-	public static final String RM_COMPANY_PRODUCT = "/product";
-	public static final String RM_COMPANY_WAREHOUSE = "/companyWarehouse";
-	public static final String RM_COMPANY_MACHINERY = "/companyMachinery";
-	public static final String RM_COMPANY_TRANSPORTER = "/companyTransporter";
-	public static final String RM_COMPANY_THIRD_PARTY = "/companyThirdParty";
-	public static final String RM_COMPANY_MASTER_FEE = "/companyMasterFee";
-	public static final String RM_STOCK = "/stock";
-	
 	//initial wizard master
 	public static final String RM_INITIAL_WIZARD = "/initialWizard";
 	
-	//procurement
-	public static final String RM_PURCHASE_ORDER = "/purchaseOrder";
-	public static final String RM_TRANS_IN = "/transIn";
-	public static final String RM_TRANS_IN_ITEM = "/transInItem";
-
-	//inventory
-	public static final String RM_DISPATCH_ORDER_NOTE = "/pengirimanBarang";
-	public static final String RM_GOODS_RECEIPT_NOTE = "/penerimaanBarang";
-	
-	//production
-	public static final String RM_TRANS_PROD = "/transProd";
-	
-	//sales
-	public static final String RM_TRANS_OUT = "/transOut";
-	
-	//report
-	public static final String RM_REPORT_COST_EXPENSES = "/costExpensesReport";
-	public static final String RM_REPORT_STOCK = "/reportStock";
-	public static final String RM_REPORT_TRANS_IN = "/transInReport";
-	public static final String RM_REPORT_CASH_FLOW = "/cashFlowReport";
-	public static final String RM_REPORT_TRANS_OUT = "/transOutReport";
-	
-	//business report
-	public static final String RM_CASH_FLOW = "/cashFlow";
+	//about us
+	public static final String RM_COMMON_POST = "/aboutUs/commonPost";
 	
 	//forecast call
 	public static final String RM_FORECAST_CALL = "/forecastCall";

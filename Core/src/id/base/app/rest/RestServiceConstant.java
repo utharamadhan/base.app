@@ -29,43 +29,9 @@ public class RestServiceConstant {
 	public static final String FAQ_SERVICE = "faqService";
 	public static final String HELPER_SERVICE = "helperService";
 	
-	//master
-	public static final String COMPANY_SERVICE = "companyService";
-	public static final String COMPANY_LOOKUP_SERVICE = "companyLookupService";
-	public static final String COMPANY_PARTY_SERVICE = "companyPartyService";
-	public static final String COMPANY_PRODUCT_SERVICE = "companyProductService";
-	public static final String COMPANY_WAREHOUSE_SERVICE = "companyWarehouseService";
-	public static final String COMPANY_MACHINERY_SERVICE = "companyMachineryService";
-	public static final String COMPANY_TRANSPORTER_SERVICE = "companyTransporterService";
-	public static final String COMPANY_THIRD_PARTY_SERVICE = "companyThirdPartyService";
-	public static final String COMPANY_MASTER_FEE_SERVICE = "companyMasterFeeService";
-	public static final String STOCK_SERVICE = "stockService";
-	
-	//procurement
-	public static final String PURCHASE_ORDER_SERVICE = "purchaseOrderService";
-	public static final String TRANS_IN_SERVICE = "transInService";
-	public static final String TRANS_IN_ITEM_SERVICE = "transInItemService";
-
-	//production
-	public static final String TRANS_PROD_SERVICE = "transProdService";
-	
-	//inventory
-	public static final String DISPATCH_ORDER_NOTE_SERVICE = "dispatchOrderNoteService";
-	public static final String GOODS_RECEIPT_NOTE_SERVICE = "goodsReceiptNoteService";
-	
-	//sales
-	public static final String TRANS_OUT_SERVICE = "transOutService";
-	
-	//report
-	public static final String REPORT_STOCK_SERVICE = "reportStockService";
-	public static final String REPORT_TRANS_IN_SERVICE = "reportTransInService";
-	public static final String REPORT_COST_EXPENSES_SERVICE = "reportCostExpensesService";
-	public static final String REPORT_CASH_FLOW_SERVICE = "reportCashFlowService";
-	public static final String REPORT_TRANS_OUT_SERVICE = "reportTransOutService";
-	
-	//business report
-	public static final String CASH_FLOW_SERVICE = "cashFlowService";
-	
 	//forecast weather
 	public static final String FORECAST_CALL_SERVICE = "forecastCallService";
+	
+	//about us
+	public static final String COMMON_POST_SERVICE = "commonPostService";
 }

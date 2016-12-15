@@ -5,7 +5,6 @@ import id.base.app.rest.PathInterfaceRestCaller;
 import id.base.app.rest.RestConstant;
 import id.base.app.rest.RestServiceConstant;
 import id.base.app.rest.SpecificRestCaller;
-import id.base.app.valueobject.business.report.ViewCashFlow;
 import id.base.app.valueobject.forecast.ForecastCallDaily;
 import id.base.app.valueobject.forecast.ForecastCallHourly;
 import id.base.app.webMember.WebGeneralFunction;
@@ -24,7 +23,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Scope(value="request")
 @Controller
@@ -97,28 +95,6 @@ public class DashboardWebController{
 			});
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-		return null;
-	}
-	
-	public List<ViewCashFlow> getCashFlowFee(HttpServletRequest request) throws SystemException {
-		try{
-			final Long pkCompany = WebGeneralFunction.getLogin(request).getCompanySelected();
-			return new SpecificRestCaller<ViewCashFlow>(RestConstant.REST_SERVICE, RestServiceConstant.CASH_FLOW_SERVICE).executeGetList(new PathInterfaceRestCaller() {
-				@Override
-				public String getPath() {
-					return "/getCashFlowFee/{pkCompany}";
-				}
-				
-				@Override
-				public Map<String, Object> getParameters() {
-					Map<String, Object> map = new HashMap<>();
-						map.put("pkCompany", pkCompany);
-					return map;
-				}
-			});
-		}catch(Exception e){
-			LOGGER.error(e.getMessage(), e);
 		}
 		return null;
 	}
