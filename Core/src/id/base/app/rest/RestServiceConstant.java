@@ -34,4 +34,5 @@ public class RestServiceConstant {
 	
 	//about us
 	public static final String COMMON_POST_SERVICE = "commonPostService";
+	public static final String ENGAGEMENT_SERVICE = "engagementService";
 }

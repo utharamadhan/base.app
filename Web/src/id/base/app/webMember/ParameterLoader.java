@@ -18,6 +18,7 @@ import id.base.app.valueobject.LookupGroup;
 import id.base.app.valueobject.MasterAddress;
 import id.base.app.valueobject.RuntimeUserLogin;
 import id.base.app.valueobject.aboutUs.CommonPost;
+import id.base.app.valueobject.aboutUs.Engagement;
 import id.base.app.valueobject.party.Party;
 
 import javax.servlet.ServletContext;
@@ -169,5 +170,7 @@ public class ParameterLoader extends ContextLoader implements ServletContextList
 		
 		RestCaller.BASE_URL.put(RestServiceConstant.COMMON_POST_SERVICE, RestConstant.RM_COMMON_POST);
 		RestCaller.BASE_CLASS.put(RestServiceConstant.COMMON_POST_SERVICE, CommonPost.class);
+		RestCaller.BASE_URL.put(RestServiceConstant.ENGAGEMENT_SERVICE, RestConstant.RM_ENGAGEMENT);
+		RestCaller.BASE_CLASS.put(RestServiceConstant.ENGAGEMENT_SERVICE, Engagement.class);
 	}
 }
