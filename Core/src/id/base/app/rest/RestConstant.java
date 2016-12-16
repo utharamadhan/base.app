@@ -53,6 +53,8 @@ public class RestConstant {
 	//about us
 	public static final String RM_COMMON_POST = "/aboutUs/commonPost";
 	public static final String RM_ENGAGEMENT = "/aboutUs/engagement";
+	public static final String RM_PROGRAM_POST = "/aboutUs/programPost";
+	public static final String RM_TUTOR = "/aboutUs/tutor";
 	
 	//forecast call
 	public static final String RM_FORECAST_CALL = "/forecastCall";

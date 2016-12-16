@@ -50,8 +50,32 @@
 			                        </a>
 			                  	</li>
 			                  	<li id="program">
-									<a href="/Web/do/aboutUs/program/showList">
+									<a href="/Web/do/aboutUs/programPost/showList">
 			                        	<i class="fa fa-caret-right"></i> Program
+			                        </a>
+			                  	</li>
+			                  	<li id="program">
+									<a href="/Web/do/aboutUs/tutor/showList">
+			                        	<i class="fa fa-caret-right"></i> Pengajar
+			                        </a>
+			                  	</li>
+							</ul>
+	                  	</li>
+	                  	<li id="publication" class="dropdown">
+	                  		<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                     			<i class="fa fa-bar-chart"></i> Publication Editor <b class="fa fa-plus dropdown-plus"></b>
+                   			</a>
+							<ul class="dropdown-menu">
+								<li id="researchReport">
+									<a href="/Web/do/publication/researchReport/showList">
+			                        	<i class="fa fa-caret-right"></i> Research Report
+			                        </a>
+			                  	</li>
+							</ul>
+							<ul class="dropdown-menu">
+								<li id="digitalBook">
+									<a href="/Web/do/publication/digitalBook/showList">
+			                        	<i class="fa fa-caret-right"></i> Digital Book
 			                        </a>
 			                  	</li>
 							</ul>

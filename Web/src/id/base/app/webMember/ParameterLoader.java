@@ -19,6 +19,8 @@ import id.base.app.valueobject.MasterAddress;
 import id.base.app.valueobject.RuntimeUserLogin;
 import id.base.app.valueobject.aboutUs.CommonPost;
 import id.base.app.valueobject.aboutUs.Engagement;
+import id.base.app.valueobject.aboutUs.ProgramPost;
+import id.base.app.valueobject.aboutUs.Tutor;
 import id.base.app.valueobject.party.Party;
 
 import javax.servlet.ServletContext;
@@ -172,5 +174,10 @@ public class ParameterLoader extends ContextLoader implements ServletContextList
 		RestCaller.BASE_CLASS.put(RestServiceConstant.COMMON_POST_SERVICE, CommonPost.class);
 		RestCaller.BASE_URL.put(RestServiceConstant.ENGAGEMENT_SERVICE, RestConstant.RM_ENGAGEMENT);
 		RestCaller.BASE_CLASS.put(RestServiceConstant.ENGAGEMENT_SERVICE, Engagement.class);
+		RestCaller.BASE_URL.put(RestServiceConstant.PROGRAM_POST_SERVICE, RestConstant.RM_PROGRAM_POST);
+		RestCaller.BASE_CLASS.put(RestServiceConstant.PROGRAM_POST_SERVICE, ProgramPost.class);
+		RestCaller.BASE_URL.put(RestServiceConstant.TUTOR_SERVICE, RestConstant.RM_TUTOR);
+		RestCaller.BASE_CLASS.put(RestServiceConstant.TUTOR_SERVICE, Tutor.class);
+		
 	}
 }
