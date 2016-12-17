@@ -21,7 +21,11 @@ import id.base.app.valueobject.aboutUs.CommonPost;
 import id.base.app.valueobject.aboutUs.Engagement;
 import id.base.app.valueobject.aboutUs.ProgramPost;
 import id.base.app.valueobject.aboutUs.Tutor;
+import id.base.app.valueobject.event.Event;
+import id.base.app.valueobject.news.News;
 import id.base.app.valueobject.party.Party;
+import id.base.app.valueobject.publication.DigitalBook;
+import id.base.app.valueobject.publication.ResearchReport;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -170,6 +174,7 @@ public class ParameterLoader extends ContextLoader implements ServletContextList
 		RestCaller.BASE_URL.put(RestServiceConstant.MAIL_SERVICE, RestConstant.RM_MAIL);
 		RestCaller.BASE_CLASS.put(RestServiceConstant.MAIL_SERVICE, Object.class);
 		
+		// about us
 		RestCaller.BASE_URL.put(RestServiceConstant.COMMON_POST_SERVICE, RestConstant.RM_COMMON_POST);
 		RestCaller.BASE_CLASS.put(RestServiceConstant.COMMON_POST_SERVICE, CommonPost.class);
 		RestCaller.BASE_URL.put(RestServiceConstant.ENGAGEMENT_SERVICE, RestConstant.RM_ENGAGEMENT);
@@ -178,6 +183,20 @@ public class ParameterLoader extends ContextLoader implements ServletContextList
 		RestCaller.BASE_CLASS.put(RestServiceConstant.PROGRAM_POST_SERVICE, ProgramPost.class);
 		RestCaller.BASE_URL.put(RestServiceConstant.TUTOR_SERVICE, RestConstant.RM_TUTOR);
 		RestCaller.BASE_CLASS.put(RestServiceConstant.TUTOR_SERVICE, Tutor.class);
+		
+		// publication
+		RestCaller.BASE_URL.put(RestServiceConstant.RESEARCH_REPORT_SERVICE, RestConstant.RM_RESEARCH_REPORT);
+		RestCaller.BASE_CLASS.put(RestServiceConstant.RESEARCH_REPORT_SERVICE, ResearchReport.class);
+		RestCaller.BASE_URL.put(RestServiceConstant.DIGITAL_BOOK_SERVICE, RestConstant.RM_DIGITAL_BOOK);
+		RestCaller.BASE_CLASS.put(RestServiceConstant.DIGITAL_BOOK_SERVICE, DigitalBook.class);
+		
+		// news
+		RestCaller.BASE_URL.put(RestServiceConstant.NEWS_SERVICE, RestConstant.RM_NEWS);
+		RestCaller.BASE_CLASS.put(RestServiceConstant.NEWS_SERVICE, News.class);
+		
+		// event
+		RestCaller.BASE_URL.put(RestServiceConstant.EVENT_SERVICE, RestConstant.RM_EVENT);
+		RestCaller.BASE_CLASS.put(RestServiceConstant.EVENT_SERVICE, Event.class);
 		
 	}
 }

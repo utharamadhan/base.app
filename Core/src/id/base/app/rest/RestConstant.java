@@ -56,6 +56,17 @@ public class RestConstant {
 	public static final String RM_PROGRAM_POST = "/aboutUs/programPost";
 	public static final String RM_TUTOR = "/aboutUs/tutor";
 	
+	//publication
+	public static final String RM_RESEARCH_REPORT = "/publication/researchReport";
+	public static final String RM_DIGITAL_BOOK = "/publication/digitalBook";
+	
+	//news
+	public static final String RM_NEWS = "/news/newsMaintenance";
+	
+	//event
+	public static final String RM_EVENT = "/event/eventMaintenance";
+	
 	//forecast call
 	public static final String RM_FORECAST_CALL = "/forecastCall";
+	
 }

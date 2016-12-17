@@ -80,6 +80,30 @@
 			                  	</li>
 							</ul>
 	                  	</li>
+	                  	<li id="news" class="dropdown">
+	                  		<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                     			<i class="fa fa-bar-chart"></i> News Editor <b class="fa fa-plus dropdown-plus"></b>
+                   			</a>
+							<ul class="dropdown-menu">
+								<li id="newsMaintenance">
+									<a href="/Web/do/news/newsMaintenance/showList">
+			                        	<i class="fa fa-caret-right"></i> News
+			                        </a>
+			                  	</li>
+							</ul>
+	                  	</li>
+	                  	<li id="event" class="dropdown">
+	                  		<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                     			<i class="fa fa-bar-chart"></i> Events <b class="fa fa-plus dropdown-plus"></b>
+                   			</a>
+							<ul class="dropdown-menu">
+								<li id="eventMaintenance">
+									<a href="/Web/do/event/eventMaintenance/showList">
+			                        	<i class="fa fa-caret-right"></i> Event Maintenance
+			                        </a>
+			                  	</li>
+							</ul>
+	                  	</li>
 		  			</ul>     
 			  	</li>         
             </ul>

@@ -38,4 +38,14 @@ public class RestServiceConstant {
 	public static final String PROGRAM_POST_SERVICE = "programPostService";
 	public static final String TUTOR_SERVICE = "tutorService";
 	
+	//news
+	public static final String NEWS_SERVICE = "newsService";
+	
+	//event
+	public static final String EVENT_SERVICE = "eventService";
+	
+	//publication
+	public static final String RESEARCH_REPORT_SERVICE = "researchReportService";
+	public static final String DIGITAL_BOOK_SERVICE = "digitalBookService";
+	
 }

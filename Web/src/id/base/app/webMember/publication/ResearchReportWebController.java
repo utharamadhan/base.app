@@ -1,4 +1,4 @@
-package id.base.app.webMember.aboutUs;
+package id.base.app.webMember.publication;
 
 import id.base.app.SystemConstant;
 import id.base.app.exception.ErrorHolder;
@@ -12,7 +12,7 @@ import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.valueobject.AppUser;
-import id.base.app.valueobject.aboutUs.CommonPost;
+import id.base.app.valueobject.publication.ResearchReport;
 import id.base.app.webMember.DataTableCriterias;
 import id.base.app.webMember.controller.BaseController;
 
@@ -33,15 +33,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Scope(value="request")
 @Controller
-@RequestMapping("/aboutUs/commonPost")
-public class CommonPostWebController extends BaseController<CommonPost> {
+@RequestMapping("/publication/researchReport")
+public class ResearchReportWebController extends BaseController<ResearchReport> {
 
-	private final String PATH_LIST = "/aboutUs/commonPostList";
-	private final String PATH_DETAIL = "/aboutUs/commonPostDetail";
+	private final String PATH_LIST = "/publication/researchReportList";
+	private final String PATH_DETAIL = "/publication/researchReportDetail";
 	
 	@Override
-	protected RestCaller<CommonPost> getRestCaller() {
-		return new RestCaller<CommonPost>(RestConstant.REST_SERVICE, RestServiceConstant.COMMON_POST_SERVICE);
+	protected RestCaller<ResearchReport> getRestCaller() {
+		return new RestCaller<ResearchReport>(RestConstant.REST_SERVICE, RestServiceConstant.RESEARCH_REPORT_SERVICE);
 	}
 
 	@Override
@@ -50,7 +50,7 @@ public class CommonPostWebController extends BaseController<CommonPost> {
 	}
 	
 	private void setDefaultFilter(HttpServletRequest request, List<SearchFilter> filters) {
-		filters.add(new SearchFilter(CommonPost.STATUS, Operator.EQUALS, SystemConstant.ValidFlag.VALID));
+		filters.add(new SearchFilter(ResearchReport.STATUS, Operator.EQUALS, SystemConstant.ValidFlag.VALID));
 	}
 
 	@Override
@@ -58,7 +58,7 @@ public class CommonPostWebController extends BaseController<CommonPost> {
 		List<SearchFilter> filters = new ArrayList<>();
 		setDefaultFilter(request, filters);
 		if(StringFunction.isNotEmpty(columns.getSearch().get(DataTableCriterias.SearchCriterias.value))){
-			filters.add(new SearchFilter(CommonPost.CODE, Operator.LIKE, columns.getSearch().get(DataTableCriterias.SearchCriterias.value)));
+			filters.add(new SearchFilter(ResearchReport.CODE, Operator.LIKE, columns.getSearch().get(DataTableCriterias.SearchCriterias.value)));
 		}
 		return filters;
 	}
@@ -68,7 +68,7 @@ public class CommonPostWebController extends BaseController<CommonPost> {
 		if(orders != null) {
 			orders.clear();
 		}
-		orders.add(new SearchOrder(CommonPost.PK_COMMON_POST, SearchOrder.Sort.DESC));
+		orders.add(new SearchOrder(ResearchReport.PK_RESEARCH_REPORT, SearchOrder.Sort.DESC));
 		return orders;
 	}
 	
@@ -82,25 +82,25 @@ public class CommonPostWebController extends BaseController<CommonPost> {
 	
 	@RequestMapping(method=RequestMethod.GET, value="showAdd")
 	public String showAdd(ModelMap model, HttpServletRequest request){
-		model.addAttribute("detail", CommonPost.getInstance());
+		model.addAttribute("detail", ResearchReport.getInstance());
 		return PATH_DETAIL;
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="showEdit")
 	public String showEdit(@RequestParam(value="maintenancePK") final Long maintenancePK, @RequestParam Map<String, String> paramWrapper, ModelMap model, HttpServletRequest request){
 		setDefaultData(model);
-		CommonPost detail = getRestCaller().findById(maintenancePK);
+		ResearchReport detail = getRestCaller().findById(maintenancePK);
 		model.addAttribute("detail", detail);
 		return PATH_DETAIL;
 	}
 	
-	@RequestMapping(method=RequestMethod.POST, value="saveCommonPost")
+	@RequestMapping(method=RequestMethod.POST, value="saveResearchReport")
 	@ResponseBody
-	public Map<String, Object> saveCommonPost(final CommonPost anObject, HttpServletRequest request) {
+	public Map<String, Object> saveCommonPost(final ResearchReport anObject, HttpServletRequest request) {
 		Map<String, Object> resultMap = new HashMap<>();
 		List<ErrorHolder> errors = new ArrayList<>();
 		try{
-			errors = new SpecificRestCaller<CommonPost>(RestConstant.REST_SERVICE, RestServiceConstant.COMMON_POST_SERVICE).performPut("/update", anObject);
+			errors = new SpecificRestCaller<ResearchReport>(RestConstant.REST_SERVICE, RestServiceConstant.RESEARCH_REPORT_SERVICE).performPut("/update", anObject);
 			if(errors != null && errors.size() > 0){
 				resultMap.put(SystemConstant.ERROR_LIST, errors);
 			}
