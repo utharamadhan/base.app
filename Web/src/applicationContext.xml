@@ -27,6 +27,16 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
    		</property>
 	</bean>
 	
+	<bean id="imageSharingURLInitialization" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+   		<property name="targetClass" value="id.base.app.SystemConstant" />
+   		<property name="targetMethod" value="setImageSharingURL" />
+   		<property name="arguments">
+      		<list>
+         		<value>${images.mapping.url}</value>
+      		</list>
+   		</property>
+	</bean>
+	
 	<bean id="restInitialisation" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
    		<property name="targetClass" value="id.base.app.rest.RestConstant" />
    		<property name="targetMethod" value="setRestService" />

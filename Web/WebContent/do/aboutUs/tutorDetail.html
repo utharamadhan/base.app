@@ -11,7 +11,7 @@
 			<span></span></h4>
 		</div>
 	</div>
-	<div class="row col-md-8">
+	<div class="row col-md-12">
 	<section class="tile color transparent-black">
 			<div class="tile-body">
 				<form action="#" id="tutor-detail-form" class="form-horizontal" method="POST" novalidate="novalidate" th:object="${detail}">
@@ -31,14 +31,14 @@
 						</div>
 						<input id="tutor-detail-maintenancePk" type="hidden" th:field="*{pkTutor}"/>
 						<div class="form-group">
-							<label class="col-sm-3 control-label" th:text="'Name'">Name</label>
-							<div class="col-sm-9 form-input-container">
+							<label class="col-sm-2 control-label" th:text="'Name'">Name</label>
+							<div class="col-sm-8 form-input-container">
 								<input type="text" class="form-control" placeholder="Name" name="srch-term" id="input-text-name" th:field="*{name}"/>
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-3 control-label" th:text="'Profile Description'">Profile Description</label>
-							<div class="col-sm-9 form-input-container">
+							<label class="col-sm-2 control-label" th:text="'Profile Description'">Profile Description</label>
+							<div class="col-sm-8 form-input-container">
 								<input type="text" class="form-control" placeholder="Content" name="srch-term" id="input-text-name" th:field="*{profileDescription}"/>
 							</div>
 						</div>
