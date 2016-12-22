@@ -104,6 +104,18 @@
 			                  	</li>
 							</ul>
 	                  	</li>
+	                  	<li id="course" class="dropdown">
+	                  		<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                     			<i class="fa fa-bar-chart"></i> Learning <b class="fa fa-plus dropdown-plus"></b>
+                   			</a>
+							<ul class="dropdown-menu">
+								<li id="groupCourse">
+									<a href="/Web/do/course/groupCourse/showList">
+			                        	<i class="fa fa-caret-right"></i> Group Course
+			                        </a>
+			                  	</li>
+							</ul>
+	                  	</li>
 		  			</ul>     
 			  	</li>         
             </ul>

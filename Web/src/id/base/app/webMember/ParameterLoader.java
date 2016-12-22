@@ -21,6 +21,7 @@ import id.base.app.valueobject.aboutUs.CommonPost;
 import id.base.app.valueobject.aboutUs.Engagement;
 import id.base.app.valueobject.aboutUs.ProgramPost;
 import id.base.app.valueobject.aboutUs.Tutor;
+import id.base.app.valueobject.course.GroupCourse;
 import id.base.app.valueobject.event.Event;
 import id.base.app.valueobject.news.News;
 import id.base.app.valueobject.party.Party;
@@ -197,6 +198,10 @@ public class ParameterLoader extends ContextLoader implements ServletContextList
 		// event
 		RestCaller.BASE_URL.put(RestServiceConstant.EVENT_SERVICE, RestConstant.RM_EVENT);
 		RestCaller.BASE_CLASS.put(RestServiceConstant.EVENT_SERVICE, Event.class);
+		
+		// course
+		RestCaller.BASE_URL.put(RestServiceConstant.GROUP_COURSE_SERVICE, RestConstant.RM_GROUP_COURSE);
+		RestCaller.BASE_CLASS.put(RestServiceConstant.GROUP_COURSE_SERVICE,  GroupCourse.class);
 		
 	}
 }

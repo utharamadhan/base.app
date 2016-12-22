@@ -217,7 +217,9 @@ public class SystemConstant  {
     public static String LOCAL_TEMP_DIR_EXPORT 			= FILE_DIRECTORY_TEMP + "/tempExport/";
     public static String LOCAL_TEMP_DIRECTORY_REPORT	= FILE_DIRECTORY_TEMP + "/report/";
     public static String LOCAL_TEMP_DIRECTORY_USER		= FILE_DIRECTORY_TEMP + "/user/";
-    public static String FILE_CONTENT_DIRECTORY			= "";
+    public static String FILE_STORAGE					= "";
+    public static String FILE_CONTENT_DIRECTORY			= "contentDirectory" + File.separator;
+    public static String FILE_FEATURED_IMAGE_DIRECTORY	= "featuredImage" + File.separator;
 	
 	public static void setSharedFolderLocation(String sharedFolderLoc) throws Exception {
 		SHARED_FOLDER_LOCATION = sharedFolderLoc;
@@ -251,8 +253,8 @@ public class SystemConstant  {
 		LOCAL_TEMP_DIRECTORY_USER = FILE_DIRECTORY_TEMP + "/user/";
 		FileManager.createDir(LOCAL_TEMP_DIRECTORY_USER);
 		
-		FILE_CONTENT_DIRECTORY = sharedFolderLoc + File.separator + "contentDirectory" + File.separator;
-		FileManager.createDir(FILE_CONTENT_DIRECTORY);
+		FILE_STORAGE = sharedFolderLoc + File.separator + "fileStorage" + File.separator;
+		FileManager.createDir(FILE_STORAGE);
 		
 	}
 	

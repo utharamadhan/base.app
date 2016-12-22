@@ -1,7 +1,5 @@
 package id.base.app.controller;
 
-import java.util.List;
-
 import id.base.app.exception.SystemException;
 import id.base.app.rest.RestConstant;
 import id.base.app.service.MaintenanceService;
@@ -13,7 +11,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -37,16 +34,8 @@ public class LookupGroupController extends SuperController<LookupGroup>{
 		return lookupGroupService.findByName(name);
 	}
 	
-	
-	@RequestMapping(method=RequestMethod.GET, value="/findLookupGroupForCompany")
-	@ResponseBody
-	public List<LookupGroup> findLookupGroupForCompany() {
-		return lookupGroupService.findLookupGroupForCompany();
-	}
-
 	@Override
 	public LookupGroup validate(LookupGroup anObject) throws SystemException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

@@ -16,7 +16,6 @@ public class LookupGroup implements Serializable {
 	public static final String NAME = "name";
 	public static final String IS_UPDATABLE = "updatable";
 	public static final String IS_VIEWABLE = "viewable";
-	public static final String IS_COMPANY = "company";
 
 	@Id
 	@Column(name = "LOOKUP_GROUP", unique = true)
@@ -65,12 +64,5 @@ public class LookupGroup implements Serializable {
 	public void setViewable(boolean viewable) {
 		this.viewable = viewable;
 	}
-
-	public boolean isCompany() {
-		return company;
-	}
-
-	public void setCompany(boolean company) {
-		this.company = company;
-	}
+	
 }

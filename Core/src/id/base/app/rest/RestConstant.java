@@ -66,6 +66,9 @@ public class RestConstant {
 	//event
 	public static final String RM_EVENT = "/event/eventMaintenance";
 	
+	//learning
+	public static final String RM_GROUP_COURSE = "/course/groupCourse";
+	
 	//forecast call
 	public static final String RM_FORECAST_CALL = "/forecastCall";
 	

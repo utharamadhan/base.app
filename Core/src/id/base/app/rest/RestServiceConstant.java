@@ -48,4 +48,7 @@ public class RestServiceConstant {
 	public static final String RESEARCH_REPORT_SERVICE = "researchReportService";
 	public static final String DIGITAL_BOOK_SERVICE = "digitalBookService";
 	
+	//course
+	public static final String GROUP_COURSE_SERVICE = "groupCourseService";
+	
 }

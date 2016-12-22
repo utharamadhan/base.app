@@ -1,6 +1,6 @@
-package id.base.app.webMember.aboutUs;
+package id.base.app.webMember.course;
 
-import id.base.app.LoginSession;
+import id.base.app.ILookupGroupConstant;
 import id.base.app.SystemConstant;
 import id.base.app.exception.ErrorHolder;
 import id.base.app.paging.PagingWrapper;
@@ -8,22 +8,17 @@ import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
 import id.base.app.rest.RestServiceConstant;
 import id.base.app.rest.SpecificRestCaller;
-import id.base.app.util.DateTimeFunction;
-import id.base.app.util.FileManager;
 import id.base.app.util.StringFunction;
 import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.valueobject.AppUser;
-import id.base.app.valueobject.aboutUs.CommonPost;
+import id.base.app.valueobject.course.GroupCourse;
 import id.base.app.webMember.DataTableCriterias;
-import id.base.app.webMember.WebGeneralFunction;
 import id.base.app.webMember.controller.BaseController;
+import id.base.app.webMember.rest.LookupRestCaller;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,19 +32,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
 @Scope(value="request")
 @Controller
-@RequestMapping("/aboutUs/commonPost")
-public class CommonPostWebController extends BaseController<CommonPost> {
+@RequestMapping("/course/groupCourse")
+public class GroupCourseWebController extends BaseController<GroupCourse> {
 
-	private final String PATH_LIST = "/aboutUs/commonPostList";
-	private final String PATH_DETAIL = "/aboutUs/commonPostDetail";
+	private final String PATH_LIST = "/course/groupCourseList";
+	private final String PATH_DETAIL = "/course/groupCourseDetail";
 	
 	@Override
-	protected RestCaller<CommonPost> getRestCaller() {
-		return new RestCaller<CommonPost>(RestConstant.REST_SERVICE, RestServiceConstant.COMMON_POST_SERVICE);
+	protected RestCaller<GroupCourse> getRestCaller() {
+		return new RestCaller<GroupCourse>(RestConstant.REST_SERVICE, RestServiceConstant.GROUP_COURSE_SERVICE);
 	}
 
 	@Override
@@ -58,7 +52,7 @@ public class CommonPostWebController extends BaseController<CommonPost> {
 	}
 	
 	private void setDefaultFilter(HttpServletRequest request, List<SearchFilter> filters) {
-		filters.add(new SearchFilter(CommonPost.STATUS, Operator.EQUALS, SystemConstant.ValidFlag.VALID));
+		filters.add(new SearchFilter(GroupCourse.STATUS, Operator.EQUALS, SystemConstant.ValidFlag.VALID));
 	}
 
 	@Override
@@ -66,7 +60,7 @@ public class CommonPostWebController extends BaseController<CommonPost> {
 		List<SearchFilter> filters = new ArrayList<>();
 		setDefaultFilter(request, filters);
 		if(StringFunction.isNotEmpty(columns.getSearch().get(DataTableCriterias.SearchCriterias.value))){
-			filters.add(new SearchFilter(CommonPost.CODE, Operator.LIKE, columns.getSearch().get(DataTableCriterias.SearchCriterias.value)));
+			filters.add(new SearchFilter(GroupCourse.CODE, Operator.LIKE, columns.getSearch().get(DataTableCriterias.SearchCriterias.value)));
 		}
 		return filters;
 	}
@@ -76,7 +70,7 @@ public class CommonPostWebController extends BaseController<CommonPost> {
 		if(orders != null) {
 			orders.clear();
 		}
-		orders.add(new SearchOrder(CommonPost.PK_COMMON_POST, SearchOrder.Sort.DESC));
+		orders.add(new SearchOrder(GroupCourse.PK_GROUP_COURSE, SearchOrder.Sort.DESC));
 		return orders;
 	}
 	
@@ -86,29 +80,33 @@ public class CommonPostWebController extends BaseController<CommonPost> {
 		return getListPath();
 	}
 	
-	public void setDefaultData(ModelMap model) {}
+	public void setDefaultData(ModelMap model) {
+		LookupRestCaller lrc = new LookupRestCaller();
+		model.addAttribute("basicFieldOptions", lrc.findByLookupGroup(ILookupGroupConstant.COURSE_BASIC_INFO_FIELD));
+	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="showAdd")
 	public String showAdd(ModelMap model, HttpServletRequest request){
-		model.addAttribute("detail", CommonPost.getInstance());
+		model.addAttribute("detail", GroupCourse.getInstance());
+		setDefaultData(model);
 		return PATH_DETAIL;
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="showEdit")
 	public String showEdit(@RequestParam(value="maintenancePK") final Long maintenancePK, @RequestParam Map<String, String> paramWrapper, ModelMap model, HttpServletRequest request){
 		setDefaultData(model);
-		CommonPost detail = getRestCaller().findById(maintenancePK);
+		GroupCourse detail = getRestCaller().findById(maintenancePK);
 		model.addAttribute("detail", detail);
 		return PATH_DETAIL;
 	}
 	
-	@RequestMapping(method=RequestMethod.POST, value="saveCommonPost")
+	@RequestMapping(method=RequestMethod.POST, value="saveGroupCourse")
 	@ResponseBody
-	public Map<String, Object> saveCommonPost(final CommonPost anObject, HttpServletRequest request) {
+	public Map<String, Object> saveGroupCourse(final GroupCourse anObject, HttpServletRequest request) {
 		Map<String, Object> resultMap = new HashMap<>();
 		List<ErrorHolder> errors = new ArrayList<>();
 		try{
-			errors = new SpecificRestCaller<CommonPost>(RestConstant.REST_SERVICE, RestServiceConstant.COMMON_POST_SERVICE).performPut("/update", anObject);
+			errors = new SpecificRestCaller<GroupCourse>(RestConstant.REST_SERVICE, RestServiceConstant.GROUP_COURSE_SERVICE).performPut("/update", anObject);
 			if(errors != null && errors.size() > 0){
 				resultMap.put(SystemConstant.ERROR_LIST, errors);
 			}

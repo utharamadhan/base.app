@@ -63,12 +63,30 @@ public class FileManagerWebController extends BaseController<Path> {
 		String fileName = "";
 		try{
 			String subfolderPerDay = DateTimeFunction.date2String(Calendar.getInstance().getTime(), SystemConstant.SYSTEM_DATE_MASK_NO_DELIMITER);
-			FileManager.createDir(SystemConstant.FILE_CONTENT_DIRECTORY + subfolderPerDay);
+			FileManager.createDir(SystemConstant.FILE_STORAGE + SystemConstant.FILE_CONTENT_DIRECTORY + subfolderPerDay);
 			String originalFileName = file.getOriginalFilename();
 			String fileType = originalFileName.substring(originalFileName.lastIndexOf(".") + 1, originalFileName.length());
-			fileName = subfolderPerDay + "/" + "BTN_" + DateTimeFunction.date2String(new Date(), SystemConstant.SYSTEM_DATE_TIME_NO_DELIMITER) + "." + fileType;
-			file.transferTo(new File(SystemConstant.FILE_CONTENT_DIRECTORY + "/" + fileName));
-			return SystemConstant.IMAGE_SHARING_URL + fileName;
+			fileName = subfolderPerDay + File.separator + "BTN_" + DateTimeFunction.date2String(new Date(), SystemConstant.SYSTEM_DATE_TIME_NO_DELIMITER) + "." + fileType;
+			file.transferTo(new File(SystemConstant.FILE_STORAGE + SystemConstant.FILE_CONTENT_DIRECTORY + fileName));
+			return SystemConstant.IMAGE_SHARING_URL + SystemConstant.FILE_CONTENT_DIRECTORY + fileName;
+		}catch(Exception e){
+			LOGGER.debug(e.getMessage());
+		}
+		return fileName;
+	}
+	
+	@RequestMapping(method=RequestMethod.POST, value="/uploadFeaturedImage")
+	@ResponseBody
+	public String uploadFeaturedImage(@RequestParam("file") final MultipartFile file, ModelMap modelMap, HttpServletRequest request) {
+		String fileName = "";
+		try{
+			String subfolderPerDay = DateTimeFunction.date2String(Calendar.getInstance().getTime(), SystemConstant.SYSTEM_DATE_MASK_NO_DELIMITER);
+			FileManager.createDir(SystemConstant.FILE_STORAGE + SystemConstant.FILE_FEATURED_IMAGE_DIRECTORY + subfolderPerDay);
+			String originalFileName = file.getOriginalFilename();
+			String fileType = originalFileName.substring(originalFileName.lastIndexOf(".") + 1, originalFileName.length());
+			fileName = subfolderPerDay + File.separator + "BTN_" + DateTimeFunction.date2String(new Date(), SystemConstant.SYSTEM_DATE_TIME_NO_DELIMITER) + "." + fileType;
+			file.transferTo(new File(SystemConstant.FILE_STORAGE + SystemConstant.FILE_FEATURED_IMAGE_DIRECTORY + "/" + fileName));
+			return SystemConstant.IMAGE_SHARING_URL + SystemConstant.FILE_FEATURED_IMAGE_DIRECTORY + fileName;
 		}catch(Exception e){
 			LOGGER.debug(e.getMessage());
 		}
