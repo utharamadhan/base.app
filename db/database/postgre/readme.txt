@@ -6,4 +6,9 @@ ex :
 
 psql --username=baseApp -d baseApp -a -f runallscript.sql
 
-2. now you can try to log in with user = ADMIN and pass = master
+2. add this property into your server.xml
+
+<Context docBase="D:/project/baseApp/fileStorage/" path="/otherResources"/>
+
+3. now you can try to log in with user = ADMIN and pass = master
+
