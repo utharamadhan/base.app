@@ -29,9 +29,6 @@ public class LookupGroup implements Serializable {
 	
 	@Column(name = "IS_VIEWABLE")
 	private boolean viewable;
-	
-	@Column(name = "IS_COMPANY")
-	private boolean company;
 
 	public String getName() {
 		return name;

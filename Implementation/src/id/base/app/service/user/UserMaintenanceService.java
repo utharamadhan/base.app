@@ -238,10 +238,6 @@ public class UserMaintenanceService implements MaintenanceService<AppUser>, IUse
 	private boolean isCreateMode(AppUser appUser) {
 		return (appUser.getPkAppUser() == null || appUser.getPkAppUser() == 0);
 	}
-	
-	private boolean isExternalUser(AppUser appUser) {
-		return (appUser.getUserType().equals(SystemConstant.USER_TYPE_EXTERNAL));
-	}
 
 	public PagingWrapper<AppUser> findAllByFilter(int startNo, int offset,
 			List<SearchFilter> filter, List<SearchOrder> order)

@@ -16,8 +16,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @Entity
 @Table(name = "GROUP_COURSE")
+@JsonIdentityInfo(generator=ObjectIdGenerators.UUIDGenerator.class, property="groupCourseJid", scope=GroupCourse.class)
 public class GroupCourse extends BaseEntity implements Serializable {
 	/**
 	 * 

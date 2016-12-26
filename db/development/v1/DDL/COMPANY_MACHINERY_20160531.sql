@@ -1,1 +1,0 @@
-ALTER TABLE company_machinery ADD COLUMN is_predefined boolean NOT NULL DEFAULT false;

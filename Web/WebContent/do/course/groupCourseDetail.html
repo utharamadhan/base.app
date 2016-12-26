@@ -74,18 +74,20 @@
 								                        </tr>
 								                    </thead>
 	                     							<tbody>
-	                     								<th:block th:if="*{#lists.isEmpty(gcBasicInformationList)}">
+	                     								<th:block th:if="*{#lists.isEmpty(detail.gcBasicInformationList)}">
 								                        <tr>
 															<td>
 																<div class="input-group input-group-sm" style="width:100%;">
+																	<input type="hidden" class="gcBasicTable-id"/>
+																	<input type="hidden" class="gcBasicTable-orderNo"/>
 																	<select class="gcBasicTable-fieldLookup chosen-select form-control">
-	                                 									<option th:each="item : ${basicFieldOptions}" th:text="${item.name}">Name</option>
+	                                 									<option th:each="item : ${basicFieldOptions}" th:value="${item.pkLookup}" th:text="${item.name}">Name</option>
 	                                 								</select>
 																</div>
 															</td>
 															<td>
 																<div class="input-group input-group-sm" style="width:100%;">
-																	<input type="text" class="form-control preSerialize-remove"/>
+																	<input type="text" class="gcBasicTable-value form-control preSerialize-remove"/>
 																</div>
 															</td>
 															<td>
@@ -93,18 +95,20 @@
 															</td>
 								                        </tr>
 								                        </th:block>
-								                        <th:block th:if="*{not #lists.isEmpty(gcBasicInformationList)}">
+								                        <th:block th:if="*{not #lists.isEmpty(detail.gcBasicInformationList)}">
 								                        	<tr th:each="item, status : *{gcBasicInformationList}">
 								                        	<td>
 																<div class="input-group input-group-sm" style="width:100%;">
+																	<input type="hidden" class="gcBasicTable-id" th:value="${item.pkGCBasicInformation}"/>
+																	<input type="hidden" class="gcBasicTable-orderNo" th:value="${item.orderNo}"/>
 																	<select class="gcBasicTable-fieldLookup chosen-select form-control">
-	                                 									<option th:each="item : ${basicFieldOptions}" th:text="${item.name}">Name</option>
+	                                 									<option th:each="opt : ${basicFieldOptions}" th:value="${item.pkLookup}" th:text="${item.name}" th:selected="${item.fieldLookup.pkLookup == opt.pkLookup}">Name</option>
 	                                 								</select>
 																</div>
 															</td>
 															<td>
 																<div class="input-group input-group-sm" style="width:100%;">
-																	<input type="text" class="form-control preSerialize-remove"/>
+																	<input type="text" class="gcBasicTable-value form-control preSerialize-remove" th:value="${item.value}"/>
 																</div>
 															</td>
 															<td>
@@ -161,14 +165,16 @@
 			<tr>
 				<td>
 					<div class="input-group input-group-sm" style="width:100%;">
+						<input type="hidden" class="gcBasicTable-id"/>
+						<input type="hidden" class="gcBasicTable-orderNo"/>
 						<select class="gcBasicTable-fieldLookup chosen-select form-control">
-							<option>Test</option>
-						</select>
+                        	<option th:each="item : ${basicFieldOptions}" th:value="${item.pkLookup}" th:text="${item.name}">Name</option>
+                        </select>
 					</div>
 				</td>
 				<td>
 					<div class="input-group input-group-sm" style="width:100%;">
-						<input type="text" class="gcBasicInfo-value form-control preSerialize-remove"/>
+						<input type="text" class="gcBasicTable-value form-control preSerialize-remove"/>
 					</div>
 				</td>
 				<td>
@@ -237,9 +243,12 @@
 			
 			var preSerializeForm = function() {
 				var idx = 0;
-				$('#gcBasicInfo').find('tbody').find('tr').each(function(){						
-					$(this).find('.gcBasicTable-fieldLookup').attr('name', 'gcBasicInformations['+idx+'].pkGCBasicInformation');
-					$(this).find('.gcBasicTable-value').attr('name', 'gcBasicInformations['+idx+'].value');
+				$('#gcBasicTable').find('tbody').find('tr').each(function(){
+					$(this).find('.gcBasicTable-id').attr('name', 'gcBasicInformationList['+idx+'].pkGCBasicInformation');
+					$(this).find('.gcBasicTable-orderNo').val(idx);
+					$(this).find('.gcBasicTable-orderNo').attr('name', 'gcBasicInformationList['+idx+'].orderNo');
+					$(this).find('.gcBasicTable-fieldLookup').attr('name', 'gcBasicInformationList['+idx+'].fieldLookup.pkLookup');
+					$(this).find('.gcBasicTable-value').attr('name', 'gcBasicInformationList['+idx+'].value');
 					idx++;
 				});
 			};

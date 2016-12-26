@@ -84,7 +84,7 @@ public class ShortLifeSessionFilter2 implements Filter{
 				RuntimeUserLogin login = new LoginRestCaller().findByUserName(splittedToken[1]);
 				if(login!=null){
 					try {
-						if(SystemConstant.USER_TYPE_EXTERNAL==login.getSessionType().intValue()){
+						if(SystemConstant.USER_TYPE_INTERNAL==login.getSessionType().intValue()){
 							WebGeneralFunction.buildLoginSession(login,request);
 						}else{
 							try{

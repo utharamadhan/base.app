@@ -16,8 +16,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @Entity
 @Table(name = "GC_BASIC_INFO")
+@JsonIdentityInfo(generator=ObjectIdGenerators.UUIDGenerator.class, property="gcBasicInformationJid", scope=GCBasicInformation.class)
 public class GCBasicInformation extends BaseEntity implements Serializable {
 	/**
 	 * 
@@ -38,7 +42,8 @@ public class GCBasicInformation extends BaseEntity implements Serializable {
 	@Column(name = "PK_GC_BASIC_INFO", unique = true ,nullable = false)
 	private Long pkGCBasicInformation;
 	
-	@Column(name="FK_LOOKUP_FIELD")
+	@ManyToOne
+	@JoinColumn(name="FK_LOOKUP_FIELD")
 	private Lookup fieldLookup;
 	
 	@Column(name="VALUE")

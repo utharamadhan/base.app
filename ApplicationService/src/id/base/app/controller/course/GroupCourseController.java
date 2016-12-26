@@ -8,6 +8,7 @@ import id.base.app.rest.RestConstant;
 import id.base.app.service.MaintenanceService;
 import id.base.app.service.course.IGroupCourseService;
 import id.base.app.util.StringFunction;
+import id.base.app.valueobject.course.GCBasicInformation;
 import id.base.app.valueobject.course.GroupCourse;
 
 import java.util.ArrayList;
@@ -41,8 +42,14 @@ public class GroupCourseController extends SuperController<GroupCourse>{
 		if(StringFunction.isEmpty(anObject.getBasicPictureURL())) {
 			errorList.add(new ErrorHolder(GroupCourse.BASIC_PICTURE_URL, messageSource.getMessage("error.mandatory", new String[]{"picture"}, Locale.ENGLISH)));
 		}
-		if(StringFunction.isEmpty(anObject.getFullDescription())) {
-			errorList.add(new ErrorHolder(GroupCourse.FULL_DESCRIPTION, messageSource.getMessage("error.mandatory", new String[]{"full description"}, Locale.ENGLISH)));
+		if(anObject.getGcBasicInformationList() == null || anObject.getGcBasicInformationList().size() < 1) {
+			errorList.add(new ErrorHolder(messageSource.getMessage("error.mandatory", new String[]{"Basic Information"}, Locale.ENGLISH)));
+		} else {
+			for(GCBasicInformation gcBasic : anObject.getGcBasicInformationList()) {
+				if(gcBasic.getFieldLookup() == null || gcBasic.getFieldLookup().getPkLookup() == null) {
+					errorList.add(new ErrorHolder(messageSource.getMessage("error.mandatory", new String[]{"Field Lookup"}, Locale.ENGLISH)));
+				}
+			}
 		}
 		if(errorList.size() > 0) {
 			throw new SystemException(errorList);
@@ -58,6 +65,11 @@ public class GroupCourseController extends SuperController<GroupCourse>{
 	@Override
 	public GroupCourse preUpdate(GroupCourse anObject) throws SystemException{
 		anObject.setStatus(SystemConstant.ValidFlag.VALID);
+		if(anObject.getGcBasicInformationList() != null) {
+			for(GCBasicInformation bi : anObject.getGcBasicInformationList()) {
+				bi.setGroupCourse(anObject);
+			}
+		}
 		return validate(anObject);
 	}
 	

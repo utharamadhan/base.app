@@ -1,1 +1,0 @@
-ALTER TABLE master_fee DROP COLUMN total_fee;

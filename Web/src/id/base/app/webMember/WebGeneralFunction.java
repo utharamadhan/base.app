@@ -128,7 +128,7 @@ public class WebGeneralFunction {
 		loginSession.setUserName(login.getUserName());
 		loginSession.setName(login.getName());
 		loginSession.setUserType(login.getUserType());
-		loginSession.setSessionType(SystemConstant.USER_TYPE_EXTERNAL);
+		loginSession.setSessionType(SystemConstant.USER_TYPE_INTERNAL);
 		
 		if(null != login.getAccessInfo()){
 			List<Long> userRoles = new ArrayList<>();
@@ -256,7 +256,7 @@ public class WebGeneralFunction {
 			runtimeUserLogin.setEmail(loginSession.getEmail());
 			runtimeUserLogin.setAccessInfo(cookieValue.replace(SystemConstant.COOKIE_SEPARATOR, SystemConstant.TOKEN_SEPARATOR));
 			runtimeUserLogin.setUserType(loginSession.getUserType());
-			runtimeUserLogin.setSessionType(SystemConstant.USER_TYPE_EXTERNAL);
+			runtimeUserLogin.setSessionType(SystemConstant.USER_TYPE_INTERNAL);
 
 
 			AppFunctionRestCaller appFunctionService = new AppFunctionRestCaller();
@@ -279,7 +279,7 @@ public class WebGeneralFunction {
 			
 			List<AppFunction> listMenu =appFunctionService.findAppFunctionMenuByUserRoles(user.getAppRoles());
 			for(AppFunction appFunction: listMenu) {
-				if(SystemConstant.USER_TYPE_EXTERNAL == appFunction.getUserType().intValue() ){
+				if(SystemConstant.USER_TYPE_INTERNAL == appFunction.getUserType().intValue() ){
 					menus.add(appFunction);
 					cookieMenus.put(appFunction.getName(), appFunction.getAccessPage());
 				}else{

@@ -123,7 +123,7 @@ public class SystemConstant  {
     public static Map<String, String> userTypeMaps = new LinkedHashMap<>();
 	static{
 		userTypeMaps.put(String.valueOf(USER_TYPE_INTERNAL), USER_TYPE_INTERNAL_STR);
-		userTypeMaps.put(String.valueOf(USER_TYPE_EXTERNAL), USER_TYPE_EXTERNAL_STR);
+		//userTypeMaps.put(String.valueOf(USER_TYPE_EXTERNAL), USER_TYPE_EXTERNAL_STR);
 	}
 	
 	public static final String RECAPCHA_PUBLIC_KEY ="6LdFYsESAAAAADc5B5e9brgINvhCEuYwt5QceKPK";
