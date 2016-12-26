@@ -4,6 +4,17 @@
 <meta charset="ISO-8859-1"/>
 <title>Group Course Detail</title>
 </head>
+<style>
+.gcDetail-basicPicture {
+	max-height : 250px;
+}
+
+.basicPicture-delete {
+	position:absolute;
+	left:25px;
+	top:10px;
+}
+</style>
 <body>
 	<div class="pageheader">
 		<div class="row col-md-8">
@@ -47,14 +58,17 @@
 							<div class="col-sm-9 form-input-container">
 								<th:block th:if="${detail.basicPictureURL != null}">
 									<input type="hidden" id="input-hidden-basicPictureURL" th:field="*{basicPictureURL}"/>
+									<input type="file" class="form-control" id="input-file-basicPictureURL" style="display:none;"/>
 									<div id="container-basicPictureURL">
-										<img th:src="${detail.basicPictureURL}"/>
+										<img th:src="${detail.basicPictureURL}" class="gcDetail-basicPicture"/>
+										<a href="#" class="btn btn-primary btn-xs margin-bottom-20 basicPicture-delete" data-toggle="tooltip" title="Delete"><i class="fa fa-trash"></i></a>
 									</div>
 								</th:block>
 								<th:block th:if="${detail.basicPictureURL == null}">
 									<input type="hidden" id="input-hidden-basicPictureURL" name="basicPictureURL"/>
 									<input type="file" class="form-control" id="input-file-basicPictureURL"/>
-									<div id="container-basicPictureURL" style='display:none;'></div>
+									<div id="container-basicPictureURL" style='display:none;'>
+									</div>
 								</th:block>
 							</div>
 						</div>
@@ -196,10 +210,21 @@
 				e.preventDefault();
 				removeRowBasicInfo(this);
 			});
-		}	           
+		}
+	
+		function initDeletePicture() {
+			$('.basicPicture-delete').click(function(e){
+				e.preventDefault();
+				$('#input-file-basicPictureURL').show();
+				$('#container-basicPictureURL').html("");
+				$('#input-hidden-basicPictureURL, #input-file-basicPictureURL').val("");
+				$('#container-basicPictureURL').hide();
+			});
+		}
 	
 	    $(function(){
 	    	initDeleteFunction();
+	    	initDeletePicture();
 	    	
 			var backToList = function(){
 				returnToList('groupCourse-detail-container', 'groupCourse-list-container', true);
@@ -270,9 +295,12 @@
 			
 			var showImage = function(imageURL) {
 				$('#input-file-basicPictureURL').hide();
-				$('#container-basicPictureURL').html('<image src="'+imageURL+'"></image>');
+				var htmlContent = '<image src="'+imageURL+'" style="max-height:250px;"></image>';
+				htmlContent += '<a href="#" class="btn btn-primary btn-xs margin-bottom-20 basicPicture-delete" data-toggle="tooltip" title="Delete" style="position:absolute; left:25px; top:10px;"><i class="fa fa-trash"></i></a>';
+				$('#container-basicPictureURL').html(htmlContent);
 				$('#input-hidden-basicPictureURL').val(imageURL);
 				$('#container-basicPictureURL').show();
+				initDeletePicture();
 			}
 			
 			var uploadFile = function(image, uploadURL) {
