@@ -45,13 +45,14 @@
 						<div class="form-group">
 							<label class="col-sm-2 control-label" th:text="'Featured Image'">Featured Image</label>
 							<div class="col-sm-9 form-input-container">
-								<input type="hidden" id="input-hidden-basicPictureURL" name="basicPictureURL"/>
 								<th:block th:if="${detail.basicPictureURL != null}">
+									<input type="hidden" id="input-hidden-basicPictureURL" th:field="*{basicPictureURL}"/>
 									<div id="container-basicPictureURL">
 										<img th:src="${detail.basicPictureURL}"/>
 									</div>
 								</th:block>
 								<th:block th:if="${detail.basicPictureURL == null}">
+									<input type="hidden" id="input-hidden-basicPictureURL" name="basicPictureURL"/>
 									<input type="file" class="form-control" id="input-file-basicPictureURL"/>
 									<div id="container-basicPictureURL" style='display:none;'></div>
 								</th:block>
@@ -74,14 +75,14 @@
 								                        </tr>
 								                    </thead>
 	                     							<tbody>
-	                     								<th:block th:if="*{#lists.isEmpty(detail.gcBasicInformationList)}">
+	                     								<th:block th:if="*{#lists.isEmpty(gcBasicInformationList)}">
 								                        <tr>
 															<td>
 																<div class="input-group input-group-sm" style="width:100%;">
 																	<input type="hidden" class="gcBasicTable-id"/>
 																	<input type="hidden" class="gcBasicTable-orderNo"/>
 																	<select class="gcBasicTable-fieldLookup chosen-select form-control">
-	                                 									<option th:each="item : ${basicFieldOptions}" th:value="${item.pkLookup}" th:text="${item.name}">Name</option>
+	                                 									<option th:each="opt : ${basicFieldOptions}" th:value="${opt.pkLookup}" th:text="${opt.name}">Name</option>
 	                                 								</select>
 																</div>
 															</td>
@@ -95,14 +96,14 @@
 															</td>
 								                        </tr>
 								                        </th:block>
-								                        <th:block th:if="*{not #lists.isEmpty(detail.gcBasicInformationList)}">
+								                        <th:block th:if="*{not #lists.isEmpty(gcBasicInformationList)}">
 								                        	<tr th:each="item, status : *{gcBasicInformationList}">
 								                        	<td>
 																<div class="input-group input-group-sm" style="width:100%;">
 																	<input type="hidden" class="gcBasicTable-id" th:value="${item.pkGCBasicInformation}"/>
 																	<input type="hidden" class="gcBasicTable-orderNo" th:value="${item.orderNo}"/>
 																	<select class="gcBasicTable-fieldLookup chosen-select form-control">
-	                                 									<option th:each="opt : ${basicFieldOptions}" th:value="${item.pkLookup}" th:text="${item.name}" th:selected="${item.fieldLookup.pkLookup == opt.pkLookup}">Name</option>
+	                                 									<option th:each="opt : ${basicFieldOptions}" th:value="${opt.pkLookup}" th:text="${opt.name}" th:selected="${item.fieldLookup.pkLookup == opt.pkLookup}">Name</option>
 	                                 								</select>
 																</div>
 															</td>
@@ -168,7 +169,7 @@
 						<input type="hidden" class="gcBasicTable-id"/>
 						<input type="hidden" class="gcBasicTable-orderNo"/>
 						<select class="gcBasicTable-fieldLookup chosen-select form-control">
-                        	<option th:each="item : ${basicFieldOptions}" th:value="${item.pkLookup}" th:text="${item.name}">Name</option>
+                        	<option th:each="opt : ${basicFieldOptions}" th:value="${opt.pkLookup}" th:text="${opt.name}">Name</option>
                         </select>
 					</div>
 				</td>
