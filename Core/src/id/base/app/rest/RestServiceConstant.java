@@ -50,5 +50,6 @@ public class RestServiceConstant {
 	
 	//course
 	public static final String GROUP_COURSE_SERVICE = "groupCourseService";
+	public static final String COURSE_SERVICE 		= "courseService";
 	
 }

@@ -77,4 +77,9 @@ public class GroupCourseService implements IGroupCourseService {
 		return groupCourseDAO.findAll(filter, order);
 	}
 
+	@Override
+	public List<GroupCourse> findAllGroupCourseCodeName() throws SystemException {
+		return groupCourseDAO.findAllGroupCourseCodeName();
+	}
+
 }

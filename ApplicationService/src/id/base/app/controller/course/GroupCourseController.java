@@ -17,6 +17,7 @@ import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -71,6 +72,12 @@ public class GroupCourseController extends SuperController<GroupCourse>{
 			}
 		}
 		return validate(anObject);
+	}
+	
+	@RequestMapping(value="/findAllGroupCourseCodeName")
+	@ResponseBody
+	public List<GroupCourse> findAllGroupCourseCodeName() throws SystemException {
+		return groupCourseService.findAllGroupCourseCodeName();
 	}
 	
 }

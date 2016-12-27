@@ -115,6 +115,13 @@
 			                        </a>
 			                  	</li>
 							</ul>
+							<ul class="dropdown-menu">
+								<li id="course">
+									<a href="/Web/do/course/course/showList">
+			                        	<i class="fa fa-caret-right"></i> Course
+			                        </a>
+			                  	</li>
+							</ul>
 	                  	</li>
 		  			</ul>     
 			  	</li>         

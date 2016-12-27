@@ -68,6 +68,7 @@ public class RestConstant {
 	
 	//learning
 	public static final String RM_GROUP_COURSE = "/course/groupCourse";
+	public static final String RM_COURSE = "/course/course";
 	
 	//forecast call
 	public static final String RM_FORECAST_CALL = "/forecastCall";
