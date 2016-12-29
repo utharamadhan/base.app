@@ -185,6 +185,7 @@ public class AppRoleController extends SuperController<AppRole>{
 	
 	@Override
 	public AppRole preUpdate(AppRole anObject) throws SystemException {
+			anObject.setType(SystemConstant.USER_TYPE_INTERNAL);
 		return validate(anObject);
 	}
 	

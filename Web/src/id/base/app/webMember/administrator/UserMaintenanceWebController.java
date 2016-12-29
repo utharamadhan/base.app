@@ -3,6 +3,7 @@ package id.base.app.webMember.administrator;
 import id.base.app.SystemConstant;
 import id.base.app.exception.ErrorHolder;
 import id.base.app.paging.PagingWrapper;
+import id.base.app.rest.PathInterfaceRestCaller;
 import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
 import id.base.app.rest.RestServiceConstant;
@@ -12,6 +13,7 @@ import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.valueobject.AppParameter;
+import id.base.app.valueobject.AppRole;
 import id.base.app.valueobject.AppUser;
 import id.base.app.webMember.DataTableCriterias;
 import id.base.app.webMember.controller.BaseController;
@@ -78,10 +80,14 @@ public class UserMaintenanceWebController extends BaseController<AppUser> {
 		return getListPath();
 	}
 	
-	public void setDefaultData(ModelMap model) {}
+	public void setDefaultData(ModelMap model) {
+		model.addAttribute("roleOptions", getAllRoleOptions());
+	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="showAdd")
 	public String showAdd(ModelMap model, HttpServletRequest request){
+		model.addAttribute("detail", AppUser.getInstance());
+		setDefaultData(model);
 		return PATH_DETAIL;
 	}
 	
@@ -107,6 +113,20 @@ public class UserMaintenanceWebController extends BaseController<AppUser> {
 			LOGGER.error(e.getMessage(), e);
 		}
 		return resultMap;
+	}
+	
+	private List<AppRole> getAllRoleOptions() {
+		return new SpecificRestCaller<AppRole>(RestConstant.REST_SERVICE, RestConstant.RM_ROLE, AppRole.class).executeGetList(new PathInterfaceRestCaller(){
+			@Override
+			public String getPath() {
+				return null;
+			}
+			
+			@Override
+			public Map<String, Object> getParameters() {
+				return null;
+			}
+		});
 	}
 
 	@Override
