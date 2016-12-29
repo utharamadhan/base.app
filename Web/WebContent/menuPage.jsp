@@ -123,6 +123,25 @@
 			                  	</li>
 							</ul>
 	                  	</li>
+	                  	<li id="research" class="dropdown">
+	                  		<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                     			<i class="fa fa-bar-chart"></i> Research <b class="fa fa-plus dropdown-plus"></b>
+                   			</a>
+							<ul class="dropdown-menu">
+								<li id="researchTopic">
+									<a href="/Web/do/research/researchTopic/showList">
+			                        	<i class="fa fa-caret-right"></i> Research Topic
+			                        </a>
+			                  	</li>
+							</ul>
+							<ul class="dropdown-menu">
+								<li id="researchMaintenance">
+									<a href="/Web/do/research/researchMaintenance/showList">
+			                        	<i class="fa fa-caret-right"></i> Research Maintenance
+			                        </a>
+			                  	</li>
+							</ul>
+	                  	</li>
 		  			</ul>     
 			  	</li>         
             </ul>
