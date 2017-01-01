@@ -42,7 +42,7 @@
 						</div>
 						<input id="course-detail-maintenancePk" type="hidden" th:field="*{pkCourse}"/>
 						<div class="form-group">
-							<label class="col-sm-2 control-label" th:text="'Code'">Code</label>
+							<label class="col-sm-2 control-label" th:text="'Group Course'">Group Course</label>
 							<div class="col-sm-9 form-input-container">
 								<select class="course-detail-groupCourseSelect chosen-select form-control" th:field="*{groupCourse.pkGroupCourse}">
 									<option th:each="opt : ${groupCourseOptions}" th:value="${opt.pkGroupCourse}" th:text="${opt.name}">Name</option>

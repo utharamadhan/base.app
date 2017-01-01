@@ -3,6 +3,7 @@ package id.base.app.webMember.research;
 import id.base.app.SystemConstant;
 import id.base.app.exception.ErrorHolder;
 import id.base.app.paging.PagingWrapper;
+import id.base.app.rest.PathInterfaceRestCaller;
 import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
 import id.base.app.rest.RestServiceConstant;
@@ -13,6 +14,7 @@ import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.valueobject.AppUser;
 import id.base.app.valueobject.research.Research;
+import id.base.app.valueobject.research.ResearchTopic;
 import id.base.app.webMember.DataTableCriterias;
 import id.base.app.webMember.controller.BaseController;
 
@@ -78,10 +80,27 @@ public class ResearchWebController extends BaseController<Research> {
 		return getListPath();
 	}
 	
-	public void setDefaultData(ModelMap model) {}
+	public void setDefaultData(ModelMap model) {
+		model.addAttribute("researchTopicOptions", getAllResearchTopicOptions());
+	}
+	
+	private List<ResearchTopic> getAllResearchTopicOptions() {
+		return new SpecificRestCaller<ResearchTopic>(RestConstant.REST_SERVICE, RestConstant.RM_RESEARCH_TOPIC, ResearchTopic.class).executeGetList(new PathInterfaceRestCaller() {
+			@Override
+			public String getPath() {
+				return "/findAllResearchTopicCodeAndName";
+			}
+			
+			@Override
+			public Map<String, Object> getParameters() {
+				return new HashMap<String, Object>();
+			}
+		});
+	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="showAdd")
 	public String showAdd(ModelMap model, HttpServletRequest request){
+		setDefaultData(model);
 		model.addAttribute("detail", Research.getInstance());
 		return PATH_DETAIL;
 	}
@@ -89,8 +108,7 @@ public class ResearchWebController extends BaseController<Research> {
 	@RequestMapping(method=RequestMethod.GET, value="showEdit")
 	public String showEdit(@RequestParam(value="maintenancePK") final Long maintenancePK, @RequestParam Map<String, String> paramWrapper, ModelMap model, HttpServletRequest request){
 		setDefaultData(model);
-		Research detail = getRestCaller().findById(maintenancePK);
-		model.addAttribute("detail", detail);
+		model.addAttribute("detail", getRestCaller().findById(maintenancePK));
 		return PATH_DETAIL;
 	}
 	

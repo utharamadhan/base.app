@@ -57,4 +57,9 @@ public class ResearchTopicService implements IResearchTopicService {
 		return researchTopicDAO.findAll(filter, order);
 	}
 
+	@Override
+	public List<ResearchTopic> findAllResearchTopicCodeAndName() throws SystemException {
+		return researchTopicDAO.findAllResearchTopicCodeAndName();
+	}
+
 }

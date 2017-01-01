@@ -10,6 +10,10 @@ import id.base.app.valueobject.research.ResearchTopic;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.beanutils.BeanUtils;
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Projections;
+import org.hibernate.transform.ResultTransformer;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -48,6 +52,35 @@ public class ResearchTopicDAO extends AbstractHibernateDAO<ResearchTopic, Long> 
 	@Override
 	public PagingWrapper<ResearchTopic> findAllByFilter(int startNo, int offset, List<SearchFilter> filter, List<SearchOrder> order) throws SystemException {
 		return super.findAllWithPagingWrapper(startNo, offset, filter, order, null);
+	}
+
+	@Override
+	public List<ResearchTopic> findAllResearchTopicCodeAndName() throws SystemException {
+		Criteria crit = getSession().createCriteria(domainClass);
+			crit.setProjection(Projections.projectionList().
+					add(Projections.property("pkResearchTopic")).
+					add(Projections.property("code")).
+					add(Projections.property("name")));
+			crit.setResultTransformer(new ResultTransformer() {
+				@Override
+				public Object transformTuple(Object[] tuple, String[] aliases) {
+					ResearchTopic rt = ResearchTopic.getInstance();
+					try {
+						BeanUtils.copyProperty(rt, "pkResearchTopic", tuple[0]);
+						BeanUtils.copyProperty(rt, "code", tuple[1]);
+						BeanUtils.copyProperty(rt, "name", tuple[2]);
+					} catch (Exception e) {
+						LOGGER.error(e.getMessage(), e);
+					}
+					return rt;
+				}
+				
+				@Override
+				public List transformList(List collection) {
+					return collection;
+				}
+			});
+		return crit.list();
 	}
 
 }
