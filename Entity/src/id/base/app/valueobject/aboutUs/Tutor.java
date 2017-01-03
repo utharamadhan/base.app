@@ -42,6 +42,9 @@ public class Tutor extends BaseEntity implements Serializable {
 	@Column(name="PROFILE_DESCRIPTION")
 	private String profileDescription;
 	
+	@Column(name="BASIC_PICTURE_URL")
+	private String basicPictureURL;
+	
 	@Column(name="STATUS")
 	private Integer status;
 
@@ -64,6 +67,13 @@ public class Tutor extends BaseEntity implements Serializable {
 	}
 	public void setProfileDescription(String profileDescription) {
 		this.profileDescription = profileDescription;
+	}
+	
+	public String getBasicPictureURL() {
+		return basicPictureURL;
+	}
+	public void setBasicPictureURL(String basicPictureURL) {
+		this.basicPictureURL = basicPictureURL;
 	}
 	
 	public Integer getStatus() {
