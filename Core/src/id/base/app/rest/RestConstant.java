@@ -74,7 +74,11 @@ public class RestConstant {
 	public static final String RM_RESEARCH_TOPIC = "/research/researchTopic";
 	public static final String RM_RESEARCH = "/research/research";
 	
+	//advisory
+	public static final String RM_ADVISORY = "/advisory";
+
 	//forecast call
 	public static final String RM_FORECAST_CALL = "/forecastCall";
+	
 	
 }

@@ -56,6 +56,12 @@ public class AppRoleController extends SuperController<AppRole>{
 		return service.findInternalRoles();
 	}
 	
+	@RequestMapping(method=RequestMethod.GET, value="/findAllRoleCodeAndName")
+	@ResponseBody
+	public List<AppRole> findAllRoleCodeAndName() {
+		return service.findAllRoleCodeAndName();
+	}
+	
 	@RequestMapping(method=RequestMethod.GET, value="/findExternalRoles")
 	@ResponseBody
 	public List<AppRole> findExternalRoles() {

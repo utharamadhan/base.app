@@ -57,4 +57,9 @@ public class TutorService implements ITutorService {
 		return tutorDAO.findAll(filter, order);
 	}
 
+	@Override
+	public List<Tutor> findAllTutorCodeAndName() throws SystemException {
+		return tutorDAO.findAllTutorCodeAndName();
+	}
+
 }

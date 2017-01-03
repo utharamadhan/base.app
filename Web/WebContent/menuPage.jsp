@@ -142,6 +142,18 @@
 			                  	</li>
 							</ul>
 	                  	</li>
+	                  	<li id="research" class="dropdown">
+	                  		<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                     			<i class="fa fa-bar-chart"></i> Advisory <b class="fa fa-plus dropdown-plus"></b>
+                   			</a>
+							<ul class="dropdown-menu">
+								<li id="advisory">
+									<a href="/Web/do/advisory/showList">
+			                        	<i class="fa fa-caret-right"></i> Advisory
+			                        </a>
+			                  	</li>
+							</ul>
+	                  	</li>
 		  			</ul>     
 			  	</li>         
             </ul>

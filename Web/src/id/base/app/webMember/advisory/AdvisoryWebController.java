@@ -1,4 +1,4 @@
-package id.base.app.webMember.administrator;
+package id.base.app.webMember.advisory;
 
 import id.base.app.SystemConstant;
 import id.base.app.exception.ErrorHolder;
@@ -12,9 +12,9 @@ import id.base.app.util.StringFunction;
 import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
-import id.base.app.valueobject.AppParameter;
-import id.base.app.valueobject.AppRole;
 import id.base.app.valueobject.AppUser;
+import id.base.app.valueobject.aboutUs.Tutor;
+import id.base.app.valueobject.advisory.Advisory;
 import id.base.app.webMember.DataTableCriterias;
 import id.base.app.webMember.controller.BaseController;
 
@@ -35,15 +35,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Scope(value="request")
 @Controller
-@RequestMapping("/userMaintenance")
-public class UserMaintenanceWebController extends BaseController<AppUser> {
+@RequestMapping("/advisory")
+public class AdvisoryWebController extends BaseController<Advisory> {
 
-	private final String PATH_LIST = "/administration/userMaintenanceList";
-	private final String PATH_DETAIL = "/administration/userMaintenanceDetail";
+	private final String PATH_LIST = "/advisory/advisoryList";
+	private final String PATH_DETAIL = "/advisory/advisoryDetail";
 	
 	@Override
-	protected RestCaller<AppUser> getRestCaller() {
-		return new RestCaller<AppUser>(RestConstant.REST_SERVICE, RestServiceConstant.USER_SERVICE);
+	protected RestCaller<Advisory> getRestCaller() {
+		return new RestCaller<Advisory>(RestConstant.REST_SERVICE, RestServiceConstant.COURSE_SERVICE);
 	}
 
 	@Override
@@ -52,7 +52,7 @@ public class UserMaintenanceWebController extends BaseController<AppUser> {
 	}
 	
 	private void setDefaultFilter(HttpServletRequest request, List<SearchFilter> filters) {
-		filters.add(new SearchFilter(AppUser.STATUS, Operator.EQUALS, SystemConstant.ValidFlag.VALID));
+		filters.add(new SearchFilter(Advisory.STATUS, Operator.EQUALS, SystemConstant.ValidFlag.VALID));
 	}
 
 	@Override
@@ -60,7 +60,7 @@ public class UserMaintenanceWebController extends BaseController<AppUser> {
 		List<SearchFilter> filters = new ArrayList<>();
 		setDefaultFilter(request, filters);
 		if(StringFunction.isNotEmpty(columns.getSearch().get(DataTableCriterias.SearchCriterias.value))){
-			filters.add(new SearchFilter(AppUser.USER_NAME, Operator.LIKE, columns.getSearch().get(DataTableCriterias.SearchCriterias.value)));
+			filters.add(new SearchFilter(Advisory.PK_ADVISORY, Operator.LIKE, columns.getSearch().get(DataTableCriterias.SearchCriterias.value)));
 		}
 		return filters;
 	}
@@ -70,7 +70,7 @@ public class UserMaintenanceWebController extends BaseController<AppUser> {
 		if(orders != null) {
 			orders.clear();
 		}
-		orders.add(new SearchOrder(AppUser.PK_APP_USER, SearchOrder.Sort.DESC));
+		orders.add(new SearchOrder(Advisory.PK_ADVISORY, SearchOrder.Sort.DESC));
 		return orders;
 	}
 	
@@ -81,45 +81,14 @@ public class UserMaintenanceWebController extends BaseController<AppUser> {
 	}
 	
 	public void setDefaultData(ModelMap model) {
-		model.addAttribute("roleOptions", getAllRoleOptions());
+		model.addAttribute("tutorOptions", getAllTutorOptions());
 	}
 	
-	@RequestMapping(method=RequestMethod.GET, value="showAdd")
-	public String showAdd(ModelMap model, HttpServletRequest request){
-		model.addAttribute("detail", AppUser.getInstance());
-		setDefaultData(model);
-		return PATH_DETAIL;
-	}
-	
-	@RequestMapping(method=RequestMethod.GET, value="showEdit")
-	public String showEdit(@RequestParam(value="maintenancePK") final Long maintenancePK, @RequestParam Map<String, String> paramWrapper, ModelMap model, HttpServletRequest request){
-		setDefaultData(model);
-		AppUser detail = getRestCaller().findById(maintenancePK);
-		model.addAttribute("detail", detail);
-		return PATH_DETAIL;
-	}
-	
-	@RequestMapping(method=RequestMethod.POST, value="saveUser")
-	@ResponseBody
-	public Map<String, Object> saveUser(final AppParameter anObject, HttpServletRequest request) {
-		Map<String, Object> resultMap = new HashMap<>();
-		List<ErrorHolder> errors = new ArrayList<>();
-		try{
-			errors = new SpecificRestCaller<AppParameter>(RestConstant.REST_SERVICE, RestServiceConstant.USER_SERVICE).performPut("/update", anObject);
-			if(errors != null && errors.size() > 0){
-				resultMap.put(SystemConstant.ERROR_LIST, errors);
-			}
-		}catch(Exception e){
-			LOGGER.error(e.getMessage(), e);
-		}
-		return resultMap;
-	}
-	
-	private List<AppRole> getAllRoleOptions() {
-		return new SpecificRestCaller<AppRole>(RestConstant.REST_SERVICE, RestConstant.RM_ROLE, AppRole.class).executeGetList(new PathInterfaceRestCaller(){
+	private List<Tutor> getAllTutorOptions() {
+		return new SpecificRestCaller<Tutor>(RestConstant.REST_SERVICE, RestConstant.RM_TUTOR, Tutor.class).executeGetList(new PathInterfaceRestCaller() {
 			@Override
 			public String getPath() {
-				return "/findAllRoleCodeAndName";
+				return "/findAllTutorCodeAndName";
 			}
 			
 			@Override
@@ -127,6 +96,37 @@ public class UserMaintenanceWebController extends BaseController<AppUser> {
 				return new HashMap<String, Object>();
 			}
 		});
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="showAdd")
+	public String showAdd(ModelMap model, HttpServletRequest request){
+		model.addAttribute("detail", Advisory.getInstance());
+		setDefaultData(model);
+		return PATH_DETAIL;
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="showEdit")
+	public String showEdit(@RequestParam(value="maintenancePK") final Long maintenancePK, @RequestParam Map<String, String> paramWrapper, ModelMap model, HttpServletRequest request){
+		setDefaultData(model);
+		Advisory detail = getRestCaller().findById(maintenancePK);
+		model.addAttribute("detail", detail);
+		return PATH_DETAIL;
+	}
+	
+	@RequestMapping(method=RequestMethod.POST, value="saveAdvisory")
+	@ResponseBody
+	public Map<String, Object> saveAdvisory(final Advisory anObject, HttpServletRequest request) {
+		Map<String, Object> resultMap = new HashMap<>();
+		List<ErrorHolder> errors = new ArrayList<>();
+		try{
+			errors = new SpecificRestCaller<Advisory>(RestConstant.REST_SERVICE, RestServiceConstant.COURSE_SERVICE).performPut("/update", anObject);
+			if(errors != null && errors.size() > 0){
+				resultMap.put(SystemConstant.ERROR_LIST, errors);
+			}
+		}catch(Exception e){
+			LOGGER.error(e.getMessage(), e);
+		}
+		return resultMap;
 	}
 
 	@Override

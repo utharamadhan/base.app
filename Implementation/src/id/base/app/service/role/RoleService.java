@@ -141,6 +141,10 @@ public class RoleService implements MaintenanceService<AppRole>,IRoleService {
 	public List<AppRole> findExternalRoles() {
 		return roleDAO.findExternalRoles();
 	}
+	
+	public List<AppRole> findAllRoleCodeAndName() {
+		return roleDAO.findAllRoleCodeAndName();
+	}
 
 	public PagingWrapper<AppRole> findAllByFilter(int startNo, int offset,
 			List<SearchFilter> filter, List<SearchOrder> order)
@@ -218,4 +222,5 @@ public class RoleService implements MaintenanceService<AppRole>,IRoleService {
 			throws SystemException {
 		return roleDAO.findAppRolesByAppUserId(pkAppUser);
 	}
+	
 }

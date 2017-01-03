@@ -51,3 +51,4 @@
 -- 2016-December-29
 \i DDL/RESEARCH_TOPIC.sql;
 \i DDL/RESEARCH.sql;
+\i DDL/ADVISORY.sql;

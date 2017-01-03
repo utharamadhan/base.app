@@ -38,6 +38,8 @@ public interface IAppRoleDAO {
 	public List<AppRole> findExternalRoles() throws SystemException;
 	
 	public List<AppRole> findInternalRoles() throws SystemException;
+	
+	public List<AppRole> findAllRoleCodeAndName() throws SystemException;
 
 	public abstract List<AppRole> findAllAppRole(List<SearchFilter> filter,
 			List<SearchOrder> order) throws SystemException;
