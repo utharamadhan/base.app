@@ -51,4 +51,7 @@
 -- 2016-December-29
 \i DDL/RESEARCH_TOPIC.sql;
 \i DDL/RESEARCH.sql;
+
+-- 2017-Jan-3
+\i DDL/TUTOR_20170103.sql;
 \i DDL/ADVISORY.sql;
