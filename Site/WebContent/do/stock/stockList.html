@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:ifs="http://padiku.id">
+<head>
+<meta charset="ISO-8859-1"/>
+<title>Stock</title>     
+</head>
+<body>
+<style>
+.list-wrapper{
+	display:none
+}
+</style>
+<div id="content" class="col-md-12">
+          <!-- page header -->
+          <div class="pageheader">
+            <h4><i class="fa fa-calendar-check-o"></i> Stok</h4>
+          </div>
+          <!-- /page header -->
+          <!-- content main container -->
+		  
+		  <div class="main">
+			<!-- row -->
+			<div class="row">
+				<div class="card-container col-lg-4">
+                <div class="card card-redbrown hover">
+                  <div class="front"> 
+
+                    <div class="media">        
+                      <span class="pull-left">
+                        <i class="fa fa-shopping-cart media-object"></i>
+                      </span>
+
+                      <div class="media-body">
+                        <small>Penerimaan Stok Dari Pembelian</small>
+                        <h2 class="media-heading animate-number" th:attr="data-value=${countBuying}" data-animation-duration="1500" th:text="${countBuying}"></h2>
+                      </div>
+                    </div>
+
+                  </div>
+				  <div class="back buying-click">
+                    <a href="#">
+                      <i class="fa fa-table fa-4x"></i>
+                      <span>Klik Untuk Detail</span>
+                    </a>
+                  </div>
+				
+				</div>
+              </div>
+			  <div class="card-container col-lg-4">
+                <div class="card card-blue hover">
+                  <div class="front"> 
+
+                    <div class="media">        
+                      <span class="pull-left">
+                        <i class="fa fa-retweet media-object"></i>
+                      </span>
+
+                      <div class="media-body">
+                        <small>Penerimaan Stok dari Maklon</small>
+                        <h2 class="media-heading animate-number" th:attr="data-value=${countMaklon}" data-animation-duration="1500" th:text="${countMaklon}"></h2>
+                      </div>
+                    </div> 
+
+                  </div>
+				   <div class="back maklon-click">
+                    <a href="#">
+                      <i class="fa fa-table fa-4x"></i>
+                      <span>Klik Untuk Detail</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+			  <div class="card-container col-lg-4">
+                <div class="card card-greensea hover">
+                  <div class="front"> 
+
+                    <div class="media">        
+                      <span class="pull-left">
+                        <i class="fa fa fa-hourglass media-object"></i>
+                      </span>
+
+                      <div class="media-body">
+                        <small>Pengolahan</small>
+                        <h2 class="media-heading animate-number" th:attr="data-value=${countProd}" data-animation-duration="1500" th:text="${countProd}"></h2>
+                      </div>
+                    </div> 
+
+                  </div>
+				   <div class="back production-click">
+                    <a href="#">
+                      <i class="fa fa-table fa-4x"></i>
+                      <span class="production-click">Klik Untuk Detail</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+			</div>
+			<div class="row" id="bar-stock-wrapper">
+				<div class="col-md-12">
+					<div id="bar-stock"></div>
+				</div>
+			</div>
+		<div class="row">
+			<div id="buying-wrapper" class="col-md-12 list-wrapper">
+                <section class="tile transparent">
+                  <div class="tile-header transparent">
+                    <h1>List Pembelian</h1>
+				  </div>
+                  <div class="tile-body rounded-corners">
+                    <div class="table-responsive">
+                      <table class="table table-datatable table-custom" id="buying-list-table">
+                        <thead>
+                          <tr>
+                            <th class="sort-alpha">ID Penerimaan</th>
+                            <th class="sort-alpha">Nama Pemasok</th>
+                            <th class="sort-alpha">Nama Barang</th>
+                            <th class="sort-alpha">Jumlah</th>
+                            <th class="sort-alpha">Satuan</th>
+                            <th class="sort-alpha">Jumlah Diterima</th>
+                            <th class="sort-alpha">Satuan</th>                            
+                            <th>-</th>
+                          </tr>
+                        </thead>
+                      </table>
+            		  <div style="padding-bottom: 3px; bottom: 0;" th:replace="pagingDiv::pager (${pagingWrapper}, ${#dates.createNow()}, 'buying-list-table', 'contentArea')"></div>
+            		</div>
+                  </div>
+                </section>
+            </div>
+			
+			<div id="maklon-wrapper" class="col-md-12 list-wrapper">
+                <section class="tile transparent">
+                  <div class="tile-header transparent">
+                    <h1>List Maklon</h1>
+				  </div>
+                  <div class="tile-body rounded-corners">
+                    <div class="table-responsive">
+                      <table  class="table table-datatable table-custom" id="maklon-list-table">
+                        <thead>
+                          <tr>
+                            <th class="sort-alpha">ID Penerimaan</th>
+                            <th class="sort-alpha">Nama Pemasok</th>
+                            <th class="sort-alpha">Nama Barang</th>
+                            <th class="sort-alpha">Jumlah</th>
+                            <th class="sort-alpha">Satuan</th>
+                            <th class="sort-alpha">Jumlah Diterima</th>
+                            <th class="sort-alpha">Satuan</th>
+                            <th>-</th>
+                          </tr>
+                        </thead>
+                      </table>
+                      <div style="padding-bottom: 3px; bottom: 0;" th:replace="pagingDiv::pager (${pagingWrapper}, ${#dates.createNow()}, 'maklon-list-table', 'contentArea')"></div>
+                    </div>
+                  </div>
+                </section>
+            </div>
+			
+			<div id="production-wrapper" class="col-md-12 list-wrapper">
+                <section class="tile transparent">
+                  <div class="tile-header transparent">
+                    <h1>List Pengolahan</h1>
+				  </div>
+                  <div class="tile-body rounded-corners">
+                    <div class="table-responsive">
+                      <table  class="table table-datatable table-custom" id="production-list-table">
+                        <thead>
+                          <tr>
+                            <th class="sort-alpha">No. PO</th>
+                            <th class="sort-alpha">Nama Pemasok</th>
+                            <th class="sort-numeric">Nama Barang</th>
+                            <th class="sort-alpha">Jumlah</th>
+                            <th class="sort-alpha">Satuan</th>                            
+                            <th>Pengolahan</th>
+                          </tr>
+                        </thead>
+                      </table>
+                      <div style="padding-bottom: 3px; bottom: 0;" th:replace="pagingDiv::pager (${pagingWrapper}, ${#dates.createNow()}, 'production-list-table', 'contentArea')"></div>
+                    </div>
+                  </div>
+                </section>
+            </div>
+           </div>
+          </div>
+		  <!-- /content container -->
+        </div>
+        
+        <div id="helper" style="display:none">
+        	<div id="warehouse-helper">
+	        	<select class="warehouse-list chosen-select chosen-transparent form-control">
+					<option th:each="opt : ${warehouseList}" th:value="${opt.pkCompanyWarehouse}" th:text="${opt.name}"></option>
+				</select>
+			</div>
+			<div id="uom-helper">
+				<select class="uom-list chosen-select chosen-transparent form-control">
+					<option th:each="opt : ${uomList}" th:value="${opt.pkLookup}" th:text="${opt.nameId}"></option>
+				</select>
+			</div>
+        </div>
+        
+        <!-- Modal -->
+		<div class="modal fade" id="warehouseModal" tabindex="-1" role="dialog" aria-labelledby="warehouseModalLabel">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h4 class="modal-title" id="warehouseModalLabel">Konfirmasi</h4>
+		      </div>
+		      <div class="modal-body">
+		      	<div class="row">
+		      		<div class="col-md-12">
+		      		<form action="#" class="form-horizontal" method="POST" id="conf-form">
+		      		<div class="form-group">
+						<label class="col-sm-5 control-label" th:text="'ID Penerimaan'"></label>
+						<label class="col-sm-7 control-value" id="id-penerimaan"></label>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-5 control-label" th:text="'Nama Pemasok'"></label>
+						<label class="col-sm-7 control-value" id="nama-pemasok"></label>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-5 control-label" th:text="'Nama Barang'"></label>
+						<label class="col-sm-7 control-value" id="nama-barang"></label>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-5 control-label" th:text="'Jumlah'"></label>
+						<label class="col-sm-7 control-value" id="jumlah"></label>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-5 control-label" th:text="'Jumlah Yang Diterima'"></label>
+						<label class="col-sm-7 control-value" id="jumlah-diterima"></label>
+					</div>
+					<hr></hr>
+		      		<div class="form-group">
+						<label class="col-sm-5 control-label" th:text="'Hasil Pengolahan Disimpan Di'"></label>
+						<div class="col-sm-7 form-input-container">
+							<input type="hidden" id="pkTransInItem"/>
+							<input type="hidden" id="volume"/>
+							<input type="hidden" id="pkLookupUom"/>
+							<select id="warehouse-select" class="chosen-select chosen-transparent form-control">
+								<option th:each="opt : ${optionsWarehouse}" th:value="${opt.pkCompanyWarehouse}" th:text="${opt.name}"></option>
+							</select>
+						</div>
+					</div>
+					</form>
+					</div>
+		      	</div>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+		        <button type="button" class="btn btn-primary" id="add-to-stock">Tambah ke stok</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+        
+        <script th:inline="javascript">
+		/*<![CDATA[*/
+		  function submitRecord(id, obj){
+			var objParent = $(obj).parent().parent();
+			$('#conf-form #id-penerimaan').text(objParent.children().eq(0).children().eq(0).text());
+			$('#conf-form #nama-pemasok').text(objParent.children().eq(1).text());
+			$('#conf-form #nama-barang').text(objParent.children().eq(2).text());
+			$('#conf-form #jumlah').text(objParent.children().eq(3).text() +" "+objParent.children().eq(4).text());
+			$('#conf-form #jumlah-diterima').text(objParent.children().eq(5).children().eq(0).val() +" "+objParent.children().eq(6).children().eq(0).find("option:selected").text());
+			$('#conf-form #pkTransInItem').val(id);
+			$('#conf-form #volume').val(objParent.children().eq(5).children().eq(0).val());
+			$('#conf-form #pkLookupUom').val(objParent.children().eq(6).children().eq(0).val());
+			$('#warehouseModal').modal('show');
+		  } 
+		  $(function(){
+			  setMenuActive('stock');
+			  var currentSource = '';
+			  var isBuyingClick = 0;
+			  var isMaklonClick = 0;
+			  var isProductionClick = 0;
+			  
+		      // Initialize card flip
+		      $('.card.hover').hover(function(){
+		        $(this).addClass('flip');
+		      },function(){
+		        $(this).removeClass('flip');
+		      });
+		      
+		      var chart = Morris.Bar({
+		        element: 'bar-stock',
+		        xkey: 'companyProductName',
+		        ykeys: ['remainingVolumeInKg'],
+		        stacked:true,
+		        resize:true,
+		        gridTextColor:'#000000',
+		        labels: ['Stok'],
+		        hideHover: false,
+		        barColors:['#1693A5']
+		      });
+		      
+		      var sURL = /*[[@{/do/dashboard/getStockForDashboard}]]*/ #;
+				$.get(sURL, function(data){
+					if(data!=null){
+						chart.setData(data);			
+					}
+				});
+		      
+		      $('.buying-click').click(function(){
+		    	  $('#bar-stock-wrapper').hide();
+		    	  currentSource = /*[[${T(id.base.app.SystemConstant.TransInSourceType).BUYING}]]*/ #;
+		    	  $('.list-wrapper').hide();
+		    	  $('#buying-wrapper').show();
+		    	  if(isBuyingClick==0){
+		    		  var colDefs = [{ type : "detail", param : [ "pkTransInItem", "transIn.inNo"]}, 
+				    	               { name : "transIn.thirdPartyName" }, 
+				    	               { name : "companyProduct.name" },
+				    	               { name : "remainingVolumeInKg" },
+				    	               { name : "uom.nameId" },
+				    	               { type : "input", param : ["remainingVolumeInKg", "status"]},
+				    	               { type : "select", param :["uom.nameId","status","uom-helper","uom.pkLookup"] },
+				    	               { type : "submit", param : ["pkTransInItem","status"]}];
+					  var sURL = /*[[@{/do/stock/listBuy?}]]*/ #;
+					  buildDataTable(/*[[@{/}]]*/, sURL, 'buying-list-table', 150, colDefs, null, null);
+		    	  }else{
+		    		  reloadDataTableSearch('buying-list-table'); 
+		    	  }
+		    	  isBuyingClick = 1;
+		      });
+		      
+		      $('.maklon-click').click(function(){
+		    	  $('#bar-stock-wrapper').hide();
+		    	  currentSource = /*[[${T(id.base.app.SystemConstant.TransInSourceType).MAKLON}]]*/ #;
+		    	  $('.list-wrapper').hide();
+		    	  $('#maklon-wrapper').show();
+		    	  if(isMaklonClick==0){
+		    		  var colDefs = [{ type : "detail", param : [ "pkTransInItem", "transIn.inNo"]}, 
+				    	               { name : "transIn.thirdPartyName" }, 
+				    	               { name : "companyProduct.name" },
+				    	               { name : "remainingVolumeInKg" },
+				    	               { name : "uom.nameId" },
+				    	               { type : "input", param : ["remainingVolumeInKg", "status"]},
+				    	               { type : "select", param :["uom.nameId","status","uom-helper","uom.pkLookup"] },
+				    	               { type : "submit", param : ["pkTransInItem","status"]}];
+					  var sURL = /*[[@{/do/stock/listMaklon?}]]*/ #;
+					  buildDataTable(/*[[@{/}]]*/, sURL, 'maklon-list-table', 150, colDefs, null, null);
+		    	  }else{
+		    		  reloadDataTableSearch('maklon-list-table');
+		    	  }
+		    	  isMaklonClick = 1;
+		      });
+		      
+		      $('#add-to-stock').click(function(){
+		    	var sURL = /*[[@{/do/stock/addToStock}]]*/ #;
+		    	var combValue = $('#conf-form #pkTransInItem').val()+"-"+$('#conf-form #volume').val()+"-"+$('#conf-form #pkLookupUom').val();  
+		   	  	$.post(sURL, {combValue:combValue, warehouseId:$('#warehouse-select').val(), currentSource:currentSource}, function(data){
+					if(data.errorList != null){
+						displayErrorParsley(data.errorList);
+			        }else{
+			        	$('#warehouseModal').modal('hide');
+			        	if(currentSource==/*[[${T(id.base.app.SystemConstant.TransInSourceType).BUYING}]]*/){
+			        		reloadDataTableSearch('buying-list-table');
+			        	}else{
+			        		reloadDataTableSearch('maklon-list-table');
+			        	}
+			        }
+				});  
+		      });
+		  });
+	  	/*]]>*/
+  		</script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:ifs="http://padiku.id">
+<head>
+<meta charset="ISO-8859-1"/>
+<title>Company</title>
+</head>
+<style>
+.dataTables_scrollBody {
+	height : auto !important;
+	min-height : 120px;
+}
+</style>
+<body>
+<div id="content" class="col-md-12">
+	<div id="stock-detail-container"></div>
+	<div id="stock-list-container">
+	<div class="pageheader">
+		<h4><i class="fa fa-tachometer"></i> Laporan / Stock
+		<span></span></h4>
+	</div>
+	<div class="col-md-4 tile-body no-vpadding" style="margin:10px;">
+		<a href="#" id="stock-btn-add" class="btn btn-primary button-export-xls" style="margin-bottom:5px">Export to Excel &nbsp; <i class="fa fa-file-excel-o dropdown-plus"></i></a>
+	</div>
+	<div class="main">
+		<div class="row">
+			<div class="col-md-12">	
+				<section class="tile transparent">
+					<div class="table-responsive">
+						<div class="tile-body rounded-corners">
+	                      	<table id="stock-list-table" class="table table-datatable table-custom">
+		                        <thead>
+		                          <tr>
+									<th>Kode Supplier</th>
+									<th>Nama Supplier</th>
+									<th>Kode Barang</th>
+		                          	<th>Nama Barang</th>
+		                          	<th>Satuan</th>
+		                          	<th>Jumlah</th>
+		                          	<th>Harga Beli</th>
+		                          	<th>Nilai Stock Persatuan</th>
+		                          </tr>
+		                        </thead>
+	                     	</table>
+	                     	<div style="padding-bottom: 3px; bottom: 0;" th:replace="pagingDiv::pager (${pagingWrapper}, ${#dates.createNow()}, 'stock-list-table', 'contentArea')">
+							</div>
+                     	</div>
+					</div>
+				</section>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script th:inline="javascript">
+	/*<![CDATA[*/
+	
+	    $(function(){
+		    setMenuActive('reports');
+		    var colDefs = [{ name : "supplierCode" }, 
+	    	               { name : "supplierName" },
+	    	               { name : "productCode" },
+	    	               { name : "productName" },
+	    	               { name : "uomCode" },
+	    	               { name : "volume" },
+	    	               { name : "fee" },
+	    	               { name : "hpp" },
+	    	               ];
+		    var sURL = /*[[@{/do/reports/stock/list?}]]*/ #;
+		    buildDataTable(/*[[@{/}]]*/, sURL, 'stock-list-table', 450, colDefs, null, null);
+	    });
+	
+	    var printToExcel = function(){
+			var sURL = /*[[@{/do/reports/stock/downloadExcel?}]]*/;
+			window.location.href = sURL;
+		};
+	
+		$('.button-export-xls').click(function(e){
+			e.preventDefault();
+			printToExcel();
+		});
+		
+	/*]]>*/
+</script>
+</body>
+</html>

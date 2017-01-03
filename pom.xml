@@ -8,7 +8,7 @@
 	<module>Core</module>
 	<module>Entity</module>
 	<module>Web</module>
-	<module>WebAdmin</module>
+	<module>Site</module>
 	<module>Implementation</module>
 	<module>Repository</module>
 	<module>Scheduler</module>

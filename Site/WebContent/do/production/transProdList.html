@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:ifs="http://padiku.id">
+<head>
+<meta charset="ISO-8859-1"/>
+<title>TransIn</title>
+</head>
+<style>
+.dataTables_scrollBody {
+	height : auto !important;
+	min-height : 120px;
+}
+</style>
+<body>
+<div id="content" class="col-md-12">
+	<div id="transProd-detail-container"></div>
+	<div id="transProd-calendar-container">
+	<div class="pageheader">
+		<h4><i class="fa fa-shopping-basket"></i> Pembelian / List Pembelian
+		<span></span></h4>
+	</div>
+	<div class="col-md-4 tile-body no-vpadding" style="margin:10px;">
+		<a href="#" id="transIn-btn-add" class="btn btn-primary" style="margin-bottom:5px">Tambah &nbsp; <i class="fa fa-plus dropdown-plus"></i></a>
+	</div>
+	<div class="main">
+		<div class="row">
+			<div class="col-md-8">	
+				<section class="tile transparent">
+					<div class="table-responsive">
+						<div class="tile-body rounded-corners">
+	                      	<table id="transProd-calendar-table" class="table table-datatable table-custom">
+		                        <thead>
+		                          <tr>
+		                            <th>No.Pembelian</th>
+									<th>Nama Pemasok</th>
+									<th>Jenis Penerimaan</th>
+									<th>Tanggal Pembelian</th>
+									<th>E/D</th>
+		                          </tr>
+		                        </thead>
+	                     	</table>
+	                     	<div style="padding-bottom: 3px; bottom: 0;" th:replace="pagingDiv::pager (${pagingWrapper}, ${#dates.createNow()}, 'transProd-calendar-table', 'contentArea')">
+							</div>
+                     	</div>
+					</div>
+				</section>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script th:inline="javascript">
+	/*<![CDATA[*/
+		function showAdd() {
+	    	var sURL = /*[[@{/do/penerimaan/pembelian/showAdd?skipdecorator=}]]*/ #;
+	    	showScreen('transProd-calendar-container', 'transIn-detail-container', sURL);
+		}
+		
+		function showDetail(maintenancePK) {
+			var sURL = /*[[@{/do/penerimaan/pembelian/showEdit?maintenancePK=}]]*/ #;
+			showScreen('transProd-calendar-container', 'transIn-detail-container', sURL + maintenancePK + "&skipdecorator=");
+		}
+		
+		function deleteItem(maintenancePK) {
+			var sURL = /*[[@{/do/penerimaan/pembelian/delete?}]]*/ #;
+			var serializedData = "maintenancePKs=" + maintenancePK;
+			$.post(sURL, serializedData,function(data){
+				if(data.errorList!=null){
+					//show error message
+				}else{
+					search();
+				}
+			});
+		} 
+		
+		function deleteTransIn() {
+			var sURL = /*[[@{/do/penerimaan/pembelian/deletetransIn?skipDecorator}]]*/ #;
+			$.post(sURL, $('.transProd-calendar-check-delete').serialize(), function(data){
+				if(data.errorList!=null){
+					
+				}else{
+					location.reload(true);
+				}
+			});
+		}
+	
+	    $(function(){
+		    setMenuActive('pengolahan');
+		    var colDefs = [{type : "detail", param : [ "pkTransIn", "inNo"] }, 
+	    	               { name : "thirdPartyName" }, 
+	    	               { name : "sourceType" },
+	    	               { name : "inDate" , type : "date" }, 
+	    	               { type : "deleteAndEdit" , param : [ "pkTransIn" ] }
+	    	               ];
+		    var sURL = /*[[@{/do/penerimaan/pembelian/list?}]]*/ #;
+		    buildDataTable(/*[[@{/}]]*/, sURL, 'transProd-calendar-table', 450, colDefs, null, null);
+	    });
+	    
+		$('#transIn-btn-add').click(function(){
+			showAdd();
+		});
+		
+		$('#transIn-btn-delete').click(function(){
+			deleteTransIn();
+		});
+		
+	/*]]>*/
+</script>
+</body>
+</html>
