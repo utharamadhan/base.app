@@ -129,10 +129,10 @@
 											<li class="dropdown-header"><a href="#">Digital Books</a></li>
 											<li>
 												<div class="col-md-6">
-													<img src="<%=request.getContextPath()%>/content_files/digital-books1.jpg"/>
+													<img src="<%=request.getContextPath()%>/images/digital-books1.jpg"/>
 												</div>
 												<div class="col-md-6">
-													<img src="<%=request.getContextPath()%>/content_files/digital-books2.jpg"/>
+													<img src="<%=request.getContextPath()%>/images/digital-books2.jpg"/>
 												</div>
 										</ul>
 									</li>
