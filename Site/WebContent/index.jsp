@@ -80,7 +80,7 @@
 					<div class="about_inner">
 						<div class="col-md-4">
 								<div class="aboutImage">
-								  <img src="<%=request.getContextPath()%>/images/learning_.jpg" alt="" class="img-responsive" onclick="">
+								  <img src="<%=request.getContextPath()%>/images/learning_.jpg" alt="" class="img-responsive" onclick="javascript:window.location.href='<%=request.getContextPath()%>/do/learning'">
 								  <a href="<%=request.getContextPath()%>/do/learning" class="captionLink">Learning <span></span></a>
 								</div><!-- aboutImage -->
 						</div>

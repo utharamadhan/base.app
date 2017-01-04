@@ -21,10 +21,10 @@
 							  <div class="navbar-brand navbar-right border-left-yellow" style="display:none">
 								<div class="lang"> 
 									<span class="en">
-										<img src="content_files/en.png"/>
+										<img src="<%=request.getContextPath()%>/images/en.png"/>
 									</span> 
 									<span class="id">
-										<img src="content_files/id.png"/>
+										<img src="<%=request.getContextPath()%>/images/id.png"/>
 									</span>
 								</div>
 							  </div>
