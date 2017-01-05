@@ -12,9 +12,9 @@
 								<span class="icon-bar"></span>
 								<span class="icon-bar"></span>
 							  </button>
-							  <a class="navbar-brand logo clearfix" href="/index.html"><img src="<%=request.getContextPath()%>/images/logo-btn.png" alt="" class="img-responsive logo-btn"></a>
-							  <a class="navbar-brand logo clearfix" href="/index.html"><img src="<%=request.getContextPath()%>/images/logo-hfc.png" alt="" class="img-responsive"></a>
-							  <a class="navbar-brand logo clearfix border-left-yellow" href="/index.html"><img src="<%=request.getContextPath()%>/images/hfc-title.png" alt="" class="img-responsive"></a>
+							  <a class="navbar-brand logo clearfix" href="<%=request.getContextPath()%>"><img src="<%=request.getContextPath()%>/images/logo-btn.png" alt="" class="img-responsive logo-btn"></a>
+							  <a class="navbar-brand logo clearfix" href="<%=request.getContextPath()%>"><img src="<%=request.getContextPath()%>/images/logo-hfc.png" alt="" class="img-responsive"></a>
+							  <a class="navbar-brand logo clearfix border-left-yellow" href="<%=request.getContextPath()%>"><img src="<%=request.getContextPath()%>/images/hfc-title.png" alt="" class="img-responsive"></a>
 							</div>
 							<!-- Collect the nav links, forms, and other content for toggling -->
 							<div class="collapse navbar-collapse" id="bs-navbar-collapse-1">
