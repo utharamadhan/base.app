@@ -1,6 +1,7 @@
 package id.base.app.valueobject.event;
 
 import id.base.app.valueobject.BaseEntity;
+import id.base.app.valueobject.Lookup;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -10,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -22,8 +25,7 @@ public class Event extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = -2512890745160322636L;
 	
 	public static final String PK_EVENT = "pkEvent";
-	public static final String CODE 	= "code";
-	public static final String NAME 	= "name";
+	public static final String TITLE	 	= "title";
 	public static final String DESCRIPTION 	= "description";
 	public static final String STATUS 	= "status";
 	public static final String EVENT_DATE = "eventDate";
@@ -38,17 +40,24 @@ public class Event extends BaseEntity implements Serializable {
 	@Column(name = "PK_EVENT", unique = true ,nullable = false)
 	private Long pkEvent;
 	
-	@Column(name="CODE")
-	private String code;
+	@Column(name="TITLE")
+	private String title;
 	
-	@Column(name="NAME")
-	private String name;
+	@OneToOne
+	@JoinColumn(name="FK_LOOKUP_EVENT_STATUS")
+	private Lookup eventStatusLookup;
 	
 	@Column(name="DESCRIPTION")
 	private String description;
 	
 	@Column(name="EVENT_DATE")
 	private Date eventDate;
+	
+	@Column(name="COVER_IMAGE_URL")
+	private String coverImageURL;
+	
+	@Column(name="EXCERPT")
+	private String excerpt;
 	
 	@Column(name="STATUS")
 	private Integer status;
@@ -60,20 +69,34 @@ public class Event extends BaseEntity implements Serializable {
 		this.pkEvent = pkEvent;
 	}
 
-	public String getCode() {
-		return code;
+	public String getTitle() {
+		return title;
 	}
-	public void setCode(String code) {
-		this.code = code;
-	}
-
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
+	public Lookup getEventStatusLookup() {
+		return eventStatusLookup;
+	}
+	public void setEventStatusLookup(Lookup eventStatusLookup) {
+		this.eventStatusLookup = eventStatusLookup;
+	}
+	
+	public String getCoverImageURL() {
+		return coverImageURL;
+	}
+	public void setCoverImageURL(String coverImageURL) {
+		this.coverImageURL = coverImageURL;
+	}
+	
+	public String getExcerpt() {
+		return excerpt;
+	}
+	public void setExcerpt(String excerpt) {
+		this.excerpt = excerpt;
+	}
+	
 	public String getDescription() {
 		return description;
 	}

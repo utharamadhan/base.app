@@ -220,6 +220,7 @@ public class SystemConstant  {
     public static String FILE_STORAGE					= "";
     public static String FILE_CONTENT_DIRECTORY			= "contentDirectory" + File.separator;
     public static String FILE_FEATURED_IMAGE_DIRECTORY	= "featuredImage" + File.separator;
+    public static String FILE_EBOOK_DIRECTORY			= "ebook" + File.separator;
 	
 	public static void setSharedFolderLocation(String sharedFolderLoc) throws Exception {
 		SHARED_FOLDER_LOCATION = sharedFolderLoc;

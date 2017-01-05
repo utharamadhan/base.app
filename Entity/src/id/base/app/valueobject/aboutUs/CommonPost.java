@@ -21,8 +21,7 @@ public class CommonPost extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = -8529693428251387150L;
 	
 	public static final String PK_COMMON_POST = "pkCommonPost";
-	public static final String CODE 	= "code";
-	public static final String NAME 	= "name";
+	public static final String TITLE 	= "title";
 	public static final String CONTENT 	= "content";
 	public static final String STATUS 	= "status";
 	
@@ -36,11 +35,8 @@ public class CommonPost extends BaseEntity implements Serializable {
 	@Column(name = "PK_COMMON_POST", unique = true ,nullable = false)
 	private Long pkCommonPost;
 	
-	@Column(name="CODE")
-	private String code;
-	
-	@Column(name="NAME")
-	private String name;
+	@Column(name="TITLE")
+	private String title;
 	
 	@Column(name="CONTENT")
 	private String content;
@@ -55,18 +51,11 @@ public class CommonPost extends BaseEntity implements Serializable {
 		this.pkCommonPost = pkCommonPost;
 	}
 
-	public String getCode() {
-		return code;
+	public String getTitle() {
+		return title;
 	}
-	public void setCode(String code) {
-		this.code = code;
-	}
-
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public String getContent() {

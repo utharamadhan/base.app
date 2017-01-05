@@ -86,14 +86,14 @@
 						</div>
 						<div class="col-md-4">
 								<div class="aboutImage">
-								  <img src="<%=request.getContextPath()%>/images/rnd_.jpg" alt="" class="img-responsive" onclick="">
-								  <a href="#" class="captionLink">Research & Development <span></span></a>
+								  <img src="<%=request.getContextPath()%>/images/rnd_.jpg" alt="" class="img-responsive" onclick="javascript:window.location.href='<%=request.getContextPath()%>/do/research-development'">
+								  <a href="<%=request.getContextPath()%>/do/research-development" class="captionLink">Research & Development <span></span></a>
 								</div><!-- aboutImage -->
 						</div>
 						<div class="col-md-4">
 								<div class="aboutImage">
-								  <img src="<%=request.getContextPath()%>/images/advisory_.jpg" alt="" class="img-responsive" onclick="">
-								  <a href="#" class="captionLink">Advisory <span></span></a>
+								  <img src="<%=request.getContextPath()%>/images/advisory_.jpg" alt="" class="img-responsive" onclick="javascript:window.location.href='<%=request.getContextPath()%>/do/advisory'">
+								  <a href="<%=request.getContextPath()%>/do/advisory" class="captionLink">Advisory <span></span></a>
 								</div><!-- aboutImage -->
 						</div>
 					</div>

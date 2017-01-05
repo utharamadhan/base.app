@@ -23,10 +23,10 @@ public class DigitalBook extends BaseEntity implements Serializable {
 	private DigitalBook(){}
 	
 	public static final String PK_DIGITAL_BOOK = "pkDigitalBook";
-	public static final String CODE = "code";
 	public static final String TITLE = "title";
+	public static final String COVER_IMAGE_URL = "coverImageURL";
+	public static final String FILE_URL = "fileURL";
 	public static final String DESCRIPTION = "description";
-	public static final String LINK = "link";
 	public static final String STATUS = "status";
 	
 	public static DigitalBook getInstance() {
@@ -39,17 +39,17 @@ public class DigitalBook extends BaseEntity implements Serializable {
 	@Column(name = "PK_DIGITAL_BOOK", unique = true ,nullable = false)
 	private Long pkDigitalBook;
 	
-	@Column(name="CODE")
-	private String code;
-	
 	@Column(name="TITLE")
 	private String title;
 	
+	@Column(name="COVER_IMAGE_URL")
+	private String coverImageURL;
+
+	@Column(name="FILE_URL")
+	private String fileURL;
+	
 	@Column(name="DESCRIPTION")
 	private String description;
-	
-	@Column(name="LINK")
-	private String link;
 	
 	@Column(name="STATUS")
 	private Integer status;
@@ -60,33 +60,33 @@ public class DigitalBook extends BaseEntity implements Serializable {
 	public void setPkDigitalBook(Long pkDigitalBook) {
 		this.pkDigitalBook = pkDigitalBook;
 	}
-
-	public String getCode() {
-		return code;
-	}
-	public void setCode(String code) {
-		this.code = code;
-	}
-
+	
 	public String getTitle() {
 		return title;
 	}
 	public void setTitle(String title) {
 		this.title = title;
 	}
-
+	
+	public String getCoverImageURL() {
+		return coverImageURL;
+	}
+	public void setCoverImageURL(String coverImageURL) {
+		this.coverImageURL = coverImageURL;
+	}
+	
 	public String getDescription() {
 		return description;
 	}
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
-	public String getLink() {
-		return link;
+	
+	public String getFileURL() {
+		return fileURL;
 	}
-	public void setLink(String link) {
-		this.link = link;
+	public void setFileURL(String fileURL) {
+		this.fileURL = fileURL;
 	}
 	
 	public Integer getStatus() {

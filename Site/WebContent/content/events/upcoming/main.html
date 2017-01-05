@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1"/>
+<title></title>
+</head>
+<body>
+		<div class="full_banner">
+			<img th:src="@{/images/banner.jpg}" alt="" />
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="single_caption">
+							<h1>Events Calendar</h1>
+						</div><!--end single caption-->
+					</div>
+				</div>
+			</div>
+		</div><!--end full banner-->  
+		
+		<div class="calendar_outer">
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="event_calendar">
+							<div id="calendar" class="fc fc-ltr fc-unthemed">
+								<div class="fc-toolbar">
+								
+								
+								<div class="fc-left">
+									<div class="fc-button-group">
+										<button class="left"><span class="fa fa-chevron-left"></span></button>
+										
+									</div>
+								</div>
+								<div class="fc-right">
+									<button class="left"><span class="fa fa-chevron-right"></span></button>
+								</div>
+								<div class="fc-center"><h2>April 2016</h2></div>
+									<div class="fc-clear">
+									</div>
+								</div>
+						
+								<div class="fc-view-container" style="">
+								<div class="fc-view fc-month-view fc-basic-view" style="">
+									<table>
+										<thead>
+											<tr>
+												<td class="fc-widget-header">
+													<div class="fc-row fc-widget-header">
+														<table>
+															<thead>
+																<tr>
+																	<th>Sun</th>
+																	<th>Mon</th>
+																	<th>Tue</th>
+																	<th>Wed</th>
+																	<th>Thu</th>
+																	<th>Fri</th>
+																	<th>Sat</th>
+																	
+																  </tr>
+															   </thead>
+														 </table>
+													</div>
+												</td>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td class="fc-widget-content">
+													<div class="fc-day-grid-container" style="">
+														<div class="fc-day-grid">
+															<div class="fc-row fc-week fc-widget-content">
+																
+																<div class="fc-content-skeleton">
+																	<table>
+																		<thead>
+																			<tr>
+																				<td class="other_month">28</td>
+																				<td class="other_month">29</td>
+																				
+																				<td class="other_month">30</td>
+																				<td class="other_month">31</td>
+																				<td>1</td>
+																				<td>2</td>
+																				<td>3</td>
+																				
+																				
+																			</tr>
+																		</thead>
+																		<tbody>
+																			<tr>
+																				<td class="fc-event-container">
+																					<a class="event_link" href="http://themes.iamabdus.com/royal/1.1/events_calendar.html#">9th grade Field Trip</a>
+																					<div role="tooltip" class="tooltip top">
+																						<div class="tooltip-arrow"></div>
+																						  <div class="tooltip-inner">
+																							<h4>9th grade Field Trip</h4>
+																							<h5>10 am to 2pm, </h5>
+																							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation...</p>
+												
+																						  </div>
+																						</div>
+																				</td>
+																				<td></td>
+																				<td></td>
+																				<td></td>
+																				<td class="fc-event-container">
+																					<a class="event_link" href="http://themes.iamabdus.com/royal/1.1/events_calendar.html#">9th grade Field Trip</a>
+																					<div role="tooltip" class="tooltip top">
+																						<div class="tooltip-arrow"></div>
+																						  <div class="tooltip-inner">
+																							<h4>9th grade Field Trip</h4>
+																							<h5>10 am to 2pm, </h5>
+																							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation...</p>
+												
+																						  </div>
+																						</div>
+																				</td>
+																				<td></td>
+																				<td></td>
+																			</tr>
+																			<tr>
+																				<td></td>
+																				<td></td>
+																				<td></td>
+																				<td></td>
+																				<td class="fc-event-container">
+																					<a class="event_link" href="http://themes.iamabdus.com/royal/1.1/events_calendar.html#">9th grade Field Trip</a>
+																					<div role="tooltip" class="tooltip top">
+																						<div class="tooltip-arrow"></div>
+																						  <div class="tooltip-inner">
+																							<h4>9th grade Field Trip</h4>
+																							<h5>10 am to 2pm, </h5>
+																							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation...</p>
+												
+																						  </div>
+																						</div>
+																				</td>
+																				<td></td>
+																				<td></td>
+																			</tr>
+																		</tbody>
+																	 </table>
+																 </div>
+															</div>
+															
+															<div class="fc-row fc-week fc-widget-content">
+																
+																<div class="fc-content-skeleton">
+																	<table>
+																		<thead>
+																			<tr>
+																				<td>4</td>
+																				<td>5</td>
+																				<td>6</td>
+																				<td>7</td>
+																				<td>8</td>
+																				<td>9</td>
+																				<td>10</td>
+																				
+																			</tr>
+																		</thead>
+																		<tbody>
+																			<tr>
+																				<td></td>
+																				<td class="fc-event-container">
+																					<a class="event_link" href="http://themes.iamabdus.com/royal/1.1/events_calendar.html#">9th grade Field Trip</a>
+																					<div role="tooltip" class="tooltip top">
+																						<div class="tooltip-arrow"></div>
+																						  <div class="tooltip-inner">
+																							<h4>9th grade Field Trip</h4>
+																							<h5>10 am to 2pm, </h5>
+																							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation...</p>
+												
+																						  </div>
+																						</div>
+																				</td>
+																				<td></td>
+																				<td></td>
+																				<td></td>
+																				<td></td>
+																				<td></td>
+																			</tr>
+																			<tr>
+																				<td></td>
+																				<td class="fc-event-container">
+																					<a class="more" href="http://themes.iamabdus.com/royal/1.1/events_calendar.html#">2 more...</a>
+																				</td>
+																				<td></td>
+																				<td></td>
+																				<td></td>
+																				<td></td>
+																				<td></td>
+																			</tr>
+																		</tbody>
+																	 </table>
+																 </div>
+															</div>
+															
+															<div class="fc-row fc-week fc-widget-content">
+																
+																<div class="fc-content-skeleton">
+																	<table>
+																		<thead>
+																			<tr>
+																				<td>11</td>
+																				<td>12</td>
+																				<td>13</td>
+																				<td>14</td>
+																				<td>15</td>
+																				<td>16</td>
+																				<td>17</td>
+																				
+																			</tr>
+																		</thead>
+																		<tbody>
+																			<tr>
+																				<td></td>
+																				<td></td>
+																				<td></td>
+																				<td></td>
+																				<td></td>
+																				<td></td>
+																				<td></td>
+																			</tr>
+																			<tr>
+																				<td></td>
+																				<td></td>
+																				<td></td>
+																				<td></td>
+																				<td></td>
+																				<td></td>
+																				<td></td>
+																			</tr>
+																		</tbody>
+																	 </table>
+																 </div>
+															</div>
+															
+															<div class="fc-row fc-week fc-widget-content">
+																
+																<div class="fc-content-skeleton">
+																	<table>
+																		<thead>
+																			<tr>
+																				<td>18</td>
+																				<td>19</td>
+																				<td>20</td>
+																				<td>21</td>
+																				<td>22</td>
+																				<td>23</td>
+																				<td>24</td>
+																				
+																			</tr>
+																		</thead>
+																		<tbody>
+																			<tr>
+																				<td></td>
+																				<td></td>
+																				<td class="fc-event-container">
+																					<a class="event_link gray" href="http://themes.iamabdus.com/royal/1.1/events_calendar.html#">9th grade Field Trip</a>
+																					<div role="tooltip" class="tooltip top">
+																						<div class="tooltip-arrow"></div>
+																						  <div class="tooltip-inner">
+																							<h4>9th grade Field Trip</h4>
+																							<h5>10 am to 2pm, </h5>
+																							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation...</p>
+												
+																						  </div>
+																						</div>
+																				</td>
+																				<td></td>
+																				<td class="fc-event-container">
+																					<a class="event_link" href="http://themes.iamabdus.com/royal/1.1/events_calendar.html#">9th grade Field Trip</a>
+																					<div role="tooltip" class="tooltip top">
+																						<div class="tooltip-arrow"></div>
+																						  <div class="tooltip-inner">
+																							<h4>9th grade Field Trip</h4>
+																							<h5>10 am to 2pm, </h5>
+																							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation...</p>
+												
+																						  </div>
+																						</div>
+																				</td>
+																				<td></td>
+																				<td></td>
+																			</tr>
+																			<tr>
+																				<td></td>
+																				<td></td>
+																				<td></td>
+																				<td></td>
+																				<td class="fc-event-container">
+																					<a class="event_link" href="http://themes.iamabdus.com/royal/1.1/events_calendar.html#">9th grade Field Trip</a>
+																					<div role="tooltip" class="tooltip top">
+																						<div class="tooltip-arrow"></div>
+																						  <div class="tooltip-inner">
+																							<h4>9th grade Field Trip</h4>
+																							<h5>10 am to 2pm, </h5>
+																							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation...</p>
+												
+																						  </div>
+																						</div>
+																				</td>
+																				<td></td>
+																				<td></td>
+																			</tr>
+																		</tbody>
+																	 </table>
+																 </div>
+															</div>
+															
+															<div class="fc-row fc-week fc-widget-content">
+																
+																<div class="fc-content-skeleton">
+																	<table>
+																		<thead>
+																			<tr>
+																				<td>25</td>
+																				<td>26</td>
+																				<td>27</td>
+																				<td>28</td>
+																				<td>29</td>
+																				<td>30</td>
+																				<td class="other_month">1</td>
+																				
+																				
+																			</tr>
+																		</thead>
+																		<tbody>
+																			<tr>
+																				<td></td>
+																				<td></td>
+																				<td></td>
+																				<td></td>
+																				<td></td>
+																				<td></td>
+																				<td></td>
+																			</tr>
+																			<tr>
+																				<td></td>
+																				<td></td>
+																				<td></td>
+																				<td></td>
+																				<td></td>
+																				<td></td>
+																				<td></td>
+																			</tr>
+																		</tbody>
+																	 </table>
+																 </div>
+															</div>
+															
+															
+														</div>
+													</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!--end calendar outer-->
+		
+		<script type="text/javascript" th:inline="javascript">
+		/*<![CDATA[*/
+		/*]]>*/
+		</script>
+</body>
+</html>

@@ -43,7 +43,7 @@ public class ApplicationContextConfig extends WebMvcConfigurerAdapter{
 	@Bean(name = "templateResolver")
 	public ServletContextTemplateResolver templateResolver() {
 		ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver();
-		templateResolver.setPrefix("/do/");
+		templateResolver.setPrefix("/content");
 		templateResolver.setSuffix(".html");
 		templateResolver.setTemplateMode("HTML5");
 		templateResolver.setCacheable(false); //development only

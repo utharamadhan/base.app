@@ -29,8 +29,7 @@ public class GroupCourse extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = -2512890745160322636L;
 	
 	public static final String PK_GROUP_COURSE 	= "pkGroupCourse";
-	public static final String CODE 			= "code";
-	public static final String NAME 			= "name";
+	public static final String TITLE 			= "title";
 	public static final String BASIC_PICTURE_URL 	= "basicPictureURL";
 	public static final String SHORT_DESCRIPTION	= "shortDesription";
 	public static final String FULL_DESCRIPTION	= "fullDesription";
@@ -46,11 +45,8 @@ public class GroupCourse extends BaseEntity implements Serializable {
 	@Column(name = "PK_GROUP_COURSE", unique = true ,nullable = false)
 	private Long pkGroupCourse;
 	
-	@Column(name="CODE")
-	private String code;
-	
-	@Column(name="NAME")
-	private String name;
+	@Column(name="TITLE")
+	private String title;
 	
 	@Column(name="BASIC_PICTURE_URL")
 	private String basicPictureURL;
@@ -73,28 +69,21 @@ public class GroupCourse extends BaseEntity implements Serializable {
 	public void setPkGroupCourse(Long pkGroupCourse) {
 		this.pkGroupCourse = pkGroupCourse;
 	}
-
-	public String getCode() {
-		return code;
+	
+	public String getTitle() {
+		return title;
 	}
-	public void setCode(String code) {
-		this.code = code;
-	}
-
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 	
 	public String getBasicPictureURL() {
 		return basicPictureURL;
 	}
-	
 	public void setBasicPictureURL(String basicPictureURL) {
 		this.basicPictureURL = basicPictureURL;
 	}
+	
 	public String getShortDescription() {
 		return shortDescription;
 	}

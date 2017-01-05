@@ -12,24 +12,24 @@
                      			<i class="fa fa-bar-chart"></i> Administration <b class="fa fa-plus dropdown-plus"></b>
                    			</a>
 							<ul class="dropdown-menu">
-								<li id="systemParameter">
-									<a href="/Web/do/systemParameter/showList">
-			                        	<i class="fa fa-caret-right"></i> System Parameter
-			                        </a>
-			                  	</li>
-			                  	<li id="lookup">
-									<a href="/Web/do/lookupGroup/showList">
-			                        	<i class="fa fa-caret-right"></i> Lookup
+			                  	<li id="appRoleMaintenance">
+									<a href="/Web/do/appRoleMaintenance/showList">
+			                        	<i class="fa fa-caret-right"></i> App Role
 			                        </a>
 			                  	</li>
 			                  	<li id="userMaintenance">
 									<a href="/Web/do/userMaintenance/showList">
-			                        	<i class="fa fa-caret-right"></i> User
+			                        	<i class="fa fa-caret-right"></i> App User
 			                        </a>
 			                  	</li>
-			                  	<li id="appRoleMaintenance">
-									<a href="/Web/do/appRoleMaintenance/showList">
-			                        	<i class="fa fa-caret-right"></i> Role
+								<li id="systemParameter">
+									<a href="/Web/do/systemParameter/showList">
+			                        	<i class="fa fa-caret-right"></i> Business Setting
+			                        </a>
+			                  	</li>
+			                  	<li id="lookup">
+									<a href="/Web/do/lookupGroup/showList">
+			                        	<i class="fa fa-caret-right"></i> Reference
 			                        </a>
 			                  	</li>
 							</ul>
@@ -75,34 +75,20 @@
 							<ul class="dropdown-menu">
 								<li id="digitalBook">
 									<a href="/Web/do/publication/digitalBook/showList">
-			                        	<i class="fa fa-caret-right"></i> Digital Book
+			                        	<i class="fa fa-caret-right"></i> eBook
 			                        </a>
 			                  	</li>
 							</ul>
 	                  	</li>
-	                  	<li id="news" class="dropdown">
-	                  		<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                     			<i class="fa fa-bar-chart"></i> News Editor <b class="fa fa-plus dropdown-plus"></b>
-                   			</a>
-							<ul class="dropdown-menu">
-								<li id="newsMaintenance">
-									<a href="/Web/do/news/newsMaintenance/showList">
-			                        	<i class="fa fa-caret-right"></i> News
-			                        </a>
-			                  	</li>
-							</ul>
+	                  	<li id="dashboard">
+	                    	<a href="/Web/do/news/newsMaintenance/showList">
+	                      		<i class="fa fa-desktop"></i> News
+	                    	</a>
 	                  	</li>
-	                  	<li id="event" class="dropdown">
-	                  		<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                     			<i class="fa fa-bar-chart"></i> Events <b class="fa fa-plus dropdown-plus"></b>
-                   			</a>
-							<ul class="dropdown-menu">
-								<li id="eventMaintenance">
-									<a href="/Web/do/event/eventMaintenance/showList">
-			                        	<i class="fa fa-caret-right"></i> Event Maintenance
-			                        </a>
-			                  	</li>
-							</ul>
+	                  	<li id="dashboard">
+	                    	<a href="/Web/do/event/eventMaintenance/showList">
+	                      		<i class="fa fa-desktop"></i> Event
+	                    	</a>
 	                  	</li>
 	                  	<li id="course" class="dropdown">
 	                  		<a href="#" class="dropdown-toggle" data-toggle="dropdown">
