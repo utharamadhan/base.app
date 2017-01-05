@@ -64,15 +64,15 @@
 								  <ul class="dropdown-menu mega-dropdown-menu row about-us-mega-menu">
 									<li class="col-sm-4">
 										<ul>
-											<li class="dropdown-header"><a href="#">Who We Are?</a></li>
+											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/do/about-us">Who We Are?</a></li>
 											<li class="divider"></li>
-											<li class="dropdown-header"><a href="#">Visi Misi & Nilai-Nilai</a></li>
+											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/do/visi">Visi Misi & Nilai-Nilai</a></li>
 											<li class="divider"></li>
-											<li class="dropdown-header"><a href="#">Why HFC Should be your Choice?</a></li>
+											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/do/why">Why HFC Should be your Choice?</a></li>
 											<li class="divider"></li>
-											<li class="dropdown-header"><a href="#">Layanan HFC</a></li>
+											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/do/service">Layanan HFC</a></li>
 											<li class="divider"></li>
-											<li class="dropdown-header"><a href="#">Tim Pengajar</a></li>
+											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/do/lecturer">Tim Pengajar</a></li>
 										</ul>
 									</li>
 									<li class="col-sm-4">
@@ -126,7 +126,7 @@
 									</li>
 									<li class="col-sm-6">
 										<ul>
-											<li class="dropdown-header"><a href="#">Digital Books</a></li>
+											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/do/ebook">Digital Books</a></li>
 											<li>
 												<div class="col-md-6">
 													<img src="<%=request.getContextPath()%>/images/digital-books1.jpg"/>
@@ -138,18 +138,18 @@
 									</li>
 								  </ul>
 								</li>
-								<li><a href="#">News</a></li>
+								<li><a href="<%=request.getContextPath()%>/do/news">News</a></li>
 								<li class="dropdown">
 								  <a href="/index.html#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Events/Workshops <span class="caret"></span></a>
 								  <ul class="dropdown-menu mega-dropdown-menu row events-mega-menu">
 									<li class="col-sm-6">
 										<ul>
-											<li class="dropdown-header"><a href="/about.html">Archived</a></li>
+											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/do/events/archived">Archived</a></li>
 										</ul>
 									</li>
 									<li class="col-sm-6">
 										<ul>
-											<li class="dropdown-header"><a href="#">Upcoming</a></li>
+											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/do/events/upcoming">Upcoming</a></li>
 										</ul>
 									</li>
 								  </ul>
@@ -293,7 +293,7 @@
 												<label for="p-option">Purchase Course &nbsp;&nbsp;&#183;&nbsp;&nbsp; <span class="nominal-fee">Rp. 5.000.000,00</span></label>
 												<div class="option-desc">
 													<div>
-														<img src="img/certificate.png" class="desc-certificate"/>
+														<img src="<%=request.getContextPath()%>/images/certificate.png" class="desc-certificate"/>
 													</div>
 													Commit to earning a Certificate-it's a trusted, shareable way to showcase your new skills.
 												</div>
