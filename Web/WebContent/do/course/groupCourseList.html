@@ -30,8 +30,8 @@
 	                      	<table id="groupCourse-list-table" class="table table-datatable table-custom">
 		                        <thead>
 		                          <tr>
-		                            <th>Code</th>
-									<th>Name</th>
+		                            <th>Title</th>
+									<th>Short Description</th>
 									<th>E/D</th>
 		                          </tr>
 		                        </thead>
@@ -83,8 +83,8 @@
 	
 	    $(function(){
 		    setMenuActive('groupCourse');
-		    var colDefs = [{ name : "code" }, 
-	    	               { name : "name" },
+		    var colDefs = [{ name : "title" }, 
+	    	               { name : "shortDescription" },
 	    	               { type : "deleteAndEdit" , param : [ "pkGroupCourse" ] }
 	    	               ];
 		    var sURL = /*[[@{/do/course/groupCourse/list?}]]*/ #;

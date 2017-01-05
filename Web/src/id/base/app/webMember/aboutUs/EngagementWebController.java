@@ -59,7 +59,7 @@ public class EngagementWebController extends BaseController<Engagement> {
 		List<SearchFilter> filters = new ArrayList<>();
 		setDefaultFilter(request, filters);
 		if(StringFunction.isNotEmpty(columns.getSearch().get(DataTableCriterias.SearchCriterias.value))){
-			filters.add(new SearchFilter(Engagement.CODE, Operator.LIKE, columns.getSearch().get(DataTableCriterias.SearchCriterias.value)));
+			filters.add(new SearchFilter(Engagement.TITLE, Operator.LIKE, columns.getSearch().get(DataTableCriterias.SearchCriterias.value)));
 		}
 		return filters;
 	}

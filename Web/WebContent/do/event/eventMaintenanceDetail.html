@@ -4,6 +4,17 @@
 <meta charset="ISO-8859-1"/>
 <title>Event Maintenance Detail</title>
 </head>
+<style>
+.gcDetail-basicPicture {
+	max-height : 250px;
+}
+
+.coverImage-delete {
+	position:absolute;
+	left:25px;
+	top:10px;
+}
+</style>
 <body>
 	<div class="pageheader">
 		<div class="row col-md-8">
@@ -11,7 +22,7 @@
 			<span></span></h4>
 		</div>
 	</div>
-	<div class="row col-md-8">
+	<div class="row col-md-12">
 	<section class="tile color transparent-black">
 			<div class="tile-body">
 				<form action="#" id="event-detail-form" class="form-horizontal" method="POST" novalidate="novalidate" th:object="${detail}">
@@ -31,33 +42,60 @@
 						</div>
 						<input id="event-detail-maintenancePk" type="hidden" th:field="*{pkEvent}"/>
 						<div class="form-group">
-							<label class="col-sm-3 control-label" th:text="'Code'">Code</label>
-							<div class="col-sm-9 form-input-container">
-								<input type="text" class="form-control" placeholder="Code" name="srch-term" id="input-text-code" th:field="*{code}"/>
+							<label class="col-sm-2 control-label" th:text="'Title'">Title</label>
+							<div class="col-sm-10 form-input-container">
+								<input type="text" class="form-control" placeholder="Title" name="srch-term" id="input-text-title" th:field="*{title}"/>
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-3 control-label" th:text="'Name'">Name</label>
-							<div class="col-sm-9 form-input-container">
-								<input type="text" class="form-control" placeholder="Name" name="srch-term" id="input-text-name" th:field="*{name}"/>
-							</div>
+							<label class="col-sm-2 control-label" th:text="'Status'">Status</label>
+							<div class="col-sm-10 form-input-container">
+								<select class="advisory-detail-groupAdvisorySelect chosen-select form-control" th:field="*{eventStatusLookup.pkLookup}">
+									<option th:each="opt : ${eventStatusOptions}" th:value="${opt.pkLookup}" th:text="${opt.name}">Name</option>
+                           		</select>
+                           	</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-3 control-label" th:text="'Description'">Description</label>
-							<div class="col-sm-9 form-input-container">
-								<input type="text" class="form-control" placeholder="Description" name="srch-term" id="input-text-name" th:field="*{description}"/>
-							</div>
-						</div>
-						<div class="form-group">
-                          	<label class="col-sm-3 control-label">Event Date</label>
-                          	<div class="col-sm-9">
+                          	<label class="col-sm-2 control-label">Event Date</label>
+                          	<div class="col-sm-10">
                             	<input type='text' class="datepicker input-date form-control" th:name="eventDate" th:value="${detail.eventDate!=null?#dates.format(detail.eventDate, T(id.base.app.SystemConstant).SYSTEM_DATE_MASK_2):''}" />
-                            	
-                            	
-                          	</div>
+                           </div>
                        	</div>
+                       	<div class="form-group">
+							<label class="col-sm-2 control-label" th:text="'Cover Image'">Cover Image</label>
+							<div class="col-sm-10 form-input-container">
+								<th:block th:if="${detail.coverImageURL != null}">
+									<input type="hidden" id="input-hidden-coverImageURL" th:field="*{coverImageURL}"/>
+									<input type="file" class="form-control" id="input-file-coverImageURL" style="display:none;"/>
+									<div id="container-coverImageURL">
+										<img th:src="${detail.coverImageURL}" class="gcDetail-basicPicture"/>
+										<a href="#" class="btn btn-primary btn-xs margin-bottom-20 coverImage-delete" data-toggle="tooltip" title="Delete"><i class="fa fa-trash"></i></a>
+									</div>
+								</th:block>
+								<th:block th:if="${detail.coverImageURL == null}">
+									<input type="hidden" id="input-hidden-coverImageURL" name="coverImageURL"/>
+									<input type="file" class="form-control" id="input-file-coverImageURL"/>
+									<div id="container-coverImageURL" style='display:none;'>
+									</div>
+								</th:block>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" th:text="'Description'">Description</label>
+							<input name="description" type="hidden"/>
+							<div class="col-sm-10">							
+								<div id="descriptionQuill">
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" th:text="'Excerpt'">Excerpt</label>
+							<div class="col-sm-10">							
+								<textarea th:field="*{excerpt}" class="form-control"></textarea>
+							</div>
+						</div>
 						<div class="form-group form-footer">				
-							<div class="col-sm-offset-3 col-sm-9">
+							<div class="col-sm-offset-2 col-sm-10">
 								<a href="#" id="event-detail-btn-cancel" class="btn btn-default" type="reset" data-toggle="tooltip" title="">Batal</a>
 								<button id="event-detail-btn-save" class="btn btn-primary" type="submit" data-toggle="tooltip" title="">Simpan</button>
 							</div>
@@ -69,7 +107,19 @@
 	</div>
 	<script th:inline="javascript">
 	/*<![CDATA[*/
+		
+		function initDeletePicture() {
+			$('.coverImage-delete').click(function(e){
+				e.preventDefault();
+				$('#input-file-coverImageURL').show();
+				$('#container-coverImageURL').html("");
+				$('#input-hidden-coverImageURL, #input-file-coverImageURL').val("");
+				$('#container-coverImageURL').hide();
+			});
+		}
+	           
 	    $(function(){
+	    	initDeletePicture();
 	    	
 	    	$('.datepicker').datepicker({
 	    	    autoclose: true,
@@ -80,6 +130,43 @@
     		    }
             });
 	    	
+	    	var fileManagerURL = /*[[@{/do/fileManager/upload/}]]*/ #; 
+			var imageHandler = function(image, callback) {
+				var data = new FormData();
+				data.append('file', image);
+				var xhr = new XMLHttpRequest();
+				xhr.open('POST', fileManagerURL, true);
+				xhr.onreadystatechange = function() {
+				  if (xhr.readyState === 4) {
+				    var response = JSON.parse(xhr.responseText);
+				    if (response) {
+				      	callback(response);
+				    } else {
+				      	var reader = new FileReader();
+				      	reader.onload = function(e) {
+				        	callback(e.target.result);
+				      	};
+				      	reader.readAsDataURL(image);
+				    }
+				  }
+				}
+				xhr.send(data);
+			};
+			
+			var descriptionQuill = new Quill('#descriptionQuill', {
+		    	theme: 'snow',
+		    	modules: {
+			    	toolbar: toolbarOptions
+				},
+				imageHandler: imageHandler
+		  	});
+			
+			var description = [[${detail.description}]];
+			if(description) {
+				var contentJson = JSON.parse(description);
+				descriptionQuill.setContents(contentJson.ops);
+			}
+	    	
 			var backToList = function(){
 				returnToList('event-detail-container', 'event-list-container', true);
 			};
@@ -87,6 +174,7 @@
 			var submitForm = function(){
 				cleanErrorParsley();
 				var sURL = /*[[@{/do/event/eventMaintenance/saveEvent/}]]*/ #;
+				$('input[name="description"]').val(JSON.stringify(descriptionQuill.getContents()));
 				$.post(sURL, $("#event-detail-form").serialize(), function(data) {
 					if(data.errorList!=null){
 						displayErrorParsley(data.errorList);
@@ -95,6 +183,62 @@
 					}
 				});
 			};
+			
+			var showImage = function(imageURL) {
+				$('#input-file-coverImageURL').hide();
+				var htmlContent = '<image src="'+imageURL+'" style="max-height:250px;"></image>';
+				htmlContent += '<a href="#" class="btn btn-primary btn-xs margin-bottom-20 coverImage-delete" data-toggle="tooltip" title="Delete" style="position:absolute; left:25px; top:10px;"><i class="fa fa-trash"></i></a>';
+				$('#container-coverImageURL').html(htmlContent);
+				$('#input-hidden-coverImageURL').val(imageURL);
+				$('#container-coverImageURL').show();
+				initDeletePicture();
+			}
+			
+			var showFile = function(fileURL) {
+				$('#input-file-fileURL').hide();
+				var htmlContent = '<label style="margin-right:10px;">Uploaded File</label>';
+				htmlContent += '<a href="#" class="btn btn-primary btn-xs margin-bottom-20 coverImage-delete" data-toggle="tooltip" title="Delete"><i class="fa fa-trash"></i></a>';
+				$('#container-fileURL').html(htmlContent);
+				$('#input-hidden-fileURL').val(fileURL);
+				$('#container-fileURL').show();
+				initDeletePicture();			
+			}
+			
+			var uploadFile = function(image, uploadURL, isImage) {
+				var data = new FormData();
+				data.append('file', image);
+				var xhr = new XMLHttpRequest();
+				xhr.open('POST', uploadURL, true);
+				xhr.onreadystatechange = function() {
+				  if (xhr.readyState === 4) {
+				    var response = JSON.parse(xhr.responseText);
+				    if (isImage == true) {
+				    	if (response) {
+					      	showImage(response);
+					    } else {
+					      	var reader = new FileReader();
+					      	reader.onload = function(e) {
+					        	callback(e.target.result);
+					      	};
+					      	reader.readAsDataURL(image);
+					    }	
+				    } else {
+				    	if (response) {
+				    		showFile(response);
+				    	}
+				    }
+				  }
+				}
+				xhr.send(data);
+			};
+			
+			var thisObj = '';
+			$('#input-file-coverImageURL').change(function(){
+				var sURL = /*[[@{/do/fileManager/uploadFeaturedImage/}]]*/ #;
+				var thisObj = $('#input-file-coverImageURL')[0];
+				console.log('hello ' + sURL);
+				uploadFile(thisObj.files[0], sURL, true);
+			});
 			
 			$('#event-detail-btn-save').click(function(e){
 				e.preventDefault();

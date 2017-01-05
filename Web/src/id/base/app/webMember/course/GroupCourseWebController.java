@@ -60,7 +60,7 @@ public class GroupCourseWebController extends BaseController<GroupCourse> {
 		List<SearchFilter> filters = new ArrayList<>();
 		setDefaultFilter(request, filters);
 		if(StringFunction.isNotEmpty(columns.getSearch().get(DataTableCriterias.SearchCriterias.value))){
-			filters.add(new SearchFilter(GroupCourse.CODE, Operator.LIKE, columns.getSearch().get(DataTableCriterias.SearchCriterias.value)));
+			filters.add(new SearchFilter(GroupCourse.TITLE, Operator.LIKE, columns.getSearch().get(DataTableCriterias.SearchCriterias.value)));
 		}
 		return filters;
 	}

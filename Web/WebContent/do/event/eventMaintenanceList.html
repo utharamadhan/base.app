@@ -30,8 +30,8 @@
 	                      	<table id="event-list-table" class="table table-datatable table-custom">
 		                        <thead>
 		                          <tr>
-		                            <th>Code</th>
-									<th>Name</th>
+		                            <th>Title</th>
+									<th>Excerpt</th>
 									<th>E/D</th>
 		                          </tr>
 		                        </thead>
@@ -83,8 +83,8 @@
 	
 	    $(function(){
 		    setMenuActive('event');
-		    var colDefs = [{ name : "code" }, 
-	    	               { name : "name" },
+		    var colDefs = [{ name : "title" }, 
+	    	               { name : "excerpt" },
 	    	               { type : "deleteAndEdit" , param : [ "pkEvent" ] }
 	    	               ];
 		    var sURL = /*[[@{/do/event/eventMaintenance/list?}]]*/ #;

@@ -29,11 +29,8 @@ public class ProgramPostController extends SuperController<ProgramPost>{
 	@Override
 	public ProgramPost validate(ProgramPost anObject) throws SystemException {
 		List<ErrorHolder> errorList = new ArrayList<>();
-		if(StringFunction.isEmpty(anObject.getCode())) {
-			errorList.add(new ErrorHolder(ProgramPost.CODE, messageSource.getMessage("error.mandatory", new String[]{"code"}, Locale.ENGLISH)));
-		}
-		if(StringFunction.isEmpty(anObject.getName())) {
-			errorList.add(new ErrorHolder(ProgramPost.NAME, messageSource.getMessage("error.mandatory", new String[]{"name"}, Locale.ENGLISH)));
+		if(StringFunction.isEmpty(anObject.getTitle())) {
+			errorList.add(new ErrorHolder(ProgramPost.TITLE, messageSource.getMessage("error.mandatory", new String[]{"title"}, Locale.ENGLISH)));
 		}
 		if(StringFunction.isEmpty(anObject.getContent())) {
 			errorList.add(new ErrorHolder(ProgramPost.CONTENT, messageSource.getMessage("error.mandatory", new String[]{"content"}, Locale.ENGLISH)));

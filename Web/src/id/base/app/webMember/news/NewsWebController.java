@@ -1,5 +1,6 @@
 package id.base.app.webMember.news;
 
+import id.base.app.ILookupGroupConstant;
 import id.base.app.SystemConstant;
 import id.base.app.exception.ErrorHolder;
 import id.base.app.paging.PagingWrapper;
@@ -15,6 +16,7 @@ import id.base.app.valueobject.AppUser;
 import id.base.app.valueobject.news.News;
 import id.base.app.webMember.DataTableCriterias;
 import id.base.app.webMember.controller.BaseController;
+import id.base.app.webMember.rest.LookupRestCaller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -58,7 +60,7 @@ public class NewsWebController extends BaseController<News> {
 		List<SearchFilter> filters = new ArrayList<>();
 		setDefaultFilter(request, filters);
 		if(StringFunction.isNotEmpty(columns.getSearch().get(DataTableCriterias.SearchCriterias.value))){
-			filters.add(new SearchFilter(News.CODE, Operator.LIKE, columns.getSearch().get(DataTableCriterias.SearchCriterias.value)));
+			filters.add(new SearchFilter(News.TITLE, Operator.LIKE, columns.getSearch().get(DataTableCriterias.SearchCriterias.value)));
 		}
 		return filters;
 	}
@@ -78,10 +80,14 @@ public class NewsWebController extends BaseController<News> {
 		return getListPath();
 	}
 	
-	public void setDefaultData(ModelMap model) {}
+	public void setDefaultData(ModelMap model) {
+		LookupRestCaller lrc = new LookupRestCaller();
+		model.addAttribute("newsStatusOptions", lrc.findByLookupGroup(ILookupGroupConstant.NEWS_STATUS));
+	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="showAdd")
 	public String showAdd(ModelMap model, HttpServletRequest request){
+		setDefaultData(model);
 		model.addAttribute("detail", News.getInstance());
 		return PATH_DETAIL;
 	}
