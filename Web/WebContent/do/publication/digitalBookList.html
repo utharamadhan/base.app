@@ -15,7 +15,7 @@
 	<div id="digitalBook-detail-container"></div>
 	<div id="digitalBook-list-container">
 	<div class="pageheader">
-		<h4><i class="fa fa-shopping-basket"></i> Publication Editor / Digital Book List
+		<h4><i class="fa fa-shopping-basket"></i> Publication Editor / eBook List
 		<span></span></h4>
 	</div>
 	<div class="col-md-4 tile-body no-vpadding" style="margin:10px;">
@@ -30,7 +30,6 @@
 	                      	<table id="digitalBook-list-table" class="table table-datatable table-custom">
 		                        <thead>
 		                          <tr>
-		                            <th>Code</th>
 									<th>Title</th>
 									<th>E/D</th>
 		                          </tr>
@@ -83,8 +82,7 @@
 	
 	    $(function(){
 		    setMenuActive('digitalBook');
-		    var colDefs = [{ name : "code" }, 
-	    	               { name : "title" },
+		    var colDefs = [{ name : "title" },
 	    	               { type : "deleteAndEdit" , param : [ "pkDigitalBook" ] }
 	    	               ];
 		    var sURL = /*[[@{/do/publication/digitalBook/list?}]]*/ #;

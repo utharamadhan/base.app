@@ -31,6 +31,18 @@
 						</div>
 						<input id="userMaintenance-detail-maintenancePk" type="hidden" th:field="*{pkAppUser}"/>
 						<div class="form-group">
+							<label class="col-sm-3 control-label" th:text="'Name'">Name</label>
+							<div class="col-sm-9 form-input-container">
+								<input type="text" class="form-control" placeholder="Name" name="srch-term" id="input-text-name" th:field="*{party.name}"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label" th:text="'No. Telp'">No. Telp</label>
+							<div class="col-sm-9 form-input-container">
+								<input type="text" class="form-control" placeholder="No. Telp" name="srch-term" id="input-text-phoneNumber" th:field="*{party.partyContacts[0].contact}"/>
+							</div>
+						</div>
+						<div class="form-group">
 							<label class="col-sm-3 control-label" th:text="'Username'">Username</label>
 							<div class="col-sm-9 form-input-container">
 								<input type="text" class="form-control" placeholder="Username" name="srch-term" id="input-text-name" th:field="*{userName}"/>

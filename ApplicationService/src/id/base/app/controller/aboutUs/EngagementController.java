@@ -29,11 +29,8 @@ public class EngagementController extends SuperController<Engagement>{
 	@Override
 	public Engagement validate(Engagement anObject) throws SystemException {
 		List<ErrorHolder> errorList = new ArrayList<>();
-		if(StringFunction.isEmpty(anObject.getCode())) {
-			errorList.add(new ErrorHolder(Engagement.CODE, messageSource.getMessage("error.mandatory", new String[]{"code"}, Locale.ENGLISH)));
-		}
-		if(StringFunction.isEmpty(anObject.getName())) {
-			errorList.add(new ErrorHolder(Engagement.NAME, messageSource.getMessage("error.mandatory", new String[]{"name"}, Locale.ENGLISH)));
+		if(StringFunction.isEmpty(anObject.getTitle())) {
+			errorList.add(new ErrorHolder(Engagement.TITLE, messageSource.getMessage("error.mandatory", new String[]{"title"}, Locale.ENGLISH)));
 		}
 		if(StringFunction.isEmpty(anObject.getContent())) {
 			errorList.add(new ErrorHolder(Engagement.CONTENT, messageSource.getMessage("error.mandatory", new String[]{"content"}, Locale.ENGLISH)));

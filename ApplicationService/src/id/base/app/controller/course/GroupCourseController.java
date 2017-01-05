@@ -31,12 +31,6 @@ public class GroupCourseController extends SuperController<GroupCourse>{
 	@Override
 	public GroupCourse validate(GroupCourse anObject) throws SystemException {
 		List<ErrorHolder> errorList = new ArrayList<>();
-		if(StringFunction.isEmpty(anObject.getCode())) {
-			errorList.add(new ErrorHolder(GroupCourse.CODE, messageSource.getMessage("error.mandatory", new String[]{"code"}, Locale.ENGLISH)));
-		}
-		if(StringFunction.isEmpty(anObject.getName())) {
-			errorList.add(new ErrorHolder(GroupCourse.NAME, messageSource.getMessage("error.mandatory", new String[]{"name"}, Locale.ENGLISH)));
-		}
 		if(StringFunction.isEmpty(anObject.getShortDescription())) {
 			errorList.add(new ErrorHolder(GroupCourse.SHORT_DESCRIPTION, messageSource.getMessage("error.mandatory", new String[]{"short description"}, Locale.ENGLISH)));
 		}
