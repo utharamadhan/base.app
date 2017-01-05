@@ -1,19 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <decorators defaultdir="/decorators">
 	<excludes>
-		<pattern>/*showTab*</pattern>
-		<pattern>/*showDetail*</pattern>
-		<pattern>/login.jsp</pattern>
-		<pattern>/errorNotLogin.jsp</pattern>
-        <pattern>/LoginAction.do*</pattern>
-		<pattern>/*LogoffAction.do*</pattern>
-		<pattern>*logout.jsp</pattern>
-        <pattern>*Export*</pattern>
-        <pattern>*method=save*</pattern>
-        <pattern>*method=download*</pattern>
-        <pattern>*method=upload*</pattern>
         <pattern>*skipdecorator*</pattern>
-        <pattern>*#*</pattern>
     </excludes>
     
 	<decorator name="_header" page="_header.jsp"/>

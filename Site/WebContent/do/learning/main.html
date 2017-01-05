@@ -31,7 +31,7 @@
 										<div style="background-color:orange;width:150px;float:left;text-align:center;color:white;padding:5px;font-size:14px;font-weight:bold" class="show_detail">DETAIL</div>
 									</div>
 									<div class="col-md-6">
-										<div style="background-color:orange;width:150px;float:right;text-align:center;color:white;padding:5px;font-size:14px;font-weight:bold;cursor:pointer" >LEARNING</div>
+										<div style="background-color:orange;width:150px;float:right;text-align:center;color:white;padding:5px;font-size:14px;font-weight:bold;cursor:pointer" class="show_program">LEARNING</div>
 									</div>
 								</div><!--end post bottom-->
 						</div><!--end post-->
@@ -48,7 +48,7 @@
 										<div style="background-color:orange;width:150px;float:left;text-align:center;color:white;padding:5px;font-size:14px;font-weight:bold" class="show_detail">DETAIL</div>
 									</div>
 									<div class="col-md-6">
-										<div style="background-color:orange;width:150px;float:right;text-align:center;color:white;padding:5px;font-size:14px;font-weight:bold;cursor:pointer" >LEARNING</div>
+										<div style="background-color:orange;width:150px;float:right;text-align:center;color:white;padding:5px;font-size:14px;font-weight:bold;cursor:pointer" class="show_program">LEARNING</div>
 									</div>
 								</div><!--end post bottom-->
 								
@@ -66,7 +66,7 @@
 										<div style="background-color:orange;width:150px;float:left;text-align:center;color:white;padding:5px;font-size:14px;font-weight:bold" class="show_detail">DETAIL</div>
 									</div>
 									<div class="col-md-6">
-										<div style="background-color:orange;width:150px;float:right;text-align:center;color:white;padding:5px;font-size:14px;font-weight:bold;cursor:pointer">LEARNING</div>
+										<div style="background-color:orange;width:150px;float:right;text-align:center;color:white;padding:5px;font-size:14px;font-weight:bold;cursor:pointer" class="show_program">LEARNING</div>
 									</div>
 								</div><!--end post bottom-->
 								
@@ -81,7 +81,11 @@
 		/*<![CDATA[*/
 		$('.show_detail').unbind('click').click(function(){
 			var link = /*[[@{/do/learning/detail}]]*/ '';
-			alert(link);
+			window.location.href = link;
+		});
+		
+		$('.show_program').unbind('click').click(function(){
+			var link = /*[[@{/do/learning/program}]]*/ '';
 			window.location.href = link;
 		});
 		/*]]>*/

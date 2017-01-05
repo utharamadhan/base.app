@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title></title>
+</head>
+<body>
+	<div class="breadcrumb-wrapper">
+			<div class="breadcrumb">
+				<div class="container">
+					<ul>
+					<li><a th:href="@{/}">Home</a></li>
+					<li><a th:href="@{/do/learning}">Learning</a></li>
+					<li><a href="#">Foundation Property Developer</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="courses_section">
+			<div class="container">
+				<h1>FOUNDATION PROPERTY DEVELOPER</h1><br/>
+				<div class="row">
+					<div class="col-md-6">
+						<form action="#" method="post">
+							<div class="container">
+								<div class="row">
+									<div class="span12">
+										<div id="tab" class="btn-group" data-toggle="buttons">
+											<a href="#prices" class="btn btn-default active" data-toggle="tab">
+												<input type="radio" />-- Semua Kategori --</a>
+											<a href="#features" class="btn btn-default" data-toggle="tab">
+												<input type="radio" />Internal</a>
+											<a href="#requests" class="btn btn-default" data-toggle="tab">
+												<input type="radio" />Join Program</a>
+											<a href="#contact" class="btn btn-default" data-toggle="tab">
+												<input type="radio" />Omnibus</a>
+										</div>
+									</div>
+								</div>
+							</div>							
+						</form>
+					</div>
+					<div class="col-md-6">
+						<div class="input-group">
+						  <input type="text" class="form-control" placeholder="Program" aria-describedby="basic-addon2" />
+						  <span class="input-group-addon" id="basic-addon2"><i class="fa fa-search" aria-hidden="true"></i></span>
+						</div>
+						<div class="input-group search-popup">
+						  <label class="aos-search-title">Area of Studies : </label> 
+						  <div class="aos-search-content"></div>
+						  <span class="input-group-addon" id="basic-addon2" data-toggle="modal" data-target="#aos-modal"><i class="fa fa-sliders" aria-hidden="true"></i></span>
+						</div>
+					</div>
+				</div>
+				<br/>
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 col-md-12">	
+						<div class="courses">
+							<table class="table table-bordered table-striped">
+								<thead>
+								  <tr>
+									<th>&nbsp;</th>
+									<th>Program</th>
+									<th class="all-category">Kategori</th>
+									<th class="join-program">Dengan</th>
+									<th>Durasi</th>
+								  </tr>
+								</thead>
+								<tbody>
+								  <tr class="course-list-content">
+									<td class="course-thumb">
+										<img th:src="@{/images/Building the Frame for Business Growth.jpg}"/>
+									</td>
+									<td>
+										<h3 class="course-title">
+											<a href="#" class="show_detail">Building the Frame for Business Growth</a>
+										</h3>
+										<span class="tag">property</span>
+										<span class="tag">developer</span>
+									</td>
+									<td class="all-category">Join Program</td>
+									<td class="join-program">Universitas Indonesia</td>
+									<td><span>Mulai 24 Oktober 2016</span><br/><span class="sub-date">1 bulan (4 minggu)<span class="block">Kamis, Jum'at dan Sabtu</span><span class="block">09.00 - 15.00 (2 sessi/hari)</span></span></td>
+								  </tr>
+								  <tr class="course-list-content">
+									<td class="course-thumb">
+										<img src="@{/images/course2.jpg}"/>
+									</td>
+									<td>
+										<h3 class="course-title">
+											<a href="#" class="show_detail">Build a Hospitality Business</a>
+											<span class="course-subtitle">
+												Prepare for a professional career in the hotel industry
+											</span>
+										</h3>
+										<span class="tag">hotel</span>
+										<span class="tag">career</span>
+										<span class="tag">industry</span>
+									</td>
+									<td class="all-category">Internal</td>
+									<td class="join-program">&nbsp;</td>
+									<td><span>Mulai 22 Oktober 2016</span><br/><span class="sub-date">1 bulan (4 minggu)<span class="block">Kamis, Jum'at dan Sabtu</span><span class="block">09.00 - 15.00 (2 sessi/hari)</span></span></td>
+								  </tr>
+								  <tr class="course-list-content">
+									<td class="course-thumb">
+										<img th:src="@{/images/logo_med.jpg}"/>
+									</td>
+									<td>
+										<h3 class="course-title">
+											<a href="#" class="show_detail">The Effect of Fires on People, Property and the Environment</a>
+										</h3>
+										<span class="tag">property</span>
+										<span class="tag">environment</span>
+									</td>
+									<td class="all-category">Omnibus</td>
+									<td class="join-program">&nbsp;</td>
+									<td nowrap="nowrap"><span>Mulai 21 Oktober 2016</span><br/><span class="sub-date">1 bulan (4 minggu)<span class="block">Kamis, Jum'at dan Sabtu</span><span class="block">09.00 - 15.00 (2 sessi/hari)</span></span></td>
+								  </tr>
+								</tbody>
+							  </table>
+						</div>
+						
+						<ul class="pagination">
+							<li>
+							  <a aria-label="Previous" href="#">
+								<span aria-hidden="true">Previous</span>
+							  </a>
+							</li>
+							<li class="active"><a href="#">1</a></li>
+							<li><a href="#">2</a></li>
+							<li><a href="#">3</a></li>
+							<li><a href="#">4</a></li>
+							<li><a href="#">5</a></li>
+							<li><a href="#">6</a></li>
+							<li><a href="#">...</a></li>
+							<li><a href="#">38</a></li>
+							<li>
+							  <a aria-label="Next" href="#">
+								<span aria-hidden="true">Next</span>
+							  </a>
+							</li>
+						  </ul>
+						
+					</div><!--end post_right-->
+					
+				</div>
+			</div>
+		</div><!--end post section-->
+		
+		<script type="text/javascript" th:inline="javascript">
+		/*<![CDATA[*/
+		$('.show_detail').unbind('click').click(function(){
+			var link = /*[[@{/do/learning/programDetail}]]*/ '';
+			window.location.href = link;
+		});
+		/*]]>*/
+		</script>
+</body>
+</html>

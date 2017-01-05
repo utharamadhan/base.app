@@ -261,12 +261,12 @@ h4.modal-title{
     width: 100%;
     box-shadow: none;
     -webkit-box-shadow: none;
-	background-image:url("background-submenu.jpg");
+	background-image:url("../images/background-submenu.jpg");
 	opacity: .95;
 }
 .mega-dropdown-menu:before {
     content: "";
-    border-bottom: 15px solid #fcdb00;
+    border-bottom: 15px solid #`;
     border-right: 17px solid transparent;
     border-left: 17px solid transparent;
     position: absolute;
