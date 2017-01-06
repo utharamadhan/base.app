@@ -104,7 +104,6 @@
 
           <!-- Branding -->
           <div class="navbar-header col-md-2">
-            <img src="<%=request.getContextPath()%>/images/logo.png" style="width:55%">
             <div class="sidebar-collapse">
               <a href="#">
                 <i class="fa fa-bars"></i>
