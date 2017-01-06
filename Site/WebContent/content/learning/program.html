@@ -9,7 +9,7 @@
 				<div class="container">
 					<ul>
 					<li><a th:href="@{/}">Home</a></li>
-					<li><a th:href="@{/do/learning}">Learning</a></li>
+					<li><a th:href="@{/page/learning}">Learning</a></li>
 					<li><a href="#">Foundation Property Developer</a></li>
 					</ul>
 				</div>
@@ -149,7 +149,7 @@
 		<script type="text/javascript" th:inline="javascript">
 		/*<![CDATA[*/
 		$('.show_detail').unbind('click').click(function(){
-			var link = /*[[@{/do/learning/programDetail}]]*/ '';
+			var link = /*[[@{/page/learning/programDetail}]]*/ '';
 			window.location.href = link;
 		});
 		/*]]>*/

@@ -99,7 +99,7 @@
 	    	
 			var submitForm = function(){
 				cleanErrorParsley();
-				var sURL = /*[[@{/do/registration/submit}]]*/ #;
+				var sURL = /*[[@{/page/registration/submit}]]*/ #;
 				$.post(sURL, $("#registration-detail-form").serialize(), function(data) {
 					if(data.errorList!=null){
 						displayErrorParsley(data.errorList);

@@ -64,15 +64,15 @@
 								  <ul class="dropdown-menu mega-dropdown-menu row about-us-mega-menu">
 									<li class="col-sm-4">
 										<ul>
-											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/do/about-us">Who We Are?</a></li>
+											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/page/about-us">Who We Are?</a></li>
 											<li class="divider"></li>
-											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/do/visi">Visi Misi & Nilai-Nilai</a></li>
+											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/page/visi">Visi Misi & Nilai-Nilai</a></li>
 											<li class="divider"></li>
-											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/do/why">Why HFC Should be your Choice?</a></li>
+											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/page/why">Why HFC Should be your Choice?</a></li>
 											<li class="divider"></li>
-											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/do/service">Layanan HFC</a></li>
+											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/page/service">Layanan HFC</a></li>
 											<li class="divider"></li>
-											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/do/lecturer">Tim Pengajar</a></li>
+											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/page/lecturer">Tim Pengajar</a></li>
 										</ul>
 									</li>
 									<li class="col-sm-4">
@@ -126,7 +126,7 @@
 									</li>
 									<li class="col-sm-6">
 										<ul>
-											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/do/ebook">Digital Books</a></li>
+											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/page/ebook">Digital Books</a></li>
 											<li>
 												<div class="col-md-6">
 													<img src="<%=request.getContextPath()%>/images/digital-books1.jpg"/>
@@ -138,18 +138,18 @@
 									</li>
 								  </ul>
 								</li>
-								<li><a href="<%=request.getContextPath()%>/do/news">News</a></li>
+								<li><a href="<%=request.getContextPath()%>/page/news">News</a></li>
 								<li class="dropdown">
 								  <a href="/index.html#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Events/Workshops <span class="caret"></span></a>
 								  <ul class="dropdown-menu mega-dropdown-menu row events-mega-menu">
 									<li class="col-sm-6">
 										<ul>
-											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/do/events/archived">Archived</a></li>
+											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/page/events/archived">Archived</a></li>
 										</ul>
 									</li>
 									<li class="col-sm-6">
 										<ul>
-											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/do/events/upcoming">Upcoming</a></li>
+											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/page/events/upcoming">Upcoming</a></li>
 										</ul>
 									</li>
 								  </ul>

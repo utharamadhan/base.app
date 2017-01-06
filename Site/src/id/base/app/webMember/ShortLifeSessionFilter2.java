@@ -28,22 +28,22 @@ public class ShortLifeSessionFilter2 implements Filter{
 	
 	private static final Set<String> BYPASS_TOKEN = new HashSet<String>();
 	static{
-		BYPASS_TOKEN.add("/do/landingPage");
-		BYPASS_TOKEN.add("/do/landingPage/loginPost");
-		BYPASS_TOKEN.add("/do/landingPage/blank");
-		BYPASS_TOKEN.add("/do/token/tokenExpired");
-		BYPASS_TOKEN.add("/do/token/tokenInvalid");
-		BYPASS_TOKEN.add("/do/registration");
-		BYPASS_TOKEN.add("/do/registration/submit");
-		BYPASS_TOKEN.add("/do/login/loginFromActivation");
-		BYPASS_TOKEN.add("/do/login/registerCompany");
-		BYPASS_TOKEN.add("/do/login/setCompanySelected");
-		BYPASS_TOKEN.add("/do/registration/activationPage");
-		BYPASS_TOKEN.add("/do/registration/activationSubmit");
-		BYPASS_TOKEN.add("/do/aboutUs/commonPost/showList");
+		BYPASS_TOKEN.add("/page/landingPage");
+		BYPASS_TOKEN.add("/page/landingPage/loginPost");
+		BYPASS_TOKEN.add("/page/landingPage/blank");
+		BYPASS_TOKEN.add("/page/token/tokenExpired");
+		BYPASS_TOKEN.add("/page/token/tokenInvalid");
+		BYPASS_TOKEN.add("/page/registration");
+		BYPASS_TOKEN.add("/page/registration/submit");
+		BYPASS_TOKEN.add("/page/login/loginFromActivation");
+		BYPASS_TOKEN.add("/page/login/registerCompany");
+		BYPASS_TOKEN.add("/page/login/setCompanySelected");
+		BYPASS_TOKEN.add("/page/registration/activationPage");
+		BYPASS_TOKEN.add("/page/registration/activationSubmit");
+		BYPASS_TOKEN.add("/page/aboutUs/commonPost/showList");
 	}
 	
-	private static final String URL_ACTIVATION = "/do/registration/activation";
+	private static final String URL_ACTIVATION = "/page/registration/activation";
 	private static final String URL_INITIAL_WIZARD = "initialWizard";
 	
 	@Override

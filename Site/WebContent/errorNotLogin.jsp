@@ -32,7 +32,7 @@ pageEncoding="ISO-8859-1"
     	<br>
     	<hr>
     	<br>
-		* Click <a href="<%=request.getContextPath()%>/do/token/tokenExpired" target="_top">here</a> to go to the login page.
+		* Click <a href="<%=request.getContextPath()%>/page/token/tokenExpired" target="_top">here</a> to go to the login page.
 		<br>&nbsp;
     </td>
   </tr>
