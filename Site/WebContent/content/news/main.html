@@ -20,16 +20,16 @@
 				</form>
 				<br/>
 				<div class="row">
-					<div class="col-md-4">
+					<div class="col-md-4" th:each="data , i : ${news}">
 						<div class="post">
 								<div class="post_thumb">
 									<img th:src="@{/images/news-post-01.jpg}" alt="" />
 								</div><!--end post thumb-->
 								
-								<h1><a href="http://themes.iamabdus.com/single-news.html">Title News 1</a></h1>
+								<h1><a href="http://themes.iamabdus.com/single-news.html"><label th:text="${data.title}">Title News 1</label></a></h1>
 								
 								<div class="post_desc">
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse...</p>
+									<p th:text="${data.content}">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse...</p>
 								</div><!--end post desc-->
 								
 								<div class="post_bottom">
@@ -61,209 +61,6 @@
 								
 							</div><!--end post-->
 					</div>					
-					<div class="col-md-4">		
-						<div class="post">
-								<div class="post_thumb">
-									<img th:src="@{/images/news-post-02.jpg}" alt="" />
-								</div><!--end post thumb-->
-								<h1><a href="http://themes.iamabdus.com/single-news.html">Title News 2</a></h1>
-								
-								<div class="post_desc">
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse...</p>
-								</div><!--end post desc-->
-								
-								<div class="post_bottom">
-									<ul>
-										<li class="like">
-											<a href="http://themes.iamabdus.com/news.html#">
-												<img th:src="@{/images/like_icon.png}" alt="" />
-												<span>12</span>
-											</a>
-										</li>
-										
-										<li class="share">
-											<a href="http://themes.iamabdus.com/news.html#">
-												<img th:src="@{/images/share_icon.png}" alt="" />
-												<span>12</span>
-											</a>
-										</li>
-										
-										<li class="favorite">
-											<a href="http://themes.iamabdus.com/news.html#">
-												<img th:src="@{/images/favorite_icon.png}" alt="" />
-												<span>12</span>
-											</a>
-										</li>
-										
-										
-									</ul>
-								</div><!--end post bottom-->
-								
-							</div><!--end post-->
-					</div>					
-					<div class="col-md-4">		
-						<div class="post">
-								<div class="post_thumb">
-									<img th:src="@{/images/news-post-03.jpg}" alt="" />
-								</div><!--end post thumb-->
-								<h1><a href="http://themes.iamabdus.com/single-news.html">Title News 3</a></h1>
-								
-								<div class="post_desc">
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse...</p>
-								</div><!--end post desc-->
-								
-								<div class="post_bottom">
-									<ul>
-										<li class="like">
-											<a href="http://themes.iamabdus.com/news.html#">
-												<img th:src="@{/images/like_icon.png}" alt="" />
-												<span>12</span>
-											</a>
-										</li>
-										
-										<li class="share">
-											<a href="http://themes.iamabdus.com/news.html#">
-												<img th:src="@{/images/share_icon.png}" alt="" />
-												<span>12</span>
-											</a>
-										</li>
-										
-										<li class="favorite">
-											<a href="http://themes.iamabdus.com/news.html#">
-												<img th:src="@{/images/favorite_icon.png}" alt="" />
-												<span>12</span>
-											</a>
-										</li>
-										
-										
-									</ul>
-								</div><!--end post bottom-->
-								
-							</div><!--end post-->
-					
-					</div>	
-					<div class="col-md-4">
-						<div class="post">
-								<div class="post_thumb">
-									<img th:src="@{/images/news-post-01.jpg}" alt="" />
-								</div><!--end post thumb-->
-								
-								<h1><a href="http://themes.iamabdus.com/single-news.html">Title News 4</a></h1>
-								
-								<div class="post_desc">
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse...</p>
-								</div><!--end post desc-->
-								
-								<div class="post_bottom">
-									<ul>
-										<li class="like">
-											<a href="http://themes.iamabdus.com/news.html#">
-												<img th:src="@{/images/like_icon.png}" alt="" />
-												<span>12</span>
-											</a>
-										</li>
-										
-										<li class="share">
-											<a href="http://themes.iamabdus.com/news.html#">
-												<img th:src="@{/images/share_icon.png}" alt="" />
-												<span>12</span>
-											</a>
-										</li>
-										
-										<li class="favorite">
-											<a href="http://themes.iamabdus.com/news.html#">
-												<img th:src="@{/images/favorite_icon.png}" alt="" />
-												<span>12</span>
-											</a>
-										</li>
-										
-										
-									</ul>
-								</div><!--end post bottom-->
-								
-							</div><!--end post-->
-					</div>					
-					<div class="col-md-4">		
-						<div class="post">
-								<div class="post_thumb">
-									<img th:src="@{/images/news-post-02.jpg}" alt="" />
-								</div><!--end post thumb-->
-								<h1><a href="http://themes.iamabdus.com/single-news.html">Title News 5</a></h1>
-								
-								<div class="post_desc">
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse...</p>
-								</div><!--end post desc-->
-								
-								<div class="post_bottom">
-									<ul>
-										<li class="like">
-											<a href="http://themes.iamabdus.com/news.html#">
-												<img th:src="@{/images/like_icon.png}" alt="" />
-												<span>12</span>
-											</a>
-										</li>
-										
-										<li class="share">
-											<a href="http://themes.iamabdus.com/news.html#">
-												<img th:src="@{/images/share_icon.png}" alt="" />
-												<span>12</span>
-											</a>
-										</li>
-										
-										<li class="favorite">
-											<a href="http://themes.iamabdus.com/news.html#">
-												<img th:src="@{/images/favorite_icon.png}" alt="" />
-												<span>12</span>
-											</a>
-										</li>
-										
-										
-									</ul>
-								</div><!--end post bottom-->
-								
-							</div><!--end post-->
-					</div>					
-					<div class="col-md-4">		
-						<div class="post">
-								<div class="post_thumb">
-									<img th:src="@{/images/news-post-03.jpg}" alt="" />
-								</div><!--end post thumb-->
-								<h1><a href="http://themes.iamabdus.com/single-news.html">Title News 6</a></h1>
-								
-								<div class="post_desc">
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse...</p>
-								</div><!--end post desc-->
-								
-								<div class="post_bottom">
-									<ul>
-										<li class="like">
-											<a href="http://themes.iamabdus.com/news.html#">
-												<img th:src="@{/images/like_icon.png}" alt="" />
-												<span>12</span>
-											</a>
-										</li>
-										
-										<li class="share">
-											<a href="http://themes.iamabdus.com/news.html#">
-												<img th:src="@{/images/share_icon.png}" alt="" />
-												<span>12</span>
-											</a>
-										</li>
-										
-										<li class="favorite">
-											<a href="http://themes.iamabdus.com/news.html#">
-												<img th:src="@{/images/favorite_icon.png}" alt="" />
-												<span>12</span>
-											</a>
-										</li>
-										
-										
-									</ul>
-								</div><!--end post bottom-->
-								
-							</div><!--end post-->
-					
-					</div>	
 				</div>
 				<div class="row">
 					<div class="col-md-12">
@@ -281,6 +78,8 @@
 		
 		<script type="text/javascript" th:inline="javascript">
 		/*<![CDATA[*/
+		     var data = /*[[${news}]]*/;
+			var dataContent = /*[[${data.content}*/;
 		/*]]>*/
 		</script>
 </body>
