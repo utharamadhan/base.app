@@ -32,6 +32,11 @@
 			                        	<i class="fa fa-caret-right"></i> Reference
 			                        </a>
 			                  	</li>
+			                  	<li id="frontEndMenu">
+									<a href="#">
+			                        	<i class="fa fa-caret-right"></i> Front End Menu
+			                        </a>
+			                  	</li>
 							</ul>
 	                  	</li>
 	                  	<li id="aboutUs" class="dropdown">
@@ -139,6 +144,21 @@
 			                        </a>
 			                  	</li>
 							</ul>
+	                  	</li>
+	                  	<li id="student-db" class="dropdown">
+	                  		<a href="#">
+	                      		<i class="fa fa-desktop"></i> Student Database
+	                    	</a>
+	                  	</li>
+	                  	<li id="research-management" class="dropdown">
+	                  		<a href="#">
+	                      		<i class="fa fa-desktop"></i> Research Management
+	                    	</a>
+	                  	</li>
+	                  	<li id="contact-us">
+	                    	<a href="#">
+	                      		<i class="fa fa-desktop"></i> Contact Us
+	                    	</a>
 	                  	</li>
 		  			</ul>     
 			  	</li>         
