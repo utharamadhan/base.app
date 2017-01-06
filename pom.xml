@@ -15,6 +15,5 @@
 	<module>ApplicationService</module>
 	<module>Login</module>
 	<module>security-filter</module>
-	<module>Site</module>
   </modules>
 </project>
