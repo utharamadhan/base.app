@@ -8,13 +8,5 @@
 	<module>Core</module>
 	<module>Entity</module>
 	<module>Web</module>
-	<module>Site</module>
-	<module>Implementation</module>
-	<module>Repository</module>
-	<module>Scheduler</module>
-	<module>ApplicationService</module>
-	<module>Login</module>
-	<module>security-filter</module>
-	<module>Site</module>
   </modules>
 </project>
