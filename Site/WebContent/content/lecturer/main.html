@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1"/>
+<title></title>
+</head>
+<body>
+		<div class="post_section ebook_section">
+			<div class="container">
+				<h1 style="text-align:center">Tim Pengajar</h1>
+				<br/>
+				<form style="background:#eeeeee;padding:10px 0px;">
+				<div class="row">
+					<div class="col-md-4"></div>
+					<div class="col-md-4">
+						<input type="text" class="form-control" placeholder="Enter Keyword..."/>
+					</div>
+					<div class="col-md-4">
+						<button type="button" class="btn btn-danger">Cari Pengajar</button>
+					</div>
+				</div>
+				</form>
+				<br/>
+				<div class="row">
+					<div class="col-md-2" th:each="tutor, i : ${tutors}">
+						<div class="post">
+								<div class="post_thumb">
+									<img th:src="${tutor.basicPictureURL}" alt="" />
+								</div><!--end post thumb-->
+								<h1><a href=""><label th:text="${tutor.name}">Roy</label></a></h1>
+							</div><!--end post-->
+					</div>					
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="col-md-4"></div>
+						<div class="col-md-4">
+							<ul class="pagination_section">
+								<li style="width:100%;text-align:center"><a href="#">Pengajar Lain</a></li>
+							</ul><!--end pagination section-->		
+						</div>
+						<div class="col-md-4"></div>
+					</div><!--end post left section-->
+				</div><!--end post_left-->	
+			</div>
+		</div>
+		
+		<script type="text/javascript" th:inline="javascript">
+		/*<![CDATA[*/
+		/*]]>*/
+		</script>
+</body>
+</html>

@@ -73,9 +73,9 @@ public class RegistrationController {
 	public String activation(@PathVariable(value="activationCode") String activationCode, ModelMap model) {
 		AppUser appUser = activateUserByActivationCode(activationCode);
 		if(appUser!=null){
-			return "redirect:/do/login/loginFromActivation?token="+serializeToken(appUser);
+			return "redirect:/page/login/loginFromActivation?token="+serializeToken(appUser);
 		}else{
-			return "redirect:/do/token/tokenExpired";
+			return "redirect:/page/token/tokenExpired";
 		}
 	}
 	

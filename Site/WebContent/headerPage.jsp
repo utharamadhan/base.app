@@ -72,42 +72,42 @@
                   <li class="divider"></li>
                   <li><p><i class="fa fa-cogs"></i> Settings </p></li>
 				  	<li id="company">
-						<a href="/Web/do/settings/company/showList">
+						<a href="/Web/page/settings/company/showList">
                         	<i class="fa fa-caret-right"></i> Penggilingan Padi
                         </a>
                   	</li>
                   	<li id="thirdParty">
-						<a href="/Web/do/settings/thirdParty/showList">
+						<a href="/Web/page/settings/thirdParty/showList">
                         	<i class="fa fa-caret-right"></i> Pihak Ketiga
                         </a>
                   	</li>
                   	<li id="product">
-						<a href="/Web/do/settings/product/showList">
+						<a href="/Web/page/settings/product/showList">
                         	<i class="fa fa-caret-right"></i> Item
                         </a>
                   	</li>
                   	<li id="warehouse">
-						<a href="/Web/do/settings/warehouse/showList">
+						<a href="/Web/page/settings/warehouse/showList">
                         	<i class="fa fa-caret-right"></i> Gudang
                         </a>
                   	</li>
                   	<li id="machinery">
-						<a href="/Web/do/settings/machinery/showList">
+						<a href="/Web/page/settings/machinery/showList">
                         	<i class="fa fa-caret-right"></i> Mesin
                         </a>
                   	</li>
                   	<li id="transporter">
-                        <a href="/Web/do/settings/transporter/showList">
+                        <a href="/Web/page/settings/transporter/showList">
                           <i class="fa fa-caret-right"></i> Pengangkut
                         </a>
                    	</li>
                    	<li id="masterFee">
-                        <a href="/Web/do/settings/fee/showList">
+                        <a href="/Web/page/settings/fee/showList">
                           <i class="fa fa-caret-right"></i> Biaya - Biaya
                         </a>
                    	</li>
                    	<li id="companyLookup">
-                        <a href="/Web/do/settings/lookup/showList">
+                        <a href="/Web/page/settings/lookup/showList">
                           <i class="fa fa-caret-right"></i> Referensi
                         </a>
                    	</li>
@@ -116,7 +116,7 @@
                   	<a href="#" id="logoutBtn"><i class="fa fa-power-off"></i> Logout</a>
 						<script>
 			            	$('#logoutBtn').click(function(){
-			                	window.location.href = '/Web/do/login/out';
+			                	window.location.href = '/Web/page/login/out';
 							});
 						</script>
                   </li>

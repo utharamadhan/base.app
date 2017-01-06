@@ -75,7 +75,7 @@ public class LoginController {
 		
 		LoginRestCaller loginDirectoryService = new LoginRestCaller();
 
-		RedirectView redirect = new RedirectView("/do/landingPage/blank",true, false);
+		RedirectView redirect = new RedirectView("/page/landingPage/blank",true, false);
 		String username = null;
 		try {
 			Cookie[] cookies = request.getCookies();
@@ -126,11 +126,11 @@ public class LoginController {
 						}
 					});
 				}catch(Exception e){
-					return new RedirectView("/do/landingPage/blank",true, false);
+					return new RedirectView("/page/landingPage/blank",true, false);
 				}
 			
 				if (user.getStatus() == SystemConstant.UserStatus.INACTIVE) {
-					return new RedirectView("/do/landingPage/blank",true, false);
+					return new RedirectView("/page/landingPage/blank",true, false);
 				}
 
 				final AppUser fUser = user;
@@ -249,7 +249,7 @@ public class LoginController {
 				}else if(SystemConstant.USER_TYPE_INTERNAL == loginSession.getUserType().intValue()){
 					redirect=new RedirectView(SystemConstant.ADMIN_URL+SystemConstant.WEB_ADMIN_COOKIE_NAME+"="+cookieValue.replace(SystemConstant.COOKIE_SEPARATOR, SystemConstant.TOKEN_SEPARATOR), false, false);
 				}else{
-					redirect=new RedirectView("/do/landingPage/blank",true, false);
+					redirect=new RedirectView("/page/landingPage/blank",true, false);
 				}
 				
 				if (loginSession.getFlagSuperUser() || loginSession.getUserType() == SystemConstant.USER_TYPE_INTERNAL) {

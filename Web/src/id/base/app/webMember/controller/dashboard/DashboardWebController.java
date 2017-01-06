@@ -48,12 +48,12 @@ public class DashboardWebController{
 			debit = debit.add(vcf.getDebit());
 			kredit = kredit.add(vcf.getKredit());
 		}*/
-		model.addAttribute("debit",debit);
+		/*model.addAttribute("debit",debit);
 		model.addAttribute("kredit",kredit);
 		model.addAttribute("cash",debit.subtract(kredit));
 		model.addAttribute("forecastResult", getForecastForCurrentTime(WebGeneralFunction.getLogin(request).getCompanySelected()));
 		model.addAttribute("forecastResultPlusOne", getForecast(WebGeneralFunction.getLogin(request).getCompanySelected(), 1));
-		model.addAttribute("forecastResultPlusTwo", getForecast(WebGeneralFunction.getLogin(request).getCompanySelected(), 2));
+		model.addAttribute("forecastResultPlusTwo", getForecast(WebGeneralFunction.getLogin(request).getCompanySelected(), 2));*/
 	};
 	
 	private ForecastCallHourly getForecastForCurrentTime(final Long pkCompany) {

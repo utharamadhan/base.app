@@ -20,7 +20,7 @@ public class LandingPageController {
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public String landingPagePost(@RequestParam(value="token", required=false) String token, HttpServletRequest request, HttpServletResponse response) {
-		return "redirect:/do/login";
+		return "redirect:/page/login";
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/blank")

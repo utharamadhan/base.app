@@ -68,50 +68,7 @@
                   <li>
                     <a href="#"><i class="fa fa-user"></i> Profile</a>
                   </li>
-
-                  <li class="divider"></li>
-                  <li><p><i class="fa fa-cogs"></i> Settings </p></li>
-				  	<li id="company">
-						<a href="/Web/do/settings/company/showList">
-                        	<i class="fa fa-caret-right"></i> Penggilingan Padi
-                        </a>
-                  	</li>
-                  	<li id="thirdParty">
-						<a href="/Web/do/settings/thirdParty/showList">
-                        	<i class="fa fa-caret-right"></i> Pihak Ketiga
-                        </a>
-                  	</li>
-                  	<li id="product">
-						<a href="/Web/do/settings/product/showList">
-                        	<i class="fa fa-caret-right"></i> Item
-                        </a>
-                  	</li>
-                  	<li id="warehouse">
-						<a href="/Web/do/settings/warehouse/showList">
-                        	<i class="fa fa-caret-right"></i> Gudang
-                        </a>
-                  	</li>
-                  	<li id="machinery">
-						<a href="/Web/do/settings/machinery/showList">
-                        	<i class="fa fa-caret-right"></i> Mesin
-                        </a>
-                  	</li>
-                  	<li id="transporter">
-                        <a href="/Web/do/settings/transporter/showList">
-                          <i class="fa fa-caret-right"></i> Pengangkut
-                        </a>
-                   	</li>
-                   	<li id="masterFee">
-                        <a href="/Web/do/settings/fee/showList">
-                          <i class="fa fa-caret-right"></i> Biaya - Biaya
-                        </a>
-                   	</li>
-                   	<li id="companyLookup">
-                        <a href="/Web/do/settings/lookup/showList">
-                          <i class="fa fa-caret-right"></i> Referensi
-                        </a>
-                   	</li>
-                  <li class="divider"></li>
+				  <li class="divider"></li>
                   <li>
                   	<a href="#" id="logoutBtn"><i class="fa fa-power-off"></i> Logout</a>
 						<script>

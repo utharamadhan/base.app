@@ -3,7 +3,7 @@
                 	<a href="#" class="sidebar-toggle" data-toggle="#navigation">Navigation <i class="fa fa-angle-up"></i></a>
               		<ul class="menu">
 	                 	<li id="dashboard">
-	                    	<a href="/Web/do/dashboard">
+	                    	<a href="/Web/page/dashboard">
 	                      		<i class="fa fa-desktop"></i> Beranda
 	                    	</a>
 	                  	</li>
@@ -13,22 +13,22 @@
                    			</a>
 							<ul class="dropdown-menu">
 								<li id="systemParameter">
-									<a href="/Web/do/systemParameter/showList">
+									<a href="/Web/page/systemParameter/showList">
 			                        	<i class="fa fa-caret-right"></i> System Parameter
 			                        </a>
 			                  	</li>
 			                  	<li id="lookup">
-									<a href="/Web/do/lookupGroup/showList">
+									<a href="/Web/page/lookupGroup/showList">
 			                        	<i class="fa fa-caret-right"></i> Lookup
 			                        </a>
 			                  	</li>
 			                  	<li id="userMaintenance">
-									<a href="/Web/do/userMaintenance/showList">
+									<a href="/Web/page/userMaintenance/showList">
 			                        	<i class="fa fa-caret-right"></i> User
 			                        </a>
 			                  	</li>
 			                  	<li id="appRoleMaintenance">
-									<a href="/Web/do/appRoleMaintenance/showList">
+									<a href="/Web/page/appRoleMaintenance/showList">
 			                        	<i class="fa fa-caret-right"></i> Role
 			                        </a>
 			                  	</li>
@@ -40,22 +40,22 @@
                    			</a>
 							<ul class="dropdown-menu">
 								<li id="commonPost">
-									<a href="/Web/do/aboutUs/commonPost/showList">
+									<a href="/Web/page/aboutUs/commonPost/showList">
 			                        	<i class="fa fa-caret-right"></i> Common Post
 			                        </a>
 			                  	</li>
 			                  	<li id="engagement">
-									<a href="/Web/do/aboutUs/engagement/showList">
+									<a href="/Web/page/aboutUs/engagement/showList">
 			                        	<i class="fa fa-caret-right"></i> Engagement
 			                        </a>
 			                  	</li>
 			                  	<li id="program">
-									<a href="/Web/do/aboutUs/programPost/showList">
+									<a href="/Web/page/aboutUs/programPost/showList">
 			                        	<i class="fa fa-caret-right"></i> Program
 			                        </a>
 			                  	</li>
 			                  	<li id="program">
-									<a href="/Web/do/aboutUs/tutor/showList">
+									<a href="/Web/page/aboutUs/tutor/showList">
 			                        	<i class="fa fa-caret-right"></i> Pengajar
 			                        </a>
 			                  	</li>
@@ -67,14 +67,14 @@
                    			</a>
 							<ul class="dropdown-menu">
 								<li id="researchReport">
-									<a href="/Web/do/publication/researchReport/showList">
+									<a href="/Web/page/publication/researchReport/showList">
 			                        	<i class="fa fa-caret-right"></i> Research Report
 			                        </a>
 			                  	</li>
 							</ul>
 							<ul class="dropdown-menu">
 								<li id="digitalBook">
-									<a href="/Web/do/publication/digitalBook/showList">
+									<a href="/Web/page/publication/digitalBook/showList">
 			                        	<i class="fa fa-caret-right"></i> Digital Book
 			                        </a>
 			                  	</li>
@@ -86,7 +86,7 @@
                    			</a>
 							<ul class="dropdown-menu">
 								<li id="newsMaintenance">
-									<a href="/Web/do/news/newsMaintenance/showList">
+									<a href="/Web/page/news/newsMaintenance/showList">
 			                        	<i class="fa fa-caret-right"></i> News
 			                        </a>
 			                  	</li>
@@ -98,7 +98,7 @@
                    			</a>
 							<ul class="dropdown-menu">
 								<li id="eventMaintenance">
-									<a href="/Web/do/event/eventMaintenance/showList">
+									<a href="/Web/page/event/eventMaintenance/showList">
 			                        	<i class="fa fa-caret-right"></i> Event Maintenance
 			                        </a>
 			                  	</li>
@@ -110,14 +110,14 @@
                    			</a>
 							<ul class="dropdown-menu">
 								<li id="groupCourse">
-									<a href="/Web/do/course/groupCourse/showList">
+									<a href="/Web/page/course/groupCourse/showList">
 			                        	<i class="fa fa-caret-right"></i> Group Course
 			                        </a>
 			                  	</li>
 							</ul>
 							<ul class="dropdown-menu">
 								<li id="course">
-									<a href="/Web/do/course/course/showList">
+									<a href="/Web/page/course/course/showList">
 			                        	<i class="fa fa-caret-right"></i> Course
 			                        </a>
 			                  	</li>
@@ -129,14 +129,14 @@
                    			</a>
 							<ul class="dropdown-menu">
 								<li id="researchTopic">
-									<a href="/Web/do/research/researchTopic/showList">
+									<a href="/Web/page/research/researchTopic/showList">
 			                        	<i class="fa fa-caret-right"></i> Research Topic
 			                        </a>
 			                  	</li>
 							</ul>
 							<ul class="dropdown-menu">
 								<li id="researchMaintenance">
-									<a href="/Web/do/research/researchMaintenance/showList">
+									<a href="/Web/page/research/researchMaintenance/showList">
 			                        	<i class="fa fa-caret-right"></i> Research Maintenance
 			                        </a>
 			                  	</li>
@@ -148,7 +148,7 @@
                    			</a>
 							<ul class="dropdown-menu">
 								<li id="advisory">
-									<a href="/Web/do/advisory/showList">
+									<a href="/Web/page/advisory/showList">
 			                        	<i class="fa fa-caret-right"></i> Advisory
 			                        </a>
 			                  	</li>

@@ -80,20 +80,20 @@
 					<div class="about_inner">
 						<div class="col-md-4">
 								<div class="aboutImage">
-								  <img src="<%=request.getContextPath()%>/images/learning_.jpg" alt="" class="img-responsive" onclick="javascript:window.location.href='<%=request.getContextPath()%>/do/learning'">
-								  <a href="<%=request.getContextPath()%>/do/learning" class="captionLink">Learning <span></span></a>
+								  <img src="<%=request.getContextPath()%>/images/learning_.jpg" alt="" class="img-responsive" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/learning'">
+								  <a href="<%=request.getContextPath()%>/page/learning" class="captionLink">Learning <span></span></a>
 								</div><!-- aboutImage -->
 						</div>
 						<div class="col-md-4">
 								<div class="aboutImage">
-								  <img src="<%=request.getContextPath()%>/images/rnd_.jpg" alt="" class="img-responsive" onclick="javascript:window.location.href='<%=request.getContextPath()%>/do/research-development'">
-								  <a href="<%=request.getContextPath()%>/do/research-development" class="captionLink">Research & Development <span></span></a>
+								  <img src="<%=request.getContextPath()%>/images/rnd_.jpg" alt="" class="img-responsive" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/research-development'">
+								  <a href="<%=request.getContextPath()%>/page/research-development" class="captionLink">Research & Development <span></span></a>
 								</div><!-- aboutImage -->
 						</div>
 						<div class="col-md-4">
 								<div class="aboutImage">
-								  <img src="<%=request.getContextPath()%>/images/advisory_.jpg" alt="" class="img-responsive" onclick="javascript:window.location.href='<%=request.getContextPath()%>/do/advisory'">
-								  <a href="<%=request.getContextPath()%>/do/advisory" class="captionLink">Advisory <span></span></a>
+								  <img src="<%=request.getContextPath()%>/images/advisory_.jpg" alt="" class="img-responsive" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/advisory'">
+								  <a href="<%=request.getContextPath()%>/page/advisory" class="captionLink">Advisory <span></span></a>
 								</div><!-- aboutImage -->
 						</div>
 					</div>

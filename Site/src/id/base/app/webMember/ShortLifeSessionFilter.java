@@ -108,7 +108,7 @@ public class ShortLifeSessionFilter implements Filter{
 	                bypass = true;
 	                break;
 	            }else{
-	            	if("/do/token/tokenExpired".equals(requestURIminusCtxPath) || "/do/token/tokenInvalid".equals(requestURIminusCtxPath)){
+	            	if("/page/token/tokenExpired".equals(requestURIminusCtxPath) || "/do/token/tokenInvalid".equals(requestURIminusCtxPath)){
 	            		bypass = true;
 	            	}
 	            }

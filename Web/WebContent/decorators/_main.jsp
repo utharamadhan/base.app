@@ -14,7 +14,7 @@
 <!--<![endif]-->
     <head>
 		<meta charset="utf-8"/>
-		<title>base.co.id &nbsp;-&nbsp; Member Application - <decorator:title default="Welcome!" /></title>
+		<title>hfc &nbsp;-&nbsp; Admin Application - <decorator:title default="Welcome!" /></title>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta charset="UTF-8" />
@@ -104,7 +104,6 @@
 
           <!-- Branding -->
           <div class="navbar-header col-md-2">
-            <img src="<%=request.getContextPath()%>/images/logo.png" style="width:55%">
             <div class="sidebar-collapse">
               <a href="#">
                 <i class="fa fa-bars"></i>
