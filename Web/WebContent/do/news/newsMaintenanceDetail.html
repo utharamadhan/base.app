@@ -52,10 +52,11 @@
                        	</div>
 						<div class="form-group">
 							<label class="col-sm-2 control-label" th:text="'Content'">Content</label>
-							<input name="content" type="hidden"/>
-							<div class="col-sm-10">							
-								<div id="quill-area">
-								</div>
+							<input id="tinyMCE-hidden" name="content" type="hidden"/>
+							<div id="tinyMCE-parent" class="col-sm-10">							
+								<textarea id="tinyMCE-area" th:text="*{content}">
+								</textarea>
+								<input id="hidden-file-browser" name="image" type="file" style="display:none;"/>
 							</div>
 						</div>
 						<div class="form-group">
@@ -88,52 +89,59 @@
             });
 	    	
 			var backToList = function(){
+				if (typeof tinyMCE != 'undefined') {
+				    tinyMCE.execCommand('mceFocus', false, 'tinyMCE-area');
+				    tinyMCE.execCommand('mceRemoveEditor', false, 'tinyMCE-area');
+				    $("#tinyMCE-parent").remove();
+				}
 				returnToList('news-detail-container', 'news-list-container', true);
 			};
 			
-			var fileManagerURL = /*[[@{/do/fileManager/upload/}]]*/ #; 
-			var imageHandler = function(image, callback) {
+			var uploadFile = function(image, sURL, targetId) {
 				var data = new FormData();
 				data.append('file', image);
 				var xhr = new XMLHttpRequest();
-				xhr.open('POST', fileManagerURL, true);
+				xhr.open('POST', sURL, true);
 				xhr.onreadystatechange = function() {
 				  if (xhr.readyState === 4) {
 				    var response = JSON.parse(xhr.responseText);
 				    if (response) {
-				      	callback(response);
+				    	$("#"+targetId).val(response);
 				    } else {
-				      	var reader = new FileReader();
-				      	reader.onload = function(e) {
-				        	callback(e.target.result);
-				      	};
-				      	reader.readAsDataURL(image);
+						return 'error';
 				    }
 				  }
 				}
 				xhr.send(data);
 			};
 			
-			var quill = new Quill('#quill-area', {
-		    	theme: 'snow',
-		    	modules: {
-			    	toolbar: toolbarOptions
-				},
-				imageHandler: imageHandler
-		  	});
+			$(document).unbind('change').on('change', '#hidden-file-browser', function(){
+				var sURL = /*[[@{/do/fileManager/upload/}]]*/ #;
+				var thisObj = $(this)[0];
+				var targetId = $(this).attr('target-id');
+				uploadFile(thisObj.files[0], sURL, targetId);
+			});
 			
-			var content = [[${detail.content}]];
-			if(content) {
-				try {
-					var contentJson = JSON.parse(content);
-					quill.setContents(contentJson.ops);
-				} catch (err) {}
-			}
+			tinymce.init({
+		    	selector: '#tinyMCE-area',
+		    	plugins: [
+		    	    'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+		    	    'searchreplace wordcount visualblocks visualchars code fullscreen',
+		    	    'insertdatetime media nonbreaking save table contextmenu directionality',
+		    	    'emoticons template paste textcolor colorpicker textpattern imagetools codesample toc'
+		    	],
+		    	toolbar1: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+		    	toolbar2: 'imageprint preview media | forecolor backcolor emoticons | codesample',
+		    	file_browser_callback : function(field_name, url, type, win) {
+					$("#hidden-file-browser").attr("target-id", field_name);
+					$("#hidden-file-browser").click();
+		        }
+		  	});
 	    	
 			var submitForm = function(){
 				cleanErrorParsley();
+				$('#tinyMCE-hidden').val(tinymce.get('tinyMCE-area').getContent());
 				var sURL = /*[[@{/do/news/newsMaintenance/saveNews/}]]*/ #;
-				$('input[name="content"]').val($("#quill-area").find('.ql-editor').html());
 				$.post(sURL, $("#news-detail-form").serialize(), function(data) {
 					if(data.errorList!=null){
 						displayErrorParsley(data.errorList);

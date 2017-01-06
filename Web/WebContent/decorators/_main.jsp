@@ -181,6 +181,7 @@
     
     <script src="<%=request.getContextPath()%>/plugin/vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="<%=request.getContextPath()%>/plugin/vendor/quill/quill-1.1.7.js"></script>
+    <script src="<%=request.getContextPath()%>/plugin/vendor/tinyMCE/tinymce.min.js"></script>
 	
 	<script src="<%=request.getContextPath()%>/js/bloodhound.min.js"></script>
 	<script src="<%=request.getContextPath()%>/plugin/vendor/typeahead/typeahead.jquery.min.js" type="text/javascript"></script>
