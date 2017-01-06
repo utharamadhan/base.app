@@ -133,7 +133,7 @@
 			var submitForm = function(){
 				cleanErrorParsley();
 				var sURL = /*[[@{/do/news/newsMaintenance/saveNews/}]]*/ #;
-				$('input[name="content"]').val(JSON.stringify(quill.getContents()));
+				$('input[name="content"]').val($("#quill-area").find('.ql-editor').html());
 				$.post(sURL, $("#news-detail-form").serialize(), function(data) {
 					if(data.errorList!=null){
 						displayErrorParsley(data.errorList);
