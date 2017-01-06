@@ -79,7 +79,18 @@
 		<script type="text/javascript" th:inline="javascript">
 		/*<![CDATA[*/
 		     var data = /*[[${news}]]*/;
-			var dataContent = /*[[${data.content}*/;
+		     function renderAllQuill() {
+					$('.to-be-rendered').each(function(){
+						var contentJson = JSON.parse($(this).html());
+						var tempCont = document.createElement("div");
+						(new Quill(tempCont)).setContents(contentJson);
+						$(this).html(tempCont.getElementsByClassName("ql-editor")[0].innerHTML);	
+					});
+				}
+			
+				$(function(){
+					renderAllQuill();
+				});
 		/*]]>*/
 		</script>
 </body>
