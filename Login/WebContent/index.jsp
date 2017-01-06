@@ -1,70 +1,97 @@
-<!DOCTYPE html>	
+<!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>BaseApp - login</title>
+	<title>HFC - Admin Login</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta charset="UTF-8" />
     <link rel="icon" type="image/ico" href="<%=request.getContextPath()%>/images/favicon.ico" />
-    
-    <link href="<%=request.getContextPath()%>/css/vendor/bootstrap/bootstrap.min.css" rel="stylesheet">
-    <link href="<%=request.getContextPath()%>/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/vendor/bootstrap-checkbox.css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/vendor/bootstrap/bootstrap-dropdown-multilevel.css">
-    
-    <link href="<%=request.getContextPath()%>/css/minimal.css" rel="stylesheet">
-    <script src="<%=request.getContextPath()%>/script/jquery-1.11.1.min.js"></script>
+  	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/materialize.min.css">
+  <style>
+    body {
+      display: flex;
+      min-height: 100vh;
+      flex-direction: column;
+    }
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-    <![endif]-->
+    main {
+      flex: 1 0 auto;
+    }
+
+    body {
+      background: #fff;
+    }
+
+    .input-field input[type=date]:focus + label,
+    .input-field input[type=text]:focus + label,
+    .input-field input[type=email]:focus + label,
+    .input-field input[type=password]:focus + label {
+      color: #e91e63;
+    }
+
+    .input-field input[type=date]:focus,
+    .input-field input[type=text]:focus,
+    .input-field input[type=email]:focus,
+    .input-field input[type=password]:focus {
+      border-bottom: 2px solid #e91e63;
+      box-shadow: none;
+    }
+  </style>
 </head>
-<body class="bg-1">
-	<!-- Wrap all page content here -->
-    <div id="wrap">
-      <!-- Make page fluid -->
-      <div class="row">
-        <!-- Page content -->
-        <div id="content" class="col-md-12 full-page login">
-          <div class="inside-block">
-          	<img src="<%=request.getContextPath()%>/images/beta-stamp.png" style="width: 200px;position: absolute;margin-top: 10px;margin-left: 200px;">
-            <img src="<%=request.getContextPath()%>/images/logo.png" class="logo" style="width:100%">
-            <h1><strong>Selamat Datang</strong> Anggota</h1>
-            
-            <form id="form-signin" class="form-signin">
-              <section>
-                <div class="input-group">
-                  <input type="text" class="form-control" name="username" placeholder="Username" id="username" required oninvalid="this.setCustomValidity('Username tidak boleh kosong')"/>
-                  <div class="input-group-addon"><i class="fa fa-user"></i></div>
-                </div>
-                <div class="input-group">
-                  <input type="password" class="form-control" name="password" placeholder="Password" id="password" required oninvalid="this.setCustomValidity('Password tidak boleh kosong')">
-                  <div class="input-group-addon"><i class="fa fa-key"></i></div>
-                </div>
-              </section>
-              <section class="controls">
-                <div class="checkbox check-transparent">
-                  <input type="checkbox" value="1" id="remember" checked>
-                  <label for="remember">Ingatkan saya</label>
-                </div>
-                <a href="#">Lupa Password?</a>
-              </section>
-              <section class="log-in">
-                <button class="btn btn-greensea btn-login">Log In</button>
-                <span>atau</span>
-                <button class="btn btn-slategray">Registrasi Akun</button>
-              </section>
-            </form>
-          </div>
+
+<body>
+  <div class="section"></div>
+  <main>
+    <center>
+      <div class="section"></div>
+
+      <h5 class="indigo-text">Please, login into your account</h5>
+      <div class="section"></div>
+
+      <div class="container">
+        <div class="z-depth-1 grey lighten-4 row" style="display: inline-block; padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
+
+          <form class="col s12" method="post">
+            <div class='row'>
+              <div class='col s12'>
+              </div>
+            </div>
+
+            <div class='row'>
+              <div class='input-field col s12'>
+              	<input type="text" class="validate" name="username" id="username"/>
+                <label for='username'>Enter your username</label>
+              </div>
+            </div>
+
+            <div class='row'>
+              <div class='input-field col s12'>
+                <input class='validate' type='password' name='password' id='password' />
+                <label for='password'>Enter your password</label>
+              </div>
+              <label style='float: right;'>
+								<a class='pink-text' href='#!'><b>Forgot Password?</b></a>
+							</label>
+            </div>
+
+            <br />
+            <center>
+              <div class='row'>
+                <button type='submit' name='btn_login' class='col s12 btn btn-large waves-effect indigo btn-login'>Login</button>
+              </div>
+            </center>
+          </form>
         </div>
-        <!-- /Page content -->  
       </div>
-    </div>
-    <!-- Wrap all page content end -->
-    <script type="text/javascript">
+    </center>
+
+    <div class="section"></div>
+    <div class="section"></div>
+  </main>
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+  <script type="text/javascript">
     	$(function(){
     		//BEGIN: change this to your server environment
     		var protocol = 'http';
@@ -134,21 +161,6 @@
     			loginPost(2);
     		});
     		
-    		$('.btn-slategray').click(function(e){
-    			e.preventDefault();
-    			register();
-    		});
-    		
-    		var register = function(){
-    			var currPort = defaultPort;
-    			var currToken = uniqueToken;
-    			var user = document.getElementById('username').value;
-    			var host = domain;
-    			var ptcl = protocol;
-    			var restOfUrl = ptcl+'://'+host+':'+currPort+webTransContext+'/do/registration';
-    			window.open(restOfUrl);
-    		}
-    		
     		var getExpiry = function(){
     			var date = new Date();
     			var expiry = new Date(date.getTime() + minutes*60000);
@@ -156,18 +168,5 @@
     		}
     	})
 	</script>
-	<!--Start of Tawk.to Script-->
-	<script type="text/javascript">
-	var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-	(function(){
-	var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-	s1.async=true;
-	s1.src='https://embed.tawk.to/573dfd4cc59e45d972c2fa1e/default';
-	s1.charset='UTF-8';
-	s1.setAttribute('crossorigin','*');
-	s0.parentNode.insertBefore(s1,s0);
-	})();
-	</script>
-	<!--End of Tawk.to Script-->
 </body>
 </html>
