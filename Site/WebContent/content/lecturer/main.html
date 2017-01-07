@@ -13,7 +13,7 @@
 				<div class="row">
 					<div class="col-md-4"></div>
 					<div class="col-md-4">
-						<input type="text" class="form-control" placeholder="Enter Keyword..."/>
+						<input type="text" class="form-control param" placeholder="Enter Keyword..."/>
 					</div>
 					<div class="col-md-4">
 						<button type="button" class="btn btn-danger">Cari Pengajar</button>
@@ -22,7 +22,7 @@
 				</form>
 				<br/>
 				<div class="row">
-					<div class="col-md-2" th:each="tutor, i : ${tutors}">
+					<div class="col-md-2" th:each="tutor, i : ${tutors.result}">
 						<div class="post">
 								<div class="post_thumb">
 									<img th:src="${tutor.basicPictureURL}" alt="" />
@@ -31,13 +31,15 @@
 							</div><!--end post-->
 					</div>					
 				</div>
-				<div class="row">
+				<div class="row paginantion">
 					<div class="col-md-12">
 						<div class="col-md-4"></div>
 						<div class="col-md-4">
 							<ul class="pagination_section">
-								<li style="width:100%;text-align:center"><a href="#">Pengajar Lain</a></li>
+								<li style="width:100%;text-align:center"><a href="#" class="load_more">Pengajar Lain</a></li>
 							</ul><!--end pagination section-->		
+							<input type="hidden" th:value="${tutors.startRecordIndex}" class="startNo"/>
+							<input type="hidden" th:value="${tutors.recordsPerPage}" class="offset"/>
 						</div>
 						<div class="col-md-4"></div>
 					</div><!--end post left section-->
@@ -47,6 +49,40 @@
 		
 		<script type="text/javascript" th:inline="javascript">
 		/*<![CDATA[*/
+		function showPaging(maxRecord, currentRecord){
+			if(maxRecord <= currentRecord){
+				$('.paginantion').hide();
+			}else{
+				$('.paginantion').show();
+			}
+		}           
+		           
+		$(function(){
+			var maxRecord = /*[[${tutors.maxRecord}]]*/;
+			var currentRecord = /*[[${tutors.currentRecord}]]*/;
+			
+			showPaging(maxRecord, currentRecord);
+			
+			
+			$('.load_more').unbind('click').click(function(){
+				var sURL = /*[[@{/page/lecturer/load}]]*/
+				var param = $('.param').val();
+				var nextStartNo = parseInt($('.startNo').val()) + parseInt($('.offset').val());
+				var offset = $('.offset').val();
+				$.ajax({
+		            type: 'GET',
+		            url: sURL,
+		            data: {filter : param, startNo : nextStartNo, offset : offset},
+		            dataType: 'json',
+		            success: function (data) {
+		            	var newMaxRecord = data.maxRecord;
+		            	var newCurrentRecord = data.currentRecord;
+		            	showPaging(newMaxRecord, newCurrentRecord);
+		            	alert(JSON.stringify(data));
+		            }
+		        });				
+			});
+		});           
 		/*]]>*/
 		</script>
 </body>
