@@ -531,3 +531,19 @@ function confirmationDialog(message, width, height, title, functionCallback){
 	var number = getNumbersOfOpenedDialog();
 	openConfirmationDialog(message, width, height, 1, title, functionCallback, number+1);
 };
+
+function removeTextEditor(contentAreaID, parentID, isClass) {
+	if (typeof tinyMCE != 'undefined') {
+		if(isClass) {
+			$('.'+contentAreaID).each(function(){
+				tinyMCE.execCommand('mceFocus', false, $(this).attr('id'));
+			    tinyMCE.execCommand('mceRemoveEditor', false, $(this).attr('id'));
+			    $(this).parent().remove();	
+			});
+		} else {
+			tinyMCE.execCommand('mceFocus', false, contentAreaID);
+		    tinyMCE.execCommand('mceRemoveEditor', false, contentAreaID);
+		    $(parentID).remove();	
+		}
+	}
+}

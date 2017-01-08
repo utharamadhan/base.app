@@ -45,7 +45,7 @@
 							<label class="col-sm-2 control-label" th:text="'Group Course'">Group Course</label>
 							<div class="col-sm-9 form-input-container">
 								<select class="course-detail-groupCourseSelect chosen-select form-control" th:field="*{groupCourse.pkGroupCourse}">
-									<option th:each="opt : ${groupCourseOptions}" th:value="${opt.pkGroupCourse}" th:text="${opt.name}">Name</option>
+									<option th:each="opt : ${groupCourseOptions}" th:value="${opt.pkGroupCourse}" th:text="${opt.title}">Title</option>
                            		</select>
                            	</div>
 						</div>
@@ -95,27 +95,19 @@
                            	</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-2 control-label" th:text="'Code'">Code</label>
-							<div class="col-sm-9 form-input-container">
-								<select class="course-detail-groupCourseSelect chosen-select form-control">
-									<option th:each="opt : ${groupCourseOptions}" th:value="${opt.pkGroupCourse}" th:text="${opt.name}">Name</option>
-                           		</select>
-                           	</div>
-						</div>
-						<div class="form-group">
-							<label class="col-sm-2 control-label" th:text="'Full Description'">Full Description</label>
-							<input name="fullDescription" type="hidden"/>
-							<div class="col-sm-10">							
-								<div id="fullDescriptionQuill">
-								</div>
+							<label class="col-sm-1 control-label" th:text="'Full Description'">Full Description</label>
+							<input id="textEditor-fullDescription-hidden" name="fullDescription" type="hidden"/>
+							<div id="textEditor-fullDescription-parent" class="col-sm-11">					
+								<textarea id="textEditor-fullDescription-area" class="textEditor" th:text="*{fullDescription}">
+								</textarea>
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-2 control-label" th:text="'Admission Requirement'">Admission Requirement</label>
-							<input name="admissionRequirement" type="hidden"/>
-							<div class="col-sm-10">							
-								<div id="admissionRequirementQuill">
-								</div>
+							<label class="col-sm-1 control-label" th:text="'Admission Requirement'">Admission Requirement</label>
+							<input id="textEditor-admissionRequirement-hidden" name="admissionRequirement" type="hidden"/>
+							<div id="textEditor-admissionRequirement-parent" class="col-sm-11">					
+								<textarea id="textEditor-admissionRequirement-area" class="textEditor" th:text="*{admissionRequirement}">
+								</textarea>
 							</div>
 						</div>
 						<div class="form-group form-footer">				
@@ -154,62 +146,16 @@
 		}
 	
 	    $(function(){
+	    	var fileManagerURL = /*[[@{/do/fileManager/upload/}]]*/ #;
+	    	
 	    	initDeleteFunction();
 	    	initDeletePicture();
+	    	initTextEditor('.textEditor', null, fileManagerURL);
 	    	
 			var backToList = function(){
+				removeTextEditor("textEditor", null, true);
 				returnToList('course-detail-container', 'course-list-container', true);
 			};
-			
-			var fileManagerURL = /*[[@{/do/fileManager/upload/}]]*/ #; 
-			var imageHandler = function(image, callback) {
-				var data = new FormData();
-				data.append('file', image);
-				var xhr = new XMLHttpRequest();
-				xhr.open('POST', fileManagerURL, true);
-				xhr.onreadystatechange = function() {
-				  if (xhr.readyState === 4) {
-				    var response = JSON.parse(xhr.responseText);
-				    if (response) {
-				      	callback(response);
-				    } else {
-				      	var reader = new FileReader();
-				      	reader.onload = function(e) {
-				        	callback(e.target.result);
-				      	};
-				      	reader.readAsDataURL(image);
-				    }
-				  }
-				}
-				xhr.send(data);
-			};
-			
-			var fullDescriptionQuill = new Quill('#fullDescriptionQuill', {
-		    	theme: 'snow',
-		    	modules: {
-			    	toolbar: toolbarOptions
-				},
-				imageHandler: imageHandler
-		  	});
-			
-			var admissionRequirementQuill = new Quill('#admissionRequirementQuill', {
-				theme: 'snow',
-				modules: {
-			    	toolbar: toolbarOptions
-				},
-				imageHandler: imageHandler
-		  	});
-			
-			var fullDescription = [[${detail.fullDescription}]];
-			var admissionRequirement = [[${detail.admissionRequirement}]];
-			if(fullDescription) {
-				var contentJson = JSON.parse(fullDescription);
-				fullDescriptionQuill.setContents(contentJson.ops);
-			}
-			if(admissionRequirement) {
-				var contentJson = JSON.parse(admissionRequirement);
-				admissionRequirementQuill.setContents(contentJson.ops);
-			}
 			
 			var preSerializeForm = function() {
 				var idx = 0;
@@ -225,8 +171,8 @@
 			
 			var submitForm = function(){
 				cleanErrorParsley();
-				$('input[name="fullDescription"]').val(JSON.stringify(fullDescriptionQuill.getContents()));
-				$('input[name="admissionRequirement"]').val(JSON.stringify(admissionRequirementQuill.getContents()));
+				$('#textEditor-fullDescription-hidden').val(tinymce.get('textEditor-fullDescription-area').getContent());
+				$('#textEditor-admissionRequirement-hidden').val(tinymce.get('textEditor-admissionRequirement-area').getContent());
 				preSerializeForm();
 				var sURL = /*[[@{/do/course/course/saveCourse/}]]*/ #;
 				$.post(sURL, $("#course-detail-form").serialize(), function(data) {
