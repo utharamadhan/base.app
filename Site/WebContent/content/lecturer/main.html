@@ -70,11 +70,11 @@
 				var cloning = $('.template_part .data_result').eq(0).clone();
 				cloning.find('.post_thumb img').attr('src',datas[i].basicPictureURL);
 				cloning.find('.post_title').html(datas[i].name);
-				cloning.wrapInner('<div class="col-md-2 data_result"></div>');
+				cloning.wrap('<div></div>');
 				if(!load){
-					$('.list_data').append(cloning.html());
+					$('.list_data').append(cloning.parent().html());
 				}else{
-					load_content = load_content + cloning.html();
+					load_content = load_content + cloning.parent().html();
 				}
 			}
 			

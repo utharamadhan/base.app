@@ -11,25 +11,25 @@
 				<div class="row">
 					<div class="col-md-4"></div>
 					<div class="col-md-4">
-						<input type="text" class="form-control" placeholder="Enter Keyword..."/>
+						<input type="text" class="form-control param" placeholder="Enter Keyword..."/>
 					</div>
 					<div class="col-md-4">
-						<button type="button" class="btn btn-danger">Search News</button>
+						<button type="button" class="btn btn-danger mrdy_btn search">Search News</button>
 					</div>
 				</div>
 				</form>
 				<br/>
-				<div class="row">
-					<div class="col-md-4" th:each="data , i : ${news}">
+				<div class="row list_data">
+					<div id="template" class="col-md-4 data_result" th:each="data , i : ${news.result}">
 						<div class="post">
 								<div class="post_thumb">
 									<img th:src="@{/images/news-post-01.jpg}" alt="" />
 								</div><!--end post thumb-->
 								
-								<h1><a href="http://themes.iamabdus.com/single-news.html"><label th:text="${data.title}">Title News 1</label></a></h1>
+								<h1><a href="http://themes.iamabdus.com/single-news.html"><label th:text="${data.title}" class="title_news">Title News 1</label></a></h1>
 								
 								<div class="post_desc">
-									<p class="to-be-rendered" th:utext="${data.content}">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse...</p>
+									<p class="to-be-rendered content_news" th:utext="${data.content}">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse...</p>
 								</div><!--end post desc-->
 								
 								<div class="post_bottom">
@@ -62,13 +62,22 @@
 							</div><!--end post-->
 					</div>					
 				</div>
-				<div class="row">
+				<div class="row load_pagination" style="display: none;">
+					<div class="col-md-12">
+						<div class="col-md-4"></div>
+						<div class="col-md-4"> <img th:src="@{/images/gif/loading_linear.gif}" style="margin-left: 50px;"/> </div>
+						<div class="col-md-4"></div>
+					</div>
+				</div>
+				<div class="row pagination">
 					<div class="col-md-12">
 						<div class="col-md-4"></div>
 						<div class="col-md-4">
 							<ul class="pagination_section">
-								<li style="width:100%;text-align:center"><a href="http://themes.iamabdus.com/news.html#">Older News</a></li>
+								<li style="width:100%;text-align:center"><a href="#" class="load_more mrdy_btn">Older News</a></li>
 							</ul><!--end pagination section-->		
+							<input type="hidden" th:value="${news.startRecordIndex}" class="startNo"/>
+							<input type="hidden" th:value="${news.recordsPerPage}" class="offset"/>
 						</div>
 						<div class="col-md-4"></div>
 					</div><!--end post left section-->
@@ -78,19 +87,105 @@
 		
 		<script type="text/javascript" th:inline="javascript">
 		/*<![CDATA[*/
-		     var data = /*[[${news}]]*/;
-		     function renderAllQuill() {
-					$('.to-be-rendered').each(function(){
-						var contentJson = JSON.parse($(this).html());
-						var tempCont = document.createElement("div");
-						(new Quill(tempCont)).setContents(contentJson);
-						$(this).html(tempCont.getElementsByClassName("ql-editor")[0].innerHTML);	
-					});
+	    function showPaging(maxRecord, currentRecord){
+			if(maxRecord <= currentRecord || currentRecord == 0){
+				$('.pagination').hide();
+			}else{
+				$('.pagination').show();
+			}
+		}
+		
+		function processData(datas, load){
+			var load_content = '';
+			for(var i=0;i<datas.length;i++){
+				var cloning = $('.template_part .data_result').eq(0).clone();
+				cloning.find('.title_news').html(datas[i].title);
+				cloning.find('.content_news').html(datas[i].content);
+				cloning.wrap('<div></div>');
+				if(!load){
+					$('.list_data').append(cloning.parent().html());
+				}else{
+					load_content = load_content + cloning.parent().html();
 				}
+			}
 			
-				$(function(){
-					//renderAllQuill();
-				});
+			if(load){
+				$('.list_data').html(load_content);
+			}
+		}
+		           
+		$(function(){
+			var maxRecord = /*[[${news.maxRecord}]]*/;
+			var currentRecord = /*[[${news.currentRecord}]]*/;
+			
+			showPaging(maxRecord, currentRecord);
+			
+			$('.load_more').unbind('click').click(function(){
+				var sURL = /*[[@{/page/news/load}]]*/
+				var param = $('.param').val();
+				var nextStartNo = parseInt($('.startNo').val()) + parseInt($('.offset').val());
+				var offset = $('.offset').val();
+				$.ajax({
+		            type: 'GET',
+		            url: sURL,
+		            data: {filter : param, startNo : nextStartNo, offset : offset},
+		            dataType: 'json',
+		            success: function (data) {
+		            	$('.load_pagination').hide();
+		            	$('.mrdy_btn').disableBtn({enabled:true});
+		            	processData(data.news.result, false);		
+		            	var newMaxRecord = data.news.maxRecord;
+		            	var newCurrentRecord = data.news.currentRecord;
+		            	showPaging(newMaxRecord, newCurrentRecord);
+		            },
+		            beforeSend: function($jqXHR, $textStatus){
+						$('.load_pagination').show();
+						$('.mrdy_btn').disableBtn({enabled:false});
+					},
+					error: function ($jqXHR, $textStatus, $errorThrown) {
+						$('.load_pagination').hide();
+						$('.mrdy_btn').disableBtn({enabled:true});
+					},
+					complete: function($jqXHR, $textStatus){
+						$('.load_pagination').hide();
+						$('.mrdy_btn').disableBtn({enabled:false});
+					}
+		        });				
+			});
+			
+			$('.search').unbind('click').click(function(){
+				var sURL = /*[[@{/page/news/load}]]*/
+				var param = $('.param').val();
+				var img_url = /*[[@{/images/gif/hex-loader.gif}]]*/;
+				$.ajax({
+		            type: 'GET',
+		            url: sURL,
+		            data: {filter : param},
+		            dataType: 'json',
+		            success: function (data) {
+		            	$('.pagination').hide();
+		            	$('.loading_reload').remove();
+		            	$('.mrdy_btn').disableBtn({enabled:true});
+		            	processData(data.news.result, true);
+		            	var newMaxRecord = data.news.maxRecord;
+		            	var newCurrentRecord = data.news.currentRecord;
+		            	showPaging(newMaxRecord, newCurrentRecord);
+		            },
+		            beforeSend: function($jqXHR, $textStatus){
+		            	$('.list_data').html('<div class="col-md-12 loading_reload" style="display: block; margin-left: auto; margin-right: auto;text-align: center;"><img src="'+img_url+'" /></div>');
+						$('.mrdy_btn').disableBtn({enabled:false});
+					},
+					error: function ($jqXHR, $textStatus, $errorThrown) {
+						$('.loading_reload').remove();
+						$('.mrdy_btn').disableBtn({enabled:true});
+					},
+					complete: function($jqXHR, $textStatus){
+						$('.loading_reload').remove();
+						$('.mrdy_btn').disableBtn({enabled:true});
+					}
+		        });				
+			});
+		});
 		/*]]>*/
 		</script>
 </body>
