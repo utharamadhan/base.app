@@ -151,11 +151,11 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-2 control-label" th:text="'Full Description'">Full Description</label>
-							<input name="fullDescription" type="hidden"/>
-							<div class="col-sm-10">							
-								<div id="quill-area">
-								</div>
+							<label class="col-sm-1 control-label" th:text="'Full Description'">Full Description</label>
+							<input id="textEditor-fullDescription-hidden" name="fullDescription" type="hidden"/>
+							<div id="textEditor-fullDescription-parent" class="col-sm-11">					
+								<textarea id="textEditor-fullDescription-area" th:text="*{fullDescription}">
+								</textarea>
 							</div>
 						</div>
 						<div class="form-group form-footer">				
@@ -217,49 +217,16 @@
 		}
 	
 	    $(function(){
+	    	var fileManagerURL = /*[[@{/do/fileManager/upload/}]]*/ #;
+	    	
 	    	initDeleteFunction();
 	    	initDeletePicture();
+	    	initTextEditor('#textEditor-fullDescription-area', '#textEditor-fullDescription-parent', fileManagerURL);
 	    	
 			var backToList = function(){
+				removeTextEditor("textEditor-fullDescription-area", "textEditor-fullDescription-parent");
 				returnToList('groupCourse-detail-container', 'groupCourse-list-container', true);
 			};
-			
-			var fileManagerURL = /*[[@{/do/fileManager/upload/}]]*/ #; 
-			var imageHandler = function(image, callback) {
-				var data = new FormData();
-				data.append('file', image);
-				var xhr = new XMLHttpRequest();
-				xhr.open('POST', fileManagerURL, true);
-				xhr.onreadystatechange = function() {
-				  if (xhr.readyState === 4) {
-				    var response = JSON.parse(xhr.responseText);
-				    if (response) {
-				      	callback(response);
-				    } else {
-				      	var reader = new FileReader();
-				      	reader.onload = function(e) {
-				        	callback(e.target.result);
-				      	};
-				      	reader.readAsDataURL(image);
-				    }
-				  }
-				}
-				xhr.send(data);
-			};
-			
-			var quill = new Quill('#quill-area', {
-		    	theme: 'snow',
-		    	modules: {
-			    	toolbar: toolbarOptions
-				},
-				imageHandler: imageHandler
-		  	});
-			
-			var fullDescription = [[${detail.fullDescription}]]; 
-			if(fullDescription) {
-				var contentJson = JSON.parse(fullDescription);
-				quill.setContents(contentJson.ops);
-			}
 			
 			var preSerializeForm = function() {
 				var idx = 0;
@@ -275,7 +242,7 @@
 			
 			var submitForm = function(){
 				cleanErrorParsley();
-				$('input[name="fullDescription"]').val(JSON.stringify(quill.getContents()));
+				$('#textEditor-fullDescription-hidden').val(tinymce.get('textEditor-fullDescription-area').getContent());
 				preSerializeForm();
 				var sURL = /*[[@{/do/course/groupCourse/saveGroupCourse/}]]*/ #;
 				$.post(sURL, $("#groupCourse-detail-form").serialize(), function(data) {

@@ -915,3 +915,66 @@ var toolbarOptions = [
   
   ['clean']  
 ];
+
+function initDatePicker(datePickerClass, dateFormat) {
+	$('.'+datePickerClass).datepicker({
+	    autoclose: true,
+	    todayHighlight: true,
+		format: dateFormat,
+		onSelect: function(dateText, datePicker) {
+			$(this).attr('value', dateText);
+	    }
+    });
+}
+
+function uploadFileTextEditor(image, sURL, targetId) {
+	var data = new FormData();
+	data.append('file', image);
+	var xhr = new XMLHttpRequest();
+	xhr.open('POST', sURL, true);
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState === 4) {
+		  var response = JSON.parse(xhr.responseText);
+		  if (response) {
+			  $("#"+targetId).val(response);
+		  } else {
+			  return 'error';
+		  }
+		}
+	}
+	xhr.send(data);
+}
+
+function initTextEditor(editorArea, editorParent, uploadURL) {
+	$(editorArea).each(function(){		
+		var hiddenInput = document.createElement("input");
+			hiddenInput.className = "hidden-file-browser";
+			hiddenInput.type = "file";
+			hiddenInput.name = "image";
+			hiddenInput.style.display = "none";
+		$(this).parent().append(hiddenInput);
+	});
+	
+	$('.hidden-file-browser').change(function(){
+		var thisObj = $(this)[0];
+		var targetId = $(this).attr('target-id');
+		uploadFileTextEditor(thisObj.files[0], uploadURL, targetId);
+	});
+	
+	tinymce.init({
+    	selector: editorArea,
+    	plugins: [
+    	    'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+    	    'searchreplace wordcount visualblocks visualchars code fullscreen',
+    	    'insertdatetime media nonbreaking save table contextmenu directionality',
+    	    'emoticons template paste textcolor colorpicker textpattern imagetools codesample toc'
+    	],
+    	toolbar1: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+    	toolbar2: 'imageprint preview media | forecolor backcolor emoticons | codesample',
+    	file_browser_callback : function(field_name, url, type, win) {
+			var hiddenInput = $("#"+tinyMCE.activeEditor.id).parent().find('.hidden-file-browser');
+    		hiddenInput.attr("target-id", field_name);
+			hiddenInput.click();
+        }
+  	});
+}

@@ -59,16 +59,14 @@ public class GroupCourseDAO extends AbstractHibernateDAO<GroupCourse, Long> impl
 		Criteria crit = getSession().createCriteria(domainClass);
 			crit.setProjection(Projections.projectionList().
 					add(Projections.property("pkGroupCourse")).
-					add(Projections.property("code")).
-					add(Projections.property("name")));
+					add(Projections.property("title")));
 			crit.setResultTransformer(new ResultTransformer() {
 				@Override
 				public Object transformTuple(Object[] tuple, String[] aliases) {
 					GroupCourse gc = GroupCourse.getInstance();
 					try {
 						BeanUtils.copyProperty(gc, "pkGroupCourse", tuple[0]);
-						BeanUtils.copyProperty(gc, "code", tuple[1]);
-						BeanUtils.copyProperty(gc, "name", tuple[2]);
+						BeanUtils.copyProperty(gc, "title", tuple[1]);
 					} catch (Exception e) {}
 					return gc;
 				}

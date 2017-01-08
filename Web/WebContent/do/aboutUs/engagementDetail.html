@@ -37,10 +37,12 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-1 control-label" th:text="'Content'">Content</label>
-							<input name="content" type="hidden"/>
-							<div class="col-sm-11">							
-								<div id="quill-area">
+							<div class="col-sm-12">							
+								<label class="col-sm-1 control-label" th:text="'Content'">Content</label>
+								<input id="textEditor-content-hidden" name="content" type="hidden"/>
+								<div id="textEditor-content-parent" class="col-sm-11">					
+									<textarea id="textEditor-content-area" th:text="*{content}">
+									</textarea>
 								</div>
 							</div>
 						</div>
@@ -58,53 +60,18 @@
 	<script th:inline="javascript">
 	/*<![CDATA[*/
 	    $(function(){
+	    	var fileManagerURL = /*[[@{/do/fileManager/upload/}]]*/ #;
+	    	initTextEditor('#textEditor-content-area', '#textEditor-content-parent', fileManagerURL);
+	    	
 			var backToList = function(){
+				removeTextEditor("textEditor-content-area", "textEditor-content-parent");
 				returnToList('engagement-detail-container', 'engagement-list-container', true);
 			};
 			
-			var fileManagerURL = /*[[@{/do/fileManager/upload/}]]*/ #; 
-			var imageHandler = function(image, callback) {
-				var data = new FormData();
-				data.append('file', image);
-				var xhr = new XMLHttpRequest();
-				xhr.open('POST', fileManagerURL, true);
-				xhr.onreadystatechange = function() {
-				  if (xhr.readyState === 4) {
-				    var response = JSON.parse(xhr.responseText);
-				    if (response) {
-				      	callback(response);
-				    } else {
-				      	var reader = new FileReader();
-				      	reader.onload = function(e) {
-				        	callback(e.target.result);
-				      	};
-				      	reader.readAsDataURL(image);
-				    }
-				  }
-				}
-				xhr.send(data);
-			};
-			
-			var quill = new Quill('#quill-area', {
-		    	theme: 'snow',
-		    	modules: {
-			    	toolbar: toolbarOptions
-				},
-				imageHandler: imageHandler
-		  	});
-			
-			var content = [[${detail.content}]];
-			if(content) {
-				try {
-					var contentJson = JSON.parse(content);
-					quill.setContents(contentJson.ops);
-				} catch (err) {}
-			}
-	    	
 			var submitForm = function(){
 				cleanErrorParsley();
 				var sURL = /*[[@{/do/aboutUs/engagement/saveEngagement/}]]*/ #;
-				$('input[name="content"]').val(JSON.stringify(quill.getContents()));
+				$('#textEditor-content-hidden').val(tinymce.get('textEditor-content-area').getContent());
 				$.post(sURL, $("#engagement-detail-form").serialize(), function(data) {
 					if(data.errorList!=null){
 						displayErrorParsley(data.errorList);

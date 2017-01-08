@@ -43,19 +43,19 @@
 						<input id="digitalBook-detail-maintenancePk" type="hidden" th:field="*{pkDigitalBook}"/>
 						<div class="form-group">
 							<label class="col-sm-2 control-label" th:text="'Title'">Title</label>
-							<div class="col-sm-9 form-input-container">
+							<div class="col-sm-10 form-input-container">
 								<input type="text" class="form-control" placeholder="Title" name="srch-term" id="input-text-title" th:field="*{title}"/>
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-2 control-label" th:text="'Cover Image'">Cover Image</label>
-							<div class="col-sm-9 form-input-container">
+							<div class="col-sm-10 form-input-container">
 								<th:block th:if="${detail.coverImageURL != null}">
 									<input type="hidden" id="input-hidden-coverImageURL" th:field="*{coverImageURL}"/>
 									<input type="file" class="form-control" id="input-file-coverImageURL" style="display:none;"/>
 									<div id="container-coverImageURL">
 										<img th:src="${detail.coverImageURL}" class="gcDetail-basicPicture"/>
-										<a href="#" class="btn btn-primary btn-xs margin-bottom-20 coverImage-delete" data-toggle="tooltip" title="Delete"><i class="fa fa-trash"></i></a>
+										<a href="#" class="btn btn-primary btn-xs margin-bottom-20 coverImage-delete" data-toggle="tooltip" title="Delete" style="position:absolute; left:25px; top:10px;"><i class="fa fa-trash"></i></a>
 									</div>
 								</th:block>
 								<th:block th:if="${detail.coverImageURL == null}">
@@ -68,7 +68,7 @@
 						</div>
 						<div class="form-group">
 							<label class="col-sm-2 control-label" th:text="'File'">File</label>
-							<div class="col-sm-9 form-input-container">
+							<div class="col-sm-10 form-input-container">
 								<th:block th:if="${detail.fileURL != null}">
 									<input type="hidden" id="input-hidden-fileURL" th:field="*{fileURL}"/>
 									<input type="file" class="form-control" id="input-file-fileURL" style="display:none;"/>
@@ -85,11 +85,18 @@
 								</th:block>
 							</div>
 						</div>
+						<hr style="border-top: 1px;"/>
 						<div class="form-group">
-							<label class="col-sm-2 control-label" th:text="'Description'">Description</label>
-							<input name="description" type="hidden"/>
-							<div class="col-sm-10">							
-								<div id="descriptionQuill">
+							<div class="col-sm-12">							
+								<label class="col-sm-1 control-label" th:text="'Description'">Description</label>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-12">
+								<input id="textEditor-description-hidden" name="description" type="hidden"/>
+								<div id="textEditor-description-parent" class="col-sm-12">					
+									<textarea id="textEditor-description-area" th:text="*{description}">
+									</textarea>
 								</div>
 							</div>
 						</div>
@@ -128,16 +135,21 @@
 		}
 		
 		$(function(){
+			var fileManagerURL = /*[[@{/do/fileManager/upload/}]]*/ #; 
+			
 	    	initDeletePicture();
 	    	initDeleteFile();
+	    	initTextEditor('#textEditor-description-area', '#textEditor-description-parent', fileManagerURL);
+	    	
 			var backToList = function(){
+				removeTextEditor("textEditor-description-area", "textEditor-description-parent");
 				returnToList('digitalBook-detail-container', 'digitalBook-list-container', true);
 			};
 	    	
 			var submitForm = function(){
 				cleanErrorParsley();
 				var sURL = /*[[@{/do/publication/digitalBook/saveDigitalBook/}]]*/ #;
-				$('input[name="description"]').val(JSON.stringify(descriptionQuill.getContents()));
+				$('#textEditor-description-hidden').val(tinymce.get('textEditor-description-area').getContent());
 				$.post(sURL, $("#digitalBook-detail-form").serialize(), function(data) {
 					if(data.errorList!=null){
 						displayErrorParsley(data.errorList);
@@ -146,44 +158,7 @@
 					}
 				});
 			};
-			
-			var fileManagerURL = /*[[@{/do/fileManager/upload/}]]*/ #; 
-			var imageHandler = function(image, callback) {
-				var data = new FormData();
-				data.append('file', image);
-				var xhr = new XMLHttpRequest();
-				xhr.open('POST', fileManagerURL, true);
-				xhr.onreadystatechange = function() {
-				  if (xhr.readyState === 4) {
-				    var response = JSON.parse(xhr.responseText);
-				    if (response) {
-				      	callback(response);
-				    } else {
-				      	var reader = new FileReader();
-				      	reader.onload = function(e) {
-				        	callback(e.target.result);
-				      	};
-				      	reader.readAsDataURL(image);
-				    }
-				  }
-				}
-				xhr.send(data);
-			};
-			
-			var descriptionQuill = new Quill('#descriptionQuill', {
-		    	theme: 'snow',
-		    	modules: {
-			    	toolbar: toolbarOptions
-				},
-				imageHandler: imageHandler
-		  	});
-			
-			var description = [[${detail.description}]];
-			if(description) {
-				var contentJson = JSON.parse(description);
-				descriptionQuill.setContents(contentJson.ops);
-			}
-			
+		
 			var showImage = function(imageURL) {
 				$('#input-file-coverImageURL').hide();
 				var htmlContent = '<image src="'+imageURL+'" style="max-height:250px;"></image>';
@@ -197,11 +172,11 @@
 			var showFile = function(fileURL) {
 				$('#input-file-fileURL').hide();
 				var htmlContent = '<label style="margin-right:10px;">Uploaded File</label>';
-				htmlContent += '<a href="#" class="btn btn-primary btn-xs margin-bottom-20 coverImage-delete" data-toggle="tooltip" title="Delete"><i class="fa fa-trash"></i></a>';
+				htmlContent += '<a href="#" class="btn btn-primary btn-xs margin-bottom-20 file-delete" data-toggle="tooltip" title="Delete"><i class="fa fa-trash"></i></a>';
 				$('#container-fileURL').html(htmlContent);
 				$('#input-hidden-fileURL').val(fileURL);
 				$('#container-fileURL').show();
-				initDeletePicture();			
+				initDeleteFile();			
 			}
 			
 			var uploadFile = function(image, uploadURL, isImage) {
@@ -232,20 +207,17 @@
 				xhr.send(data);
 			};
 			
-			var thisObj = '';
 			$('#input-file-coverImageURL').change(function(){
 				var sURL = /*[[@{/do/fileManager/uploadFeaturedImage/}]]*/ #;
 				var thisObj = $('#input-file-coverImageURL')[0];
-				console.log('hello ' + sURL);
 				uploadFile(thisObj.files[0], sURL, true);
 			});
 			
-			$(document).unbind('change').on('change', '#input-file-fileURL', function(){
+			$('#input-file-fileURL').change(function(){
 				var sURL = /*[[@{/do/fileManager/uploadEBookFile/}]]*/ #;
 				var thisObj = $('#input-file-fileURL')[0];
 				uploadFile(thisObj.files[0], sURL, false);
 			});
-			
 			
 			$('#digitalBook-detail-btn-save').click(function(e){
 				e.preventDefault();
