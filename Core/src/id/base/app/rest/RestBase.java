@@ -69,7 +69,9 @@ public class RestBase<T> {
 				pw.setCurrentPage(responseEntity.getBody().getCurrentPage());
 				pw.setMaxRecord(responseEntity.getBody().getMaxRecord());
 				pw.setStartRecordIndex(responseEntity.getBody().getStartRecordIndex());
+				pw.setRecordsPerPage(responseEntity.getBody().getRecordsPerPage());
 				pw.setNoOfPage(responseEntity.getBody().getNoOfPage());
+				pw.setCurrentRecord(responseEntity.getBody().getCurrentRecord());
 			} catch (IOException e) {
 				e.printStackTrace();
 				LOGGER.error("error parsing value ", e);

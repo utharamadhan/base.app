@@ -28,6 +28,7 @@ public class PagingWrapper<T> implements Serializable {
     /** result start from */
     private int startRecordIndex;
     private int recordsPerPage;
+    private int currentRecord;
 
     @SuppressWarnings("unchecked")
     public PagingWrapper() {
@@ -67,6 +68,8 @@ public class PagingWrapper<T> implements Serializable {
             currentPage = noOfPage;
             _start = ((currentPage - 1) * _size) + 1;
         }
+        
+        currentRecord = ((currentPage-1) * recordsPerPage) + result.size();
     }
     
     public boolean isResultEmpty() {
@@ -149,8 +152,16 @@ public class PagingWrapper<T> implements Serializable {
     public void setRecordsPerPage(int i) {
         recordsPerPage = i;
     }
+    
+    public int getCurrentRecord() {
+		return currentRecord;
+	}
 
-    /**
+	public void setCurrentRecord(int currentRecord) {
+		this.currentRecord = currentRecord;
+	}
+
+	/**
      * @see java.lang.Object#toString()
      */
     public String toString() {
