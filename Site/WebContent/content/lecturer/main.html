@@ -16,27 +16,34 @@
 						<input type="text" class="form-control param" placeholder="Enter Keyword..."/>
 					</div>
 					<div class="col-md-4">
-						<button type="button" class="btn btn-danger">Cari Pengajar</button>
+						<button type="button" class="btn btn-danger mrdy_btn search">Cari Pengajar</button>
 					</div>
 				</div>
 				</form>
 				<br/>
-				<div class="row">
-					<div class="col-md-2" th:each="tutor, i : ${tutors.result}">
+				<div class="row list_data">
+					<div id="template" class="col-md-2 data_result" th:each="tutor, i : ${tutors.result}">
 						<div class="post">
 								<div class="post_thumb">
 									<img th:src="${tutor.basicPictureURL}" alt="" />
-								</div><!--end post thumb-->
-								<h1><a href=""><label th:text="${tutor.name}">Roy</label></a></h1>
-							</div><!--end post-->
-					</div>					
+								</div><!-- end post thumb -->
+								<h1><a href=""><label th:text="${tutor.name}" class="post_title">Roy</label></a></h1>
+							</div><!-- end post -->
+					</div>	
 				</div>
-				<div class="row paginantion">
+				<div class="row load_pagination" style="display: none;">
+					<div class="col-md-12">
+						<div class="col-md-4"></div>
+						<div class="col-md-4"> <img th:src="@{/images/gif/loading_linear.gif}" style="margin-left: 50px;"/> </div>
+						<div class="col-md-4"></div>
+					</div>
+				</div>
+				<div class="row pagination">
 					<div class="col-md-12">
 						<div class="col-md-4"></div>
 						<div class="col-md-4">
 							<ul class="pagination_section">
-								<li style="width:100%;text-align:center"><a href="#" class="load_more">Pengajar Lain</a></li>
+								<li style="width:100%;text-align:center"><a href="#" class="load_more mrdy_btn">Pengajar Lain</a></li>
 							</ul><!--end pagination section-->		
 							<input type="hidden" th:value="${tutors.startRecordIndex}" class="startNo"/>
 							<input type="hidden" th:value="${tutors.recordsPerPage}" class="offset"/>
@@ -50,19 +57,37 @@
 		<script type="text/javascript" th:inline="javascript">
 		/*<![CDATA[*/
 		function showPaging(maxRecord, currentRecord){
-			if(maxRecord <= currentRecord){
-				$('.paginantion').hide();
+			if(maxRecord <= currentRecord || currentRecord == 0){
+				$('.pagination').hide();
 			}else{
-				$('.paginantion').show();
+				$('.pagination').show();
 			}
-		}           
+		}
+		
+		function processData(datas, load){
+			var load_content = '';
+			for(var i=0;i<datas.length;i++){
+				var cloning = $('.template_part .data_result').eq(0).clone();
+				cloning.find('.post_thumb img').attr('src',datas[i].basicPictureURL);
+				cloning.find('.post_title').html(datas[i].name);
+				cloning.wrapInner('<div class="col-md-2 data_result"></div>');
+				if(!load){
+					$('.list_data').append(cloning.html());
+				}else{
+					load_content = load_content + cloning.html();
+				}
+			}
+			
+			if(load){
+				$('.list_data').html(load_content);
+			}
+		}
 		           
 		$(function(){
 			var maxRecord = /*[[${tutors.maxRecord}]]*/;
 			var currentRecord = /*[[${tutors.currentRecord}]]*/;
 			
 			showPaging(maxRecord, currentRecord);
-			
 			
 			$('.load_more').unbind('click').click(function(){
 				var sURL = /*[[@{/page/lecturer/load}]]*/
@@ -75,11 +100,58 @@
 		            data: {filter : param, startNo : nextStartNo, offset : offset},
 		            dataType: 'json',
 		            success: function (data) {
-		            	var newMaxRecord = data.maxRecord;
-		            	var newCurrentRecord = data.currentRecord;
+		            	$('.load_pagination').hide();
+		            	$('.mrdy_btn').disableBtn({enabled:true});
+		            	processData(data.tutors.result, false);		
+		            	var newMaxRecord = data.tutors.maxRecord;
+		            	var newCurrentRecord = data.tutors.currentRecord;
 		            	showPaging(newMaxRecord, newCurrentRecord);
-		            	alert(JSON.stringify(data));
-		            }
+		            },
+		            beforeSend: function($jqXHR, $textStatus){
+						$('.load_pagination').show();
+						$('.mrdy_btn').disableBtn({enabled:false});
+					},
+					error: function ($jqXHR, $textStatus, $errorThrown) {
+						$('.load_pagination').hide();
+						$('.mrdy_btn').disableBtn({enabled:true});
+					},
+					complete: function($jqXHR, $textStatus){
+						$('.load_pagination').hide();
+						$('.mrdy_btn').disableBtn({enabled:false});
+					}
+		        });				
+			});
+			
+			$('.search').unbind('click').click(function(){
+				var sURL = /*[[@{/page/lecturer/load}]]*/
+				var param = $('.param').val();
+				var img_url = /*[[@{/images/gif/hex-loader.gif}]]*/;
+				$.ajax({
+		            type: 'GET',
+		            url: sURL,
+		            data: {filter : param},
+		            dataType: 'json',
+		            success: function (data) {
+		            	$('.pagination').hide();
+		            	$('.loading_reload').remove();
+		            	$('.mrdy_btn').disableBtn({enabled:true});
+		            	processData(data.tutors.result, true);
+		            	var newMaxRecord = data.tutors.maxRecord;
+		            	var newCurrentRecord = data.tutors.currentRecord;
+		            	showPaging(newMaxRecord, newCurrentRecord);
+		            },
+		            beforeSend: function($jqXHR, $textStatus){
+		            	$('.list_data').html('<div class="col-md-12 loading_reload" style="display: block; margin-left: auto; margin-right: auto;text-align: center;"><img src="'+img_url+'" /></div>');
+						$('.mrdy_btn').disableBtn({enabled:false});
+					},
+					error: function ($jqXHR, $textStatus, $errorThrown) {
+						$('.loading_reload').remove();
+						$('.mrdy_btn').disableBtn({enabled:true});
+					},
+					complete: function($jqXHR, $textStatus){
+						$('.loading_reload').remove();
+						$('.mrdy_btn').disableBtn({enabled:true});
+					}
 		        });				
 			});
 		});           

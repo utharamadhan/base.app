@@ -4631,3 +4631,7 @@ ul.contact_info li a:hover {
 		margin: 30px auto;
 	}
 }
+
+.template_part{
+	display: none;
+}

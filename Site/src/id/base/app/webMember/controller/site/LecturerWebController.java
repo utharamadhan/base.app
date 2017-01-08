@@ -55,7 +55,7 @@ public class LecturerWebController {
 		) throws JsonParseException, JsonMappingException, IOException{
 		List<SearchFilter> filter = new ArrayList<SearchFilter>();
 		if(StringUtils.isNotEmpty(filterJson)){
-			filter = mapper.readValue(filterJson, new TypeReference<List<SearchFilter>>(){});
+			filter.add(new SearchFilter(Tutor.NAME, Operator.LIKE, filterJson));
 		}
 		List<SearchOrder> order = new ArrayList<SearchOrder>();
 		PagingWrapper<Tutor> tutors = getRestCaller().findAllByFilter(startNo, offset, filter, order);

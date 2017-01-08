@@ -16,8 +16,10 @@
 	<body>
 		<div class="main_wrapper">
 			<jsp:include page="/templates/navbar.jsp"></jsp:include>
-			<decorator:body />
+			<div class="content_body"><decorator:body /></div>
 			<jsp:include page="/templates/footer.jsp"></jsp:include>
+		</div>
+		<div class="template_part">
 		</div>
 		<!-- jQuery -->
 	    <script type="text/javascript" async="" src="<%=request.getContextPath()%>/js/themes.iamabdus.com.js"></script>
@@ -32,5 +34,6 @@
 		 <script type="text/javascript" src="<%=request.getContextPath()%>/js/optionswitcher.js"></script><!-- custom js -->
 		 <script src="<%=request.getContextPath()%>/plugin/vendor/quill/quill-1.1.7.js"></script>
 		<script src="<%=request.getContextPath()%>/js/custom.js"></script><!-- custom js -->
+		<script src="<%=request.getContextPath()%>/js/mrdy-plugin.js"></script><!-- mrdy plugin js -->
 	</body>
 </html>

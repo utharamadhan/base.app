@@ -69,7 +69,7 @@ public class PagingWrapper<T> implements Serializable {
             _start = ((currentPage - 1) * _size) + 1;
         }
         
-        currentRecord = ((currentPage-1) * recordsPerPage) + result.size();
+        currentRecord = (currentPage == 0 ? 0 : (currentPage-1) * recordsPerPage) + result.size();
     }
     
     public boolean isResultEmpty() {
