@@ -11,13 +11,13 @@
 			<span></span></h4>
 		</div>
 	</div>
-	<div class="row col-md-8">
+	<div class="row col-md-12">
 	<section class="tile transparent">
 			<div class="tile-body rounded-corners">
 				<form action="#" id="appRole-detail-form" class="form-horizontal" method="POST" novalidate="novalidate" th:object="${detail}">
 					<div class="stockTypeStyle">
 						<div class="form-group">
-							<div class="col-md-12">
+							<div class="col-md-10">
 								<div id="errorFragmentList">
 									<th:block th:if="${message}">
 										<div class='alert alert-success'>
@@ -31,19 +31,29 @@
 						</div>
 						<input id="appRole-detail-maintenancePk" type="hidden" th:field="*{pkAppRole}"/>
 						<div class="form-group">
-							<label class="col-sm-3 control-label" th:text="'Code'">Code</label>
-							<div class="col-sm-9 form-input-container">
+							<label class="col-sm-1 control-label" th:text="'Code'">Code</label>
+							<div class="col-sm-6 form-input-container">
 								<input type="text" class="form-control" placeholder="Code" name="srch-term" id="input-text-code" th:field="*{code}"/>
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-3 control-label" th:text="'Name'">Name</label>
-							<div class="col-sm-9 form-input-container">
+							<label class="col-sm-1 control-label" th:text="'Name'">Name</label>
+							<div class="col-sm-6 form-input-container">
 								<input type="text" class="form-control" placeholder="Name" name="srch-term" id="input-text-name" th:field="*{name}"/>
 							</div>
 						</div>
+						<hr/>
+						<div class="form-group">
+							<label class="col-sm-1 control-label" th:text="'Accessibility'">Accessibility</label>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-10">
+								<div id="accessibility-tree" class="panel-body fancytree-colorize-hover fancytree-fade-expander">
+								</div>
+							</div>
+						</div>
 						<div class="form-group form-footer">				
-							<div class="col-sm-offset-3 col-sm-9">
+							<div class="col-sm-offset-4 col-sm-8">
 								<a href="#" id="appRole-detail-btn-cancel" class="btn btn-default" type="reset" data-toggle="tooltip" title="">Batal</a>
 								<button id="appRole-detail-btn-save" class="btn btn-primary" type="submit" data-toggle="tooltip" title="">Simpan</button>
 							</div>
@@ -55,7 +65,55 @@
 	</div>
 	<script th:inline="javascript">
 	/*<![CDATA[*/
+		
+        var jsonObj = JSON.parse('[{"title": "Animalia", "expanded": true, "folder": true, "children": []}]'');
+	
+		glyph_opts = {
+			map: {
+				doc: "glyphicon glyphicon-file",
+				docOpen: "glyphicon glyphicon-file",
+				checkbox: "glyphicon glyphicon-unchecked",
+				checkboxSelected: "glyphicon glyphicon-check",
+				checkboxUnknown: "glyphicon glyphicon-share",
+				dragHelper: "glyphicon glyphicon-play",
+				dropMarker: "glyphicon glyphicon-arrow-right",
+				error: "glyphicon glyphicon-warning-sign",
+				expanderClosed: "glyphicon glyphicon-menu-right",
+				expanderLazy: "glyphicon glyphicon-menu-right", 
+				expanderOpen: "glyphicon glyphicon-menu-down",
+				folder: "glyphicon glyphicon-folder-close",
+				folderOpen: "glyphicon glyphicon-folder-open",
+				loading: "glyphicon glyphicon-refresh glyphicon-spin"
+			}
+		};       
+		
 	    $(function(){
+	    	var treeURL = /*[[@{/do/appRole/loadAccessibilityTree}]]*/ #;
+	    	$("#accessibility-tree").fancytree({
+				extensions: ["dnd", "edit", "glyph", "wide"],
+				checkbox: true,
+				dnd: {
+					focusOnClick: true,
+					dragStart: function(node, data) { return true; },
+					dragEnter: function(node, data) { return false; },
+					dragDrop: function(node, data) { data.otherNode.copyTo(node, data.hitMode); }
+				},
+				glyph: glyph_opts,
+				selectMode: 2,
+				source: {jsonObj},
+				toggleEffect: { effect: "drop", options: {direction: "left"}, duration: 400 },
+				wide: {
+					iconWidth: "1em",     // Adjust this if @fancy-icon-width != "16px"
+					iconSpacing: "0.5em", // Adjust this if @fancy-icon-spacing != "3px"
+					levelOfs: "1.5em"     // Adjust this if ul padding != "16px"
+				},
+				icon: function(event, data){
+					// if( data.node.isFolder() ) {
+					// 	return "glyphicon glyphicon-book";
+					// }
+				}
+			});
+	    	
 			var backToList = function(){
 				returnToList('appRoleMaintenance-detail-container', 'appRoleMaintenance-list-container', true);
 			};
