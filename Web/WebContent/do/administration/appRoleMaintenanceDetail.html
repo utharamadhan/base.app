@@ -49,6 +49,7 @@
 						<div class="form-group">
 							<div class="col-sm-10">
 								<div id="accessibility-tree" class="panel-body fancytree-colorize-hover fancytree-fade-expander">
+									<ul></ul>
 								</div>
 							</div>
 						</div>
@@ -65,27 +66,50 @@
 	</div>
 	<script th:inline="javascript">
 	/*<![CDATA[*/
-		
-        var jsonObj = JSON.parse('[{"title": "Animalia", "expanded": true, "folder": true, "children": []}]'');
 	
 		glyph_opts = {
 			map: {
-				doc: "glyphicon glyphicon-file",
+				doc: "fa fa-angle-right",
 				docOpen: "glyphicon glyphicon-file",
-				checkbox: "glyphicon glyphicon-unchecked",
-				checkboxSelected: "glyphicon glyphicon-check",
-				checkboxUnknown: "glyphicon glyphicon-share",
+				checkbox: "fa fa-minus-square",
+				checkboxSelected: "fa fa-check",
+				checkboxUnknown: "fa fa-minus-square",
 				dragHelper: "glyphicon glyphicon-play",
 				dropMarker: "glyphicon glyphicon-arrow-right",
 				error: "glyphicon glyphicon-warning-sign",
 				expanderClosed: "glyphicon glyphicon-menu-right",
-				expanderLazy: "glyphicon glyphicon-menu-right", 
-				expanderOpen: "glyphicon glyphicon-menu-down",
-				folder: "glyphicon glyphicon-folder-close",
-				folderOpen: "glyphicon glyphicon-folder-open",
+				expanderLazy: "fa fa-angle-right", 
+				expanderOpen: "fa fa-angle-down",
+				folder: "fa fa-angle-right",
+				folderOpen: "fa fa-angle-down",
 				loading: "glyphicon glyphicon-refresh glyphicon-spin"
 			}
-		};       
+		};
+		
+		function buildAccessListTrees(accessNodes, rootNode, tree){
+			for (var i = 0; i < accessNodes.length; i++) {
+			    var counter = accessNodes[i];			    
+			    if(counter.parentPK == "0"){
+			    	rootNode.addChildren({
+			    		title: counter.name,
+			    		tooltip: counter.name,
+			    		isFolder: true,
+			    		selected: counter.checked,
+			    		key: counter.childPK
+			    	});
+			    }else{
+			    	var parentNode = tree.getNodeByKey(counter.parentPK+"");
+			    	parentNode.addChildren({
+			    		title: counter.name,
+			    		tooltip: counter.name,
+			    		isFolder: false,
+			    		selected: counter.checked,
+			    		key: counter.childPK
+			    	});
+			    	parentNode.folder = true;
+			    }
+			}
+		}
 		
 	    $(function(){
 	    	var treeURL = /*[[@{/do/appRole/loadAccessibilityTree}]]*/ #;
@@ -100,19 +124,18 @@
 				},
 				glyph: glyph_opts,
 				selectMode: 2,
-				source: {jsonObj},
 				toggleEffect: { effect: "drop", options: {direction: "left"}, duration: 400 },
 				wide: {
-					iconWidth: "1em",     // Adjust this if @fancy-icon-width != "16px"
-					iconSpacing: "0.5em", // Adjust this if @fancy-icon-spacing != "3px"
-					levelOfs: "1.5em"     // Adjust this if ul padding != "16px"
-				},
-				icon: function(event, data){
-					// if( data.node.isFolder() ) {
-					// 	return "glyphicon glyphicon-book";
-					// }
+					iconWidth: "1em",
+					iconSpacing: "0.5em",
+					levelOfs: "1.5em"
 				}
 			});
+	    	
+	    	var rootNode = $("#accessibility-tree").fancytree("getRootNode");
+			var tree = $("#accessibility-tree").fancytree("getTree");
+			var accessNodes = /*[[${accessNodes}]]*/ #;
+			buildAccessListTrees(accessNodes, rootNode, tree);
 	    	
 			var backToList = function(){
 				returnToList('appRoleMaintenance-detail-container', 'appRoleMaintenance-list-container', true);
