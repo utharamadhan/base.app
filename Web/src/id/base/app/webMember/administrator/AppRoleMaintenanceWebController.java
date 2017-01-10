@@ -2,7 +2,9 @@ package id.base.app.webMember.administrator;
 
 import id.base.app.SystemConstant;
 import id.base.app.exception.ErrorHolder;
+import id.base.app.exception.SystemException;
 import id.base.app.paging.PagingWrapper;
+import id.base.app.rest.PathInterfaceRestCaller;
 import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
 import id.base.app.rest.RestServiceConstant;
@@ -13,6 +15,7 @@ import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.valueobject.AppRole;
 import id.base.app.valueobject.AppUser;
+import id.base.app.valueobject.UserGroupAccessNode;
 import id.base.app.webMember.DataTableCriterias;
 import id.base.app.webMember.controller.BaseController;
 
@@ -76,6 +79,31 @@ public class AppRoleMaintenanceWebController extends BaseController<AppRole> {
 		return getListPath();
 	}
 	
+	public void showAccessTree(Long roleId, Integer type, ModelMap model){
+		try {
+			final Long pkAppRole = roleId;
+			final Integer userType = type;
+			List<UserGroupAccessNode> accessNodes = new SpecificRestCaller<UserGroupAccessNode>(RestConstant.REST_SERVICE, RestConstant.RM_ROLE_FUNCTION, UserGroupAccessNode.class).executeGetList(new PathInterfaceRestCaller() {
+				@Override
+				public String getPath() {
+					return "/accessTree/{pkAppRole}/{userType}";
+				}
+				@Override
+				public Map<String, Object> getParameters() {
+					Map<String,Object> map = new HashMap<String, Object>();
+					map.put("pkAppRole", pkAppRole);
+					map.put("userType", userType);
+					return map;
+				}
+			});
+			LOGGER.info("Access List Tree Size [{}]",accessNodes.size());
+			model.addAttribute("pkAppRole", pkAppRole);
+			model.addAttribute("accessNodes", accessNodes);
+		} catch (SystemException e) {
+			LOGGER.error(e.getMessage(),e);
+		}
+	}
+	
 	public void setDefaultData(ModelMap model) {}
 	
 	@RequestMapping(method=RequestMethod.GET, value="showAdd")
@@ -88,6 +116,7 @@ public class AppRoleMaintenanceWebController extends BaseController<AppRole> {
 		setDefaultData(model);
 		AppRole detail = getRestCaller().findById(maintenancePK);
 		model.addAttribute("detail", detail);
+		showAccessTree(detail.getPkAppRole(), detail.getType(), model);
 		return PATH_DETAIL;
 	}
 	

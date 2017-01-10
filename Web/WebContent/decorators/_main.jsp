@@ -45,6 +45,7 @@
 	    <link rel="stylesheet" href="<%=request.getContextPath()%>/plugin/vendor/typeahead/css/typeahead.js-bootstrap.css"/>
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/plugin/vendor/fuelux/css/wizzard.min.css"/>
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/plugin/vendor/bs-wizard/bs-wizard-min.css" type="text/css" media="all">
+		<link rel="stylesheet" href="<%=request.getContextPath()%>/plugin/vendor/fancytree/style/ui.fancytree.css" type="text/css" media="all">
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/css/minimal.css">
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css">
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/plugin/vendor/quill/quill-1.1.7.css">
@@ -187,9 +188,14 @@
 	<script src="<%=request.getContextPath()%>/plugin/vendor/typeahead/typeahead.jquery.min.js" type="text/javascript"></script>
     <script src="<%=request.getContextPath()%>/js/minimal.min.js"></script>
     
-    <%-- <script src="<%=request.getContextPath()%>/plugin/vendor/fuelux/fuelux.wizard.min.js"></script> --%>
-    <%-- <script src="<%=request.getContextPath()%>/plugin/vendor/fuelux/wizard-elements.min.js"></script> --%>
     <script src="<%=request.getContextPath()%>/plugin/vendor/bs-wizard/bs-wizard.js"></script>
+    
+    <script src="<%=request.getContextPath()%>/plugin/vendor/fancytree/jquery.fancytree.js"></script>
+    <script src="<%=request.getContextPath()%>/plugin/vendor/fancytree/jquery.fancytree.dnd.js"></script>
+    <script src="<%=request.getContextPath()%>/plugin/vendor/fancytree/jquery.fancytree.edit.js"></script>
+    <script src="<%=request.getContextPath()%>/plugin/vendor/fancytree/jquery.fancytree.glyph.js"></script>
+    <script src="<%=request.getContextPath()%>/plugin/vendor/fancytree/jquery.fancytree.table.js"></script>
+    <script src="<%=request.getContextPath()%>/plugin/vendor/fancytree/jquery.fancytree.wide.js"></script>
     <script>
 	    $(function(){
 	    	$('.numeric').autoNumeric('init', {aSep:'.', aDec:',', vMin: '-9999999999.99', vMax:'9999999999.99'});
