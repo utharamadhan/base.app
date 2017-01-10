@@ -79,7 +79,7 @@ public class EbookWebController {
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/detail/{id}")
-	public String view(ModelMap model, HttpServletRequest request, HttpServletResponse response,
+	public String detail(ModelMap model, HttpServletRequest request, HttpServletResponse response,
 			@PathVariable(value="id") Long id
 	){
 		List<SearchFilter> filter = new ArrayList<SearchFilter>();

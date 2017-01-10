@@ -162,7 +162,7 @@
 			});
 			
 			$('.show_detail').unbind('click').click(function(){
-				var param = $('input[name="identity"]').val();
+				var param = $(this).parents('.post').find('input[name="identity"]').val();
 				var link = /*[[@{/page/ebook/detail/}]]*/ '';
 				link = link + param;
 				window.location.href = link;

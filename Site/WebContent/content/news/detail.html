@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1"/>
+<meta name="author" content="Mardy Jonathan"/>
+<title></title>
+</head>
+<body>
+		<div class="breadcrumb-wrapper">
+			<div class="breadcrumb">
+				<div class="container">
+					<ul>
+					<li><a th:href="@{/}">Home</a></li>
+					<li><a th:href="@{/page/news}">News</a></li>
+					<li><a href="#">News Information</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="content_top">
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 content_left">
+						<div>
+							<img th:src="@{/images/news-post-01.jpg}" style="float: left; vertical-align: top;margin: 5px 15px 15px 15px;"/>
+							<h1 th:utext="${detail.title}"></h1>
+							<label th:text="${'Posted : ' + #dates.format(detail.publishDate, 'EEEE dd-MMMM-yyyy')}" style="font-weight: 500;position: relative;top: -15px;font-size: 13px;"></label>
+							<span th:utext="${detail.content}">
+							</span>
+						</div><!--end content left-->
+					</div>
+					<!-- Start Sharing Action -->
+					<div class="post_bottom" style="text-align: center;display: inline-block;position: relative;margin-left: -11%;margin-right: auto;left: 50%;margin-top: 40px !important;">
+						<ul>
+							<li class="like">
+								<a href="http://themes.iamabdus.com/news.html#">
+									<img th:src="@{/images/like_icon.png}" alt="" />
+									<span>12</span>
+								</a>
+							</li>
+							
+							<li class="share">
+								<a href="http://themes.iamabdus.com/news.html#">
+									<img th:src="@{/images/share_icon.png}" alt="" />
+									<span>12</span>
+								</a>
+							</li>
+							
+							<li class="favorite">
+								<a href="http://themes.iamabdus.com/news.html#">
+									<img th:src="@{/images/favorite_icon.png}" alt="" />
+									<span>12</span>
+								</a>
+							</li>
+						</ul>
+					</div>
+					<!-- End Sharing Action -->
+				</div>
+				<hr/>
+			</div><!--end content top-->
+		</div>
+		
+		<script type="text/javascript" th:inline="javascript">
+		/*<![CDATA[*/
+		/*]]>*/
+		</script>
+</body>
+</html>
