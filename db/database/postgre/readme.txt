@@ -6,7 +6,7 @@ ex :
 
 psql --username=baseApp -d baseApp -a -f runallscript.sql
 
-2. add this property into your server.xml
+2. add this property into your server.xml (inside tag <Host>)
 
 <Context docBase="D:/project/baseApp/fileStorage/" path="/otherResources"/>
 
