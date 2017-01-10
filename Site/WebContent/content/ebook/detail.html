@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1"/>
+<title></title>
+</head>
+<body>
+		<div class="breadcrumb-wrapper">
+			<div class="breadcrumb">
+				<div class="container">
+					<ul>
+					<li><a th:href="@{/}">Home</a></li>
+					<li><a th:href="@{/page/ebook}">Ebook</a></li>
+					<li><a href="#">Detail Ebook</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="content_top">
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-12 col-sm-3">
+						<img th:src="${detail.coverImageURL}"/>
+					</div>
+					<div class="col-xs-12 col-sm-9">
+						<div class="content_left">
+							<h1>Description</h1>
+							<span th:utext="${detail.description}">
+							</span>
+						</div><!--end content left-->
+						<div class="content_left">
+							<div><button type="button" class="btn btn-primary btn-lg">Download<span class="glyphicon glyphicon-download" style="padding-left: 5px;"></span></button></div>
+						</div>
+					</div>
+				</div>
+				<hr/>
+			</div><!--end content top-->
+		</div>
+		
+		<script type="text/javascript" th:inline="javascript">
+		/*<![CDATA[*/
+		/*]]>*/
+		</script>
+</body>
+</html>

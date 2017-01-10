@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1"/>
+<meta name="author" content="Mardy Jonathan"/>
 <title></title>
 </head>
 <body>
@@ -69,7 +70,7 @@
 						<div class="col-md-4"></div>
 					</div>
 				</div>
-				<div class="row pagination">
+				<div class="row pagination_part">
 					<div class="col-md-12">
 						<div class="col-md-4"></div>
 						<div class="col-md-4">
@@ -89,9 +90,9 @@
 		/*<![CDATA[*/
 	    function showPaging(maxRecord, currentRecord){
 			if(maxRecord <= currentRecord || currentRecord == 0){
-				$('.pagination').hide();
+				$('.pagination_part').hide();
 			}else{
-				$('.pagination').show();
+				$('.pagination_part').show();
 			}
 		}
 		
@@ -163,7 +164,7 @@
 		            data: {filter : param},
 		            dataType: 'json',
 		            success: function (data) {
-		            	$('.pagination').hide();
+		            	$('.pagination_part').hide();
 		            	$('.loading_reload').remove();
 		            	$('.mrdy_btn').disableBtn({enabled:true});
 		            	processData(data.news.result, true);

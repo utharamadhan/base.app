@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1"/>
+<meta name="author" content="Mardy Jonathan"/>
 <title></title>
 </head>
 <body>
@@ -11,293 +12,47 @@
 				<div class="row">
 					<div class="col-md-4"></div>
 					<div class="col-md-4">
-						<input type="text" class="form-control" placeholder="Enter Keyword..."/>
+						<input type="text" class="form-control param" placeholder="Enter Keyword..."/>
 					</div>
 					<div class="col-md-4">
-						<button type="button" class="btn btn-danger">Search eBook</button>
+						<button type="button" class="btn btn-danger mrdy_btn search">Search eBook</button>
 					</div>
 				</div>
 				</form>
 				<br/>
-				<div class="row">
-					<div class="col-md-2">
+				<div class="row list_data">
+					<div id="template" class="col-md-2 data_result" th:each="book, i : ${books.result}">
 						<div class="post">
 								<div class="post_thumb">
-									<img th:src="@{/images/ebook/ebook1.jpg}" alt="" />
+									<img th:src="${book.coverImageURL}" alt="" class="show_detail my_link"/>
 								</div><!--end post thumb-->
-								<h1><a href="">Title eBook 1</a></h1>
+								<h1><a href="#"><label th:text="${book.title}" class="post_title show_detail my_link">Title eBook 1</label></a></h1>
 								<div class="post_bottom">
 									<ul>
 										<li class="share"><a href=""><img th:src="@{/images/share_icon.png}" alt="" /><span>12</span></a></li>
 										<li class="favorite"><a href=""><img th:src="@{/images/favorite_icon.png}" alt="" /><span>12</span></a></li>
 									</ul>
 								</div><!--end post bottom-->
-								
+								<input type="hidden" name="identity" th:value="${book.pkDigitalBook}"/>
 							</div><!--end post-->
 					</div>					
-					<div class="col-md-2">		
-						<div class="post">
-								<div class="post_thumb">
-									<img th:src="@{/images/ebook/ebook2.jpg}" alt="" />
-								</div><!--end post thumb-->
-								<h1><a href="">Title eBook 2</a></h1>
-								<div class="post_bottom">
-									<ul>
-										<li class="share"><a href=""><img th:src="@{/images/share_icon.png}" alt="" /><span>12</span></a></li>
-										<li class="favorite"><a href=""><img th:src="@{/images/favorite_icon.png}" alt="" /><span>12</span></a></li>
-									</ul>
-								</div><!--end post bottom-->
-								
-							</div><!--end post-->
-					</div>					
-					<div class="col-md-2">		
-						<div class="post">
-								<div class="post_thumb">
-									<img th:src="@{/images/ebook/ebook3.jpg}" alt="" />
-								</div><!--end post thumb-->
-								<h1><a href="">Title eBook 3</a></h1>
-								<div class="post_bottom">
-									<ul>
-										<li class="share"><a href=""><img th:src="@{/images/share_icon.png}" alt="" /><span>12</span></a></li>
-										<li class="favorite"><a href=""><img th:src="@{/images/favorite_icon.png}" alt="" /><span>12</span></a></li>
-									</ul>
-								</div><!--end post bottom-->
-								
-							</div><!--end post-->
-					
-					</div>	
-					<div class="col-md-2">
-						<div class="post">
-								<div class="post_thumb">
-									<img th:src="@{/images/ebook/ebook4.jpg}" alt="" />
-								</div><!--end post thumb-->
-								<h1><a href="">Title eBook 4</a></h1>
-								<div class="post_bottom">
-									<ul>
-										<li class="share"><a href=""><img th:src="@{/images/share_icon.png}" alt="" /><span>12</span></a></li>
-										<li class="favorite"><a href=""><img th:src="@{/images/favorite_icon.png}" alt="" /><span>12</span></a></li>
-									</ul>
-								</div><!--end post bottom-->
-								
-							</div><!--end post-->
-					</div>					
-					<div class="col-md-2">		
-						<div class="post">
-								<div class="post_thumb">
-									<img th:src="@{/images/ebook/ebook5.jpg}" alt="" />
-								</div><!--end post thumb-->
-								<h1><a href="">Title eBook 5</a></h1>
-								<div class="post_bottom">
-									<ul>
-										<li class="share"><a href=""><img th:src="@{/images/share_icon.png}" alt="" /><span>12</span></a></li>
-										<li class="favorite"><a href=""><img th:src="@{/images/favorite_icon.png}" alt="" /><span>12</span></a></li>
-									</ul>
-								</div><!--end post bottom-->
-								
-							</div><!--end post-->
-					</div>					
-					<div class="col-md-2">		
-						<div class="post">
-								<div class="post_thumb">
-									<img th:src="@{/images/ebook/ebook6.jpg}" alt="" />
-								</div><!--end post thumb-->
-								<h1><a href="">Title eBook 6</a></h1>
-								<div class="post_bottom">
-									<ul>
-										<li class="share"><a href=""><img th:src="@{/images/share_icon.png}" alt="" /><span>12</span></a></li>
-										<li class="favorite"><a href=""><img th:src="@{/images/favorite_icon.png}" alt="" /><span>12</span></a></li>
-									</ul>
-								</div><!--end post bottom-->
-								
-							</div><!--end post-->
-					
-					</div>	
-					<div class="col-md-2">		
-						<div class="post">
-								<div class="post_thumb">
-									<img th:src="@{/images/ebook/ebook7.jpg}" alt="" />
-								</div><!--end post thumb-->
-								<h1><a href="">Title eBook 7</a></h1>
-								<div class="post_bottom">
-									<ul>
-										<li class="share"><a href=""><img th:src="@{/images/share_icon.png}" alt="" /><span>12</span></a></li>
-										<li class="favorite"><a href=""><img th:src="@{/images/favorite_icon.png}" alt="" /><span>12</span></a></li>
-									</ul>
-								</div><!--end post bottom-->
-								
-							</div><!--end post-->
-					
-					</div>	
-					<div class="col-md-2">		
-						<div class="post">
-								<div class="post_thumb">
-									<img th:src="@{/images/ebook/ebook8.jpg}" alt="" />
-								</div><!--end post thumb-->
-								<h1><a href="">Title eBook 8</a></h1>
-								<div class="post_bottom">
-									<ul>
-										<li class="share"><a href=""><img th:src="@{/images/share_icon.png}" alt="" /><span>12</span></a></li>
-										<li class="favorite"><a href=""><img th:src="@{/images/favorite_icon.png}" alt="" /><span>12</span></a></li>
-									</ul>
-								</div><!--end post bottom-->
-								
-							</div><!--end post-->
-					
-					</div>
-					<div class="col-md-2">		
-						<div class="post">
-								<div class="post_thumb">
-									<img th:src="@{/images/ebook/ebook9.jpg}" alt="" />
-								</div><!--end post thumb-->
-								<h1><a href="">Title eBook 8</a></h1>
-								<div class="post_bottom">
-									<ul>
-										<li class="share"><a href=""><img th:src="@{/images/share_icon.png}" alt="" /><span>12</span></a></li>
-										<li class="favorite"><a href=""><img th:src="@{/images/favorite_icon.png}" alt="" /><span>12</span></a></li>
-									</ul>
-								</div><!--end post bottom-->
-								
-							</div><!--end post-->
-					
-					</div>
-					<div class="col-md-2">		
-						<div class="post">
-								<div class="post_thumb">
-									<img th:src="@{/images/ebook/ebook10.jpg}" alt="" />
-								</div><!--end post thumb-->
-								<h1><a href="">Title eBook 8</a></h1>
-								<div class="post_bottom">
-									<ul>
-										<li class="share"><a href=""><img th:src="@{/images/share_icon.png}" alt="" /><span>12</span></a></li>
-										<li class="favorite"><a href=""><img th:src="@{/images/favorite_icon.png}" alt="" /><span>12</span></a></li>
-									</ul>
-								</div><!--end post bottom-->
-								
-							</div><!--end post-->
-					
-					</div>
-					<div class="col-md-2">		
-						<div class="post">
-								<div class="post_thumb">
-									<img th:src="@{/images/ebook/ebook11.jpg}" alt="" />
-								</div><!--end post thumb-->
-								<h1><a href="">Title eBook 8</a></h1>
-								<div class="post_bottom">
-									<ul>
-										<li class="share"><a href=""><img th:src="@{/images/share_icon.png}" alt="" /><span>12</span></a></li>
-										<li class="favorite"><a href=""><img th:src="@{/images/favorite_icon.png}" alt="" /><span>12</span></a></li>
-									</ul>
-								</div><!--end post bottom-->
-								
-							</div><!--end post-->
-					
-					</div>
-					<div class="col-md-2">		
-						<div class="post">
-							<div class="post_thumb">
-								<img th:src="@{/images/ebook/ebook12.jpg}" alt="" />
-							</div><!--end post thumb-->
-							<h1><a href="">Title eBook 8</a></h1>
-							<div class="post_bottom">
-								<ul>
-									<li class="share"><a href=""><img th:src="@{/images/share_icon.png}" alt="" /><span>12</span></a></li>
-									<li class="favorite"><a href=""><img th:src="@{/images/favorite_icon.png}" alt="" /><span>12</span></a></li>
-								</ul>
-							</div><!--end post bottom-->
-						</div><!--end post-->
-					</div>
-					<div class="col-md-2">		
-						<div class="post">
-							<div class="post_thumb">
-								<img th:src="@{/images/ebook/ebook13.jpg}" alt="" />
-							</div><!--end post thumb-->
-							<h1><a href="">Title eBook 8</a></h1>
-							<div class="post_bottom">
-								<ul>
-									<li class="share"><a href=""><img th:src="@{/images/share_icon.png}" alt="" /><span>12</span></a></li>
-									<li class="favorite"><a href=""><img th:src="@{/images/favorite_icon.png}" alt="" /><span>12</span></a></li>
-								</ul>
-							</div><!--end post bottom-->
-						</div><!--end post-->
-					</div>
-					<div class="col-md-2">		
-						<div class="post">
-							<div class="post_thumb">
-								<img th:src="@{/images/ebook/ebook14.jpg}" alt="" />
-							</div><!--end post thumb-->
-							<h1><a href="">Title eBook 8</a></h1>
-							<div class="post_bottom">
-								<ul>
-									<li class="share"><a href=""><img th:src="@{/images/share_icon.png}" alt="" /><span>12</span></a></li>
-									<li class="favorite"><a href=""><img th:src="@{/images/favorite_icon.png}" alt="" /><span>12</span></a></li>
-								</ul>
-							</div><!--end post bottom-->
-						</div><!--end post-->
-					</div>
-					<div class="col-md-2">		
-						<div class="post">
-							<div class="post_thumb">
-								<img th:src="@{/images/ebook/ebook15.jpg}" alt="" />
-							</div><!--end post thumb-->
-							<h1><a href="">Title eBook 8</a></h1>
-							<div class="post_bottom">
-								<ul>
-									<li class="share"><a href=""><img th:src="@{/images/share_icon.png}" alt="" /><span>12</span></a></li>
-									<li class="favorite"><a href=""><img th:src="@{/images/favorite_icon.png}" alt="" /><span>12</span></a></li>
-								</ul>
-							</div><!--end post bottom-->
-						</div><!--end post-->
-					</div>
-					<div class="col-md-2">		
-						<div class="post">
-							<div class="post_thumb">
-								<img th:src="@{/images/ebook/ebook16.jpg}" alt="" />
-							</div><!--end post thumb-->
-							<h1><a href="">Title eBook 8</a></h1>
-							<div class="post_bottom">
-								<ul>
-									<li class="share"><a href=""><img th:src="@{/images/share_icon.png}" alt="" /><span>12</span></a></li>
-									<li class="favorite"><a href=""><img th:src="@{/images/favorite_icon.png}" alt="" /><span>12</span></a></li>
-								</ul>
-							</div><!--end post bottom-->
-						</div><!--end post-->
-					</div>
-					<div class="col-md-2">		
-						<div class="post">
-							<div class="post_thumb">
-								<img th:src="@{/images/ebook/ebook17.jpg}" alt="" />
-							</div><!--end post thumb-->
-							<h1><a href="">Title eBook 8</a></h1>
-							<div class="post_bottom">
-								<ul>
-									<li class="share"><a href=""><img th:src="@{/images/share_icon.png}" alt="" /><span>12</span></a></li>
-									<li class="favorite"><a href=""><img th:src="@{/images/favorite_icon.png}" alt="" /><span>12</span></a></li>
-								</ul>
-							</div><!--end post bottom-->
-						</div><!--end post-->
-					</div>
-					<div class="col-md-2">		
-						<div class="post">
-							<div class="post_thumb">
-								<img th:src="@{/images/ebook/ebook18.jpg}" alt="" />
-							</div><!--end post thumb-->
-							<h1><a href="">Title eBook 8</a></h1>
-							<div class="post_bottom">
-								<ul>
-									<li class="share"><a href=""><img th:src="@{/images/share_icon.png}" alt="" /><span>12</span></a></li>
-									<li class="favorite"><a href=""><img th:src="@{/images/favorite_icon.png}" alt="" /><span>12</span></a></li>
-								</ul>
-							</div><!--end post bottom-->
-						</div><!--end post-->
+				</div>
+				<div class="row load_pagination" style="display: none;">
+					<div class="col-md-12">
+						<div class="col-md-4"></div>
+						<div class="col-md-4"> <img th:src="@{/images/gif/loading_linear.gif}" style="margin-left: 50px;"/> </div>
+						<div class="col-md-4"></div>
 					</div>
 				</div>
-				<div class="row">
+				<div class="row pagination_part">
 					<div class="col-md-12">
 						<div class="col-md-4"></div>
 						<div class="col-md-4">
 							<ul class="pagination_section">
-								<li style="width:100%;text-align:center"><a href="#">Older eBook</a></li>
+								<li style="width:100%;text-align:center"><a href="#" class="load_more mrdy_btn">Older eBook</a></li>
 							</ul><!--end pagination section-->		
+							<input type="hidden" th:value="${books.startRecordIndex}" class="startNo"/>
+							<input type="hidden" th:value="${books.recordsPerPage}" class="offset"/>
 						</div>
 						<div class="col-md-4"></div>
 					</div><!--end post left section-->
@@ -307,6 +62,112 @@
 		
 		<script type="text/javascript" th:inline="javascript">
 		/*<![CDATA[*/
+        function showPaging(maxRecord, currentRecord){
+			if(maxRecord <= currentRecord || currentRecord == 0){
+				$('.pagination_part').hide();
+			}else{
+				$('.pagination_part').show();
+			}
+		}
+		
+		function processData(datas, load){
+			var load_content = '';
+			for(var i=0;i<datas.length;i++){
+				var cloning = $('.template_part .data_result').eq(0).clone();
+				cloning.find('.post_thumb img').attr('src',datas[i].coverImageURL);
+				cloning.find('.post_title').html(datas[i].title);
+				cloning.wrap('<div></div>');
+				if(!load){
+					$('.list_data').append(cloning.parent().html());
+				}else{
+					load_content = load_content + cloning.parent().html();
+				}
+			}
+			
+			if(load){
+				$('.list_data').html(load_content);
+			}
+		}
+		           
+		$(function(){
+			var maxRecord = /*[[${books.maxRecord}]]*/;
+			var currentRecord = /*[[${books.currentRecord}]]*/;
+			
+			showPaging(maxRecord, currentRecord);
+			
+			$('.load_more').unbind('click').click(function(){
+				var sURL = /*[[@{/page/ebook/load}]]*/
+				var param = $('.param').val();
+				var nextStartNo = parseInt($('.startNo').val()) + parseInt($('.offset').val());
+				var offset = $('.offset').val();
+				$.ajax({
+		            type: 'GET',
+		            url: sURL,
+		            data: {filter : param, startNo : nextStartNo, offset : offset},
+		            dataType: 'json',
+		            success: function (data) {
+		            	$('.load_pagination').hide();
+		            	$('.mrdy_btn').disableBtn({enabled:true});
+		            	processData(data.books.result, false);		
+		            	var newMaxRecord = data.books.maxRecord;
+		            	var newCurrentRecord = data.books.currentRecord;
+		            	showPaging(newMaxRecord, newCurrentRecord);
+		            },
+		            beforeSend: function($jqXHR, $textStatus){
+						$('.load_pagination').show();
+						$('.mrdy_btn').disableBtn({enabled:false});
+					},
+					error: function ($jqXHR, $textStatus, $errorThrown) {
+						$('.load_pagination').hide();
+						$('.mrdy_btn').disableBtn({enabled:true});
+					},
+					complete: function($jqXHR, $textStatus){
+						$('.load_pagination').hide();
+						$('.mrdy_btn').disableBtn({enabled:true});
+					}
+		        });				
+			});
+			
+			$('.search').unbind('click').click(function(){
+				var sURL = /*[[@{/page/ebook/load}]]*/
+				var param = $('.param').val();
+				var img_url = /*[[@{/images/gif/hex-loader.gif}]]*/;
+				$.ajax({
+		            type: 'GET',
+		            url: sURL,
+		            data: {filter : param},
+		            dataType: 'json',
+		            success: function (data) {
+		            	$('.pagination_part').hide();
+		            	$('.loading_reload').remove();
+		            	$('.mrdy_btn').disableBtn({enabled:true});
+		            	processData(data.books.result, true);
+		            	var newMaxRecord = data.books.maxRecord;
+		            	var newCurrentRecord = data.books.currentRecord;
+		            	showPaging(newMaxRecord, newCurrentRecord);
+		            },
+		            beforeSend: function($jqXHR, $textStatus){
+		            	$('.list_data').html('<div class="col-md-12 loading_reload" style="display: block; margin-left: auto; margin-right: auto;text-align: center;"><img src="'+img_url+'" /></div>');
+						$('.mrdy_btn').disableBtn({enabled:false});
+					},
+					error: function ($jqXHR, $textStatus, $errorThrown) {
+						$('.loading_reload').remove();
+						$('.mrdy_btn').disableBtn({enabled:true});
+					},
+					complete: function($jqXHR, $textStatus){
+						$('.loading_reload').remove();
+						$('.mrdy_btn').disableBtn({enabled:true});
+					}
+		        });				
+			});
+			
+			$('.show_detail').unbind('click').click(function(){
+				var param = $('input[name="identity"]').val();
+				var link = /*[[@{/page/ebook/detail/}]]*/ '';
+				link = link + param;
+				window.location.href = link;
+			});
+		});
 		/*]]>*/
 		</script>
 </body>
