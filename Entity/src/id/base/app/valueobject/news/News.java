@@ -55,6 +55,9 @@ public class News extends BaseEntity implements Serializable {
 	@Column(name="EXCERPT")
 	private String excerpt;
 	
+	@Column(name="IMAGE_URL")
+	private String imageURL;
+	
 	@Column(name="STATUS")
 	private Integer status;
 
@@ -98,6 +101,13 @@ public class News extends BaseEntity implements Serializable {
 	}
 	public void setExcerpt(String excerpt) {
 		this.excerpt = excerpt;
+	}
+	
+	public String getImageURL() {
+		return imageURL;
+	}
+	public void setImageURL(String imageURL) {
+		this.imageURL = imageURL;
 	}
 	
 	public Integer getStatus() {

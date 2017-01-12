@@ -3,6 +3,7 @@ package id.base.app.valueobject.research;
 import id.base.app.valueobject.BaseEntity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -61,6 +62,9 @@ public class Research extends BaseEntity implements Serializable {
 	@Column(name="FULL_DESCRIPTION")
 	private String fullDescription;
 	
+	@Column(name="RESEARCH_DATE")
+	private Date researchDate;
+	
 	@Column(name="STATUS")
 	private Integer status;
 
@@ -113,6 +117,13 @@ public class Research extends BaseEntity implements Serializable {
 		this.fullDescription = fullDescription;
 	}
 
+	public Date getResearchDate() {
+		return researchDate;
+	}
+	public void setResearchDate(Date researchDate) {
+		this.researchDate = researchDate;
+	}
+	
 	public Integer getStatus() {
 		return status;
 	}

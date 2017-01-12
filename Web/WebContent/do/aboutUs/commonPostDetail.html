@@ -37,6 +37,12 @@
 							</div>
 						</div>
 						<div class="form-group">
+							<label class="col-sm-1 control-label" th:text="'Order No'">Order No</label>
+							<div class="col-sm-11 form-input-container">
+								<input type="text" class="form-control" placeholder="Order No" name="srch-term" id="input-text-title" th:field="*{orderNo}"/>
+							</div>
+						</div>
+						<div class="form-group">
 							<div class="col-sm-12">							
 								<label class="col-sm-1 control-label" th:text="'Content'">Content</label>
 								<input id="textEditor-content-hidden" name="content" type="hidden"/>
