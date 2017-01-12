@@ -20,10 +20,6 @@ public class AppFunctionDAO extends AbstractHibernateDAO<AppFunction, Long> impl
 		return (List<AppFunction>)super.findAll();
 	}
 	
-	
-	
-	
-	
 	@SuppressWarnings("unchecked")
 	public List<AppFunction> findAppFunctionMenuByUserRole(Long appRole) {
 		return getSession()
@@ -31,15 +27,7 @@ public class AppFunctionDAO extends AbstractHibernateDAO<AppFunction, Long> impl
 				.createAlias("appRoleFunctions", "apr")
 				.add(Restrictions.eq("apr.appRole.pkAppRole", appRole))
 				.add(Restrictions.eq(AppFunction.IS_ACTIVE, Boolean.TRUE))
-				.add(
-						Restrictions
-								.in(
-										AppFunction.FK_APP_FUNCTION_PARENT,
-										Arrays
-												.asList(new Long[] {
-														Long.valueOf(IAccessibilityConstant.INT_INTERNAL_FUNCTION),
-														Long.valueOf(IAccessibilityConstant.EX_EXTERNAL_FUNCTION)})))
-				.addOrder(Order.asc(AppFunction.ORDER_NO)).list();
+				.add(Restrictions.in(AppFunction.FK_APP_FUNCTION_PARENT, IAccessibilityConstant.MENU_LIST)).list();
 	}
 	
 	public List<AppFunction> findAppFunctionByPermission(Long appRole) {

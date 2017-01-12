@@ -41,6 +41,9 @@ public class CommonPost extends BaseEntity implements Serializable {
 	@Column(name="CONTENT")
 	private String content;
 	
+	@Column(name="ORDER_NO")
+	private Integer orderNo;
+	
 	@Column(name="STATUS")
 	private Integer status;
 
@@ -63,6 +66,13 @@ public class CommonPost extends BaseEntity implements Serializable {
 	}
 	public void setContent(String content) {
 		this.content = content;
+	}
+	
+	public Integer getOrderNo() {
+		return orderNo;
+	}
+	public void setOrderNo(Integer orderNo) {
+		this.orderNo = orderNo;
 	}
 	
 	public Integer getStatus() {
