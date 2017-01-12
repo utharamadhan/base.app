@@ -358,7 +358,8 @@
 				});
 			});
 		</script>
-		<div class="inlineMenu margin-top">
+		<!-- div class="inlineMenu margin-top" -->
+		<div class="margin-top">
 		  <div class="container">
 			<div class="row clearfix">
 			  <div class="col-xs-12">
