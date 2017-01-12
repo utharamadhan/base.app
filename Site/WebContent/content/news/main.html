@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1"/>
+<meta name="author" content="Mardy Jonathan"/>
 <title></title>
 </head>
 <body>
@@ -23,13 +24,13 @@
 					<div id="template" class="col-md-4 data_result" th:each="data , i : ${news.result}">
 						<div class="post">
 								<div class="post_thumb">
-									<img th:src="@{/images/news-post-01.jpg}" alt="" />
+									<img th:src="@{/images/news-post-01.jpg}" alt="" class="show_detail my_link"/>
 								</div><!--end post thumb-->
 								
-								<h1><a href="http://themes.iamabdus.com/single-news.html"><label th:text="${data.title}" class="title_news">Title News 1</label></a></h1>
+								<h1><a href="#"><label th:text="${data.title}" class="title_news show_detail my_link">Title News 1</label></a></h1>
 								
 								<div class="post_desc">
-									<p class="to-be-rendered content_news" th:utext="${data.content}">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse...</p>
+									<p class="to-be-rendered content_news" th:utext="${data.shortContent}"></p>
 								</div><!--end post desc-->
 								
 								<div class="post_bottom">
@@ -58,7 +59,7 @@
 										
 									</ul>
 								</div><!--end post bottom-->
-								
+								<input type="hidden" name="identity" th:value="${data.pkNews}"/>
 							</div><!--end post-->
 					</div>					
 				</div>
@@ -69,7 +70,7 @@
 						<div class="col-md-4"></div>
 					</div>
 				</div>
-				<div class="row pagination">
+				<div class="row pagination_part">
 					<div class="col-md-12">
 						<div class="col-md-4"></div>
 						<div class="col-md-4">
@@ -89,9 +90,9 @@
 		/*<![CDATA[*/
 	    function showPaging(maxRecord, currentRecord){
 			if(maxRecord <= currentRecord || currentRecord == 0){
-				$('.pagination').hide();
+				$('.pagination_part').hide();
 			}else{
-				$('.pagination').show();
+				$('.pagination_part').show();
 			}
 		}
 		
@@ -163,7 +164,7 @@
 		            data: {filter : param},
 		            dataType: 'json',
 		            success: function (data) {
-		            	$('.pagination').hide();
+		            	$('.pagination_part').hide();
 		            	$('.loading_reload').remove();
 		            	$('.mrdy_btn').disableBtn({enabled:true});
 		            	processData(data.news.result, true);
@@ -184,6 +185,13 @@
 						$('.mrdy_btn').disableBtn({enabled:true});
 					}
 		        });				
+			});
+			
+			$('.show_detail').unbind('click').click(function(){
+				var param = $(this).parents('.post').find('input[name="identity"]').val();
+				var link = /*[[@{/page/news/detail/}]]*/ '';
+				link = link + param;
+				window.location.href = link;
 			});
 		});
 		/*]]>*/

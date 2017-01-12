@@ -1,3 +1,7 @@
+/**
+ * @author Mardy Jonathan <mardy@mcfunsoftware.com>
+ */
+
 $(function(){
 	if($('#template').length>0){
 		$('.template_part').html($('#template').clone().wrap('<div></div>').parent().html());

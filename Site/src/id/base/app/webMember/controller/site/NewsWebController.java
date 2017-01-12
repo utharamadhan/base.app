@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,6 +28,7 @@ import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.valueobject.news.News;
+import id.base.app.valueobject.publication.DigitalBook;
 
 @Scope(value="request")
 @RequestMapping(value="/news")
@@ -71,6 +73,18 @@ public class NewsWebController {
 		PagingWrapper<News> news = getRestCaller().findAllByFilter(startNo, offset, filter, order);
 		resultMap.put("news", news);
 		return resultMap;
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/detail/{id}")
+	public String detail(ModelMap model, HttpServletRequest request, HttpServletResponse response,
+			@PathVariable(value="id") Long id
+	){
+		List<SearchFilter> filter = new ArrayList<SearchFilter>();
+		List<SearchOrder> order = new ArrayList<SearchOrder>();
+		News detail = News.getInstance();
+		detail = getRestCaller().findById(id);
+		model.addAttribute("detail", detail);
+		return "/news/detail";
 	}
 	
 }

@@ -1,8 +1,5 @@
 package id.base.app.valueobject.news;
 
-import id.base.app.valueobject.BaseEntity;
-import id.base.app.valueobject.Lookup;
-
 import java.io.Serializable;
 import java.util.Date;
 
@@ -15,6 +12,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import id.base.app.util.StringFunction;
+import id.base.app.valueobject.BaseEntity;
+import id.base.app.valueobject.Lookup;
 
 @Entity
 @Table(name = "NEWS")
@@ -60,6 +62,9 @@ public class News extends BaseEntity implements Serializable {
 	
 	@Column(name="STATUS")
 	private Integer status;
+	
+	@Transient
+	private String shortContent;
 
 	public Long getPkNews() {
 		return pkNews;
@@ -116,5 +121,16 @@ public class News extends BaseEntity implements Serializable {
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
+	public String getShortContent() {
+		if(content!=null){
+			String clearContent = StringFunction.removeHTMLTags(content);
+			this.setShortContent(new String(clearContent.substring(0, 295) + "..."));
+		}
+		return shortContent;
+	}
+	public void setShortContent(String shortContent) {
+		this.shortContent = shortContent;
+	}
+	
 	
 }

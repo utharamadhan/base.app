@@ -4635,3 +4635,8 @@ ul.contact_info li a:hover {
 .template_part{
 	display: none;
 }
+
+
+.my_link{
+	cursor: pointer;
+}
