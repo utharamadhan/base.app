@@ -10,7 +10,7 @@
 					<ul>
 					<li><a th:href="@{/}">Home</a></li>
 					<li><a th:href="@{/page/learning}">Learning</a></li>
-					<li><a href="#">Foundation Property Developer</a></li>
+					<li><a href="#" th:text="${detail.title}">Foundation Property Developer</a></li>
 					</ul>
 				</div>
 			</div>
@@ -19,47 +19,20 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-xs-12 col-sm-4">
-						<img th:src="@{/images/foundation-prop.jpg}" alt="" />
+						<img th:src="${detail.basicPictureURL}" alt="" />
 						<hr/>
 						<table class="table table-bordered table-striped">
-							<tr>
-								<td nowrap="nowrap">Jumlah Tatap Muka :</td><td>24 kali</td>
-							</tr>
-							<tr>
-								<td>Lama Program :</td><td>1 bulan (minggu)</td>
-							</tr>
-							<tr>
-								<td>Hari Kegiatan :</td><td>Kamis, Jum'at, dan Sabtu</td>
-							</tr>
-							<tr>
-								<td>Jam Kegiatan :</td><td>09.00 - 15.00 (2 sessi/hari)</td>
-							</tr>
-							<tr>
-								<td>Sekretariat :</td><td>Wisma HFC, Jl. HOS Cokroaminoto No.95, Jakarta Pusat, 10310</td>
+							<tr th:each="info, i : ${detail.gcBasicInformationList}">
+								<td nowrap="nowrap" th:text="${info.fieldLookup.name}"></td><td th:text="${info.value}"></td>
 							</tr>
 						</table>
 					</div>
 					<div class="col-xs-12 col-sm-8">
 						<div class="content_left">
-							<h1>Foundation Property Developer</h1>
-							<p>Diperuntukkan bagi pengembang skala kecil maupun bagi para pemula. Selain itu program ini juga dirancang untuk masyarakat umum yang memiliki passion untuk bisa tumbuh menjadi pengembang.</p>
+							<h1 th:text="${detail.title}"></h1>
+							<p th:text="${detail.shortDescription}"></p>
 							<hr/>
-							<h3>APA SAJA YANG DISAMPAIKAN?</h3>
-							* Mindset Foundation Property Developer<br/>
-							* Teknik Identifikasi Lahan<br/>
-							* Jenis-jenis Status Kepemilikan Lahan dan Prosedur Pembebasan ahan<br/>
-							* Strategi Pengembangan Lahan Perumahan Sederhana<br/>
-							* Analisa Kelayakan Lahan dan Lingkungan Hidup<br/>
-							* Proses Negoisasi Awak dengan Pemilik Lahan<br/>
-							* Proses Jual Beli Lahan Melalui Notaris<br/>
-							* Study Kelayakan Project Perumahan Sederhana<br/>
-							* Strategi Pembiayaan dan Mendapatkan Modal Awal<br/>
-							* Teknik Pengurusan Perijinan dari Awal sampai Penertiban IMB<br/>
-							* Aspek Detail Legalitas dan Perjanjian Project(Pemilik lahan, property agent, kontraktor, perbankan)<br/>
-							* Project Management Perumahan Sederhana<br/>
-							* Strategi Sales Perumahan Sederhana<br/>
-							* Strategi Keuangan dan Perpajakan<br/>
-							* Site Visit
+							<p th:utext="${detail.fullDescription}"></p>
 
 						</div><!--end content left-->
 					</div>
