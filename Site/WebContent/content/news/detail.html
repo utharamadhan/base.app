@@ -22,7 +22,7 @@
 				<div class="row">
 					<div class="col-xs-12 col-sm-12 content_left">
 						<div>
-							<img th:src="@{/images/news-post-01.jpg}" style="float: left; vertical-align: top;margin: 5px 15px 15px 15px;"/>
+							<img th:src="${detail.imageURL}" style="float: left; vertical-align: top;margin: 5px 15px 15px 15px;"/>
 							<h1 th:utext="${detail.title}"></h1>
 							<label th:text="${'Posted : ' + #dates.format(detail.publishDate, 'EEEE dd-MMMM-yyyy')}" style="font-weight: 500;position: relative;top: -15px;font-size: 13px;"></label>
 							<span th:utext="${detail.content}">

@@ -18,7 +18,7 @@
   </filter>
   <filter-mapping>
     <filter-name>shortLifeSessionFilter2</filter-name>
-    <url-pattern>/page/*</url-pattern>
+    <url-pattern>/*</url-pattern>
   </filter-mapping>
   <filter-mapping>
     <filter-name>sitemesh</filter-name>
@@ -38,4 +38,11 @@
     <error-code>404</error-code>
     <location>/errorPageNotFound.jsp</location>
   </error-page>
+  
+  <jsp-config>
+		<taglib>
+			<taglib-uri>http://java.sun.com/jsp/jstl/core</taglib-uri>
+			<taglib-location>/WEB-INF/tlds/c.tld</taglib-location>
+		</taglib>
+	</jsp-config>
 </web-app>

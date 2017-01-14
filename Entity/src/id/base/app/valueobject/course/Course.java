@@ -37,6 +37,8 @@ public class Course extends BaseEntity implements Serializable {
 	public static final String CODE 			= "code";
 	public static final String NAME 			= "name";
 	public static final String STATUS			= "status";
+	public static final String GROUP_COURSE		= "groupCourse";
+	public static final String PK_GROUP_COURSE	= "groupCourse.pkGroupCourse";
 	
 	public static Course getInstance() {
 		return new Course();

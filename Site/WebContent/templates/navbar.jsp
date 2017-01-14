@@ -1,3 +1,6 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="rq" value="${pageContext.request }" scope="request" />
+<c:set var="ctx" value="${rq.contextPath }" scope="request" />
 <div class="header fixed-top">
 			<nav class="navbar navbar-default">
 			  <div class="container">
@@ -58,41 +61,34 @@
 								</ul> --%>
 							  
 							  <ul class="nav navbar-nav navbar-right">
-								<li class="active"><a href="<%=request.getContextPath()%>/">Home</a></li>
+								<li class=""><a href="<%=request.getContextPath()%>/">Home</a></li>
 								<li class="dropdown mega-dropdown">
 								  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">About Us <span class="caret"></span></a>
 								  <ul class="dropdown-menu mega-dropdown-menu row about-us-mega-menu">
 									<li class="col-sm-4">
 										<ul>
-											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/page/about-us">Who We Are?</a></li>
+											<c:forEach items="${posts}" var="post" varStatus="loop">
+											<li class="dropdown-header"><a href="${ctx}/page/post/${post.pkCommonPost}">${post.title}</a></li>
 											<li class="divider"></li>
-											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/page/visi">Visi Misi & Nilai-Nilai</a></li>
-											<li class="divider"></li>
-											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/page/why">Why HFC Should be your Choice?</a></li>
-											<li class="divider"></li>
-											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/page/service">Layanan HFC</a></li>
-											<li class="divider"></li>
+											</c:forEach>
 											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/page/lecturer">Tim Pengajar</a></li>
 										</ul>
 									</li>
 									<li class="col-sm-4">
 										<ul>
 											<li class="dropdown-header"><a href="#">Our Engagement</a></li>
-											<li><a href="#">Penandatanganan MoU BTN-HFC dengan HDFC</a></li>
-											<li><a href="#">Penandatanganan MOU BTN dengan pengembang</a></li>
-											<li><a href="#">Penandatanganan MOU BTN HFC dengan SBM-ITB</a></li>
-											<li><a href="#">Penandatanganan MOU BTN HFC dengan IAEI</a></li>
-											<li><a href="#">Penandatanganan MOU BTN HFC dengan lembaga/institusi lainnya</a></li>
+											<c:forEach items="${engages}" var="engage" varStatus="loop">
+											<li><a href="${ctx}/page/engagement/${engage.pkEngagement}">${engage.title}</a></li>
+											</c:forEach>
 											<li><div style="background-color:#49c32c;width:100px;float:right;text-align:center;color:white;padding:5px;font-size:14px;font-weight:bold">LAINNYA...</div></li>
 										</ul>
 									</li>
 									<li class="col-sm-4">
 										<ul>
 											<li class="dropdown-header"><a href="#">Program HFC 2016</a></li>
-											<li><a href="#">Penyelenggaraan workshop di 3 kota besar ...</a></li>
-											<li><a href="#">Penyelenggaraan pendidikan pembiayaan perumahaan tingkat dasar & tingkat lanjut ...</a></li>
-											<li><a href="#">Pelatihan Pembiayaan Perumahan bagi pengembang APERSI</a></li>
-											<li><a href="#">Pelatihan Pembiayaan Perumahan bagi pengembang REI</a></li>
+											<c:forEach items="${programs}" var="program" varStatus="loop">
+											<li><a href="${ctx}/page/program/${program.pkProgramPost}">${program.title}</a></li>
+											</c:forEach>
 											<li><div style="background-color:#49c32c;width:100px;float:right;text-align:center;color:white;padding:5px;font-size:14px;font-weight:bold">LAINNYA...</div></li>
 										</ul>
 									</li>
@@ -117,11 +113,9 @@
 													</div>
 												</div>
 											</li>
-											<li><a href="#">Laporan Pembiayaan Properti 2015</a></li>
-											<li><a href="#">Potret dan Proyeksi Perumahan 2015</a></li>
-											<li><a href="#">Metodologi Analisis Potensi Sektoral Daerah</a></li>
-											<li><a href="#">Metodologi Analisis Keuangan Daerah</a></li>
-											<li><a href="#">Potensi Kebutuhan Rumah di Indonesia 2015-2016</a></li>
+											<c:forEach items="${researchs}" var="research" varStatus="loop">
+											<li><a href="${research.link}">${research.title}</a></li>
+											</c:forEach>
 										</ul>
 									</li>
 									<li class="col-sm-6">
@@ -358,7 +352,8 @@
 				});
 			});
 		</script>
-		<div class="inlineMenu margin-top">
+		<!-- div class="inlineMenu margin-top" -->
+		<div class="margin-top">
 		  <div class="container">
 			<div class="row clearfix">
 			  <div class="col-xs-12">

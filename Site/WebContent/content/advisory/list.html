@@ -86,225 +86,25 @@
 									  </tr>
 									</thead>
 									<tbody>
-									  <tr class="option">
+									  <!-- <tr class="option">
 										<td>2016</td>
 										<td>&nbsp;</td>
-									  </tr>
-									  <tr>
+									  </tr> -->
+									  <tr th:each="advisory, i : ${advisories.result}">
 										<td>
 											<ul>
 												<li class="active">
-													<a href="#">Judul pertanyaan</a>
+													<a th:href="@{/page/advisory/detail/}+${advisory.pkAdvisory}" th:text="${advisory.question}"></a>
 												</li>
 												<li>
-													<a href="#">Sub Judul pertanyaan</a>
+													<a href="#" >Sub Judul pertanyaan</a>
 												</li>
 												
 											</ul>
 										</td>
-										<td>Expert Name</td>
+										<td th:text="${advisory.tutor.name}"></td>
 										
 									  </tr>
-									  
-									  <tr>
-										<td>
-											<ul>
-												<li class="active">
-													<a href="#">Judul pertanyaan</a>
-												</li>
-												<li>
-													<a href="#">Sub Judul pertanyaan</a>
-												</li>
-												
-											</ul>
-										</td>
-										<td>Expert Name</td>
-										
-										
-										
-									  </tr>
-									  
-									  <tr>
-										<td>
-											<ul>
-												<li class="active">
-													<a href="#">Judul pertanyaan</a>
-												</li>
-												<li>
-													<a href="#">Sub Judul pertanyaan</a>
-												</li>
-												
-											</ul>
-										</td>
-										<td>Expert Name</td>
-										
-										
-										
-									  </tr>
-									  <tr>
-										<td>
-											<ul>
-												<li class="active">
-													<a href="#">Judul pertanyaan</a>
-												</li>
-												<li>
-													<a href="#">Sub Judul pertanyaan</a>
-												</li>
-												
-											</ul>
-										</td>
-										<td>Expert Name</td>
-										
-										
-										
-									  </tr>
-									  <tr>
-										<td>
-											<ul>
-												<li class="active">
-													<a href="#">Judul pertanyaan</a>
-												</li>
-												<li>
-													<a href="#">Sub Judul pertanyaan</a>
-												</li>
-												
-											</ul>
-										</td>
-										<td>Expert Name</td>
-										
-										
-										
-									  </tr>
-									  
-									  <tr>
-										<td>
-											<ul>
-												<li class="active">
-													<a href="#">Judul pertanyaan</a>
-												</li>
-												<li>
-													<a href="#">Sub Judul pertanyaan</a>
-												</li>
-												
-											</ul>
-										</td>
-										<td>Expert Name</td>
-										
-										
-										
-									  </tr>
-									  
-									  <tr>
-										<td>
-											<ul>
-												<li class="active">
-													<a href="#">Judul pertanyaan</a>
-												</li>
-												<li>
-													<a href="#">Sub Judul pertanyaan</a>
-												</li>
-												
-											</ul>
-										</td>
-										<td>Expert Name</td>
-										
-										
-										
-									  </tr>
-									  
-									  <tr>
-										<td>
-											<ul>
-												<li class="active">
-													<a href="#">Judul pertanyaan</a>
-												</li>
-												<li>
-													<a href="#">Sub Judul pertanyaan</a>
-												</li>
-												
-											</ul>
-										</td>
-										<td>Expert Name</td>
-										
-										
-										
-									  </tr>
-									  
-									  <tr>
-										<td>
-											<ul>
-												<li class="active">
-													<a href="#">Judul pertanyaan</a>
-												</li>
-												<li>
-													<a href="#">Sub Judul pertanyaan</a>
-												</li>
-												
-											</ul>
-										</td>
-										<td>Expert Name</td>
-										
-										
-										
-									  </tr>
-									  
-									  <tr>
-										<td>
-											<ul>
-												<li class="active">
-													<a href="#">Judul pertanyaan</a>
-												</li>
-												<li>
-													<a href="#">Sub Judul pertanyaan</a>
-												</li>
-												
-											</ul>
-										</td>
-										<td>Expert Name</td>
-										
-										
-										
-									  </tr>
-									  
-									  <tr>
-										<td>
-											<ul>
-												<li class="active">
-													<a href="#">Judul pertanyaan</a>
-												</li>
-												<li>
-													<a href="#">Sub Judul pertanyaan</a>
-												</li>
-												
-											</ul>
-										</td>
-										<td>Expert Name</td>
-										
-										
-										
-									  </tr>
-									  
-									  <tr>
-										<td>
-											<ul>
-												<li class="active">
-													<a href="#">Judul pertanyaan</a>
-												</li>
-												<li>
-													<a href="#">Sub Judul pertanyaan</a>
-												</li>
-												
-											</ul>
-										</td>
-										<td>Expert Name</td>
-										
-										
-										
-									  </tr>
-									  
-									  
-									  
-									  
 									</tbody>
 								  </table>
 							</div>

@@ -28,20 +28,7 @@
 							</ul>
 							
 							<h3>Research Topics</h3>
-							<h5>Pilar Land And Development</h5>
-							<ul>
-								<li><a href="#">Studi Perihal lahan sunrise di Indonesia</a></li>
-								<li><a href="#">Studi Harga Pasar Rumah</a></li>
-								<li><a href="#">Kajian Program Sejuta Rumah</a></li>
-								<li><a href="#">Potensi Daerah</a></li>
-								<li><a href="#">BTN Housing Index</a></li>
-							</ul>
-							<h5>Pilar Land And Development</h5>
-							<ul>
-								<li><a href="#">Riset perbandingan pembiayaan properti di daerah di Indonesia</a></li>
-								<li><a href="#">Kajian NPL</a></li>
-								<li><a href="#">Customer Profiling</a></li>
-							</ul>
+							<div th:each="topic, i : ${topics}"><h5 th:text="${topic.name}"></h5></div>
 						</div>
 					</div><!--end post_left-->
 					
@@ -69,221 +56,20 @@
 										<td>2016</td>
 										<td>&nbsp;</td>
 									  </tr>
-									  <tr>
+									  <tr th:each="res, i : ${researches.result}">
 										<td>
 											<ul>
 												<li class="active">
-													<a href="#">Title research</a>
+													<a th:href="@{/page/research-development/detail/}+${res.pkResearch}" th:text="${res.name}"></a>
 												</li>
 												<li>
-													<a href="#">Sub title research</a>
+													<a href="#" th:text="${res.subtitle}"></a>
 												</li>
 												
 											</ul>
 										</td>
-										<td>BTN Housing Index</td>
-										
+										<td th:text="${res.researchTopic.name}"></td>
 									  </tr>
-									  
-									  <tr>
-										<td>
-											<ul>
-												<li class="active">
-													<a href="#">Title research</a>
-												</li>
-												<li>
-													<a href="#">Sub title research</a>
-												</li>
-												
-											</ul>
-										</td>
-										<td>BTN Housing Index</td>
-										
-										
-										
-									  </tr>
-									  
-									  <tr>
-										<td>
-											<ul>
-												<li class="active">
-													<a href="#">Title research</a>
-												</li>
-												<li>
-													<a href="#">Sub title research</a>
-												</li>
-												
-											</ul>
-										</td>
-										<td>BTN Housing Index</td>
-										
-										
-										
-									  </tr>
-									  <tr>
-										<td>
-											<ul>
-												<li class="active">
-													<a href="#">Title research</a>
-												</li>
-												<li>
-													<a href="#">Sub title research</a>
-												</li>
-												
-											</ul>
-										</td>
-										<td>BTN Housing Index</td>
-										
-										
-										
-									  </tr>
-									  <tr>
-										<td>
-											<ul>
-												<li class="active">
-													<a href="#">Title research</a>
-												</li>
-												<li>
-													<a href="#">Sub title research</a>
-												</li>
-												
-											</ul>
-										</td>
-										<td>BTN Housing Index</td>
-										
-										
-										
-									  </tr>
-									  
-									  <tr>
-										<td>
-											<ul>
-												<li class="active">
-													<a href="#">Title research</a>
-												</li>
-												<li>
-													<a href="#">Sub title research</a>
-												</li>
-												
-											</ul>
-										</td>
-										<td>BTN Housing Index</td>
-										
-										
-										
-									  </tr>
-									  
-									  <tr>
-										<td>
-											<ul>
-												<li class="active">
-													<a href="#">Title research</a>
-												</li>
-												<li>
-													<a href="#">Sub title research</a>
-												</li>
-												
-											</ul>
-										</td>
-										<td>BTN Housing Index</td>
-										
-										
-										
-									  </tr>
-									  
-									  <tr>
-										<td>
-											<ul>
-												<li class="active">
-													<a href="#">Title research</a>
-												</li>
-												<li>
-													<a href="#">Sub title research</a>
-												</li>
-												
-											</ul>
-										</td>
-										<td>BTN Housing Index</td>
-										
-										
-										
-									  </tr>
-									  
-									  <tr>
-										<td>
-											<ul>
-												<li class="active">
-													<a href="#">Title research</a>
-												</li>
-												<li>
-													<a href="#">Sub title research</a>
-												</li>
-												
-											</ul>
-										</td>
-										<td>BTN Housing Index</td>
-										
-										
-										
-									  </tr>
-									  
-									  <tr>
-										<td>
-											<ul>
-												<li class="active">
-													<a href="#">Title research</a>
-												</li>
-												<li>
-													<a href="#">Sub title research</a>
-												</li>
-												
-											</ul>
-										</td>
-										<td>BTN Housing Index</td>
-										
-										
-										
-									  </tr>
-									  
-									  <tr>
-										<td>
-											<ul>
-												<li class="active">
-													<a href="#">Title research</a>
-												</li>
-												<li>
-													<a href="#">Sub title research</a>
-												</li>
-												
-											</ul>
-										</td>
-										<td>BTN Housing Index</td>
-										
-										
-										
-									  </tr>
-									  
-									  <tr>
-										<td>
-											<ul>
-												<li class="active">
-													<a href="#">Title research</a>
-												</li>
-												<li>
-													<a href="#">Sub title research</a>
-												</li>
-												
-											</ul>
-										</td>
-										<td>BTN Housing Index</td>
-										
-										
-										
-									  </tr>
-									  
-									  
-									  
-									  
 									</tbody>
 								  </table>
 							</div>
