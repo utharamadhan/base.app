@@ -30,7 +30,8 @@
 							</div>
 						</div><!--end content left-->
 						<div class="content_left">
-							<div><button type="button" class="btn btn-primary btn-lg">Download<span class="glyphicon glyphicon-download" style="padding-left: 5px;"></span></button></div>
+							<div><button type="button" class="btn btn-primary btn-lg" id="download">Download<span class="glyphicon glyphicon-download" style="padding-left: 5px;"></span></button></div>
+							<input type="hidden" name="identity" th:value="${detail.pkDigitalBook}"/>
 						</div>
 					</div>
 				</div>
@@ -40,6 +41,31 @@
 		
 		<script type="text/javascript" th:inline="javascript">
 		/*<![CDATA[*/
+		$(function(){
+			$("#download").unbind('click').click(function(){
+				var sURL = /*[[@{/page/ebook/downloadFile/}]]*/ #;
+				var param = $('input[name="identity"]').val();
+				sURL = sURL + param;
+				downloadFile(sURL);
+			});
+		})
+		
+		function downloadFile(sURL){
+			$.ajax({ 
+			    type: "GET",
+			    url: sURL,
+			    cache: false,
+			    contentType: false,
+			    processData: false,
+			    success: function(data){
+			    	if(data.errorList != null){
+			    		displayErrorJson(data.errorList, 4);
+			        }else{
+			        	window.location.href = sURL;
+			        }
+			    } 
+			});
+		}
 		/*]]>*/
 		</script>
 </body>

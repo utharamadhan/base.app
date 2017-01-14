@@ -1,5 +1,9 @@
 package id.base.app.webMember.controller.site;
 
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -88,6 +92,45 @@ public class EbookWebController {
 		detail = getRestCaller().findById(id);
 		model.addAttribute("detail", detail);
 		return "/ebook/detail";
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/downloadFile/{id}")
+	@ResponseBody
+	public Map<String, Object> downloadTemplate(HttpServletRequest request, HttpServletResponse response, @PathVariable(value="id") Long id){
+		Map<String, Object> resultMap = null;
+		
+		try {
+			DigitalBook detail = DigitalBook.getInstance();
+			detail = getRestCaller().findById(id);
+			String fileUrl = detail.getFileURL();
+			String newFileUrl = fileUrl.replace("\\", "/");
+			String[] fileNames = newFileUrl.split("/");
+			String fileName = fileNames[fileNames.length-1];
+			response.setHeader("Content-Disposition", "attachment; filename="+fileName);
+			URL url = new URL(newFileUrl);
+			HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
+	        int responseCode = httpConn.getResponseCode();
+	        
+	        // always check HTTP response code first
+	        if (responseCode == HttpURLConnection.HTTP_OK) {
+	        	// opens input stream from the HTTP connection
+	            InputStream inputStream = httpConn.getInputStream();
+	            OutputStream outputStream = response.getOutputStream();
+	            
+	            int bytesRead = -1;
+	            byte[] buffer = new byte[1024 * 4];
+	            while ((bytesRead = inputStream.read(buffer)) != -1) {
+	                outputStream.write(buffer, 0, bytesRead);
+	            }
+	 
+	            outputStream.close();
+	            inputStream.close();
+	        }
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
+		}
+		
+		return resultMap;
 	}
 	
 }
