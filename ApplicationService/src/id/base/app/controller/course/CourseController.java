@@ -16,6 +16,7 @@ import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -50,6 +51,12 @@ public class CourseController extends SuperController<Course>{
 	public Course preUpdate(Course anObject) throws SystemException{
 		anObject.setStatus(SystemConstant.ValidFlag.VALID);
 		return validate(anObject);
+	}
+	
+	@RequestMapping(value="/findAllCourseCodeName")
+	@ResponseBody
+	public List<Course> findAllCourseCodeName() throws SystemException {
+		return courseService.findAllCourseCodeName();
 	}
 	
 }

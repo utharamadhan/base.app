@@ -65,6 +65,9 @@ public class Research extends BaseEntity implements Serializable {
 	@Column(name="RESEARCH_DATE")
 	private Date researchDate;
 	
+	@Column(name="FILE_URL")
+	private String fileURL;
+	
 	@Column(name="STATUS")
 	private Integer status;
 
@@ -122,6 +125,13 @@ public class Research extends BaseEntity implements Serializable {
 	}
 	public void setResearchDate(Date researchDate) {
 		this.researchDate = researchDate;
+	}
+	
+	public String getFileURL() {
+		return fileURL;
+	}
+	public void setFileURL(String fileURL) {
+		this.fileURL = fileURL;
 	}
 	
 	public Integer getStatus() {

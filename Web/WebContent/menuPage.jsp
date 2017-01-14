@@ -163,7 +163,7 @@
 							</ul>
 	                  	</li>
 	                  	<li id="student-db" class="dropdown">
-	                  		<a href="#">
+	                  		<a href="/Web/do/student/showList">
 	                      		<i class="fa fa-desktop"></i> Student Database
 	                    	</a>
 	                  	</li>

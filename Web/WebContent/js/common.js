@@ -513,12 +513,15 @@ function buildMenuTrees(menuTrees, rootNode, tree){
 	}
 }
 
-function buildDataTableWithCustomFilter(base, url, id, height, colDefs, detailFunc, detailParams, customAjaxOpts) {
+function buildDataTableWithCustomFilter(base, url, id, height, colDefs, detailFunc, detailParams, customAjaxOpts, customFilter) {
 	var tableColumns = buildColumns(colDefs,false);
 	buildDataTableFilter(base,id,colDefs,false);
 	var ajaxOpt = getDefaultAjaxOpts(url,id);
 	if(customAjaxOpts){
 		ajaxOpt = customAjaxOpts;
+	}
+	if(customFilter) {
+		ajaxOpt = buildCustomAjaxOpts(url, id, customFilter);
 	}
     var table = $('#'+id).DataTable( {
     	ordering: false,
@@ -825,6 +828,32 @@ function renderParam (colDefsTemp, row) {
 		}	
 	}
 	return paramRender;
+}
+
+function buildCustomAjaxOpts(url, id, customFilter) {
+	var ajaxOpt = {
+			url: url,
+			type: 'GET',
+			dataSrc: function(json){
+				$('#txtPage_'+id).val(json.currentPage);
+				$('#_txtOldPage_'+id).val(json.currentPage);
+				$('#noOfPage').html(json.noOfPage);
+				if(json.currentPage>1){				
+					$('#btnPrev').css('display','');
+				}else{
+					$('#btnPrev').css('display','none');
+				}
+				if(json.currentPage<json.noOfPage){
+					$('#btnNext').css('display','');
+				}else{
+					$('#btnNext').css('display','none');
+				}
+				return json.result;
+			},
+			data: customFilter
+		};
+	console.log(ajaxOpt);
+	return ajaxOpt;
 }
 
 function getDefaultAjaxOpts(url,id){

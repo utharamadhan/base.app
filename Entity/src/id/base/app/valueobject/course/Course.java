@@ -4,8 +4,10 @@ import id.base.app.valueobject.BaseEntity;
 import id.base.app.valueobject.Lookup;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,6 +17,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -37,6 +40,12 @@ public class Course extends BaseEntity implements Serializable {
 	
 	public static Course getInstance() {
 		return new Course();
+	}
+	
+	public static Course getInstance(Long pkCourse) {
+		Course c = getInstance();
+			c.setPkCourse(pkCourse);
+		return c;
 	}
 	
 	@Id
@@ -76,6 +85,9 @@ public class Course extends BaseEntity implements Serializable {
 	joinColumns=@JoinColumn(name="FK_COURSE"),
 	inverseJoinColumns=@JoinColumn(name="FK_LOOKUP_COURSE_TAG"))
 	private List<Lookup> courseTags;
+	
+	@OneToMany(mappedBy="course", orphanRemoval=true, cascade=CascadeType.DETACH)
+	private List<StudentCourse> studentCourses = new ArrayList<>();
 
 	@Column(name="STATUS")
 	private Integer status;
@@ -155,6 +167,26 @@ public class Course extends BaseEntity implements Serializable {
 	}
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+	
+	public List<StudentCourse> getStudentCourses() {
+		return studentCourses;
+	}
+	public void setStudentCourses(List<StudentCourse> studentCourses) {
+		if(this.studentCourses != null) {
+			this.studentCourses.clear();
+		}
+		if(studentCourses != null) {
+			this.studentCourses.addAll(studentCourses);	
+		}
+	}
+	public void addStudentCourse(StudentCourse studentCourse) {
+		if(this.studentCourses == null) {
+			this.studentCourses = new ArrayList<StudentCourse>();
+		}
+		if(studentCourse != null) {
+			this.studentCourses.add(studentCourse);	
+		}
 	}
 	
 }

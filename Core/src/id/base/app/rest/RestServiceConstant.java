@@ -29,6 +29,8 @@ public class RestServiceConstant {
 	public static final String FAQ_SERVICE = "faqService";
 	public static final String HELPER_SERVICE = "helperService";
 	
+	public static final String STUDENT_SERVICE = "studentService";
+	
 	//forecast weather
 	public static final String FORECAST_CALL_SERVICE = "forecastCallService";
 	
