@@ -11,6 +11,9 @@
 		</div>
 	</div>
 	<style>
+		.margin-top{
+			margin-top:0px;
+		}
 		.featurette {
 			overflow: visible;
 		}
@@ -115,9 +118,9 @@
 		}
 		#clock {
 			background: #FFF;
-			width: 124px;
-			height: 124px;
-			top: 30px;
+			width: 84px;
+			height: 84px;
+			top: 80px;
 			left: 0;
 			right: 0;
 			margin: auto;
@@ -130,8 +133,8 @@
 			background-size: 100% 100%;
 			background-position: 50%;
 			background-repeat: no-repeat;
-			width: 124px;
-			height: 124px;
+			width: 84px;
+			height: 84px;
 			left: 0;
 			right: 0;
 			margin: auto;
