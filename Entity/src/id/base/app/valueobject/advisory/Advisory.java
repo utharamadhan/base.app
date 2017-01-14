@@ -1,8 +1,5 @@
 package id.base.app.valueobject.advisory;
 
-import id.base.app.valueobject.BaseEntity;
-import id.base.app.valueobject.aboutUs.Tutor;
-
 import java.io.Serializable;
 
 import javax.persistence.Column;
@@ -10,11 +7,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+import id.base.app.valueobject.BaseEntity;
+import id.base.app.valueobject.aboutUs.Tutor;
 
 @Entity
 @Table(name = "ADVISORY")
@@ -38,7 +40,8 @@ public class Advisory extends BaseEntity implements Serializable {
 	@Column(name = "PK_ADVISORY", unique = true ,nullable = false)
 	private Long pkAdvisory;
 		
-	@Column(name="FK_TUTOR")
+	@ManyToOne
+	@JoinColumn(name="FK_TUTOR")
 	private Tutor tutor;
 	
 	@Column(name="QUESTION")

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1"/>
+<title></title>
+</head>
+<body>
+		<div class="breadcrumb-wrapper">
+			<div class="breadcrumb">
+				<div class="container">
+					<ul>
+					<li><a th:href="@{/}">Home</a></li>
+					<li><a th:href="@{/page/advisory/list}">Advisory</a></li>
+					<li><a href="#">Question</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="content_top">
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-12 col-sm-3 col-md-2 courses_left hidden-xs"></div>
+					<div class="col-xs-12 col-sm-9 col-md-10 courses_right">
+						<div class="courses_right_inner">
+							<h1 th:text="${detail.question}" style="color: #108dce;"></h1>
+							<div style="margin-top:50px;"><label style="font-size: 30px; font-weight: 100;">Jawaban : </label></div>
+							<div style="margin-top:5px;"><label th:text="'By ' + ${detail.tutor.name}" style="font-weight: 100;color: #579ae2;"></label></div>
+							<div style="margin-top:10px;"><p th:text="${detail.answer}"></p></div>
+						</div><!--end content left-->
+					</div>
+				</div>
+		</div><!--end content top-->
+		</div>
+		
+		<script type="text/javascript" th:inline="javascript">
+		/*<![CDATA[*/
+		/*]]>*/
+		</script>
+</body>
+</html>

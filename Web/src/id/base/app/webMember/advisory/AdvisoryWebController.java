@@ -43,7 +43,7 @@ public class AdvisoryWebController extends BaseController<Advisory> {
 	
 	@Override
 	protected RestCaller<Advisory> getRestCaller() {
-		return new RestCaller<Advisory>(RestConstant.REST_SERVICE, RestServiceConstant.COURSE_SERVICE);
+		return new RestCaller<Advisory>(RestConstant.REST_SERVICE, RestServiceConstant.ADVISORY_SERVICE);
 	}
 
 	@Override
@@ -119,7 +119,7 @@ public class AdvisoryWebController extends BaseController<Advisory> {
 		Map<String, Object> resultMap = new HashMap<>();
 		List<ErrorHolder> errors = new ArrayList<>();
 		try{
-			errors = new SpecificRestCaller<Advisory>(RestConstant.REST_SERVICE, RestServiceConstant.COURSE_SERVICE).performPut("/update", anObject);
+			errors = new SpecificRestCaller<Advisory>(RestConstant.REST_SERVICE, RestServiceConstant.ADVISORY_SERVICE).performPut("/update", anObject);
 			if(errors != null && errors.size() > 0){
 				resultMap.put(SystemConstant.ERROR_LIST, errors);
 			}

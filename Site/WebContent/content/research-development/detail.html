@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -11,8 +10,8 @@
 				<div class="container">
 					<ul>
 					<li><a th:href="@{/}">Home</a></li>
-					<li><a th:href="@{/page/ebook}">Ebook</a></li>
-					<li><a href="#">Detail Ebook</a></li>
+					<li><a th:href="@{/page/research-development}">Research</a></li>
+					<li><a href="#">Information</a></li>
 					</ul>
 				</div>
 			</div>
@@ -21,12 +20,14 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-xs-12 col-sm-3">
-						<img th:src="${detail.coverImageURL}"/>
+						<img th:src="${detail.basicPictureURL}"/>
 					</div>
 					<div class="col-xs-12 col-sm-9">
 						<div class="content_left">
-							<h1>Description</h1>
-							<div th:utext="${detail.description}">
+							<h1 th:text="${detail.name}"></h1>
+							<div style="position: relative;top: -15px;"><label th:text="${'Published : ' + #dates.format(detail.researchDate, 'EEEE dd-MMMM-yyyy')}" style="font-weight: 100;font-size: 12px;"></label></div>
+							<div style="position: relative;top: -25px;"><label th:text="${'Kategori : ' + detail.researchTopic.name}" style="font-weight: 100;font-size: 12px;"></label></div>
+							<div th:utext="${detail.fullDescription}" style="margin-bottom: 20px; position: relative;top: -15px;" >
 							</div>
 						</div><!--end content left-->
 						<div class="content_left">
