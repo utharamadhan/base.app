@@ -52,7 +52,7 @@ $(function(){
 			elem.css({'opacity':'','filter': ''});
 		}else{
 			if($('.'+settings.overlay).length==0){
-				$('body').prepend('<div style="position: absolute; height: 100%; width: 100%; z-index: 999999999; background: transparent !important;" class="'+settings.overlay+'"></div>')
+				$('body').prepend('<div style="position: fixed; left:0; top: 0; height: 100%; width: 100%; z-index: 999999999; background: transparent !important;" class="'+settings.overlay+'"></div>')
 			}
 			elem.css({'opacity':'0.3','filter': 'alpha(opacity=50)'});
 		}

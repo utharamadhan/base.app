@@ -16,7 +16,7 @@ public class MailController {
 	@Qualifier("SMTPMailService")
 	private EmailAPI mailService;
 	
-	@RequestMapping(method=RequestMethod.POST, value="sendMailPost")
+	@RequestMapping(method=RequestMethod.POST, value="/sendMailPost")
 	public void sendMailPost(){
 		try{			
 			String toAddress = "utharamadhan@yahoo.com";

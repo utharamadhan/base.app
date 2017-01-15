@@ -12,8 +12,8 @@
 			  </div><!-- col-sm-3 col-xs-12 -->
 			  <div class="col-sm-3 col-xs-12 borderLeft clearfix">
 				<ul class="menuLink clearfix">
-				  <li><a href="#">Learning</a></li>
-				  <li><a href="#">Research Report</a></li>
+				  <li><a href="<%=request.getContextPath()%>/page/learning">Learning</a></li>
+				  <li><a href="<%=request.getContextPath()%>/page/research-development">Research Report</a></li>
 				  <li><a href="<%=request.getContextPath()%>/page/ebook">Digital Books</a></li>
 				  <li><a href="#">Photo Gallery</a></li>
 				</ul>
@@ -22,7 +22,7 @@
 				<ul class="menuLink clearfix">
 				  <li><a href="<%=request.getContextPath()%>/page/news">Latest News</a></li>
 				  <li><a href="<%=request.getContextPath()%>/page/events/upcoming">Upcoming Events</a></li>
-				  <li><a href="#">Contact Us</a></li>
+				  <li><a href="<%=request.getContextPath()%>/page/contact">Contact Us</a></li>
 				</ul>
 			  </div><!-- col-sm-3 col-xs-12 -->
 			  <div class="col-sm-3 col-xs-12 borderLeft clearfix">

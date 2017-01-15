@@ -117,8 +117,8 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
          <property name="host" value="smtp.gmail.com"/>
          <property name="port" value="587" />
-         <property name="username" value="mailAddress"/>
-         <property name="password" value="mailPassword"/>
+         <property name="username" value="mardyemailaja@gmail.com"/>
+         <property name="password" value="anakilang"/>
          <property name="javaMailProperties">
 		    <props>
 		    	<prop key="mail.transport.protocol">smtp</prop>
