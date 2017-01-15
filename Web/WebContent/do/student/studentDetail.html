@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:ifs="http://padiku.id">
 <head>
 <meta charset="ISO-8859-1"/>
-<title>Research Maintenance Detail</title>
+<title>Course Detail</title>
 </head>
 <style>
 .gcDetail-basicPicture {
@@ -17,15 +17,15 @@
 </style>
 <body>
 	<div class="pageheader">
-		<div class="row col-md-12">
-			<h4><i class="fa fa-tachometer"></i> Research Editor / Research Maintenance List / Research Maintenance Detail
+		<div class="row col-md-8">
+			<h4><i class="fa fa-tachometer"></i> Course Editor / Course List / Course Detail
 			<span></span></h4>
 		</div>
 	</div>
 	<div class="row col-md-12">
 	<section class="tile transparent">
 			<div class="tile-body rounded-corners">
-				<form action="#" id="researchMaintenance-detail-form" class="form-horizontal" method="POST" novalidate="novalidate" th:object="${detail}">
+				<form action="#" id="course-detail-form" class="form-horizontal" method="POST" novalidate="novalidate" th:object="${detail}">
 					<div class="stockTypeStyle">
 						<div class="form-group">
 							<div class="col-md-12">
@@ -40,12 +40,12 @@
 							</div>									
 							&nbsp;
 						</div>
-						<input id="researchMaintenance-detail-maintenancePk" type="hidden" th:field="*{pkResearch}"/>
+						<input id="course-detail-maintenancePk" type="hidden" th:field="*{pkCourse}"/>
 						<div class="form-group">
-							<label class="col-sm-2 control-label" th:text="'Topic'">Topic</label>
+							<label class="col-sm-2 control-label" th:text="'Group Course'">Group Course</label>
 							<div class="col-sm-9 form-input-container">
-								<select class="course-detail-topicSelect chosen-select form-control" th:field="*{researchTopic.pkResearchTopic}">
-									<option th:each="opt : ${researchTopicOptions}" th:value="${opt.pkResearchTopic}" th:text="${opt.name}">Name</option>
+								<select class="course-detail-groupCourseSelect chosen-select form-control" th:field="*{groupCourse.pkGroupCourse}">
+									<option th:each="opt : ${groupCourseOptions}" th:value="${opt.pkGroupCourse}" th:text="${opt.title}">Title</option>
                            		</select>
                            	</div>
 						</div>
@@ -58,15 +58,15 @@
 						<div class="form-group">
 							<label class="col-sm-2 control-label" th:text="'Name'">Name</label>
 							<div class="col-sm-9 form-input-container">
-								<input type="text" class="form-control" placeholder="Name" name="srch-term" id="input-text-title" th:field="*{name}"/>
+								<input type="text" class="form-control" placeholder="Name" name="srch-term" id="input-text-name" th:field="*{name}"/>
 							</div>
 						</div>
 						<div class="form-group">
-                          	<label class="col-sm-2 control-label">Research Date</label>
-                          	<div class="col-sm-10">
-                            	<input type='text' class="datepicker input-date form-control" th:name="researchDate" th:value="${detail.researchDate!=null?#dates.format(detail.researchDate, T(id.base.app.SystemConstant).SYSTEM_DATE_MASK_2):''}" />
-                           </div>
-                       	</div>
+							<label class="col-sm-2 control-label" th:text="'Subname'">Subname</label>
+							<div class="col-sm-9 form-input-container">
+								<input type="text" class="form-control" placeholder="Subname" name="srch-term" id="input-text-subName" th:field="*{subName}"/>
+							</div>
+						</div>
 						<div class="form-group">
 							<label class="col-sm-2 control-label" th:text="'Featured Image'">Featured Image</label>
 							<div class="col-sm-9 form-input-container">
@@ -87,40 +87,33 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-2 control-label" th:text="'Subtitle'">Subtitle</label>
+							<label class="col-sm-2 control-label" th:text="'Category'">Category</label>
 							<div class="col-sm-9 form-input-container">
-								<input type="text" class="form-control" placeholder="Subtitle" name="srch-term" id="input-text-subtitle" th:field="*{subtitle}"/>
+								<select class="course-detail-categoryCourseSelect chosen-select form-control" th:field="*{categoryLookup.pkLookup}">
+									<option th:each="opt : ${categoryOptions}" th:value="${opt.pkLookup}" th:text="${opt.name}">Name</option>
+                           		</select>
+                           	</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-1 control-label" th:text="'Full Description'">Full Description</label>
+							<input id="textEditor-fullDescription-hidden" name="fullDescription" type="hidden"/>
+							<div id="textEditor-fullDescription-parent" class="col-sm-11">					
+								<textarea id="textEditor-fullDescription-area" class="textEditor" th:text="*{fullDescription}">
+								</textarea>
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-2 control-label" th:text="'Full Description'">Full Description</label>
-							<div class="col-sm-9 form-input-container">
-								<input type="text" class="form-control" placeholder="Full Description" name="srch-term" id="input-text-description" th:field="*{fullDescription}"/>
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="col-sm-2 control-label" th:text="'File'">File</label>
-							<div class="col-sm-10 form-input-container">
-								<th:block th:if="${detail.fileURL != null}">
-									<input type="hidden" id="input-hidden-fileURL" th:field="*{fileURL}"/>
-									<input type="file" class="form-control" id="input-file-fileURL" style="display:none;"/>
-									<div id="container-fileURL">
-										<label th:text="'Uploaded File'"></label>
-										<a href="#" class="btn btn-primary btn-xs margin-bottom-20 file-delete" data-toggle="tooltip" title="Delete"><i class="fa fa-trash"></i></a>
-									</div>
-								</th:block>
-								<th:block th:if="${detail.fileURL == null}">
-									<input type="hidden" id="input-hidden-fileURL" name="fileURL"/>
-									<input type="file" class="form-control" id="input-file-fileURL"/>
-									<div id="container-fileURL" style='display:none;'>
-									</div>
-								</th:block>
+							<label class="col-sm-1 control-label" th:text="'Admission Requirement'">Admission Requirement</label>
+							<input id="textEditor-admissionRequirement-hidden" name="admissionRequirement" type="hidden"/>
+							<div id="textEditor-admissionRequirement-parent" class="col-sm-11">					
+								<textarea id="textEditor-admissionRequirement-area" class="textEditor" th:text="*{admissionRequirement}">
+								</textarea>
 							</div>
 						</div>
 						<div class="form-group form-footer">				
 							<div class="col-sm-offset-3 col-sm-9">
-								<a href="#" id="researchMaintenance-detail-btn-cancel" class="btn btn-default" type="reset" data-toggle="tooltip" title="">Batal</a>
-								<button id="researchMaintenance-detail-btn-save" class="btn btn-primary" type="submit" data-toggle="tooltip" title="">Simpan</button>
+								<a href="#" id="course-detail-btn-cancel" class="btn btn-default" type="reset" data-toggle="tooltip" title="">Batal</a>
+								<button id="course-detail-btn-save" class="btn btn-primary" type="submit" data-toggle="tooltip" title="">Simpan</button>
 							</div>
 						</div>
 					</div>
@@ -131,6 +124,17 @@
 	<script th:inline="javascript">
 	/*<![CDATA[*/
 	           
+		function initDeleteFunction() {	
+			var removeRowBasicInfo = function(obj){
+				$(obj).closest('tr').remove();
+			};
+			
+			$('.gcBasicTable-delete-row').click(function(e){
+				e.preventDefault();
+				removeRowBasicInfo(this);
+			});
+		}
+	
 		function initDeletePicture() {
 			$('.basicPicture-delete').click(function(e){
 				e.preventDefault();
@@ -142,16 +146,36 @@
 		}
 	
 	    $(function(){
-	    	initDeletePicture();
-	    	initDatePicker("datepicker", "dd/mm/yyyy");
-			var backToList = function(){
-				returnToList('researchMaintenance-detail-container', 'researchMaintenance-list-container', true);
-			};
+	    	var fileManagerURL = /*[[@{/do/fileManager/upload/}]]*/ #;
 	    	
+	    	initDeleteFunction();
+	    	initDeletePicture();
+	    	initTextEditor('.textEditor', null, fileManagerURL);
+	    	
+			var backToList = function(){
+				removeTextEditor("textEditor", null, true);
+				returnToList('course-detail-container', 'course-list-container', true);
+			};
+			
+			var preSerializeForm = function() {
+				var idx = 0;
+				$('#gcBasicTable').find('tbody').find('tr').each(function(){
+					$(this).find('.gcBasicTable-id').attr('name', 'gcBasicInformationList['+idx+'].pkGCBasicInformation');
+					$(this).find('.gcBasicTable-orderNo').val(idx);
+					$(this).find('.gcBasicTable-orderNo').attr('name', 'gcBasicInformationList['+idx+'].orderNo');
+					$(this).find('.gcBasicTable-fieldLookup').attr('name', 'gcBasicInformationList['+idx+'].fieldLookup.pkLookup');
+					$(this).find('.gcBasicTable-value').attr('name', 'gcBasicInformationList['+idx+'].value');
+					idx++;
+				});
+			};
+			
 			var submitForm = function(){
 				cleanErrorParsley();
-				var sURL = /*[[@{/do/research/researchMaintenance/saveResearch/}]]*/ #;
-				$.post(sURL, $("#researchMaintenance-detail-form").serialize(), function(data) {
+				$('#textEditor-fullDescription-hidden').val(tinymce.get('textEditor-fullDescription-area').getContent());
+				$('#textEditor-admissionRequirement-hidden').val(tinymce.get('textEditor-admissionRequirement-area').getContent());
+				preSerializeForm();
+				var sURL = /*[[@{/do/course/course/saveCourse/}]]*/ #;
+				$.post(sURL, $("#course-detail-form").serialize(), function(data) {
 					if(data.errorList!=null){
 						displayErrorParsley(data.errorList);
 					}else{
@@ -191,6 +215,11 @@
 				}
 				xhr.send(data);
 			};
+		
+			var addRowBasicInfo = function(){
+				$('#gcBasicTable tbody').append($('#gcBasicTable-rowTemplate').html());
+				initDeleteFunction();
+			};
 			
 			var thisObj = '';
 			$(document).unbind('change').on('change', '#input-file-basicPictureURL', function(){
@@ -199,59 +228,21 @@
 				uploadFile(thisObj.files[0], sURL);
 			});
 			
-			var showFile = function(fileURL) {
-				$('#input-file-fileURL').hide();
-				var htmlContent = '<label style="margin-right:10px;">Uploaded File</label>';
-				htmlContent += '<a href="#" class="btn btn-primary btn-xs margin-bottom-20 file-delete" data-toggle="tooltip" title="Delete"><i class="fa fa-trash"></i></a>';
-				$('#container-fileURL').html(htmlContent);
-				$('#input-hidden-fileURL').val(fileURL);
-				$('#container-fileURL').show();
-				initDeleteFile();			
-			}
-			
-			var uploadFile = function(image, uploadURL, isImage) {
-				var data = new FormData();
-				data.append('file', image);
-				var xhr = new XMLHttpRequest();
-				xhr.open('POST', uploadURL, true);
-				xhr.onreadystatechange = function() {
-				  if (xhr.readyState === 4) {
-				    var response = JSON.parse(xhr.responseText);
-				    if (isImage == true) {
-				    	if (response) {
-					      	showImage(response);
-					    } else {
-					      	var reader = new FileReader();
-					      	reader.onload = function(e) {
-					        	callback(e.target.result);
-					      	};
-					      	reader.readAsDataURL(image);
-					    }	
-				    } else {
-				    	if (response) {
-				    		showFile(response);
-				    	}
-				    }
-				  }
-				}
-				xhr.send(data);
-			};
-			
-			$('#input-file-fileURL').change(function(){
-				var sURL = /*[[@{/do/fileManager/uploadEBookFile/}]]*/ #;
-				var thisObj = $('#input-file-fileURL')[0];
-				uploadFile(thisObj.files[0], sURL, false);
-			});
-			
-			$('#researchMaintenance-detail-btn-save').click(function(e){
+			$('#course-detail-btn-save').click(function(e){
 				e.preventDefault();
 				submitForm();
 			});
 			
-			$('#researchMaintenance-detail-btn-cancel').click(function(e){
+			$('#course-detail-btn-cancel').click(function(e){
 				e.preventDefault();
 				backToList();
 			});
+			
+			$('#gcBasicTable-add-row').click(function(e){
+				e.preventDefault();
+				addRowBasicInfo();
+			});
+			
 	    });
 	/*]]>*/
 	</script>

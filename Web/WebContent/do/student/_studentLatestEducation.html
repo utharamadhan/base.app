@@ -1,0 +1,53 @@
+<div class="tile-body rounded-corners" th:fragment="latestEducation(detail)">
+	<br/>
+	<div class="form-group">
+		<label class="col-sm-2 control-label" th:text="'School'">School</label>
+		<div class="col-sm-8 form-input-container">
+			<input type="text" class="form-control" placeholder="School" name="srch-term" id="input-text-code" th:field="${detail.school}"/>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label" th:text="'Dates Attended'">Dates Attended</label>
+		<div class="col-sm-8 form-input-container">
+			<input type='text' class="datepicker input-date form-control" name="schoolDatesAttended" th:value="${detail.schoolDatesAttended!=null?#dates.format(detail.schoolDatesAttended, T(id.base.app.SystemConstant).SYSTEM_DATE_MASK_2):''}" />
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label" th:text="'Degree'">Degree</label>
+		<div class="col-sm-8 form-input-container">
+			<input type="text" class="form-control" placeholder="Degree" name="srch-term" id="input-text-code" th:field="${detail.schoolDegree}"/>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label" th:text="'Field of Study'">Field of Study</label>
+		<div class="col-sm-8 form-input-container">
+			<input type="text" class="form-control" placeholder="Field of Study" name="srch-term" id="input-text-code" th:field="${detail.schoolFieldOfStudy}"/>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label" th:text="'Grade'">Grade</label>
+		<div class="col-sm-8 form-input-container">
+			<input type="text" class="form-control" placeholder="Grade" name="srch-term" id="input-text-code" th:field="${detail.schoolGrade}"/>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label" th:text="'Activities &amp; Societies'"></label>
+		<div class="col-sm-8 form-input-container">
+			<textarea name="schoolActivitiesSocieties" class="form-control" th:text="${detail.schoolActivitiesSocieties}"></textarea>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label" th:text="'Description'">Description</label>
+		<div class="col-sm-8 form-input-container">
+			<textarea name="schoolDescription" class="form-control" th:text="${detail.schoolDescription}"></textarea>
+		</div>
+	</div>
+	<div class="stockTypeStyle">
+		<div class="form-group form-footer">				
+			<div class="col-sm-offset-3 col-sm-9">
+				<a href="#" id="student-detail-btn-cancel" class="btn btn-default student-detail-btn-cancel-class" type="reset" data-toggle="tooltip" title="">Batal</a>
+				<button id="student-detail-btn-save" class="btn btn-primary student-detail-btn-save-class" type="submit" data-toggle="tooltip" title="">Simpan</button>
+			</div>
+		</div>
+	</div>
+</div>

@@ -32,11 +32,6 @@
 			}
 			txtPage.val(current);
 			reloadDataTableSearch(formId);
-			/* var sURL=$("#"+formId).attr("action")+ "?page="+ txtPage.val()+"&skipdecorator";
-			$("#"+formId).attr('action',sURL);
-			$.get($("#"+formId).attr('action'), $("#"+formId).serialize(), function(data){
-				 $("#"+contentArea).html(data);
-			}); */
 		}
 		
 		window['refresh'+[[${tformId}]]] = function () {
@@ -52,11 +47,6 @@
 				objPage.val($("#_txtOldPage_"+id).val());
 			}else{
 				reloadDataTableSearch(formId);
-				/* var sURL=$("#"+formId).attr("action")+"?page="+objPage.val()+"&skipdecorator";
-				$("#"+formId).attr('action',sURL);
-				$.get($("#"+formId).attr('action'), $("#"+formId).serialize(), function(data){
-					 $("#"+contentArea).html(data);
-				}); */
 			}
 		}
 		

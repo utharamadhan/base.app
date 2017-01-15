@@ -1,0 +1,35 @@
+<div class="tile-body rounded-corners" th:fragment="latestWork(detail)">
+	<br/>
+	<div class="form-group">
+		<label class="col-sm-2 control-label" th:text="'Company'">Company</label>
+		<div class="col-sm-8 form-input-container">
+			<input type="text" class="form-control" placeholder="Company" name="srch-term" id="input-text-code" th:field="${detail.company}"/>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label" th:text="'Position'">Position</label>
+		<div class="col-sm-8 form-input-container">
+			<input type="text" class="form-control" placeholder="Position" name="srch-term" id="input-text-code" th:field="${detail.companyPosition}"/>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label" th:text="'City/Town'">City/Town</label>
+		<div class="col-sm-8 form-input-container">
+			<input type="text" class="form-control" placeholder="City/Town" name="srch-term" id="input-text-code" th:field="${detail.companyCity}"/>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label" th:text="'Description'">Description</label>
+		<div class="col-sm-8 form-input-container">
+			<textarea name="companyDescription" class="form-control" th:text="${detail.companyDescription}"></textarea>
+		</div>
+	</div>
+	<div class="stockTypeStyle">
+		<div class="form-group form-footer">				
+			<div class="col-sm-offset-3 col-sm-9">
+				<a href="#" id="student-detail-btn-cancel" class="btn btn-default student-detail-btn-cancel-class" type="reset" data-toggle="tooltip" title="">Batal</a>
+				<button id="student-detail-btn-save" class="btn btn-primary student-detail-btn-save-class" type="submit" data-toggle="tooltip" title="">Simpan</button>
+			</div>
+		</div>
+	</div>
+</div>

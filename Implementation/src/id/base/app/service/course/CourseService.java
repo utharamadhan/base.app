@@ -57,4 +57,9 @@ public class CourseService implements ICourseService {
 		return courseDAO.findAll(filter, order);
 	}
 
+	@Override
+	public List<Course> findAllCourseCodeName() throws SystemException {
+		return courseDAO.findAllCourseCodeName();
+	}
+
 }

@@ -1,0 +1,68 @@
+<div class="tile-body rounded-corners" th:fragment="learning(detail)">
+	<br/>
+	<div class="form-group">
+		<label class="col-sm-2 pull-left" th:text="'Enroll Course'" style="margin-top:5px;">Enroll Course</label>
+		<div class="col-sm-4 form-input-container">
+			<select name="pkCourse" class="student-detail-courseSelect chosen-select form-control enroll-data">
+				<option value="" th:text="'[Select Course]'"></option>
+				<option th:each="opt : ${courseOptions}" th:value="${opt.pkCourse}" th:text="${opt.name}">Name</option>
+			</select>
+		</div>
+		<div class="col-sm-4 form-input-container">
+			<button id="student-detail-btn-enrollCourse" class="btn btn-primary" type="submit" data-toggle="tooltip" title="">Enroll</button>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-sm-12 form-input-container m-t m-b">
+			<hr/>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="table-responsive">
+			<div class="tile-body rounded-corners">
+				<table id="studentCourse-list-table" class="table table-datatable table-custom">
+					<thead>
+						<tr>
+                           	<th>Learning Name</th>
+							<th>Enroll Date</th>
+							<th>Status</th>
+							<th>Passed / Failed Date</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						<th:block th:if="${#lists.isEmpty(detail.studentCourses)}">
+							<tr>
+								<td colspan="4" style="text-align:center;">
+									Data is Empty
+								</td>
+							</tr>
+						</th:block>
+						<th:block th:if="${!#lists.isEmpty(detail.studentCourses)}">
+							<tr th:each="record : ${detail.studentCourses}">
+								<td th:text="${record.course?.name}"></td>
+								<td th:text="${record.enrollDate!=null?#dates.format(record.enrollDate, T(id.base.app.SystemConstant).SYSTEM_DATE_MASK_2):''}"></td>
+								<td th:text="${record.studentCourseStatusLookup?.name}"></td>
+								<td th:text="${record.lastActionDate}"></td>
+								<td>
+									<th:block th:if="${record.studentCourseStatusLookup?.code == 'EN'}">
+										<a href="#" class="btn btn-default studentCourse-list-table-passed-btn" type="reset" data-toggle="tooltip" title="">Passed</a>
+										<a href="#" class="btn btn-default studentCourse-list-table-failed-btn" type="reset" data-toggle="tooltip" title="">Failed</a>
+										<a href="#" class="btn btn-default studentCourse-list-table-cancel-btn" type="reset" data-toggle="tooltip" title="">Cancel</a>
+									</th:block>
+								</td>
+							</tr>
+						</th:block>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="stockTypeStyle">
+		<div class="form-group form-footer">				
+			<div class="col-sm-offset-3 col-sm-9">
+				<a href="#" id="student-detail-btn-cancel" class="btn btn-default student-detail-btn-cancel-class" type="reset" data-toggle="tooltip" title="">Batal</a>
+			</div>
+		</div>
+	</div>
+</div>

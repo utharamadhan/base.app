@@ -46,6 +46,7 @@ public class RestConstant {
 	public static final String RM_PARTY_ADDRESS = "/partyAddress";
 	public static final String RM_PARTY_ID = "/partyID";
 	public static final String RM_PARTY_CONTACT = "/partyContact";
+	public static final String RM_STUDENT = "/student";
 	
 	//initial wizard master
 	public static final String RM_INITIAL_WIZARD = "/initialWizard";
