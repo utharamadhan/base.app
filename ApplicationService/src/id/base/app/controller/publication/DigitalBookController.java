@@ -1,5 +1,17 @@
 package id.base.app.controller.publication;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
 import id.base.app.SystemConstant;
 import id.base.app.controller.SuperController;
 import id.base.app.exception.ErrorHolder;
@@ -9,14 +21,6 @@ import id.base.app.service.MaintenanceService;
 import id.base.app.service.publication.IDigitalBookService;
 import id.base.app.util.StringFunction;
 import id.base.app.valueobject.publication.DigitalBook;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(RestConstant.RM_DIGITAL_BOOK)
@@ -59,6 +63,17 @@ public class DigitalBookController extends SuperController<DigitalBook>{
 	public DigitalBook preUpdate(DigitalBook anObject) throws SystemException{
 		anObject.setStatus(SystemConstant.ValidFlag.VALID);
 		return validate(anObject);
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/findLatestEbook")
+	@ResponseBody
+	public List<DigitalBook> findLatestEbook(@RequestParam(value="number") int number) throws SystemException {
+		try {
+			return digitalBookService.findLatestEbook(number);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new SystemException(new ErrorHolder("error finding your data"));
+		}
 	}
 	
 }

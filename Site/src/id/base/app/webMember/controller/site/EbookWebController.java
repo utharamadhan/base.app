@@ -33,6 +33,7 @@ import id.base.app.rest.RestServiceConstant;
 import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
+import id.base.app.util.dao.SearchOrder.Sort;
 import id.base.app.valueobject.publication.DigitalBook;
 
 @Scope(value="request")
@@ -59,6 +60,7 @@ public class EbookWebController {
 			filter.add(new SearchFilter(DigitalBook.TITLE, Operator.LIKE, filterJson));
 		}
 		List<SearchOrder> order = new ArrayList<SearchOrder>();
+		order.add(new SearchOrder(DigitalBook.PK_DIGITAL_BOOK, Sort.DESC));
 		PagingWrapper<DigitalBook> books = getRestCaller().findAllByFilter(startNo, offset, filter, order);
 		model.addAttribute("books", books);
 		return "/ebook/main";
@@ -77,6 +79,7 @@ public class EbookWebController {
 			filter.add(new SearchFilter(DigitalBook.TITLE, Operator.LIKE, filterJson));
 		}
 		List<SearchOrder> order = new ArrayList<SearchOrder>();
+		order.add(new SearchOrder(DigitalBook.PK_DIGITAL_BOOK, Sort.DESC));
 		PagingWrapper<DigitalBook> books = getRestCaller().findAllByFilter(startNo, offset, filter, order);
 		resultMap.put("books", books);
 		return resultMap;

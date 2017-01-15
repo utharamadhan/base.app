@@ -57,4 +57,9 @@ public class DigitalBookService implements IDigitalBookService {
 		return digitalBookDAO.findAll(filter, order);
 	}
 
+	@Override
+	public List<DigitalBook> findLatestEbook(int number) throws SystemException {
+		return digitalBookDAO.findLatestEbook(number);
+	}
+
 }

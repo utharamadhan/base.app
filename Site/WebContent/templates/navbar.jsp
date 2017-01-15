@@ -122,12 +122,11 @@
 										<ul>
 											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/page/ebook">Digital Books</a></li>
 											<li>
+												<c:forEach items="${ebooksLatest}" var="ebookLatest" varStatus="loop">
 												<div class="col-md-6">
-													<img src="<%=request.getContextPath()%>/images/digital-books1.jpg"/>
+													<img src="${ebookLatest.coverImageURL}"/>
 												</div>
-												<div class="col-md-6">
-													<img src="<%=request.getContextPath()%>/images/digital-books2.jpg"/>
-												</div>
+												</c:forEach>
 										</ul>
 									</li>
 								  </ul>

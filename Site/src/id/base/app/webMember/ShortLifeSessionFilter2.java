@@ -2,8 +2,10 @@ package id.base.app.webMember;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.Filter;
@@ -19,17 +21,21 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import id.base.app.rest.PathInterfaceRestCaller;
+import id.base.app.rest.QueryParamInterfaceRestCaller;
 import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
 import id.base.app.rest.RestServiceConstant;
+import id.base.app.rest.SpecificInterfaceRestCaller;
+import id.base.app.rest.SpecificRestCaller;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.util.dao.SearchOrder.Sort;
 import id.base.app.valueobject.aboutUs.CommonPost;
 import id.base.app.valueobject.aboutUs.Engagement;
 import id.base.app.valueobject.aboutUs.ProgramPost;
+import id.base.app.valueobject.publication.DigitalBook;
 import id.base.app.valueobject.publication.ResearchReport;
-import id.base.app.valueobject.research.Research;
 
 @Component
 public class ShortLifeSessionFilter2 implements Filter{
@@ -96,6 +102,24 @@ public class ShortLifeSessionFilter2 implements Filter{
 		orderResearch.add(new SearchOrder(ResearchReport.PK_RESEARCH_REPORT, Sort.ASC));
 		List<ResearchReport> researchs = restCallResearch.findAll(filterResearch, orderResearch); 
 		request.setAttribute("researchs", researchs);
+		
+		//ebook
+		SpecificRestCaller<DigitalBook> rcEbook = new SpecificRestCaller<DigitalBook>(RestConstant.REST_SERVICE, RestServiceConstant.DIGITAL_BOOK_SERVICE);
+		List<DigitalBook> ebooks = rcEbook.executeGetList(new QueryParamInterfaceRestCaller() {
+			
+			@Override
+			public String getPath() {
+				return "/findLatestEbook";
+			}
+			
+			@Override
+			public Map<String, Object> getParameters() {
+				Map<String,Object> map = new HashMap<String, Object>();
+				map.put("number", 2);
+				return map;
+			}
+		});
+		request.setAttribute("ebooksLatest", ebooks);
 		
 		chain.doFilter(request, response);
 	}
