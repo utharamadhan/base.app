@@ -42,7 +42,7 @@
 					</div>
 					<div class="col-md-6">
 						<div class="input-group">
-						  <input type="text" class="form-control" placeholder="Program" aria-describedby="basic-addon2" />
+						  <input type="text" class="form-control param" placeholder="Program" aria-describedby="basic-addon2" />
 						  <span class="input-group-addon" id="basic-addon2"><i class="fa fa-search" aria-hidden="true"></i></span>
 						</div>
 						<div class="input-group search-popup">
@@ -66,23 +66,23 @@
 									<th>Durasi</th>
 								  </tr>
 								</thead>
-								<tbody>
-								  <tr class="course-list-content" th:each="course, i : ${courses.result}">
+								<tbody class="list_data">
+								  <tr id="template" class="course-list-content data_result" th:each="course, i : ${courses.result}">
 									<td class="course-thumb">
 										<img th:src="${course.basicPictureURL}"/>
 									</td>
-									<td>
+									<td style="width: 50%;">
 										<h3 class="course-title">
-											<a href="#" class="show_detail" th:text="${course.name}"></a>
-											<input type="hidden" name="identity" th:value="${course.pkCourse}" />
-											<input type="hidden" name="title" th:value="${course.name}" />
+											<a href="#" class="show_detail course_name" th:text="${course.name}"></a>
+											<input type="hidden" class="identity" name="identity" th:value="${course.pkCourse}" />
+											<input type="hidden" class="title" name="title" th:value="${course.name}" />
 										</h3>
 										<span class="tag">property</span>
 										<span class="tag">developer</span>
 									</td>
-									<td class="all-category" th:text="${course.categoryLookup.name}"></td>
+									<td class="all-category course_category" th:text="${course.categoryLookup.name}"></td>
 									<td class="join-program">Universitas Indonesia</td>
-									<td th:text="${course.admissionRequirement}"></td>
+									<td class="course_duration" th:text="${course.admissionRequirement}"></td>
 								  </tr>
 								</tbody>
 							  </table>
@@ -94,21 +94,18 @@
 								<span aria-hidden="true">Previous</span>
 							  </a>
 							</li>
-							<li class="active"><a href="#">1</a></li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
-							<li><a href="#">5</a></li>
-							<li><a href="#">6</a></li>
-							<li><a href="#">...</a></li>
-							<li><a href="#">38</a></li>
+							<th:block th:each="j : ${#numbers.sequence(1, courses.noOfPage)}">
+							<li th:if="${j==courses.currentPage}" class="active" th:classappend="${j}"><a href="#" th:text="${j}"></a></li>
+							<li th:unless="${j==courses.currentPage}" class="change_page" th:classappend="${j}"><a href="#" th:text="${j}"></a></li>
+							</th:block>
 							<li>
 							  <a aria-label="Next" href="#">
 								<span aria-hidden="true">Next</span>
 							  </a>
 							</li>
 						  </ul>
-						
+						  <input type="hidden" th:value="${courses.startRecordIndex}" class="startNo"/>
+						  <input type="hidden" th:value="${courses.recordsPerPage}" class="offset"/>
 					</div><!--end post_right-->
 					
 				</div>
@@ -119,16 +116,90 @@
 		
 		<script type="text/javascript" th:inline="javascript">
 		/*<![CDATA[*/
-		$('.show_detail').unbind('click').click(function(){
-			var param = $(this).parents('.course-list-content').find('input[name="identity"]').val();
-			var title = $(this).parents('.course-list-content').find('input[name="title"]').val();
-			var titleGroup = replaceall($('input[name="titleGroup"]').val()," ","-");
-			var idGroup = $('input[name="identityGroup"]').val();
+		$(function(){      
+			$('.show_detail').unbind('click').click(function(){
+				var param = $(this).parents('.course-list-content').find('input[name="identity"]').val();
+				var title = $(this).parents('.course-list-content').find('input[name="title"]').val();
+				var titleGroup = replaceall($('input[name="titleGroup"]').val()," ","-");
+				var idGroup = $('input[name="identityGroup"]').val();
+				title = replaceall(title, " ", "-");
+				var link = /*[[@{/page/learning/programDetail/}]]*/ '';
+				link = link + titleGroup + "/" + idGroup + "/" + title + "/" + param;
+				window.location.href = link;
+			});
+			
+			$('.change_page').unbind('click').click(function(){
+				changePage($(this));
+			});
+		})
+		
+		function changePage(elem){
+			var id = /*[[${idGroup}]]*/;
+			var title = /*[[${title}]]*/;
 			title = replaceall(title, " ", "-");
-			var link = /*[[@{/page/learning/programDetail/}]]*/ '';
-			link = link + titleGroup + "/" + idGroup + "/" + title + "/" + param;
-			window.location.href = link;
-		});
+			var sURL = /*[[@{/page/learning/program/}]]*/
+			sURL = sURL + title + "/" + id + "/load";
+			var param = $('.param').val();
+			var nextPage = elem.find('a').html();
+			var oldPage = $('.active').find('a').html();
+			var nextStartNo = (parseInt($('.offset').val()) * (parseInt(nextPage)-1)) + 1;
+			var offset = $('.offset').val();
+			var img_url = /*[[@{/images/gif/hex-loader.gif}]]*/;
+			$.ajax({
+	            type: 'GET',
+	            url: sURL,
+	            data: {filter : param, startNo : nextStartNo, offset : offset},
+	            dataType: 'json',
+	            success: function (data) {
+	            	$('.load_reload_wrapper').remove();
+	            	$('.mrdy_btn').disableBtn({enabled:true});
+	            	processData(data.courses.result, false);	
+	            	$('.'+nextPage).addClass('active');
+	            	$('.'+nextPage).removeClass('change_page');
+	            	$('.'+oldPage).removeClass('active');
+	            	$('.'+oldPage).addClass('change_page');
+	            	$('.change_page').unbind('click').click(function(){
+	    				changePage($(this));
+	    			});
+	            },
+	            beforeSend: function($jqXHR, $textStatus){
+	            	$('.list_data').html('<tr class="load_reload_wrapper"><td colspan="5"><div class="col-md-12 loading_reload" style="display: block; margin-left: auto; margin-right: auto;text-align: center;"><img src="'+img_url+'" /></div></td></tr>');
+					$('.mrdy_btn').disableBtn({enabled:false});
+				},
+				error: function ($jqXHR, $textStatus, $errorThrown) {
+					$('.load_reload_wrapper').remove();
+					$('.mrdy_btn').disableBtn({enabled:true});
+				},
+				complete: function($jqXHR, $textStatus){
+					$('.load_reload_wrapper').remove();
+					$('.mrdy_btn').disableBtn({enabled:true});
+				}
+	        });
+		}
+		
+		
+		function processData(datas, load){
+			var load_content = '';
+			for(var i=0;i<datas.length;i++){
+				var cloning = $('.template_part .data_result').eq(0).clone();
+				cloning.find('.course-thumb').find('img').attr('src',datas[i].basicPictureURL);
+				cloning.find('.course_name').html(datas[i].name);
+				cloning.find('.identity').html(datas[i].pkCourse);
+				cloning.find('.title').html(datas[i].name);
+				cloning.find('.course_category').html(datas[i].categoryLookup.name);
+				cloning.find('.course_duration').html(datas[i].admissionRequirement);
+				cloning.wrap('<div></div>');
+				if(!load){
+					$('.list_data').append(cloning.parent().html());
+				}else{
+					load_content = load_content + cloning.parent().html();
+				}
+			}
+			
+			if(load){
+				$('.list_data').html(load_content);
+			}
+		}
 		/*]]>*/
 		</script>
 </body>
