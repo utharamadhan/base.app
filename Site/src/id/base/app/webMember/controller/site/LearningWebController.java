@@ -1,7 +1,9 @@
 package id.base.app.webMember.controller.site;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import id.base.app.paging.PagingWrapper;
 import id.base.app.rest.RestCaller;
@@ -67,7 +70,7 @@ public class LearningWebController {
 				@PathVariable(value="id") Long id,
 				@PathVariable(value="title") String title,
 				@RequestParam(value="startNo",defaultValue="1") int startNo, 
-				@RequestParam(value="offset",defaultValue="6") int offset,
+				@RequestParam(value="offset",defaultValue="10") int offset,
 				@RequestParam(value="filter", defaultValue="", required=false) String filterJson
 			){
 		List<SearchFilter> filter = new ArrayList<SearchFilter>();
@@ -94,6 +97,24 @@ public class LearningWebController {
 		model.addAttribute("idGroup", idGroup);
 		model.addAttribute("detail", detail);
 		return "/learning/program_detail";
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/program/{title}/{id}/load")
+	@ResponseBody
+	public Map<String, Object> load(ModelMap model, HttpServletRequest request, HttpServletResponse response,
+			@PathVariable(value="id") Long id,
+			@PathVariable(value="title") String title,
+			@RequestParam(value="startNo",defaultValue="1") int startNo, 
+			@RequestParam(value="offset",defaultValue="10") int offset,
+			@RequestParam(value="filter", defaultValue="", required=false) String filterJson
+		){
+		Map<String, Object> resultMap = new HashMap<>();
+		List<SearchFilter> filter = new ArrayList<SearchFilter>();
+		filter.add(new SearchFilter(Course.PK_GROUP_COURSE, Operator.EQUALS, id, Long.class));
+		List<SearchOrder> order = new ArrayList<SearchOrder>();
+		PagingWrapper<Course> courses = getRestCallerCourse().findAllByFilter(startNo, offset, filter, order);
+		resultMap.put("courses", courses);
+		return resultMap;
 	}
 	
 }
