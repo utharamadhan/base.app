@@ -9,6 +9,7 @@ import id.base.app.service.MaintenanceService;
 import id.base.app.service.aboutUs.IEngagementService;
 import id.base.app.util.StringFunction;
 import id.base.app.valueobject.aboutUs.Engagement;
+import id.base.app.valueobject.publication.DigitalBook;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +17,9 @@ import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -50,6 +54,17 @@ public class EngagementController extends SuperController<Engagement>{
 	public Engagement preUpdate(Engagement anObject) throws SystemException{
 		anObject.setStatus(SystemConstant.ValidFlag.VALID);
 		return validate(anObject);
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/findLatest")
+	@ResponseBody
+	public List<Engagement> findLatest(@RequestParam(value="number") int number) throws SystemException {
+		try {
+			return engagementService.findLatest(number);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new SystemException(new ErrorHolder("error finding your data"));
+		}
 	}
 	
 }

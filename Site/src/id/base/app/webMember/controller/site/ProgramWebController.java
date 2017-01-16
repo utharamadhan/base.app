@@ -1,5 +1,8 @@
 package id.base.app.webMember.controller.site;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -15,15 +18,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
 import id.base.app.rest.RestServiceConstant;
+import id.base.app.util.dao.SearchFilter;
+import id.base.app.util.dao.SearchOrder;
+import id.base.app.util.dao.SearchOrder.Sort;
 import id.base.app.valueobject.aboutUs.Engagement;
 import id.base.app.valueobject.aboutUs.ProgramPost;
 
 @Scope(value="request")
 @RequestMapping(value="/program")
 @Controller
-public class ProgramWebController2 {
+public class ProgramWebController {
 	
-	static Logger LOGGER = LoggerFactory.getLogger(ProgramWebController2.class);
+	static Logger LOGGER = LoggerFactory.getLogger(ProgramWebController.class);
 	
 	protected RestCaller<ProgramPost> getRestCaller() {
 		return new RestCaller<ProgramPost>(RestConstant.REST_SERVICE, RestServiceConstant.PROGRAM_POST_SERVICE);
@@ -37,6 +43,16 @@ public class ProgramWebController2 {
 		detail = getRestCaller().findById(id);
 		model.addAttribute("detail", detail);
 		return "/program/main";
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/list")
+	public String list(ModelMap model, HttpServletRequest request, HttpServletResponse response){
+		List<SearchFilter> filter = new ArrayList<SearchFilter>();
+		List<SearchOrder> order = new ArrayList<SearchOrder>();
+		order.add(new SearchOrder(ProgramPost.PK_PROGRAM_POST, Sort.DESC));
+		List<ProgramPost> postList = getRestCaller().findAll(filter, order);
+		model.addAttribute("postList", postList);
+		return "/program/list";
 	}
 	
 }

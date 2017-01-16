@@ -57,4 +57,9 @@ public class ProgramPostService implements IProgramPostService {
 		return programPostDAO.findAll(filter, order);
 	}
 
+	@Override
+	public List<ProgramPost> findLatest(int number) throws SystemException {
+		return programPostDAO.findLatest(number);
+	}
+
 }

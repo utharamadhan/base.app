@@ -1,5 +1,8 @@
 package id.base.app.webMember.controller.site;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -15,6 +18,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
 import id.base.app.rest.RestServiceConstant;
+import id.base.app.util.dao.SearchFilter;
+import id.base.app.util.dao.SearchOrder;
+import id.base.app.util.dao.SearchOrder.Sort;
 import id.base.app.valueobject.aboutUs.Engagement;
 
 @Scope(value="request")
@@ -36,6 +42,16 @@ public class EngagementWebController {
 		detail = getRestCaller().findById(id);
 		model.addAttribute("detail", detail);
 		return "/engagement/main";
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/list")
+	public String list(ModelMap model, HttpServletRequest request, HttpServletResponse response){
+		List<SearchFilter> filter = new ArrayList<SearchFilter>();
+		List<SearchOrder> order = new ArrayList<SearchOrder>();
+		order.add(new SearchOrder(Engagement.PK_ENGAGEMENT, Sort.DESC));
+		List<Engagement> engagesList = getRestCaller().findAll(filter, order);
+		model.addAttribute("engagesList", engagesList);
+		return "/engagement/list";
 	}
 	
 }

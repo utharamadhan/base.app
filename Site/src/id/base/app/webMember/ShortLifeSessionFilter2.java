@@ -80,19 +80,39 @@ public class ShortLifeSessionFilter2 implements Filter{
 		request.setAttribute("posts", posts);
 		
 		//engagement
-		RestCaller<Engagement> restCallEngage = new RestCaller<Engagement>(RestConstant.REST_SERVICE, RestServiceConstant.ENGAGEMENT_SERVICE);
-		List<SearchFilter> filterEngage = new ArrayList<SearchFilter>();
-		List<SearchOrder> orderEngage = new ArrayList<SearchOrder>();
-		orderEngage.add(new SearchOrder(Engagement.PK_ENGAGEMENT, Sort.ASC));
-		List<Engagement> engages = restCallEngage.findAll(filterEngage, orderEngage); 
+		SpecificRestCaller<Engagement> rcEngagement = new SpecificRestCaller<Engagement>(RestConstant.REST_SERVICE, RestServiceConstant.ENGAGEMENT_SERVICE);
+		List<Engagement> engages = rcEngagement.executeGetList(new QueryParamInterfaceRestCaller() {
+			
+			@Override
+			public String getPath() {
+				return "/findLatest";
+			}
+			
+			@Override
+			public Map<String, Object> getParameters() {
+				Map<String,Object> map = new HashMap<String, Object>();
+				map.put("number", 5);
+				return map;
+			}
+		});
 		request.setAttribute("engages", engages);
 		
 		//program
-		RestCaller<ProgramPost> restCallProgram = new RestCaller<ProgramPost>(RestConstant.REST_SERVICE, RestServiceConstant.PROGRAM_POST_SERVICE);
-		List<SearchFilter> filterProgram = new ArrayList<SearchFilter>();
-		List<SearchOrder> orderProgram = new ArrayList<SearchOrder>();
-		orderProgram.add(new SearchOrder(ProgramPost.PK_PROGRAM_POST, Sort.ASC));
-		List<ProgramPost> programs = restCallProgram.findAll(filterProgram, orderProgram); 
+		SpecificRestCaller<ProgramPost> rcProgram = new SpecificRestCaller<ProgramPost>(RestConstant.REST_SERVICE, RestServiceConstant.PROGRAM_POST_SERVICE);
+		List<ProgramPost> programs = rcProgram.executeGetList(new QueryParamInterfaceRestCaller() {
+			
+			@Override
+			public String getPath() {
+				return "/findLatest";
+			}
+			
+			@Override
+			public Map<String, Object> getParameters() {
+				Map<String,Object> map = new HashMap<String, Object>();
+				map.put("number", 4);
+				return map;
+			}
+		});
 		request.setAttribute("programs", programs);
 		
 		//research

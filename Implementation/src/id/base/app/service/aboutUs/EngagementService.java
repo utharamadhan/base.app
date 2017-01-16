@@ -6,6 +6,7 @@ import id.base.app.paging.PagingWrapper;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.valueobject.aboutUs.Engagement;
+import id.base.app.valueobject.publication.DigitalBook;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,6 +56,11 @@ public class EngagementService implements IEngagementService {
 	@Override
 	public List<Engagement> findAll(List<SearchFilter> filter, List<SearchOrder> order) throws SystemException {
 		return engagementDAO.findAll(filter, order);
+	}
+
+	@Override
+	public List<Engagement> findLatest(int number) throws SystemException {
+		return engagementDAO.findLatest(number);
 	}
 
 }
