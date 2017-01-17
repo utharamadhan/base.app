@@ -25,8 +25,7 @@ public class ResearchTopic extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = -2437553903886281337L;
 	
 	public static final String PK_RESEARCH_TOPIC	= "pkResearchTopic";
-	public static final String CODE 				= "code";
-	public static final String NAME 				= "name";
+	public static final String TITLE 				= "title";
 	public static final String DESCRIPTION 			= "description";
 	public static final String STATUS				= "status";
 	
@@ -40,11 +39,8 @@ public class ResearchTopic extends BaseEntity implements Serializable {
 	@Column(name = "PK_RESEARCH_TOPIC", unique = true ,nullable = false)
 	private Long pkResearchTopic;
 	
-	@Column(name="CODE")
-	private String code;
-	
-	@Column(name="NAME")
-	private String name;
+	@Column(name="TITLE")
+	private String title;
 	
 	@Column(name="DESCRIPTION")
 	private String description;
@@ -59,20 +55,12 @@ public class ResearchTopic extends BaseEntity implements Serializable {
 		this.pkResearchTopic = pkResearchTopic;
 	}
 
-	public String getCode() {
-		return code;
+	public String getTitle() {
+		return title;
 	}
-	public void setCode(String code) {
-		this.code = code;
+	public void setTitle(String title) {
+		this.title = title;
 	}
-
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public String getDescription() {
 		return description;
 	}
