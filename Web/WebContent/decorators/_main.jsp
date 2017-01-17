@@ -196,6 +196,7 @@
     <script src="<%=request.getContextPath()%>/plugin/vendor/fancytree/jquery.fancytree.glyph.js"></script>
     <script src="<%=request.getContextPath()%>/plugin/vendor/fancytree/jquery.fancytree.table.js"></script>
     <script src="<%=request.getContextPath()%>/plugin/vendor/fancytree/jquery.fancytree.wide.js"></script>
+    <script src="<%=request.getContextPath()%>/plugin/vendor/bootbox/bootbox.min.js"></script>
     <script>
 	    $(function(){
 	    	$('.numeric').autoNumeric('init', {aSep:'.', aDec:',', vMin: '-9999999999.99', vMax:'9999999999.99'});

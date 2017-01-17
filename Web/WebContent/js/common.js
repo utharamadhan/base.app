@@ -1009,3 +1009,22 @@ function initTextEditor(editorArea, editorParent, uploadURL) {
         }
   	});
 }
+
+function bootBoxSuccessSave(customMessage, customCallback) {
+	bootbox.alert({
+        title: "Success",
+        message: customMessage,
+        callback: customCallback
+    });
+}
+
+function bootBoxError(error, customCallback) {
+	if(!customCallback) {
+		customCallback = function() {};
+	}
+	bootbox.alert({
+        title: "Success",
+        message: error,
+        callback: customCallback
+    });
+}
