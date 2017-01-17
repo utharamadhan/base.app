@@ -28,6 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -102,7 +103,7 @@ public class NewsWebController extends BaseController<News> {
 	
 	@RequestMapping(method=RequestMethod.POST, value="saveNews")
 	@ResponseBody
-	public Map<String, Object> saveNews(final News anObject, HttpServletRequest request) {
+	public Map<String, Object> saveNews(final News anObject, final BindingResult bindingResult, final ModelMap model, HttpServletRequest request) {
 		Map<String, Object> resultMap = new HashMap<>();
 		List<ErrorHolder> errors = new ArrayList<>();
 		try{

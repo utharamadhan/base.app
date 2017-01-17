@@ -37,3 +37,11 @@ a{
 a:hover, a:focus{
 	color:#fafafa!important;
 }
+
+.ui-datepicker-year {
+	color : #333333 !important;
+}
+
+.ui-widget-header a {
+	color : #333333 !important;
+}

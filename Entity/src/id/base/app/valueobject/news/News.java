@@ -1,5 +1,9 @@
 package id.base.app.valueobject.news;
 
+import id.base.app.util.StringFunction;
+import id.base.app.valueobject.BaseEntity;
+import id.base.app.valueobject.Lookup;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -14,12 +18,12 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import id.base.app.util.StringFunction;
-import id.base.app.valueobject.BaseEntity;
-import id.base.app.valueobject.Lookup;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "NEWS")
+@JsonIdentityInfo(generator=ObjectIdGenerators.UUIDGenerator.class, property="newsJid", scope=News.class)
 public class News extends BaseEntity implements Serializable {
 	/**
 	 * 
@@ -121,6 +125,8 @@ public class News extends BaseEntity implements Serializable {
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
+	
+	@Transient
 	public String getShortContent() {
 		if(content!=null){
 			String clearContent = StringFunction.removeHTMLTags(content);
@@ -128,6 +134,7 @@ public class News extends BaseEntity implements Serializable {
 		}
 		return shortContent;
 	}
+	@Transient
 	public void setShortContent(String shortContent) {
 		this.shortContent = shortContent;
 	}
