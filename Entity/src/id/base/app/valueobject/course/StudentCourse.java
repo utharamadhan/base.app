@@ -17,6 +17,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -42,6 +43,13 @@ public class StudentCourse extends BaseEntity implements Serializable {
 		StudentCourse sc = new StudentCourse();
 			sc.setStudent(student);
 			sc.setCourse(course);
+		return sc;
+	}
+	
+	public static StudentCourse getProcessInstance(Long pkStudentCourse, String actionType) {
+		StudentCourse sc = StudentCourse.getInstance();
+			sc.setPkStudentCourse(pkStudentCourse);
+			sc.setActionType(actionType);
 		return sc;
 	}
 	
@@ -71,6 +79,9 @@ public class StudentCourse extends BaseEntity implements Serializable {
 	
 	@Column(name="STATUS")
 	private Integer status;
+	
+	@Transient
+	private String actionType;
 
 	public Long getPkStudentCourse() {
 		return pkStudentCourse;
@@ -119,6 +130,13 @@ public class StudentCourse extends BaseEntity implements Serializable {
 	}
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+
+	public String getActionType() {
+		return actionType;
+	}
+	public void setActionType(String actionType) {
+		this.actionType = actionType;
 	}
 	
 }

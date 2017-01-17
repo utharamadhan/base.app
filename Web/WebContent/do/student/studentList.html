@@ -128,21 +128,31 @@
 			$('#modal-student-filter').modal('hide');
 		}
 		
+		function reloadLearning(maintenancePK) {
+			var sURL = /*[[@{/do/student/reloadLearning?maintenancePK=}]]*/ #;
+			showScreen('student-list-container', 'student-detail-container', sURL + maintenancePK + "&skipdecorator="); 
+		}
+		
 		function showDetail(maintenancePK) {
 			var sURL = /*[[@{/do/student/showEdit?maintenancePK=}]]*/ #;
 			showScreen('student-list-container', 'student-detail-container', sURL + maintenancePK + "&skipdecorator=");
 		}
 		
 		function deleteItem(maintenancePK) {
-			var sURL = /*[[@{/do/student/delete?}]]*/ #;
-			var serializedData = "maintenancePKs=" + maintenancePK;
-			$.post(sURL, serializedData,function(data){
-				if(data.errorList!=null){
-					//show error message
-				}else{
-					search();
+			var callbackDelete = function(result) {
+				if (result) {
+					var sURL = /*[[@{/do/student/delete?}]]*/ #;
+					var serializedData = "maintenancePKs=" + maintenancePK;
+					$.post(sURL, serializedData, function(data){
+						if(data.errorList!=null){
+							//show error message
+						}else{
+							search();
+						}
+					});
 				}
-			});
+			}
+			bootBoxConfirmation(callbackDelete);
 		} 
 		
 		function deleteStudent() {

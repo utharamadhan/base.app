@@ -1,8 +1,12 @@
 package id.base.app.service.party;
 
+import id.base.app.ILookupConstant;
+import id.base.app.ILookupGroupConstant;
+import id.base.app.dao.lookup.ILookupDAO;
 import id.base.app.dao.party.IStudentDAO;
 import id.base.app.exception.SystemException;
 import id.base.app.paging.PagingWrapper;
+import id.base.app.util.DateTimeFunction;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.valueobject.course.StudentCourse;
@@ -18,6 +22,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class StudentService implements IStudentService {
 	
+	@Autowired
+	private ILookupDAO lookupDAO;
 	@Autowired
 	private IStudentDAO studentDAO;
 	
@@ -36,6 +42,7 @@ public class StudentService implements IStudentService {
 
 	@Override
 	public void delete(Long[] objectPKs) throws SystemException {
+		studentDAO.delete(objectPKs);
 	}
 
 	@Override
@@ -59,6 +66,24 @@ public class StudentService implements IStudentService {
 	@Override
 	public void enrollCourse(StudentCourse studentCourse) throws SystemException {
 		studentDAO.enrollCourse(studentCourse);
+	}
+
+	@Override
+	public void processLearning(StudentCourse studentCourse) throws SystemException {
+		if(studentCourse.getActionType().equals("cancel")) {
+			studentDAO.deleteStudentCourse(studentCourse);
+		} else {
+			studentCourse.setStudentCourseStatusLookup(lookupDAO.findByCode(
+					ILookupConstant.EnrollmentStatus.ENROLLMENT_STATUS_MAP.get(studentCourse.getActionType()), 
+					ILookupGroupConstant.ENROLLMENT_STATUS));
+			studentCourse.setLastActionDate(DateTimeFunction.getCurrentDate());
+			studentDAO.processLearning(studentCourse);
+		}
+	}
+
+	@Override
+	public StudentCourse findStudentCourseById(Long id) throws SystemException {
+		return studentDAO.findStudentCourseById(id);
 	}
 
 }

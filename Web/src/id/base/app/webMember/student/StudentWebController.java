@@ -142,6 +142,13 @@ public class StudentWebController extends BaseController<Student> {
 		return PATH_DETAIL;
 	}
 	
+	@RequestMapping(method=RequestMethod.GET, value="reloadLearning")
+	public String reloadLearning(@RequestParam(value="maintenancePK") final Long maintenancePK, @RequestParam Map<String, String> paramWrapper, ModelMap model, HttpServletRequest request){
+		String path = showEdit(maintenancePK, paramWrapper, model, request); 
+			model.addAttribute("mode", "learning");
+		return path;
+	}
+	
 	@RequestMapping(method=RequestMethod.POST, value="saveStudent")
 	@ResponseBody
 	public Map<String, Object> saveStudent(final Student anObject, final BindingResult bindingResult, HttpServletRequest request) {
@@ -165,6 +172,22 @@ public class StudentWebController extends BaseController<Student> {
 		List<ErrorHolder> errors = new ArrayList<>();
 		try {
 			errors = new SpecificRestCaller<StudentCourse>(RestConstant.REST_SERVICE, RestConstant.RM_STUDENT, StudentCourse.class).performPut("/enrollCourse", StudentCourse.getInstance(pkStudent, pkCourse));
+			if(errors != null && errors.size() > 0) {
+				resultMap.put(SystemConstant.ERROR_LIST, errors);
+			}
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage(), e);
+		}
+		return resultMap;
+	}
+	
+	@RequestMapping(method=RequestMethod.POST, value="processLearning")
+	@ResponseBody
+	public Map<String, Object> processLearning(@RequestParam(value="itemPK") Long itemPK, @RequestParam(value="actionType") String actionType) throws SystemException {
+		Map<String, Object> resultMap = new HashMap<>();
+		List<ErrorHolder> errors = new ArrayList<>();
+		try {
+			errors = new SpecificRestCaller<StudentCourse>(RestConstant.REST_SERVICE, RestConstant.RM_STUDENT, StudentCourse.class).performPut("/processLearning", StudentCourse.getProcessInstance(itemPK, actionType));
 			if(errors != null && errors.size() > 0) {
 				resultMap.put(SystemConstant.ERROR_LIST, errors);
 			}

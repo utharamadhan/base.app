@@ -33,6 +33,12 @@ public class StudentDAO extends AbstractHibernateDAO<Student,Long> implements IS
 		}
 	}
 	
+	@Override
+	public void deleteStudentCourse(StudentCourse studentCourse) throws SystemException {
+		super.delete(studentCourse);
+	}
+		
+	
 	public List<Student> findAll(){
 		return super.findAll();
 	}
@@ -79,6 +85,18 @@ public class StudentDAO extends AbstractHibernateDAO<Student,Long> implements IS
 		}else{
 			super.create(anObject);
 		}
+	}
+
+	@Override
+	public void processLearning(StudentCourse studentCourse) throws SystemException {
+		super.update(studentCourse);
+	}
+
+	@Override
+	public StudentCourse findStudentCourseById(Long id) throws SystemException {
+		Criteria crit = getSession().createCriteria(StudentCourse.class);
+			crit.add(Restrictions.eq("pkStudentCourse", id));
+		return (StudentCourse) crit.uniqueResult();
 	}
 
 	@Override
@@ -131,5 +149,5 @@ public class StudentDAO extends AbstractHibernateDAO<Student,Long> implements IS
 			});
 		return crit.list();
 	}
-		
+
 }

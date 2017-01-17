@@ -7,6 +7,10 @@ import id.base.app.valueobject.party.Student;
 
 public interface IStudentService extends MaintenanceService<Student>{
 
+	public StudentCourse findStudentCourseById(Long id) throws SystemException;
+	
 	public void enrollCourse(StudentCourse studentCourse) throws SystemException;
+	
+	public void processLearning(StudentCourse studentCourse) throws SystemException;
 	
 }

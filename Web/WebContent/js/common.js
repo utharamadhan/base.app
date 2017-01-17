@@ -852,7 +852,6 @@ function buildCustomAjaxOpts(url, id, customFilter) {
 			},
 			data: customFilter
 		};
-	console.log(ajaxOpt);
 	return ajaxOpt;
 }
 
@@ -1027,4 +1026,21 @@ function bootBoxError(error, customCallback) {
         message: error,
         callback: customCallback
     });
+}
+
+function bootBoxConfirmation(customCallback) {
+	bootbox.confirm({
+		message: "Are you sure you want to delete this record?",
+	    buttons: {
+	        confirm: {
+	            label: 'Yes',
+	            className: 'btn-success'
+	        },
+	        cancel: {
+	            label: 'No',
+	            className: 'btn-danger'
+	        }
+	    },
+	    callback: customCallback
+	});
 }

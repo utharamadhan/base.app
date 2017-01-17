@@ -13,6 +13,17 @@ public interface ILookupConstant {
 		public static final String ENROLLED 	= "EN";
 		public static final String PASSED 		= "PA";
 		public static final String FAILED 		= "FA";
+		
+		public static final String ENROLLED_STR = "enrolled";
+		public static final String PASSED_STR = "passed";
+		public static final String FAILED_STR = "failed";
+		
+		public static final Map<String, String> ENROLLMENT_STATUS_MAP = new HashMap<>();
+		static {
+			ENROLLMENT_STATUS_MAP.put(ENROLLED_STR, ENROLLED);
+			ENROLLMENT_STATUS_MAP.put(PASSED_STR, PASSED);
+			ENROLLMENT_STATUS_MAP.put(FAILED_STR, FAILED);
+		}
 	}
 	
 	public static final class FieldDataType {

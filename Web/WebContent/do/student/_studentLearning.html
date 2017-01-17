@@ -43,12 +43,12 @@
 								<td th:text="${record.course?.name}"></td>
 								<td th:text="${record.enrollDate!=null?#dates.format(record.enrollDate, T(id.base.app.SystemConstant).SYSTEM_DATE_MASK_2):''}"></td>
 								<td th:text="${record.studentCourseStatusLookup?.name}"></td>
-								<td th:text="${record.lastActionDate}"></td>
+								<td th:text="${record.lastActionDate!=null?#dates.format(record.lastActionDate, T(id.base.app.SystemConstant).SYSTEM_DATE_MASK_2):''}"></td>
 								<td>
 									<th:block th:if="${record.studentCourseStatusLookup?.code == 'EN'}">
-										<a href="#" class="btn btn-default studentCourse-list-table-passed-btn" type="reset" data-toggle="tooltip" title="">Passed</a>
-										<a href="#" class="btn btn-default studentCourse-list-table-failed-btn" type="reset" data-toggle="tooltip" title="">Failed</a>
-										<a href="#" class="btn btn-default studentCourse-list-table-cancel-btn" type="reset" data-toggle="tooltip" title="">Cancel</a>
+										<a th:attr="actionType=${'passed'},itemPK=${record.pkStudentCourse}" href="#" class="btn btn-default studentCourse-btn studentCourse-list-table-passed-btn" type="reset" data-toggle="tooltip" title="">Passed</a>
+										<a th:attr="actionType=${'failed'},itemPK=${record.pkStudentCourse}" href="#" class="btn btn-default studentCourse-btn studentCourse-list-table-failed-btn" type="reset" data-toggle="tooltip" title="">Failed</a>
+										<a th:attr="actionType=${'cancel'},itemPK=${record.pkStudentCourse}" href="#" class="btn btn-default studentCourse-btn studentCourse-list-table-cancel-btn" type="reset" data-toggle="tooltip" title="">Cancel</a>
 									</th:block>
 								</td>
 							</tr>

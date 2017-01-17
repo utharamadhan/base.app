@@ -61,6 +61,15 @@ public class StudentController extends SuperController<Student> {
 	    studentService.enrollCourse(preEnrollCourse(anObject));
 	}
 	
+	@RequestMapping(method=RequestMethod.PUT, value="/processLearning")
+	@ResponseStatus( HttpStatus.OK )
+	public void processLearning(@RequestBody StudentCourse anObject, BindingResult bindingResult) throws SystemException {
+		if (bindingResult.hasErrors()) {
+            throw new InvalidRequestException("Invalid validation", bindingResult);
+        }
+	    studentService.processLearning(preProcessLearning(anObject));
+	}
+	
 	public StudentCourse preEnrollCourse(StudentCourse anObject) throws SystemException{
 			anObject.setStatus(SystemConstant.ValidFlag.VALID);
 			anObject.setEnrollDate(DateTimeFunction.truncateDate(DateTimeFunction.getCalendar().getTime()));
@@ -69,6 +78,16 @@ public class StudentController extends SuperController<Student> {
 	}
 
 	public StudentCourse validateEnrollCourse(StudentCourse anObject) throws SystemException {
+		return anObject;
+	}
+	
+	public StudentCourse preProcessLearning(StudentCourse anObject) throws SystemException {
+		StudentCourse objDb = studentService.findStudentCourseById(anObject.getPkStudentCourse());
+			objDb.setActionType(anObject.getActionType());
+		return validateProcessLearning(objDb);
+	}
+	
+	public StudentCourse validateProcessLearning(StudentCourse anObject) throws SystemException {
 		return anObject;
 	}
 	

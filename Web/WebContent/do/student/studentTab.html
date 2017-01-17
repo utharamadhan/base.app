@@ -32,7 +32,7 @@
 		</ul>	
 	</div>
 	<form action="#" id="student-detail-form" class="form-horizontal" method="POST" novalidate="novalidate" th:object="${detail}">
-	<input type="hidden" th:field="*{pkStudent}" class="enroll-data"/>
+	<input id="hidden-maintenancePK" type="hidden" th:field="*{pkStudent}" class="enroll-data"/>
 	<section class="tile transparent tab-content">
 		<div id="basicInfoTab" class="tab-pane fade in active">
 			<div id="basicInfoContent" th:replace="student/_studentBasicInfo :: basicInfo(${detail})"></div>
@@ -68,18 +68,39 @@
 			};
 			
 			var enrollCourse = function() {
+				var maintenancePK = $('#hidden-maintenancePK').val();
 				var sURL = /*[[@{/do/student/enrollCourse}]]*/ #;
 				$.post(sURL, $(".enroll-data").serialize(), function(data) {
 					if(data.errorList != null) {
 						displayErrorParsley(data.errorList);
 					} else {
-						backToList();
+						var customCallback = function(){
+							reloadLearning(maintenancePK);
+						};
+						bootBoxSuccessSave("Student Successfully Enrolled", customCallback);
 					}
 				});
 			};
+			
+			var processLearning = function(itemPK, actionType) {
+				var parentPK = $('#hidden-maintenancePK').val();
+				var sURL = /*[[@{/do/student/processLearning}]]*/ #;
+				$.post(sURL, "itemPK="+itemPK+"&actionType="+actionType, function(data) {
+					if(data.errorList != null) {
+						displayErrorParsley(data.errorList);
+					} else {
+						var customCallback = function(){
+							reloadLearning(parentPK);
+						};
+						bootBoxSuccessSave("Record Successfully Processed", customCallback);
+					}
+				});
+			}
 	    	
 	    	if([[${mode}]] == 'creation') {
 	    		$('.edit-mode').hide();
+	    	} else if([[${mode}]] == 'learning') {
+	    		$('a[href="#learningTab"]').click();
 	    	}
 	    	
 	    	var backToList = function(){
@@ -103,6 +124,11 @@
 			$('#student-detail-btn-enrollCourse').click(function(e){
 				e.preventDefault();
 				enrollCourse();
+			});
+			
+			$('.studentCourse-btn').click(function(e){
+				e.preventDefault();
+				processLearning($(this).attr('itemPK'), $(this).attr('actionType'));
 			});
 			
 	    });
