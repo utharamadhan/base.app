@@ -1661,7 +1661,7 @@ ul.channel-links li{
     width: 100%;
     float: left;
     height: auto;
-    bottom: 30px;
+    bottom: 280px;
     position: absolute;
     background: rgba(0, 0, 0, 0.6);
 }
@@ -2452,7 +2452,7 @@ ul.channel-links li{
 .full_banner {
     width: 100%;
     float: left;
-    height: auto;
+    height: 80px;
     position: relative;
 }
 .full_banner img {
