@@ -4,6 +4,7 @@ import id.base.app.ILookupConstant;
 import id.base.app.ILookupGroupConstant;
 import id.base.app.dao.lookup.ILookupDAO;
 import id.base.app.dao.party.IStudentDAO;
+import id.base.app.dao.party.IVWStudentListDAO;
 import id.base.app.exception.SystemException;
 import id.base.app.paging.PagingWrapper;
 import id.base.app.util.DateTimeFunction;
@@ -11,6 +12,7 @@ import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.valueobject.course.StudentCourse;
 import id.base.app.valueobject.party.Student;
+import id.base.app.valueobject.party.VWStudentList;
 
 import java.util.List;
 
@@ -26,6 +28,8 @@ public class StudentService implements IStudentService {
 	private ILookupDAO lookupDAO;
 	@Autowired
 	private IStudentDAO studentDAO;
+	@Autowired
+	private IVWStudentListDAO vwStudentListDAO;
 	
 	@Override
 	@Transactional(readOnly=true)
@@ -51,10 +55,14 @@ public class StudentService implements IStudentService {
 	}
 
 	@Override
-	public PagingWrapper<Student> findAllByFilter(int startNo, int offset,
-			List<SearchFilter> filter, List<SearchOrder> order)
-			throws SystemException {
-		return studentDAO.findAllByFilter(startNo, offset, filter, order);
+	@Deprecated
+	public PagingWrapper<Student> findAllByFilter(int startNo, int offset, List<SearchFilter> filter, List<SearchOrder> order) throws SystemException {
+		return null;
+	}
+	
+	@Override
+	public PagingWrapper<VWStudentList> getListByFilter(int startNo, int offset, List<SearchFilter> filter, List<SearchOrder> order) throws SystemException {
+		return vwStudentListDAO.findAllByFilter(startNo, offset, filter, order);
 	}
 
 	@Override

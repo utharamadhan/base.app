@@ -5,7 +5,6 @@ import id.base.app.valueobject.Lookup;
 import id.base.app.valueobject.course.StudentCourse;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 

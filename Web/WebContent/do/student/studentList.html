@@ -78,7 +78,7 @@
                    		</select>
                     </div>
                 </div>
-                <div class="row">
+                <!-- <div class="row">
                     <div class="col-sm-4" style="padding-bottom: 10px;">
                      	<select id="filter-currentLearning" th:attr="customFilterKey='filterCurrentLearning'" class="filter chosen-select form-control modal-student-filter-item">
 							<option value="" th:text="'[Select Current Learning]'"></option>
@@ -99,7 +99,7 @@
                     <div class="col-sm-6" style="padding-bottom: 10px;">
                     	<input type='text' id="filter-enrollDateTo" placeholder="Enroll Date To" th:attr="customFilterKey='filterEnrollDateTo'" class="datepicker input-date form-control modal-student-filter-item" />
                     </div>
-                </div>
+                </div> -->
             </div>
             <div class="modal-footer modal-footer--padding-3" style="margin-top: 10px;">
                 <a id="btn-modal-resetFilter" class="btn btn-default no-btn" href="javscript:void(0)">Cancel &amp; Reset Filter</a>
@@ -172,7 +172,7 @@
 		    var colDefs = [{ name : "name" }, 
 	    	               	{ name : "phoneNumber" },
 		    				{ name : "email" },
-							{ name : "studentStatusLookup.name" },
+							{ name : "studentStatusLookupName" },
 							{ type : "deleteAndEdit" , param : [ "pkStudent" ] }
 	    	               ];
 		    var customFilter = function(d){
@@ -189,7 +189,7 @@
 					d.customFilters[$(this).attr('customFilterKey')] = $(this).val();
 				});
 			}
-		    var sURL = /*[[@{/do/student/list?}]]*/ #;
+		    var sURL = /*[[@{/do/student/studentList?}]]*/ #;
 		    buildDataTableWithCustomFilter(/*[[@{/}]]*/, sURL, 'student-list-table', 450, colDefs, null, null, null, customFilter);
 	    });
 	    
