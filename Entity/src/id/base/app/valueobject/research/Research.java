@@ -10,8 +10,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -28,9 +26,13 @@ public class Research extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 366527046429586298L;
 	
 	public static final String PK_RESEARCH			= "pkResearch";
-	public static final String CODE 				= "code";
-	public static final String NAME 				= "name";
-	public static final String DESCRIPTION 			= "description";
+	public static final String TITLE 				= "title";
+	public static final String SUB_TITLE			= "subTitle";
+	public static final String ABSTRACT 			= "abstract";
+	public static final String INTRODUCTION			= "introduction";
+	public static final String LITERATURE_REVIEW	= "literatureReview";
+	public static final String METHODS				= "methods";
+	public static final String RESULTS				= "results";
 	public static final String STATUS				= "status";
 	
 	public static Research getInstance() {
@@ -43,30 +45,35 @@ public class Research extends BaseEntity implements Serializable {
 	@Column(name = "PK_RESEARCH", unique = true ,nullable = false)
 	private Long pkResearch;
 	
-	@ManyToOne
-	@JoinColumn(name="FK_RESEARCH_TOPIC")
-	private ResearchTopic researchTopic;
-	
-	@Column(name="CODE")
-	private String code;
-	
-	@Column(name="NAME")
-	private String name;
+	@Column(name="TITLE")
+	private String title;
 	
 	@Column(name="SUBTITLE")
-	private String subtitle;
+	private String subTitle;
 	
-	@Column(name="BASIC_PICTURE_URL")
-	private String basicPictureURL;
+	@Column(name="IMAGE_URL")
+	private String imageURL;
 	
-	@Column(name="FULL_DESCRIPTION")
-	private String fullDescription;
+	@Column(name="ABSTRACT_DESC")
+	private String abstractDesc;
 	
-	@Column(name="RESEARCH_DATE")
-	private Date researchDate;
+	@Column(name="INTRODUCTION")
+	private String introduction;
 	
-	@Column(name="FILE_URL")
-	private String fileURL;
+	@Column(name="LITERATURE_REVIEW")
+	private String literatureReview;
+	
+	@Column(name="METHODS")
+	private String methods;
+	
+	@Column(name="RESULTS")
+	private String results;
+	
+	@Column(name="RESEARCH_DATE_FROM")
+	private Date researchDateFrom;
+	
+	@Column(name="RESEARCH_DATE_TO")
+	private Date researchDateTo;
 	
 	@Column(name="STATUS")
 	private Integer status;
@@ -74,71 +81,96 @@ public class Research extends BaseEntity implements Serializable {
 	public Long getPkResearch() {
 		return pkResearch;
 	}
+
 	public void setPkResearch(Long pkResearch) {
 		this.pkResearch = pkResearch;
 	}
 
-	public ResearchTopic getResearchTopic() {
-		return researchTopic;
-	}
-	public void setResearchTopic(ResearchTopic researchTopic) {
-		this.researchTopic = researchTopic;
+	public String getTitle() {
+		return title;
 	}
 
-	public String getCode() {
-		return code;
-	}
-	public void setCode(String code) {
-		this.code = code;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
+	public String getSubTitle() {
+		return subTitle;
 	}
 
-	public String getSubtitle() {
-		return subtitle;
-	}
-	public void setSubtitle(String subtitle) {
-		this.subtitle = subtitle;
+	public void setSubTitle(String subTitle) {
+		this.subTitle = subTitle;
 	}
 
-	public String getBasicPictureURL() {
-		return basicPictureURL;
-	}
-	public void setBasicPictureURL(String basicPictureURL) {
-		this.basicPictureURL = basicPictureURL;
+	public String getImageURL() {
+		return imageURL;
 	}
 
-	public String getFullDescription() {
-		return fullDescription;
-	}
-	public void setFullDescription(String fullDescription) {
-		this.fullDescription = fullDescription;
+	public void setImageURL(String imageURL) {
+		this.imageURL = imageURL;
 	}
 
-	public Date getResearchDate() {
-		return researchDate;
+	public String getAbstractDesc() {
+		return abstractDesc;
 	}
-	public void setResearchDate(Date researchDate) {
-		this.researchDate = researchDate;
+
+	public void setAbstractDesc(String abstractDesc) {
+		this.abstractDesc = abstractDesc;
 	}
-	
-	public String getFileURL() {
-		return fileURL;
+
+	public String getIntroduction() {
+		return introduction;
 	}
-	public void setFileURL(String fileURL) {
-		this.fileURL = fileURL;
+
+	public void setIntroduction(String introduction) {
+		this.introduction = introduction;
 	}
-	
+
+	public String getLiteratureReview() {
+		return literatureReview;
+	}
+
+	public void setLiteratureReview(String literatureReview) {
+		this.literatureReview = literatureReview;
+	}
+
+	public String getMethods() {
+		return methods;
+	}
+
+	public void setMethods(String methods) {
+		this.methods = methods;
+	}
+
+	public String getResults() {
+		return results;
+	}
+
+	public void setResults(String results) {
+		this.results = results;
+	}
+
+	public Date getResearchDateFrom() {
+		return researchDateFrom;
+	}
+
+	public void setResearchDateFrom(Date researchDateFrom) {
+		this.researchDateFrom = researchDateFrom;
+	}
+
+	public Date getResearchDateTo() {
+		return researchDateTo;
+	}
+
+	public void setResearchDateTo(Date researchDateTo) {
+		this.researchDateTo = researchDateTo;
+	}
+
 	public Integer getStatus() {
 		return status;
 	}
+
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
-
 }
