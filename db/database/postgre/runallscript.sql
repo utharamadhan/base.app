@@ -85,3 +85,6 @@
 
 -- 2017-Jan-18
 \i DDL/RESEARCH_TOPIC_20170118.sql;
+
+-- 2017-Jan-19
+\i DDL/VW_STUDENT_LIST.sql;
