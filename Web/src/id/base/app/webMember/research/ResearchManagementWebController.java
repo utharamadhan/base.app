@@ -6,6 +6,7 @@ import id.base.app.rest.RestConstant;
 import id.base.app.rest.RestServiceConstant;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
+import id.base.app.valueobject.party.Student;
 import id.base.app.valueobject.research.Research;
 import id.base.app.webMember.DataTableCriterias;
 import id.base.app.webMember.controller.BaseController;
@@ -55,6 +56,13 @@ public class ResearchManagementWebController extends BaseController<Research> {
 	public String showList(ModelMap model, HttpServletRequest request){
 		model.addAttribute("pagingWrapper", new PagingWrapper<Research>());
 		return getListPath();
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="showAdd")
+	public String showAdd(ModelMap model, HttpServletRequest request){
+		model.addAttribute("detail", Research.getInstance());
+		model.addAttribute("mode", "creation");
+		return PATH_DETAIL;
 	}
 
 	@Override

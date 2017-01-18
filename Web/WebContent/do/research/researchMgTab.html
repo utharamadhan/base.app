@@ -26,11 +26,11 @@
 	<div>
 		<ul class="nav nav-tabs">
 			<li class="active"><a data-toggle="tab" href="#basicInfoTab" class="rmg-nav-tab">Basic Info</a></li>
-			<li><a data-toggle="tab" href="#timePlanningTab" class="rmg-nav-tab edit-mode">Time Planning</a></li>
-			<li><a data-toggle="tab" href="#budgetingTab" class="rmg-nav-tab edit-mode">Budgeting</a></li>
-			<li><a data-toggle="tab" href="#goalTargetTab" class="rmg-nav-tab edit-mode">Goal Target</a></li>
-			<li><a data-toggle="tab" href="#memoTab" class="rmg-nav-tab edit-mode">Memo</a></li>
-			<li><a data-toggle="tab" href="#fileUploadTab" class="rmg-nav-tab edit-mode">File Upload</a></li>
+			<li><a data-toggle="tab" href="#timePlanningTab" class="rmg-nav-tab">Time Planning</a></li>
+			<li><a data-toggle="tab" href="#budgetingTab" class="rmg-nav-tab">Budgeting</a></li>
+			<li><a data-toggle="tab" href="#goalTargetTab" class="rmg-nav-tab">Goal Target</a></li>
+			<li><a data-toggle="tab" href="#memoTab" class="rmg-nav-tab">Memo</a></li>
+			<li><a data-toggle="tab" href="#fileUploadTab" class="rmg-nav-tab">File Upload</a></li>
 		</ul>	
 	</div>
 	<form action="#" id="rmg-detail-form" class="form-horizontal" method="POST" novalidate="novalidate" th:object="${detail}">
@@ -43,7 +43,7 @@
 			<div id="timePlanningContent" th:replace="research/_researchMgTimePlanning :: timePlanning(${detail})" ></div>
 		</div>
 		<div id="budgetingTab" class="tab-pane fade">
-			<div id="budgetingContent" th:replace="research/_studentMgBudgeting :: budgeting(${detail})"></div>
+			<div id="budgetingContent" th:replace="research/_researchMgBudgeting :: budgeting(${detail})"></div>
 		</div>
 		<div id="goalTargetTab" class="tab-pane fade">
 			<div id="goalTargetContent" th:replace="research/_researchMgGoalTarget :: goalTarget(${detail})"></div>
@@ -85,10 +85,6 @@
 					}
 				});
 			};
-	    	
-	    	if([[${mode}]] == 'creation') {
-	    		$('.edit-mode').hide();
-	    	}
 	    	
 	    	var backToList = function(){
 				returnToList('student-detail-container', 'student-list-container', true);

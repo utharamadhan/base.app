@@ -42,44 +42,40 @@
 						</div>
 						<input id="researchMaintenance-detail-maintenancePk" type="hidden" th:field="*{pkResearch}"/>
 						<div class="form-group">
-							<label class="col-sm-2 control-label" th:text="'Topic'">Topic</label>
+							<label class="col-sm-2 control-label" th:text="'Title'">Title</label>
 							<div class="col-sm-9 form-input-container">
-								<select class="course-detail-topicSelect chosen-select form-control" th:field="*{researchTopic.pkResearchTopic}">
-									<option th:each="opt : ${researchTopicOptions}" th:value="${opt.pkResearchTopic}" th:text="${opt.title}">Name</option>
-                           		</select>
-                           	</div>
-						</div>
-						<div class="form-group">
-							<label class="col-sm-2 control-label" th:text="'Code'">Code</label>
-							<div class="col-sm-9 form-input-container">
-								<input type="text" class="form-control" placeholder="Code" name="srch-term" id="input-text-code" th:field="*{code}"/>
+								<input type="text" class="form-control" placeholder="Title" id="input-text-title" th:field="*{title}"/>
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-2 control-label" th:text="'Name'">Name</label>
+							<label class="col-sm-2 control-label" th:text="'Sub Title'">Sub Title</label>
 							<div class="col-sm-9 form-input-container">
-								<input type="text" class="form-control" placeholder="Name" name="srch-term" id="input-text-title" th:field="*{name}"/>
+								<input type="text" class="form-control" placeholder="Sub Title" id="input-text-title" th:field="*{subTitle}"/>
 							</div>
 						</div>
 						<div class="form-group">
                           	<label class="col-sm-2 control-label">Research Date</label>
-                          	<div class="col-sm-10">
-                            	<input type='text' class="datepicker input-date form-control" th:name="researchDate" th:value="${detail.researchDate!=null?#dates.format(detail.researchDate, T(id.base.app.SystemConstant).SYSTEM_DATE_MASK_2):''}" />
+                          	<div class="col-sm-4">
+                            	<input type='text' class="datepicker input-date form-control" th:name="researchDateFrom" th:value="${detail.researchDateFrom!=null?#dates.format(detail.researchDateFrom, T(id.base.app.SystemConstant).SYSTEM_DATE_MASK_2):''}" />
+                           </div>
+                           <div class="col-sm-1"><label> - </label></div>
+                           <div class="col-sm-4">
+                            	<input type='text' class="datepicker input-date form-control" th:name="researchDateTo" th:value="${detail.researchDateTo!=null?#dates.format(detail.researchDateTo, T(id.base.app.SystemConstant).SYSTEM_DATE_MASK_2):''}" />
                            </div>
                        	</div>
 						<div class="form-group">
 							<label class="col-sm-2 control-label" th:text="'Featured Image'">Featured Image</label>
 							<div class="col-sm-9 form-input-container">
-								<th:block th:if="${detail.basicPictureURL != null}">
-									<input type="hidden" id="input-hidden-basicPictureURL" th:field="*{basicPictureURL}"/>
+								<th:block th:if="${detail.imageURL != null}">
+									<input type="hidden" id="input-hidden-basicPictureURL" th:field="*{imageURL}"/>
 									<input type="file" class="form-control" id="input-file-basicPictureURL" style="display:none;"/>
 									<div id="container-basicPictureURL">
-										<img th:src="${detail.basicPictureURL}" class="gcDetail-basicPicture"/>
+										<img th:src="${detail.imageURL}" class="gcDetail-basicPicture"/>
 										<a href="#" class="btn btn-primary btn-xs margin-bottom-20 basicPicture-delete" data-toggle="tooltip" title="Delete"><i class="fa fa-trash"></i></a>
 									</div>
 								</th:block>
-								<th:block th:if="${detail.basicPictureURL == null}">
-									<input type="hidden" id="input-hidden-basicPictureURL" name="basicPictureURL"/>
+								<th:block th:if="${detail.imageURL == null}">
+									<input type="hidden" id="input-hidden-basicPictureURL" name="imageURL"/>
 									<input type="file" class="form-control" id="input-file-basicPictureURL"/>
 									<div id="container-basicPictureURL" style='display:none;'>
 									</div>
@@ -87,34 +83,80 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-2 control-label" th:text="'Subtitle'">Subtitle</label>
+							<label class="col-sm-2 control-label" th:text="'Description'">Description</label>
 							<div class="col-sm-9 form-input-container">
-								<input type="text" class="form-control" placeholder="Subtitle" name="srch-term" id="input-text-subtitle" th:field="*{subtitle}"/>
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="col-sm-2 control-label" th:text="'Full Description'">Full Description</label>
-							<div class="col-sm-9 form-input-container">
-								<input type="text" class="form-control" placeholder="Full Description" name="srch-term" id="input-text-description" th:field="*{fullDescription}"/>
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="col-sm-2 control-label" th:text="'File'">File</label>
-							<div class="col-sm-10 form-input-container">
-								<th:block th:if="${detail.fileURL != null}">
-									<input type="hidden" id="input-hidden-fileURL" th:field="*{fileURL}"/>
-									<input type="file" class="form-control" id="input-file-fileURL" style="display:none;"/>
-									<div id="container-fileURL">
-										<label th:text="'Uploaded File'"></label>
-										<a href="#" class="btn btn-primary btn-xs margin-bottom-20 file-delete" data-toggle="tooltip" title="Delete"><i class="fa fa-trash"></i></a>
-									</div>
-								</th:block>
-								<th:block th:if="${detail.fileURL == null}">
-									<input type="hidden" id="input-hidden-fileURL" name="fileURL"/>
-									<input type="file" class="form-control" id="input-file-fileURL"/>
-									<div id="container-fileURL" style='display:none;'>
-									</div>
-								</th:block>
+								<div class="panel-group" id="accordion">
+								  <div class="panel panel-default">
+								    <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" data-target="#collapseOne">
+								      <h4 class="panel-title">
+								        <a class="accordion-toggle" th:text="'Abstract'">Abstract</a>
+								      </h4>
+								    </div>
+								    <div id="collapseOne" class="panel-collapse collapse">
+								        <input id="tinyMCE-hidden" name="abstractDesc" type="hidden"/>
+										<div class="tinyMCE-parent">					
+											<textarea class="tinyMCE-area" th:text="*{abstractDesc}">
+											</textarea>
+										</div>
+								    </div>
+								  </div>
+								  <div class="panel panel-default">
+								    <div class="panel-heading">
+								      <h4 class="panel-title"  data-toggle="collapse" data-parent="#accordion" data-target="#collapseTwo">
+								        <a class="accordion-toggle" th:text="'Introduction'">Introduction</a>
+								      </h4>
+								    </div>
+								    <div id="collapseTwo" class="panel-collapse collapse">
+								        <input id="tinyMCE-hidden" name="introduction" type="hidden"/>
+										<div class="tinyMCE-parent">					
+											<textarea class="tinyMCE-area" th:text="*{introduction}">
+											</textarea>
+										</div>
+								    </div>
+								  </div>
+								  <div class="panel panel-default">
+								    <div class="panel-heading">
+								      <h4 class="panel-title" data-toggle="collapse" data-parent="#accordion" data-target="#collapseThree">
+								        <a class="accordion-toggle" th:text="'Literature Review'">Literature Review</a>
+								      </h4>
+								    </div>
+								    <div id="collapseThree" class="panel-collapse collapse">
+								        <input id="tinyMCE-hidden" name="literatureReview" type="hidden"/>
+										<div class="tinyMCE-parent">					
+											<textarea class="tinyMCE-area" th:text="*{literatureReview}">
+											</textarea>
+										</div>
+								    </div>
+								  </div>
+								  <div class="panel panel-default">
+								    <div class="panel-heading">
+								      <h4 class="panel-title" data-toggle="collapse" data-parent="#accordion" data-target="#collapseThree">
+								        <a class="accordion-toggle" th:text="'Methods'">Methods</a>
+								      </h4>
+								    </div>
+								    <div id="collapseThree" class="panel-collapse collapse">
+								        <input id="tinyMCE-hidden" name="methods" type="hidden"/>
+										<div class="tinyMCE-parent">					
+											<textarea class="tinyMCE-area" th:text="*{methods}">
+											</textarea>
+										</div>
+								    </div>
+								  </div>
+								  <div class="panel panel-default">
+								    <div class="panel-heading">
+								      <h4 class="panel-title" data-toggle="collapse" data-parent="#accordion" data-target="#collapseThree">
+								        <a class="accordion-toggle" th:text="'Results'">Results</a>
+								      </h4>
+								    </div>
+								    <div id="collapseThree" class="panel-collapse collapse">
+								        <input id="tinyMCE-hidden" name="results" type="hidden"/>
+										<div class="tinyMCE-parent">					
+											<textarea class="tinyMCE-area" th:text="*{results}">
+											</textarea>
+										</div>
+								    </div>
+								  </div>
+								</div>	
 							</div>
 						</div>
 						<div class="form-group form-footer">				
@@ -143,7 +185,9 @@
 	
 	    $(function(){
 	    	initDeletePicture();
+	    	var uploadURL = /*[[@{/do/fileManager/upload/}]]*/ #;
 	    	initDatePicker("datepicker", "dd/mm/yyyy");
+	    	initTextEditor('.tinyMCE-area', '.tinyMCE-parent', uploadURL);
 			var backToList = function(){
 				returnToList('researchMaintenance-detail-container', 'researchMaintenance-list-container', true);
 			};

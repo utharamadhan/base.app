@@ -1005,7 +1005,8 @@ function initTextEditor(editorArea, editorParent, uploadURL) {
 			var hiddenInput = $("#"+tinyMCE.activeEditor.id).parent().find('.hidden-file-browser');
     		hiddenInput.attr("target-id", field_name);
 			hiddenInput.click();
-        }
+        },
+        height:"200"
   	});
 }
 
