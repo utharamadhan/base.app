@@ -12,17 +12,20 @@ import id.base.app.service.MaintenanceService;
 import id.base.app.service.lookup.ILookupService;
 import id.base.app.service.party.IStudentService;
 import id.base.app.util.DateTimeFunction;
+import id.base.app.util.StringFunction;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.validation.InvalidRequestException;
 import id.base.app.valueobject.UpdateEntity;
 import id.base.app.valueobject.course.StudentCourse;
+import id.base.app.valueobject.news.News;
 import id.base.app.valueobject.party.Student;
 import id.base.app.valueobject.party.VWStudentList;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,6 +79,70 @@ public class StudentController extends SuperController<Student> {
 
 	@Override
 	public Student validate(Student anObject) throws SystemException {
+		List<ErrorHolder> errorList = new ArrayList<>();
+		if (StringFunction.isNotEmpty(anObject.getValidationType())) {
+			if (anObject.getValidationType().equals("basicInfo")) {
+				if(StringFunction.isEmpty(anObject.getName())){
+					errorList.add(new ErrorHolder(Student.NAME, messageSource.getMessage("error.mandatory", new String[]{"name"}, Locale.ENGLISH)));
+				}
+				if(anObject.getBirthDate() == null){
+					errorList.add(new ErrorHolder(Student.BIRTH_DATE, messageSource.getMessage("error.mandatory", new String[]{"birth date"}, Locale.ENGLISH)));
+				}
+				if(StringFunction.isEmpty(anObject.getBirthPlace())){
+					errorList.add(new ErrorHolder(Student.BIRTH_PLACE, messageSource.getMessage("error.mandatory", new String[]{"birth place"}, Locale.ENGLISH)));
+				}
+				if(StringFunction.isEmpty(anObject.getPhoneNumber())){
+					errorList.add(new ErrorHolder(Student.PHONE_NUMBER, messageSource.getMessage("error.mandatory", new String[]{"no. telp"}, Locale.ENGLISH)));
+				}
+				if(StringFunction.isEmpty(anObject.getEmail())){
+					errorList.add(new ErrorHolder(Student.EMAIL, messageSource.getMessage("error.mandatory", new String[]{"email"}, Locale.ENGLISH)));
+				}
+				if(StringFunction.isEmpty(anObject.getAddress())){
+					errorList.add(new ErrorHolder(Student.ADDRESS, messageSource.getMessage("error.mandatory", new String[]{"email"}, Locale.ENGLISH)));
+				}
+			}
+			if (anObject.getValidationType().equals("latestWork")) {
+				if(StringFunction.isEmpty(anObject.getCompany())) {
+					errorList.add(new ErrorHolder(Student.COMPANY, messageSource.getMessage("error.mandatory", new String[]{"company"}, Locale.ENGLISH)));
+				}
+				if(StringFunction.isEmpty(anObject.getCompanyPosition())) {
+					errorList.add(new ErrorHolder(Student.COMPANY_POSITION, messageSource.getMessage("error.mandatory", new String[]{"position"}, Locale.ENGLISH)));
+				}
+				if(StringFunction.isEmpty(anObject.getCompanyCity())) {
+					errorList.add(new ErrorHolder(Student.COMPANY_CITY, messageSource.getMessage("error.mandatory", new String[]{"city"}, Locale.ENGLISH)));
+				}
+				if(StringFunction.isEmpty(anObject.getCompanyDescription())) {
+					errorList.add(new ErrorHolder(Student.COMPANY_DESCRIPTION, messageSource.getMessage("error.mandatory", new String[]{"description"}, Locale.ENGLISH)));
+				}
+			}
+			if (anObject.getValidationType().equals("latestEducation")) {
+				if(StringFunction.isEmpty(anObject.getSchool())) {
+					errorList.add(new ErrorHolder(Student.SCHOOL, messageSource.getMessage("error.mandatory", new String[]{"school"}, Locale.ENGLISH)));
+				}
+				if(anObject.getSchoolDatesAttended() == null) {
+					errorList.add(new ErrorHolder(Student.SCHOOL_DATES_ATTENDED, messageSource.getMessage("error.mandatory", new String[]{"dates attended"}, Locale.ENGLISH)));
+				}
+				if(StringFunction.isEmpty(anObject.getSchoolDegree())) {
+					errorList.add(new ErrorHolder(Student.SCHOOL_DEGREE, messageSource.getMessage("error.mandatory", new String[]{"degree"}, Locale.ENGLISH)));
+				}
+				if(StringFunction.isEmpty(anObject.getSchoolFieldOfStudy())) {
+					errorList.add(new ErrorHolder(Student.SCHOOL_FIELD_OF_STUDY, messageSource.getMessage("error.mandatory", new String[]{"field of study"}, Locale.ENGLISH)));
+				}
+				if(StringFunction.isEmpty(anObject.getSchoolGrade())) {
+					errorList.add(new ErrorHolder(Student.SCHOOL_GRADE, messageSource.getMessage("error.mandatory", new String[]{"grade"}, Locale.ENGLISH)));
+				}
+				if(StringFunction.isEmpty(anObject.getSchoolActivitiesSocieties())) {
+					errorList.add(new ErrorHolder(Student.SCHOOL_ACTIVITIES_SOCIETIES, messageSource.getMessage("error.mandatory", new String[]{"Activities Societies"}, Locale.ENGLISH)));
+				}
+				if(StringFunction.isEmpty(anObject.getSchoolDescription())) {
+					errorList.add(new ErrorHolder(Student.SCHOOL_DESCRIPTION, messageSource.getMessage("error.mandatory", new String[]{"description"}, Locale.ENGLISH)));
+				}
+			}
+		}
+		if(errorList.size() > 0) {
+			throw new SystemException(errorList);
+		}
+		
 		return anObject;
 	}
 	

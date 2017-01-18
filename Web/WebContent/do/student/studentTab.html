@@ -25,14 +25,15 @@
 	<div class="row col-md-12">
 	<div>
 		<ul class="nav nav-tabs">
-			<li class="active"><a data-toggle="tab" href="#basicInfoTab" class="student-nav-tab">Basic Info</a></li>
-			<li><a data-toggle="tab" href="#latestWorkTab" class="student-nav-tab edit-mode">Latest Work</a></li>
-			<li><a data-toggle="tab" href="#latestEducationTab" class="student-nav-tab edit-mode">Latest Education</a></li>
+			<li class="active student-li-tab" th:attr="validationType='basicInfo'"><a data-toggle="tab" href="#basicInfoTab" class="student-nav-tab">Basic Info</a></li>
+			<li class="student-li-tab" th:attr="validationType='latestWork'"><a data-toggle="tab" href="#latestWorkTab" class="student-nav-tab edit-mode">Latest Work</a></li>
+			<li class="student-li-tab" th:attr="validationType='latestEducation'"><a data-toggle="tab" href="#latestEducationTab" class="student-nav-tab edit-mode">Latest Education</a></li>
 			<li><a data-toggle="tab" href="#learningTab" class="student-nav-tab edit-mode">Learning</a></li>
 		</ul>	
 	</div>
 	<form action="#" id="student-detail-form" class="form-horizontal" method="POST" novalidate="novalidate" th:object="${detail}">
 	<input id="hidden-maintenancePK" type="hidden" th:field="*{pkStudent}" class="enroll-data"/>
+	<input id="hidden-validationType" type="hidden" name="validationType"/>
 	<section class="tile transparent tab-content">
 		<div id="basicInfoTab" class="tab-pane fade in active">
 			<div id="basicInfoContent" th:replace="student/_studentBasicInfo :: basicInfo(${detail})"></div>
@@ -58,6 +59,8 @@
 	    	var submitForm = function(){
 	    		cleanErrorParsley();
 	    		var hiddenPK = $('#hidden-maintenancePK').val();
+	    		var validationType = $('.student-li-tab.active').attr('validationType');
+	    		$('#hidden-validationType').val(validationType);
 				var sURL = /*[[@{/do/student/saveStudent/}]]*/ #;
 				$.post(sURL, $("#student-detail-form").serialize(), function(data) {
 					if(data.errorList!=null){

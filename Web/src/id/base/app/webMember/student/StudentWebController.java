@@ -25,6 +25,7 @@ import id.base.app.webMember.rest.LookupRestCaller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -157,11 +158,11 @@ public class StudentWebController extends BaseController<Student> {
 		try{
 			Long pkStudent = (Long) new SpecificRestCaller<Student>(RestConstant.REST_SERVICE, RestServiceConstant.STUDENT_SERVICE).performPutReturn("/updateReturn", anObject, Long.class);
 			resultMap.put("maintenancePK", pkStudent);
+		}catch(SystemException e){
+			errors = e.getErrors();
 			if(errors != null && errors.size() > 0){
 				resultMap.put(SystemConstant.ERROR_LIST, errors);
 			}
-		}catch(Exception e){
-			LOGGER.error(e.getMessage(), e);
 		}
 		return resultMap;
 	}

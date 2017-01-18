@@ -19,6 +19,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -34,11 +35,25 @@ public class Student extends BaseEntity implements Serializable {
 	
 	public static final String PK_STUDENT 				= "pkStudent";
 	public static final String NAME						= "name";
+	public static final String BIRTH_DATE				= "birthDate";
+	public static final String BIRTH_PLACE				= "birthPlace";
 	public static final String PHONE_NUMBER				= "phoneNumber";
 	public static final String EMAIL 					= "email";
+	public static final String ADDRESS					= "address";
 	public static final String STUDENT_STATUS_LOOKUP	= "studentStatusLookup";
 	public static final String STUDENT_STATUS_LOOKUP_PK	= "studentStatusLookup.pkLookup";
 	public static final String CURRENT_LEARNING			= "currentLearning";
+	public static final String COMPANY					= "company";
+	public static final String COMPANY_POSITION			= "companyPosition";
+	public static final String COMPANY_CITY				= "companyCity";
+	public static final String COMPANY_DESCRIPTION		= "companyDescription";
+	public static final String SCHOOL					= "school";
+	public static final String SCHOOL_DATES_ATTENDED	= "schoolDatesAttended";
+	public static final String SCHOOL_DEGREE			= "schoolDegree";
+	public static final String SCHOOL_FIELD_OF_STUDY	= "schoolFieldOfStudy";
+	public static final String SCHOOL_GRADE				= "schoolGrade";
+	public static final String SCHOOL_ACTIVITIES_SOCIETIES = "schoolActivitiesSocieties";
+	public static final String SCHOOL_DESCRIPTION		= "schoolDescription";
 	public static final String STATUS					= "status";
 	
 	public static Student getInstance() {
@@ -121,6 +136,9 @@ public class Student extends BaseEntity implements Serializable {
 	
 	@OneToMany(mappedBy="student", cascade=CascadeType.DETACH)
 	private List<StudentCourse> studentCourses;
+	
+	@Transient
+	private String validationType;
 
 	public Long getPkStudent() {
 		return pkStudent;
@@ -274,6 +292,13 @@ public class Student extends BaseEntity implements Serializable {
 	}
 	public void setStudentCourses(List<StudentCourse> studentCourses) {
 		this.studentCourses = studentCourses;	
+	}
+
+	public String getValidationType() {
+		return validationType;
+	}
+	public void setValidationType(String validationType) {
+		this.validationType = validationType;
 	}
 	
 }

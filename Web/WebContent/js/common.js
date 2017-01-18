@@ -948,6 +948,7 @@ function initDatePicker(datePickerClass, dateFormat) {
 	$('.'+datePickerClass).datepicker({
 	    autoclose: true,
 	    todayHighlight: true,
+	    changeMonth: true,
 	    changeYear: true,
 		format: dateFormat,
 		yearRange: "1900:2100",
