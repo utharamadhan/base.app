@@ -87,7 +87,7 @@ iframe {
     height: auto;
     -webkit-box-shadow: 0 3px 3px -1px rgba(0, 0, 0, .15);
     box-shadow: 0 2px 2px -1px rgba(0, 0, 0, .15);
-    background-color: rgba(255, 255, 255, 0.25);
+    background-color: rgba(255, 255, 255, 0.9);
 }
 .navbar-default {
     background: none;
@@ -339,7 +339,7 @@ h4.modal-title{
     float: left;
     height: auto;
     position: relative;
-    background: #222c34;
+    background: white;
 }
 .banner .slides {
     position: relative;
@@ -468,7 +468,7 @@ h4.modal-title{
     width: 100%;
     float: left;
     height: auto;
-	padding: 35px 0;
+	padding: 0px 0 35px 0;
     background: #ecf3f7;
 	background-image: url("../images/background-hfc.png");
 	background-attachment: fixed;

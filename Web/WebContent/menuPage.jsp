@@ -83,11 +83,6 @@
                      			<i class="fa fa-bar-chart"></i> Publication <b class="fa fa-plus dropdown-plus"></b>
                    			</a>
 							<ul class="dropdown-menu">
-								<li id="researchReport">
-									<a href="/Web/do/publication/researchReport/showList">
-			                        	<i class="fa fa-caret-right"></i> Research Report
-			                        </a>
-			                  	</li>
 								<li id="digitalBook">
 									<a href="/Web/do/publication/digitalBook/showList">
 			                        	<i class="fa fa-caret-right"></i> eBook
