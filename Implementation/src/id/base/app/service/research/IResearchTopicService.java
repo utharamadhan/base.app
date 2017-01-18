@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface IResearchTopicService extends MaintenanceService<ResearchTopic> {
 	
-	public List<ResearchTopic> findAllResearchTopicCodeAndName() throws SystemException;
+	public List<ResearchTopic> findAllResearchTopicTitle() throws SystemException;
 
 }

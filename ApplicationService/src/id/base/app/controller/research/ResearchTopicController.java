@@ -30,8 +30,8 @@ public class ResearchTopicController extends SuperController<ResearchTopic>{
 	@Override
 	public ResearchTopic validate(ResearchTopic anObject) throws SystemException {
 		List<ErrorHolder> errorList = new ArrayList<>();
-		if(StringFunction.isEmpty(anObject.getCode())) {
-			errorList.add(new ErrorHolder(ResearchTopic.CODE, messageSource.getMessage("error.mandatory", new String[]{"code"}, Locale.ENGLISH)));
+		if(StringFunction.isEmpty(anObject.getTitle())) {
+			errorList.add(new ErrorHolder(ResearchTopic.TITLE, messageSource.getMessage("error.mandatory", new String[]{"title"}, Locale.ENGLISH)));
 		}
 		if(StringFunction.isEmpty(anObject.getDescription())) {
 			errorList.add(new ErrorHolder(ResearchTopic.DESCRIPTION, messageSource.getMessage("error.mandatory", new String[]{"description"}, Locale.ENGLISH)));
@@ -53,10 +53,10 @@ public class ResearchTopicController extends SuperController<ResearchTopic>{
 		return validate(anObject);
 	}
 	
-	@RequestMapping(value="/findAllResearchTopicCodeAndName")
+	@RequestMapping(value="/findAllResearchTopicTitle")
 	@ResponseBody
-	public List<ResearchTopic> findAllResearchTopicCodeAndName() {
-		return researchTopicService.findAllResearchTopicCodeAndName();
+	public List<ResearchTopic> findAllResearchTopicTitle() {
+		return researchTopicService.findAllResearchTopicTitle();
 	}
 	
 }

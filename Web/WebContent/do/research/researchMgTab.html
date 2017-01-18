@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:ifs="http://padiku.id">
+<head>
+<meta charset="ISO-8859-1"/>
+<title>Research Management</title>
+</head>
+<style>
+.gcDetail-basicPicture {
+	max-height : 250px;
+}
+
+.basicPicture-delete {
+	position:absolute;
+	left:25px;
+	top:10px;
+}
+</style>
+<body>
+	<div class="pageheader">
+		<div class="row col-md-8">
+			<h4><i class="fa fa-tachometer"></i> Research / Research Management List / Research Management Detail
+			<span></span></h4>
+		</div>
+	</div>
+	<div class="row col-md-12">
+	<div>
+		<ul class="nav nav-tabs">
+			<li class="active"><a data-toggle="tab" href="#basicInfoTab" class="rmg-nav-tab">Basic Info</a></li>
+			<li><a data-toggle="tab" href="#timePlanningTab" class="rmg-nav-tab edit-mode">Time Planning</a></li>
+			<li><a data-toggle="tab" href="#budgetingTab" class="rmg-nav-tab edit-mode">Budgeting</a></li>
+			<li><a data-toggle="tab" href="#goalTargetTab" class="rmg-nav-tab edit-mode">Goal Target</a></li>
+			<li><a data-toggle="tab" href="#memoTab" class="rmg-nav-tab edit-mode">Memo</a></li>
+			<li><a data-toggle="tab" href="#fileUploadTab" class="rmg-nav-tab edit-mode">File Upload</a></li>
+		</ul>	
+	</div>
+	<form action="#" id="rmg-detail-form" class="form-horizontal" method="POST" novalidate="novalidate" th:object="${detail}">
+	<input type="hidden" th:field="*{pkResearch}" class="enroll-data"/>
+	<section class="tile transparent tab-content">
+		<div id="basicInfoTab" class="tab-pane fade in active">
+			<div id="basicInfoContent" th:replace="research/_researchMgBasicInfo :: basicInfo(${detail})"></div>
+		</div>
+		<div id="timePlanningTab" class="tab-pane fade">
+			<div id="timePlanningContent" th:replace="research/_researchMgTimePlanning :: timePlanning(${detail})" ></div>
+		</div>
+		<div id="budgetingTab" class="tab-pane fade">
+			<div id="budgetingContent" th:replace="research/_studentMgBudgeting :: budgeting(${detail})"></div>
+		</div>
+		<div id="goalTargetTab" class="tab-pane fade">
+			<div id="goalTargetContent" th:replace="research/_researchMgGoalTarget :: goalTarget(${detail})"></div>
+		</div>
+		<div id="memoTab" class="tab-pane fade">
+			<div id="memoContent" th:replace="research/_researchMgMemo :: memo(${detail})"></div>
+		</div>
+		<div id="fileUploadTab" class="tab-pane fade">
+			<div id="fileUploadContent" th:replace="research/_researchMgFileUpload :: fileUpload(${detail})"></div>
+		</div>
+	</section>
+	</form>
+	</div>
+	<script th:inline="javascript">
+	/*<![CDATA[*/
+	           
+	    $(function(){
+	    	initDatePicker("datepicker", "dd/mm/yyyy");
+	    	
+	    	var submitForm = function(){
+				cleanErrorParsley();
+				var sURL = /*[[@{/do/student/saveStudent/}]]*/ #;
+				$.post(sURL, $("#student-detail-form").serialize(), function(data) {
+					if(data.errorList!=null){
+						displayErrorParsley(data.errorList);
+					}else{
+						backToList();
+					}
+				});
+			};
+			
+			var enrollCourse = function() {
+				var sURL = /*[[@{/do/student/enrollCourse}]]*/ #;
+				$.post(sURL, $(".enroll-data").serialize(), function(data) {
+					if(data.errorList != null) {
+						displayErrorParsley(data.errorList);
+					} else {
+						backToList();
+					}
+				});
+			};
+	    	
+	    	if([[${mode}]] == 'creation') {
+	    		$('.edit-mode').hide();
+	    	}
+	    	
+	    	var backToList = function(){
+				returnToList('student-detail-container', 'student-list-container', true);
+			};
+	    	
+	    	$('.student-detail-btn-save-class').click(function(e){
+				e.preventDefault();
+				submitForm();
+			});
+			
+			$('.student-detail-btn-cancel-class').click(function(e){
+				e.preventDefault();
+				backToList();
+			});
+			
+			$('.student-nav-tab').click(function(e){
+				 $(this).tab('show');
+			});
+			
+			$('#student-detail-btn-enrollCourse').click(function(e){
+				e.preventDefault();
+				enrollCourse();
+			});
+			
+	    });
+	
+	/*]]>*/
+	</script>
+</body>
+</html>

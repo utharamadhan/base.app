@@ -149,6 +149,13 @@
 			                        </a>
 			                  	</li>
 							</ul>
+							<ul class="dropdown-menu">
+								<li id="researchMaintenance">
+									<a href="/Web/do/research/researchManagement/showList">
+			                        	<i class="fa fa-caret-right"></i> Research Management
+			                        </a>
+			                  	</li>
+							</ul>
 	                  	</li>
 	                  	<li id="research" class="dropdown">
 	                  		<a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -165,11 +172,6 @@
 	                  	<li id="student-db" class="dropdown">
 	                  		<a href="/Web/do/student/showList">
 	                      		<i class="fa fa-desktop"></i> Student Database
-	                    	</a>
-	                  	</li>
-	                  	<li id="research-management" class="dropdown">
-	                  		<a href="#">
-	                      		<i class="fa fa-desktop"></i> Research Management
 	                    	</a>
 	                  	</li>
 	                  	<li id="contact-us">
