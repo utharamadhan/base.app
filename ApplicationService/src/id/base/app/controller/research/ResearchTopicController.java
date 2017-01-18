@@ -53,10 +53,10 @@ public class ResearchTopicController extends SuperController<ResearchTopic>{
 		return validate(anObject);
 	}
 	
-	@RequestMapping(value="/findAllResearchTopicCodeAndName")
+	@RequestMapping(value="/findAllResearchTopicTitle")
 	@ResponseBody
-	public List<ResearchTopic> findAllResearchTopicCodeAndName() {
-		return researchTopicService.findAllResearchTopicCodeAndName();
+	public List<ResearchTopic> findAllResearchTopicTitle() {
+		return researchTopicService.findAllResearchTopicTitle();
 	}
 	
 }

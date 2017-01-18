@@ -18,7 +18,7 @@
 <body>
 	<div class="pageheader">
 		<div class="row col-md-12">
-			<h4><i class="fa fa-tachometer"></i> Research Editor / Research Maintenance List / Research Maintenance Detail
+			<h4><i class="fa fa-tachometer"></i> Research / Research Maintenance List / Research Maintenance Detail
 			<span></span></h4>
 		</div>
 	</div>
@@ -45,7 +45,7 @@
 							<label class="col-sm-2 control-label" th:text="'Topic'">Topic</label>
 							<div class="col-sm-9 form-input-container">
 								<select class="course-detail-topicSelect chosen-select form-control" th:field="*{researchTopic.pkResearchTopic}">
-									<option th:each="opt : ${researchTopicOptions}" th:value="${opt.pkResearchTopic}" th:text="${opt.name}">Name</option>
+									<option th:each="opt : ${researchTopicOptions}" th:value="${opt.pkResearchTopic}" th:text="${opt.title}">Name</option>
                            		</select>
                            	</div>
 						</div>

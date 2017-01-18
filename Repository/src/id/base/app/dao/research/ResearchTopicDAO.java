@@ -55,20 +55,18 @@ public class ResearchTopicDAO extends AbstractHibernateDAO<ResearchTopic, Long> 
 	}
 
 	@Override
-	public List<ResearchTopic> findAllResearchTopicCodeAndName() throws SystemException {
+	public List<ResearchTopic> findAllResearchTopicTitle() throws SystemException {
 		Criteria crit = getSession().createCriteria(domainClass);
 			crit.setProjection(Projections.projectionList().
 					add(Projections.property("pkResearchTopic")).
-					add(Projections.property("code")).
-					add(Projections.property("name")));
+					add(Projections.property("title")));
 			crit.setResultTransformer(new ResultTransformer() {
 				@Override
 				public Object transformTuple(Object[] tuple, String[] aliases) {
 					ResearchTopic rt = ResearchTopic.getInstance();
 					try {
 						BeanUtils.copyProperty(rt, "pkResearchTopic", tuple[0]);
-						BeanUtils.copyProperty(rt, "code", tuple[1]);
-						BeanUtils.copyProperty(rt, "name", tuple[2]);
+						BeanUtils.copyProperty(rt, "title", tuple[1]);
 					} catch (Exception e) {
 						LOGGER.error(e.getMessage(), e);
 					}

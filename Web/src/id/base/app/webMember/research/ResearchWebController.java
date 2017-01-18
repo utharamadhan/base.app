@@ -88,7 +88,7 @@ public class ResearchWebController extends BaseController<Research> {
 		return new SpecificRestCaller<ResearchTopic>(RestConstant.REST_SERVICE, RestConstant.RM_RESEARCH_TOPIC, ResearchTopic.class).executeGetList(new PathInterfaceRestCaller() {
 			@Override
 			public String getPath() {
-				return "/findAllResearchTopicCodeAndName";
+				return "/findAllResearchTopicTitle";
 			}
 			
 			@Override
