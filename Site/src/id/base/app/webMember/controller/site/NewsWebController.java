@@ -27,6 +27,7 @@ import id.base.app.rest.RestServiceConstant;
 import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
+import id.base.app.util.dao.SearchOrder.Sort;
 import id.base.app.valueobject.news.News;
 import id.base.app.valueobject.publication.DigitalBook;
 
@@ -52,6 +53,7 @@ public class NewsWebController {
 			filter.add(new SearchFilter(News.TITLE, Operator.LIKE, filterJson));
 		}
 		List<SearchOrder> order = new ArrayList<SearchOrder>();
+		order.add(new SearchOrder(News.PK_NEWS, Sort.DESC));
 		PagingWrapper<News> news = getRestCaller().findAllByFilter(startNo, offset, filter, order);
 		model.addAttribute("news", news);
 		return "/news/main";
@@ -70,6 +72,7 @@ public class NewsWebController {
 			filter.add(new SearchFilter(News.TITLE, Operator.LIKE, filterJson));
 		}
 		List<SearchOrder> order = new ArrayList<SearchOrder>();
+		order.add(new SearchOrder(News.PK_NEWS, Sort.DESC));
 		PagingWrapper<News> news = getRestCaller().findAllByFilter(startNo, offset, filter, order);
 		resultMap.put("news", news);
 		return resultMap;

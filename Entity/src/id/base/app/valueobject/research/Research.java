@@ -32,6 +32,7 @@ public class Research extends BaseEntity implements Serializable {
 	public static final String NAME 				= "name";
 	public static final String DESCRIPTION 			= "description";
 	public static final String STATUS				= "status";
+	public static final String RESEARCH_DATE		= "researchDate";
 	
 	public static Research getInstance() {
 		return new Research();

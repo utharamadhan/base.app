@@ -2503,7 +2503,7 @@ ul.channel-links li{
 .fc th:last-child {
     border-right: none!important
 }
-.fc-toolbar button {
+/* .fc-toolbar button {
     border: none;
     background: #c3cacd;
     text-align: center;
@@ -2513,7 +2513,7 @@ ul.channel-links li{
     width: 40px;
     display: inline-block;
     height: 40px;
-}
+} */
 .fc-toolbar button .fa {
     font-size: 30px;
     color: #fff;

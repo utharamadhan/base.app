@@ -57,4 +57,14 @@ public class EventService implements IEventService {
 		return eventDAO.findAll(filter, order);
 	}
 
+	@Override
+	public List<Event> findArchived(List<SearchFilter> filter, List<SearchOrder> order) throws SystemException {
+		return eventDAO.findArchived(filter, order);
+	}
+
+	@Override
+	public List<Event> findUpcoming(List<SearchFilter> filter, List<SearchOrder> order) throws SystemException {
+		return eventDAO.findUpcoming(filter, order);
+	}
+
 }
