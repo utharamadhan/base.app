@@ -56,13 +56,22 @@
 	    	initDatePicker("datepicker", "dd/mm/yyyy");
 	    	
 	    	var submitForm = function(){
-				cleanErrorParsley();
+	    		cleanErrorParsley();
+	    		var hiddenPK = $('#hidden-maintenancePK').val();
 				var sURL = /*[[@{/do/student/saveStudent/}]]*/ #;
 				$.post(sURL, $("#student-detail-form").serialize(), function(data) {
 					if(data.errorList!=null){
 						displayErrorParsley(data.errorList);
 					}else{
-						backToList();
+						if(data.maintenancePK) {
+							if(hiddenPK) {
+								bootBoxSuccessSave("Student Successfully Updated", showDetail(data.maintenancePK));
+							} else {
+								bootBoxSuccessSave("Student Successfully Created", showDetail(data.maintenancePK));	
+							}
+						} else {
+							backToList();	
+						}
 					}
 				});
 			};

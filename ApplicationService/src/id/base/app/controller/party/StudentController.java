@@ -15,6 +15,7 @@ import id.base.app.util.DateTimeFunction;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.validation.InvalidRequestException;
+import id.base.app.valueobject.UpdateEntity;
 import id.base.app.valueobject.course.StudentCourse;
 import id.base.app.valueobject.party.Student;
 import id.base.app.valueobject.party.VWStudentList;
@@ -27,6 +28,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -53,6 +55,17 @@ public class StudentController extends SuperController<Student> {
 	@Override
 	public MaintenanceService<Student> getMaintenanceService() {
 		return studentService;
+	}
+	
+	@RequestMapping(method=RequestMethod.PUT, value="/updateReturn")
+	@ResponseBody
+	@ResponseStatus( HttpStatus.OK )
+	public Long updateReturn(@RequestBody @Validated(UpdateEntity.class) Student student, BindingResult bindingResult) throws SystemException {
+		if (bindingResult.hasErrors()) {
+            throw new InvalidRequestException("Invalid validation", bindingResult);
+        }
+	    getMaintenanceService().saveOrUpdate(preUpdate(student));
+	    return student.getPkStudent();
 	}
 	
 	@Override

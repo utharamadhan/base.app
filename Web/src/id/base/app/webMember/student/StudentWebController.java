@@ -155,7 +155,8 @@ public class StudentWebController extends BaseController<Student> {
 		Map<String, Object> resultMap = new HashMap<>();
 		List<ErrorHolder> errors = new ArrayList<>();
 		try{
-			errors = new SpecificRestCaller<Student>(RestConstant.REST_SERVICE, RestServiceConstant.STUDENT_SERVICE).performPut("/update", anObject);
+			Long pkStudent = (Long) new SpecificRestCaller<Student>(RestConstant.REST_SERVICE, RestServiceConstant.STUDENT_SERVICE).performPutReturn("/updateReturn", anObject, Long.class);
+			resultMap.put("maintenancePK", pkStudent);
 			if(errors != null && errors.size() > 0){
 				resultMap.put(SystemConstant.ERROR_LIST, errors);
 			}
