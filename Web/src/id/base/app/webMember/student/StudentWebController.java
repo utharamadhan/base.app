@@ -18,21 +18,25 @@ import id.base.app.valueobject.AppUser;
 import id.base.app.valueobject.course.Course;
 import id.base.app.valueobject.course.StudentCourse;
 import id.base.app.valueobject.party.Student;
+import id.base.app.valueobject.party.VWStudentList;
 import id.base.app.webMember.DataTableCriterias;
 import id.base.app.webMember.controller.BaseController;
 import id.base.app.webMember.rest.LookupRestCaller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.poi.ss.formula.functions.T;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -65,19 +69,16 @@ public class StudentWebController extends BaseController<Student> {
 		List<SearchFilter> filters = new ArrayList<>();
 		setDefaultFilter(request, filters);
 		if(StringFunction.isNotEmpty(columns.getCustomFilters().get("filterName"))){
-			filters.add(new SearchFilter(Student.NAME, Operator.LIKE, columns.getCustomFilters().get("filterName")));
+			filters.add(new SearchFilter(VWStudentList.NAME, Operator.LIKE, columns.getCustomFilters().get("filterName")));
 		}
 		if(StringFunction.isNotEmpty(columns.getCustomFilters().get("filterPhoneNumber"))){
-			filters.add(new SearchFilter(Student.PHONE_NUMBER, Operator.LIKE, columns.getCustomFilters().get("filterPhoneNumber")));
+			filters.add(new SearchFilter(VWStudentList.PHONE_NUMBER, Operator.LIKE, columns.getCustomFilters().get("filterPhoneNumber")));
 		}
 		if(StringFunction.isNotEmpty(columns.getCustomFilters().get("filterEmail"))){
-			filters.add(new SearchFilter(Student.EMAIL, Operator.LIKE, columns.getCustomFilters().get("filterEmail")));
+			filters.add(new SearchFilter(VWStudentList.EMAIL, Operator.LIKE, columns.getCustomFilters().get("filterEmail")));
 		}
 		if(StringFunction.isNotEmpty(columns.getCustomFilters().get("filterStatus"))){
-			filters.add(new SearchFilter(Student.STUDENT_STATUS_LOOKUP_PK, Operator.LIKE, columns.getCustomFilters().get("filterStatus")));
-		}
-		if(StringFunction.isNotEmpty(columns.getCustomFilters().get("filterCurrentLearning"))){
-			filters.add(new SearchFilter(Student.CURRENT_LEARNING, Operator.LIKE, columns.getCustomFilters().get("filterCurrentLearning")));
+			filters.add(new SearchFilter(VWStudentList.STUDENT_STATUS_LOOKUP_PK, Operator.EQUALS, columns.getCustomFilters().get("filterStatus"), Long.class));
 		}
 		return filters;
 	}
@@ -155,12 +156,13 @@ public class StudentWebController extends BaseController<Student> {
 		Map<String, Object> resultMap = new HashMap<>();
 		List<ErrorHolder> errors = new ArrayList<>();
 		try{
-			errors = new SpecificRestCaller<Student>(RestConstant.REST_SERVICE, RestServiceConstant.STUDENT_SERVICE).performPut("/update", anObject);
+			Long pkStudent = (Long) new SpecificRestCaller<Student>(RestConstant.REST_SERVICE, RestServiceConstant.STUDENT_SERVICE).performPutReturn("/updateReturn", anObject, Long.class);
+			resultMap.put("maintenancePK", pkStudent);
+		}catch(SystemException e){
+			errors = e.getErrors();
 			if(errors != null && errors.size() > 0){
 				resultMap.put(SystemConstant.ERROR_LIST, errors);
 			}
-		}catch(Exception e){
-			LOGGER.error(e.getMessage(), e);
 		}
 		return resultMap;
 	}
@@ -200,6 +202,35 @@ public class StudentWebController extends BaseController<Student> {
 	@Override
 	protected String getListPath() {
 		return PATH_LIST;
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/studentList")
+	@ResponseBody
+	public PagingWrapper<VWStudentList> studentList(final ModelMap model, @ModelAttribute DataTableCriterias columns, @RequestParam Map<String,String> paramWrapper,
+			HttpServletRequest request){
+		boolean emptyList = false;
+		if(paramWrapper.containsKey("emptyList")){
+			if(paramWrapper.get("emptyList")!=null){
+				if("true".equalsIgnoreCase(paramWrapper.get("emptyList"))){
+					emptyList = true; 
+				}
+			}
+		}
+		PagingWrapper<VWStudentList> pw = new PagingWrapper<>();
+		if(!emptyList){
+			pw = getStudentListPagingWrapper(request, paramWrapper, columns);
+		}
+		return pw;
+	}
+	
+	public PagingWrapper<VWStudentList> getStudentListPagingWrapper(HttpServletRequest request, Map<String,String> paramWrapper, DataTableCriterias columns){
+		PagingWrapper<VWStudentList> pw = new PagingWrapper<>();
+		int[] soff = getStartAndOffset(paramWrapper);
+		SpecificRestCaller<VWStudentList> contractInternalRestCaller = new SpecificRestCaller<VWStudentList>(RestConstant.REST_SERVICE, RestConstant.RM_STUDENT, VWStudentList.class);
+		pw = contractInternalRestCaller.findAllByFilter("/getListByFilter", soff[0], soff[1], convertForFilter(request, paramWrapper, columns), getSearchOrder());
+		filters.clear();
+		orders.clear();
+		return pw;
 	}
 
 }

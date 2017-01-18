@@ -1,5 +1,18 @@
 package id.base.app.webMember;
 
+import id.base.app.rest.QueryParamInterfaceRestCaller;
+import id.base.app.rest.RestCaller;
+import id.base.app.rest.RestConstant;
+import id.base.app.rest.RestServiceConstant;
+import id.base.app.rest.SpecificRestCaller;
+import id.base.app.util.dao.SearchFilter;
+import id.base.app.util.dao.SearchOrder;
+import id.base.app.util.dao.SearchOrder.Sort;
+import id.base.app.valueobject.aboutUs.CommonPost;
+import id.base.app.valueobject.aboutUs.Engagement;
+import id.base.app.valueobject.aboutUs.ProgramPost;
+import id.base.app.valueobject.publication.DigitalBook;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,22 +33,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-
-import id.base.app.rest.PathInterfaceRestCaller;
-import id.base.app.rest.QueryParamInterfaceRestCaller;
-import id.base.app.rest.RestCaller;
-import id.base.app.rest.RestConstant;
-import id.base.app.rest.RestServiceConstant;
-import id.base.app.rest.SpecificInterfaceRestCaller;
-import id.base.app.rest.SpecificRestCaller;
-import id.base.app.util.dao.SearchFilter;
-import id.base.app.util.dao.SearchOrder;
-import id.base.app.util.dao.SearchOrder.Sort;
-import id.base.app.valueobject.aboutUs.CommonPost;
-import id.base.app.valueobject.aboutUs.Engagement;
-import id.base.app.valueobject.aboutUs.ProgramPost;
-import id.base.app.valueobject.publication.DigitalBook;
-import id.base.app.valueobject.publication.ResearchReport;
 
 @Component
 public class ShortLifeSessionFilter2 implements Filter{
@@ -114,14 +111,6 @@ public class ShortLifeSessionFilter2 implements Filter{
 			}
 		});
 		request.setAttribute("programs", programs);
-		
-		//research
-		RestCaller<ResearchReport> restCallResearch = new RestCaller<ResearchReport>(RestConstant.REST_SERVICE, RestServiceConstant.RESEARCH_REPORT_SERVICE);
-		List<SearchFilter> filterResearch = new ArrayList<SearchFilter>();
-		List<SearchOrder> orderResearch = new ArrayList<SearchOrder>();
-		orderResearch.add(new SearchOrder(ResearchReport.PK_RESEARCH_REPORT, Sort.ASC));
-		List<ResearchReport> researchs = restCallResearch.findAll(filterResearch, orderResearch); 
-		request.setAttribute("researchs", researchs);
 		
 		//ebook
 		SpecificRestCaller<DigitalBook> rcEbook = new SpecificRestCaller<DigitalBook>(RestConstant.REST_SERVICE, RestServiceConstant.DIGITAL_BOOK_SERVICE);

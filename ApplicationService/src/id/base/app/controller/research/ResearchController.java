@@ -29,8 +29,8 @@ public class ResearchController extends SuperController<Research>{
 	@Override
 	public Research validate(Research anObject) throws SystemException {
 		List<ErrorHolder> errorList = new ArrayList<>();
-		if(StringFunction.isEmpty(anObject.getCode())) {
-			errorList.add(new ErrorHolder(Research.CODE, messageSource.getMessage("error.mandatory", new String[]{"code"}, Locale.ENGLISH)));
+		if(StringFunction.isEmpty(anObject.getTitle())) {
+			errorList.add(new ErrorHolder(Research.TITLE, messageSource.getMessage("error.mandatory", new String[]{"title"}, Locale.ENGLISH)));
 		}
 		if(errorList.size() > 0) {
 			throw new SystemException(errorList);

@@ -948,6 +948,7 @@ function initDatePicker(datePickerClass, dateFormat) {
 	$('.'+datePickerClass).datepicker({
 	    autoclose: true,
 	    todayHighlight: true,
+	    changeMonth: true,
 	    changeYear: true,
 		format: dateFormat,
 		yearRange: "1900:2100",
@@ -1005,7 +1006,8 @@ function initTextEditor(editorArea, editorParent, uploadURL) {
 			var hiddenInput = $("#"+tinyMCE.activeEditor.id).parent().find('.hidden-file-browser');
     		hiddenInput.attr("target-id", field_name);
 			hiddenInput.click();
-        }
+        },
+        height:"200"
   	});
 }
 

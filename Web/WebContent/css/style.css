@@ -38,6 +38,10 @@ a:hover, a:focus{
 	color:#fafafa!important;
 }
 
+.ui-datepicker-month {
+	color : #333333 !important;
+}
+
 .ui-datepicker-year {
 	color : #333333 !important;
 }

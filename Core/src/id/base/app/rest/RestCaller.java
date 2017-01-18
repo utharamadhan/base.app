@@ -238,6 +238,42 @@ public class RestCaller<T> extends RestBase<T>{
 		return resolveList(responseEntity);
 	}
 	
+	public PagingWrapper<T> findAllByFilter(String listURL, int startNo, int offset,List<SearchFilter> filter,List<SearchOrder> order) throws SystemException {
+		ResponseEntity<PagingWrapper> responseEntity = null;
+		URI url;
+		try {
+			url = new URI(restUrl+baseUrl+listURL);
+			String filterJson = "";
+			try {
+				if(filter!=null){
+					filterJson = mapper.writeValueAsString(filter);
+				}
+			} catch (JsonProcessingException e) {
+				e.printStackTrace();
+				LOGGER.error("findAllByFilter error build filter{}", e);
+			}
+			String orderJson = "";
+			try {
+				if(order!=null){
+					orderJson = mapper.writeValueAsString(order);
+				}
+			} catch (JsonProcessingException e) {
+				e.printStackTrace();
+				LOGGER.error("findAllByFilter error build order{}", e);
+			}
+			UriComponentsBuilder builder = UriComponentsBuilder.fromUri(url).queryParam("startNo", startNo).queryParam("offset", offset).queryParam("filter", filterJson).queryParam("order", orderJson);
+			headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+
+			HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
+
+			responseEntity = rt.exchange(builder.build().toUri(), HttpMethod.GET, entity, PagingWrapper.class);
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+			LOGGER.error("findAllByFilter rest error {}", e);
+		}
+		return resolvePagingWrapper(responseEntity);
+	}
+	
 	public PagingWrapper<T> findAllByFilter(int startNo, int offset,List<SearchFilter> filter,List<SearchOrder> order) throws SystemException {
 		ResponseEntity<PagingWrapper> responseEntity = null;
 		URI url;

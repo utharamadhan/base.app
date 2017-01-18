@@ -32,11 +32,6 @@
 			                        	<i class="fa fa-caret-right"></i> Reference
 			                        </a>
 			                  	</li>
-			                  	<li id="frontEndMenu">
-									<a href="#">
-			                        	<i class="fa fa-caret-right"></i> Front End Menu
-			                        </a>
-			                  	</li>
 							</ul>
 	                  	</li>
 	                  	<li id="frontEndDisplay" class="dropdown">
@@ -88,29 +83,22 @@
                      			<i class="fa fa-bar-chart"></i> Publication <b class="fa fa-plus dropdown-plus"></b>
                    			</a>
 							<ul class="dropdown-menu">
-								<li id="researchReport">
-									<a href="/Web/do/publication/researchReport/showList">
-			                        	<i class="fa fa-caret-right"></i> Research Report
-			                        </a>
-			                  	</li>
-							</ul>
-							<ul class="dropdown-menu">
 								<li id="digitalBook">
 									<a href="/Web/do/publication/digitalBook/showList">
 			                        	<i class="fa fa-caret-right"></i> eBook
 			                        </a>
 			                  	</li>
+			                  	<li id="dashboard">
+			                    	<a href="/Web/do/news/newsMaintenance/showList">
+			                      		<i class="fa fa-caret-right"></i> News
+			                    	</a>
+			                  	</li>
+			                  	<li id="dashboard">
+			                    	<a href="/Web/do/event/eventMaintenance/showList">
+			                      		<i class="fa fa-caret-right"></i> Event
+			                    	</a>
+			                  	</li>
 							</ul>
-	                  	</li>
-	                  	<li id="dashboard">
-	                    	<a href="/Web/do/news/newsMaintenance/showList">
-	                      		<i class="fa fa-desktop"></i> News
-	                    	</a>
-	                  	</li>
-	                  	<li id="dashboard">
-	                    	<a href="/Web/do/event/eventMaintenance/showList">
-	                      		<i class="fa fa-desktop"></i> Event
-	                    	</a>
 	                  	</li>
 	                  	<li id="course" class="dropdown">
 	                  		<a href="#" class="dropdown-toggle" data-toggle="dropdown">
