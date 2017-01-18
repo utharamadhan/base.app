@@ -28,7 +28,6 @@ import id.base.app.valueobject.event.Event;
 import id.base.app.valueobject.news.News;
 import id.base.app.valueobject.party.Party;
 import id.base.app.valueobject.publication.DigitalBook;
-import id.base.app.valueobject.publication.ResearchReport;
 import id.base.app.valueobject.research.Research;
 import id.base.app.valueobject.research.ResearchTopic;
 
@@ -190,8 +189,6 @@ public class ParameterLoader extends ContextLoader implements ServletContextList
 		RestCaller.BASE_CLASS.put(RestServiceConstant.TUTOR_SERVICE, Tutor.class);
 		
 		// publication
-		RestCaller.BASE_URL.put(RestServiceConstant.RESEARCH_REPORT_SERVICE, RestConstant.RM_RESEARCH_REPORT);
-		RestCaller.BASE_CLASS.put(RestServiceConstant.RESEARCH_REPORT_SERVICE, ResearchReport.class);
 		RestCaller.BASE_URL.put(RestServiceConstant.DIGITAL_BOOK_SERVICE, RestConstant.RM_DIGITAL_BOOK);
 		RestCaller.BASE_CLASS.put(RestServiceConstant.DIGITAL_BOOK_SERVICE, DigitalBook.class);
 		
