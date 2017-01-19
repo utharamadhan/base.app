@@ -27,7 +27,9 @@
 	    <script async="" charset="utf-8" src="<%=request.getContextPath()%>/images/saved_resource" type="text/javascript"></script>
 		<script type="text/javascript" async="" src="<%=request.getContextPath()%>/js/log.js"></script>
 		<script async="" src="<%=request.getContextPath()%>/js/analytics.js"></script>
+		<script src="<%=request.getContextPath()%>/js/moment.min.js"></script><!-- jQuery master -->
 	    <script src="<%=request.getContextPath()%>/js/jquery.min.js"></script><!-- jQuery master -->
+	    <script src="<%=request.getContextPath()%>/js/fullcalendar.min.js"></script><!-- jQuery master -->
 	    <script src="<%=request.getContextPath()%>/js/bootstrap.min.js"></script><!-- bootstrap -->
 		<script src="<%=request.getContextPath()%>/js/jquery.flexslider.js"></script><!-- flexslider -->
 	     <script src="<%=request.getContextPath()%>/js/jquery.selectbox-0.1.3.min.js"></script><!-- select box -->

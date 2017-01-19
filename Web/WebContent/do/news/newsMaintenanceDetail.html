@@ -43,7 +43,7 @@
 						<input id="news-detail-maintenancePk" type="hidden" th:field="*{pkNews}"/>
 						<div class="form-group">
 							<label class="col-sm-2 control-label" th:text="'Title'">Title</label>
-							<div class="col-sm-10 form-input-container">
+							<div class="col-sm-9 form-input-container">
 								<input type="text" class="form-control" placeholder="Title" name="srch-term" id="input-text-title" th:field="*{title}"/>
 							</div>
 						</div>
@@ -68,7 +68,7 @@
 						</div>
 						<div class="form-group">
 							<label class="col-sm-2 control-label" th:text="'Status'">Status</label>
-							<div class="col-sm-10 form-input-container">
+							<div class="col-sm-9 form-input-container">
 								<select class="advisory-detail-groupAdvisorySelect chosen-select form-control" th:field="*{newsStatusLookup.pkLookup}">
 									<option th:each="opt : ${newsStatusOptions}" th:value="${opt.pkLookup}" th:text="${opt.name}">Name</option>
                            		</select>
@@ -76,21 +76,21 @@
 						</div>
 						<div class="form-group">
                           	<label class="col-sm-2 control-label">Publishing Date</label>
-                          	<div class="col-sm-10">
+                          	<div class="col-sm-9">
                             	<input type='text' class="datepicker input-date form-control" th:name="publishDate" th:value="${detail.publishDate!=null?#dates.format(detail.publishDate, T(id.base.app.SystemConstant).SYSTEM_DATE_MASK_2):''}" />
                            </div>
                        	</div>
 						<div class="form-group">
 							<label class="col-sm-2 control-label" th:text="'Content'">Content</label>
 							<input id="tinyMCE-hidden" name="content" type="hidden"/>
-							<div id="tinyMCE-parent" class="col-sm-10">					
+							<div id="tinyMCE-parent" class="col-sm-9">					
 								<textarea id="tinyMCE-area" th:text="*{content}">
 								</textarea>
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-2 control-label" th:text="'Excerpt'">Excerpt</label>
-							<div class="col-sm-10">							
+							<div class="col-sm-9">							
 								<textarea th:field="*{excerpt}" class="form-control"></textarea>
 							</div>
 						</div>

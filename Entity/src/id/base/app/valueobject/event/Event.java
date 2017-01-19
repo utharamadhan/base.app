@@ -1,8 +1,5 @@
 package id.base.app.valueobject.event;
 
-import id.base.app.valueobject.BaseEntity;
-import id.base.app.valueobject.Lookup;
-
 import java.io.Serializable;
 import java.util.Date;
 
@@ -15,6 +12,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import id.base.app.valueobject.BaseEntity;
+import id.base.app.valueobject.Lookup;
 
 @Entity
 @Table(name = "EVENT")
@@ -40,6 +42,7 @@ public class Event extends BaseEntity implements Serializable {
 	@Column(name = "PK_EVENT", unique = true ,nullable = false)
 	private Long pkEvent;
 	
+	@JsonProperty(value="title")
 	@Column(name="TITLE")
 	private String title;
 	
@@ -50,6 +53,7 @@ public class Event extends BaseEntity implements Serializable {
 	@Column(name="DESCRIPTION")
 	private String description;
 	
+	@JsonProperty(value="start")
 	@Column(name="EVENT_DATE")
 	private Date eventDate;
 	

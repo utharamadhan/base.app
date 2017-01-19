@@ -37,7 +37,7 @@ h4 {
     margin: 0;
 }
 h1 {
-    font-size: 26px;
+    font-size: 24px;
     text-transform: uppercase;
 }
 h2 {
@@ -87,7 +87,7 @@ iframe {
     height: auto;
     -webkit-box-shadow: 0 3px 3px -1px rgba(0, 0, 0, .15);
     box-shadow: 0 2px 2px -1px rgba(0, 0, 0, .15);
-    background-color: rgba(255, 255, 255, 0.25);
+    background-color: rgba(255, 255, 255, 0.9);
 }
 .navbar-default {
     background: none;
@@ -339,7 +339,7 @@ h4.modal-title{
     float: left;
     height: auto;
     position: relative;
-    background: #222c34;
+    background: white;
 }
 .banner .slides {
     position: relative;
@@ -468,7 +468,7 @@ h4.modal-title{
     width: 100%;
     float: left;
     height: auto;
-	padding: 35px 0;
+	padding: 0px 0 35px 0;
     background: #ecf3f7;
 	background-image: url("../images/background-hfc.png");
 	background-attachment: fixed;
@@ -1661,7 +1661,7 @@ ul.channel-links li{
     width: 100%;
     float: left;
     height: auto;
-    bottom: 30px;
+    bottom: 280px;
     position: absolute;
     background: rgba(0, 0, 0, 0.6);
 }
@@ -2452,7 +2452,7 @@ ul.channel-links li{
 .full_banner {
     width: 100%;
     float: left;
-    height: auto;
+    height: 80px;
     position: relative;
 }
 .full_banner img {
@@ -2503,7 +2503,7 @@ ul.channel-links li{
 .fc th:last-child {
     border-right: none!important
 }
-.fc-toolbar button {
+/* .fc-toolbar button {
     border: none;
     background: #c3cacd;
     text-align: center;
@@ -2513,7 +2513,7 @@ ul.channel-links li{
     width: 40px;
     display: inline-block;
     height: 40px;
-}
+} */
 .fc-toolbar button .fa {
     font-size: 30px;
     color: #fff;
