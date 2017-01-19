@@ -4,12 +4,15 @@ import id.base.app.valueobject.BaseEntity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -79,8 +82,26 @@ public class Research extends BaseEntity implements Serializable {
 	@Column(name="STATUS")
 	private Integer status;
 	
-	@Column(name="FILE_URL")
-	private String fileURL;
+	@OneToMany(mappedBy="research", cascade=CascadeType.DETACH)
+	private List<ResearchResearchTopic> researchTopics;
+	
+	@OneToMany(mappedBy="research", cascade=CascadeType.DETACH)
+	private List<ResearchResearcher> researchers;
+	
+	@OneToMany(mappedBy="research", cascade=CascadeType.DETACH)
+	private List<ResearchTimePlanning> timePlannings;
+	
+	@OneToMany(mappedBy="research", cascade=CascadeType.DETACH)
+	private List<ResearchBudgeting> budgetings;
+	
+	@OneToMany(mappedBy="research", cascade=CascadeType.DETACH)
+	private List<ResearchGoalTarget> goalTarget;
+	
+	@OneToMany(mappedBy="research", cascade=CascadeType.DETACH)
+	private List<ResearchMemo> memos;
+	
+	@OneToMany(mappedBy="research", cascade=CascadeType.DETACH)
+	private List<ResearchFile> files;
 
 	public Long getPkResearch() {
 		return pkResearch;
@@ -177,11 +198,60 @@ public class Research extends BaseEntity implements Serializable {
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
-	
-	public String getFileURL() {
-		return fileURL;
+
+	public List<ResearchResearchTopic> getResearchTopics() {
+		return researchTopics;
 	}
-	public void setFileURL(String fileURL) {
-		this.fileURL = fileURL;
+
+	public void setResearchTopics(List<ResearchResearchTopic> researchTopics) {
+		this.researchTopics = researchTopics;
+	}
+
+	public List<ResearchResearcher> getResearchers() {
+		return researchers;
+	}
+
+	public void setResearchers(List<ResearchResearcher> researchers) {
+		this.researchers = researchers;
+	}
+
+	public List<ResearchTimePlanning> getTimePlannings() {
+		return timePlannings;
+	}
+
+	public void setTimePlannings(List<ResearchTimePlanning> timePlannings) {
+		this.timePlannings = timePlannings;
+	}
+
+	public List<ResearchBudgeting> getBudgetings() {
+		return budgetings;
+	}
+
+	public void setBudgetings(List<ResearchBudgeting> budgetings) {
+		this.budgetings = budgetings;
+	}
+
+	public List<ResearchGoalTarget> getGoalTarget() {
+		return goalTarget;
+	}
+
+	public void setGoalTarget(List<ResearchGoalTarget> goalTarget) {
+		this.goalTarget = goalTarget;
+	}
+
+	public List<ResearchMemo> getMemos() {
+		return memos;
+	}
+
+	public void setMemos(List<ResearchMemo> memos) {
+		this.memos = memos;
+	}
+
+	public List<ResearchFile> getFiles() {
+		return files;
+	}
+
+	public void setFiles(List<ResearchFile> files) {
+		this.files = files;
 	}
 }

@@ -25,13 +25,11 @@ import id.base.app.webMember.rest.LookupRestCaller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.poi.ss.formula.functions.T;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -79,6 +77,18 @@ public class StudentWebController extends BaseController<Student> {
 		}
 		if(StringFunction.isNotEmpty(columns.getCustomFilters().get("filterStatus"))){
 			filters.add(new SearchFilter(VWStudentList.STUDENT_STATUS_LOOKUP_PK, Operator.EQUALS, columns.getCustomFilters().get("filterStatus"), Long.class));
+		}
+		if(StringFunction.isNotEmpty(columns.getCustomFilters().get("filterCurrentLearning"))) {
+			filters.add(new SearchFilter(VWStudentList.CURRENT_LEARNING, Operator.LIKE, "%" + columns.getCustomFilters().get("filterCurrentLearning") + "%"));
+		}
+		if(StringFunction.isNotEmpty(columns.getCustomFilters().get("filterPassedLearning"))) {
+			filters.add(new SearchFilter(VWStudentList.CURRENT_LEARNING, Operator.LIKE, "%" + columns.getCustomFilters().get("filterPassedLearning") + "%"));
+		}
+		if(StringFunction.isNotEmpty(columns.getCustomFilters().get("filterEnrollDateFrom"))) {
+			filters.add(new SearchFilter(VWStudentList.ENROLL_DATE, Operator.EQUALS_OR_GREATER_THAN, columns.getCustomFilters().get("filterEnrollDateFrom")));
+		}
+		if(StringFunction.isNotEmpty(columns.getCustomFilters().get("filterEnrollDateTo"))) {
+			filters.add(new SearchFilter(VWStudentList.ENROLL_DATE, Operator.EQUALS_OR_LESS_THAN, columns.getCustomFilters().get("filterEnrollDateTo")));
 		}
 		return filters;
 	}

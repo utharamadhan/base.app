@@ -147,6 +147,7 @@
 									</li>
 								  </ul>
 								</li>
+								<li><a href="<%=request.getContextPath()%>/page/contact">Kontak Kami</a></li>
 								<li class="btn-signup" style="display:none"><a href="#" data-toggle="modal" data-target="#sign-in-modal">Sign In</a></li>
 							  </ul>
 							</div><!-- /.navbar-collapse -->

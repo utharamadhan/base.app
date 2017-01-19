@@ -18,7 +18,6 @@ import id.base.app.util.dao.SearchOrder;
 import id.base.app.validation.InvalidRequestException;
 import id.base.app.valueobject.UpdateEntity;
 import id.base.app.valueobject.course.StudentCourse;
-import id.base.app.valueobject.news.News;
 import id.base.app.valueobject.party.Student;
 import id.base.app.valueobject.party.VWStudentList;
 
@@ -176,7 +175,7 @@ public class StudentController extends SuperController<Student> {
 		try {
 			List<SearchFilter> filter = new ArrayList<SearchFilter>();
 			if(StringUtils.isNotEmpty(filterJson)){
-				filter = mapper.readValue(filterJson, new TypeReference<List<SearchFilter>>(){});
+				filter = prepareFilter((List<SearchFilter>)mapper.readValue(filterJson, new TypeReference<List<SearchFilter>>(){}));
 			}
 			List<SearchOrder> order = new ArrayList<SearchOrder>();
 			if(StringUtils.isNotEmpty(orderJson)){
@@ -190,6 +189,17 @@ public class StudentController extends SuperController<Student> {
 			LOGGER.error("error finding your data",e);
 			throw new SystemException(new ErrorHolder("error finding your data"));
 		}
+	}
+	
+	public List<SearchFilter> prepareFilter(List<SearchFilter> filter) {
+		if(filter != null) {
+			for(SearchFilter f : filter) {
+				if(f.getFieldName().equals(VWStudentList.ENROLL_DATE) && f.getValue() != null) {
+					f.setValue(DateTimeFunction.string2Date(f.getValue().toString(), SystemConstant.DATABASE_DATE_FORMAT_STD));
+				}
+			}
+		}
+		return filter;
 	}
 	
 	public StudentCourse preEnrollCourse(StudentCourse anObject) throws SystemException{

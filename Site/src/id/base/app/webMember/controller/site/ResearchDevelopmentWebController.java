@@ -103,7 +103,7 @@ public class ResearchDevelopmentWebController {
 		try {
 			Research detail = Research.getInstance();
 			detail = getRestCaller().findById(id);
-			String fileUrl = detail.getFileURL();
+			/*String fileUrl = detail.getFileURL();
 			String newFileUrl = fileUrl.replace("\\", "/");
 			String[] fileNames = newFileUrl.split("/");
 			String fileName = fileNames[fileNames.length-1];
@@ -126,7 +126,7 @@ public class ResearchDevelopmentWebController {
 	 
 	            outputStream.close();
 	            inputStream.close();
-	        }
+	        }*/
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());
 		}
