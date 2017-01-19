@@ -24,7 +24,7 @@
 				<ul class="menuLink clearfix">
 				  <li><a href="<%=request.getContextPath()%>/page/news">Latest News</a></li>
 				  <li><a href="<%=request.getContextPath()%>/page/events/upcoming">Upcoming Events</a></li>
-				  <li><a href="<%=request.getContextPath()%>/page/contact">Contact Us</a></li>
+				  <li><a href="<%=request.getContextPath()%>/page/contact?type=CC">Contact Us</a></li>
 				</ul>
 			  </div><!-- col-sm-3 col-xs-12 -->
 			  <div class="col-sm-3 col-xs-12 borderLeft clearfix">

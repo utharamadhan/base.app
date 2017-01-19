@@ -78,6 +78,9 @@ public class Research extends BaseEntity implements Serializable {
 	
 	@Column(name="STATUS")
 	private Integer status;
+	
+	@Column(name="FILE_URL")
+	private String fileURL;
 
 	public Long getPkResearch() {
 		return pkResearch;
@@ -173,5 +176,12 @@ public class Research extends BaseEntity implements Serializable {
 
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+	
+	public String getFileURL() {
+		return fileURL;
+	}
+	public void setFileURL(String fileURL) {
+		this.fileURL = fileURL;
 	}
 }

@@ -163,7 +163,7 @@
 	                    	</a>
 	                  	</li>
 	                  	<li id="contact-us">
-	                    	<a href="#">
+	                    	<a href="/Web/do/contact/showList">
 	                      		<i class="fa fa-desktop"></i> Contact Us
 	                    	</a>
 	                  	</li>
