@@ -2,6 +2,17 @@ package id.base.app;
 
 
 
+import id.base.app.dao.transform.DynamicResultTransformer;
+import id.base.app.exception.ErrorHolder;
+import id.base.app.exception.SystemException;
+import id.base.app.paging.PagingUtil;
+import id.base.app.paging.PagingWrapper;
+import id.base.app.util.ReflectionFunction;
+import id.base.app.util.StringFunction;
+import id.base.app.util.dao.SearchAlias;
+import id.base.app.util.dao.SearchFilter;
+import id.base.app.util.dao.SearchOrder;
+
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.sql.BatchUpdateException;
@@ -37,16 +48,6 @@ import org.hibernate.type.StringType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import id.base.app.dao.transform.DynamicResultTransformer;
-import id.base.app.exception.ErrorHolder;
-import id.base.app.exception.SystemException;
-import id.base.app.paging.PagingUtil;
-import id.base.app.paging.PagingWrapper;
-import id.base.app.util.ReflectionFunction;
-import id.base.app.util.StringFunction;
-import id.base.app.util.dao.SearchAlias;
-import id.base.app.util.dao.SearchFilter;
-import id.base.app.util.dao.SearchOrder;
 import softtech.hong.hce.model.PropertyValue;
 import softtech.hong.hce.type.RestrictionType;
 import softtech.hong.hce.utils.QueryUtils;
@@ -518,6 +519,8 @@ public class AbstractHibernateDAO<T,Y extends Serializable> {
 				org.hibernate.type.Type[] types = new org.hibernate.type.Type[values.length];
 				Arrays.fill(types, StringType.INSTANCE);
 				return Restrictions.sqlRestriction( searchFilter.getFieldName(), values, types);
+			case LIKE_COLUMN : 
+				return Restrictions.sqlRestriction(searchFilter.getFieldName() + " like '%' || " + searchFilter.getValue() + " || '%'");
 			case  SIMILAR_TO :
 				  return Restrictions.sqlRestriction("{alias}." + ReflectionFunction.getColumnName(domainClass, searchFilter.getFieldName()) + " similar to ? ", searchFilter.getValue(), StringType.INSTANCE);
 		    default :

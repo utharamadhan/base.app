@@ -89,3 +89,6 @@
 
 -- 2017-Jan-19
 \i DDL/VW_STUDENT_LIST.sql;
+
+-- 2017-Jan-20
+\i DDL/VW_STUDENT_LIST_20170119.sql;

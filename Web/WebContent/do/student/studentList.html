@@ -78,7 +78,7 @@
                    		</select>
                     </div>
                 </div>
-                <!-- <div class="row">
+                <div class="row">
                     <div class="col-sm-4" style="padding-bottom: 10px;">
                      	<select id="filter-currentLearning" th:attr="customFilterKey='filterCurrentLearning'" class="filter chosen-select form-control modal-student-filter-item">
 							<option value="" th:text="'[Select Current Learning]'"></option>
@@ -99,7 +99,7 @@
                     <div class="col-sm-6" style="padding-bottom: 10px;">
                     	<input type='text' id="filter-enrollDateTo" placeholder="Enroll Date To" th:attr="customFilterKey='filterEnrollDateTo'" class="datepicker input-date form-control modal-student-filter-item" />
                     </div>
-                </div> -->
+                </div>
             </div>
             <div class="modal-footer modal-footer--padding-3" style="margin-top: 10px;">
                 <a id="btn-modal-resetFilter" class="btn btn-default no-btn" href="javscript:void(0)">Cancel &amp; Reset Filter</a>
@@ -199,10 +199,6 @@
 		
 		$('#student-btn-delete').click(function(){
 			deleteStudent();
-		});
-		
-		$('#student-btn-show-filter').click(function(){
-			showFilter();
 		});
 		
 		$('#btn-modal-resetFilter').click(function(){

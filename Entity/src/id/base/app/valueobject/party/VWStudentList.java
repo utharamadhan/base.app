@@ -1,6 +1,7 @@
 package id.base.app.valueobject.party;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,6 +27,9 @@ public class VWStudentList implements Serializable {
 	public static final String STUDENT_STATUS_LOOKUP_PK		= "fkStudentStatusLookup";
 	public static final String STUDENT_STATUS_LOOKUP_CODE	= "studentStatusLookupCode";
 	public static final String STUDENT_STATUS_LOOKUP_NAME	= "studentStatusLookupName";
+	public static final String CURRENT_LEARNING				= "currentLearning";
+	public static final String PASSED_LEARNING				= "passedLearning";
+	public static final String ENROLL_DATE					= "enrollDate";
 	public static final String STATUS						= "status";
 	
 	public static VWStudentList getInstance() {
@@ -53,6 +57,15 @@ public class VWStudentList implements Serializable {
 	
 	@Column(name="STUDENT_STATUS_LOOKUP_NAME")
 	private String studentStatusLookupName;
+	
+	@Column(name="CURRENT_LEARNING")
+	private String currentLearning;
+	
+	@Column(name="PASSED_LEARNING")
+	private String passedLearning;
+	
+	@Column(name="ENROLL_DATE")
+	private Date enrollDate;
 	
 	@Column(name="STATUS")
 	private Integer status;
@@ -104,6 +117,27 @@ public class VWStudentList implements Serializable {
 	}
 	public void setStudentStatusLookupName(String studentStatusLookupName) {
 		this.studentStatusLookupName = studentStatusLookupName;
+	}
+	
+	public String getCurrentLearning() {
+		return currentLearning;
+	}
+	public void setCurrentLearning(String currentLearning) {
+		this.currentLearning = currentLearning;
+	}
+	
+	public String getPassedLearning() {
+		return passedLearning;
+	}
+	public void setPassedLearning(String passedLearning) {
+		this.passedLearning = passedLearning;
+	}
+	
+	public Date getEnrollDate() {
+		return enrollDate;
+	}
+	public void setEnrollDate(Date enrollDate) {
+		this.enrollDate = enrollDate;
 	}
 	
 	public Integer getStatus() {
