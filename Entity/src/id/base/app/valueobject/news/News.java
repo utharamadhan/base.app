@@ -130,8 +130,8 @@ public class News extends BaseEntity implements Serializable {
 	public String getShortContent() {
 		if(content!=null){
 			try {
-				String clearContent = StringFunction.removeHTMLTags(excerpt);
-				this.setShortContent(new String(clearContent.substring(0, 280) + "..."));	
+				//String clearContent = StringFunction.removeHTMLTags(excerpt);
+				this.setShortContent(new String(excerpt.substring(0, 280) + "..."));	
 			} catch (Exception e) {}
 		}
 		return shortContent;
