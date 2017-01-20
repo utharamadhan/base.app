@@ -589,6 +589,41 @@ function buildDataTable(base, url, id, height, colDefs, detailFunc, detailParams
     }
 }
 
+function buildDataTableWithoutFilter(base, url, id, height, colDefs, detailFunc, detailParams, customAjaxOpts){
+	var tableColumns = buildColumns(colDefs,false);
+	buildDataTableFilter(base,id,colDefs,false);
+	var ajaxOpt = getDefaultAjaxOpts(url,id);
+	if(customAjaxOpts){
+		ajaxOpt = customAjaxOpts;
+	}
+    var table = $('#'+id).DataTable( {
+    	ordering: false,
+    	sDom: '<"#datatable-search-filter"f><"top">rt<"bottom"><"clear">',
+    	scrollY: height,
+    	processing: true,
+		serverSide: true,
+		bFilter: false,
+    	ajax: ajaxOpt,
+    	columns: tableColumns,
+    	language: {
+            infoEmpty: "No Data Found..."
+        },
+        oLanguage : {
+        	sSearch : "Search Filter"
+        } 
+    });
+    if(detailFunc){
+    	$('#'+id+' tbody').on( 'click', 'tr', function () {
+        	var params = [];
+        	var detailData = table.row( this ).data();
+        	for(var j=0; j<detailParams.length;j++){
+        		params[detailParams[j]] = detailData[detailParams[j]]; 
+        	}
+            window[detailFunc](params);
+        } );	
+    }
+}
+
 function buildDataTableFilter(base,id,colDefs,disabled){
 	var wonSearch = 'defaultDataTableSearch(\''+id+'\')';
 	var wonReset = 'defaultDataTableReset(\''+id+'\')';

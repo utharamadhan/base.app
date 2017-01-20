@@ -1,6 +1,8 @@
 package id.base.app.webMember.controller.site;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -20,12 +22,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.mail.MailSender;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import id.base.app.ILookupConstant;
+import id.base.app.ILookupGroupConstant;
 import id.base.app.mail.MailManager;
+import id.base.app.rest.RestCaller;
+import id.base.app.rest.RestConstant;
+import id.base.app.rest.RestServiceConstant;
+import id.base.app.util.dao.Operator;
+import id.base.app.util.dao.SearchFilter;
+import id.base.app.util.dao.SearchOrder;
+import id.base.app.valueobject.Lookup;
+import id.base.app.valueobject.contact.Contact;
+import id.base.app.valueobject.course.Course;
 
 @Scope(value="request")
 @RequestMapping(value="/contact")
@@ -39,8 +53,38 @@ public class ContactUsWebController {
 	
 	static Logger LOGGER = LoggerFactory.getLogger(ContactUsWebController.class);
 	
+	protected RestCaller<Contact> getRestCaller() {
+		return new RestCaller<Contact>(RestConstant.REST_SERVICE, RestServiceConstant.CONTACT_SERVICE);
+	}
+	
+	protected RestCaller<Lookup> getRestCallerLookup() {
+		return new RestCaller<Lookup>(RestConstant.REST_SERVICE, RestServiceConstant.LOOKUP_SERVICE);
+	}
+	
+	protected RestCaller<Course> getRestCallerCourse() {
+		return new RestCaller<Course>(RestConstant.REST_SERVICE, RestServiceConstant.COURSE_SERVICE);
+	}
+	
 	@RequestMapping(method=RequestMethod.GET)
-	public String view(HttpServletRequest request, HttpServletResponse response){
+	public String view(ModelMap model, HttpServletRequest request, HttpServletResponse response, @RequestParam Map<String,String> params){
+		if(params!=null && params.get("type")!=null){
+			String type = params.get("type");
+			model.addAttribute("type", type);
+			if(ILookupConstant.CategoryHelp.PROGRAM.equals(type)){
+				List<SearchFilter> filter = new ArrayList<SearchFilter>();
+				List<SearchOrder> order = new ArrayList<SearchOrder>();
+				List<Course> courses = getRestCallerCourse().findAll(filter, order);
+				model.addAttribute("courses", courses);
+			}
+			
+			if(ILookupConstant.CategoryHelp.CONSULT.equals(type)){
+				List<SearchFilter> filter = new ArrayList<SearchFilter>();
+				List<SearchOrder> order = new ArrayList<SearchOrder>();
+				filter.add(new SearchFilter(Lookup.LOOKUP_GROUP_STRING, Operator.EQUALS, ILookupGroupConstant.CONTACT_TEMA));
+				List<Lookup> temas = getRestCallerLookup().findAll(filter, order);
+				model.addAttribute("temas", temas);
+			}
+		}
 		return "/contact/main";
 	}
 	
@@ -54,12 +98,65 @@ public class ContactUsWebController {
 		String contactName = params.get("name");
 		String contactEmail = params.get("email");
 		String contactMessage = params.get("message");
+		String contactTelp = params.get("telp");
+		String contactAddress = params.get("address");
+		String contactInstansi = params.get("instansi");
+		String type = params.get("type");
+		String learning = null;
+		String tema = null;
 		
 		if(contactName == null || contactEmail == null || contactMessage == null){
 			resultMap.put("success", false);
 	         resultMap.put("message", "Your email failed to processed, There was an empty field!");
 	         return resultMap;
+		}else{
+			if(ILookupConstant.CategoryHelp.PROGRAM.equals(type)){
+				learning = params.get("learning"); 
+				if(learning == null){
+					resultMap.put("success", false);
+			         resultMap.put("message", "Your email failed to processed, There was an empty field!");
+			         return resultMap;
+				}
+			}else if(ILookupConstant.CategoryHelp.CONSULT.equals(type)){
+				tema = params.get("tema");
+				if(tema==null){
+					resultMap.put("success", false);
+			         resultMap.put("message", "Your email failed to processed, There was an empty field!");
+			         return resultMap;
+				}
+			}
 		}
+		
+		List<SearchFilter> filter = new ArrayList<SearchFilter>();
+		List<SearchOrder> order = new ArrayList<SearchOrder>();
+		filter.add(new SearchFilter(Lookup.CODE, Operator.EQUALS, type));
+		List<Lookup> lookup = getRestCallerLookup().findAll(filter, order);
+		
+		Contact contact = Contact.getInstance();
+		contact.setName(contactName);
+		contact.setEmail(contactEmail);
+		contact.setMessage(contactMessage);
+		contact.setTelp(contactTelp);
+		contact.setAddress(contactAddress);
+		contact.setInstansi(contactInstansi);
+		contact.setHelpLookup(lookup.get(0));
+		
+		if(ILookupConstant.CategoryHelp.PROGRAM.equals(type)){
+			if(learning != null){
+				Course course = getRestCallerCourse().findById(new Long(learning));
+				contact.setCourse(course);
+			}
+		}
+		
+		if(ILookupConstant.CategoryHelp.CONSULT.equals(type)){
+			if(tema != null){
+				Lookup contactTema = getRestCallerLookup().findById(new Long(tema));
+				contact.setTemaLookup(contactTema);
+			}
+		}
+		
+		getRestCaller().saveOrUpdate(contact);
+		
 		
 		String from = "mardy@infoflow.co.id";
 		String subject = "Contact Email";

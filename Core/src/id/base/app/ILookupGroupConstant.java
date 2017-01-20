@@ -16,6 +16,8 @@ public class ILookupGroupConstant {
 	public static final String PARTY_ROLE 				= "PARTY_ROLE";
 	public static final String STUDENT_STATUS			= "STUDENT_STATUS";
 	public static final String TAG_COURSE				= "TAG_COURSE";
+	public static final String CONTACT_TEMA				= "CONTACT_TEMA";
+	public static final String CATEGORY_HELP			= "CATEGORY_HELP";
 	
 	public static List<String> LOOKUP_GROUP_LIST = new ArrayList<>();
 	static {

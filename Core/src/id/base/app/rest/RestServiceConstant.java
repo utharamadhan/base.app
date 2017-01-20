@@ -61,4 +61,7 @@ public class RestServiceConstant {
 	//advisory
 	public static final String ADVISORY_SERVICE = "advisoryService";
 	
+	//contact
+	public static final String CONTACT_SERVICE = "contactService";
+	
 }

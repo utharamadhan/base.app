@@ -21,11 +21,42 @@
 							<div class="contact_form">
 									
 								<form method="post" action="#" id="email_form">
+									<div class="row learning" th:if="${T(id.base.app.ILookupConstant.CategoryHelp).PROGRAM == type}">
+										<div class="col-xs-12 col-sm-7">
+											<div class="form-group">
+												<label>Learning <span class="error">*</span></label>
+												<select class="form-control" name="learning">
+													<option th:each="course, i : ${courses}" th:text="${course.name}" th:value="${course.pkCourse}"></option>
+												</select>
+											</div>
+										</div>
+									</div><!--end row-->
+								
+									<div class="row tema" th:if="${T(id.base.app.ILookupConstant.CategoryHelp).CONSULT == type}">
+										<div class="col-xs-12 col-sm-7">
+											<div class="form-group">
+												<label>Tema <span class="error">*</span></label>
+												<select class="form-control" name="tema">
+													<option th:each="tema, i : ${temas}" th:text="${tema.name}" th:value="${tema.pkLookup}"></option>
+												</select>
+											</div>
+										</div>
+									</div><!--end row-->
+								
 									<div class="row">
 										<div class="col-xs-12 col-sm-7">
 											<div class="form-group">
 												<label>Nama <span class="error">*</span></label>
 												<input type="text" class="form-control" name="name" />
+											</div>
+										</div>
+									</div><!--end row-->
+									
+									<div class="row">
+										<div class="col-xs-12 col-sm-7">
+											<div class="form-group">
+												<label>No. Telp  <span class="error">*</span></label>
+												<input type="text" class="form-control" name="telp" />
 											</div>
 										</div>
 									</div><!--end row-->
@@ -40,6 +71,24 @@
 									</div><!--end row-->
 									
 									<div class="row">
+										<div class="col-xs-12 col-sm-7">
+											<div class="form-group">
+												<label>Alamat <span class="error">*</span></label>
+												<input type="text" class="form-control" name="address" />
+											</div>
+										</div>
+									</div><!--end row-->
+									
+									<div class="row">
+										<div class="col-xs-12 col-sm-7">
+											<div class="form-group">
+												<label>Instansi <span class="error">*</span></label>
+												<input type="text" class="form-control" name="instansi" />
+											</div>
+										</div>
+									</div><!--end row-->
+									
+									<div class="row">
 										<div class="col-xs-12 col-sm-11">
 											<div class="form-group">
 												<label>Message <span class="error">*</span></label>
@@ -47,7 +96,7 @@
 											</div>
 										</div>
 									</div><!--end row-->
-									
+									<input type="hidden" name="type" th:value="${type}"/>
 									<input type="button" value="Send" class="commonBtn mrdy_btn" id="sendEmail" />
 								</form>
 							</div>  
