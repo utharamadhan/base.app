@@ -81,9 +81,12 @@
 									<span aria-hidden="true">Previous</span>
 								  </a>
 								</li>
-								<th:block th:each="j : ${#numbers.sequence(1, researches.noOfPage)}">
+								<th:block th:each="j : ${#numbers.sequence(1, researches.noOfPage)}" th:if="${researches.noOfPage &gt; 0}">
 								<li th:if="${j==researches.currentPage}" class="active" th:classappend="${j}"><a href="#" th:text="${j}"></a></li>
 								<li th:unless="${j==researches.currentPage}" class="change_page" th:classappend="${j}"><a href="#" th:text="${j}"></a></li>
+								</th:block>
+								<th:block th:unless="${researches.noOfPage &gt; 0}">
+									<li class="active" th:classappend="1"><a href="#" th:text="1"></a></li>
 								</th:block>
 								<li class="next">
 								  <a aria-label="Next" href="#">
