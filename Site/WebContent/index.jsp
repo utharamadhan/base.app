@@ -301,14 +301,14 @@
 					</div>
 					<div class="col-md-4">
 							<div class="aboutImage">
-							  <img src="<%=request.getContextPath()%>/images/rnd_.jpg" alt="" class="img-responsive" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/research-development'">
-							  <a href="<%=request.getContextPath()%>/page/research-development" class="captionLink">Research & Development <span></span></a>
+							  <img src="<%=request.getContextPath()%>/images/advisory_.jpg" alt="" class="img-responsive" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/advisory'">
+							  <a href="<%=request.getContextPath()%>/page/advisory" class="captionLink">Advisory <span></span></a>
 							</div><!-- aboutImage -->
 					</div>
 					<div class="col-md-4">
 							<div class="aboutImage">
-							  <img src="<%=request.getContextPath()%>/images/advisory_.jpg" alt="" class="img-responsive" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/advisory'">
-							  <a href="<%=request.getContextPath()%>/page/advisory" class="captionLink">Advisory <span></span></a>
+							  <img src="<%=request.getContextPath()%>/images/rnd_.jpg" alt="" class="img-responsive" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/research-development'">
+							  <a href="<%=request.getContextPath()%>/page/research-development" class="captionLink">Research & Development <span></span></a>
 							</div><!-- aboutImage -->
 					</div>
 				</div>
