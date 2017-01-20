@@ -34,7 +34,7 @@ public class TutorController extends SuperController<Tutor>{
 			errorList.add(new ErrorHolder(Tutor.NAME, messageSource.getMessage("error.mandatory", new String[]{"name"}, Locale.ENGLISH)));
 		}
 		if(StringFunction.isEmpty(anObject.getProfileDescription())) {
-			errorList.add(new ErrorHolder(Tutor.PROFILE_DESCRIPTION, messageSource.getMessage("error.mandatory", new String[]{"code"}, Locale.ENGLISH)));
+			errorList.add(new ErrorHolder(Tutor.PROFILE_DESCRIPTION, messageSource.getMessage("error.mandatory", new String[]{"profile description"}, Locale.ENGLISH)));
 		}
 		if(errorList.size() > 0) {
 			throw new SystemException(errorList);

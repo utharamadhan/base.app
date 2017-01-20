@@ -6,6 +6,16 @@
 <title></title>
 </head>
 <body>
+		<div class="breadcrumb-wrapper">
+			<div class="breadcrumb">
+				<div class="container">
+					<ul>
+					<li><a th:href="@{/}">Home</a></li>
+					<li><a href="">Pengajar</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
 		<div class="post_section ebook_section">
 			<div class="container">
 				<h1 style="text-align:center">Tim Pengajar</h1>
@@ -28,7 +38,7 @@
 								<div class="post_thumb">
 									<img th:src="${tutor.basicPictureURL}" alt="" />
 								</div><!-- end post thumb -->
-								<h1><a href=""><label th:text="${tutor.name}" class="post_title">Roy</label></a></h1>
+								<h1><a  th:href="@{/page/lecturer/}+${tutor.pkTutor}"><label th:text="${tutor.name}" class="post_title">Roy</label></a></h1>
 							</div><!-- end post -->
 					</div>	
 				</div>

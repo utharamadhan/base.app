@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1"/>
+<meta name="author" content="Mardy Jonathan"/>
+<title></title>
+</head>
+<body>
+		<div class="breadcrumb-wrapper">
+			<div class="breadcrumb">
+				<div class="container">
+					<ul>
+					<li><a th:href="@{/}">Home</a></li>
+					<li><a th:href="@{/page/lecturer}">Pengajar</a></li>
+					<li><a href="#">Pengajar Detail</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="content_top">
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-12 col-sm-2 content_left">
+						<img th:src="${detail.basicPictureURL}" style="width:100%;height:auto"/>
+					</div>
+					<div class="col-xs-12 col-sm-10">
+						<h1 th:utext="${detail.name}"></h1>
+						<span th:utext="${detail.profileDescription}"></span>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<script type="text/javascript" th:inline="javascript">
+		/*<![CDATA[*/
+		/*]]>*/
+		</script>
+</body>
+</html>

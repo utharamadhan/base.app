@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,6 +33,7 @@ import id.base.app.rest.RestServiceConstant;
 import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
+import id.base.app.valueobject.aboutUs.Engagement;
 import id.base.app.valueobject.aboutUs.Tutor;
 
 @Scope(value="request")
@@ -45,6 +47,15 @@ public class LecturerWebController {
 	
 	protected RestCaller<Tutor> getRestCaller() {
 		return new RestCaller<Tutor>(RestConstant.REST_SERVICE, RestServiceConstant.TUTOR_SERVICE);
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/{id}")
+	public String view(ModelMap model, HttpServletRequest request, HttpServletResponse response,
+			@PathVariable(value="id") Long id){
+		Tutor detail = Tutor.getInstance();
+		detail = getRestCaller().findById(id);
+		model.addAttribute("detail", detail);
+		return "/lecturer/detail";
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)

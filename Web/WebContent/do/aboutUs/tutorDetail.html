@@ -110,6 +110,7 @@
 	    	
 			var submitForm = function(){
 				cleanErrorParsley();
+				$('#tinyMCE-hidden').val(tinymce.get('tinyMCE-area').getContent());
 				var sURL = /*[[@{/do/aboutUs/tutor/saveTutor/}]]*/ #;
 				$.post(sURL, $("#tutor-detail-form").serialize(), function(data) {
 					if(data.errorList!=null){
