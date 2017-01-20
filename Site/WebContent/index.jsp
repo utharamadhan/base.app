@@ -234,10 +234,11 @@
 							Apa yang bisa kami bantu?
 						</div>
 						<div class="help-form-body">
-							<select>
-								<option>
-									Hubungi Call Center
-								</option>
+							<select id="help-select">
+								<option>-- Pilih Bantuan --</option>
+								<option value="CC">Hubungi Call Center</option>
+								<option value="PR">Ingin Mendaftar Program</option>
+								<option value="CO">Ingin Berkonsultasi</option>
 							</select>
 						</div>
 					</div>
@@ -258,7 +259,7 @@
 							<div class="grid-content">
 								<h2 class="main-title text-secondary to-uppercase">Tujuan Program</h2>
 								<p>Memberikan pelayanan unggul, inovatif dan terintegrasi dalam riset, edukasi dan konsultasi terkait pembiayaan perumahan bagi klien</p>
-								<a href="#" class="btn btn-secondary btn-medium">selengkapnya</a>
+								<a href="page/post/1" class="btn btn-secondary btn-medium">selengkapnya</a>
 							</div>
 						</div>
 					</div>
@@ -267,7 +268,7 @@
 							<div class="grid-content">
 								<h2 class="main-title text-secondary to-uppercase">Kerjasama</h2>
 								<p>Untuk memberikan kualitas materi yang terbaik bagi anda, kami telah menjalin kerjasama dengan beberapa pihak</p>
-								<a href="#" class="btn btn-secondary btn-medium">selengkapnya</a>
+								<a href="page/engagement/list" class="btn btn-secondary btn-medium">selengkapnya</a>
 							</div>
 						</div>
 						<div class="grid">
@@ -376,11 +377,31 @@
 						<span>Lalu tunggu apa lagi?<br/>Jadilah bagian dalam perubahan dunia property</span>
 					</div>
 					<div class="contact-button">
-						<a href="#" class="btn btn-secondary btn-medium">Kontak Kami</a>
+						<a href="page/contact" class="btn btn-secondary btn-medium">Kontak Kami</a>
 					</div>
 				</div>
 			</div>
 		</div>
-			
+		<script>
+		$(document).ready(function(){
+			$("#testimonial-slider").owlCarousel({
+				items:1,
+				itemsDesktop:[1000,1],
+				itemsDesktopSmall:[979,1],
+				itemsTablet:[768,1],
+				pagination:true,
+				navigation:false,
+				navigationText:["",""],
+				slideSpeed:1000,
+				singleItem:true,
+				autoPlay:true
+			});
+			$('#help-select').change(function(){
+				if($(this).val()!=""){
+					location.href = "page/contact?type="+$(this).val();
+				}
+			})
+		});
+	</script>
  </body>
 </html>

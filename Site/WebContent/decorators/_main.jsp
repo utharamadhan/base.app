@@ -29,6 +29,7 @@
 		<script async="" src="<%=request.getContextPath()%>/js/analytics.js"></script>
 		<script src="<%=request.getContextPath()%>/js/moment.min.js"></script><!-- jQuery master -->
 	    <script src="<%=request.getContextPath()%>/js/jquery.min.js"></script><!-- jQuery master -->
+	    <script src="<%=request.getContextPath()%>/plugin/vendor/owl-carousel/owl.carousel.min.js"></script>
 	    <script src="<%=request.getContextPath()%>/js/fullcalendar.min.js"></script><!-- jQuery master -->
 	    <script src="<%=request.getContextPath()%>/js/bootstrap.min.js"></script><!-- bootstrap -->
 		<script src="<%=request.getContextPath()%>/js/jquery.flexslider.js"></script><!-- flexslider -->
