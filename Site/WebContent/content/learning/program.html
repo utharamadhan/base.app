@@ -62,8 +62,6 @@
 									<th>&nbsp;</th>
 									<th>Program</th>
 									<th class="all-category">Kategori</th>
-									<th class="join-program">Dengan</th>
-									<th>Durasi</th>
 								  </tr>
 								</thead>
 								<tbody class="list_data">
@@ -81,8 +79,6 @@
 										<span class="tag">developer</span>
 									</td>
 									<td class="all-category course_category" th:text="${course.categoryLookup.name}"></td>
-									<td class="join-program">Universitas Indonesia</td>
-									<td class="course_duration" th:text="${course.admissionRequirement}"></td>
 								  </tr>
 								</tbody>
 							  </table>
@@ -94,9 +90,12 @@
 								<span aria-hidden="true">Previous</span>
 							  </a>
 							</li>
-							<th:block th:each="j : ${#numbers.sequence(1, courses.noOfPage)}">
+							<th:block th:each="j : ${#numbers.sequence(1, courses.noOfPage)}" th:if="${courses.noOfPage &gt; 0}">
 							<li th:if="${j==courses.currentPage}" class="active" th:classappend="${j}"><a href="#" th:text="${j}"></a></li>
 							<li th:unless="${j==courses.currentPage}" class="change_page" th:classappend="${j}"><a href="#" th:text="${j}"></a></li>
+							</th:block>
+							<th:block th:unless="${courses.noOfPage &gt; 0}">
+								<li class="active" th:classappend="1"><a href="#" th:text="1"></a></li>
 							</th:block>
 							<li class="next">
 							  <a aria-label="Next" href="#">
@@ -116,7 +115,10 @@
 		
 		<script type="text/javascript" th:inline="javascript">
 		/*<![CDATA[*/
-		$(function(){      
+		$(function(){
+			var page = /*[[${courses.noOfPage}]]*/;
+			alert(page);
+			
 			$('.show_detail').unbind('click').click(function(){
 				var param = $(this).parents('.course-list-content').find('input[name="identity"]').val();
 				var title = $(this).parents('.course-list-content').find('input[name="title"]').val();

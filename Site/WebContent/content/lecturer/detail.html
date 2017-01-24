@@ -11,16 +11,23 @@
 				<div class="container">
 					<ul>
 					<li><a th:href="@{/}">Home</a></li>
-					<li><a th:href="@{/page/engagement/list}">Engagement List</a></li>
-					<li><a href="#">Engagement Detail</a></li>
+					<li><a th:href="@{/page/lecturer}">Pengajar</a></li>
+					<li><a href="#">Pengajar Detail</a></li>
 					</ul>
 				</div>
 			</div>
 		</div>
 		<div class="content_top">
 			<div class="container">
-				<h1 th:utext="${detail.title}"></h1>
-				<div th:utext="${detail.content}"></div>
+				<div class="row">
+					<div class="col-xs-12 col-sm-2 content_left">
+						<img th:src="${detail.basicPictureURL}" style="width:100%;height:auto"/>
+					</div>
+					<div class="col-xs-12 col-sm-10">
+						<h1 th:utext="${detail.name}"></h1>
+						<span th:utext="${detail.profileDescription}"></span>
+					</div>
+				</div>
 			</div>
 		</div>
 		

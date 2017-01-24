@@ -60,4 +60,9 @@ public interface ILookupConstant {
 		}
 	}
     
+    public static final class CategoryHelp {
+		public static final String CALL_CENTER = "CC";
+		public static final String PROGRAM = "PR";
+		public static final String CONSULT = "CO";
+	}
 }

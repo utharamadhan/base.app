@@ -68,8 +68,10 @@
 						</div>
 						<div class="form-group">
 							<label class="col-sm-2 control-label" th:text="'Profile Description'">Profile Description</label>
-							<div class="col-sm-8 form-input-container">
-								<input type="text" class="form-control" placeholder="Content" name="srch-term" id="input-text-name" th:field="*{profileDescription}"/>
+							<input id="tinyMCE-hidden" name="profileDescription" type="hidden"/>
+							<div id="tinyMCE-parent" class="col-sm-9">					
+								<textarea id="tinyMCE-area" th:text="*{profileDescription}">
+								</textarea>
 							</div>
 						</div>
 						<div class="form-group form-footer">				
@@ -97,6 +99,10 @@
 		}
 	
 	    $(function(){
+	    	var uploadURL = /*[[@{/do/fileManager/upload/}]]*/ #;
+	    	initDatePicker("datepicker", "dd/mm/yyyy");
+	    	initTextEditor('#tinyMCE-area', '#tinyMCE-parent', uploadURL);
+	    	
 	    	initDeletePicture();
 			var backToList = function(){
 				returnToList('tutor-detail-container', 'tutor-list-container', true);
@@ -104,6 +110,7 @@
 	    	
 			var submitForm = function(){
 				cleanErrorParsley();
+				$('#tinyMCE-hidden').val(tinymce.get('tinyMCE-area').getContent());
 				var sURL = /*[[@{/do/aboutUs/tutor/saveTutor/}]]*/ #;
 				$.post(sURL, $("#tutor-detail-form").serialize(), function(data) {
 					if(data.errorList!=null){

@@ -96,7 +96,7 @@ public class TutorWebController extends BaseController<Tutor> {
 	
 	@RequestMapping(method=RequestMethod.POST, value="saveTutor")
 	@ResponseBody
-	public Map<String, Object> saveCommonPost(final Tutor anObject, HttpServletRequest request) {
+	public Map<String, Object> saveTutor(final Tutor anObject, HttpServletRequest request) {
 		Map<String, Object> resultMap = new HashMap<>();
 		List<ErrorHolder> errors = new ArrayList<>();
 		try{

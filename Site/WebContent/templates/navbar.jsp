@@ -80,7 +80,7 @@
 											<c:forEach items="${engages}" var="engage" varStatus="loop">
 											<li><a href="${ctx}/page/engagement/${engage.pkEngagement}">${engage.title}</a></li>
 											</c:forEach>
-											<li><div style="background-color:#49c32c;width:100px;float:right;text-align:center;color:white;padding:5px;font-size:14px;font-weight:bold;cursor: pointer;" onclick="javascript:window.location.href='${ctx}/page/engagement/list'">LAINNYA...</div></li>
+											<li><br/><div class="button-orange" onclick="javascript:window.location.href='${ctx}/page/engagement/list'">LAINNYA...</div></li>
 										</ul>
 									</li>
 									<li class="col-sm-4">
@@ -89,7 +89,7 @@
 											<c:forEach items="${programs}" var="program" varStatus="loop">
 											<li><a href="${ctx}/page/program/${program.pkProgramPost}">${program.title}</a></li>
 											</c:forEach>
-											<li><div style="background-color:#49c32c;width:100px;float:right;text-align:center;color:white;padding:5px;font-size:14px;font-weight:bold;cursor: pointer;" onclick="javascript:window.location.href='${ctx}/page/program/list'">LAINNYA...</div></li>
+											<li><br/><div class="button-orange" onclick="javascript:window.location.href='${ctx}/page/program/list'">LAINNYA...</div></li>
 										</ul>
 									</li>
 								  </ul>
@@ -148,7 +148,7 @@
 								  </ul>
 								</li>
 								<li><a href="<%=request.getContextPath()%>/page/contact">Kontak Kami</a></li>
-								<li class="btn-signup" style="display:none"><a href="#" data-toggle="modal" data-target="#sign-in-modal">Sign In</a></li>
+								<li class="btn-signup"><a href="#" data-toggle="modal" data-target="#sign-in-modal">Sign In</a></li>
 							  </ul>
 							</div><!-- /.navbar-collapse -->
 							<!-- Modal -->

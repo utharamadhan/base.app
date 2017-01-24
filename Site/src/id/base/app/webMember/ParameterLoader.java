@@ -1,5 +1,17 @@
 package id.base.app.webMember;
 
+import javax.servlet.ServletContext;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+
+import org.jasypt.digest.config.SimpleDigesterConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.web.context.ContextLoader;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
+
 import id.base.app.LoginSession;
 import id.base.app.SystemParameter;
 import id.base.app.config.BeanUtilsConfigurer;
@@ -22,6 +34,7 @@ import id.base.app.valueobject.aboutUs.Engagement;
 import id.base.app.valueobject.aboutUs.ProgramPost;
 import id.base.app.valueobject.aboutUs.Tutor;
 import id.base.app.valueobject.advisory.Advisory;
+import id.base.app.valueobject.contact.Contact;
 import id.base.app.valueobject.course.Course;
 import id.base.app.valueobject.course.GroupCourse;
 import id.base.app.valueobject.event.Event;
@@ -30,18 +43,6 @@ import id.base.app.valueobject.party.Party;
 import id.base.app.valueobject.publication.DigitalBook;
 import id.base.app.valueobject.research.Research;
 import id.base.app.valueobject.research.ResearchTopic;
-
-import javax.servlet.ServletContext;
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
-
-import org.jasypt.digest.config.SimpleDigesterConfig;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
-import org.springframework.web.context.ContextLoader;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 
 
 public class ParameterLoader extends ContextLoader implements ServletContextListener  {
@@ -215,6 +216,10 @@ public class ParameterLoader extends ContextLoader implements ServletContextList
 		// advisory
 		RestCaller.BASE_URL.put(RestServiceConstant.ADVISORY_SERVICE, RestConstant.RM_ADVISORY);
 		RestCaller.BASE_CLASS.put(RestServiceConstant.ADVISORY_SERVICE, Advisory.class);
+		
+		// contact
+		RestCaller.BASE_URL.put(RestServiceConstant.CONTACT_SERVICE, RestConstant.RM_CONTACT);
+		RestCaller.BASE_CLASS.put(RestServiceConstant.CONTACT_SERVICE, Contact.class);
 		
 	}
 }
