@@ -26,6 +26,16 @@ public class AppFunction implements Serializable  {
 	public static final String ORDER_NO = "orderNo";
 	public static final String IS_ACTIVE = "isActive";
 	
+	public static AppFunction getInstance(Long pkAppFunction, String name, String accessPage, Long fkParent, Boolean isActive) {
+		AppFunction af = new AppFunction();
+			af.setPkAppFunction(pkAppFunction);
+			af.setName(name);
+			af.setAccessPage(accessPage);
+			af.setFkAppFunctionParent(fkParent);
+			af.setIsActive(isActive);
+		return af;
+	}
+	
 	/** default constructor */
 	public AppFunction() {
 	}

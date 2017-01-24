@@ -93,6 +93,19 @@
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
   <script type="text/javascript">
     	$(function(){
+	    	<%
+	          	System.out.println(request.getParameter("error"));
+	          	if(request.getParameter("error") != null) {
+	          		if(request.getParameter("error").equals("wrongAccount")) {
+	          			%> 
+	          				var $toastContent = $("<span>invalid username / password</span>");
+	            			Materialize.toast($toastContent, 2000); 
+	            		<%	
+	          		}
+	          	}
+	        %>
+    		
+    		
     		//BEGIN: change this to your server environment
     		var protocol = 'http';
     		var domain = '<%=request.getServerName()%>';

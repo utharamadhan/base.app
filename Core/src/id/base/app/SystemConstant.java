@@ -191,7 +191,7 @@ public class SystemConstant  {
 	
 	
 	public static String ACTIVATION_URL = "/Web/do/registration/activationPage";
-	public static String LOGIN_URL = "http://padiku.com";
+	public static String LOGIN_URL = "http://hfc.com";
 	public static void setUrl(String url){
 		LOGIN_URL = url;
 	}

@@ -126,7 +126,7 @@ public class LoginController {
 						}
 					});
 				}catch(Exception e){
-					return new RedirectView("/do/landingPage/blank",true, false);
+					return new RedirectView(SystemConstant.LOGIN_URL + "?error=wrongAccount",true, false);
 				}
 			
 				if (user.getStatus() == SystemConstant.UserStatus.INACTIVE) {
@@ -183,7 +183,7 @@ public class LoginController {
 				// initialize app functions for accessibility
 				final List<AppFunction> menus = new LinkedList<AppFunction>();
 				
-				Map<String, String> cookieMenus = new LinkedHashMap<String, String>();
+				Map<String, Object[]> cookieMenus = new LinkedHashMap<>();
 				
 				//List<AppFunction> permissions = appFunctionService.findAppFunctionByPermission(user.getAppRole().getPkAppRole());
 				List<AppFunction> permissions = appFunctionService.findAppFunctionByPermissionList(user.getAppRoles());
@@ -201,7 +201,7 @@ public class LoginController {
 				for(AppFunction appFunction: listMenu) {
 					if(SystemConstant.USER_TYPE_INTERNAL == appFunction.getUserType().intValue() ){
 						menus.add(appFunction);
-						cookieMenus.put(appFunction.getName(), appFunction.getAccessPage());
+						cookieMenus.put(appFunction.getName(), new Object[]{appFunction.getAccessPage(), appFunction.getFkAppFunctionParent(), appFunction.getPkAppFunction()});
 					}
 				}
 				

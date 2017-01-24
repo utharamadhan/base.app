@@ -121,7 +121,43 @@
           	<!-- /Quick Actions -->
           	
           	<!-- Sidebar -->
-          	<page:applyDecorator name="_menu" page="/menuPage.jsp" />
+          	<ul class="nav navbar-nav side-nav tile color transparent-black textured" id="sidebar">
+            	<li class="navigation" id="navigation">
+                	<ul class="menu">
+			          	<% 
+			          	for(AppFunction menu : menus) {
+			          		if (menu.getFkAppFunctionParent().equals(1L)){
+			          			System.out.println(menu.getName() + " " + menu.getFkAppFunctionParent());
+			          			%>
+                 					<li id="<%=menu.getName()%>" class="dropdown">
+										<a href="<%=request.getContextPath() + menu.getAccessPage()%>" class="dropdown-toggle" data-toggle="dropdown">
+											<i class="fa fa-bar-chart"></i> <%=menu.getName()%>
+										</a>
+										<ul class="dropdown-menu">
+										<%
+										for(AppFunction subMenu : menus) {
+											if(subMenu.getFkAppFunctionParent() != null && subMenu.getFkAppFunctionParent().equals(menu.getPkAppFunction())) {
+												%>
+												<li id="<%=subMenu.getName()%>">
+													<div style="width:inherit;word-wrap: break-word;">
+														<a href="<%=request.getContextPath() + subMenu.getAccessPage()%>">
+				                        				<i class="fa fa-caret-right"></i> <%=subMenu.getName()%>
+				                        				</a>
+			                        				</div>
+			                  					</li>
+												<%
+											}
+										}
+										%>
+										</ul>
+									</li>
+	                 			<%
+			          		}
+			          	}
+			          	%>
+			         </ul>
+          		</li>
+          	</ul>
           	<!-- Sidebar end -->
           	
           </div>

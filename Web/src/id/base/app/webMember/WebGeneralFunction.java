@@ -164,8 +164,13 @@ public class WebGeneralFunction {
 			HashMap<String,Boolean> permissions = new HashMap<String, Boolean>();
 			List<AppFunction> menus = new LinkedList<AppFunction>();
 			permissions = (HashMap<String, Boolean>) accessInfos.get("accessibility");
-			for (Map.Entry<String, String> menu : ((LinkedHashMap<String, String>) accessInfos.get("menus")).entrySet()) {
-				menus.add(new AppFunction(menu.getKey(), null, menu.getValue(), true));
+			for (Map.Entry<String, List<Object>> menu : ((LinkedHashMap<String, List<Object>>) accessInfos.get("menus")).entrySet()) {
+				List<Object> obj = (ArrayList<Object>) menu.getValue();
+				String name = menu.getKey();
+				String accessPage = obj.get(0).toString();
+				Long fkParent = Long.valueOf(obj.get(1).toString());
+				Long fkAppFunction = Long.valueOf(obj.get(2).toString());
+				menus.add(AppFunction.getInstance(fkAppFunction, name, accessPage, fkParent, true));
 			}
 			loginSession.setSessionId(login.getAccessInfo());
 			loginSession.setPermission(permissions);

@@ -14,6 +14,10 @@ public class IAccessibilityConstant {
 	public static int INT_INTERNAL_FUNCTION  = 1;
 	
 	public static int INT_DASHBOARD = 100;
+		public static int INT_DB_STATISTIC_CONTACT_US 		= 110;
+		public static int INT_DB_RESEARCH_MANAGEMENT_UPDATE = 120;
+		public static int INT_DB_ADVISORY_CONSULTING_NOTIF	= 130;
+		public static int INT_DB_CONTACT_US_NOTIF			= 140;
 	
 	public static int INT_ADMINISTRATOR 		= 200;
 		public static int INT_APP_ROLE			= 210;
@@ -25,6 +29,7 @@ public class IAccessibilityConstant {
 	public static List<Long> MENU_LIST = new ArrayList<>();
 	static {
 		MENU_LIST.add(Long.valueOf(IAccessibilityConstant.INT_INTERNAL_FUNCTION));
+		MENU_LIST.add(Long.valueOf(IAccessibilityConstant.INT_DASHBOARD));
 		MENU_LIST.add(Long.valueOf(IAccessibilityConstant.INT_ADMINISTRATOR));
 	}
 	

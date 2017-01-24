@@ -100,7 +100,7 @@ public class ShortLifeSessionFilter2 implements Filter{
 					try{
 						WebGeneralFunction.createLogin(request, cookieValue);
 					}catch(Exception e){
-						redirect = request.getContextPath()+"/do/landingPage/blank";
+						redirect = SystemConstant.LOGIN_URL + "?error=wrongAccount";
 					}
 				}
 			}else{
