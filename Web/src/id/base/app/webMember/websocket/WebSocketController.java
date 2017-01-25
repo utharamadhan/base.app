@@ -1,4 +1,4 @@
-package id.base.app.controller.websocket;
+package id.base.app.webMember.websocket;
 
 import java.util.HashMap;
 import java.util.Map;
