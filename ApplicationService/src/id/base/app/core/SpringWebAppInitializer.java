@@ -5,7 +5,6 @@ import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Set;
 
-import javax.servlet.FilterRegistration;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
@@ -15,7 +14,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
-import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.DispatcherServlet;
 
 public class SpringWebAppInitializer implements WebApplicationInitializer{
@@ -27,20 +25,20 @@ public class SpringWebAppInitializer implements WebApplicationInitializer{
 		AnnotationConfigWebApplicationContext appContext = new AnnotationConfigWebApplicationContext();
 		appContext.register(ApplicationContextConfig.class);
 		appContext.register(SchedulerContextConfig.class);
-		appContext.register(SecurityConfiguration.class);
+		/*appContext.register(SecurityConfiguration.class);*/
 		
 		container.addListener(new ContextLoaderListener(appContext));
 		
 		container.addListener(new ParameterLoader(appContext));
 
-		FilterRegistration.Dynamic springSecurityFilterChain = container.addFilter("springSecurityFilterChain", new DelegatingFilterProxy());
+		/*FilterRegistration.Dynamic springSecurityFilterChain = container.addFilter("springSecurityFilterChain", new DelegatingFilterProxy());
         springSecurityFilterChain.addMappingForUrlPatterns(null, false, "/*");
-        springSecurityFilterChain.setAsyncSupported(true);
+        springSecurityFilterChain.setAsyncSupported(true);*/
         
-		ServletRegistration.Dynamic dispatcher = container.addServlet(
-				"SpringDispatcher", new DispatcherServlet(appContext));
+		ServletRegistration.Dynamic dispatcher = container.addServlet("SpringDispatcher", new DispatcherServlet(appContext));
 		dispatcher.setLoadOnStartup(1);
 		dispatcher.addMapping("/*");
+		dispatcher.setAsyncSupported(true);
 		
 		printenv();
 	}
