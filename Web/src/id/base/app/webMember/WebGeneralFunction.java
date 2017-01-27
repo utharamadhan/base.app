@@ -269,7 +269,7 @@ public class WebGeneralFunction {
 			// initialize app functions for accessibility
 			final List<AppFunction> menus = new LinkedList<AppFunction>();
 			
-			Map<String, String> cookieMenus = new LinkedHashMap<String, String>();
+			Map<String, Object> cookieMenus = new LinkedHashMap<>();
 			
 			List<AppFunction> permissions = appFunctionService.findAppFunctionByPermissionList(user.getAppRoles());
 			Map<Integer, Boolean> cookiePermissions = new HashMap<Integer, Boolean>();
@@ -286,7 +286,7 @@ public class WebGeneralFunction {
 			for(AppFunction appFunction: listMenu) {
 				if(SystemConstant.USER_TYPE_INTERNAL == appFunction.getUserType().intValue() ){
 					menus.add(appFunction);
-					cookieMenus.put(appFunction.getName(), appFunction.getAccessPage());
+					cookieMenus.put(appFunction.getName(), new Object[]{appFunction.getAccessPage(), appFunction.getFkAppFunctionParent(), appFunction.getPkAppFunction()});
 				}else{
 					/*if(IAccessibilityConstant.FUNC_INT_POLICY_ADMINISTRATION == appFunction.getPkAppFunction().intValue()){
 						menus.add(appFunction);

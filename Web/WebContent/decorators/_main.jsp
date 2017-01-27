@@ -75,11 +75,19 @@
        			stopAJAXLoader();
        			
        		}).ajaxError(function(e, jqxhr, settings, exception) {
-       			alert('System error occurred. Please refresh the browser and contact the system administrator.'); 
+       			var ajaxExpired = jqxhr.getResponseHeader('ajax-expired');
+       			if(!ajaxExpired || (ajaxExpired && ajaxExpired != 'true')) {
+       				alert('System error occurred. Please refresh the browser and contact the system administrator.');	
+       			}
        		}).ajaxComplete(function(e, jqxhr, settings) {
        			var ajaxExpired = jqxhr.getResponseHeader('ajax-expired');
        			if(ajaxExpired=='true'){
-       				alert('Your session is either expired or you are not login.');
+       				bootBoxError("Session Expired", function(){
+       					var loginURL = jqxhr.getResponseHeader('loginURL');
+       					if(loginURL) {
+       						window.location = loginURL;
+       					}
+       				});
        			}
        		});
        	});
