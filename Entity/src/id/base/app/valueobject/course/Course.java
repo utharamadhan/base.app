@@ -1,8 +1,5 @@
 package id.base.app.valueobject.course;
 
-import id.base.app.valueobject.BaseEntity;
-import id.base.app.valueobject.Lookup;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +20,9 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+import id.base.app.valueobject.BaseEntity;
+import id.base.app.valueobject.Lookup;
 
 @Entity
 @Table(name = "COURSE")
@@ -85,8 +85,8 @@ public class Course extends BaseEntity implements Serializable {
 	@ManyToMany
 	@JoinTable(name="COURSE_TAG",
 	joinColumns=@JoinColumn(name="FK_COURSE"),
-	inverseJoinColumns=@JoinColumn(name="FK_LOOKUP_COURSE_TAG"))
-	private List<Lookup> courseTags;
+	inverseJoinColumns=@JoinColumn(name="FK_TAG"))
+	private List<Tag> courseTags;
 	
 	@OneToMany(mappedBy="course", orphanRemoval=true, cascade=CascadeType.DETACH)
 	private List<StudentCourse> studentCourses = new ArrayList<>();
@@ -157,10 +157,10 @@ public class Course extends BaseEntity implements Serializable {
 		this.admissionRequirement = admissionRequirement;
 	}
 
-	public List<Lookup> getCourseTags() {
+	public List<Tag> getCourseTags() {
 		return courseTags;
 	}
-	public void setCourseTags(List<Lookup> courseTags) {
+	public void setCourseTags(List<Tag> courseTags) {
 		this.courseTags = courseTags;
 	}
 
