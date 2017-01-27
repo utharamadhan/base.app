@@ -36,6 +36,17 @@ public class AppFunction implements Serializable  {
 		return af;
 	}
 	
+	public static Boolean isMenuHasChild(Long pkAppFunction, List<AppFunction> appFunctions) {
+		if(appFunctions != null && appFunctions.size() > 0) {
+			for(AppFunction af : appFunctions) {
+				if(af.getFkAppFunctionParent() != null && pkAppFunction.equals(af.getFkAppFunctionParent())) {
+					return Boolean.TRUE;
+				}
+			}
+		}
+		return Boolean.FALSE;
+	}
+	
 	/** default constructor */
 	public AppFunction() {
 	}

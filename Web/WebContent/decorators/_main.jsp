@@ -127,7 +127,8 @@
 			          	<% 
 			          	for(AppFunction menu : menus) {
 			          		if (menu.getFkAppFunctionParent().equals(1L)){
-			          			%>
+			          			if(AppFunction.isMenuHasChild(menu.getPkAppFunction(), menus)) {
+			          				%>
                  					<li id="<%=menu.getName()%>" class="dropdown">
 										<a href="<%=request.getContextPath() + menu.getAccessPage()%>" class="dropdown-toggle" data-toggle="dropdown">
 											<i class="fa fa-bar-chart"></i> <%=menu.getName()%>
@@ -150,7 +151,16 @@
 										%>
 										</ul>
 									</li>
-	                 			<%
+	                 				<%
+			          			} else {
+			          				%>
+			          				<li id="<%=menu.getName()%>">
+										<a href="<%=request.getContextPath() + menu.getAccessPage()%>">
+											<i class="fa fa-bar-chart"></i> <%=menu.getName()%>
+										</a>
+									</li>
+									<%
+			          			}
 			          		}
 			          	}
 			          	%>
