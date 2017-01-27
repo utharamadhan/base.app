@@ -1,5 +1,20 @@
 package id.base.app.webMember.course;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import id.base.app.ILookupGroupConstant;
 import id.base.app.SystemConstant;
 import id.base.app.exception.ErrorHolder;
@@ -17,24 +32,10 @@ import id.base.app.util.dao.SearchOrder;
 import id.base.app.valueobject.AppUser;
 import id.base.app.valueobject.course.Course;
 import id.base.app.valueobject.course.GroupCourse;
+import id.base.app.valueobject.course.Tag;
 import id.base.app.webMember.DataTableCriterias;
 import id.base.app.webMember.controller.BaseController;
 import id.base.app.webMember.rest.LookupRestCaller;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Scope(value="request")
 @Controller
@@ -47,6 +48,10 @@ public class CourseWebController extends BaseController<Course> {
 	@Override
 	protected RestCaller<Course> getRestCaller() {
 		return new RestCaller<Course>(RestConstant.REST_SERVICE, RestServiceConstant.COURSE_SERVICE);
+	}
+	
+	protected RestCaller<Tag> getRestTagCaller() {
+		return new RestCaller<Tag>(RestConstant.REST_SERVICE, RestServiceConstant.COURSE_TAG_SERVICE);
 	}
 
 	@Override
@@ -86,7 +91,10 @@ public class CourseWebController extends BaseController<Course> {
 	public void setDefaultData(ModelMap model) {
 		LookupRestCaller lrc = new LookupRestCaller();
 		model.addAttribute("categoryOptions", lrc.findByLookupGroup(ILookupGroupConstant.COURSE_CATEGORY));
-		model.addAttribute("tagOptions", lrc.findByLookupGroup(ILookupGroupConstant.TAG_COURSE));
+		List<SearchFilter> filter = new ArrayList<SearchFilter>();
+		filter.add(new SearchFilter(Tag.VALID, Operator.EQUALS, SystemConstant.ValidFlag.VALID));
+		List<SearchOrder> order = new ArrayList<SearchOrder>();
+		model.addAttribute("tagOptions", getRestTagCaller().findAll(filter, order));
 		model.addAttribute("groupCourseOptions", getAllCourseOptions());
 	}
 	
@@ -101,6 +109,11 @@ public class CourseWebController extends BaseController<Course> {
 	public String showEdit(@RequestParam(value="maintenancePK") final Long maintenancePK, @RequestParam Map<String, String> paramWrapper, ModelMap model, HttpServletRequest request){
 		setDefaultData(model);
 		Course detail = getRestCaller().findById(maintenancePK);
+		List<SearchFilter> filter = new ArrayList<SearchFilter>();
+		filter.add(new SearchFilter(Tag.VALID, Operator.EQUALS, SystemConstant.ValidFlag.VALID));
+		filter.add(new SearchFilter(Tag.PK_COURSE, Operator.EQUALS, maintenancePK, Long.class));
+		List<SearchOrder> order = new ArrayList<SearchOrder>();
+		model.addAttribute("courseTags", getRestTagCaller().findAll(filter, order));
 		model.addAttribute("detail", detail);
 		return PATH_DETAIL;
 	}

@@ -3,10 +3,12 @@ package id.base.app.valueobject.course;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -82,11 +84,11 @@ public class Course extends BaseEntity implements Serializable {
 	@Column(name="ADMISSION_REQUIREMENT")
 	private String admissionRequirement;
 	
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name="COURSE_TAG",
 	joinColumns=@JoinColumn(name="FK_COURSE"),
 	inverseJoinColumns=@JoinColumn(name="FK_TAG"))
-	private List<Tag> courseTags;
+	private Set<Tag> courseTags;
 	
 	@OneToMany(mappedBy="course", orphanRemoval=true, cascade=CascadeType.DETACH)
 	private List<StudentCourse> studentCourses = new ArrayList<>();
@@ -157,10 +159,10 @@ public class Course extends BaseEntity implements Serializable {
 		this.admissionRequirement = admissionRequirement;
 	}
 
-	public List<Tag> getCourseTags() {
+	public Set<Tag> getCourseTags() {
 		return courseTags;
 	}
-	public void setCourseTags(List<Tag> courseTags) {
+	public void setCourseTags(Set<Tag> courseTags) {
 		this.courseTags = courseTags;
 	}
 

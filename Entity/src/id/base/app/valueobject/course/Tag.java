@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,6 +26,13 @@ public class Tag extends BaseEntity implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 8793258862185720735L;
+	
+	public static final String PK_TAG 		= "pkTag";
+	public static final String CODE 		= "code";
+	public static final String NAME 		= "name";
+	public static final String VALID 		= "valid";
+	public static final String COURSE 		= "course";
+	public static final String PK_COURSE 	= "course.pkCourse";
 	
 	public static Tag getInstance() {
 		return new Tag();
@@ -47,7 +55,10 @@ public class Tag extends BaseEntity implements Serializable {
 	@Column(name="NAME")
 	private String name;
 	
-	@ManyToMany
+	@Column(name="VALID")
+	private Integer valid;
+	
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy="courseTags")
 	private Set<Course> course;
 
 	public Long getPkTag() {
@@ -80,6 +91,14 @@ public class Tag extends BaseEntity implements Serializable {
 
 	public void setCourse(Set<Course> course) {
 		this.course = course;
+	}
+
+	public Integer getValid() {
+		return valid;
+	}
+
+	public void setValid(Integer valid) {
+		this.valid = valid;
 	}
 		
 	

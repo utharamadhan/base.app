@@ -228,36 +228,13 @@
 								  </div>
 								  <div class="modal-body">
 									<form>
+										<c:forEach items="${tags_course}" var="tag_course" varStatus="loop">
 										<div class="col-md-6">
 											<div class="checkbox">
-											  <label><input type="checkbox" class="aos-search" value="property">Property</label>
+											  <label><input type="checkbox" class="aos-search" value="${tag_course.name}">${tag_course.name}</label>
 											</div>
 										</div>
-										<div class="col-md-6">
-											<div class="checkbox">
-											  <label><input type="checkbox" class="aos-search" value="developer">Developer</label>
-											</div>
-										</div>
-										<div class="col-md-6">
-											<div class="checkbox">
-											  <label><input type="checkbox" class="aos-search" value="hotel">Hotel</label>
-											</div>
-										</div>
-										<div class="col-md-6">
-											<div class="checkbox">
-											  <label><input type="checkbox" class="aos-search" value="career">Career</label>
-											</div>
-										</div>
-										<div class="col-md-6">
-											<div class="checkbox">
-											  <label><input type="checkbox" class="aos-search" value="industry">Industry</label>
-											</div>
-										</div>
-										<div class="col-md-6">
-											<div class="checkbox">
-											  <label><input type="checkbox" class="aos-search" value="environment">Environment</label>
-											</div>
-										</div>
+										</c:forEach>
 									</form>
 									<div style="clear:both"></div>
 								  </div>

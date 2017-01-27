@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:ifs="http://padiku.id">
+<head>
+<meta charset="ISO-8859-1"/>
+<title>Course Detail</title>
+</head>
+<style>
+.gcDetail-basicPicture {
+	max-height : 250px;
+}
+
+.basicPicture-delete {
+	position:absolute;
+	left:25px;
+	top:10px;
+}
+</style>
+<body>
+	<div class="pageheader">
+		<div class="row col-md-8">
+			<h4><i class="fa fa-tachometer"></i> Course Editor / Course Tag List / Course Tag Detail
+			<span></span></h4>
+		</div>
+	</div>
+	<div class="row col-md-12">
+	<section class="tile transparent">
+			<div class="tile-body rounded-corners">
+				<form action="#" id="courseTag-detail-form" class="form-horizontal" method="POST" novalidate="novalidate" th:object="${detail}">
+					<div class="stockTypeStyle">
+						<div class="form-group">
+							<div class="col-md-12">
+								<div id="errorFragmentList">
+									<th:block th:if="${message}">
+										<div class='alert alert-success'>
+											<a href='#' class='close' data-dismiss='alert' aria-label='close' title='close'>&#10006;</a>			
+											<label th:text="${message}"></label>
+										</div>
+									</th:block>
+								</div>
+							</div>									
+							&nbsp;
+						</div>
+						<input id="courseTag-detail-maintenancePk" type="hidden" th:field="*{pkTag}"/>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" th:text="'Code'">Code</label>
+							<div class="col-sm-9 form-input-container">
+								<input type="text" class="form-control" placeholder="Code" name="srch-term" id="input-text-code" th:field="*{code}"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" th:text="'Name'">Name</label>
+							<div class="col-sm-9 form-input-container">
+								<input type="text" class="form-control" placeholder="Name" name="srch-term" id="input-text-name" th:field="*{name}"/>
+							</div>
+						</div>
+						<div class="form-group form-footer">				
+							<div class="col-sm-offset-3 col-sm-9">
+								<a href="#" id="courseTag-detail-btn-cancel" class="btn btn-default" type="reset" data-toggle="tooltip" title="">Batal</a>
+								<button id="courseTag-detail-btn-save" class="btn btn-primary" type="submit" data-toggle="tooltip" title="">Simpan</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+	</section>
+	</div>
+	<script th:inline="javascript">
+	/*<![CDATA[*/
+	           
+		function initDeleteFunction() {	
+			var removeRowBasicInfo = function(obj){
+				$(obj).closest('tr').remove();
+			};
+			
+			$('.gcBasicTable-delete-row').click(function(e){
+				e.preventDefault();
+				removeRowBasicInfo(this);
+			});
+		}
+	
+		function initDeletePicture() {
+			$('.basicPicture-delete').click(function(e){
+				e.preventDefault();
+				$('#input-file-basicPictureURL').show();
+				$('#container-basicPictureURL').html("");
+				$('#input-hidden-basicPictureURL, #input-file-basicPictureURL').val("");
+				$('#container-basicPictureURL').hide();
+			});
+		}
+	
+	    $(function(){
+	    	var fileManagerURL = /*[[@{/do/fileManager/upload/}]]*/ #;
+	    	
+	    	initDeleteFunction();
+	    	initDeletePicture();
+	    	
+			var backToList = function(){
+				returnToList('courseTag-detail-container', 'courseTag-list-container', true);
+			};
+			
+			var preSerializeForm = function() {
+				var idx = 0;
+				$('#gcBasicTable').find('tbody').find('tr').each(function(){
+					$(this).find('.gcBasicTable-id').attr('name', 'gcBasicInformationList['+idx+'].pkGCBasicInformation');
+					$(this).find('.gcBasicTable-orderNo').val(idx);
+					$(this).find('.gcBasicTable-orderNo').attr('name', 'gcBasicInformationList['+idx+'].orderNo');
+					$(this).find('.gcBasicTable-fieldLookup').attr('name', 'gcBasicInformationList['+idx+'].fieldLookup.pkLookup');
+					$(this).find('.gcBasicTable-value').attr('name', 'gcBasicInformationList['+idx+'].value');
+					idx++;
+				});
+			};
+			
+			var submitForm = function(){
+				cleanErrorParsley();
+				preSerializeForm();
+				var sURL = /*[[@{/do/course/courseTag/saveTag/}]]*/ #;
+				$.post(sURL, $("#courseTag-detail-form").serialize(), function(data) {
+					if(data.errorList!=null){
+						displayErrorParsley(data.errorList);
+					}else{
+						backToList();
+					}
+				});
+			};
+			
+			var showImage = function(imageURL) {
+				$('#input-file-basicPictureURL').hide();
+				var htmlContent = '<image src="'+imageURL+'" style="max-height:250px;"></image>';
+				htmlContent += '<a href="#" class="btn btn-primary btn-xs margin-bottom-20 basicPicture-delete" data-toggle="tooltip" title="Delete" style="position:absolute; left:25px; top:10px;"><i class="fa fa-trash"></i></a>';
+				$('#container-basicPictureURL').html(htmlContent);
+				$('#input-hidden-basicPictureURL').val(imageURL);
+				$('#container-basicPictureURL').show();
+				initDeletePicture();
+			}
+			
+			var uploadFile = function(image, uploadURL) {
+				var data = new FormData();
+				data.append('file', image);
+				var xhr = new XMLHttpRequest();
+				xhr.open('POST', uploadURL, true);
+				xhr.onreadystatechange = function() {
+				  if (xhr.readyState === 4) {
+				    var response = JSON.parse(xhr.responseText);
+				    if (response) {
+				      	showImage(response);
+				    } else {
+				      	var reader = new FileReader();
+				      	reader.onload = function(e) {
+				        	callback(e.target.result);
+				      	};
+				      	reader.readAsDataURL(image);
+				    }
+				  }
+				}
+				xhr.send(data);
+			};
+		
+			var addRowBasicInfo = function(){
+				$('#gcBasicTable tbody').append($('#gcBasicTable-rowTemplate').html());
+				initDeleteFunction();
+			};
+			
+			var thisObj = '';
+			$(document).unbind('change').on('change', '#input-file-basicPictureURL', function(){
+				var sURL = /*[[@{/do/fileManager/uploadFeaturedImage/}]]*/ #;
+				var thisObj = $('#input-file-basicPictureURL')[0];
+				uploadFile(thisObj.files[0], sURL);
+			});
+			
+			$('#courseTag-detail-btn-save').click(function(e){
+				e.preventDefault();
+				submitForm();
+			});
+			
+			$('#courseTag-detail-btn-cancel').click(function(e){
+				e.preventDefault();
+				backToList();
+			});
+			
+			$('#gcBasicTable-add-row').click(function(e){
+				e.preventDefault();
+				addRowBasicInfo();
+			});
+			
+	    });
+	/*]]>*/
+	</script>
+</body>
+</html>
