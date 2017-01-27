@@ -50,6 +50,14 @@
                            	</div>
 						</div>
 						<div class="form-group">
+							<label class="col-sm-2 control-label" th:text="'Tag'">Tag</label>
+							<div class="col-sm-9 form-input-container">
+								<select class="course-detail-groupCourseSelect chosen-select form-control tagSelection" multiple="multiple">
+									<option th:each="opt : ${tagOptions}" th:value="${opt.pkTag}" th:text="${opt.name}" >Name</option>
+                           		</select>
+                           	</div>
+						</div>
+						<div class="form-group">
 							<label class="col-sm-2 control-label" th:text="'Code'">Code</label>
 							<div class="col-sm-9 form-input-container">
 								<input type="text" class="form-control" placeholder="Code" name="srch-term" id="input-text-code" th:field="*{code}"/>
@@ -144,10 +152,29 @@
 				$('#container-basicPictureURL').hide();
 			});
 		}
+		
+		var generateTag = function(){
+			$('.tagSelection option:selected').each(function(idx){
+				var val = $(this).val();
+				var template = '<input type="hidden" value="'+val+'" name="courseTags['+idx+'].pkTag" />';
+				$('.tagSelection').after(template);
+			});
+		}
+		
+		var loadTag = function(){
+			var tags = /*[[${courseTags}]]*/'';
+			if(tags){
+				for(var i=0;i<tags.length;i++){
+					var val = tags[i].pkTag;
+					$('.tagSelection').find('option[value="'+val+'"]').attr('selected','selected');
+				}
+			}
+		}
 	
 	    $(function(){
 	    	var fileManagerURL = /*[[@{/do/fileManager/upload/}]]*/ #;
 	    	
+	    	loadTag();
 	    	initDeleteFunction();
 	    	initDeletePicture();
 	    	initTextEditor('.textEditor', null, fileManagerURL);
@@ -171,6 +198,7 @@
 			
 			var submitForm = function(){
 				cleanErrorParsley();
+				generateTag();
 				$('#textEditor-fullDescription-hidden').val(tinymce.get('textEditor-fullDescription-area').getContent());
 				$('#textEditor-admissionRequirement-hidden').val(tinymce.get('textEditor-admissionRequirement-area').getContent());
 				preSerializeForm();
@@ -215,7 +243,7 @@
 				}
 				xhr.send(data);
 			};
-		
+			
 			var addRowBasicInfo = function(){
 				$('#gcBasicTable tbody').append($('#gcBasicTable-rowTemplate').html());
 				initDeleteFunction();

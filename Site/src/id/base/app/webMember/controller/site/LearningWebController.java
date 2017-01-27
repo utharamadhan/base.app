@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import id.base.app.SystemConstant;
 import id.base.app.paging.PagingWrapper;
 import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
@@ -29,6 +30,7 @@ import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.valueobject.course.Course;
 import id.base.app.valueobject.course.GroupCourse;
+import id.base.app.valueobject.course.Tag;
 import id.base.app.valueobject.news.News;
 
 @Scope(value="request")
@@ -44,6 +46,10 @@ public class LearningWebController {
 	
 	protected RestCaller<Course> getRestCallerCourse() {
 		return new RestCaller<Course>(RestConstant.REST_SERVICE, RestServiceConstant.COURSE_SERVICE);
+	}
+	
+	protected RestCaller<Tag> getRestTagCaller() {
+		return new RestCaller<Tag>(RestConstant.REST_SERVICE, RestServiceConstant.COURSE_TAG_SERVICE);
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)

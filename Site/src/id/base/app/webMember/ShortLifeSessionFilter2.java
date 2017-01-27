@@ -1,16 +1,19 @@
 package id.base.app.webMember;
 
+import id.base.app.SystemConstant;
 import id.base.app.rest.QueryParamInterfaceRestCaller;
 import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
 import id.base.app.rest.RestServiceConstant;
 import id.base.app.rest.SpecificRestCaller;
+import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.util.dao.SearchOrder.Sort;
 import id.base.app.valueobject.aboutUs.CommonPost;
 import id.base.app.valueobject.aboutUs.Engagement;
 import id.base.app.valueobject.aboutUs.ProgramPost;
+import id.base.app.valueobject.course.Tag;
 import id.base.app.valueobject.publication.DigitalBook;
 
 import java.io.IOException;
@@ -37,6 +40,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class ShortLifeSessionFilter2 implements Filter{
 	private final static Logger LOGGER = LoggerFactory.getLogger(ShortLifeSessionFilter2.class);
+	
+	protected RestCaller<Tag> getRestTagCaller() {
+		return new RestCaller<Tag>(RestConstant.REST_SERVICE, RestServiceConstant.COURSE_TAG_SERVICE);
+	}
 	
 	private static final Set<String> BYPASS_TOKEN = new HashSet<String>();
 	static{
@@ -129,6 +136,12 @@ public class ShortLifeSessionFilter2 implements Filter{
 			}
 		});
 		request.setAttribute("ebooksLatest", ebooks);
+		
+		//course tag
+		List<SearchFilter> filterTag = new ArrayList<SearchFilter>();
+		filterTag.add(new SearchFilter(Tag.VALID, Operator.EQUALS, SystemConstant.ValidFlag.VALID));
+		List<SearchOrder> orderTag = new ArrayList<SearchOrder>();
+		request.setAttribute("tags_course", getRestTagCaller().findAll(filterTag, orderTag));
 		
 		chain.doFilter(request, response);
 	}

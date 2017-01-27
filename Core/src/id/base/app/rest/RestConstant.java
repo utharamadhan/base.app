@@ -70,6 +70,7 @@ public class RestConstant {
 	//learning
 	public static final String RM_GROUP_COURSE = "/course/groupCourse";
 	public static final String RM_COURSE = "/course/course";
+	public static final String RM_COURSE_TAG = "/course/courseTag";
 	
 	//research
 	public static final String RM_RESEARCH_TOPIC = "/research/researchTopic";
