@@ -3151,7 +3151,7 @@ ul.contact_info li a:hover {
 	overflow: hidden; 
 	font: 18px Helvetica, Arial, Sans-Serif;
 	padding: 0px; 
-	margin-bottom: 8px;
+	margin-bottom: 0px;
     background-color: #0056a1;
 }
 .breadcrumb li { 
