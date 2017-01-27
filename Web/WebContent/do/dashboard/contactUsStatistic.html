@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:ifs="http://padiku.id">
+<head>
+<meta charset="ISO-8859-1"/>
+<title>News Maintenance</title>
+</head>
+<style>
+.dataTables_scrollBody {
+	height : auto !important;
+	min-height : 120px;
+}
+</style>
+<body>
+<div id="content" class="col-md-12">
+	<div id="news-detail-container"></div>
+	<div id="news-list-container">
+	<div class="pageheader">
+		<h4><i class="fa fa-shopping-basket"></i> News Editor / News Maintenance List
+		<span></span></h4>
+	</div>
+	<div class="col-md-4 tile-body no-vpadding" style="margin:10px;">
+		<a href="#" id="news-btn-add" class="btn btn-primary" style="margin-bottom:5px"><i class="fa fa-plus dropdown-plus"></i> &nbsp; Add</a>
+	</div>
+	<div class="main">
+		<div class="row">
+			<div class="col-md-12">	
+				<section class="tile transparent">
+					<noscript><h2>Enable Java script and reload this page to run Websocket Demo</h2></noscript>
+					<h1>Calculator App Using Spring 4 WebSocket</h1>
+					<div>
+					    <div>
+					        <button id="connect" onclick="connect();">Connect</button>
+					        <button id="disconnect" disabled="disabled" onclick="disconnect();">Disconnect</button><br/><br/>
+					    </div>
+					    <div id="calculationDiv">
+					        <label>Message :</label><input type="text" id="message" /><br/>
+					        <button id="sendMessage" onclick="sendMessage();">Send Message</button>
+					        <p id="calResponse"></p>
+					    </div>
+					</div>
+				</section>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script th:inline="javascript">
+	/*<![CDATA[*/
+	           
+	var stompClient = null; 
+	function setConnected(connected) {
+		document.getElementById('connect').disabled = connected;
+		document.getElementById('disconnect').disabled = !connected;
+		document.getElementById('calculationDiv').style.visibility = connected ? 'visible' : 'hidden';
+		document.getElementById('calResponse').innerHTML = '';
+	}
+     
+	function connect() {
+		var socket = new SockJS('/Web/do/webSocket');
+		stompClient = Stomp.over(socket);
+		stompClient.connect({'uLUoI0BMv1':'SYSTEM'}, function(frame) {
+			setConnected(true);
+			console.log('Connected: ' + frame);
+			stompClient.subscribe('/topic/showResult', function(calResult){
+				showResult(JSON.parse(calResult.body).result);
+			});
+		});
+	}
+     
+	function disconnect() {
+    	stompClient.disconnect();
+		setConnected(false);
+		console.log("Disconnected");
+	}
+     
+	function sendMessage() {
+		var message = document.getElementById('message').value;
+		stompClient.send("/app/webSocket", {'uLUoI0BMv1':'SYSTEM'}, message);
+	}
+     
+	function showResult(message) {
+		console.log(message);
+	}
+	/*]]>*/
+</script>
+</body>
+</html>

@@ -127,8 +127,8 @@
 			          	<% 
 			          	for(AppFunction menu : menus) {
 			          		if (menu.getFkAppFunctionParent().equals(1L)){
-			          			System.out.println(menu.getName() + " " + menu.getFkAppFunctionParent());
-			          			%>
+			          			if(AppFunction.isMenuHasChild(menu.getPkAppFunction(), menus)) {
+			          				%>
                  					<li id="<%=menu.getName()%>" class="dropdown">
 										<a href="<%=request.getContextPath() + menu.getAccessPage()%>" class="dropdown-toggle" data-toggle="dropdown">
 											<i class="fa fa-bar-chart"></i> <%=menu.getName()%>
@@ -151,7 +151,16 @@
 										%>
 										</ul>
 									</li>
-	                 			<%
+	                 				<%
+			          			} else {
+			          				%>
+			          				<li id="<%=menu.getName()%>">
+										<a href="<%=request.getContextPath() + menu.getAccessPage()%>">
+											<i class="fa fa-bar-chart"></i> <%=menu.getName()%>
+										</a>
+									</li>
+									<%
+			          			}
 			          		}
 			          	}
 			          	%>
@@ -233,6 +242,8 @@
     <script src="<%=request.getContextPath()%>/plugin/vendor/fancytree/jquery.fancytree.table.js"></script>
     <script src="<%=request.getContextPath()%>/plugin/vendor/fancytree/jquery.fancytree.wide.js"></script>
     <script src="<%=request.getContextPath()%>/plugin/vendor/bootbox/bootbox.min.js"></script>
+    <script src="<%=request.getContextPath()%>/plugin/vendor/sockJs/sockjs-0.3.4.js"></script>
+    <script src="<%=request.getContextPath()%>/plugin/vendor/sockJs/stomp.js"></script>
     <script>
 	    $(function(){
 	    	$('.numeric').autoNumeric('init', {aSep:'.', aDec:',', vMin: '-9999999999.99', vMax:'9999999999.99'});

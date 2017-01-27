@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -29,6 +30,7 @@ import com.fasterxml.jackson.datatype.hibernate4.Hibernate4Module.Feature;
 @EnableTransactionManagement
 @ComponentScan("id.base.app.thymeleaf")
 @ImportResource({"classpath:applicationContext.xml","classpath:configurationContext.xml"})
+@Import({WebSocketConfig.class})
 public class ApplicationContextConfig extends WebMvcConfigurerAdapter{
 	
 	@Bean(name = "viewResolver")
