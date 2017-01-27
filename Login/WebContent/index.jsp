@@ -153,7 +153,7 @@
     				}else if(num==2){
     					url = url + webTransContext + restServiceURL;
     				}
-    				alert(url);
+    				
     				var form = document.createElement("form");
     			    form.setAttribute("method", "post");
     			    form.setAttribute("action", url);
