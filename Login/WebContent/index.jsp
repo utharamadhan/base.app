@@ -2,95 +2,54 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>HFC - Admin Login</title>
+	<title>Base - Admin Login</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/ico" href="<%=request.getContextPath()%>/images/favicon.ico" />
-  	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/materialize.min.css">
-  <style>
-    body {
-      display: flex;
-      min-height: 100vh;
-      flex-direction: column;
-    }
-
-    main {
-      flex: 1 0 auto;
-    }
-
-    body {
-      background: #fff;
-    }
-
-    .input-field input[type=date]:focus + label,
-    .input-field input[type=text]:focus + label,
-    .input-field input[type=email]:focus + label,
-    .input-field input[type=password]:focus + label {
-      color: #e91e63;
-    }
-
-    .input-field input[type=date]:focus,
-    .input-field input[type=text]:focus,
-    .input-field input[type=email]:focus,
-    .input-field input[type=password]:focus {
-      border-bottom: 2px solid #e91e63;
-      box-shadow: none;
-    }
-  </style>
+  	<link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet">
+  	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/bootstrap.min.css">
+  	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/bootstrap-responsive.min.css">
+  	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/font-awesome.css">
+  	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/signin.css">
+  	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/style.css">
 </head>
-
 <body>
-  <div class="section"></div>
-  <main>
-    <center>
-      <div class="section"></div>
-
-      <h5 class="indigo-text">Please, login into your account</h5>
-      <div class="section"></div>
-
-      <div class="container">
-        <div class="z-depth-1 grey lighten-4 row" style="display: inline-block; padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
-
-          <form class="col s12" method="post">
-            <div class='row'>
-              <div class='col s12'>
-              </div>
-            </div>
-
-            <div class='row'>
-              <div class='input-field col s12'>
-              	<input type="text" class="validate" name="username" id="username"/>
-                <label for='username'>Enter your username</label>
-              </div>
-            </div>
-
-            <div class='row'>
-              <div class='input-field col s12'>
-                <input class='validate' type='password' name='password' id='password' />
-                <label for='password'>Enter your password</label>
-              </div>
-              <label style='float: right;'>
-								<a class='pink-text' href='#!'><b>Forgot Password?</b></a>
-							</label>
-            </div>
-
-            <br />
-            <center>
-              <div class='row'>
-                <button type='submit' name='btn_login' class='col s12 btn btn-large waves-effect indigo btn-login'>Login</button>
-              </div>
-            </center>
-          </form>
-        </div>
-      </div>
-    </center>
-
-    <div class="section"></div>
-    <div class="section"></div>
-  </main>
-
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+<div class="navbar navbar-fixed-top">
+	<div class="navbar-inner">
+		<div class="container">
+			<a class="btn btn-navbar" data-toggle="collapse"
+				data-target=".nav-collapse"> <span class="icon-bar"></span> <span
+				class="icon-bar"></span> <span class="icon-bar"></span>
+			</a> <a class="brand" href="#"> Point System </a>
+		</div>
+	</div>
+</div>
+<div class="account-container">
+	<div class="content clearfix">
+		<form action="#" method="post">
+			<h1>Admin Login</h1>
+				<div class="login-fields">
+					<p>Please provide your details</p>
+					<div class="field">
+						<label for="username">Username</label>
+						<input type="text" id="username" name="username" value="" placeholder="Username" class="login username-field" />
+					</div>
+					<div class="field">
+						<label for="password">Password:</label>
+						<input type="password" id="password" name="password" value="" placeholder="Password" class="login password-field" />
+					</div>
+				</div>
+				<div class="login-actions">
+					<span class="login-checkbox"> 
+						<input id="Field" name="Field" type="checkbox" class="field login-checkbox" value="First Choice" tabindex="4" />
+						<label class="choice" for="Field">Keep me signed in</label>
+					</span>
+					<button class="button btn btn-success btn-large btn-login">Sign In</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	<script src="<%=request.getContextPath()%>/script/jquery-1.7.2.min.js" type="text/javascript"></script>
+	<script src="<%=request.getContextPath()%>/script/bootstrap.js" type="text/javascript"></script>
   <script type="text/javascript">
     	$(function(){
 	    	<%

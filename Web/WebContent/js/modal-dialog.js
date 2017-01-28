@@ -12,12 +12,8 @@ function initializeDialog(numbers){
 		$( "#dialog"+i )
 		.dialog({
 			autoOpen: false,
-			//title: 'Basic Dialog',
 			modal: true,
 			stack: true,
-			/*zIndex: 1000,
-			width: 600,
-			height: 310,*/
 			beforeClose: function(event, ui) {
 				if(event.keyCode == 27) {
 					if(typeof closeOnEscape != 'undefined'){
