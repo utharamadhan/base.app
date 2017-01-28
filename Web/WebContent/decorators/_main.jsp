@@ -46,6 +46,7 @@
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/plugin/vendor/fuelux/css/wizzard.min.css"/>
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/plugin/vendor/bs-wizard/bs-wizard-min.css" type="text/css" media="all">
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/plugin/vendor/fancytree/style/ui.fancytree.css" type="text/css" media="all">
+		<link rel="stylesheet" href="<%=request.getContextPath()%>/plugin/vendor/dailyfeed/dailyfeed.css" type="text/css" media="all">
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/css/minimal.css">
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css">
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/plugin/vendor/quill/quill-1.1.7.css">

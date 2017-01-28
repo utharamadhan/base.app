@@ -1,6 +1,13 @@
 package id.base.app.valueobject.contact;
 
+import id.base.app.util.DateTimeFunction;
+import id.base.app.valueobject.BaseEntity;
+import id.base.app.valueobject.Lookup;
+import id.base.app.valueobject.course.Course;
+
 import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,13 +18,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-
-import id.base.app.valueobject.BaseEntity;
-import id.base.app.valueobject.Lookup;
-import id.base.app.valueobject.course.Course;
 
 @Entity
 @Table(name="CONTACT")
@@ -87,6 +91,15 @@ public class Contact extends BaseEntity implements Serializable {
 	
 	@Column(name="MESSAGE")
 	private String message;
+	
+	@Column(name="IS_READ")
+	private Boolean isRead;
+	
+	@Transient
+	private Date activityDate;
+	
+	@Transient
+	private String activityAge;
 
 	public Long getPkContact() {
 		return pkContact;
@@ -167,6 +180,37 @@ public class Contact extends BaseEntity implements Serializable {
 	public void setCourse(Course course) {
 		this.course = course;
 	}
-	
+
+	public Boolean getIsRead() {
+		return isRead;
+	}
+	public void setIsRead(Boolean isRead) {
+		this.isRead = isRead;
+	}
+
+	@Transient
+	public Date getActivityDate() {
+		return activityDate;
+	}
+	@Transient
+	public void setActivityDate(Date activityDate) {
+		this.activityDate = activityDate;
+	}
+
+	@Transient
+	public String getActivityAge() {
+		if(activityDate != null) {
+			try {
+				return DateTimeFunction.calcDateDifferenceString(activityDate, Calendar.getInstance().getTime());	
+			} catch (Exception e) {
+				
+			}
+		}
+		return activityAge;
+	}
+	@Transient
+	public void setActivityAge(String activityAge) {
+		this.activityAge = activityAge;
+	}
 	
 }

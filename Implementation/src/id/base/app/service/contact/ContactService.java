@@ -57,4 +57,14 @@ public class ContactService implements IContactService {
 		return contactDAO.findAll(filter, order);
 	}
 
+	@Override
+	public List<Contact> getLatestContactUs() throws SystemException {
+		return contactDAO.getLatestContactUs();
+	}
+
+	@Override
+	public Integer countUnreadMessage() throws SystemException {
+		return contactDAO.countUnreadMessage();
+	}
+
 }
