@@ -10,19 +10,28 @@
 	</div>
 	<div class="panel-body">
 		<ul class="list-group list-group-dividered list-group-full">
-			<li th:each="activity : ${contacts}" class="list-group-item">
-				<div class="media">
-					<div class="media-body col-md-12">
-						<h4 class="media-heading" style="width:100%;">
-							<small class="pull-right" th:text="${activity.activityAge}"></small>
-								<span style="color: red;">* &nbsp;</span><a class="name" th:text="${activity.email}">Name</a>
-						</h4>
-						<small th:text="${activity.activityDate!=null?#dates.format(activity.activityDate, T(id.base.app.SystemConstant).SYSTEM_TIME_MASK_SECONDHAND):''}"></small>
-						<div class="content well" th:text="${activity.message}"></div>
-						<small class="pull-right"><a>read more</a></small>
+			<th:block th:if="${not #lists.isEmpty(contacts)}">
+				<li th:each="activity : ${contacts}" class="list-group-item">
+					<div class="media">
+						<div class="media-body col-md-12">
+							<h4 class="media-heading" style="width:100%;">
+								<small class="pull-right" th:text="${activity.activityAge}"></small>
+									<span style="color: red;">* &nbsp;</span><a class="name" th:text="${activity.email}">Name</a>
+							</h4>
+							<small th:text="${activity.activityDate!=null?#dates.format(activity.activityDate, T(id.base.app.SystemConstant).SYSTEM_TIME_MASK_SECONDHAND):''}"></small>
+							<div class="content well" th:text="${activity.message}"></div>
+							<small class="pull-right"><a>read more</a></small>
+						</div>
 					</div>
-				</div>
-			</li>
+				</li>
+			</th:block>
+			<th:block th:if="${#lists.isEmpty(contacts)}">
+				<li th:each="activity : ${contacts}" class="list-group-item">
+					<div class="media">
+						<div class="media-body col-md-12"></div>
+					</div>
+				</li>
+			</th:block>
 		</ul>
 		<button type="button"
 			class="btn btn-block btn-primary waves-effect waves-light">
