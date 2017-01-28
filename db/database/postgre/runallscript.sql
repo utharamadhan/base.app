@@ -24,7 +24,6 @@
 
 -- DML init script
 \i DML/LOOKUP.sql;
-\i DML/LOOKUP_GROUP.sql;
 \i DML/APP_USER.sql;
 \i DML/APP_FUNCTION.sql;
 \i DML/APP_ROLE.sql;

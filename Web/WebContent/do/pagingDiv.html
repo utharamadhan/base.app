@@ -50,7 +50,7 @@
 			}
 		}
 		
-		$('#txtPage_'+[[${tformId}]]).numeric();
+		$('#txtPage_'+[[${tformId}]]).autoNumeric('init', {aSep:'.', aDec:',', vMin: '-9999999999.99', vMax:'9999999999.99'});
 		$('#txtPage_'+[[${tformId}]]).keypress(function(event) {
 	  	  if (event.which == '13') {
 	  	    event.preventDefault();

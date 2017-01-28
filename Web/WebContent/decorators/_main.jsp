@@ -187,13 +187,13 @@
 	   <decorator:body />
        <jsp:include page="/blank.jsp"></jsp:include>
     <%} %>
-    <script src="<%=request.getContextPath()%>/js/jquery/autoNumeric.js" type="text/javascript"></script>
     <script src="<%=request.getContextPath()%>/js/jquery/jquery-1.7.2.min.js" type="text/javascript"></script>
     <script src="<%=request.getContextPath()%>/js/jquery/jquery-ui.min.js" type="text/javascript"></script>
     <script src="<%=request.getContextPath()%>/plugin/vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="<%=request.getContextPath()%>/plugin/vendor/bootbox/bootbox.min.js"></script>
     <script src="<%=request.getContextPath()%>/js/modal-dialog.js" type="text/javascript"></script>
 	<script src="<%=request.getContextPath()%>/js/common.js" type="text/javascript" ></script>
+	<script src="<%=request.getContextPath()%>/js/jquery/autoNumeric.js" type="text/javascript"></script>
 	
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="<%=request.getContextPath()%>/plugin/vendor/bootstrap/bootstrap.js"></script>
@@ -202,6 +202,7 @@
 	<script type="text/javascript">
 	var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
 	(function(){
+	$('.numeric').autoNumeric('init', {aSep:'.', aDec:',', vMin: '-9999999999.99', vMax:'9999999999.99'});
 	var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
 	s1.async=true;
 	s1.src='https://embed.tawk.to/573dfd4cc59e45d972c2fa1e/default';

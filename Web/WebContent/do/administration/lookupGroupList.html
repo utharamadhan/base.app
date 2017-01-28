@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:ifs="http://padiku.id">
 <head>
 <meta charset="ISO-8859-1"/>
-<title>System Parameter</title>
+<title>Lookup Group List</title>
 </head>
 <style>
 .dataTables_scrollBody {
@@ -11,38 +11,29 @@
 }
 </style>
 <body>
-<div id="content" class="col-md-12">
+<div class="span12">
+<div id="content" class="widget">
 	<div id="lookup-list-container"></div>
 	<div id="lookup-detail-container"></div>
 	<div id="lookupGroup-list-container">
-	<div class="pageheader">
-		<h4><i class="fa fa-shopping-basket"></i> Administration / System Parameter List
-		<span></span></h4>
+	<div class="widget-header">
+		<h3><i class="fa fa-shopping-basket"></i> Administration / Lookup Group List</h3>
 	</div>
-	<div class="main">
-		<div class="row">
-			<div class="col-md-12">	
-				<section class="tile transparent">
-					<div class="table-responsive">
-						<div class="tile-body rounded-corners">
-	                      	<table id="lookupGroup-list-table" class="table table-datatable table-custom">
-		                        <thead>
-		                          <tr>
-		                            <th>Lookup Group</th>
-		                            <th>Description</th>
-									<th>E/D</th>
-		                          </tr>
-		                        </thead>
-	                     	</table>
-	                     	<div style="padding-bottom: 3px; bottom: 0;" th:replace="pagingDiv::pager (${pagingWrapper}, ${#dates.createNow()}, 'lookupGroup-list-table', 'contentArea')">
-							</div>
-                     	</div>
-					</div>
-				</section>
-				</div>
-			</div>
+	<div class="widget-content">
+ 		<table id="lookupGroup-list-table" class="table table-striped table-bordered">
+			<thead>
+				<tr>
+                    <th>Lookup Group</th>
+                    <th>Description</th>
+					<th>E/D</th>
+				</tr>
+			</thead>
+		</table>
+		<div style="padding-bottom: 3px; bottom: 0;" th:replace="pagingDiv::pager (${pagingWrapper}, ${#dates.createNow()}, 'lookupGroup-list-table', 'contentArea')">
 		</div>
 	</div>
+	</div>
+</div>
 </div>
 <script th:inline="javascript">
 	/*<![CDATA[*/
