@@ -11,37 +11,31 @@
 }
 </style>
 <body>
-<div id="content" class="col-md-12">
+<div class="span12">
+<div id="content" class="widget">
 	<div id="userMaintenance-detail-container"></div>
 	<div id="userMaintenance-list-container">
-	<div class="pageheader">
-		<h4><i class="fa fa-shopping-basket"></i> Administration / User Maintenance List
-		<span></span></h4>
+	<div class="widget-header">
+		<h3><i class="fa fa-shopping-basket"></i> Administration / User Maintenance List<span></span></h3>
 	</div>
-	<div class="main">
-		<div class="row">
-			<div class="col-md-12">	
-				<section class="tile transparent">
-					<div class="table-responsive">
-						<div class="tile-body rounded-corners">
-	                      	<table id="userMaintenance-list-table" class="table table-datatable table-custom">
-		                        <thead>
-		                          <tr>
-		                            <th>User Name</th>
-									<th>Email</th>
-									<th>E/D</th>
-		                          </tr>
-		                        </thead>
-	                     	</table>
-	                     	<div style="padding-bottom: 3px; bottom: 0;" th:replace="pagingDiv::pager (${pagingWrapper}, ${#dates.createNow()}, 'userMaintenance-list-table', 'contentArea')">
-							</div>
-                     	</div>
-					</div>
-				</section>
-				</div>
-			</div>
-		</div>
+	<div class="widget-content">
+	<div class="span4 tile-body no-vpadding" style="margin:10px;">
+		<a href="#" id="userMaintenance-btn-add" class="btn btn-primary" style="margin-bottom:5px"><i class="icon-plus"></i> &nbsp; Add</a>
 	</div>
+		<table id="userMaintenance-list-table" class="table table-striped table-bordered">
+			<thead>
+				<tr>
+					<th>User Name</th>
+					<th>Email</th>
+					<th>E/D</th>
+				</tr>
+			</thead>
+		</table>
+	<div style="padding-bottom: 3px; bottom: 0;" th:replace="pagingDiv::pager (${pagingWrapper}, ${#dates.createNow()}, 'userMaintenance-list-table', 'contentArea')">
+	</div>
+	</div>
+	</div>
+</div>
 </div>
 <script th:inline="javascript">
 	/*<![CDATA[*/

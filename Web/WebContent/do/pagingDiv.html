@@ -1,7 +1,7 @@
-<div class="tile color transparent" style="padding-left:10px;padding-bottom: 10px; bottom: 0;" th:fragment="pager (wrapper, dateNow, tformId, container)">
-	<input type="button" id="btnPrev" value="&lt;" class="btn btn-primary" th:onclick="'window[\'gotoPage'+${tformId}+'\'](-1)'" style="display: none;"></input>
+<div class="pull-right span2" style="padding-left:10px;padding-bottom: 10px; bottom: 0;" th:fragment="pager (wrapper, dateNow, tformId, container)">	
+	<input type="button" id="btnPrev" value="&lt;" class="btn btn-primary span1" th:onclick="'window[\'gotoPage'+${tformId}+'\'](-1)'" style="display: none;"></input>
 	<input type="hidden" th:id="_txtOldPage_+${tformId}" th:value="${wrapper?.currentPage}" ></input>
-	<input type="text" th:id="txtPage_+${tformId}" name="page" size="4" th:value="${wrapper?.currentPage}"></input> of <label id="noOfPage" th:text="${wrapper?.noOfPage}">0</label> page(s) 
+	<input type="text" th:id="txtPage_+${tformId}" name="page" size="4" th:value="${wrapper?.currentPage}" style="width: 20px;"></input> of <label id="noOfPage" th:text="${wrapper?.noOfPage}" style="display:inline-block;">0</label> page(s) 
 	<input type="button" id="btnGo" value="GO" class= "btn btn-primary" th:onclick="'window[\'refresh'+${tformId}+'\']()'"></input>
 	<input type="button" id="btnNext" value="&gt;" class="btn btn-primary" th:onclick="'window[\'gotoPage'+${tformId}+'\'](+1)'" style="display: none;"></input>
 	

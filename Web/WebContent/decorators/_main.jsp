@@ -27,8 +27,8 @@
     	<!-- Bootstrap -->
 	    <link href="<%=request.getContextPath()%>/css/vendor/bootstrap/bootstrap.min.css" rel="stylesheet">
 	    <link href="<%=request.getContextPath()%>/css/vendor/bootstrap/bootstrap-responsive.min.css" rel="stylesheet">
-	    <link href="<%=request.getContextPath()%>/css/font-awesome.css" rel="stylesheet">
-	    	    	    <link rel="stylesheet" href='<%=request.getContextPath()%>/plugin/vendor/datatables/css/dataTables.bootstrap.css'>
+		<link href="<%=request.getContextPath()%>/css/font-awesome.css" rel="stylesheet">
+		<link rel="stylesheet" href='<%=request.getContextPath()%>/plugin/vendor/datatables/css/dataTables.bootstrap.css'>
 	    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css">
 	    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet">
 	    
@@ -180,8 +180,8 @@
       
     </div>
     <!-- Wrap all page content end -->
-    
-    <section class="videocontent" id="video"></section>
+
+	<section class="videocontent" id="video"></section>
 
 	<%}else{ %>
 	   <decorator:body />
@@ -190,7 +190,8 @@
     <script src="<%=request.getContextPath()%>/js/jquery/autoNumeric.js" type="text/javascript"></script>
     <script src="<%=request.getContextPath()%>/js/jquery/jquery-1.7.2.min.js" type="text/javascript"></script>
     <script src="<%=request.getContextPath()%>/js/jquery/jquery-ui.min.js" type="text/javascript"></script>
-        <script src="<%=request.getContextPath()%>/plugin/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="<%=request.getContextPath()%>/plugin/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="<%=request.getContextPath()%>/plugin/vendor/bootbox/bootbox.min.js"></script>
     <script src="<%=request.getContextPath()%>/js/modal-dialog.js" type="text/javascript"></script>
 	<script src="<%=request.getContextPath()%>/js/common.js" type="text/javascript" ></script>
 	

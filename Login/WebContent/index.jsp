@@ -23,6 +23,7 @@
 		</div>
 	</div>
 </div>
+<div class="errorFragment"></div>
 <div class="account-container">
 	<div class="content clearfix">
 		<form action="#" method="post">
@@ -53,18 +54,23 @@
   <script type="text/javascript">
     	$(function(){
 	    	<%
-	          	System.out.println(request.getParameter("error"));
 	          	if(request.getParameter("error") != null) {
 	          		if(request.getParameter("error").equals("wrongAccount")) {
 	          			%> 
-	          				var $toastContent = $("<span>invalid username / password</span>");
-	            			Materialize.toast($toastContent, 2000); 
+	          				var alertContent = "<div class='alert'>" +
+	          										"<button type='button' class='close' data-dismiss='alert'>×</button>" +
+													"<strong>invalid username / password.</strong>" +
+												"</div>";
+	            			$(".errorFragment").append(alertContent);
 	            		<%	
 	          		} else if(request.getParameter("error").equals("tokenExpired")) {
 	          			%> 
-          				var $toastContent = $("<span>session expired</span>");
-            			Materialize.toast($toastContent, 2000); 
-            		<%	
+	          				var alertContent = "<div class='alert'>" +
+													"<button type='button' class='close' data-dismiss='alert'>×</button>" +
+													"<strong>token expired.</strong>" +
+												"</div>";
+							$(".errorFragment").append(alertContent);
+            			<%	
           			}
 	          	}
 	        %>

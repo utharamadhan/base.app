@@ -72,7 +72,7 @@ textarea {
 .navbar-inner {
 	padding: 7px 0;
 	
-	background: #00ba8b !important;
+	background: #FFD900 !important;
 	
 	-moz-border-radius: 0;
 	-webkit-border-radius: 0;
@@ -84,9 +84,9 @@ textarea {
 }
 
 .navbar .nav a {
-	font-size: 11px;
+	font-size: 14px;
 }
-.navbar .nav>li>a { color:#fff !important;}
+.navbar .nav>li>a { color:#104e8b !important;}
 .navbar .brand {
 	font-weight: 600;
 	position: relative;
@@ -120,7 +120,7 @@ textarea {
     }
     
 .subnavbar-inner {
-	height: 60px;
+	height: 30px;
 	background: #fff;
 	border-bottom: 1px solid #d6d6d6;
 }
@@ -128,7 +128,7 @@ textarea {
 .subnavbar .container > ul {
 	display: inline-block;
 	
-	height: 80px;
+	height: 30px;
 	padding: 0;
 	margin: 0;
 	
@@ -138,7 +138,7 @@ textarea {
 	float: left;
 	
 	min-width: 90px;
-	height: 60px;
+	height: 30px;
 	padding: 0;
 	margin: 0;
 	
@@ -152,12 +152,14 @@ textarea {
 
 .subnavbar .container > ul > li > a {
 	display: block;
-	
+	vertical-align: middle;
 	height: 100%;
-	padding: 0 15px;
-	
-	font-size: 12px;
+	padding: 0 10px;
+	font-size: 18px;
 	font-weight: bold;
+	margin-top: 5px;
+	margin-right: 10px;
+	margin-left: 10px;
 	color: #b2afaa;
 }
 
@@ -252,8 +254,6 @@ textarea {
 
 .main {
 	padding-bottom: 2em;
-	
-	border-bottom: 1px solid #000;
 }
 
 
@@ -353,15 +353,15 @@ textarea {
 	height: 40px;
 	line-height: 40px;
 	
-	background: #f9f6f1;
-	background:-moz-linear-gradient(top, #f9f6f1 0%, #f2efea 100%); /* FF3.6+ */
-	background:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#f9f6f1), color-stop(100%,#f2efea)); /* Chrome,Safari4+ */
-	background:-webkit-linear-gradient(top, #f9f6f1 0%,#f2efea 100%); /* Chrome10+,Safari5.1+ */
-	background:-o-linear-gradient(top, #f9f6f1 0%,#f2efea 100%); /* Opera11.10+ */
-	background:-ms-linear-gradient(top, #f9f6f1 0%,#f2efea 100%); /* IE10+ */
-	background:linear-gradient(top, #f9f6f1 0%,#f2efea 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f9f6f1', endColorstr='#f2efea');
-	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#f9f6f1', endColorstr='#f2efea')";
+	background: #FFD900;
+	background:-moz-linear-gradient(top, #FFD900 0%, #f4d002 100%); /* FF3.6+ */
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#FFD900), color-stop(100%,#f4d002)); /* Chrome,Safari4+ */
+	background:-webkit-linear-gradient(top, #FFD900 0%,#f4d002 100%); /* Chrome10+,Safari5.1+ */
+	background:-o-linear-gradient(top, #FFD900 0%,#f4d002 100%); /* Opera11.10+ */
+	background:-ms-linear-gradient(top, #FFD900 0%,#f4d002 100%); /* IE10+ */
+	background:linear-gradient(top, #FFD900 0%,#f4d002 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFD900', endColorstr='#f4d002');
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFD900', endColorstr='#f4d002')";
 	
 	
 	border: 1px solid #d6d6d6;
@@ -1084,11 +1084,11 @@ table.fc-border-separate {
 .fc-agenda .ui-resizable-resizing {
 	_overflow: hidden
 }
-.fc-header-left .fc-button-prev .fc-button-inner {background: url('../images/signin/icons-sa7c41345d9.png') no-repeat; background-position: 0 -351px;
+.fc-header-left .fc-button-prev .fc-button-inner {background: url('../img/icons-sa7c41345d9.png') no-repeat; background-position: 0 -351px;
 height: 16px;
 width: 11px;}
 
-.fc-header-left .fc-button-next .fc-button-inner {background: url('../images/signin/icons-sa7c41345d9.png') no-repeat; background-position: 0 -367px;
+.fc-header-left .fc-button-next .fc-button-inner {background: url('../img/icons-sa7c41345d9.png') no-repeat; background-position: 0 -367px;
 height: 16px;
 width: 11px;}
 

@@ -47,25 +47,16 @@
 			showScreen('appRoleMaintenance-list-container', 'appRoleMaintenance-detail-container', sURL + maintenancePK + "&skipdecorator=");
 		}
 		
-		function deleteItem(maintenancePK) {
-			var sURL = /*[[@{/do/appRoleMaintenance/delete?}]]*/ #;
-			var serializedData = "maintenancePKs=" + maintenancePK;
-			$.post(sURL, serializedData,function(data){
-				if(data.errorList!=null){
-					//show error message
-				}else{
-					search();
-				}
-			});
-		} 
-		
-		function deleteAppRoleMaintenance() {
-			var sURL = /*[[@{/do/appRoleMaintenance/deleteAppRoleMaintenance?skipDecorator}]]*/ #;
-			$.post(sURL, $('.appRoleMaintenance-list-check-delete').serialize(), function(data){
-				if(data.errorList!=null){
-					
-				}else{
-					location.reload(true);
+		function deleteItem() {
+			bootBoxConfirmation('Sure you want to delete these record?', function(result) {
+				if(result) {					
+					var sURL = /*[[@{/do/appRoleMaintenance/deleteAppRoleMaintenance?skipDecorator}]]*/ #;
+					$.post(sURL, $('.appRoleMaintenance-list-check-delete').serialize(), function(data){
+						if(data.errorList!=null){						
+						}else{
+							location.reload(true);
+						}
+					});	
 				}
 			});
 		}
@@ -82,10 +73,6 @@
 	    
 		$('#appRoleMaintenance-btn-add').click(function(){
 			showAdd();
-		});
-		
-		$('#appRoleMaintenance-btn-delete').click(function(){
-			deleteAppRoleMaintenance();
 		});
 		
 	/*]]>*/

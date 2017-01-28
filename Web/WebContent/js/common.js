@@ -754,13 +754,13 @@ function buildColumns(colDefs,list){
 		} else if( colDefs[i].type == 'deleteAndEdit' ) {
 			var colDefsTemp = colDefs[i];
 			tabCol.render = function(data, type, row, meta){
-				return '<a href="#" onclick="showDetail(' + renderParam(colDefsTemp, row) + ')" class="btn btn-primary btn-xs" data-toggle="tooltip" title="" data-original-title="Edit" style="margin-right:5px;"><i class="fa fa-edit"></i></a>' +
-					 '<a href="#" onclick="deleteItem(' + renderParam(colDefsTemp, row) + ')" class="btn btn-primary btn-xs" data-toggle="tooltip" title="" data-original-title="Delete"><i class="fa fa-trash"></i></a>';
+				return '<a href="#" onclick="showDetail(' + renderParam(colDefsTemp, row) + ')" class="btn btn-primary btn-xs" data-toggle="tooltip" title="" data-original-title="Edit" style="margin-right:5px;"><i class="icon-edit"></i></a>' +
+					 '<a href="#" onclick="deleteItem(' + renderParam(colDefsTemp, row) + ')" class="btn btn-primary btn-xs" data-toggle="tooltip" title="" data-original-title="Delete"><i class="icon-trash"></i></a>';
 			}
 		} else if( colDefs[i].type == 'delete' ) {
 			var colDefsTemp = colDefs[i];
 			tabCol.render = function(data, type, row, meta){
-				return '<a href="#" onclick="deleteItem(' + renderParam(colDefsTemp, row) + ')" class="btn btn-primary btn-xs" data-toggle="tooltip" title="" data-original-title="Delete"><i class="fa fa-trash"></i></a>';
+				return '<a href="#" onclick="deleteItem(' + renderParam(colDefsTemp, row) + ')" class="btn btn-primary btn-xs" data-toggle="tooltip" title="" data-original-title="Delete"><i class="icon-trash"></i></a>';
 			}
 		} else if( colDefs[i].type == 'detail' ) {
 			var colDefsTemp = colDefs[i];
@@ -773,7 +773,7 @@ function buildColumns(colDefs,list){
 		} else if( colDefs[i].type == 'edit' ) {
 			var colDefsTemp = colDefs[i];
 			tabCol.render = function(data, type, row, meta){
-				return '<a href="#" onclick="showDetail(' + renderParam(colDefsTemp, row) + ')" class="btn btn-primary btn-xs" data-toggle="tooltip" title="" data-original-title="Edit"><i class="fa fa-edit"></i></a>';
+				return '<a href="#" onclick="showDetail(' + renderParam(colDefsTemp, row) + ')" class="btn btn-primary btn-xs" data-toggle="tooltip" title="" data-original-title="Edit"><i class="icon-edit"></i></a>';
 			}
 		} else if( colDefs[i].type == 'input' ) {
 			var colDefsTemp = colDefs[i];
@@ -1071,9 +1071,10 @@ function bootBoxError(error, customCallback) {
     });
 }
 
-function bootBoxConfirmation(customCallback) {
+function bootBoxConfirmation(confimationMessage, customCallback) {
 	bootbox.confirm({
-		message: "Are you sure you want to delete this record?",
+		title: "Confirmation Window",
+		message: confimationMessage,
 	    buttons: {
 	        confirm: {
 	            label: 'Yes',
@@ -1086,4 +1087,14 @@ function bootBoxConfirmation(customCallback) {
 	    },
 	    callback: customCallback
 	});
+}
+
+function showSaveBtn(id) {
+	if (id) {
+		$('#'+id+' .btn-edit, #'+id+' .btn-back').hide();
+		$('#'+id+' .btn-save, #'+id+' .btn-cancel').show();
+	} else {
+		$('.btn-edit, .btn-back').hide();
+		$('.btn-save, .btn-cancel').show();
+	}
 }

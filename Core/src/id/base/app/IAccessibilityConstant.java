@@ -18,7 +18,7 @@ public class IAccessibilityConstant {
 	public static int INT_ADMINISTRATOR 		= 200;
 		public static int INT_APP_ROLE			= 210;
 		public static int INT_APP_USER			= 220;
-		public static int INT_BUSINESS_SETTING 	= 230;
+		public static int INT_SYSTEM_PARAMETER 	= 230;
 		public static int INT_REFERENCE 		= 240;
 	
 	public static List<Long> MENU_LIST = new ArrayList<>();
