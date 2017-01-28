@@ -62,11 +62,4 @@ public class LookupGroup implements Serializable {
 		this.viewable = viewable;
 	}
 
-	public boolean isCompany() {
-		return company;
-	}
-
-	public void setCompany(boolean company) {
-		this.company = company;
-	}
 }

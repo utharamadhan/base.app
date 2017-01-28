@@ -1,6 +1,7 @@
 package id.base.app.webMember;
 
 import id.base.app.LoginSession;
+import id.base.app.SystemConstant;
 import id.base.app.valueobject.AppFunction;
 import id.base.app.valueobject.RuntimeUserLogin;
 import id.base.app.webMember.rest.LoginRestCaller;
@@ -148,7 +149,6 @@ public class ShortLifeSessionFilter implements Filter{
 		}
 		if(request.getSession(false)!=null){
 			request.getSession(false).removeAttribute(SessionConstants.USER_OBJECT_KEY);
-			//request.getSession().invalidate();
 		}
 	}
 

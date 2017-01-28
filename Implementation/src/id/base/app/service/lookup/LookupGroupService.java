@@ -13,10 +13,12 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import softtech.hong.hce.core.QueryTransformer;
+import softtech.hong.hce.model.Expression;
 
 @Service
 @Transactional
@@ -87,14 +89,6 @@ public class LookupGroupService extends QueryTransformer<LookupGroup> implements
 	@Override
 	public boolean checkUpdatableByLookupPK(Long pk) throws SystemException {
 		return lookupGroupDAO.checkUpdatableByLookupPK(pk);
-	}
-	
-	@Override
-	public List<LookupGroup> findLookupGroupForCompany() throws SystemException {
-		Expression exp = new Expression();
-		exp.add(Expression.eq(LookupGroup.IS_COMPANY, Boolean.TRUE));
-		DetachedCriteria detachedCriteria = criteriaByProperty(new String[]{LookupGroup.NAME}, exp);
-		return lookupGroupDAO.loadAll(detachedCriteria);
 	}
 	
 }

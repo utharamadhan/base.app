@@ -64,6 +64,16 @@ public class AbstractHibernateDAO<T,Y extends Serializable> {
 	
 	protected Class<T> domainClass = getDomainClass();
 	
+	private List<String> fieldNames = new ArrayList<String>();
+	
+	public List<String> getFieldNames() {
+		return fieldNames;
+	}
+
+	public void setFieldNames(List<String> fieldNames) {
+		this.fieldNames = fieldNames;
+	}
+
 	@PersistenceContext
     EntityManager entityManager;
 
