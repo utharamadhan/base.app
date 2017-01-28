@@ -75,7 +75,7 @@ public class RegistrationController {
 		if(appUser!=null){
 			return "redirect:/do/login/loginFromActivation?token="+serializeToken(appUser);
 		}else{
-			return "redirect:/do/token/tokenExpired";
+			return "redirect:" + SystemConstant.LOGIN_URL + "?error=tokenExpired";
 		}
 	}
 	

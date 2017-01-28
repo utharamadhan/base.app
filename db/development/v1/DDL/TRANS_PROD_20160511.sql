@@ -1,1 +1,0 @@
-ALTER TABLE trans_prod RENAME source_type TO prod_type;

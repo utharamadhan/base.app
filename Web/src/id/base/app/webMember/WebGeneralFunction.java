@@ -128,7 +128,7 @@ public class WebGeneralFunction {
 		loginSession.setUserName(login.getUserName());
 		loginSession.setName(login.getName());
 		loginSession.setUserType(login.getUserType());
-		loginSession.setSessionType(SystemConstant.USER_TYPE_EXTERNAL);
+		loginSession.setSessionType(SystemConstant.USER_TYPE_INTERNAL);
 		
 		if(null != login.getAccessInfo()){
 			List<Long> userRoles = new ArrayList<>();
@@ -164,8 +164,13 @@ public class WebGeneralFunction {
 			HashMap<String,Boolean> permissions = new HashMap<String, Boolean>();
 			List<AppFunction> menus = new LinkedList<AppFunction>();
 			permissions = (HashMap<String, Boolean>) accessInfos.get("accessibility");
-			for (Map.Entry<String, String> menu : ((LinkedHashMap<String, String>) accessInfos.get("menus")).entrySet()) {
-				menus.add(new AppFunction(menu.getKey(), null, menu.getValue(), true));
+			for (Map.Entry<String, List<Object>> menu : ((LinkedHashMap<String, List<Object>>) accessInfos.get("menus")).entrySet()) {
+				List<Object> obj = (ArrayList<Object>) menu.getValue();
+				String name = menu.getKey();
+				String accessPage = obj.get(0).toString();
+				Long fkParent = Long.valueOf(obj.get(1).toString());
+				Long fkAppFunction = Long.valueOf(obj.get(2).toString());
+				menus.add(AppFunction.getInstance(fkAppFunction, name, accessPage, fkParent, true));
 			}
 			loginSession.setSessionId(login.getAccessInfo());
 			loginSession.setPermission(permissions);
@@ -256,7 +261,7 @@ public class WebGeneralFunction {
 			runtimeUserLogin.setEmail(loginSession.getEmail());
 			runtimeUserLogin.setAccessInfo(cookieValue.replace(SystemConstant.COOKIE_SEPARATOR, SystemConstant.TOKEN_SEPARATOR));
 			runtimeUserLogin.setUserType(loginSession.getUserType());
-			runtimeUserLogin.setSessionType(SystemConstant.USER_TYPE_EXTERNAL);
+			runtimeUserLogin.setSessionType(SystemConstant.USER_TYPE_INTERNAL);
 
 
 			AppFunctionRestCaller appFunctionService = new AppFunctionRestCaller();
@@ -264,7 +269,7 @@ public class WebGeneralFunction {
 			// initialize app functions for accessibility
 			final List<AppFunction> menus = new LinkedList<AppFunction>();
 			
-			Map<String, String> cookieMenus = new LinkedHashMap<String, String>();
+			Map<String, Object> cookieMenus = new LinkedHashMap<>();
 			
 			List<AppFunction> permissions = appFunctionService.findAppFunctionByPermissionList(user.getAppRoles());
 			Map<Integer, Boolean> cookiePermissions = new HashMap<Integer, Boolean>();
@@ -279,9 +284,9 @@ public class WebGeneralFunction {
 			
 			List<AppFunction> listMenu =appFunctionService.findAppFunctionMenuByUserRoles(user.getAppRoles());
 			for(AppFunction appFunction: listMenu) {
-				if(SystemConstant.USER_TYPE_EXTERNAL == appFunction.getUserType().intValue() ){
+				if(SystemConstant.USER_TYPE_INTERNAL == appFunction.getUserType().intValue() ){
 					menus.add(appFunction);
-					cookieMenus.put(appFunction.getName(), appFunction.getAccessPage());
+					cookieMenus.put(appFunction.getName(), new Object[]{appFunction.getAccessPage(), appFunction.getFkAppFunctionParent(), appFunction.getPkAppFunction()});
 				}else{
 					/*if(IAccessibilityConstant.FUNC_INT_POLICY_ADMINISTRATION == appFunction.getPkAppFunction().intValue()){
 						menus.add(appFunction);

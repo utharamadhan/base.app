@@ -44,7 +44,6 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
         <property name="packagesToScan">
         	<list>
         		<value>id.base.app.valueobject</value>
-        		<value>id.base.app.calculation.model</value>
         	</list>
         </property>
 		

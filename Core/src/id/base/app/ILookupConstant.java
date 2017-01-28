@@ -42,36 +42,4 @@ public interface ILookupConstant {
 		public static final int LONG	= 5;
 		public static final int EMAIL	= 6;
 	}
-    
-    public static final class MasterFeeType {
-    	public static final String PEMBELIAN_BAHAN_BAKU_PRODUKSI = "BBBP";
-    	public static final String PEMBELIAN_BARANG_PENUNJANG_PRODUKSI = "BBPP";
-    	public static final String PRODUKSI = "PROD";
-    	public static final String PENJUALAN_BAHAN_BAKU_PRODUKSI = "SBBP";
-    	public static final String PENJUALAN_BARANG_PENUNJANG_PRODUKSI = "SBPP";
-    }
-    
-    public static final class ActorProduction {
-    	public static final String MANDIRI = "M";
-    	public static final String THIRD_PARTY = "TP";
-    }
-    
-    public static final class Uom {
-    	public static final String KG = "KG";
-    	public static final String TON = "TON";
-    	
-    	public static final String KG_TO_TON = "KG_TON_TON";
-    	public static final String TON_TO_KG = "TON_TO_KG";
-    	
-    	public static final Map<String, String> KG_CONVERTION_MAP = new HashMap<String, String>();
-    	static{
-    		KG_CONVERTION_MAP.put(TON, KG_TO_TON);
-    	}
-    	
-    	public static final Map<String, String> TON_CONVERTION_MAP = new HashMap<String, String>();
-    	static{
-    		TON_CONVERTION_MAP.put(KG, TON_TO_KG);
-    	}
-    }
-    
 }

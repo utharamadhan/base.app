@@ -14,7 +14,7 @@
 <!--<![endif]-->
     <head>
 		<meta charset="utf-8"/>
-		<title>base.co.id &nbsp;-&nbsp; Member Application - <decorator:title default="Welcome!" /></title>
+		<title>hfc &nbsp;-&nbsp; Admin Application - <decorator:title default="Welcome!" /></title>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta charset="UTF-8" />
@@ -45,8 +45,11 @@
 	    <link rel="stylesheet" href="<%=request.getContextPath()%>/plugin/vendor/typeahead/css/typeahead.js-bootstrap.css"/>
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/plugin/vendor/fuelux/css/wizzard.min.css"/>
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/plugin/vendor/bs-wizard/bs-wizard-min.css" type="text/css" media="all">
+		<link rel="stylesheet" href="<%=request.getContextPath()%>/plugin/vendor/fancytree/style/ui.fancytree.css" type="text/css" media="all">
+		<link rel="stylesheet" href="<%=request.getContextPath()%>/plugin/vendor/dailyfeed/dailyfeed.css" type="text/css" media="all">
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/css/minimal.css">
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css">
+		<link rel="stylesheet" href="<%=request.getContextPath()%>/plugin/vendor/quill/quill-1.1.7.css">
 	
 	    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -73,11 +76,19 @@
        			stopAJAXLoader();
        			
        		}).ajaxError(function(e, jqxhr, settings, exception) {
-       			alert('System error occurred. Please refresh the browser and contact the system administrator.'); 
+       			var ajaxExpired = jqxhr.getResponseHeader('ajax-expired');
+       			if(!ajaxExpired || (ajaxExpired && ajaxExpired != 'true')) {
+       				alert('System error occurred. Please refresh the browser and contact the system administrator.');	
+       			}
        		}).ajaxComplete(function(e, jqxhr, settings) {
        			var ajaxExpired = jqxhr.getResponseHeader('ajax-expired');
        			if(ajaxExpired=='true'){
-       				alert('Your session is either expired or you are not login.');
+       				bootBoxError("Session Expired", function(){
+       					var loginURL = jqxhr.getResponseHeader('loginURL');
+       					if(loginURL) {
+       						window.location = loginURL;
+       					}
+       				});
        			}
        		});
        	});
@@ -103,7 +114,6 @@
 
           <!-- Branding -->
           <div class="navbar-header col-md-2">
-            <img src="<%=request.getContextPath()%>/images/logo.png" style="width:55%">
             <div class="sidebar-collapse">
               <a href="#">
                 <i class="fa fa-bars"></i>
@@ -120,7 +130,52 @@
           	<!-- /Quick Actions -->
           	
           	<!-- Sidebar -->
-          	<page:applyDecorator name="_menu" page="/menuPage.jsp" />
+          	<ul class="nav navbar-nav side-nav tile color transparent-black textured" id="sidebar">
+            	<li class="navigation" id="navigation">
+                	<ul class="menu">
+			          	<% 
+			          	for(AppFunction menu : menus) {
+			          		if (menu.getFkAppFunctionParent().equals(1L)){
+			          			if(AppFunction.isMenuHasChild(menu.getPkAppFunction(), menus)) {
+			          				%>
+                 					<li id="<%=menu.getName()%>" class="dropdown">
+										<a href="<%=request.getContextPath() + menu.getAccessPage()%>" class="dropdown-toggle" data-toggle="dropdown">
+											<i class="fa fa-bar-chart"></i> <%=menu.getName()%>
+										</a>
+										<ul class="dropdown-menu">
+										<%
+										for(AppFunction subMenu : menus) {
+											if(subMenu.getFkAppFunctionParent() != null && subMenu.getFkAppFunctionParent().equals(menu.getPkAppFunction())) {
+												%>
+												<li id="<%=subMenu.getName()%>">
+													<div style="width:inherit;word-wrap: break-word;">
+														<a href="<%=request.getContextPath() + subMenu.getAccessPage()%>">
+				                        				<i class="fa fa-caret-right"></i> <%=subMenu.getName()%>
+				                        				</a>
+			                        				</div>
+			                  					</li>
+												<%
+											}
+										}
+										%>
+										</ul>
+									</li>
+	                 				<%
+			          			} else {
+			          				%>
+			          				<li id="<%=menu.getName()%>">
+										<a href="<%=request.getContextPath() + menu.getAccessPage()%>">
+											<i class="fa fa-bar-chart"></i> <%=menu.getName()%>
+										</a>
+									</li>
+									<%
+			          			}
+			          		}
+			          	}
+			          	%>
+			         </ul>
+          		</li>
+          	</ul>
           	<!-- Sidebar end -->
           	
           </div>
@@ -180,14 +235,24 @@
     <script src="<%=request.getContextPath()%>/plugin/vendor/chosen/chosen.jquery.min.js"></script>
     
     <script src="<%=request.getContextPath()%>/plugin/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="<%=request.getContextPath()%>/plugin/vendor/quill/quill-1.1.7.js"></script>
+    <script src="<%=request.getContextPath()%>/plugin/vendor/tinyMCE/tinymce.min.js"></script>
 	
 	<script src="<%=request.getContextPath()%>/js/bloodhound.min.js"></script>
 	<script src="<%=request.getContextPath()%>/plugin/vendor/typeahead/typeahead.jquery.min.js" type="text/javascript"></script>
     <script src="<%=request.getContextPath()%>/js/minimal.min.js"></script>
     
-    <%-- <script src="<%=request.getContextPath()%>/plugin/vendor/fuelux/fuelux.wizard.min.js"></script> --%>
-    <%-- <script src="<%=request.getContextPath()%>/plugin/vendor/fuelux/wizard-elements.min.js"></script> --%>
     <script src="<%=request.getContextPath()%>/plugin/vendor/bs-wizard/bs-wizard.js"></script>
+    
+    <script src="<%=request.getContextPath()%>/plugin/vendor/fancytree/jquery.fancytree.js"></script>
+    <script src="<%=request.getContextPath()%>/plugin/vendor/fancytree/jquery.fancytree.dnd.js"></script>
+    <script src="<%=request.getContextPath()%>/plugin/vendor/fancytree/jquery.fancytree.edit.js"></script>
+    <script src="<%=request.getContextPath()%>/plugin/vendor/fancytree/jquery.fancytree.glyph.js"></script>
+    <script src="<%=request.getContextPath()%>/plugin/vendor/fancytree/jquery.fancytree.table.js"></script>
+    <script src="<%=request.getContextPath()%>/plugin/vendor/fancytree/jquery.fancytree.wide.js"></script>
+    <script src="<%=request.getContextPath()%>/plugin/vendor/bootbox/bootbox.min.js"></script>
+    <script src="<%=request.getContextPath()%>/plugin/vendor/sockJs/sockjs-0.3.4.js"></script>
+    <script src="<%=request.getContextPath()%>/plugin/vendor/sockJs/stomp.js"></script>
     <script>
 	    $(function(){
 	    	$('.numeric').autoNumeric('init', {aSep:'.', aDec:',', vMin: '-9999999999.99', vMax:'9999999999.99'});

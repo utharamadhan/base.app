@@ -9,15 +9,23 @@ import id.base.app.valueobject.AppRole;
 import java.util.List;
 
 public interface IRoleService extends MaintenanceService<AppRole>{
+	
 	public List<AppRole> findInternalRoles();
+	
 	public List<AppRole> findExternalRoles();
+	
+	public List<AppRole> findAllRoleCodeAndName();
+	
 	public List<AppRole> findAllRole();
-	public List<AppRole> findAllByFilter(
-			List<SearchFilter> srcSearchFilterList,
-			List<SearchOrder> searchOrders);
+	
+	public List<AppRole> findAllByFilter(List<SearchFilter> srcSearchFilterList, List<SearchOrder> searchOrders);
+	
 	public AppRole findByIdFetchUsers(Long pkAppRole);
+	
 	public void saveNewUsers(Long userRolePK, Long[] pkUsers);
-	public List<AppRole> findAppRolesByAppUserId(Long pkAppUser)
-			throws SystemException;
+	
+	public List<AppRole> findAppRolesByAppUserId(Long pkAppUser) throws SystemException;
+	
 	public void saveOrUpdateMap(AppRole anObject, String method) throws SystemException;
+
 }

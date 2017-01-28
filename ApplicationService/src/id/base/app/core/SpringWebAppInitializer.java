@@ -27,7 +27,7 @@ public class SpringWebAppInitializer implements WebApplicationInitializer{
 		AnnotationConfigWebApplicationContext appContext = new AnnotationConfigWebApplicationContext();
 		appContext.register(ApplicationContextConfig.class);
 		appContext.register(SchedulerContextConfig.class);
-		//appContext.register(SecurityConfiguration.class);
+		/*appContext.register(SecurityConfiguration.class);*/
 		
 		container.addListener(new ContextLoaderListener(appContext));
 		
@@ -37,10 +37,10 @@ public class SpringWebAppInitializer implements WebApplicationInitializer{
         springSecurityFilterChain.addMappingForUrlPatterns(null, false, "/*");
         springSecurityFilterChain.setAsyncSupported(true);
         
-		ServletRegistration.Dynamic dispatcher = container.addServlet(
-				"SpringDispatcher", new DispatcherServlet(appContext));
+		ServletRegistration.Dynamic dispatcher = container.addServlet("SpringDispatcher", new DispatcherServlet(appContext));
 		dispatcher.setLoadOnStartup(1);
 		dispatcher.addMapping("/*");
+		dispatcher.setAsyncSupported(true);
 		
 		printenv();
 	}

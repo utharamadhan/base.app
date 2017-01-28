@@ -400,6 +400,13 @@ public class StringFunction extends DateTimeFunction {
 		return fmt.format(number);
 	}
 	
+	public static String safeStringConvertion(Object obj) {
+		if(obj != null) {
+			return obj.toString();
+		}
+		return null;
+	}
+	
 	public static String safeString(String value) {
 		if (value == null) {
 			return "";

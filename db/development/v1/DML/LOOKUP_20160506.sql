@@ -1,2 +1,0 @@
-insert into lookup(lookup_group,code,name_id,descr,order_no,status,created_by,creation_time,modified_by,modification_time)
-values('PRODUCT_TYPE', 'BPP', 'Barang Penunjang Produksi', 'Barang Penunjang Produksi"', 4, 1, 'SYSTEM', now(), 'SYSTEM', now());

@@ -123,7 +123,6 @@ public class SystemConstant  {
     public static Map<String, String> userTypeMaps = new LinkedHashMap<>();
 	static{
 		userTypeMaps.put(String.valueOf(USER_TYPE_INTERNAL), USER_TYPE_INTERNAL_STR);
-		userTypeMaps.put(String.valueOf(USER_TYPE_EXTERNAL), USER_TYPE_EXTERNAL_STR);
 	}
 	
 	public static final String RECAPCHA_PUBLIC_KEY ="6LdFYsESAAAAADc5B5e9brgINvhCEuYwt5QceKPK";
@@ -191,7 +190,7 @@ public class SystemConstant  {
 	
 	
 	public static String ACTIVATION_URL = "/Web/do/registration/activationPage";
-	public static String LOGIN_URL = "http://padiku.com";
+	public static String LOGIN_URL = "http://utharamadhan.com";
 	public static void setUrl(String url){
 		LOGIN_URL = url;
 	}
@@ -211,12 +210,16 @@ public class SystemConstant  {
 	public static String SHARED_FOLDER_LOCATION 		= "/padiku";
 	public static String BILLING_REPORT_DIR 			= "D:/padiku/billing/";
 	public static String AUDIT_TRAIL_EXPORT_DIR 		= "D:/padiku/auditTrail/";
-	public static String LOCAL_TEMP_DIRECTORY 			= "D:/padiku";
+	public static String FILE_DIRECTORY_TEMP 			= "D:/padiku";
     public static String RESULT_DIRECTORY				= "/Result";
     public static String REMOTE_DIRECTORY 				= "/uploadFile/";
-    public static String LOCAL_TEMP_DIR_EXPORT 			= LOCAL_TEMP_DIRECTORY + "/tempExport/";
-    public static String LOCAL_TEMP_DIRECTORY_REPORT	= LOCAL_TEMP_DIRECTORY + "/report/";
-    public static String LOCAL_TEMP_DIRECTORY_USER		= LOCAL_TEMP_DIRECTORY + "/user/";
+    public static String LOCAL_TEMP_DIR_EXPORT 			= FILE_DIRECTORY_TEMP + "/tempExport/";
+    public static String LOCAL_TEMP_DIRECTORY_REPORT	= FILE_DIRECTORY_TEMP + "/report/";
+    public static String LOCAL_TEMP_DIRECTORY_USER		= FILE_DIRECTORY_TEMP + "/user/";
+    public static String FILE_STORAGE					= "";
+    public static String FILE_CONTENT_DIRECTORY			= "contentDirectory" + File.separator;
+    public static String FILE_FEATURED_IMAGE_DIRECTORY	= "featuredImage" + File.separator;
+    public static String FILE_EBOOK_DIRECTORY			= "ebook" + File.separator;
 	
 	public static void setSharedFolderLocation(String sharedFolderLoc) throws Exception {
 		SHARED_FOLDER_LOCATION = sharedFolderLoc;
@@ -232,8 +235,8 @@ public class SystemConstant  {
 		AUDIT_TRAIL_EXPORT_DIR = sharedFolderLoc + "/auditTrail/";
 		FileManager.createDir(AUDIT_TRAIL_EXPORT_DIR);
 		
-		LOCAL_TEMP_DIRECTORY = sharedFolderLoc + "/temp";
-		FileManager.createDir(LOCAL_TEMP_DIRECTORY);
+		FILE_DIRECTORY_TEMP = sharedFolderLoc + "/temp";
+		FileManager.createDir(FILE_DIRECTORY_TEMP);
 		
 		RESULT_DIRECTORY = sharedFolderLoc + "/result/";
 		FileManager.createDir(RESULT_DIRECTORY);
@@ -241,14 +244,17 @@ public class SystemConstant  {
 		REMOTE_DIRECTORY = sharedFolderLoc + "/uploadFile/";
 		FileManager.createDir(REMOTE_DIRECTORY);
 		
-		LOCAL_TEMP_DIR_EXPORT = LOCAL_TEMP_DIRECTORY + "/export/";
+		LOCAL_TEMP_DIR_EXPORT = FILE_DIRECTORY_TEMP + "/export/";
 		FileManager.createDir(LOCAL_TEMP_DIR_EXPORT);
 		
-		LOCAL_TEMP_DIRECTORY_REPORT = LOCAL_TEMP_DIRECTORY + "/report/";
+		LOCAL_TEMP_DIRECTORY_REPORT = FILE_DIRECTORY_TEMP + "/report/";
 		FileManager.createDir(LOCAL_TEMP_DIRECTORY_REPORT);
 		
-		LOCAL_TEMP_DIRECTORY_USER = LOCAL_TEMP_DIRECTORY + "/user/";
+		LOCAL_TEMP_DIRECTORY_USER = FILE_DIRECTORY_TEMP + "/user/";
 		FileManager.createDir(LOCAL_TEMP_DIRECTORY_USER);
+		
+		FILE_STORAGE = sharedFolderLoc + File.separator + "fileStorage" + File.separator;
+		FileManager.createDir(FILE_STORAGE);
 		
 	}
 	
@@ -280,6 +286,12 @@ public class SystemConstant  {
 			validFlagMap.put(VALID, VALID_STR);
 			validFlagMap.put(VALID_MODIFIED, VALID_MODIFIED_STR);
 		}
+	}
+	
+	public static String IMAGE_SHARING_URL = "http://";
+	
+	public static void setImageSharingURL(String imageSharingURL) {
+		IMAGE_SHARING_URL = imageSharingURL;
 	}
 	
 	public static final class StatusTransInItem {

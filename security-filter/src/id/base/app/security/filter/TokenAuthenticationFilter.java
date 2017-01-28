@@ -32,13 +32,13 @@ public class TokenAuthenticationFilter implements Filter{
 	private static String ACTIVATION_SUBMIT = "/do/registration/activationSubmit";
 	private static String REGISTRATION_SUBMIT = REGISTRATION + "/submit";
 	private static String TOKEN_EXPIRED = "";
+	private static String TOKEN_EXPIRED_AJAX = "";
 	private static String TOKEN_INVALID = "";
 	private static String REGEN_EXPIRE = "15";
 
 	@Override
 	public void destroy() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -47,19 +47,17 @@ public class TokenAuthenticationFilter implements Filter{
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) resp;
 		
-		String urlTokenExpired = request.getContextPath()+TOKEN_EXPIRED;
-		String urlTokenInvalid = request.getContextPath()+TOKEN_INVALID;
+		String urlTokenExpired = TOKEN_EXPIRED;
+		String urlTokenExpiredAjax = request.getContextPath()+TOKEN_EXPIRED_AJAX;
 		String urlRegistration = request.getContextPath()+REGISTRATION;
 		String urlActivation = request.getContextPath()+ACTIVATION;
 		String urlActivationLogin = request.getContextPath()+LOGIN_FROM_ACTIVATION;
 		String urlActivationPage = request.getContextPath()+ACTIVATION_PAGE;
 		String urlActivationSubmit = request.getContextPath()+ACTIVATION_SUBMIT;
 		String urlRegistrationSubmit = request.getContextPath()+REGISTRATION_SUBMIT;
-		String urlTokenExpiredWithoutDec = urlTokenExpired.substring(0,urlTokenExpired.indexOf("?"));
-		String urlTokenInvalidWithoutDec = urlTokenInvalid.substring(0,urlTokenInvalid.indexOf("?"));
+		String urlTokenExpiredWithoutDec = urlTokenExpiredAjax.substring(0,urlTokenExpired.indexOf("?")-1);
 		String urlLandingPage = request.getContextPath()+LANDING_PAGE;
-		if(request.getRequestURI().equals(urlTokenExpiredWithoutDec) ||
-				request.getRequestURI().equals(urlTokenInvalidWithoutDec)){
+		if(request.getRequestURI().equals(urlTokenExpiredWithoutDec)){
 			chain.doFilter(request, response);
 		}else{		
 			Cookie cookie = null;
@@ -116,7 +114,12 @@ public class TokenAuthenticationFilter implements Filter{
 					cookie.setMaxAge(0);
 					cookie.setPath(request.getContextPath());
 					response.addCookie(cookie);
-					response.sendRedirect(urlTokenExpired);
+					String header = ((HttpServletRequest) request).getHeader("X-Requested-With");
+					if(header != null && header.equals("XMLHttpRequest")) {
+						response.sendRedirect(urlTokenExpiredAjax);
+					} else {
+						response.sendRedirect(urlTokenExpired);
+					}
 				}
 			}
 		}
@@ -184,6 +187,7 @@ public class TokenAuthenticationFilter implements Filter{
 			LANDING_PAGE = p.getProperty("landingPage");
 			TOKEN_EXPIRED = p.getProperty("tokenExpired");
 			TOKEN_INVALID = p.getProperty("tokenInvalid");
+			TOKEN_EXPIRED_AJAX = p.getProperty("tokenExpiredAjax");
 			REGEN_EXPIRE = p.getProperty("regenExpire");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

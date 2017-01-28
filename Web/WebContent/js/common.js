@@ -513,12 +513,15 @@ function buildMenuTrees(menuTrees, rootNode, tree){
 	}
 }
 
-function buildDataTableWithCustomFilter(base, url, id, height, colDefs, detailFunc, detailParams, customAjaxOpts) {
+function buildDataTableWithCustomFilter(base, url, id, height, colDefs, detailFunc, detailParams, customAjaxOpts, customFilter) {
 	var tableColumns = buildColumns(colDefs,false);
 	buildDataTableFilter(base,id,colDefs,false);
 	var ajaxOpt = getDefaultAjaxOpts(url,id);
 	if(customAjaxOpts){
 		ajaxOpt = customAjaxOpts;
+	}
+	if(customFilter) {
+		ajaxOpt = buildCustomAjaxOpts(url, id, customFilter);
 	}
     var table = $('#'+id).DataTable( {
     	ordering: false,
@@ -565,6 +568,41 @@ function buildDataTable(base, url, id, height, colDefs, detailFunc, detailParams
     	scrollY: height,
     	processing: true,
 		serverSide: true,
+    	ajax: ajaxOpt,
+    	columns: tableColumns,
+    	language: {
+            infoEmpty: "No Data Found..."
+        },
+        oLanguage : {
+        	sSearch : "Search Filter"
+        } 
+    });
+    if(detailFunc){
+    	$('#'+id+' tbody').on( 'click', 'tr', function () {
+        	var params = [];
+        	var detailData = table.row( this ).data();
+        	for(var j=0; j<detailParams.length;j++){
+        		params[detailParams[j]] = detailData[detailParams[j]]; 
+        	}
+            window[detailFunc](params);
+        } );	
+    }
+}
+
+function buildDataTableWithoutFilter(base, url, id, height, colDefs, detailFunc, detailParams, customAjaxOpts){
+	var tableColumns = buildColumns(colDefs,false);
+	buildDataTableFilter(base,id,colDefs,false);
+	var ajaxOpt = getDefaultAjaxOpts(url,id);
+	if(customAjaxOpts){
+		ajaxOpt = customAjaxOpts;
+	}
+    var table = $('#'+id).DataTable( {
+    	ordering: false,
+    	sDom: '<"#datatable-search-filter"f><"top">rt<"bottom"><"clear">',
+    	scrollY: height,
+    	processing: true,
+		serverSide: true,
+		bFilter: false,
     	ajax: ajaxOpt,
     	columns: tableColumns,
     	language: {
@@ -827,6 +865,34 @@ function renderParam (colDefsTemp, row) {
 	return paramRender;
 }
 
+function buildCustomAjaxOpts(url, id, customFilter) {
+	var ajaxOpt = {
+			url: url,
+			type: 'GET',
+			dataSrc: function(json){
+				$('#txtPage_'+id).val(json.currentPage);
+				$('#_txtOldPage_'+id).val(json.currentPage);
+				$('#noOfPage').html(json.noOfPage);
+				if(json.currentPage>1){				
+					$('#btnPrev').css('display','');
+				}else{
+					$('#btnPrev').css('display','none');
+				}
+				if(json.currentPage<json.noOfPage){
+					$('#btnNext').css('display','');
+				}else{
+					$('#btnNext').css('display','none');
+				}
+				return json.result;
+			},
+			data: customFilter,
+			error: function(message) {
+				console.log('message : ' + message);
+			}
+		};
+	return ajaxOpt;
+}
+
 function getDefaultAjaxOpts(url,id){
 	var ajaxOpt = {
 			url: url,
@@ -856,6 +922,9 @@ function getDefaultAjaxOpts(url,id){
 			    }
 				d.emptyList = $('#emptyList').val();
 				d.page = $('#txtPage_'+id).val();
+			},
+			error: function(message) {
+				console.log('message : ' + message);
 			}
 		};
 	return ajaxOpt;
@@ -891,5 +960,130 @@ function showScrollForm(id,addVal){
 function requiredInit(){
 	$('.required').each(function(){
 		$(this).append('<span class="required-icon">*</span>')
+	});
+}
+
+var toolbarOptions = [
+  ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+  ['blockquote', 'code-block'],
+
+  [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+  [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+  [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+  [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+  [{ 'direction': 'rtl' }],                         // text direction
+
+  [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+  [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+
+  [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+  [{ 'font': [] }],
+  [{ 'align': [] }],
+  
+  ['link', 'image'],
+  
+  ['clean']  
+];
+
+function initDatePicker(datePickerClass, dateFormat) {
+	$('.'+datePickerClass).datepicker({
+	    autoclose: true,
+	    todayHighlight: true,
+	    changeMonth: true,
+	    changeYear: true,
+		format: dateFormat,
+		yearRange: "1900:2100",
+		onSelect: function(dateText, datePicker) {
+			$(this).attr('value', dateText);
+	    }
+    });
+}
+
+function uploadFileTextEditor(image, sURL, targetId) {
+	var data = new FormData();
+	data.append('file', image);
+	var xhr = new XMLHttpRequest();
+	xhr.open('POST', sURL, true);
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState === 4) {
+		  var response = JSON.parse(xhr.responseText);
+		  if (response) {
+			  $("#"+targetId).val(response);
+		  } else {
+			  return 'error';
+		  }
+		}
+	}
+	xhr.send(data);
+}
+
+function initTextEditor(editorArea, editorParent, uploadURL) {
+	$(editorArea).each(function(){		
+		var hiddenInput = document.createElement("input");
+			hiddenInput.className = "hidden-file-browser";
+			hiddenInput.type = "file";
+			hiddenInput.name = "image";
+			hiddenInput.style.display = "none";
+		$(this).parent().append(hiddenInput);
+	});
+	
+	$('.hidden-file-browser').change(function(){
+		var thisObj = $(this)[0];
+		var targetId = $(this).attr('target-id');
+		uploadFileTextEditor(thisObj.files[0], uploadURL, targetId);
+	});
+	
+	tinymce.init({
+    	selector: editorArea,
+    	plugins: [
+    	    'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+    	    'searchreplace wordcount visualblocks visualchars code fullscreen',
+    	    'insertdatetime media nonbreaking save table contextmenu directionality',
+    	    'emoticons template paste textcolor colorpicker textpattern imagetools codesample toc'
+    	],
+    	toolbar1: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+    	toolbar2: 'imageprint preview media | forecolor backcolor emoticons | codesample',
+    	file_browser_callback : function(field_name, url, type, win) {
+			var hiddenInput = $("#"+tinyMCE.activeEditor.id).parent().find('.hidden-file-browser');
+    		hiddenInput.attr("target-id", field_name);
+			hiddenInput.click();
+        },
+        height:"200"
+  	});
+}
+
+function bootBoxSuccessSave(customMessage, customCallback) {
+	bootbox.alert({
+        title: "Success",
+        message: customMessage,
+        callback: customCallback
+    });
+}
+
+function bootBoxError(error, customCallback) {
+	if(!customCallback) {
+		customCallback = function() {};
+	}
+	bootbox.alert({
+        title: "Error",
+        message: error,
+        callback: customCallback
+    });
+}
+
+function bootBoxConfirmation(customCallback) {
+	bootbox.confirm({
+		message: "Are you sure you want to delete this record?",
+	    buttons: {
+	        confirm: {
+	            label: 'Yes',
+	            className: 'btn-success'
+	        },
+	        cancel: {
+	            label: 'No',
+	            className: 'btn-danger'
+	        }
+	    },
+	    callback: customCallback
 	});
 }

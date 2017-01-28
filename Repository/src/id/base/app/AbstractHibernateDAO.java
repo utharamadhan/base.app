@@ -26,6 +26,7 @@ import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -226,7 +227,27 @@ public class AbstractHibernateDAO<T,Y extends Serializable> {
 			final List<Order> orders, final Integer startIndex,
 			final Integer maxRow, final String cacheRegion)
 			throws SystemException {
-		return findAndFetchByCriterion(null,null, criterias, orders, startIndex, maxRow, cacheRegion);
+		SearchAlias[] searchAliases = null;
+		List<SearchAlias> aliases = new ArrayList<SearchAlias>();
+		Set<String> filterAlias = new TreeSet<String>();
+		for(int i=0; i<fieldNames.size();i++){
+			String field = fieldNames.get(i);
+			int totalAlias = field.split("\\.").length - 1;
+			String colAlias = null;
+			for(int j=0;j<totalAlias;j++){
+				colAlias = colAlias == null ?  field.split("\\.")[j] : colAlias + "." + field.split(".")[j];
+				if(!filterAlias.contains(colAlias)){
+					filterAlias.add(colAlias);
+					SearchAlias alias = new SearchAlias(colAlias, colAlias);
+					aliases.add(alias);
+				}
+			}
+		}
+		
+		if(aliases.size()>0){
+			searchAliases = aliases.toArray(new SearchAlias[aliases.size()]);
+		}
+		return findAndFetchByCriterion(searchAliases,null, criterias, orders, startIndex, maxRow, cacheRegion);
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -341,6 +362,8 @@ public class AbstractHibernateDAO<T,Y extends Serializable> {
 		List<Criterion> criterias = new LinkedList<Criterion>();
 		List<Order> orders = new LinkedList<Order>();
 		
+		fieldNames = new ArrayList<String>();
+		
 		if (criterias != null) {
 			for (SearchFilter searchFilter : searchFilters) {
 				criterias.add(buildCriterion(searchFilter));
@@ -451,7 +474,7 @@ public class AbstractHibernateDAO<T,Y extends Serializable> {
     
     @SuppressWarnings("unchecked")
 	private Criterion getCriterion(SearchFilter searchFilter){
-    	
+    	fieldNames.add(searchFilter.getFieldName());
     	 switch (searchFilter.getOperand()) {
 			case  EQUALS:
 				  return Restrictions.eq(searchFilter.getFieldName(), searchFilter.getValue());
@@ -486,6 +509,8 @@ public class AbstractHibernateDAO<T,Y extends Serializable> {
 				org.hibernate.type.Type[] types = new org.hibernate.type.Type[values.length];
 				Arrays.fill(types, StringType.INSTANCE);
 				return Restrictions.sqlRestriction( searchFilter.getFieldName(), values, types);
+			case LIKE_COLUMN : 
+				return Restrictions.sqlRestriction(searchFilter.getFieldName() + " like '%' || " + searchFilter.getValue() + " || '%'");
 			case  SIMILAR_TO :
 				  return Restrictions.sqlRestriction("{alias}." + ReflectionFunction.getColumnName(domainClass, searchFilter.getFieldName()) + " similar to ? ", searchFilter.getValue(), StringType.INSTANCE);
 		    default :
@@ -511,6 +536,8 @@ public class AbstractHibernateDAO<T,Y extends Serializable> {
 		List<Criterion> criterionList = new LinkedList<Criterion>();
 		List<Order> orderList = new LinkedList<Order>();
 
+		fieldNames = new ArrayList<String>();
+		
 		if (searchFilters != null) {
 			for (SearchFilter filter : searchFilters) {
 				criterionList.add(buildCriterion(filter));
@@ -538,6 +565,8 @@ public class AbstractHibernateDAO<T,Y extends Serializable> {
 		List<Criterion> criterionList = new LinkedList<Criterion>();
 		List<Order> orderList = new LinkedList<Order>();
 
+		fieldNames = new ArrayList<String>();
+		
 		if (searchFilters != null) {
 			for (SearchFilter filter : searchFilters) {
 				criterionList.add(buildCriterion(filter));
@@ -550,7 +579,28 @@ public class AbstractHibernateDAO<T,Y extends Serializable> {
 			}
 		}
 
-		Long _totalRecords = getRowCount(criterionList,null);
+		SearchAlias[] searchAliases = null;
+		List<SearchAlias> aliases = new ArrayList<SearchAlias>();
+		Set<String> filterAlias = new TreeSet<String>();
+		for(int i=0; i<fieldNames.size();i++){
+			String field = fieldNames.get(i);
+			int totalAlias = field.split("\\.").length - 1;
+			String colAlias = null;
+			for(int j=0;j<totalAlias;j++){
+				colAlias = colAlias == null ?  field.split("\\.")[j] : colAlias + "." + field.split(".")[j];
+				if(!filterAlias.contains(colAlias)){
+					filterAlias.add(colAlias);
+					SearchAlias alias = new SearchAlias(colAlias, colAlias);
+					aliases.add(alias);
+				}
+			}
+		}
+		
+		if(aliases.size()>0){
+			searchAliases = aliases.toArray(new SearchAlias[aliases.size()]);
+		}
+		
+		Long _totalRecords = getRowCount(criterionList,searchAliases);
 		if(_totalRecords==null){
 			_totalRecords = 0L;
 		}
@@ -573,6 +623,8 @@ public class AbstractHibernateDAO<T,Y extends Serializable> {
 		List<Criterion> criterionList = new LinkedList<Criterion>();
 		List<Order> orderList = new LinkedList<Order>();
 
+		fieldNames = new ArrayList<String>();
+		
 		if (searchFilters != null) {
 			for (SearchFilter filter : searchFilters) {
 				criterionList.add(buildCriterion(filter));
@@ -602,6 +654,8 @@ public class AbstractHibernateDAO<T,Y extends Serializable> {
     	List<Criterion> criterionList = new LinkedList<Criterion>();
 		List<Order> orderList = new LinkedList<Order>();
 
+		fieldNames = new ArrayList<String>();
+		
 		if (searchFilters != null) {
 			for (SearchFilter filter : searchFilters) {
 				criterionList.add(buildCriterion(filter));
@@ -626,6 +680,8 @@ public class AbstractHibernateDAO<T,Y extends Serializable> {
 		List<Criterion> criterionList = new LinkedList<Criterion>();
 		List<Order> orderList = new LinkedList<Order>();
 
+		fieldNames = new ArrayList<String>();
+		
 		if (searchFilters != null) {
 			for (SearchFilter filter : searchFilters) {
 				criterionList.add(buildCriterion(filter));

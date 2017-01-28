@@ -15,10 +15,13 @@ import id.base.app.valueobject.AppRoleFunction;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
 import org.hibernate.Query;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.transform.ResultTransformer;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -137,6 +140,33 @@ public class AppRoleDAO extends AbstractHibernateDAO<AppRole, Long> implements I
 		
 		return super.findAll(filter, order, null);
 	}
+	
+	public List<AppRole> findAllRoleCodeAndName() throws SystemException {
+		Criteria crit = getSession().createCriteria(domainClass);
+			crit.setProjection(Projections.projectionList().add(Projections.property("pkAppRole")).
+					add(Projections.property("code")).
+					add(Projections.property("name")));
+			crit.setResultTransformer(new ResultTransformer() {
+				@Override
+				public Object transformTuple(Object[] tuple, String[] aliases) {
+					AppRole rl = new AppRole();
+					try {
+						BeanUtils.copyProperty(rl, "pkAppRole", tuple[0]);
+						BeanUtils.copyProperty(rl, "code", tuple[1]);
+						BeanUtils.copyProperty(rl, "name", tuple[2]);
+					} catch (Exception e) {
+						LOGGER.error(e.getMessage(), e);
+					}
+					return rl;
+				}
+				
+				@Override
+				public List transformList(List collection) {
+					return collection;
+				}
+			});
+		return crit.list();
+	}
 
 	@Override
 	public PagingWrapper<AppRole> findAllAppRole(int startNo, int offset,
@@ -162,6 +192,5 @@ public class AppRoleDAO extends AbstractHibernateDAO<AppRole, Long> implements I
 
 		return result;
 	}
-	
 	
 }

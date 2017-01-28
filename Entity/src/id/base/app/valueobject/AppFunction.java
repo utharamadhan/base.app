@@ -26,6 +26,27 @@ public class AppFunction implements Serializable  {
 	public static final String ORDER_NO = "orderNo";
 	public static final String IS_ACTIVE = "isActive";
 	
+	public static AppFunction getInstance(Long pkAppFunction, String name, String accessPage, Long fkParent, Boolean isActive) {
+		AppFunction af = new AppFunction();
+			af.setPkAppFunction(pkAppFunction);
+			af.setName(name);
+			af.setAccessPage(accessPage);
+			af.setFkAppFunctionParent(fkParent);
+			af.setIsActive(isActive);
+		return af;
+	}
+	
+	public static Boolean isMenuHasChild(Long pkAppFunction, List<AppFunction> appFunctions) {
+		if(appFunctions != null && appFunctions.size() > 0) {
+			for(AppFunction af : appFunctions) {
+				if(af.getFkAppFunctionParent() != null && pkAppFunction.equals(af.getFkAppFunctionParent())) {
+					return Boolean.TRUE;
+				}
+			}
+		}
+		return Boolean.FALSE;
+	}
+	
 	/** default constructor */
 	public AppFunction() {
 	}
