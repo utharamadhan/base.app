@@ -44,6 +44,7 @@ public class ShortLifeSessionFilter2 implements Filter{
 	
 	private static final String URL_ACTIVATION = "/do/registration/activation";
 	private static final String URL_INITIAL_WIZARD = "initialWizard";
+	private static final String WEB_SOCKET_CONTROLLER = "webSocketController";
 	
 	@Override
 	public void destroy() {
@@ -58,7 +59,9 @@ public class ShortLifeSessionFilter2 implements Filter{
 		String requestURIminusCtxPath = request.getRequestURI().substring(request.getContextPath().length(), request.getRequestURI().length());
 		LOGGER.info("SLSFilter2:"+requestURIminusCtxPath+" is being filtered");
 		String redirect = null;
-		if(BYPASS_TOKEN.contains(requestURIminusCtxPath) || requestURIminusCtxPath.startsWith(URL_ACTIVATION)){
+		if(BYPASS_TOKEN.contains(requestURIminusCtxPath) 
+				|| requestURIminusCtxPath.startsWith(URL_ACTIVATION)
+					|| requestURIminusCtxPath.contains(WEB_SOCKET_CONTROLLER)){
 			chain.doFilter(request, response);
 		}else{
 			Cookie[] cookies = request.getCookies();

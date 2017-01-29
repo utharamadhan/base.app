@@ -1,18 +1,24 @@
 package id.base.app.valueobject.notification;
 
+import id.base.app.util.DateTimeFunction;
 import id.base.app.valueobject.Lookup;
 import id.base.app.valueobject.contact.Contact;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -26,18 +32,25 @@ public class Notification implements Serializable {
 	 */
 	private static final long serialVersionUID = 7292981544332561500L;
 	
-	public static Notification getInstance(Contact obj) {
+	public static Notification getInstance(Contact obj, Lookup actionTypeLookup) {
 		Notification notif = new Notification();
+			notif.setIsRead(Boolean.FALSE);
+			notif.setEmailFrom(obj.getEmail());
+			notif.setNameFrom(obj.getName());
+			notif.setActionTypeLookup(actionTypeLookup);
+			notif.setFkMaintenance(obj.getPkContact());
+			notif.setActionDate(obj.getCreationTime());
 		return notif;
 	}
 	
 	@Id
 	@SequenceGenerator(name="NOTIFICATION_PK_NOTIFICATION_SEQ", sequenceName="NOTIFICATION_PK_NOTIFICATION_SEQ", allocationSize=1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="NOTIFICATION_PK_NOTIFICATION_SEQ")
-	@Column(name = "PK_NOTIFICATION_PK_NOTIFICATION_SEQ", unique = true ,nullable = false)
+	@Column(name = "PK_NOTIFICATION", unique = true ,nullable = false)
 	private Long pkNotification;
 	
-	@Column(name="FK_LOOKUP_ACTION_TYPE")
+	@ManyToOne(cascade=CascadeType.DETACH)
+	@JoinColumn(name="FK_LOOKUP_ACTION_TYPE")
 	private Lookup actionTypeLookup;
 	
 	@Column(name="IS_READ")
@@ -54,6 +67,15 @@ public class Notification implements Serializable {
 	
 	@Column(name = "ACTION_DATE")
 	private Date actionDate;
+	
+	@Column(name = "READ_BY")
+	private String readBy;
+	
+	@Column(name = "READ_TIME")
+	private Date readTime;
+	
+	@Transient
+	private String actionAge;
 
 	public Long getPkNotification() {
 		return pkNotification;
@@ -102,6 +124,36 @@ public class Notification implements Serializable {
 	}
 	public void setActionDate(Date actionDate) {
 		this.actionDate = actionDate;
+	}
+	
+	public String getReadBy() {
+		return readBy;
+	}
+	public void setReadBy(String readBy) {
+		this.readBy = readBy;
+	}
+	
+	public Date getReadTime() {
+		return readTime;
+	}
+	public void setReadTime(Date readTime) {
+		this.readTime = readTime;
+	}
+	
+	@Transient
+	public String getActionAge() {
+		if(actionDate != null) {
+			try {
+				return DateTimeFunction.calcDateDifferenceString(actionDate, Calendar.getInstance().getTime());	
+			} catch (Exception e) {
+				
+			}
+		}
+		return actionAge;
+	}
+	@Transient
+	public void setActionAge(String actionAge) {
+		this.actionAge = actionAge;
 	}
 	
 }

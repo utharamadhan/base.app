@@ -3,10 +3,17 @@ package id.base.app.rest;
 public class RestConstant {
 	public static final String USER_CALLER = "uLUoI0BMv1";
 	public static String REST_SERVICE = "http://localhost:8181/ApplicationService";
+	public static String WEB_ADMIN_SERVICE = "http://localhost:8080/Web/do";
 	
 	public static void setRestService(String url){
 		REST_SERVICE = url;
 	}
+	
+	public static void setWebAdminService(String url) {
+		WEB_ADMIN_SERVICE = url;
+	}
+	
+	public static final String RM_WEB_SOCKET = "/webSocketController";
 	
 	public static final String RM_DASHBOARD = "/dashboard";
 	

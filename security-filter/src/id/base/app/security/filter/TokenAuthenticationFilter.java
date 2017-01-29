@@ -35,6 +35,7 @@ public class TokenAuthenticationFilter implements Filter{
 	private static String TOKEN_EXPIRED_AJAX = "";
 	private static String TOKEN_INVALID = "";
 	private static String REGEN_EXPIRE = "15";
+	private static String WEB_SOCKET = "/webSocketController";
 
 	@Override
 	public void destroy() {
@@ -84,7 +85,8 @@ public class TokenAuthenticationFilter implements Filter{
 					|| request.getRequestURI().equals(urlRegistrationSubmit) 
 						|| request.getRequestURI().startsWith(urlActivation)
 							|| request.getRequestURI().equals(urlActivationPage) 
-								|| request.getRequestURI().equals(urlActivationSubmit)) {
+								|| request.getRequestURI().equals(urlActivationSubmit)
+									|| request.getRequestURI().contains(WEB_SOCKET)) {
 				//not doChain
 				chain.doFilter(request, response);
 			} else {

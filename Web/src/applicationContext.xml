@@ -47,6 +47,16 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
    		</property>
 	</bean>
 	
+	<bean id="webAdminServiceInitialisation" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+   		<property name="targetClass" value="id.base.app.rest.RestConstant" />
+   		<property name="targetMethod" value="setWebAdminService" />
+   		<property name="arguments">
+      		<list>
+      			<value>${web.admin.service}</value>
+      		</list>
+   		</property>
+	</bean>
+	
 	<bean id="urlInitialisation" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
    		<property name="targetClass" value="id.base.app.SystemConstant" />
    		<property name="targetMethod" value="setUrl" />

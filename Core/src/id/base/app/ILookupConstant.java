@@ -34,6 +34,11 @@ public interface ILookupConstant {
 		public static final int LONG	= 5;
 		public static final int EMAIL	= 6;
 	}
+	
+	public static final class NotificationActionType {
+		public static final String CONTACT_US 	= "CO";
+		public static final String ADVISORY		= "AD";
+	}
     
 	public static final class PartyContact {
 		public static final String HANDPHONE = "HP";
