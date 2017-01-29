@@ -1,5 +1,15 @@
 package id.base.app.webMember.contact;
 
+import id.base.app.paging.PagingWrapper;
+import id.base.app.rest.RestCaller;
+import id.base.app.rest.RestConstant;
+import id.base.app.rest.RestServiceConstant;
+import id.base.app.util.dao.SearchFilter;
+import id.base.app.util.dao.SearchOrder;
+import id.base.app.valueobject.contact.Contact;
+import id.base.app.webMember.DataTableCriterias;
+import id.base.app.webMember.controller.BaseController;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -8,8 +18,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.DataFormat;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -20,23 +28,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import id.base.app.paging.PagingWrapper;
-import id.base.app.rest.RestCaller;
-import id.base.app.rest.RestConstant;
-import id.base.app.rest.RestServiceConstant;
-import id.base.app.util.dao.SearchFilter;
-import id.base.app.util.dao.SearchOrder;
-import id.base.app.valueobject.Lookup;
-import id.base.app.valueobject.contact.Contact;
-import id.base.app.webMember.DataTableCriterias;
-import id.base.app.webMember.controller.BaseController;
-
 @Scope(value="request")
 @Controller
-@RequestMapping("/contact")
-public class ContactWebController extends BaseController<Contact> {
+@RequestMapping("/contactUs/userContact")
+public class ContactUserContactUsWebController extends BaseController<Contact> {
 
-	private final String PATH_LIST = "/contact/contactList";
+	private final String PATH_LIST = "/contact/contactUsUserContactList";
 	
 	@Override
 	protected RestCaller<Contact> getRestCaller() {
