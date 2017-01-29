@@ -22,12 +22,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import id.base.app.SystemConstant;
 import id.base.app.paging.PagingWrapper;
+import id.base.app.rest.QueryParamInterfaceRestCaller;
 import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
 import id.base.app.rest.RestServiceConstant;
+import id.base.app.rest.SpecificRestCaller;
 import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
+import id.base.app.valueobject.aboutUs.ProgramPost;
 import id.base.app.valueobject.course.Course;
 import id.base.app.valueobject.course.GroupCourse;
 import id.base.app.valueobject.course.Tag;
@@ -73,16 +76,27 @@ public class LearningWebController {
 	
 	@RequestMapping(method=RequestMethod.GET, value="/program/{title}/{id}")
 	public String program(ModelMap model, HttpServletRequest request, HttpServletResponse response,
-				@PathVariable(value="id") Long id,
+				@PathVariable(value="id") final Long id,
 				@PathVariable(value="title") String title,
 				@RequestParam(value="startNo",defaultValue="1") int startNo, 
 				@RequestParam(value="offset",defaultValue="10") int offset,
 				@RequestParam(value="filter", defaultValue="", required=false) String filterJson
 			){
-		List<SearchFilter> filter = new ArrayList<SearchFilter>();
-		filter.add(new SearchFilter(Course.PK_GROUP_COURSE, Operator.EQUALS, id, Long.class));
-		List<SearchOrder> order = new ArrayList<SearchOrder>();
-		PagingWrapper<Course> courses = getRestCallerCourse().findAllByFilter(startNo, offset, filter, order);
+		SpecificRestCaller<Course> rcCourse = new SpecificRestCaller<Course>(RestConstant.REST_SERVICE, RestServiceConstant.COURSE_SERVICE);
+		PagingWrapper<Course> courses = rcCourse.executeGetPagingWrapper(startNo, offset, new QueryParamInterfaceRestCaller() {
+			
+			@Override
+			public String getPath() {
+				return "/findAllCourseAndTagsPaging";
+			}
+			
+			@Override
+			public Map<String, Object> getParameters() {
+				Map<String,Object> map = new HashMap<String, Object>();
+				map.put("groupCourse", id);
+				return map;
+			}
+		});
 		model.addAttribute("title", title.replace("-", " "));
 		model.addAttribute("idGroup", id);
 		model.addAttribute("courses", courses);
@@ -108,19 +122,41 @@ public class LearningWebController {
 	@RequestMapping(method=RequestMethod.GET, value="/program/{title}/{id}/load")
 	@ResponseBody
 	public Map<String, Object> load(ModelMap model, HttpServletRequest request, HttpServletResponse response,
-			@PathVariable(value="id") Long id,
+			@PathVariable(value="id") final Long id,
 			@PathVariable(value="title") String title,
 			@RequestParam(value="startNo",defaultValue="1") int startNo, 
 			@RequestParam(value="offset",defaultValue="10") int offset,
 			@RequestParam(value="filter", defaultValue="", required=false) String filterJson
 		){
 		Map<String, Object> resultMap = new HashMap<>();
-		List<SearchFilter> filter = new ArrayList<SearchFilter>();
-		filter.add(new SearchFilter(Course.PK_GROUP_COURSE, Operator.EQUALS, id, Long.class));
-		List<SearchOrder> order = new ArrayList<SearchOrder>();
-		PagingWrapper<Course> courses = getRestCallerCourse().findAllByFilter(startNo, offset, filter, order);
+		SpecificRestCaller<Course> rcCourse = new SpecificRestCaller<Course>(RestConstant.REST_SERVICE, RestServiceConstant.COURSE_SERVICE);
+		PagingWrapper<Course> courses = rcCourse.executeGetPagingWrapper(startNo, offset, new QueryParamInterfaceRestCaller() {
+			
+			@Override
+			public String getPath() {
+				return "/findAllCourseAndTagsPaging";
+			}
+			
+			@Override
+			public Map<String, Object> getParameters() {
+				Map<String,Object> map = new HashMap<String, Object>();
+				map.put("groupCourse", id);
+				return map;
+			}
+		});
 		resultMap.put("courses", courses);
 		return resultMap;
+	}
+	
+	public static void main(String[] args) {
+		List<Course> courses = new ArrayList<Course>();
+		Course course = new Course();
+		course.setCode("coba");
+		Course course2 = new Course();
+		course2.setCode("coba2");
+		courses.add(course);
+		courses.add(course2);
+		System.out.println("Sukses");
 	}
 	
 }

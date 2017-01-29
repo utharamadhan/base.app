@@ -9,6 +9,7 @@ import id.base.app.valueobject.course.Course;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -60,6 +61,17 @@ public class CourseService implements ICourseService {
 	@Override
 	public List<Course> findAllCourseCodeName() throws SystemException {
 		return courseDAO.findAllCourseCodeName();
+	}
+
+	@Override
+	public List<Course> findAllCourseAndTags(Map<String, Object> params) throws SystemException {
+		return courseDAO.findAllCourseAndTags(params);
+	}
+
+	@Override
+	public PagingWrapper<Course> findAllCourseAndTags(int startIndex, int maxRow, Map<String, Object> params)
+			throws SystemException {
+		return courseDAO.findAllCourseAndTags(startIndex, maxRow, params);
 	}
 
 }

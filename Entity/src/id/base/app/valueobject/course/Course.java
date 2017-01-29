@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -19,6 +20,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -89,6 +91,12 @@ public class Course extends BaseEntity implements Serializable {
 	joinColumns=@JoinColumn(name="FK_COURSE"),
 	inverseJoinColumns=@JoinColumn(name="FK_TAG"))
 	private Set<Tag> courseTags;
+	
+	@Transient
+	private String tags;
+	
+	@Transient
+	private List<String> listTags;
 	
 	@OneToMany(mappedBy="course", orphanRemoval=true, cascade=CascadeType.DETACH)
 	private List<StudentCourse> studentCourses = new ArrayList<>();
@@ -191,6 +199,29 @@ public class Course extends BaseEntity implements Serializable {
 		if(studentCourse != null) {
 			this.studentCourses.add(studentCourse);	
 		}
+	}
+
+	public String getTags() {
+		return tags;
+	}
+
+	public void setTags(String tags) {
+		this.tags = tags;
+	}
+
+	public List<String> getListTags() {
+		if(getTags()!=null){
+			listTags = new ArrayList<String>();
+			String[] dataTags = getTags().split(",");
+			for(String dataTag : dataTags){
+				listTags.add(dataTag);
+			}
+		}
+		return listTags;
+	}
+
+	public void setListTags(List<String> listTags) {
+		this.listTags = listTags;
 	}
 	
 }
