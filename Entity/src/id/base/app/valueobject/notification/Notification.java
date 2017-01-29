@@ -1,6 +1,8 @@
 package id.base.app.valueobject.notification;
 
+import id.base.app.ILookupConstant;
 import id.base.app.util.DateTimeFunction;
+import id.base.app.util.StringFunction;
 import id.base.app.valueobject.Lookup;
 import id.base.app.valueobject.contact.Contact;
 
@@ -32,11 +34,14 @@ public class Notification implements Serializable {
 	 */
 	private static final long serialVersionUID = 7292981544332561500L;
 	
+	public static final String PK_NOTIFICATION = "pkNotification";
+	
 	public static Notification getInstance(Contact obj, Lookup actionTypeLookup) {
 		Notification notif = new Notification();
 			notif.setIsRead(Boolean.FALSE);
 			notif.setEmailFrom(obj.getEmail());
 			notif.setNameFrom(obj.getName());
+			notif.setOverviewMessage(obj.getMessage());
 			notif.setActionTypeLookup(actionTypeLookup);
 			notif.setFkMaintenance(obj.getPkContact());
 			notif.setActionDate(obj.getCreationTime());
@@ -62,6 +67,9 @@ public class Notification implements Serializable {
 	@Column(name="NAME_FROM")
 	private String nameFrom;
 	
+	@Column(name="OVERVIEW_MESSAGE")
+	private String overviewMessage;
+	
 	@Column(name = "FK_MAINTENANCE")
 	private Long fkMaintenance;
 	
@@ -76,6 +84,9 @@ public class Notification implements Serializable {
 	
 	@Transient
 	private String actionAge;
+	
+	@Transient
+	private String detailURL;
 
 	public Long getPkNotification() {
 		return pkNotification;
@@ -110,6 +121,16 @@ public class Notification implements Serializable {
 	}
 	public void setNameFrom(String nameFrom) {
 		this.nameFrom = nameFrom;
+	}
+	
+	public String getOverviewMessage() {
+		return overviewMessage;
+	}
+	public void setOverviewMessage(String overviewMessage) {
+		if(StringFunction.isNotEmpty(overviewMessage) && overviewMessage.length() > 100) {
+			overviewMessage = overviewMessage.substring(0, 100) + "...";
+		}
+		this.overviewMessage = overviewMessage;
 	}
 	
 	public Long getFkMaintenance() {
@@ -154,6 +175,18 @@ public class Notification implements Serializable {
 	@Transient
 	public void setActionAge(String actionAge) {
 		this.actionAge = actionAge;
+	}
+	
+	@Transient
+	public String getDetailURL() {
+		if(this.actionTypeLookup != null && this.actionTypeLookup.getCode() != null) {
+			return ILookupConstant.NotificationActionType.URL_MAP.get(this.actionTypeLookup.getCode());
+		}
+		return detailURL;
+	}
+	@Transient
+	public void setDetailURL(String detailURL) {
+		this.detailURL = detailURL;
 	}
 	
 }

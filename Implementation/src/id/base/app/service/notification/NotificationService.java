@@ -60,4 +60,14 @@ public class NotificationService implements INotificationService {
 		return notificationDAO.findAll(filter, order);
 	}
 
+	@Override
+	public List<Notification> getLastFiveNotifications() throws SystemException {
+		return notificationDAO.getLastFiveNotifications();
+	}
+
+	@Override
+	public Integer countUnreadNotifications() throws SystemException {
+		return notificationDAO.countUnreadNotifications();
+	}
+
 }

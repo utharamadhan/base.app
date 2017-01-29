@@ -14,6 +14,7 @@ public class RestConstant {
 	}
 	
 	public static final String RM_WEB_SOCKET = "/webSocketController";
+	public static final String RM_NOTIFICATION = "/notification";
 	
 	public static final String RM_DASHBOARD = "/dashboard";
 	

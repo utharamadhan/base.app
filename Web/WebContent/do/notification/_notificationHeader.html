@@ -1,0 +1,15 @@
+<style>
+.dropdown-menu.settings > li > a{
+	font-size : 12px !important;
+}
+.dropdown-menu.settings > li > span{
+	font-size : 12px !important;
+}
+</style>
+<ul id="notification-header-list" class="dropdown-menu arrow settings" style="width: 300px;">
+	<li th:each="notification : ${notifications}">
+		<span th:text="${notification.emailFrom}"></span>
+		<span th:text="${notification.actionTypeLookup?.descr}"></span>
+		<span th:text="${notification.actionAge}"></span>
+	</li>
+</ul>

@@ -15,6 +15,7 @@ public class NotificationJson implements Serializable {
 
 	public static NotificationJson getInstance(Notification notif) {
 		NotificationJson json = new NotificationJson();
+			json.setPkNotification(notif.getPkNotification());
 			json.setIsRead(notif.getIsRead());
 			json.setEmailFrom(notif.getEmailFrom());
 			json.setNameFrom(notif.getNameFrom());
