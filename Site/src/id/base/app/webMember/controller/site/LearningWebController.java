@@ -1,16 +1,5 @@
 package id.base.app.webMember.controller.site;
 
-import id.base.app.paging.PagingWrapper;
-import id.base.app.rest.RestCaller;
-import id.base.app.rest.RestConstant;
-import id.base.app.rest.RestServiceConstant;
-import id.base.app.util.dao.Operator;
-import id.base.app.util.dao.SearchFilter;
-import id.base.app.util.dao.SearchOrder;
-import id.base.app.valueobject.course.Course;
-import id.base.app.valueobject.course.GroupCourse;
-import id.base.app.valueobject.course.Tag;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,6 +18,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import id.base.app.ILookupGroupConstant;
+import id.base.app.paging.PagingWrapper;
+import id.base.app.rest.QueryParamInterfaceRestCaller;
+import id.base.app.rest.RestCaller;
+import id.base.app.rest.RestConstant;
+import id.base.app.rest.RestServiceConstant;
+import id.base.app.rest.SpecificRestCaller;
+import id.base.app.util.dao.SearchFilter;
+import id.base.app.util.dao.SearchOrder;
+import id.base.app.valueobject.Lookup;
+import id.base.app.valueobject.course.Course;
+import id.base.app.valueobject.course.GroupCourse;
+import id.base.app.valueobject.course.Tag;
+import id.base.app.webMember.rest.LookupRestCaller;
 
 @Scope(value="request")
 @RequestMapping(value="/learning")
@@ -53,7 +57,6 @@ public class LearningWebController {
 	public String view(ModelMap model, HttpServletRequest request, HttpServletResponse response){
 		List<SearchFilter> filter = new ArrayList<SearchFilter>();
 		List<SearchOrder> order = new ArrayList<SearchOrder>();
-		order.add(new SearchOrder(GroupCourse.ORDER_NO, SearchOrder.Sort.ASC));
 		List<GroupCourse> groups = getRestCaller().findAll(filter, order);
 		model.addAttribute("groups", groups);
 		return "/learning/main";
@@ -71,16 +74,39 @@ public class LearningWebController {
 	
 	@RequestMapping(method=RequestMethod.GET, value="/program/{title}/{id}")
 	public String program(ModelMap model, HttpServletRequest request, HttpServletResponse response,
-				@PathVariable(value="id") Long id,
+				@PathVariable(value="id") final Long id,
 				@PathVariable(value="title") String title,
 				@RequestParam(value="startNo",defaultValue="1") int startNo, 
 				@RequestParam(value="offset",defaultValue="10") int offset,
-				@RequestParam(value="filter", defaultValue="", required=false) String filterJson
+				@RequestParam(value="filter", defaultValue="", required=false) String filterJson,
+				@RequestParam final Map<String, String> paramWrapper
 			){
-		List<SearchFilter> filter = new ArrayList<SearchFilter>();
-		filter.add(new SearchFilter(Course.PK_GROUP_COURSE, Operator.EQUALS, id, Long.class));
-		List<SearchOrder> order = new ArrayList<SearchOrder>();
-		PagingWrapper<Course> courses = getRestCallerCourse().findAllByFilter(startNo, offset, filter, order);
+		SpecificRestCaller<Course> rcCourse = new SpecificRestCaller<Course>(RestConstant.REST_SERVICE, RestServiceConstant.COURSE_SERVICE);
+		PagingWrapper<Course> courses = rcCourse.executeGetPagingWrapper(startNo, offset, new QueryParamInterfaceRestCaller() {
+			
+			@Override
+			public String getPath() {
+				return "/findAllCourseAndTagsPaging";
+			}
+			
+			@Override
+			public Map<String, Object> getParameters() {
+				Map<String,Object> map = new HashMap<String, Object>();
+				map.put("groupCourse", id);
+				if(paramWrapper.get("category")!=null && !"".equals(paramWrapper.get("category"))){
+					map.put("category", paramWrapper.get("category").toString());
+				}
+				if(paramWrapper.get("searchParam")!=null && !"".equals(paramWrapper.get("searchParam"))){
+					map.put("searchParam", paramWrapper.get("searchParam").toString());
+				}
+				if(paramWrapper.get("areaParam")!=null && !"".equals(paramWrapper.get("areaParam"))){
+					map.put("areaParam", paramWrapper.get("areaParam").toString());
+				}
+				return map;
+			}
+		});
+		List<Lookup> categories = new LookupRestCaller().findByLookupGroup(ILookupGroupConstant.COURSE_CATEGORY);
+		model.addAttribute("categories", categories);
 		model.addAttribute("title", title.replace("-", " "));
 		model.addAttribute("idGroup", id);
 		model.addAttribute("courses", courses);
@@ -106,17 +132,38 @@ public class LearningWebController {
 	@RequestMapping(method=RequestMethod.GET, value="/program/{title}/{id}/load")
 	@ResponseBody
 	public Map<String, Object> load(ModelMap model, HttpServletRequest request, HttpServletResponse response,
-			@PathVariable(value="id") Long id,
+			@PathVariable(value="id") final Long id,
 			@PathVariable(value="title") String title,
 			@RequestParam(value="startNo",defaultValue="1") int startNo, 
 			@RequestParam(value="offset",defaultValue="10") int offset,
-			@RequestParam(value="filter", defaultValue="", required=false) String filterJson
+			@RequestParam(value="filter", defaultValue="", required=false) String filterJson,
+			@RequestParam final Map<String, String> paramWrapper
 		){
 		Map<String, Object> resultMap = new HashMap<>();
-		List<SearchFilter> filter = new ArrayList<SearchFilter>();
-		filter.add(new SearchFilter(Course.PK_GROUP_COURSE, Operator.EQUALS, id, Long.class));
-		List<SearchOrder> order = new ArrayList<SearchOrder>();
-		PagingWrapper<Course> courses = getRestCallerCourse().findAllByFilter(startNo, offset, filter, order);
+		SpecificRestCaller<Course> rcCourse = new SpecificRestCaller<Course>(RestConstant.REST_SERVICE, RestServiceConstant.COURSE_SERVICE);
+		PagingWrapper<Course> courses = rcCourse.executeGetPagingWrapper(startNo, offset, new QueryParamInterfaceRestCaller() {
+			
+			@Override
+			public String getPath() {
+				return "/findAllCourseAndTagsPaging";
+			}
+			
+			@Override
+			public Map<String, Object> getParameters() {
+				Map<String,Object> map = new HashMap<String, Object>();
+				map.put("groupCourse", id);
+				if(paramWrapper.get("category")!=null && !"".equals(paramWrapper.get("category"))){
+					map.put("category", paramWrapper.get("category").toString());
+				}
+				if(paramWrapper.get("searchParam")!=null && !"".equals(paramWrapper.get("searchParam"))){
+					map.put("searchParam", paramWrapper.get("searchParam").toString());
+				}
+				if(paramWrapper.get("areaParam")!=null && !"".equals(paramWrapper.get("areaParam"))){
+					map.put("areaParam", paramWrapper.get("areaParam").toString());
+				}
+				return map;
+			}
+		});
 		resultMap.put("courses", courses);
 		return resultMap;
 	}
