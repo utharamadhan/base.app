@@ -1,5 +1,7 @@
 package id.base.app.webMember.controller;
 
+import id.base.app.SystemConstant;
+
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +28,7 @@ public class TokenWebController {
 	@RequestMapping(method=RequestMethod.GET, value="/tokenExpired")
 	public String showErrorExpired(ModelMap model, @RequestParam Map<String,String> paramWrapper, HttpServletRequest request, HttpServletResponse response){
 		response.setHeader("ajax-expired", "true");
+		response.setHeader("loginURL", SystemConstant.LOGIN_URL + "?error=tokenExpired");
 		return "/blankTokenExpired";
 	}
 }

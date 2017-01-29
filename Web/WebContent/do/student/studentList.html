@@ -113,7 +113,7 @@
 	/*<![CDATA[*/
 	           
 		function showAdd() {
-	    	var sURL = /*[[@{/do/student/showAdd?skipdecorator=}]]*/ #;
+	    	var sURL = /*[[@{/do/student/database/showAdd?skipdecorator=}]]*/ #;
 	    	showScreen('student-list-container', 'student-detail-container', sURL);
 		}
 	
@@ -129,19 +129,19 @@
 		}
 		
 		function reloadLearning(maintenancePK) {
-			var sURL = /*[[@{/do/student/reloadLearning?maintenancePK=}]]*/ #;
+			var sURL = /*[[@{/do/student/database/reloadLearning?maintenancePK=}]]*/ #;
 			showScreen('student-list-container', 'student-detail-container', sURL + maintenancePK + "&skipdecorator="); 
 		}
 		
 		function showDetail(maintenancePK) {
-			var sURL = /*[[@{/do/student/showEdit?maintenancePK=}]]*/ #;
+			var sURL = /*[[@{/do/student/database/showEdit?maintenancePK=}]]*/ #;
 			showScreen('student-list-container', 'student-detail-container', sURL + maintenancePK + "&skipdecorator=");
 		}
 		
 		function deleteItem(maintenancePK) {
 			var callbackDelete = function(result) {
 				if (result) {
-					var sURL = /*[[@{/do/student/delete?}]]*/ #;
+					var sURL = /*[[@{/do/student/database/delete?}]]*/ #;
 					var serializedData = "maintenancePKs=" + maintenancePK;
 					$.post(sURL, serializedData, function(data){
 						if(data.errorList!=null){
@@ -156,7 +156,7 @@
 		} 
 		
 		function deleteStudent() {
-			var sURL = /*[[@{/do/student/deleteStudent?skipDecorator}]]*/ #;
+			var sURL = /*[[@{/do/student/database/deleteStudent?skipDecorator}]]*/ #;
 			$.post(sURL, $('.student-list-check-delete').serialize(), function(data){
 				if(data.errorList!=null){
 					
@@ -189,7 +189,7 @@
 					d.customFilters[$(this).attr('customFilterKey')] = $(this).val();
 				});
 			}
-		    var sURL = /*[[@{/do/student/studentList?}]]*/ #;
+		    var sURL = /*[[@{/do/student/database/studentList?}]]*/ #;
 		    buildDataTableWithCustomFilter(/*[[@{/}]]*/, sURL, 'student-list-table', 450, colDefs, null, null, null, customFilter);
 	    });
 	    

@@ -343,7 +343,37 @@ public class DateTimeFunction {
         }
         return (date1.getTime() - date0.getTime()) / time;
     }
-
+    
+    public static String calcDateDifferenceString(Date date0, Date date1) throws RuntimeException {
+    	String result = "";
+    	try {
+    		long time = 1000, millisDiff = (date1.getTime() - date0.getTime());
+    		if((millisDiff / (time * 60)) < 60) {
+    			result = "less than a minute ago";
+    		} else if(millisDiff / (time * 60) > 60 ) {
+    			if(millisDiff / (time * 60 * 60) < 1) {
+    				return millisDiff / (time * 60 * 60) + " minutes ago";
+    			} else {
+    				if(millisDiff / (time * 60 * 60 * 24) < 1) {
+    					return millisDiff / (time * 60 * 60) + " hours ago";
+    				} else {
+    					if(millisDiff / (time * 60 * 60 * 24 * 30) < 1) {
+    						return millisDiff / (time * 60 * 60 * 24) + " days ago";
+    					} else {
+    						if(millisDiff / (time * 60 * 60 * 24 * 30 * 12) < 1) {
+    							return millisDiff / (time * 60 * 60 * 24 * 30) + " months ago";
+    						} else {
+    							return millisDiff / (time * 60 * 60 * 24 * 30 * 12) + "years ago";
+    						}
+    					}
+    				}
+    			}
+    		}
+    	} catch (Exception e){
+    		result = "x minutes ago";
+    	}
+    	return result;
+    }
     public static String Integer2String(Integer integer) {
     	if (integer == null) {
     		return "";

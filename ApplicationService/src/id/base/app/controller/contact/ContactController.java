@@ -69,4 +69,16 @@ public class ContactController extends SuperController<Contact> {
 		return anObject;
 	}
 	
+	@RequestMapping(method=RequestMethod.GET, value="/getLatestContactUs")
+	@ResponseBody
+	public List<Contact> getLatestContactUs() throws SystemException {
+		return contactService.getLatestContactUs();
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/countUnreadMessage")
+	@ResponseBody
+	public Integer countUnreadMessage() throws SystemException {
+		return contactService.countUnreadMessage();
+	}
+	
 }

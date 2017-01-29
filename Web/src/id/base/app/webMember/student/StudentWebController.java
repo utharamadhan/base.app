@@ -42,7 +42,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Scope(value="request")
 @Controller
-@RequestMapping("/student")
+@RequestMapping("/student/database")
 public class StudentWebController extends BaseController<Student> {
 
 	private final String PATH_LIST = "/student/studentList";

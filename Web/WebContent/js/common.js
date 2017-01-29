@@ -885,7 +885,10 @@ function buildCustomAjaxOpts(url, id, customFilter) {
 				}
 				return json.result;
 			},
-			data: customFilter
+			data: customFilter,
+			error: function(message) {
+				console.log('message : ' + message);
+			}
 		};
 	return ajaxOpt;
 }
@@ -919,6 +922,9 @@ function getDefaultAjaxOpts(url,id){
 			    }
 				d.emptyList = $('#emptyList').val();
 				d.page = $('#txtPage_'+id).val();
+			},
+			error: function(message) {
+				console.log('message : ' + message);
 			}
 		};
 	return ajaxOpt;
@@ -1059,7 +1065,7 @@ function bootBoxError(error, customCallback) {
 		customCallback = function() {};
 	}
 	bootbox.alert({
-        title: "Success",
+        title: "Error",
         message: error,
         callback: customCallback
     });

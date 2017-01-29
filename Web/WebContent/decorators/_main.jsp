@@ -46,6 +46,7 @@
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/plugin/vendor/fuelux/css/wizzard.min.css"/>
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/plugin/vendor/bs-wizard/bs-wizard-min.css" type="text/css" media="all">
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/plugin/vendor/fancytree/style/ui.fancytree.css" type="text/css" media="all">
+		<link rel="stylesheet" href="<%=request.getContextPath()%>/plugin/vendor/dailyfeed/dailyfeed.css" type="text/css" media="all">
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/css/minimal.css">
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css">
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/plugin/vendor/quill/quill-1.1.7.css">
@@ -75,11 +76,19 @@
        			stopAJAXLoader();
        			
        		}).ajaxError(function(e, jqxhr, settings, exception) {
-       			alert('System error occurred. Please refresh the browser and contact the system administrator.'); 
+       			var ajaxExpired = jqxhr.getResponseHeader('ajax-expired');
+       			if(!ajaxExpired || (ajaxExpired && ajaxExpired != 'true')) {
+       				alert('System error occurred. Please refresh the browser and contact the system administrator.');	
+       			}
        		}).ajaxComplete(function(e, jqxhr, settings) {
        			var ajaxExpired = jqxhr.getResponseHeader('ajax-expired');
        			if(ajaxExpired=='true'){
-       				alert('Your session is either expired or you are not login.');
+       				bootBoxError("Session Expired", function(){
+       					var loginURL = jqxhr.getResponseHeader('loginURL');
+       					if(loginURL) {
+       						window.location = loginURL;
+       					}
+       				});
        			}
        		});
        	});

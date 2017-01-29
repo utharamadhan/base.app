@@ -38,6 +38,16 @@
   		<artifactId>spring-orm</artifactId>
   		<version>${spring.version}</version>
   	</dependency>
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-tx</artifactId>
+	    <version>4.3.6.RELEASE</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.springframework.integration</groupId>
+	    <artifactId>spring-integration-event</artifactId>
+	    <version>4.3.6.RELEASE</version>
+	</dependency>		
   	<dependency>
   		<groupId>org.apache.httpcomponents</groupId>
   		<artifactId>httpcore</artifactId>
@@ -136,7 +146,7 @@
 		<version>0.0.1</version>
 	</parent>
 	<properties>
-	  	<spring.version>4.1.6.RELEASE</spring.version>
+	  	<spring.version>4.3.4.RELEASE</spring.version>
 		<hibernate.version>4.3.9.Final</hibernate.version>
 	</properties>
 </project>

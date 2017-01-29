@@ -3,6 +3,28 @@
 <head>
 <meta charset="ISO-8859-1"/>
 <title>Dashboard</title></head>
+<style>
+
+.media-body, .media-left {
+	display: table-cell !important;
+}
+
+#basicInfoContent a{
+	color: #16a085 !important;
+}
+
+</style>
 <body>
+<div id="content" class="col-md-12">
+	<div class="pageheader">
+		<h4>Dashboard <span></span></h4>
+	</div>
+	<div id="basicInfoContent" class="col-md-6">
+		<div th:replace="dashboard/_contactActivity :: contactActivity(${contacts}, ${unreadContactsMessage})"></div>
+	</div>
+	<div id="basicInfoContent" class="col-md-6">
+		<div th:replace="dashboard/_contactActivity :: contactActivity(${contacts}, ${unreadContactsMessage})"></div>
+	</div>
+</div>	
 </body>
 </html>

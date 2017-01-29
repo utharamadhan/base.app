@@ -109,10 +109,10 @@ public class ShortLifeSessionFilter2 implements Filter{
 			if(redirect!=null){
 				if(request.getHeader("X-Requested-With") != null){
 					request.setAttribute("message","<b>Login Required:</b> Your session is either expired or you are not login.");
-	                request.getRequestDispatcher( "/errorNotLogin.jsp").forward(request, response);
+	                request.getRequestDispatcher( SystemConstant.LOGIN_URL+"?error=tokenExpired" ).forward(request, response);
 				}else if(request.getParameter("posodaDrevo")!=null&&request.getParameter("posodaDrevo").equals("true")){
 					request.setAttribute("message","<b>Login Required:</b> Your session is either expired or you are not login.");
-	                request.getRequestDispatcher( "/errorNotLogin.jsp").forward(request, response);
+	                request.getRequestDispatcher( SystemConstant.LOGIN_URL+"?error=tokenExpired" ).forward(request, response);
 				}else{
 					response.sendRedirect(redirect);
 				}

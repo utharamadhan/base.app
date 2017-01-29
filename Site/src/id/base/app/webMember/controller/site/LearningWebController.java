@@ -168,15 +168,4 @@ public class LearningWebController {
 		return resultMap;
 	}
 	
-	public static void main(String[] args) {
-		List<Course> courses = new ArrayList<Course>();
-		Course course = new Course();
-		course.setCode("coba");
-		Course course2 = new Course();
-		course2.setCode("coba2");
-		courses.add(course);
-		courses.add(course2);
-		System.out.println("Sukses");
-	}
-	
 }

@@ -101,7 +101,12 @@
 	          				var $toastContent = $("<span>invalid username / password</span>");
 	            			Materialize.toast($toastContent, 2000); 
 	            		<%	
-	          		}
+	          		} else if(request.getParameter("error").equals("tokenExpired")) {
+	          			%> 
+          				var $toastContent = $("<span>session expired</span>");
+            			Materialize.toast($toastContent, 2000); 
+            		<%	
+          			}
 	          	}
 	        %>
     		
