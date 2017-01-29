@@ -92,9 +92,6 @@ public class Contact extends BaseEntity implements Serializable {
 	@Column(name="MESSAGE")
 	private String message;
 	
-	@Column(name="IS_READ")
-	private Boolean isRead;
-	
 	@Transient
 	private Date activityDate;
 	
@@ -179,13 +176,6 @@ public class Contact extends BaseEntity implements Serializable {
 
 	public void setCourse(Course course) {
 		this.course = course;
-	}
-
-	public Boolean getIsRead() {
-		return isRead;
-	}
-	public void setIsRead(Boolean isRead) {
-		this.isRead = isRead;
 	}
 
 	@Transient

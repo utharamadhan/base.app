@@ -1,11 +1,5 @@
 package id.base.app.service.contact;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import id.base.app.dao.contact.IContactDAO;
 import id.base.app.dao.lookup.ILookupDAO;
 import id.base.app.exception.SystemException;
@@ -13,11 +7,21 @@ import id.base.app.paging.PagingWrapper;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.valueobject.contact.Contact;
+import id.base.app.valueobject.notification.NotificationEvent;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
 public class ContactService implements IContactService {
 	
+	@Autowired
+    private ApplicationEventPublisher publisher;
 	@Autowired
 	private ILookupDAO lookupDAO;
 	@Autowired
@@ -33,6 +37,7 @@ public class ContactService implements IContactService {
 	@Override
 	public void saveOrUpdate(Contact anObject) throws SystemException {
 		contactDAO.saveOrUpdate(anObject);
+		publisher.publishEvent(new NotificationEvent(anObject));
 	}
 
 	@Override
