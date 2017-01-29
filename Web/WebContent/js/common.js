@@ -999,6 +999,17 @@ function initDatePicker(datePickerClass, dateFormat) {
     });
 }
 
+function initTimePicker(timePickerClass, timeFormat) {
+	$('.'+timePickerClass).timepicker({
+        showDuration: true,
+        hours: {
+    		starts: 0,
+    		ends: 23
+    	},
+        timeFormat: timeFormat
+    });
+}
+
 function uploadFileTextEditor(image, sURL, targetId) {
 	var data = new FormData();
 	data.append('file', image);

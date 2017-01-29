@@ -50,6 +50,7 @@
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/css/minimal.css">
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css">
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/plugin/vendor/quill/quill-1.1.7.css">
+		<link rel="stylesheet" href="<%=request.getContextPath()%>/css/vendor/timepicker/jquery.ui.timepicker.css">
 	
 	    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -202,6 +203,7 @@
     <%} %>
     <script src="<%=request.getContextPath()%>/js/jquery/autoNumeric.js" type="text/javascript"></script>
     <script src="<%=request.getContextPath()%>/js/jquery/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="<%=request.getContextPath()%>/js/jquery/jquery.ui.timepicker.js" type="text/javascript"></script>
     <script src="<%=request.getContextPath()%>/js/modal-dialog.js" type="text/javascript"></script>
 	<script src="<%=request.getContextPath()%>/js/common.js" type="text/javascript" ></script>
 	
@@ -271,7 +273,7 @@
     </script>
     
     <!--Start of Tawk.to Script-->
-	<script type="text/javascript">
+	<!-- script type="text/javascript">
 	var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
 	(function(){
 	var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
@@ -281,7 +283,7 @@
 	s1.setAttribute('crossorigin','*');
 	s0.parentNode.insertBefore(s1,s0);
 	})();
-	</script>
+	</script-->
 	<!--End of Tawk.to Script-->
 	</body>
 <!-- END BODY -->
