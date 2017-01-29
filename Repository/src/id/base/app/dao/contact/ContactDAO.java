@@ -128,7 +128,6 @@ public class ContactDAO extends AbstractHibernateDAO<Contact,Long> implements IC
 	@Override
 	public Integer countUnreadMessage() throws SystemException {
 		Criteria crit = getSession().createCriteria(domainClass);
-			crit.add(Restrictions.eq("isRead", Boolean.FALSE));
 			crit.setProjection(Projections.rowCount());
 		Long rowCount = (Long) crit.uniqueResult();
 		return rowCount != null && rowCount > 0L ? rowCount.intValue() : 0;
