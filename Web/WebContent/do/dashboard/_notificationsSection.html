@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:ifs="http://base.id">
+<head></head>
+<body>
+<div id="dailyNotifications-feed" class="panel" th:fragment="notificationsSection(notifications, unreadNotifications)">
+	<div class="panel-heading">
+		<h3 class="panel-title">
+			Daily Activity Feed <span class="pull-right label label-round label-warning" th:text="${unreadNotifications + ' Unread Notifications'}"></span>
+		</h3>
+	</div>
+	<div class="panel-body">
+		<ul class="list-group list-group-dividered list-group-full">
+			<th:block th:if="${not #lists.isEmpty(notifications)}">
+				<li th:each="notification : ${notifications}" class="list-group-item">
+					<div class="media">
+						<div class="media-body col-md-12">
+							<h4 class="media-heading" style="width:100%;">
+								<small class="pull-right" th:text="${notification.actionAge}"></small>
+									<span th:unless="${isRead}" style="color: red;">*</span>
+									<a class="name" th:text="${notification.emailFrom}">Name</a>
+							</h4>
+							<small th:text="${notification.actionDate!=null?#dates.format(notification.actionDate, T(id.base.app.SystemConstant).SYSTEM_TIME_MASK_SECONDHAND):''}"></small>
+							<div class="notification-content content well" th:text="${notification.overviewMessage}"></div>
+							<small class="pull-right"><a th:href="${notification.detailURL}">read more</a></small>
+						</div>
+					</div>
+				</li>
+			</th:block>
+			<th:block th:if="${#lists.isEmpty(notifications)}">
+				<div class="media">
+					<div class="media-body col-md-12"></div>
+				</div>
+			</th:block>
+		</ul>
+		<a href="#" id="btn-notification-list" class="btn btn-block btn-primary waves-effect waves-light" style="color:#fff !important;margin-bottom:5px">
+			Show More
+		</a>
+	</div>
+</div>
+</body>
+</html>

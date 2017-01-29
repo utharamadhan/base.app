@@ -13,6 +13,10 @@
 	color: #16a085 !important;
 }
 
+.notification-content {
+	font-size : 14px !important;
+}
+
 </style>
 <body>
 <div id="content" class="col-md-12">
@@ -20,11 +24,20 @@
 		<h4>Dashboard <span></span></h4>
 	</div>
 	<div id="basicInfoContent" class="col-md-6">
-		<div th:replace="dashboard/_contactActivity :: contactActivity(${contacts}, ${unreadContactsMessage})"></div>
+		<div th:replace="dashboard/_notificationsSection :: notificationsSection(${notifications}, ${unreadNotifications})"></div>
 	</div>
-	<div id="basicInfoContent" class="col-md-6">
-		<div th:replace="dashboard/_contactActivity :: contactActivity(${contacts}, ${unreadContactsMessage})"></div>
-	</div>
-</div>	
+</div>
+<script th:inline="javascript">
+	/*<![CDATA[*/
+	    $(function(){
+		    $('#btn-notification-list').click(function(e){
+		    	e.preventDefault();
+		    	console.log('hello');
+		    	var sURL = /*[[@{/do/notification/showList}]]*/ #;
+		    	window.location = sURL;
+		    });
+	    });
+	/*]]>*/
+</script>
 </body>
 </html>

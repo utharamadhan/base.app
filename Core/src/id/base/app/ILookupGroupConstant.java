@@ -13,6 +13,7 @@ public class ILookupGroupConstant {
 	public static final String GENDER					= "GENDER";
 	public static final String LOG_GROUP 				= "LOG_GROUP";
 	public static final String NEWS_STATUS			 	= "NEWS_STATUS";
+	public static final String NOTIFICATION_ACTION_TYPE	= "NOTIFICATION_ACTION_TYPE";
 	public static final String PARTY_ROLE 				= "PARTY_ROLE";
 	public static final String STUDENT_STATUS			= "STUDENT_STATUS";
 	public static final String TAG_COURSE				= "TAG_COURSE";

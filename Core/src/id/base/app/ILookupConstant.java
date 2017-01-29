@@ -4,6 +4,8 @@
  */
 package id.base.app;
 
+import id.base.app.rest.RestConstant;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,6 +35,19 @@ public interface ILookupConstant {
 		public static final int LOOKUP	= 4;
 		public static final int LONG	= 5;
 		public static final int EMAIL	= 6;
+	}
+	
+	public static final class NotificationActionType {
+		public static final String CONTACT_US 	= "CO";
+		public static final String ADVISORY		= "AD";
+		
+		public static final String CONTACT_US_URL = RestConstant.WEB_ADMIN_SERVICE + "/contactUs/userContact/showList";
+		
+		public static final Map<String, String> URL_MAP = new HashMap<>();
+		static {
+			URL_MAP.put(CONTACT_US, CONTACT_US_URL);
+		}
+		
 	}
     
 	public static final class PartyContact {

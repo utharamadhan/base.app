@@ -3,7 +3,7 @@ package id.base.app.webMember.controller.dashboard;
 import id.base.app.rest.PathInterfaceRestCaller;
 import id.base.app.rest.RestConstant;
 import id.base.app.rest.SpecificRestCaller;
-import id.base.app.valueobject.contact.Contact;
+import id.base.app.valueobject.notification.Notification;
 
 import java.util.HashMap;
 import java.util.List;
@@ -28,16 +28,16 @@ public class DashboardWebController{
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public String view(ModelMap model, HttpServletRequest request){
-		model.addAttribute("contacts", getLatestContactUs());
-		model.addAttribute("unreadContactsMessage", countUnreadMessage());
+		model.addAttribute("notifications", getLastFiveNotifications());
+		model.addAttribute("unreadNotifications", countUnreadNotifications());
 		return "/dashboard/dashboardDetail";
 	}
 	
-	private List<Contact> getLatestContactUs() {
-		return new SpecificRestCaller<Contact>(RestConstant.REST_SERVICE, RestConstant.RM_CONTACT, Contact.class).executeGetList(new PathInterfaceRestCaller() {
+	public List<Notification> getLastFiveNotifications() {
+		return new SpecificRestCaller<Notification>(RestConstant.REST_SERVICE, RestConstant.RM_NOTIFICATION, Notification.class).executeGetList(new PathInterfaceRestCaller() {
 			@Override
 			public String getPath() {
-				return "/getLatestContactUs";
+				return "/getLastFiveNotifications";
 			}
 			
 			@Override
@@ -47,11 +47,11 @@ public class DashboardWebController{
 		});
 	}
 	
-	private Integer countUnreadMessage() {
-		return new SpecificRestCaller<Integer>(RestConstant.REST_SERVICE, RestConstant.RM_CONTACT, Integer.class).executeGet(new PathInterfaceRestCaller() {
+	private Integer countUnreadNotifications() {
+		return new SpecificRestCaller<Integer>(RestConstant.REST_SERVICE, RestConstant.RM_NOTIFICATION, Integer.class).executeGet(new PathInterfaceRestCaller() {
 			@Override
 			public String getPath() {
-				return "/countUnreadMessage";
+				return "/countUnreadNotifications";
 			}
 			
 			@Override
