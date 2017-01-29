@@ -25,15 +25,11 @@
 							<div class="container">
 								<div class="row">
 									<div class="span12">
-										<div id="tab" class="btn-group" data-toggle="buttons">
-											<a href="#prices" class="btn btn-default active" data-toggle="tab">
-												<input type="radio" />-- Semua Kategori --</a>
-											<a href="#features" class="btn btn-default" data-toggle="tab">
-												<input type="radio" />Internal</a>
-											<a href="#requests" class="btn btn-default" data-toggle="tab">
-												<input type="radio" />Join Program</a>
-											<a href="#contact" class="btn btn-default" data-toggle="tab">
-												<input type="radio" />Omnibus</a>
+										<div id="tab" class="btn-group cat_tab" data-toggle="buttons">
+											<a href="#prices" class="btn btn-default active change_cat" data-toggle="tab">
+												<input type="radio" value=""/><label>-- Semua Kategori --</label></a>
+											<a href="#features" class="btn btn-default change_cat" data-toggle="tab" th:each="category, i : ${categories}">
+												<input type="radio" th:value="${category.pkLookup}"/><label th:text="${category.name}">Internal</label></a>
 										</div>
 									</div>
 								</div>
@@ -43,7 +39,7 @@
 					<div class="col-md-6">
 						<div class="input-group">
 						  <input type="text" class="form-control param" placeholder="Program" aria-describedby="basic-addon2" />
-						  <span class="input-group-addon" id="basic-addon2"><i class="fa fa-search" aria-hidden="true"></i></span>
+						  <span class="input-group-addon btn_search" id="basic-addon2"><i class="fa fa-search" aria-hidden="true"></i></span>
 						</div>
 						<div class="input-group search-popup">
 						  <label class="aos-search-title">Area of Studies : </label> 
@@ -114,6 +110,8 @@
 		
 		<script type="text/javascript" th:inline="javascript">
 		/*<![CDATA[*/
+		var catValue="";           
+		           
 		$(function(){
 			var page = /*[[${courses.noOfPage}]]*/;
 			
@@ -130,6 +128,19 @@
 			
 			$('.change_page').unbind('click').click(function(){
 				changePage($(this));
+			});
+			
+			$('.btn_search, .btn_search_tag').unbind('click').click(function(){
+				changePage($(this),1);
+			});
+			
+			$('.reset_tag').unbind('click').click(function(){
+				$('.tags').removeAttr('checked');
+			});
+			
+			$('.change_cat').unbind('click').click(function(){
+				catValue = $(this).find('input[type="radio"]').attr('value');
+				changePage($(this),1);
 			});
 			
 			checkPagination();
@@ -157,6 +168,20 @@
 			}
 		}
 		
+		function getParamSearch(){
+			var paramSearch = $('.param').val();
+			return paramSearch;
+		}
+		
+		function getAreaStudies(){
+			
+			var area = "";
+			if($('.tags:checked').length>0){
+				area = $('.tags:checked').val();
+			}
+			return area;
+		}
+		
 		function changePage(elem, paramNextPage){
 			var id = /*[[${idGroup}]]*/;
 			var title = /*[[${title}]]*/;
@@ -168,11 +193,13 @@
 			var oldPage = $('.active').find('a').html();
 			var nextStartNo = (parseInt($('.offset').val()) * (parseInt(nextPage)-1)) + 1;
 			var offset = $('.offset').val();
+			var searchParam = getParamSearch();
+			var areaParam = getAreaStudies();
 			var img_url = /*[[@{/images/gif/hex-loader.gif}]]*/;
 			$.ajax({
 	            type: 'GET',
 	            url: sURL,
-	            data: {filter : param, startNo : nextStartNo, offset : offset},
+	            data: {filter : param, startNo : nextStartNo, offset : offset, category : catValue, searchParam : searchParam, areaParam : areaParam},
 	            dataType: 'json',
 	            success: function (data) {
 	            	$('.load_reload_wrapper').remove();

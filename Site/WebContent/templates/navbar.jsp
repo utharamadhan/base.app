@@ -231,7 +231,7 @@
 										<c:forEach items="${tags_course}" var="tag_course" varStatus="loop">
 										<div class="col-md-6">
 											<div class="checkbox">
-											  <label><input type="checkbox" class="aos-search" value="${tag_course.name}">${tag_course.name}</label>
+											  <label><input type="checkbox" class="aos-search tags" value="${tag_course.pkTag}">${tag_course.name}</label>
 											</div>
 										</div>
 										</c:forEach>
@@ -240,8 +240,8 @@
 								  </div>
 								  <div class="modal-footer">
 									<div>
-										<button type="button" class="btn btn-default do-reset-aos">Reset</button>
-										<button type="button" class="btn btn-primary do-search-aos" data-dismiss="modal">Search</button>
+										<button type="button" class="btn btn-default do-reset-aos reset_tag">Reset</button>
+										<button type="button" class="btn btn-primary do-search-aos btn_search_tag" data-dismiss="modal">Search</button>
 									</div>
 								  </div>
 								</div>

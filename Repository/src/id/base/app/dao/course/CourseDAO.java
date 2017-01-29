@@ -125,6 +125,18 @@ public class CourseDAO extends AbstractHibernateDAO<Course, Long> implements ICo
 			Long groupCourse = new Long((String)params.get("groupCourse"));
 			select.append(" and co.fk_group_course = " + groupCourse + " ");
 		}
+		if(params.get("category")!=null){
+			Long category = new Long((String)params.get("category"));
+			select.append(" and l.pk_lookup = " + category + " ");
+		}
+		if(params.get("searchParam")!=null){
+			String searchParam = (String)params.get("searchParam");
+			select.append(" and lower(co.name) like lower('%" + searchParam + "%') ");
+		}
+		if(params.get("areaParam")!=null){
+			Long areaParam = new Long((String)params.get("areaParam"));
+			select.append(" and t.pk_tag = " + areaParam + " ");
+		}
 		select.append(" group by co.pk_course, l.pk_lookup ");
 		Query querySelect = getSession().createSQLQuery(select.toString());
 		querySelect.setFirstResult(startIndex - 1).setMaxResults(maxRow);
@@ -134,13 +146,13 @@ public class CourseDAO extends AbstractHibernateDAO<Course, Long> implements ICo
 			public Object transformTuple(Object[] tupple, String[] arg1) {
 				Course course = new Course();
 				course.setPkCourse(tupple[0]==null?null:Long.valueOf(tupple[0].toString()));
-				course.setCode(tupple[0]==null?null:tupple[1].toString());
-				course.setName(tupple[0]==null?null:tupple[2].toString());
-				course.setBasicPictureURL(tupple[0]==null?null:tupple[3].toString());
-				course.setTags(tupple[0]==null?null:tupple[6].toString());
+				course.setCode(tupple[1]==null?null:tupple[1].toString());
+				course.setName(tupple[2]==null?null:tupple[2].toString());
+				course.setBasicPictureURL(tupple[3]==null?null:tupple[3].toString());
+				course.setTags(tupple[6]==null?null:tupple[6].toString());
 				Lookup lookup = new Lookup();
-				lookup.setPkLookup(tupple[0]==null?null:Long.valueOf(tupple[4].toString()));
-				lookup.setName(tupple[0]==null?null:tupple[5].toString());
+				lookup.setPkLookup(tupple[4]==null?null:Long.valueOf(tupple[4].toString()));
+				lookup.setName(tupple[5]==null?null:tupple[5].toString());
 				course.setCategoryLookup(lookup);
 				
 				return course;

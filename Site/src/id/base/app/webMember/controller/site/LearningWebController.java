@@ -8,7 +8,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
@@ -20,21 +19,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import id.base.app.SystemConstant;
+import id.base.app.ILookupGroupConstant;
 import id.base.app.paging.PagingWrapper;
 import id.base.app.rest.QueryParamInterfaceRestCaller;
 import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
 import id.base.app.rest.RestServiceConstant;
 import id.base.app.rest.SpecificRestCaller;
-import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
-import id.base.app.valueobject.aboutUs.ProgramPost;
+import id.base.app.valueobject.Lookup;
 import id.base.app.valueobject.course.Course;
 import id.base.app.valueobject.course.GroupCourse;
 import id.base.app.valueobject.course.Tag;
-import id.base.app.valueobject.news.News;
+import id.base.app.webMember.rest.LookupRestCaller;
 
 @Scope(value="request")
 @RequestMapping(value="/learning")
@@ -80,7 +78,8 @@ public class LearningWebController {
 				@PathVariable(value="title") String title,
 				@RequestParam(value="startNo",defaultValue="1") int startNo, 
 				@RequestParam(value="offset",defaultValue="10") int offset,
-				@RequestParam(value="filter", defaultValue="", required=false) String filterJson
+				@RequestParam(value="filter", defaultValue="", required=false) String filterJson,
+				@RequestParam final Map<String, String> paramWrapper
 			){
 		SpecificRestCaller<Course> rcCourse = new SpecificRestCaller<Course>(RestConstant.REST_SERVICE, RestServiceConstant.COURSE_SERVICE);
 		PagingWrapper<Course> courses = rcCourse.executeGetPagingWrapper(startNo, offset, new QueryParamInterfaceRestCaller() {
@@ -94,9 +93,20 @@ public class LearningWebController {
 			public Map<String, Object> getParameters() {
 				Map<String,Object> map = new HashMap<String, Object>();
 				map.put("groupCourse", id);
+				if(paramWrapper.get("category")!=null && !"".equals(paramWrapper.get("category"))){
+					map.put("category", paramWrapper.get("category").toString());
+				}
+				if(paramWrapper.get("searchParam")!=null && !"".equals(paramWrapper.get("searchParam"))){
+					map.put("searchParam", paramWrapper.get("searchParam").toString());
+				}
+				if(paramWrapper.get("areaParam")!=null && !"".equals(paramWrapper.get("areaParam"))){
+					map.put("areaParam", paramWrapper.get("areaParam").toString());
+				}
 				return map;
 			}
 		});
+		List<Lookup> categories = new LookupRestCaller().findByLookupGroup(ILookupGroupConstant.COURSE_CATEGORY);
+		model.addAttribute("categories", categories);
 		model.addAttribute("title", title.replace("-", " "));
 		model.addAttribute("idGroup", id);
 		model.addAttribute("courses", courses);
@@ -126,7 +136,8 @@ public class LearningWebController {
 			@PathVariable(value="title") String title,
 			@RequestParam(value="startNo",defaultValue="1") int startNo, 
 			@RequestParam(value="offset",defaultValue="10") int offset,
-			@RequestParam(value="filter", defaultValue="", required=false) String filterJson
+			@RequestParam(value="filter", defaultValue="", required=false) String filterJson,
+			@RequestParam final Map<String, String> paramWrapper
 		){
 		Map<String, Object> resultMap = new HashMap<>();
 		SpecificRestCaller<Course> rcCourse = new SpecificRestCaller<Course>(RestConstant.REST_SERVICE, RestServiceConstant.COURSE_SERVICE);
@@ -141,6 +152,15 @@ public class LearningWebController {
 			public Map<String, Object> getParameters() {
 				Map<String,Object> map = new HashMap<String, Object>();
 				map.put("groupCourse", id);
+				if(paramWrapper.get("category")!=null && !"".equals(paramWrapper.get("category"))){
+					map.put("category", paramWrapper.get("category").toString());
+				}
+				if(paramWrapper.get("searchParam")!=null && !"".equals(paramWrapper.get("searchParam"))){
+					map.put("searchParam", paramWrapper.get("searchParam").toString());
+				}
+				if(paramWrapper.get("areaParam")!=null && !"".equals(paramWrapper.get("areaParam"))){
+					map.put("areaParam", paramWrapper.get("areaParam").toString());
+				}
 				return map;
 			}
 		});
