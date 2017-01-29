@@ -1,26 +1,5 @@
 package id.base.app.webMember.controller.site;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import id.base.app.SystemConstant;
 import id.base.app.paging.PagingWrapper;
 import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
@@ -31,7 +10,25 @@ import id.base.app.util.dao.SearchOrder;
 import id.base.app.valueobject.course.Course;
 import id.base.app.valueobject.course.GroupCourse;
 import id.base.app.valueobject.course.Tag;
-import id.base.app.valueobject.news.News;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Scope(value="request")
 @RequestMapping(value="/learning")
@@ -56,6 +53,7 @@ public class LearningWebController {
 	public String view(ModelMap model, HttpServletRequest request, HttpServletResponse response){
 		List<SearchFilter> filter = new ArrayList<SearchFilter>();
 		List<SearchOrder> order = new ArrayList<SearchOrder>();
+		order.add(new SearchOrder(GroupCourse.ORDER_NO, SearchOrder.Sort.ASC));
 		List<GroupCourse> groups = getRestCaller().findAll(filter, order);
 		model.addAttribute("groups", groups);
 		return "/learning/main";

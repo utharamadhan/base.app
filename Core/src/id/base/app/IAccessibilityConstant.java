@@ -22,11 +22,11 @@ public class IAccessibilityConstant {
 		public static int INT_REFERENCE 		= 240;
 		public static int INT_FRONT_END_MENU 	= 250;
 		
-	public static int INT_FRONT_END = 300;
-		public static int INT_FE_MENU = 310;
-		public static int INT_FE_SLIDE_SHOW = 320;
-		public static int INT_FE_BACKGROUND_IMAGE = 330;
-		public static int INT_FE_FOOTER = 340;
+	public static int INT_FRONT_END_DISPLAY = 300;
+		public static int INT_FED_MENU = 310;
+		public static int INT_FED_SLIDESHOW = 320;
+		public static int INT_FED_BACKGROUND_IMAGE = 330;
+		public static int INT_FED_HOME_SETTING = 340;
 
 	public static int INT_ABOUT_US = 400;
 		public static int INT_AU_COMMON_POST = 410;
@@ -34,7 +34,6 @@ public class IAccessibilityConstant {
 	public static int INT_ACTIVITY = 500;
 		public static int INT_ACT_ENGAGEMENT = 510;
 		public static int INT_ACT_PROGRAM = 520;
-
 		
 	public static int INT_PUBLICATION = 600;
 		public static int INT_PUB_EBOOK = 610;
@@ -70,7 +69,7 @@ public class IAccessibilityConstant {
 		MENU_LIST.add(Long.valueOf(IAccessibilityConstant.INT_INTERNAL_FUNCTION));
 		MENU_LIST.add(Long.valueOf(IAccessibilityConstant.INT_DASHBOARD));
 		MENU_LIST.add(Long.valueOf(IAccessibilityConstant.INT_ADMINISTRATOR));
-		MENU_LIST.add(Long.valueOf(IAccessibilityConstant.INT_FRONT_END));
+		MENU_LIST.add(Long.valueOf(IAccessibilityConstant.INT_FRONT_END_DISPLAY));
 		MENU_LIST.add(Long.valueOf(IAccessibilityConstant.INT_ABOUT_US));
 		MENU_LIST.add(Long.valueOf(IAccessibilityConstant.INT_ACTIVITY));
 		MENU_LIST.add(Long.valueOf(IAccessibilityConstant.INT_PUBLICATION));

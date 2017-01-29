@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:ifs="http://padiku.id">
 <head>
 <meta charset="ISO-8859-1"/>
-<title>Advisory Maintenance</title>
+<title>Contact Us - User Contact</title>
 </head>
 <style>
 .dataTables_scrollBody {
@@ -66,11 +66,11 @@
 	    	               { name : "temaLookup.name" },
 	    	               { name : "message" }
 	    	               ];
-		    var sURL = /*[[@{/do/contact/list?}]]*/ #;
+		    var sURL = /*[[@{/do/contactUs/userContact/list?}]]*/ #;
 		    buildDataTableWithoutFilter(/*[[@{/}]]*/, sURL, 'contact-list-table', 450, colDefs, null, null);
 		    
 		    $('#contact-btn-download').click(function(){
-		    	var sURL = /*[[@{/do/contact/downloadXls}]]*/ #;
+		    	var sURL = /*[[@{/do/contactUs/userContact/downloadXls}]]*/ #;
 		    	downloadXls(sURL);
 			});
 	    });

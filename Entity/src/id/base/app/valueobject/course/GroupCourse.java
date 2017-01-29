@@ -29,6 +29,7 @@ public class GroupCourse extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = -2512890745160322636L;
 	
 	public static final String PK_GROUP_COURSE 	= "pkGroupCourse";
+	public static final String ORDER_NO 		= "orderNo";
 	public static final String TITLE 			= "title";
 	public static final String BASIC_PICTURE_URL 	= "basicPictureURL";
 	public static final String SHORT_DESCRIPTION	= "shortDesription";
@@ -59,6 +60,9 @@ public class GroupCourse extends BaseEntity implements Serializable {
 
 	@Column(name="STATUS")
 	private Integer status;
+	
+	@Column(name="ORDER_NO")
+	private Integer orderNo;
 	
 	@OneToMany(cascade=CascadeType.ALL, orphanRemoval=true, mappedBy="groupCourse")
 	private List<GCBasicInformation> gcBasicInformationList = new ArrayList<>(); 
@@ -105,6 +109,12 @@ public class GroupCourse extends BaseEntity implements Serializable {
 		this.status = status;
 	}
 	
+	public Integer getOrderNo() {
+		return orderNo;
+	}
+	public void setOrderNo(Integer orderNo) {
+		this.orderNo = orderNo;
+	}
 	public List<GCBasicInformation> getGcBasicInformationList() {
 		return gcBasicInformationList;
 	}
