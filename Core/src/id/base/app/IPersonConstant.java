@@ -1,14 +1,5 @@
-/*
- * Created on Jul 9, 2005
- *
- */
 package id.base.app;
 
-
-/**
- * @author padiku
- *
- */
 public interface IPersonConstant {
 
     public static final int STATUS_INACTIVE = 0;

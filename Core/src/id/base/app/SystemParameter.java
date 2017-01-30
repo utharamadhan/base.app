@@ -19,7 +19,7 @@ public class SystemParameter {
 	
     private static final Logger logger = LoggerFactory.getLogger(SystemParameter.class);
 
-	public static String EMAIL_SENDER = "postmaster@padiku.id";
+	public static String EMAIL_SENDER = "postmaster@base.id";
 	public static String MAIL_USERNAME = "SMTP_Injection";
 	public static String MAIL_PASSWORD = "efbabe7b51e09a87a9c5d63877e4a331db7e368f";
 	public static String MAIL_HOST = "smtp.sparkpostmail.com";
@@ -36,28 +36,28 @@ public class SystemParameter {
 		
 		public static final Map<String, String> DEFAULT_METADATA = new HashMap<>();
 		static {
-			DEFAULT_METADATA.put("some_useful_metadata", "padiku.id");
+			DEFAULT_METADATA.put("some_useful_metadata", "base.id");
 		}
 		
 		public static final Map<String, String> DEFAULT_SUBSTITUTION_DATA = new HashMap<>();
 		static {
-			DEFAULT_SUBSTITUTION_DATA.put("signature", "padiku");
+			DEFAULT_SUBSTITUTION_DATA.put("signature", "base");
 		}
 		
 		public static final Map<String, String> DEFAULT_RECIPIENT_SUBSTITUTION_DATA = new HashMap<>();
 		static {
 			DEFAULT_RECIPIENT_SUBSTITUTION_DATA.put("customer_type", "Platinum");
-			DEFAULT_RECIPIENT_SUBSTITUTION_DATA.put("first_name", "padiku");
+			DEFAULT_RECIPIENT_SUBSTITUTION_DATA.put("first_name", "base");
 		}
 		
-		public static final String DEFAULT_FROM_NAME = "PADIKU.ID";
-		public static final String DEFAULT_FROM_EMAIL = "hello@padiku.id";
+		public static final String DEFAULT_FROM_NAME = "BASE.ID";
+		public static final String DEFAULT_FROM_EMAIL = "hello@base.id";
 	
 	}
 	
 	public static String SHORT_MESSAGE_SERVICE_URL = "https://reguler.zenziva.net/apps/smsapi.php?";
 	public static String SHORT_MESSAGE_SERVICE_USER_KEY = "zmgqvn";
-	public static String SHORT_MESSAGE_SERVICE_PASS_KEY = "Padiku123";
+	public static String SHORT_MESSAGE_SERVICE_PASS_KEY = "Base123";
 
 	public static String FORECAST_API_URL = "https://api.forecast.io/forecast/{apiKey}/{coordinate}";
 	public static String FORECAST_API_KEY = "c9b0d03ad555b2f836f7da53cdc76c72";

@@ -29,11 +29,6 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
-/**
- * Date/Time function utility
- * @author padiku
- *
- */
 public class DateTimeFunction {
     private static String timeDelimiter = ":";
     public static final int MILLIS_IN_DAY = 1000 * 60 * 60 * 24;

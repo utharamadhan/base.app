@@ -3,10 +3,6 @@ package id.base.app.encryptor;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-/**
- * Encyrptor with MD5 approach
- * @author padiku
- */
 public class MD5Encryptor implements PasswordEncryptor {
 
 	public String encrypt(String password) {

@@ -1,11 +1,6 @@
-/*
- * Created on Jun 9, 2005
- *
- */
 package id.base.app.util;
 
 import id.base.app.SystemConstant;
-import id.base.app.exception.ErrorHolder;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -13,17 +8,11 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
-
-/**
- * @author padiku
- *
- */
 
 public class StringFunction extends DateTimeFunction {
 	private static final Pattern pwdPattern = Pattern.compile("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()-_+=]).{8,256})");

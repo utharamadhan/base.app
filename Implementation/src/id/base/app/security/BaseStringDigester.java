@@ -7,7 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
-public class PadikuStringDigester implements IStringDigester {	
+public class BaseStringDigester implements IStringDigester {	
 	
 	private PasswordEncoder passwordEncoder;
 	
@@ -18,7 +18,7 @@ public class PadikuStringDigester implements IStringDigester {
 		return this.passwordEncoder;
 	}
 	
-	public PadikuStringDigester(){
+	public BaseStringDigester(){
 		super();
 	}
 	

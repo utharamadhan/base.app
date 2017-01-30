@@ -2,7 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<title>Padiku.id Application Service</title>
+<title>Base Application Service</title>
 <style type="text/css">
 </style>
 </head>
@@ -15,7 +15,7 @@
 		<h3>
 			ApplicationService up and running
 			
-			Developed by padiku team. Version 1
+			Developed by utharamadhan@gmail.com
 		</h3>
 	</div>
 </body>

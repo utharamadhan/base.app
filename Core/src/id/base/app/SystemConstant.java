@@ -20,7 +20,7 @@ import org.slf4j.LoggerFactory;
 public class SystemConstant  {
 	static Logger logger = LoggerFactory.getLogger(SystemConstant.class);
 	
-	public static final String SALT = "...-padiku-...";
+	public static final String SALT = "...-base-...";
 	
 	/***  Field Definition Constant***/
 	public final static String FIELD_DEFINITION_REFRENCE = "Reference";
@@ -195,7 +195,7 @@ public class SystemConstant  {
 		LOGIN_URL = url;
 	}
 	
-	public static String ADMIN_URL = "http://app.padiku.id/WebAdmin";
+	public static String ADMIN_URL = "http://app.base.id/WebAdmin";
 	public static void setGoToUrl(String adminUrl){
 		ADMIN_URL = adminUrl;
 	}
@@ -207,10 +207,10 @@ public class SystemConstant  {
 	
 	public static String UNIQUE_TOKEN = "sSs";
 	
-	public static String SHARED_FOLDER_LOCATION 		= "/padiku";
-	public static String BILLING_REPORT_DIR 			= "D:/padiku/billing/";
-	public static String AUDIT_TRAIL_EXPORT_DIR 		= "D:/padiku/auditTrail/";
-	public static String FILE_DIRECTORY_TEMP 			= "D:/padiku";
+	public static String SHARED_FOLDER_LOCATION 		= "/base";
+	public static String BILLING_REPORT_DIR 			= "D:/base/billing/";
+	public static String AUDIT_TRAIL_EXPORT_DIR 		= "D:/base/auditTrail/";
+	public static String FILE_DIRECTORY_TEMP 			= "D:/base";
     public static String RESULT_DIRECTORY				= "/Result";
     public static String REMOTE_DIRECTORY 				= "/uploadFile/";
     public static String LOCAL_TEMP_DIR_EXPORT 			= FILE_DIRECTORY_TEMP + "/tempExport/";

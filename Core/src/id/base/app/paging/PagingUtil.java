@@ -6,13 +6,6 @@ package id.base.app.paging;
 
 import id.base.app.SystemParameter;
 
-
-
-/**
- * Paging funtion utility class
- * 
- * @author padiku
- */
 public class PagingUtil {
     public static int getStartRowFromPage(int page) {
         int startRow;

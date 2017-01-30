@@ -3,10 +3,6 @@ package id.base.app;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * @author padiku
- *
- */
 public class IAuditTrailConstant {
 
     boolean ENABLE_LOG_AUDIT_TRAIL = true;
