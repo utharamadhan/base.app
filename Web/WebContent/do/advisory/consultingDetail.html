@@ -71,7 +71,7 @@
 			
 			var submitForm = function(){
 				cleanErrorParsley();
-				var sURL = /*[[@{/do/advisory/saveAdvisory/}]]*/ #;
+				var sURL = /*[[@{/do/advisory/consulting/saveAdvisory/}]]*/ #;
 				$.post(sURL, $("#advisory-detail-form").serialize(), function(data) {
 					if(data.errorList!=null){
 						displayErrorParsley(data.errorList);

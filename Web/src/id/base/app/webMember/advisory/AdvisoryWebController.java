@@ -35,11 +35,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Scope(value="request")
 @Controller
-@RequestMapping("/advisory")
+@RequestMapping("/advisory/consulting")
 public class AdvisoryWebController extends BaseController<Advisory> {
 
-	private final String PATH_LIST = "/advisory/advisoryList";
-	private final String PATH_DETAIL = "/advisory/advisoryDetail";
+	private final String PATH_LIST = "/advisory/consultingList";
+	private final String PATH_DETAIL = "/advisory/consultingDetail";
 	
 	@Override
 	protected RestCaller<Advisory> getRestCaller() {

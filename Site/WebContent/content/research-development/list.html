@@ -61,15 +61,16 @@
 										<td>
 											<ul>
 												<li class="active resName">
-													<a th:href="@{/page/research-development/detail/}+${res.pkResearch}" th:text="${res.name}"></a>
+													<a th:href="@{/page/research-development/detail/}+${res.pkResearch}" th:text="${res.title}"></a>
 												</li>
 												<li class="resSubtitle">
-													<a href="#" th:text="${res.subtitle}"></a>
+													<a href="#" th:text="${res.subTitle}"></a>
 												</li>
 												
 											</ul>
 										</td>
-										<td class="resTopic" th:text="${res.researchTopic.title}"></td>
+										<!-- td class="resTopic" th:text="${res.researchTopic.title}"></td -->
+										<td></td>
 									  </tr>
 									</tbody>
 								  </table>

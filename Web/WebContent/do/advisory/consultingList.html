@@ -49,17 +49,17 @@
 <script th:inline="javascript">
 	/*<![CDATA[*/
 		function showAdd() {
-	    	var sURL = /*[[@{/do/advisory/showAdd?skipdecorator=}]]*/ #;
+	    	var sURL = /*[[@{/do/advisory/consulting/showAdd?skipdecorator=}]]*/ #;
 	    	showScreen('advisory-list-container', 'advisory-detail-container', sURL);
 		}
 		
 		function showDetail(maintenancePK) {
-			var sURL = /*[[@{/do/advisory/showEdit?maintenancePK=}]]*/ #;
+			var sURL = /*[[@{/do/advisory/consulting/showEdit?maintenancePK=}]]*/ #;
 			showScreen('advisory-list-container', 'advisory-detail-container', sURL + maintenancePK + "&skipdecorator=");
 		}
 		
 		function deleteItem(maintenancePK) {
-			var sURL = /*[[@{/do/advisory/delete?}]]*/ #;
+			var sURL = /*[[@{/do/advisory/consulting/delete?}]]*/ #;
 			var serializedData = "maintenancePKs=" + maintenancePK;
 			$.post(sURL, serializedData,function(data){
 				if(data.errorList!=null){
@@ -71,7 +71,7 @@
 		} 
 		
 		function deleteAdvisory() {
-			var sURL = /*[[@{/do/advisory/deleteAdvisory?skipDecorator}]]*/ #;
+			var sURL = /*[[@{/do/advisory/consulting/deleteAdvisory?skipDecorator}]]*/ #;
 			$.post(sURL, $('.advisory-list-check-delete').serialize(), function(data){
 				if(data.errorList!=null){
 					
@@ -87,7 +87,7 @@
 	    	               { name : "answer" },
 	    	               { type : "deleteAndEdit" , param : [ "pkAdvisory" ] }
 	    	               ];
-		    var sURL = /*[[@{/do/advisory/list?}]]*/ #;
+		    var sURL = /*[[@{/do/advisory/consulting/list?}]]*/ #;
 		    buildDataTable(/*[[@{/}]]*/, sURL, 'advisory-list-table', 450, colDefs, null, null);
 	    });
 	    

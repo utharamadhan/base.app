@@ -225,7 +225,7 @@
     <script src="<%=request.getContextPath()%>/plugin/vendor/easypiechart/jquery.easypiechart.min.js"></script>
 
     <script src="<%=request.getContextPath()%>/plugin/vendor/rickshaw/raphael-min.js"></script> 
-    <script src="<%=request.getContextPath()%>/plugin/vendor/rickshaw/d3.v2.js"></script>
+    <script src="<%=request.getContextPath()%>/plugin/vendor/rickshaw/d3.v2.js" charset="utf-8"></script>
     <script src="<%=request.getContextPath()%>/plugin/vendor/rickshaw/rickshaw.min.js"></script>
 
     <script src="<%=request.getContextPath()%>/plugin/vendor/morris/morris.min.js"></script>
