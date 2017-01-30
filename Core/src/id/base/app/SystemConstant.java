@@ -60,7 +60,7 @@ public class SystemConstant  {
     public static final String SYSTEM_DATE_TIME_NO_DELIMITER = "yyyyMMddhhmmss";
     
     
-    public static final String PADIKU_DECIMAL_FORMAT = "#,##0.########";
+    public static final String DECIMAL_FORMAT = "#,##0.########";
     
     public static final String WEB_SERVICE_DATETIME = "yyyy-MM-dd HH:mm:ss.SSS";
     public static final String WEB_SERVICE_DATE = "yyyy-MM-dd";
