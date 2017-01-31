@@ -81,6 +81,7 @@
               </div>
             </center>
           </form>
+          <div id="div-post"></div>
         </div>
       </div>
     </center>
@@ -158,18 +159,12 @@
     				}else if(num==2){
     					url = url + webTransContext + restServiceURL;
     				}
-    				var form = document.createElement("form");
-    			    form.setAttribute("method", "post");
-    			    form.setAttribute("action", url);
-    			    var tokenField = document.createElement("input");
-    			    	tokenField.setAttribute("type", "hidden");
-    			    	tokenField.setAttribute("name", "token");
-    			    	tokenField.setAttribute("value", token);
-    			    	form.appendChild(tokenField);
-  			    	var button = document.createElement("input");
-  			    	  	button.setAttribute('type', "submit");
-  			    		form.appendChild(button);
-    			    form.submit();
+    				
+    				var rand = Math.random().toString(36).substring(7);
+    				var html = "<form id='"+rand+"' style='display:none' method='post' action='"+url+"'><input type='hidden' name='token' value='"+token+"'/><input type='submit'></form>";
+    				$('#div-post').html(html);
+    				$('#'+rand).submit();
+    				$('#div-post').html('');
     			}
     		}
     		

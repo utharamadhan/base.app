@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -24,6 +25,16 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 public class ResearchBudgeting implements Serializable{
 
 	private static final long serialVersionUID = -95175200547586944L;
+	
+	public static final String PK_RESEARCH_BUDGETING = "pkResearchBudgeting";
+	public static final String BUDGET_DATE 			= "budgetDate";
+	public static final String TITLE				= "title";
+	public static final String AMOUNT				= "amount";
+	public static final String STATUS				= "status";
+	
+	public static ResearchBudgeting getInstance() {
+		return new ResearchBudgeting();
+	}
 	
 	@Id
 	@SequenceGenerator(name="RESEARCH_BUDGETING_PK_RESEARCH_BUDGETING_SEQ", sequenceName="RESEARCH_BUDGETING_PK_RESEARCH_BUDGETING_SEQ", allocationSize=1)
@@ -52,6 +63,9 @@ public class ResearchBudgeting implements Serializable{
 	
 	@Column(name="STATUS")
 	private Integer status;
+	
+	@Transient
+	private Long fkResearch;
 
 	public Long getPkResearchBudgeting() {
 		return pkResearchBudgeting;
@@ -115,5 +129,13 @@ public class ResearchBudgeting implements Serializable{
 
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+
+	public Long getFkResearch() {
+		return fkResearch;
+	}
+
+	public void setFkResearch(Long fkResearch) {
+		this.fkResearch = fkResearch;
 	}
 }
