@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -23,6 +24,14 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 public class ResearchGoalTarget implements Serializable{
 
 	private static final long serialVersionUID = 3405815570771567020L;
+	
+	public static final String PK_RESEARCH_GOAL_TARGET = "pkResearchGoalTarget";
+	public static final String TITLE				= "title";
+	public static final String STATUS				= "status";
+	
+	public static ResearchGoalTarget getInstance() {
+		return new ResearchGoalTarget();
+	}
 	
 	@Id
 	@SequenceGenerator(name="RESEARCH_GOAL_TARGET_PK_RESEARCH_GOAL_TARGET_SEQ", sequenceName="RESEARCH_GOAL_TARGET_PK_RESEARCH_GOAL_TARGET_SEQ", allocationSize=1)
@@ -52,6 +61,9 @@ public class ResearchGoalTarget implements Serializable{
 	
 	@Column(name="STATUS")
 	private Integer status;
+	
+	@Transient
+	private Long fkResearch;
 
 	public Long getPkResearchGoalTarget() {
 		return pkResearchGoalTarget;
@@ -117,4 +129,11 @@ public class ResearchGoalTarget implements Serializable{
 		this.status = status;
 	}
 
+	public Long getFkResearch() {
+		return fkResearch;
+	}
+
+	public void setFkResearch(Long fkResearch) {
+		this.fkResearch = fkResearch;
+	}
 }
