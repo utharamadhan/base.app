@@ -3,6 +3,7 @@ package id.base.app.webMember.controller.site;
 import id.base.app.ILookupConstant;
 import id.base.app.ILookupGroupConstant;
 import id.base.app.mail.MailManager;
+import id.base.app.properties.ApplicationProperties;
 import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
 import id.base.app.rest.RestServiceConstant;
@@ -92,8 +93,8 @@ public class ContactUsWebController {
 	@ResponseBody
 	public Map<String, Object> sendEmail(HttpServletRequest request, HttpServletResponse response, @RequestParam Map<String,String> params){
 		Map<String, Object> resultMap = new HashMap<>();
-		final String username = "mardyemailaja@gmail.com";
-		final String password = "anakilang";
+		final String username = ApplicationProperties.getProperty("email.smtp.username");
+		final String password = ApplicationProperties.getProperty("email.smtp.password");
 		
 		String contactName = params.get("name");
 		String contactEmail = params.get("email");
@@ -166,8 +167,8 @@ public class ContactUsWebController {
 		Properties props = new Properties();
 		props.put("mail.smtp.auth", "true");
 		props.put("mail.smtp.starttls.enable", "true");
-		props.put("mail.smtp.host", "smtp.gmail.com");
-		props.put("mail.smtp.port", "587");
+		props.put("mail.smtp.host", ApplicationProperties.getProperty("mail.smtp.host"));
+		props.put("mail.smtp.port", ApplicationProperties.getProperty("mail.smtp.port"));
 		props.put("mail.smtp.from", from);
 
 		Session session = Session.getInstance(props,

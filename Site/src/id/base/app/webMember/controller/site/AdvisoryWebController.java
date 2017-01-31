@@ -47,7 +47,7 @@ public class AdvisoryWebController {
 			@RequestParam(value="offset",defaultValue="6") int offset,
 			@RequestParam(value="filter", defaultValue="", required=false) String filterJson
 		){
-		return this.list(model, request, response, startNo, offset, filterJson);
+		return "/advisory/main";
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/list")

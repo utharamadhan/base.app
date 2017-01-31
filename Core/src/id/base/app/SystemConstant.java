@@ -22,6 +22,8 @@ public class SystemConstant  {
 	
 	public static final String SALT = "...-padiku-...";
 	
+	public static final String GLOBAL_PATH = "/project/baseApp/";
+	
 	/***  Field Definition Constant***/
 	public final static String FIELD_DEFINITION_REFRENCE = "Reference";
 
