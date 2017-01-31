@@ -85,4 +85,40 @@ public class AdvisoryWebController {
 		return resultMap;
 	}
 	
+	@RequestMapping(method=RequestMethod.GET, value="/sub/stories")
+	public String sub(ModelMap model, HttpServletRequest request, HttpServletResponse response,
+			@RequestParam(value="startNo",defaultValue="1") int startNo, 
+			@RequestParam(value="offset",defaultValue="6") int offset,
+			@RequestParam(value="filter", defaultValue="", required=false) String filterJson
+		){
+		return "/advisory/stories";
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/sub/advisor")
+	public String advisor(ModelMap model, HttpServletRequest request, HttpServletResponse response,
+			@RequestParam(value="startNo",defaultValue="1") int startNo, 
+			@RequestParam(value="offset",defaultValue="6") int offset,
+			@RequestParam(value="filter", defaultValue="", required=false) String filterJson
+		){
+		return "/advisory/stories";
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/sub/article")
+	public String article(ModelMap model, HttpServletRequest request, HttpServletResponse response,
+			@RequestParam(value="startNo",defaultValue="1") int startNo, 
+			@RequestParam(value="offset",defaultValue="6") int offset,
+			@RequestParam(value="filter", defaultValue="", required=false) String filterJson
+		){
+		return "/advisory/article";
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/sub/consulting")
+	public String consulting(ModelMap model, HttpServletRequest request, HttpServletResponse response,
+			@RequestParam(value="startNo",defaultValue="1") int startNo, 
+			@RequestParam(value="offset",defaultValue="6") int offset,
+			@RequestParam(value="filter", defaultValue="", required=false) String filterJson
+		){
+		return "/advisory/consulting";
+	}
+	
 }

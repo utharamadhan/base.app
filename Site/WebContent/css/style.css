@@ -4896,3 +4896,52 @@ ul.contact_info li a:hover {
 	padding-right: 20px;
 	font-size: 26px;
 }
+
+.info_banner_stories{
+	position:absolute;
+	top: 50%;
+	margin-top: -150px;
+	right: 150px;
+	background-color: #ffffff;
+	opacity: 0.8;
+	height: 350px;
+	width: 450px;
+	padding-top: 20px;
+	padding-left: 15px;
+	padding-right: 15px;
+	padding-bottom: 20px;
+	text-align: center;
+}
+
+.title_info_stories{
+	color: #a32020;
+	font-weight: 1000;
+}
+
+.desc_info_stories{
+	margin-top: 20px;
+}
+
+.parallax-window {
+    min-height: 650px;
+    background: transparent;
+}
+
+.stories_content_next{
+	width: 100%;
+	position: relative;
+}
+
+.desc_stories_content_next{
+	position:absolute;
+	top: 20%;
+	left: 150px;
+	right: 150px;
+}
+
+.desc_stories_content_next_parap{
+	color: #ffffff;
+	font-size: 20px;
+	font-weight: bold;
+	line-height: 30px;
+}
