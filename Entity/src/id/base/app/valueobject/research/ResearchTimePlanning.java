@@ -26,6 +26,7 @@ public class ResearchTimePlanning implements Serializable{
 	private static final long serialVersionUID = 4773703045736684745L;
 
 	public static final String PK_RESEARCH_TIME_PLANNING = "pkResearchTimePlanning";
+	public static final String FK_RESEARCH 			= "research.pkResearch";
 	public static final String DATE_FROM 			= "dateFrom";
 	public static final String DATE_TO				= "dateTo";
 	public static final String TITLE				= "title";

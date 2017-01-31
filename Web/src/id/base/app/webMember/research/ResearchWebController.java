@@ -76,7 +76,7 @@ public class ResearchWebController extends BaseController<Research> {
 	
 	@RequestMapping(method=RequestMethod.GET, value="showList")
 	public String showList(ModelMap model, HttpServletRequest request){
-		model.addAttribute("pagingWrapper", new PagingWrapper<AppUser>());
+		model.addAttribute("pagingWrapper", new PagingWrapper<Research>());
 		return getListPath();
 	}
 	

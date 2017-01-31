@@ -496,8 +496,6 @@ public class AbstractHibernateDAO<T,Y extends Serializable> {
 				  return Restrictions.le(searchFilter.getFieldName(), searchFilter.getValue());
 			case  GREATER_THAN:
 				  return Restrictions.gt(searchFilter.getFieldName(), searchFilter.getValue());
-			case  AND :  
-				  return Restrictions.gt(searchFilter.getFieldName(), searchFilter.getValue());
 			case  IN :  
 				  return Restrictions.in(searchFilter.getFieldName(), (Collection)searchFilter.getValue());
 			case  IS_NOT_NULL :  
