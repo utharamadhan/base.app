@@ -38,6 +38,7 @@ public class Research extends BaseEntity implements Serializable {
 	public static final String RESULTS				= "results";
 	public static final String STATUS				= "status";
 	public static final String RESEARCH_DATE		= "researchDate";
+	public static final String IS_MANAGEMENT		= "isManagement";
 	
 	public static Research getInstance() {
 		return new Research();
@@ -81,6 +82,9 @@ public class Research extends BaseEntity implements Serializable {
 	
 	@Column(name="STATUS")
 	private Integer status;
+	
+	@Column(name="IS_MANAGEMENT")
+	private Boolean isManagement;
 	
 	@OneToMany(mappedBy="research", cascade=CascadeType.DETACH)
 	private List<ResearchResearchTopic> researchTopics;
@@ -197,6 +201,14 @@ public class Research extends BaseEntity implements Serializable {
 
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+	
+	public Boolean getIsManagement() {
+		return isManagement;
+	}
+
+	public void setIsManagement(Boolean isManagement) {
+		this.isManagement = isManagement;
 	}
 
 	public List<ResearchResearchTopic> getResearchTopics() {

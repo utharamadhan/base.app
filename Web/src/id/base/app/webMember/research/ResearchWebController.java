@@ -12,7 +12,6 @@ import id.base.app.util.StringFunction;
 import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
-import id.base.app.valueobject.AppUser;
 import id.base.app.valueobject.research.Research;
 import id.base.app.valueobject.research.ResearchTopic;
 import id.base.app.webMember.DataTableCriterias;
@@ -52,7 +51,7 @@ public class ResearchWebController extends BaseController<Research> {
 	}
 	
 	private void setDefaultFilter(HttpServletRequest request, List<SearchFilter> filters) {
-		filters.add(new SearchFilter(Research.STATUS, Operator.EQUALS, SystemConstant.ValidFlag.VALID));
+		filters.add(new SearchFilter(Research.STATUS, Operator.NOT_EQUAL, SystemConstant.ValidFlag.INVALID));
 	}
 
 	@Override

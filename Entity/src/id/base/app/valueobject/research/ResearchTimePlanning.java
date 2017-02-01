@@ -32,6 +32,10 @@ public class ResearchTimePlanning implements Serializable{
 	public static final String TITLE				= "title";
 	public static final String STATUS				= "status";
 	
+	public static final String[] MAINTENANCE_LIST_FIELDS = {
+		PK_RESEARCH_TIME_PLANNING, DATE_FROM, DATE_TO, TITLE, STATUS
+	};
+	
 	public static ResearchTimePlanning getInstance() {
 		return new ResearchTimePlanning();
 	}

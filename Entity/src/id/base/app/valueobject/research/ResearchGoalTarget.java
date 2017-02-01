@@ -26,8 +26,16 @@ public class ResearchGoalTarget implements Serializable{
 	private static final long serialVersionUID = 3405815570771567020L;
 	
 	public static final String PK_RESEARCH_GOAL_TARGET = "pkResearchGoalTarget";
+	public static final String FK_RESEARCH 			= "research.pkResearch";
 	public static final String TITLE				= "title";
+	public static final String TIME_PLANNING_DATE_TO= "researchTimePlanning.dateTo";
+	public static final String PROGRESS_TYPE		= "progressType";
+	public static final String TARGET_DATE			= "targetDate";
 	public static final String STATUS				= "status";
+	
+	public static final String[] MAINTENANCE_LIST_FIELDS = {
+		PK_RESEARCH_GOAL_TARGET, TITLE, TIME_PLANNING_DATE_TO, PROGRESS_TYPE, TARGET_DATE, STATUS
+	};
 	
 	public static ResearchGoalTarget getInstance() {
 		return new ResearchGoalTarget();

@@ -27,10 +27,16 @@ public class ResearchBudgeting implements Serializable{
 	private static final long serialVersionUID = -95175200547586944L;
 	
 	public static final String PK_RESEARCH_BUDGETING = "pkResearchBudgeting";
+	public static final String FK_RESEARCH 			= "research.pkResearch";
 	public static final String BUDGET_DATE 			= "budgetDate";
 	public static final String TITLE				= "title";
+	public static final String SIGN					= "sign";
 	public static final String AMOUNT				= "amount";
 	public static final String STATUS				= "status";
+	
+	public static final String[] MAINTENANCE_LIST_FIELDS = {
+		PK_RESEARCH_BUDGETING, BUDGET_DATE, TITLE, SIGN, AMOUNT, STATUS
+	};
 	
 	public static ResearchBudgeting getInstance() {
 		return new ResearchBudgeting();

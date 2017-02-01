@@ -26,8 +26,14 @@ public class ResearchMemo implements Serializable{
 	private static final long serialVersionUID = 4385944858336723227L;
 	
 	public static final String PK_RESEARCH_MEMO = "pkResearchMemo";
+	public static final String FK_RESEARCH 		= "research.pkResearch";
 	public static final String TITLE			= "title";
+	public static final String NOTIFY_ME_DATE	= "notifyMeDate";
 	public static final String STATUS			= "status";
+	
+	public static final String[] MAINTENANCE_LIST_FIELDS = {
+		PK_RESEARCH_MEMO, TITLE, NOTIFY_ME_DATE, STATUS
+	};
 	
 	public static ResearchMemo getInstance() {
 		return new ResearchMemo();
