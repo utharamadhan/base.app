@@ -44,7 +44,10 @@ public class RoleService implements MaintenanceService<AppRole>,IRoleService {
     }
 	
 	public void delete(Long[] objectPKs) throws SystemException {
-		roleDAO.delete(objectPKs);
+		for(Long objectPK : objectPKs) {
+			roleFunctionDAO.deleteAccessList(objectPK);
+			roleDAO.delete(objectPKs);
+		}
 	}
 
 	public PagingWrapper<AppRole> findAll(int startNo, int offset)

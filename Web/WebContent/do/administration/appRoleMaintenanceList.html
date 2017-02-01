@@ -18,6 +18,9 @@
 		<h4><i class="fa fa-shopping-basket"></i> Administration / App Role Maintenance List
 		<span></span></h4>
 	</div>
+	<div class="col-md-4 tile-body no-vpadding" style="margin:10px;">
+		<a href="#" id="appRoleMaintenance-btn-add" class="btn btn-primary" style="margin-bottom:5px"><i class="fa fa-plus dropdown-plus"></i> &nbsp; Add</a>
+	</div>
 	<div class="main">
 		<div class="row">
 			<div class="col-md-12">	
@@ -68,7 +71,7 @@
 		} 
 		
 		function deleteAppRoleMaintenance() {
-			var sURL = /*[[@{/do/appRoleMaintenance/deleteAppRoleMaintenance?skipDecorator}]]*/ #;
+			var sURL = /*[[@{/do/appRoleMaintenance/delete?skipDecorator}]]*/ #;
 			$.post(sURL, $('.appRoleMaintenance-list-check-delete').serialize(), function(data){
 				if(data.errorList!=null){
 					

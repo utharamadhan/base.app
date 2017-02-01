@@ -14,46 +14,46 @@
 	<div class="row col-md-12">
 	<section class="tile transparent">
 			<div class="tile-body rounded-corners">
-			<div class="col-md-4 tile-body no-vpadding" style="margin:10px;">
+			<div id="appRole-btn-accessibility-div" class="col-md-4 tile-body no-vpadding" style="margin:10px;display:none;">
 				<a href="#" id="appRole-btn-accessibility" class="btn btn-primary" style="margin-bottom:5px"><i class="fa fa-folder-open"></i> &nbsp; Accessibility</a>
 			</div>
-				<form action="#" id="appRole-detail-form" class="form-horizontal" method="POST" novalidate="novalidate" th:object="${detail}">
-					<div class="stockTypeStyle">
-						<div class="form-group">
-							<div class="col-md-10">
-								<div id="errorFragmentList">
-									<th:block th:if="${message}">
-										<div class='alert alert-success'>
-											<a href='#' class='close' data-dismiss='alert' aria-label='close' title='close'>&#10006;</a>			
-											<label th:text="${message}"></label>
-										</div>
-									</th:block>
-								</div>
-							</div>									
-							&nbsp;
-						</div>
-						<input id="appRole-detail-maintenancePk" type="hidden" th:field="*{pkAppRole}"/>
-						<div class="form-group">
-							<label class="col-sm-1 control-label" th:text="'Code'">Code</label>
-							<div class="col-sm-6 form-input-container">
-								<input type="text" class="form-control" placeholder="Code" name="srch-term" id="input-text-code" th:field="*{code}"/>
+			<form action="#" id="appRole-detail-form" class="form-horizontal" method="POST" novalidate="novalidate" th:object="${detail}">
+				<div class="stockTypeStyle">
+					<div class="form-group">
+						<div class="col-md-10">
+							<div id="errorFragmentList">
+								<th:block th:if="${message}">
+									<div class='alert alert-success'>
+										<a href='#' class='close' data-dismiss='alert' aria-label='close' title='close'>&#10006;</a>			
+										<label th:text="${message}"></label>
+									</div>
+								</th:block>
 							</div>
-						</div>
-						<div class="form-group">
-							<label class="col-sm-1 control-label" th:text="'Name'">Name</label>
-							<div class="col-sm-6 form-input-container">
-								<input type="text" class="form-control" placeholder="Name" name="srch-term" id="input-text-name" th:field="*{name}"/>
-							</div>
-						</div>
-						<hr/>
-						<div class="form-group form-footer">				
-							<div class="col-sm-offset-4 col-sm-8">
-								<a href="#" id="appRole-detail-btn-cancel" class="btn btn-default" type="reset" data-toggle="tooltip" title="">Batal</a>
-								<button id="appRole-detail-btn-save" class="btn btn-primary" type="submit" data-toggle="tooltip" title="">Simpan</button>
-							</div>
+						</div>									
+						&nbsp;
+					</div>
+					<input id="appRole-detail-maintenancePk" type="hidden" th:field="*{pkAppRole}"/>
+					<div class="form-group">
+						<label class="col-sm-1 control-label" th:text="'Code'">Code</label>
+						<div class="col-sm-6 form-input-container">
+							<input type="text" class="form-control" placeholder="Code" name="srch-term" id="input-text-code" th:field="*{code}"/>
 						</div>
 					</div>
-				</form>
+					<div class="form-group">
+						<label class="col-sm-1 control-label" th:text="'Name'">Name</label>
+						<div class="col-sm-6 form-input-container">
+							<input type="text" class="form-control" placeholder="Name" name="srch-term" id="input-text-name" th:field="*{name}"/>
+						</div>
+					</div>
+					<hr/>
+					<div class="form-group form-footer">				
+						<div class="col-sm-offset-4 col-sm-8">
+							<a href="#" id="appRole-detail-btn-cancel" class="btn btn-default" type="reset" data-toggle="tooltip" title="">Batal</a>
+							<button id="appRole-detail-btn-save" class="btn btn-primary" type="submit" data-toggle="tooltip" title="">Simpan</button>
+						</div>
+					</div>
+				</div>
+			</form>
 			</div>
 	</section>
 	</div>
@@ -65,6 +65,10 @@
 	/*<![CDATA[*/
 	
 	    $(function(){
+	    	var maintenancePK = /*[[${detail.pkAppRole}]]*/ #;
+	    	if(maintenancePK) {
+	    		$("#appRole-btn-accessibility-div").show();
+	    	}
 			var backToList = function(){
 				returnToList('appRoleMaintenance-detail-container', 'appRoleMaintenance-list-container', true);
 			};

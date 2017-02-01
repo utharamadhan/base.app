@@ -115,6 +115,7 @@ public class AppRoleMaintenanceWebController extends BaseController<AppRole> {
 	
 	@RequestMapping(method=RequestMethod.GET, value="showAdd")
 	public String showAdd(ModelMap model, HttpServletRequest request){
+		model.addAttribute("detail", new AppRole());
 		return PATH_DETAIL;
 	}
 	
@@ -133,7 +134,11 @@ public class AppRoleMaintenanceWebController extends BaseController<AppRole> {
 		Map<String, Object> resultMap = new HashMap<>();
 		List<ErrorHolder> errors = new ArrayList<>();
 		try{
-			errors = new SpecificRestCaller<AppRole>(RestConstant.REST_SERVICE, RestServiceConstant.ROLE_SERVICE).performPut("/update", anObject);
+			if (anObject.getPkAppRole() != null) {
+				errors = new SpecificRestCaller<AppRole>(RestConstant.REST_SERVICE, RestServiceConstant.ROLE_SERVICE).performPut("/update", anObject);
+			} else {
+				errors = new SpecificRestCaller<AppRole>(RestConstant.REST_SERVICE, RestServiceConstant.ROLE_SERVICE).performPost("/create", anObject);	
+			}
 			if(errors != null && errors.size() > 0){
 				resultMap.put(SystemConstant.ERROR_LIST, errors);
 			}
