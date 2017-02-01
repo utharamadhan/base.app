@@ -21,7 +21,7 @@
 							</h4>
 							<small th:text="${notification.actionDate!=null?#dates.format(notification.actionDate, T(id.base.app.SystemConstant).SYSTEM_TIME_MASK_SECONDHAND):''}"></small>
 							<div class="notification-content content well" th:text="${notification.overviewMessage}"></div>
-							<small class="pull-right"><a th:href="${notification.detailURL}">read more</a></small>
+							<small class="pull-right"><a th:href="${notification.detailURL + notification.fkMaintenance}">read more</a></small>
 						</div>
 					</div>
 				</li>

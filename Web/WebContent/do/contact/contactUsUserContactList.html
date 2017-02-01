@@ -9,11 +9,17 @@
 	height : auto !important;
 	min-height : 120px;
 }
+
+#contact-list-table a {
+	color : #717171 !important;
+	text-decoration: underline;
+}
+
 </style>
 <body>
 <div id="content" class="col-md-12">
-	<div id="advisory-detail-container"></div>
-	<div id="advisory-list-container">
+	<div id="contactUs-detail-container"></div>
+	<div id="contactUs-list-container">
 	<div class="pageheader">
 		<h4><i class="fa fa-shopping-basket"></i> Contact List
 		<span></span></h4>
@@ -56,7 +62,7 @@
 	/*<![CDATA[*/
 	    $(function(){
 		    setMenuActive('contact-us');
-		    var colDefs = [{ name : "name" }, 
+		    var colDefs = [{ name : "name", type: "link", onclick: "showDetail", param: ["pkContact"] }, 
 	    	               { name : "email" },
 	    	               { name : "telp" },
 	    	               { name : "address" },
@@ -73,7 +79,18 @@
 		    	var sURL = /*[[@{/do/contactUs/userContact/downloadXls}]]*/ #;
 		    	downloadXls(sURL);
 			});
+		    
+		    var isNotif = /*[[${isNotif}]]*/ #;
+			if (isNotif) {
+				var maintenancePK = /*[[${pkMaintenance}]]*/ #;
+				showDetail(maintenancePK);
+			}
 	    });
+	
+		function showDetail(maintenancePK) {
+			var sURL = /*[[@{/do/contactUs/userContact/showDetail?maintenancePK=}]]*/ #;
+			showScreen('contactUs-list-container', 'contactUs-detail-container', sURL + maintenancePK + "&skipdecorator=");
+		}
 	    
 		function downloadXls(sURL){
 			$.ajax({ 

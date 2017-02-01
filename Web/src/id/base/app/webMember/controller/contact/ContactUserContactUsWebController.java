@@ -24,8 +24,10 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Scope(value="request")
@@ -34,6 +36,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class ContactUserContactUsWebController extends BaseController<Contact> {
 
 	private final String PATH_LIST = "/contact/contactUsUserContactList";
+	private final String PATH_DETAIL = "/contact/contactUsUserContactDetail";
 	
 	@Override
 	protected RestCaller<Contact> getRestCaller() {
@@ -67,6 +70,21 @@ public class ContactUserContactUsWebController extends BaseController<Contact> {
 	public String showList(ModelMap model, HttpServletRequest request){
 		model.addAttribute("pagingWrapper", new PagingWrapper<Contact>());
 		return getListPath();
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="showListNotif/{fkMaintenance}")
+	public String showListNotif(@PathVariable(value="fkMaintenance") Long fkMaintenance, ModelMap model, HttpServletRequest request){
+		model.addAttribute("pagingWrapper", new PagingWrapper<Contact>());
+		model.addAttribute("pkMaintenance", fkMaintenance);
+		model.addAttribute("isNotif", Boolean.TRUE);
+		return getListPath();
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="showDetail")
+	public String showDetail(@RequestParam(value="maintenancePK") final Long maintenancePK, @RequestParam Map<String, String> paramWrapper, ModelMap model, HttpServletRequest request){
+		Contact detail = getRestCaller().findById(maintenancePK);
+		model.addAttribute("detail", detail);
+		return PATH_DETAIL;
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/downloadXls")
