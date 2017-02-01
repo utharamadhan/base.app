@@ -87,7 +87,7 @@
 							</div> 
 						</div>
 					</div>
-					<div class="bouton bouton-red"><a href="#">View More</a></div>
+					<div class="bouton bouton-red"><a th:href="@{/page/advisory/sub/article}">View More</a></div>
 					<div style="margin-bottom: 20px;"></div>
 				</div>
 			</div>
@@ -161,7 +161,7 @@
                                 </div>
 							</div>
 						</div>
-						<div class="bouton bouton-brown"><a href="#">View More</a></div>
+						<div class="bouton bouton-brown"><a th:href="@{/page/advisory/sub/advisor}">View More</a></div>
 					</div>
 				</div>
 			</div>
@@ -178,6 +178,15 @@
 		<script type="text/javascript" th:inline="javascript">
 		/*<![CDATA[*/
 		$(function(){      
+			$('.consult_btn').unbind('click').click(function(){
+				var url = /*[[@{/page/advisory/sub/consulting}]]*/
+				window.location.href = url;
+			});
+			
+			$('.title_article').unbind('click').click(function(){
+				var url = /*[[@{/page/advisory/sub/article/detail}]]*/
+				window.location.href = url;
+			});
 		});
 		
 		/*]]>*/
