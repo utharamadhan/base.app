@@ -12,7 +12,6 @@ import id.base.app.util.StringFunction;
 import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
-import id.base.app.valueobject.AppParameter;
 import id.base.app.valueobject.AppRole;
 import id.base.app.valueobject.AppUser;
 import id.base.app.webMember.DataTableCriterias;
@@ -101,11 +100,15 @@ public class UserMaintenanceWebController extends BaseController<AppUser> {
 	
 	@RequestMapping(method=RequestMethod.POST, value="saveUser")
 	@ResponseBody
-	public Map<String, Object> saveUser(final AppParameter anObject, HttpServletRequest request) {
+	public Map<String, Object> saveUser(final AppUser anObject, HttpServletRequest request) {
 		Map<String, Object> resultMap = new HashMap<>();
 		List<ErrorHolder> errors = new ArrayList<>();
 		try{
-			errors = new SpecificRestCaller<AppParameter>(RestConstant.REST_SERVICE, RestServiceConstant.USER_SERVICE).performPut("/update", anObject);
+			if(anObject.getPkAppUser() != null) {
+				errors = new SpecificRestCaller<AppUser>(RestConstant.REST_SERVICE, RestServiceConstant.USER_SERVICE).performPut("/update", anObject);
+			} else {
+				errors = new SpecificRestCaller<AppUser>(RestConstant.REST_SERVICE, RestServiceConstant.USER_SERVICE).performPost("/create", anObject);
+			}
 			if(errors != null && errors.size() > 0){
 				resultMap.put(SystemConstant.ERROR_LIST, errors);
 			}

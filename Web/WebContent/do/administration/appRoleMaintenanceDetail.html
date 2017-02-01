@@ -76,7 +76,9 @@
 					if(data.errorList!=null){
 						displayErrorParsley(data.errorList);
 					}else{
-						backToList();
+						bootBoxSuccessSave("Role Successfully Saved", function(){
+				    		backToList();
+				    	});
 					}
 				});
 			};

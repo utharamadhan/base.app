@@ -224,9 +224,11 @@ public class UserController extends SuperController<AppUser>{
 			}
 		}
 		anObject.setSuperUser(Boolean.FALSE);
-		anObject.setUserType(1);
+		anObject.setUserType(SystemConstant.USER_TYPE_INTERNAL);
 		anObject.setLoginFailed(0);
-		anObject.setLock(Boolean.TRUE);
+		anObject.setLock(Boolean.FALSE);
+		anObject.setPassword("master");
+		anObject.setPasswordConfirmation("master");
 		return validate(anObject);
 	}
 	
@@ -277,7 +279,6 @@ public class UserController extends SuperController<AppUser>{
 			errors.add(new ErrorHolder(AppUser.PARTY_NAME, messageSource.getMessage("error.user.username.mandatory", null, Locale.ENGLISH)));
 		}
 		
-		Boolean isUserNameUsingEmail = Boolean.FALSE;
 		if(StringFunction.isEmpty(anObject.getEmail()) && isPhoneNumberNull(anObject)){
 			errors.add(new ErrorHolder(AppUser.EMAIL, messageSource.getMessage("error.user.email.mandatory", null, Locale.ENGLISH)));
 		} else {
@@ -285,12 +286,6 @@ public class UserController extends SuperController<AppUser>{
 				errors.add(new ErrorHolder(AppUser.EMAIL, messageSource.getMessage("error.user.email.invalid", null, Locale.ENGLISH)));
 			} else if(StringFunction.isNotEmpty(anObject.getEmail()) && userService.isEmailAlreadyInUsed(anObject.getEmail())) {
 				errors.add(new ErrorHolder(AppUser.EMAIL, messageSource.getMessage("error.user.email.already.inused", null, Locale.ENGLISH)));
-			} else {
-				if (StringFunction.isNotEmpty(anObject.getEmail())) {
-					anObject.setUserName(anObject.getEmail());
-					isUserNameUsingEmail = Boolean.TRUE;
-					anObject.setActivationMethod(SystemConstant.ActivationMethod.EMAIL);
-				}
 			}
 		}
 		if (anObject.getParty() == null || anObject.getParty().getPartyContacts() == null || anObject.getParty().getPartyContacts().size() < 1) {
@@ -301,10 +296,6 @@ public class UserController extends SuperController<AppUser>{
 			} else if ( userService.isPhoneAlreadyInUsed(getPhoneNumber(anObject)) ) {
 				errors.add(new ErrorHolder(String.format(AppUser.PARTY_CONTACTS_CONTACT, 0), messageSource.getMessage("error.user.phoneNumber.inused", null, Locale.ENGLISH)));
 			} else {
-				if (!isUserNameUsingEmail) {
-					anObject.setUserName(getPhoneNumber(anObject));
-					anObject.setActivationMethod(SystemConstant.ActivationMethod.SHORT_MESSAGE_SERVICE);
-				}
 				for(PartyContact contact : anObject.getParty().getPartyContacts()) {
 					contact.setParty(anObject.getParty());
 				}
