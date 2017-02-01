@@ -104,6 +104,13 @@ public class AppRoleMaintenanceWebController extends BaseController<AppRole> {
 		}
 	}
 	
+	@RequestMapping(method=RequestMethod.GET, value="showAccessibility")
+	public String showAccessibility(@RequestParam(value="pkAppRole") Long pkAppRole, ModelMap model) {
+		model.addAttribute("pkAppRole", pkAppRole);
+		showAccessTree(pkAppRole, SystemConstant.USER_TYPE_INTERNAL, model);
+		return "/administration/_appRoleAccessibility";
+	}
+	
 	public void setDefaultData(ModelMap model) {}
 	
 	@RequestMapping(method=RequestMethod.GET, value="showAdd")
@@ -116,13 +123,13 @@ public class AppRoleMaintenanceWebController extends BaseController<AppRole> {
 		setDefaultData(model);
 		AppRole detail = getRestCaller().findById(maintenancePK);
 		model.addAttribute("detail", detail);
-		showAccessTree(detail.getPkAppRole(), detail.getType(), model);
+		model.addAttribute("type", detail.getType());
 		return PATH_DETAIL;
 	}
 	
-	@RequestMapping(method=RequestMethod.POST, value="saveUser")
+	@RequestMapping(method=RequestMethod.POST, value="saveAppRole")
 	@ResponseBody
-	public Map<String, Object> saveUser(final AppRole anObject, HttpServletRequest request) {
+	public Map<String, Object> saveAppRole(final AppRole anObject, HttpServletRequest request) {
 		Map<String, Object> resultMap = new HashMap<>();
 		List<ErrorHolder> errors = new ArrayList<>();
 		try{

@@ -62,8 +62,6 @@ public class RoleService implements MaintenanceService<AppRole>,IRoleService {
 
 	public void saveOrUpdate(AppRole anObject) throws SystemException {
 		roleDAO.saveOrUpdate(anObject);
-		roleFunctionDAO.deleteAccessList(anObject.getPkAppRole());
-		roleFunctionDAO.insertAccessList(anObject.getPkAppRole(), anObject.getPkAppFunctionList()==null?new int[0]:anObject.getPkAppFunctionList());
 	}
 	
 	

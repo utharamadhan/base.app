@@ -180,9 +180,6 @@ public class AppRoleController extends SuperController<AppRole>{
 		if(StringFunction.isEmpty(anObject.getName())){
 			errorHolders.add(new ErrorHolder(messageSource.getMessage("error.message.user.role.name.mandatory", null, Locale.ENGLISH)));
 		}
-		if(anObject.getType() == null || anObject.getType() == 0){
-			errorHolders.add(new ErrorHolder(messageSource.getMessage("error.message.user.role.type.mandatory", null, Locale.ENGLISH)));
-		}
 		if(errorHolders.size()>0){
 			throw new SystemException(errorHolders);
 		}
@@ -190,7 +187,7 @@ public class AppRoleController extends SuperController<AppRole>{
 	}
 	
 	@Override
-	public AppRole preUpdate(AppRole anObject) throws SystemException {
+	public AppRole preUpdate(AppRole anObject) throws SystemException { 
 			anObject.setType(SystemConstant.USER_TYPE_INTERNAL);
 		return validate(anObject);
 	}

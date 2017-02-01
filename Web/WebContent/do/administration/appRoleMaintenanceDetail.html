@@ -14,6 +14,9 @@
 	<div class="row col-md-12">
 	<section class="tile transparent">
 			<div class="tile-body rounded-corners">
+			<div class="col-md-4 tile-body no-vpadding" style="margin:10px;">
+				<a href="#" id="appRole-btn-accessibility" class="btn btn-primary" style="margin-bottom:5px"><i class="fa fa-folder-open"></i> &nbsp; Accessibility</a>
+			</div>
 				<form action="#" id="appRole-detail-form" class="form-horizontal" method="POST" novalidate="novalidate" th:object="${detail}">
 					<div class="stockTypeStyle">
 						<div class="form-group">
@@ -43,16 +46,6 @@
 							</div>
 						</div>
 						<hr/>
-						<div class="form-group">
-							<label class="col-sm-1 control-label" th:text="'Accessibility'">Accessibility</label>
-						</div>
-						<div class="form-group">
-							<div class="col-sm-10">
-								<div id="accessibility-tree" class="panel-body fancytree-colorize-hover fancytree-fade-expander">
-									<ul></ul>
-								</div>
-							</div>
-						</div>
 						<div class="form-group form-footer">				
 							<div class="col-sm-offset-4 col-sm-8">
 								<a href="#" id="appRole-detail-btn-cancel" class="btn btn-default" type="reset" data-toggle="tooltip" title="">Batal</a>
@@ -64,86 +57,21 @@
 			</div>
 	</section>
 	</div>
+	<div id="appRole-accessibilityModal" class="modal fade" role="dialog">
+  		<div class="modal-dialog">
+  		</div>
+	</div>
 	<script th:inline="javascript">
 	/*<![CDATA[*/
 	
-		glyph_opts = {
-			map: {
-				doc: "fa fa-angle-right",
-				docOpen: "glyphicon glyphicon-file",
-				checkbox: "fa fa-minus-square",
-				checkboxSelected: "fa fa-check",
-				checkboxUnknown: "fa fa-minus-square",
-				dragHelper: "glyphicon glyphicon-play",
-				dropMarker: "glyphicon glyphicon-arrow-right",
-				error: "glyphicon glyphicon-warning-sign",
-				expanderClosed: "glyphicon glyphicon-menu-right",
-				expanderLazy: "fa fa-angle-right", 
-				expanderOpen: "fa fa-angle-down",
-				folder: "fa fa-angle-right",
-				folderOpen: "fa fa-angle-down",
-				loading: "glyphicon glyphicon-refresh glyphicon-spin"
-			}
-		};
-		
-		function buildAccessListTrees(accessNodes, rootNode, tree){
-			for (var i = 0; i < accessNodes.length; i++) {
-			    var counter = accessNodes[i];			    
-			    if(counter.parentPK == "0"){
-			    	rootNode.addChildren({
-			    		title: counter.name,
-			    		tooltip: counter.name,
-			    		isFolder: true,
-			    		selected: counter.checked,
-			    		key: counter.childPK
-			    	});
-			    }else{
-			    	var parentNode = tree.getNodeByKey(counter.parentPK+"");
-			    	parentNode.addChildren({
-			    		title: counter.name,
-			    		tooltip: counter.name,
-			    		isFolder: false,
-			    		selected: counter.checked,
-			    		key: counter.childPK
-			    	});
-			    	parentNode.folder = true;
-			    }
-			}
-		}
-		
 	    $(function(){
-	    	var treeURL = /*[[@{/do/appRole/loadAccessibilityTree}]]*/ #;
-	    	$("#accessibility-tree").fancytree({
-				extensions: ["dnd", "edit", "glyph", "wide"],
-				checkbox: true,
-				dnd: {
-					focusOnClick: true,
-					dragStart: function(node, data) { return true; },
-					dragEnter: function(node, data) { return false; },
-					dragDrop: function(node, data) { data.otherNode.copyTo(node, data.hitMode); }
-				},
-				glyph: glyph_opts,
-				selectMode: 2,
-				toggleEffect: { effect: "drop", options: {direction: "left"}, duration: 400 },
-				wide: {
-					iconWidth: "1em",
-					iconSpacing: "0.5em",
-					levelOfs: "1.5em"
-				}
-			});
-	    	
-	    	var rootNode = $("#accessibility-tree").fancytree("getRootNode");
-			var tree = $("#accessibility-tree").fancytree("getTree");
-			var accessNodes = /*[[${accessNodes}]]*/ #;
-			buildAccessListTrees(accessNodes, rootNode, tree);
-	    	
 			var backToList = function(){
 				returnToList('appRoleMaintenance-detail-container', 'appRoleMaintenance-list-container', true);
 			};
 	    	
 			var submitForm = function(){
 				cleanErrorParsley();
-				var sURL = /*[[@{/do/appRole/saveappRole/}]]*/ #;
+				var sURL = /*[[@{/do/appRoleMaintenance/saveAppRole/}]]*/ #;
 				$.post(sURL, $("#appRole-detail-form").serialize(), function(data) {
 					if(data.errorList!=null){
 						displayErrorParsley(data.errorList);
@@ -151,6 +79,15 @@
 						backToList();
 					}
 				});
+			};
+			
+			var openDialogAccessibility = function() {
+				var sURL = /*[[@{/do/appRoleMaintenance/showAccessibility}]]*/ #;
+				sURL += "?pkAppRole=" + $("#appRole-detail-maintenancePk").val() + "&skipDecorator";
+				$.get(sURL, function(result){
+					$("#appRole-accessibilityModal .modal-dialog").html(result);
+					$("#appRole-accessibilityModal").modal("show");	
+				})
 			};
 			
 			$('#appRole-detail-btn-save').click(function(e){
@@ -161,6 +98,11 @@
 			$('#appRole-detail-btn-cancel').click(function(e){
 				e.preventDefault();
 				backToList();
+			});
+			
+			$('#appRole-btn-accessibility').click(function(e){
+				e.preventDefault();
+				openDialogAccessibility();
 			});
 	    });
 	/*]]>*/
