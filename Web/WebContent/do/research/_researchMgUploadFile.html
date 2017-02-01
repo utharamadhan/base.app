@@ -3,14 +3,20 @@
 	<div class="row">
 		<div class="col-md-6">
 			<div class="form-group">
-				<label class="col-sm-4 control-label" th:text="'Title'">Title</label>
-				<div class="col-sm-8 form-input-container">
+				<label class="col-sm-3 control-label" th:text="'Group File'">Group File</label>
+				<div class="col-sm-9 form-input-container">
+					<input type="text" class="form-control" placeholder="Group File" id="input-text-title" th:field="*{title}"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label" th:text="'Title File'">Title File</label>
+				<div class="col-sm-9 form-input-container">
 					<input type="text" class="form-control" placeholder="Title" id="input-text-title" th:field="*{title}"/>
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-sm-4 control-label" th:text="'Upload File'">Upload File</label>
-				<div class="col-sm-8 form-input-container">
+				<label class="col-sm-3 control-label" th:text="'Upload File'">Upload File</label>
+				<div class="col-sm-9 form-input-container">
 					<input type="file" class="form-control" id="upload-file-research"/>
 				</div>
 			</div>
@@ -24,6 +30,15 @@
 			</div>
 		</div>
 		<div class="col-md-6">
+			<table id="timeplanning-list-table" class="table table-datatable table-custom">
+            	<thead>
+                	<tr>
+                   		<th width="60%">Title File</th>
+                   		<th width="30%">File</th>
+						<th width="10%">E/D</th>
+                  	</tr>
+              	</thead>
+          	</table>
 		</div>
 	</div>
 	<script th:inline="javascript">

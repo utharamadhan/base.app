@@ -10,13 +10,18 @@ import id.base.app.valueobject.research.ResearchGoalTarget;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import softtech.hong.hce.core.QueryTransformer;
+import softtech.hong.hce.model.Expression;
+import softtech.hong.hce.model.Order;
+
 @Service
 @Transactional
-public class ResearchGoalTargetService implements IResearchGoalTargetService{
+public class ResearchGoalTargetService extends QueryTransformer<ResearchGoalTarget> implements IResearchGoalTargetService{
 
 	@Autowired
 	private IResearchGoalTargetDAO researchGoalTargetDAO;
@@ -61,5 +66,14 @@ public class ResearchGoalTargetService implements IResearchGoalTargetService{
 			List<SearchOrder> order) throws SystemException {
 		return researchGoalTargetDAO.findAll(filter, order);
 	}
-	
+
+	@Override
+	public List<ResearchGoalTarget> findGoalTargetByFkResearch(Long fkResearch) throws SystemException {
+		Expression exp = new Expression();
+		exp.add(Expression.eq(ResearchGoalTarget.FK_RESEARCH, fkResearch));
+		Order order = new Order();
+		order.add(Order.asc(ResearchGoalTarget.PK_RESEARCH_GOAL_TARGET));
+		DetachedCriteria detachedCriteria = criteriaByProperty(ResearchGoalTarget.MAINTENANCE_LIST_FIELDS, exp, order);
+		return researchGoalTargetDAO.loadAll(detachedCriteria);
+	}
 }

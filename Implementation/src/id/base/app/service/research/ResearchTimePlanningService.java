@@ -10,13 +10,18 @@ import id.base.app.valueobject.research.ResearchTimePlanning;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import softtech.hong.hce.core.QueryTransformer;
+import softtech.hong.hce.model.Expression;
+import softtech.hong.hce.model.Order;
+
 @Service
 @Transactional
-public class ResearchTimePlanningService implements IResearchTimePlanningService{
+public class ResearchTimePlanningService extends QueryTransformer<ResearchTimePlanning> implements IResearchTimePlanningService{
 
 	@Autowired
 	private IResearchTimePlanningDAO researchTimePlanningDAO;
@@ -62,4 +67,13 @@ public class ResearchTimePlanningService implements IResearchTimePlanningService
 		return researchTimePlanningDAO.findAll(filter, order);
 	}
 	
+	@Override
+	public List<ResearchTimePlanning> findTimePlanningByFkResearch(Long fkResearch) throws SystemException {
+		Expression exp = new Expression();
+		exp.add(Expression.eq(ResearchTimePlanning.FK_RESEARCH, fkResearch));
+		Order order = new Order();
+		order.add(Order.asc(ResearchTimePlanning.PK_RESEARCH_TIME_PLANNING));
+		DetachedCriteria detachedCriteria = criteriaByProperty(ResearchTimePlanning.MAINTENANCE_LIST_FIELDS, exp, order);
+		return researchTimePlanningDAO.loadAll(detachedCriteria);
+	}
 }
