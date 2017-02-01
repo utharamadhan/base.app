@@ -10,13 +10,18 @@ import id.base.app.valueobject.research.ResearchMemo;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import softtech.hong.hce.core.QueryTransformer;
+import softtech.hong.hce.model.Expression;
+import softtech.hong.hce.model.Order;
+
 @Service
 @Transactional
-public class ResearchMemoService implements IResearchMemoService{
+public class ResearchMemoService extends QueryTransformer<ResearchMemo> implements IResearchMemoService{
 
 	@Autowired
 	private IResearchMemoDAO researchMemoDAO;
@@ -60,6 +65,16 @@ public class ResearchMemoService implements IResearchMemoService{
 	public List<ResearchMemo> findAll(List<SearchFilter> filter,
 			List<SearchOrder> order) throws SystemException {
 		return researchMemoDAO.findAll(filter, order);
+	}
+	
+	@Override
+	public List<ResearchMemo> findMemoByFkResearch(Long fkResearch) throws SystemException {
+		Expression exp = new Expression();
+		exp.add(Expression.eq(ResearchMemo.FK_RESEARCH, fkResearch));
+		Order order = new Order();
+		order.add(Order.asc(ResearchMemo.PK_RESEARCH_MEMO));
+		DetachedCriteria detachedCriteria = criteriaByProperty(ResearchMemo.MAINTENANCE_LIST_FIELDS, exp, order);
+		return researchMemoDAO.loadAll(detachedCriteria);
 	}
 	
 }

@@ -15,80 +15,30 @@
 				</div>
 			</div>
 		</div>
-		<div class="advisory_head_back_margin">
-			&nbsp;
-		</div>
-		<div class="advisory_head_back">x
-			&nbsp;
-		</div>
 		<div class="advisory_section">
-			<div class="header_advisory">
-				<h1 class="advisory_logo"></h1>
-				<div class="container">
-					<div class="row">
-						<nav class="clearfix">
-							<span class="set-1">
-								<span class="content_float_right">
-									<a th:href="@{/page/advisory/list}" title="Discover the Golden Isles of Georgia" class="menu_choice_left content_float_left">Advisory Story</a>
-									<a th:href="@{/page/advisory/list}" title="Heritage &amp; Culture of the Golden Isles" class="menu_choice_left content_float_left">Advisory Team</a>
-								</span>
-							</span>
-							<span class="set-2">
-								<span class="content_float_left">
-									<a th:href="@{/page/advisory/list}" title="Southern Restaurants, Bars, Pubs, &amp; More in the Golden Isles" class="menu_choice_right">Research &amp; Insight</a>
-									<a th:href="@{/page/advisory/list}" title="" class="menu_choice_right">Consulting</a>
-								</span>
-							</span>
-						</nav>
-					</div>
-				</div>
-			</div>
 			<div class="advisory_banner">
-				<img th:src="@{/images/Banner_Backgrounds_questions_size.jpg}"/>
-				<div class="info_banner">
-					<iframe width="450" height="315"
-						src="https://www.youtube.com/embed/8YFzf8QMC1E">
-					</iframe>
+				<div class="parallax-window" data-parallax="scroll" th:attr="data-image-src=@{/images/profesional.jpg}" ></div>
+				<div class="tp-mask-wrap">
+					<div class="tp-caption">
+						<div class="tp-caption-wrapper"><label class="tp-label-main">Best Advisor</label></div>
+						<div class="tp-caption-wrapper"><label class="tp-label">Professional legal advisor.</label></div>
+					</div>
 				</div>
-			</div>
-			
-			<!-- Start advisory article -->
-			<div class="advisory_article">
-				<div class="container">
-					<div class="article_container row">
-						<div class="col-lg-6 col-md-6 col-sm-12 content_float_left box_article_left"> 
-							<div class="row"> 
-								<h2 class="title_article">Concept House</h2>
-								<div class="subtitle_article"><label>Make a Concept House</label></div>
-								<div class="created_advisor"><label>By: &nbsp;</label><label>John Doe</label></div>
-								<div class="date_advisor"><label>Created: &nbsp;</label><label>30 Januari 2017</label></div>
-								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed dictum lectus. Donec lacus ante, tristique non nulla in, gravida pharetra velit. Fusce vestibulum, massa at vulputate tempor, nibh turpis suscipit ipsum, eget tempor orci eros sit amet mi. Donec vehicula erat ornare efficitur pretium. Nam tempus augue in erat malesuada, a scelerisque purus dictum. Aliquam ut diam risus. In sed felis pretium, dictum nisi hendrerit, faucibus lacus. Fusce dapibus, sapien suscipit tempor rutrum, tortor risus aliquet erat, eget posuere purus magna et diam. Duis at posuere orci, vel facilisis massa. Ut aliquet, sapien vel congue vehicula, ligula erat sodales eros, vel semper ligula quam sit amet ligula. Integer libero velit, porta vel interdum id, condimentum cursus lorem.</p>
-							</div> 
-						</div>
-						<div class="col-lg-6 col-md-6 col-sm-12 content_float_right box_article_right"> 
-							<div class="row"> 
-								<img th:src="@{/images/concept_house.jpg}" />
-							</div> 
-						</div>
+				<div class="info_banner_search">
+					<h1 class="find_advisor_title">Find Advisor</h1>
+					<div class="part_div">
+						<select class="select_tema">
+							<option>Select Category</option>
+							<option>Make a Concept House</option>
+							<option>How to Get Best Quality</option>
+						</select>
 					</div>
-					<div class="article_container row">
-						<div class="col-lg-6 col-md-6 col-sm-12 content_float_left box_article_left"> 
-							<div class="row"> 
-								<img th:src="@{/images/best_quality_house.jpg}" />
-							</div> 
-						</div>
-						<div class="col-lg-6 col-md-6 col-sm-12 content_float_right box_article_right"> 
-							<div class="row"> 
-								<h2 class="title_article">Quality Of Building</h2>
-								<div class="subtitle_article"><label>How to Get Best Quality</label></div>
-								<div class="created_advisor"><label>By: &nbsp;</label><label>Mardy Jonathan</label></div>
-								<div class="date_advisor"><label>Created: &nbsp;</label><label>10 Januari 2017</label></div>
-								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed dictum lectus. Donec lacus ante, tristique non nulla in, gravida pharetra velit. Fusce vestibulum, massa at vulputate tempor, nibh turpis suscipit ipsum, eget tempor orci eros sit amet mi. Donec vehicula erat ornare efficitur pretium. Nam tempus augue in erat malesuada, a scelerisque purus dictum. Aliquam ut diam risus. In sed felis pretium, dictum nisi hendrerit, faucibus lacus. Fusce dapibus, sapien suscipit tempor rutrum, tortor risus aliquet erat, eget posuere purus magna et diam. Duis at posuere orci, vel facilisis massa. Ut aliquet, sapien vel congue vehicula, ligula erat sodales eros, vel semper ligula quam sit amet ligula. Integer libero velit, porta vel interdum id, condimentum cursus lorem.</p>
-							</div> 
-						</div>
+					<div class="part_div">
+						<input type="text" class="find_name" placeholder="Name"/>
 					</div>
-					<div class="bouton bouton-red"><a href="#">View More</a></div>
-					<div style="margin-bottom: 20px;"></div>
+					<div class="part_div">
+						<button type="button" class="btn btn-danger btn_find">FIND NOW</button>
+					</div>
 				</div>
 			</div>
 			
@@ -111,6 +61,9 @@
 									<p class="small-text">
 										George is one of the co-founders and takes care of growth, product development and partnerships. She is analytical, driven and adapts easily to new conditions, while trying to keep everyone on track.
                                     </p>
+                                    <div>
+                                    	<a href="#" class="link_see_article">View Article</a>
+                                    </div>
 								</div>
 							</div> 
 							<div class="col-md-3 align_center"> 
@@ -120,6 +73,9 @@
                                     <br/>
                                     <p class="small-text">Beni is the guy responsible for keeping the platform in check, improving its functionality and adding new features. He is driven, always open for learning more, friendly and a fan of Ruby on Rails.
                                     </p>
+                                    <div>
+                                    	<a href="#" class="link_see_article">View Article</a>
+                                    </div>
                                 </div>
 							</div>
 							<div class="col-md-3 align_center"> 
@@ -129,6 +85,9 @@
                                     <br/>
                                     <p class="small-text">Diana is the person behind our social media channels, she takes care of our users' community and communication. She is ambitious, hard-working, instantly likeable and fun to be around.
                                     </p>
+                                    <div>
+                                    	<a href="#" class="link_see_article">View Article</a>
+                                    </div>
                                 </div>
 							</div>
 							<div class="col-md-3 align_center"> 
@@ -139,6 +98,9 @@
                                 	<p class="small-text">
                                 	Elena is one of the co-founders and takes care of growth, product development and partnerships. She is analytical, driven and adapts easily to new conditions, while trying to keep everyone on track.
                                 	</p>
+                                	<div>
+                                    	<a href="#" class="link_see_article">View Article</a>
+                                    </div>
                               	</div>
 							</div>
 							<div class="col-md-3 align_center"> 
@@ -149,6 +111,9 @@
 									<p class="small-text">
 										George is one of the co-founders and takes care of growth, product development and partnerships. She is analytical, driven and adapts easily to new conditions, while trying to keep everyone on track.
                                     </p>
+                                    <div>
+                                    	<a href="#" class="link_see_article">View Article</a>
+                                    </div>
 								</div>
 							</div> 
 							<div class="col-md-3 align_center"> 
@@ -158,10 +123,12 @@
                                     <br/>
                                     <p class="small-text">Beni is the guy responsible for keeping the platform in check, improving its functionality and adding new features. He is driven, always open for learning more, friendly and a fan of Ruby on Rails.
                                     </p>
+                                    <div>
+                                    	<a href="#" class="link_see_article">View Article</a>
+                                    </div>
                                 </div>
 							</div>
 						</div>
-						<div class="bouton bouton-brown"><a href="#">View More</a></div>
 					</div>
 				</div>
 			</div>
@@ -177,7 +144,11 @@
 		
 		<script type="text/javascript" th:inline="javascript">
 		/*<![CDATA[*/
-		$(function(){      
+		$(function(){ 
+			$('.consult_btn').unbind('click').click(function(){
+				var url = /*[[@{/page/advisory/sub/consulting}]]*/
+				window.location.href = url;
+			});
 		});
 		
 		/*]]>*/

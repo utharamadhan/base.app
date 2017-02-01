@@ -23,12 +23,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -68,6 +73,78 @@ public class ResearchController extends SuperController<Research>{
 	public Research preUpdate(Research anObject) throws SystemException{
 		anObject.setStatus(SystemConstant.ValidFlag.VALID);
 		return validate(anObject);
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/findTimePlanningByFkResearch/{fkResearch}")
+	@ResponseBody
+	public List<ResearchTimePlanning> findTimePlanningByFkResearch(@PathVariable(value="fkResearch") Long fkResearch, HttpServletResponse response){
+		return researchTimePlanningService.findTimePlanningByFkResearch(fkResearch);
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/findTimePlanningById/{id}")
+	@ResponseBody
+	public ResearchTimePlanning findTimePlanningById(@PathVariable(value="id") Long id, HttpServletResponse response){
+		return researchTimePlanningService.findById(id);
+	}
+	
+	@RequestMapping(method=RequestMethod.DELETE, value="/deleteTimePlanning")
+	@ResponseStatus( HttpStatus.OK )
+	public void deleteTimePlanning(@RequestParam(value="objectPKs") Long[] objectPKs) throws SystemException {
+		researchTimePlanningService.delete(objectPKs);
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/findBudgetingByFkResearch/{fkResearch}")
+	@ResponseBody
+	public List<ResearchBudgeting> findBudgetingByFkResearch(@PathVariable(value="fkResearch") Long fkResearch, HttpServletResponse response){
+		return researchBudgetingService.findBudgetingByFkResearch(fkResearch);
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/findBudgetingById/{id}")
+	@ResponseBody
+	public ResearchBudgeting findBudgetingById(@PathVariable(value="id") Long id, HttpServletResponse response){
+		return researchBudgetingService.findById(id);
+	}
+	
+	@RequestMapping(method=RequestMethod.DELETE, value="/deleteBudgeting")
+	@ResponseStatus( HttpStatus.OK )
+	public void deleteBudgeting(@RequestParam(value="objectPKs") Long[] objectPKs) throws SystemException {
+		researchBudgetingService.delete(objectPKs);
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/findGoalTargetByFkResearch/{fkResearch}")
+	@ResponseBody
+	public List<ResearchGoalTarget> findGoalTargetByFkResearch(@PathVariable(value="fkResearch") Long fkResearch, HttpServletResponse response){
+		return researchGoalTargetService.findGoalTargetByFkResearch(fkResearch);
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/findGoalTargetById/{id}")
+	@ResponseBody
+	public ResearchGoalTarget findGoalTargetById(@PathVariable(value="id") Long id, HttpServletResponse response){
+		return researchGoalTargetService.findById(id);
+	}
+	
+	@RequestMapping(method=RequestMethod.DELETE, value="/deleteGoalTarget")
+	@ResponseStatus( HttpStatus.OK )
+	public void deleteGoalTarget(@RequestParam(value="objectPKs") Long[] objectPKs) throws SystemException {
+		researchGoalTargetService.delete(objectPKs);
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/findMemoByFkResearch/{fkResearch}")
+	@ResponseBody
+	public List<ResearchMemo> findMemoByFkResearch(@PathVariable(value="fkResearch") Long fkResearch, HttpServletResponse response){
+		return researchMemoService.findMemoByFkResearch(fkResearch);
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/findMemoById/{id}")
+	@ResponseBody
+	public ResearchMemo findMemoById(@PathVariable(value="id") Long id, HttpServletResponse response){
+		return researchMemoService.findById(id);	
+	}
+	
+	@RequestMapping(method=RequestMethod.DELETE, value="/deleteMemo")
+	@ResponseStatus( HttpStatus.OK )
+	public void deleteMemo(@RequestParam(value="objectPKs") Long[] objectPKs) throws SystemException {
+		researchMemoService.delete(objectPKs);
 	}
 	
 	private ResearchTimePlanning validateTimePlanning(ResearchTimePlanning anObject) throws SystemException {

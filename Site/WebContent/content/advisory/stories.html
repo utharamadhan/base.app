@@ -88,7 +88,11 @@
 		
 		<script type="text/javascript" th:inline="javascript">
 		/*<![CDATA[*/
-		$(function(){      
+		$(function(){  
+			$('.consult_btn').unbind('click').click(function(){
+				var url = /*[[@{/page/advisory/sub/consulting}]]*/
+				window.location.href = url;
+			});
 		});
 		
 		/*]]>*/

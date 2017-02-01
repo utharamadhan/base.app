@@ -3,10 +3,12 @@ package id.base.app.webMember.research;
 import id.base.app.SystemConstant;
 import id.base.app.exception.ErrorHolder;
 import id.base.app.paging.PagingWrapper;
+import id.base.app.rest.PathInterfaceRestCaller;
 import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
 import id.base.app.rest.RestServiceConstant;
 import id.base.app.rest.SpecificRestCaller;
+import id.base.app.util.StringFunction;
 import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
@@ -51,16 +53,30 @@ public class ResearchManagementWebController extends BaseController<Research> {
 			Map<String, String> paramWrapper) {
 		return null;
 	}
+	
+	private void setDefaultFilter(HttpServletRequest request, List<SearchFilter> filters) {
+		filters.add(new SearchFilter(Research.IS_MANAGEMENT, Operator.EQUALS, Boolean.TRUE, Boolean.class));
+		filters.add(new SearchFilter(Research.STATUS, Operator.NOT_EQUAL, SystemConstant.ValidFlag.INVALID));
+	}
 
 	@Override
 	protected List<SearchFilter> convertForFilter(HttpServletRequest request,
 			Map<String, String> paramWrapper, DataTableCriterias columns) {
-		return null;
+		List<SearchFilter> filters = new ArrayList<>();
+		setDefaultFilter(request, filters);
+		if(StringFunction.isNotEmpty(columns.getSearch().get(DataTableCriterias.SearchCriterias.value))){
+			filters.add(new SearchFilter(Research.TITLE, Operator.LIKE, columns.getSearch().get(DataTableCriterias.SearchCriterias.value)));
+		}
+		return filters;
 	}
 
 	@Override
 	protected List<SearchOrder> getSearchOrder() {
-		return null;
+		if(orders != null) {
+			orders.clear();
+		}
+		orders.add(new SearchOrder(Research.PK_RESEARCH, SearchOrder.Sort.DESC));
+		return orders;
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="showList")
@@ -96,18 +112,105 @@ public class ResearchManagementWebController extends BaseController<Research> {
 		}
 		return resultMap;
 	}
-	
-	//Time Planning
+
 	@RequestMapping(method=RequestMethod.GET, value="/listTimePlanning")
 	@ResponseBody
-	public List<ResearchTimePlanning> showTimePlanningList(@RequestParam Map<String,String> paramWrapper, HttpServletRequest request){
-		List<SearchFilter> filters = new ArrayList<SearchFilter>();
-		filters.add(new SearchFilter(ResearchTimePlanning.FK_RESEARCH, Operator.EQUALS, paramWrapper.get("fkResearch")));
-		List<SearchOrder> orders = new ArrayList<SearchOrder>();
-		orders.add(new SearchOrder(ResearchTimePlanning.DATE_FROM, SearchOrder.Sort.ASC));
-		RestCaller<ResearchTimePlanning> rs = new RestCaller<ResearchTimePlanning>(RestConstant.REST_SERVICE, RestServiceConstant.RESEARCH_SERVICE);
-		List<ResearchTimePlanning> list = rs.findAll(filters, orders);
+	public List<ResearchTimePlanning> showTimePlanningList(@RequestParam(value="fkResearch")final Long fkResearch, HttpServletRequest request){
+		List<ResearchTimePlanning> list = new SpecificRestCaller<ResearchTimePlanning>(RestConstant.REST_SERVICE, RestConstant.RM_RESEARCH, ResearchTimePlanning.class).executeGetList(new PathInterfaceRestCaller() {
+			
+			@Override
+			public String getPath() {
+				return "/findTimePlanningByFkResearch/{fkResearch}";
+			}
+			
+			@Override
+			public Map<String, Object> getParameters() {
+				Map<String, Object> map = new HashMap<>();
+				map.put("fkResearch", fkResearch);
+				return map;
+			}
+		});
 		return list;
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/listBudgeting")
+	@ResponseBody
+	public List<ResearchBudgeting> showBudgetingList(@RequestParam(value="fkResearch")final Long fkResearch, HttpServletRequest request){
+		List<ResearchBudgeting> list = new SpecificRestCaller<ResearchBudgeting>(RestConstant.REST_SERVICE, RestConstant.RM_RESEARCH, ResearchBudgeting.class).executeGetList(new PathInterfaceRestCaller() {
+			
+			@Override
+			public String getPath() {
+				return "/findBudgetingByFkResearch/{fkResearch}";
+			}
+			
+			@Override
+			public Map<String, Object> getParameters() {
+				Map<String, Object> map = new HashMap<>();
+				map.put("fkResearch", fkResearch);
+				return map;
+			}
+		});
+		return list;
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/listGoalTarget")
+	@ResponseBody
+	public List<ResearchGoalTarget> showGoalTargetList(@RequestParam(value="fkResearch")final Long fkResearch, HttpServletRequest request){
+		List<ResearchGoalTarget> list = new SpecificRestCaller<ResearchGoalTarget>(RestConstant.REST_SERVICE, RestConstant.RM_RESEARCH, ResearchGoalTarget.class).executeGetList(new PathInterfaceRestCaller() {
+			
+			@Override
+			public String getPath() {
+				return "/findGoalTargetByFkResearch/{fkResearch}";
+			}
+			
+			@Override
+			public Map<String, Object> getParameters() {
+				Map<String, Object> map = new HashMap<>();
+				map.put("fkResearch", fkResearch);
+				return map;
+			}
+		});
+		return list;
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/listMemo")
+	@ResponseBody
+	public List<ResearchMemo> showMemoList(@RequestParam(value="fkResearch")final Long fkResearch, HttpServletRequest request){
+		List<ResearchMemo> list = new SpecificRestCaller<ResearchMemo>(RestConstant.REST_SERVICE, RestConstant.RM_RESEARCH, ResearchMemo.class).executeGetList(new PathInterfaceRestCaller() {
+			
+			@Override
+			public String getPath() {
+				return "/findMemoByFkResearch/{fkResearch}";
+			}
+			
+			@Override
+			public Map<String, Object> getParameters() {
+				Map<String, Object> map = new HashMap<>();
+				map.put("fkResearch", fkResearch);
+				return map;
+			}
+		});
+		return list;
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/findTimePlanningById")
+	@ResponseBody
+	public ResearchTimePlanning findTimePlanningById(@RequestParam(value="id")final Long id, HttpServletRequest request){
+		ResearchTimePlanning obj = new SpecificRestCaller<ResearchTimePlanning>(RestConstant.REST_SERVICE, RestConstant.RM_RESEARCH, ResearchTimePlanning.class).executeGet(new PathInterfaceRestCaller() {
+			
+			@Override
+			public String getPath() {
+				return "/findTimePlanningById/{id}";
+			}
+			
+			@Override
+			public Map<String, Object> getParameters() {
+				Map<String, Object> map = new HashMap<>();
+				map.put("id", id);
+				return map;
+			}
+		});
+		return obj;
 	}
 	
 	@RequestMapping(method=RequestMethod.POST, value="saveTimePlanning")

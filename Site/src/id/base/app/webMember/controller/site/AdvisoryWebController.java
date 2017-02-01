@@ -100,7 +100,7 @@ public class AdvisoryWebController {
 			@RequestParam(value="offset",defaultValue="6") int offset,
 			@RequestParam(value="filter", defaultValue="", required=false) String filterJson
 		){
-		return "/advisory/stories";
+		return "/advisory/advisor";
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/sub/article")
@@ -110,6 +110,15 @@ public class AdvisoryWebController {
 			@RequestParam(value="filter", defaultValue="", required=false) String filterJson
 		){
 		return "/advisory/article";
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/sub/article/detail")
+	public String detailArticle(ModelMap model, HttpServletRequest request, HttpServletResponse response,
+			@RequestParam(value="startNo",defaultValue="1") int startNo, 
+			@RequestParam(value="offset",defaultValue="6") int offset,
+			@RequestParam(value="filter", defaultValue="", required=false) String filterJson
+		){
+		return "/advisory/articleDetail";
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/sub/consulting")
