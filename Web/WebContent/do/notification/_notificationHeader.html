@@ -1,15 +1,24 @@
-<style>
-.dropdown-menu.settings > li > a{
-	font-size : 12px !important;
-}
-.dropdown-menu.settings > li > span{
-	font-size : 12px !important;
-}
-</style>
-<ul id="notification-header-list" class="dropdown-menu arrow settings" style="width: 300px;">
-	<li th:each="notification : ${notifications}">
-		<span th:text="${notification.emailFrom}"></span>
-		<span th:text="${notification.actionTypeLookup?.descr}"></span>
-		<span th:text="${notification.actionAge}"></span>
-	</li>
+<link rel="stylesheet" th:href="@{/css/notification-panel.css}" />
+<ul id="notification-header-list" class="dropdown-menu notifications" role="menu" aria-labelledby="dLabel" style="left: -275px !important;">
+	<div class="notification-heading">
+		<h4 class="menu-title">Notifications</h4>
+		<h4 class="menu-title pull-right">
+			View all
+		</h4>
+	</div>
+	<li class="divider"></li>
+	<div th:each="notification : ${notifications}" class="notifications-wrapper">
+		<a class="content" href="#">
+			<div class="notification-item">
+				<h4 class="item-title" th:text="${notification.emailFrom}"></h4>
+				<p class="item-info" th:text="${notification.actionTypeLookup?.descr}">Marketing 101, Video Assignment</p>
+			</div>
+		</a>
+	</div>
 </ul>
+<script>
+	$(function(){
+		$('#notification-unread-count').show();
+		$('#notification-unread-count').html('1');
+	});
+</script>
