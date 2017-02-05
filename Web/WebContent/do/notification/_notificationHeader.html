@@ -7,13 +7,15 @@
 		</h4>
 	</div>
 	<li class="divider"></li>
-	<div th:each="notification : ${notifications}" class="notifications-wrapper">
-		<a class="content" href="#">
-			<div class="notification-item">
-				<h4 class="item-title" th:text="${notification.emailFrom}"></h4>
-				<p class="item-info" th:text="${notification.actionTypeLookup?.descr}">Marketing 101, Video Assignment</p>
-			</div>
-		</a>
+	<div id="notification-content">
+		<div th:each="notification : ${notifications}" class="notifications-wrapper">
+			<a class="content" href="#">
+				<div class="notification-item">
+					<h4 class="item-title" th:text="${notification.emailFrom}"></h4>
+					<p class="item-info" th:text="${notification.actionTypeLookup?.descr}">Marketing 101, Video Assignment</p>
+				</div>
+			</a>
+		</div>
 	</div>
 </ul>
 <script>

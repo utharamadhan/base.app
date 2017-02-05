@@ -11,12 +11,55 @@ function loadNotifications() {
 }
 
 function appendNotificationHeader(obj) {
-	$('#notification-header-list').prepend(constructNotif(obj));
+	iterateNewStreamCount();
+	prependNewStreamPanel(obj);
+	prependNewStreamSection(obj);
 }
 
-function constructNotif(obj) {
-	var html = "<li>" + obj.email_from + " " + obj.notification_description + " " + obj.action_age + "</li>";
-	return html;
+function iterateNewStreamCount() {
+	var obj = $('.notification-label');
+	if ($('#container-unread-count').is(':visible')) {
+		obj.text(parseInt(obj.text()) + 1);
+	} else {
+		obj.text('1');
+	}
+	$('#container-unread-count').show();
+}
+
+function prependNewStreamPanel(obj) {
+	var html = "<div class='notifications-wrapper'>";
+	html += "<a class='content' href='" + obj.detail_url + obj.fk_maintenance + "'>";
+	html += "<div class='notification-item'>";
+	html += "<h4 class='item-title'>" + obj.email_from + "</h4>"
+	html += "<p class='item-info'>" +  obj.notification_description + "</p>";
+	html += "</div>";
+	html += "</a>";
+	html += "</div>";
+	$('#notification-content').prepend(html);
+}
+
+function prependNewStreamSection(obj) {
+	if($('.stream-new-notifications').is(':visible')) {
+		$('.count-new-notifications').text(parseInt($('.count-new-notifications').text()) + 1);
+	} else {
+		$('.count-new-notifications').text('1');
+		$('.stream-new-notifications').show();
+	}
+	var html = "<li class='list-group-item new-result-hidden'>";
+	html += "<div class='media'>";
+	html += "<div class='media-body col-md-12'>";
+	html += "<h4 class='media-heading' style='width:100%;'>";
+	html += "<small class='pull-right'>" + obj.action_age +"</small>";
+	html += "<a class='name'>" + obj.email_from + "</a>";
+	html += "</h4>";
+	html += "<small>" + obj.action_date + "</small>";
+	html += "<div class='notification-content content well'>"+obj.overview_message+"</div>";
+	html += "<small class='pull-right'><a href='" + obj.detail_url + obj.fk_maintenance + "'>read more</a></small>";
+	html += "</div>";
+	html += "</div>";
+	html += "</li>";
+	console.log(html);
+	$('.dailyNotifications-feed-content').prepend(html);
 }
            
 var stompClient = null; 
