@@ -370,6 +370,23 @@ public class SystemConstant  {
 		}
 	}
 	
+	public static final class NotificationConstant {
+		public static final Integer UNREAD = 0;
+		public static final Integer READ = 1;
+		public static final Integer REPLIED = 2;
+		
+		public static final String UNREAD_STR = "Unread";
+		public static final String READ_STR = "Read";
+		public static final String REPLIED_STR = "Replied";
+		
+		public static final Map<Integer, String> NOTIFICATION_MAP = new HashMap<>();
+		static {
+			NOTIFICATION_MAP.put(UNREAD, UNREAD_STR);
+			NOTIFICATION_MAP.put(READ, READ_STR);
+			NOTIFICATION_MAP.put(REPLIED, REPLIED_STR);
+		}
+	}
+	
 	public static final class InitialWizard {
 		
 		public static final Integer FIRST_COMPANY = 1;

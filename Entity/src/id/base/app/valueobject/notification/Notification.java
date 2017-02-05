@@ -1,6 +1,7 @@
 package id.base.app.valueobject.notification;
 
 import id.base.app.ILookupConstant;
+import id.base.app.SystemConstant;
 import id.base.app.util.DateTimeFunction;
 import id.base.app.util.StringFunction;
 import id.base.app.valueobject.Lookup;
@@ -38,7 +39,7 @@ public class Notification implements Serializable {
 	
 	public static Notification getInstance(Contact obj, Lookup actionTypeLookup) {
 		Notification notif = new Notification();
-			notif.setIsRead(Boolean.FALSE);
+			notif.setStatus(SystemConstant.NotificationConstant.UNREAD);
 			notif.setEmailFrom(obj.getEmail());
 			notif.setNameFrom(obj.getName());
 			notif.setOverviewMessage(obj.getMessage());
@@ -58,8 +59,8 @@ public class Notification implements Serializable {
 	@JoinColumn(name="FK_LOOKUP_ACTION_TYPE")
 	private Lookup actionTypeLookup;
 	
-	@Column(name="IS_READ")
-	private Boolean isRead;
+	@Column(name="STATUS")
+	private Integer status;
 	
 	@Column(name="EMAIL_FROM")
 	private String emailFrom;
@@ -102,11 +103,11 @@ public class Notification implements Serializable {
 		this.actionTypeLookup = actionTypeLookup;
 	}
 
-	public Boolean getIsRead() {
-		return isRead;
+	public Integer getStatus() {
+		return status;
 	}
-	public void setIsRead(Boolean isRead) {
-		this.isRead = isRead;
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 
 	public String getEmailFrom() {

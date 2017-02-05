@@ -12,5 +12,7 @@ public interface INotificationDAO extends IBaseDAO<Notification> {
 	public Integer countUnreadNotifications() throws SystemException;
 	
 	public List<Notification> getLastFiveNotifications() throws SystemException;
+	
+	public Notification findByTypeAndId(String code, Long fkMaintenance) throws SystemException;
 
 }

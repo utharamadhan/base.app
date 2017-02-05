@@ -19,7 +19,7 @@ public class NotificationJson implements Serializable {
 	public static NotificationJson getInstance(Notification notif) {
 		NotificationJson json = new NotificationJson();
 			json.setPkNotification(notif.getPkNotification());
-			json.setIsRead(notif.getIsRead());
+			json.setStatus(notif.getStatus());
 			json.setEmailFrom(notif.getEmailFrom());
 			json.setNameFrom(notif.getNameFrom());
 			json.setNotificationCode(notif.getActionTypeLookup() != null ? notif.getActionTypeLookup().getCode() : null);
@@ -43,8 +43,8 @@ public class NotificationJson implements Serializable {
 	@JsonProperty("notification_description")
 	private String notificationDescription;
 	
-	@JsonProperty("is_read")
-	private Boolean isRead;
+	@JsonProperty("status")
+	private Integer status;
 	
 	@JsonProperty("email_from")
 	private String emailFrom;
@@ -88,11 +88,11 @@ public class NotificationJson implements Serializable {
 		this.notificationDescription = notificationDescription;
 	}
 
-	public Boolean getIsRead() {
-		return isRead;
+	public Integer getStatus() {
+		return status;
 	}
-	public void setIsRead(Boolean isRead) {
-		this.isRead = isRead;
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 
 	public String getEmailFrom() {

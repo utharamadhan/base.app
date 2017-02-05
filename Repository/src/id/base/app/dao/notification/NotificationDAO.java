@@ -1,6 +1,7 @@
 package id.base.app.dao.notification;
 
 import id.base.app.AbstractHibernateDAO;
+import id.base.app.SystemConstant;
 import id.base.app.exception.SystemException;
 import id.base.app.paging.PagingWrapper;
 import id.base.app.util.dao.SearchFilter;
@@ -65,10 +66,20 @@ public class NotificationDAO extends AbstractHibernateDAO<Notification, Long> im
 	@Override
 	public Integer countUnreadNotifications() throws SystemException {
 		Criteria crit = getSession().createCriteria(domainClass);
-			crit.add(Restrictions.eq("isRead", Boolean.FALSE));
+			crit.add(Restrictions.eq("status", SystemConstant.NotificationConstant.UNREAD));
 			crit.setProjection(Projections.rowCount());
 		Long rowCount = (Long) crit.uniqueResult();
 		return rowCount != null ? rowCount.intValue() : 0;
+	}
+
+	@Override
+	public Notification findByTypeAndId(String code, Long fkMaintenance) throws SystemException {
+		Criteria crit = getSession().createCriteria(domainClass);
+			crit.createAlias("actionTypeLookup", "actionTypeLookup");
+			crit.add(Restrictions.eq("actionTypeLookup.code", code));
+			crit.add(Restrictions.eq("fkMaintenance", fkMaintenance));
+			crit.setMaxResults(1);
+		return (Notification) crit.uniqueResult();
 	}
 
 }

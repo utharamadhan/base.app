@@ -70,4 +70,9 @@ public class NotificationService implements INotificationService {
 		return notificationDAO.countUnreadNotifications();
 	}
 
+	@Override
+	public Notification findByTypeAndId(String code, Long fkMaintenance) throws SystemException {
+		return notificationDAO.findByTypeAndId(code, fkMaintenance);
+	}
+
 }

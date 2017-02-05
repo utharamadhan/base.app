@@ -12,4 +12,6 @@ public interface INotificationService extends MaintenanceService<Notification> {
 
 	public List<Notification> getLastFiveNotifications() throws SystemException;
 	
+	public Notification findByTypeAndId(String code, Long fkMaintenance) throws SystemException;
+	
 }

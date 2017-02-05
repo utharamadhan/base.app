@@ -92,6 +92,9 @@ public class Contact extends BaseEntity implements Serializable {
 	@Column(name="MESSAGE")
 	private String message;
 	
+	@Column(name="ANSWER")
+	private String answer;
+	
 	@Transient
 	private Date activityDate;
 	
@@ -165,9 +168,15 @@ public class Contact extends BaseEntity implements Serializable {
 	public String getMessage() {
 		return message;
 	}
-
 	public void setMessage(String message) {
 		this.message = message;
+	}
+	
+	public String getAnswer() {
+		return answer;
+	}
+	public void setAnswer(String answer) {
+		this.answer = answer;
 	}
 
 	public Course getCourse() {

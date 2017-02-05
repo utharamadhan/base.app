@@ -348,11 +348,11 @@ public class DateTimeFunction {
     	String result = "";
     	try {
     		long time = 1000, millisDiff = (date1.getTime() - date0.getTime());
-    		if((millisDiff / (time * 60)) < 60) {
+    		if((millisDiff / (time * 60)) < 1) {
     			result = "less than a minute ago";
-    		} else if(millisDiff / (time * 60) > 60 ) {
+    		} else if(millisDiff / (time * 60) > 1 ) {
     			if(millisDiff / (time * 60 * 60) < 1) {
-    				return millisDiff / (time * 60 * 60) + " minutes ago";
+    				return millisDiff / (time * 60) + " minutes ago";
     			} else {
     				if(millisDiff / (time * 60 * 60 * 24) < 1) {
     					return millisDiff / (time * 60 * 60) + " hours ago";

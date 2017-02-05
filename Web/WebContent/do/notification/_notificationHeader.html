@@ -20,7 +20,15 @@
 </ul>
 <script>
 	$(function(){
-		$('#notification-unread-count').show();
-		$('#notification-unread-count').html('1');
+		$("#dLabel").click(function(e){
+			setTimeout(function(){
+				$('.notification-item-new').animate({ backgroundColor: "#f5f5f5" }, "slow");
+				setTimeout(function(){
+					$('.notification-item-new').addClass('notification-item');
+					$('.notification-item-new').removeClass('notification-item-new');
+					$('#container-unread-count').hide();
+				}, 1000);
+			}, 500);
+		});
 	});
 </script>

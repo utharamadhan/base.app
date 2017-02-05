@@ -41,8 +41,7 @@
 										</div>
 									</th:block>
 								</div>
-							</div>									
-							&nbsp;
+							</div>
 						</div>
 						<input id="contactUs-detail-maintenancePk" type="hidden" th:field="*{pkContact}"/>
 						<div class="form-group">
@@ -77,9 +76,18 @@
 							<label class="col-sm-2 control-label" th:text="'Message'">Message</label>
 							<label class="col-sm-9 control-label" th:text="*{message}"></label>					
 						</div>
-						<div class="form-group form-footer">				
+						<th:block th:if="*{helpLookup?.code == 'CO'}">
+							<div class="form-group">
+								<label class="col-sm-2 control-label" th:text="'Answer'">Answer</label>
+								<div class="col-sm-9 form-input-container">
+									<input type="text" class="form-control" placeholder="Answer" name="srch-term" id="input-text-title" th:field="*{answer}"/>
+								</div>
+							</div>
+						</th:block>
+						<div class="form-group form-footer" style="margin-top:40px;">				
 							<div class="col-sm-offset-3 col-sm-9">
 								<a href="#" id="contactUs-detail-btn-cancel" class="btn btn-default" type="reset" data-toggle="tooltip" title="">Kembali</a>
+								<a href="#" th:if="*{helpLookup?.code == 'CO'}" id="contactUs-detail-btn-reply" class="btn btn-primary" data-toggle="tooltip" title="">Balas</a>
 							</div>
 						</div>
 					</div>
@@ -93,13 +101,28 @@
 	    	initDatePicker("datepicker", "dd/mm/yyyy");
 	    	
 			var backToList = function(){
-				removeTextEditor("tinyMCE-area", "tinyMCE-parent");
 				returnToList('contactUs-detail-container', 'contactUs-list-container', true);
 			};
+			
+			var submitReply = function() {
+				var sURL = /*[[@{/do/contactUs/userContact/submitReply}]]*/ #;
+				$.post(sURL, $("#contactUs-detail-form").serialize(), function(data) {
+					if(data.errorList!=null){
+						
+					}else{
+						bootBoxSuccessSave('Reply successfully submitted', backToList);
+					}
+				});
+			}
 			
 			$('#contactUs-detail-btn-cancel').click(function(e){
 				e.preventDefault();
 				backToList();
+			});
+			
+			$('#contactUs-detail-btn-reply').click(function(e){
+				e.preventDefault();
+				submitReply();
 			});
 			
 	    });

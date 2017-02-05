@@ -29,7 +29,7 @@ function iterateNewStreamCount() {
 function prependNewStreamPanel(obj) {
 	var html = "<div class='notifications-wrapper'>";
 	html += "<a class='content' href='" + obj.detail_url + obj.fk_maintenance + "'>";
-	html += "<div class='notification-item'>";
+	html += "<div class='notification-item-new'>";
 	html += "<h4 class='item-title'>" + obj.email_from + "</h4>"
 	html += "<p class='item-info'>" +  obj.notification_description + "</p>";
 	html += "</div>";
@@ -93,6 +93,6 @@ function showResult(notification) {
 }
 
 function constructHTMLNotif(notif) {
-	var html = notif.name_from + " " + notif.email_from + " just submit new contact us form " + notif.action_age;
+	var html = notif.email_from + " just submit new \"contact us\" form " + notif.action_age;
 	return html;
 }
