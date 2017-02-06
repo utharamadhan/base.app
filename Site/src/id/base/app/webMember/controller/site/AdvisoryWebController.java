@@ -23,12 +23,10 @@ import id.base.app.paging.PagingWrapper;
 import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
 import id.base.app.rest.RestServiceConstant;
-import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.valueobject.advisory.Advisory;
-import id.base.app.valueobject.course.Course;
-import id.base.app.valueobject.research.Research;
+import id.base.app.valueobject.advisory.AdvisoryMenu;
 
 @Scope(value="request")
 @RequestMapping(value="/advisory")
@@ -41,12 +39,18 @@ public class AdvisoryWebController {
 		return new RestCaller<Advisory>(RestConstant.REST_SERVICE, RestServiceConstant.ADVISORY_SERVICE);
 	}
 	
+	protected RestCaller<AdvisoryMenu> getRestCallerMenu() {
+		return new RestCaller<AdvisoryMenu>(RestConstant.REST_SERVICE, RestServiceConstant.ADVISORY_MENU_SERVICE);
+	}
+	
 	@RequestMapping(method=RequestMethod.GET)
 	public String view(ModelMap model, HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value="startNo",defaultValue="1") int startNo, 
 			@RequestParam(value="offset",defaultValue="6") int offset,
 			@RequestParam(value="filter", defaultValue="", required=false) String filterJson
 		){
+		List<AdvisoryMenu> menus = getRestCallerMenu().findAll(new ArrayList<SearchFilter>(), new ArrayList<SearchOrder>());
+		model.addAttribute("menus", menus);
 		return "/advisory/main";
 	}
 	
