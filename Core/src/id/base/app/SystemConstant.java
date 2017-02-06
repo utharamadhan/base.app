@@ -375,9 +375,9 @@ public class SystemConstant  {
 		public static final Integer READ = 1;
 		public static final Integer REPLIED = 2;
 		
-		public static final String UNREAD_STR = "Unread";
-		public static final String READ_STR = "Read";
-		public static final String REPLIED_STR = "Replied";
+		public static final String UNREAD_STR = "unread";
+		public static final String READ_STR = "read";
+		public static final String REPLIED_STR = "replied";
 		
 		public static final Map<Integer, String> NOTIFICATION_MAP = new HashMap<>();
 		static {

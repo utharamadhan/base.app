@@ -30,7 +30,7 @@ function prependNewStreamPanel(obj) {
 	var html = "<div class='notifications-wrapper'>";
 	html += "<a class='content' href='" + obj.detail_url + obj.fk_maintenance + "'>";
 	html += "<div class='notification-item-new'>";
-	html += "<h4 class='item-title'>" + obj.email_from + "</h4>"
+	html += "<h4 class='item-title'><label>" + obj.email_from + "</label> <small class='item-actionAge'>" + obj.action_age + "</small></h4>";
 	html += "<p class='item-info'>" +  obj.notification_description + "</p>";
 	html += "</div>";
 	html += "</a>";

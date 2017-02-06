@@ -20,8 +20,8 @@
 					<div class="media">
 						<div class="media-body col-md-12">
 							<h4 class="media-heading" style="width:100%;">
-								<small class="pull-right" th:text="${notification.actionAge}"></small>
-									<a class="name" th:text="${notification.emailFrom}">Name</a>
+								<a class="name" th:text="${notification.emailFrom}">Name</a>
+								<small th:text="${notification.actionAge}"></small> <small class="notification-status" th:text="${notification.statusDescr}"></small>
 							</h4>
 							<small th:text="${notification.actionDate!=null?#dates.format(notification.actionDate, T(id.base.app.SystemConstant).SYSTEM_TIME_MASK_SECONDHAND):''}"></small>
 							<div class="notification-content content well" th:text="${notification.overviewMessage}"></div>

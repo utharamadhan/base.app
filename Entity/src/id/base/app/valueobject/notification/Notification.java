@@ -88,6 +88,9 @@ public class Notification implements Serializable {
 	
 	@Transient
 	private String detailURL;
+	
+	@Transient
+	private String statusDescr;
 
 	public Long getPkNotification() {
 		return pkNotification;
@@ -188,6 +191,18 @@ public class Notification implements Serializable {
 	@Transient
 	public void setDetailURL(String detailURL) {
 		this.detailURL = detailURL;
+	}
+	
+	@Transient
+	public String getStatusDescr() {
+		if(this.status != null) {
+			return SystemConstant.NotificationConstant.NOTIFICATION_MAP.get(status);
+		}
+		return statusDescr;
+	}
+	@Transient
+	public void setStatusDescr(String statusDescr) {
+		this.statusDescr = statusDescr;
 	}
 	
 }

@@ -26,8 +26,13 @@
 }
 
 .item-title {  
- 	font-size:1.3rem;
- 	color:#000;
+ 	font-size: 1.3rem;
+    color: #292f33;
+    font-weight: bold;
+}
+
+.item-actionAge {
+	color: #8899a6 !important;
 }
 
 .notifications a.content {

@@ -1,15 +1,20 @@
 package id.base.app.webMember.controller.contact;
 
+import id.base.app.ILookupConstant;
 import id.base.app.SystemConstant;
 import id.base.app.exception.ErrorHolder;
+import id.base.app.exception.SystemException;
 import id.base.app.paging.PagingWrapper;
+import id.base.app.rest.PathInterfaceRestCaller;
 import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
 import id.base.app.rest.RestServiceConstant;
 import id.base.app.rest.SpecificRestCaller;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
+import id.base.app.valueobject.Lookup;
 import id.base.app.valueobject.contact.Contact;
+import id.base.app.valueobject.notification.Notification;
 import id.base.app.webMember.DataTableCriterias;
 import id.base.app.webMember.controller.BaseController;
 
@@ -79,10 +84,18 @@ public class ContactUserContactUsWebController extends BaseController<Contact> {
 	
 	@RequestMapping(method=RequestMethod.GET, value="showListNotif/{fkMaintenance}")
 	public String showListNotif(@PathVariable(value="fkMaintenance") Long fkMaintenance, ModelMap model, HttpServletRequest request){
+		setNotificationToRead(fkMaintenance);
 		model.addAttribute("pagingWrapper", new PagingWrapper<Contact>());
 		model.addAttribute("pkMaintenance", fkMaintenance);
 		model.addAttribute("isNotif", Boolean.TRUE);
 		return getListPath();
+	}
+	
+	private void setNotificationToRead(final Long fkMaintenance) throws SystemException {
+		Notification notif = new Notification();
+			notif.setFkMaintenance(fkMaintenance);
+			notif.setActionTypeLookup(Lookup.getInstanceShort(ILookupConstant.NotificationActionType.CONTACT_US, null));
+		new SpecificRestCaller<Notification>(RestConstant.REST_SERVICE, RestConstant.RM_NOTIFICATION, Notification.class).performPut("/updateNotificationToRead", notif);
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="showDetail")
