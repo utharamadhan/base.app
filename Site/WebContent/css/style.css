@@ -4673,7 +4673,7 @@ ul.contact_info li a:hover {
 }
 
 .advisory_logo{
-	background-image: url(../images/advisory_logo.png);
+	background-image: url(../images/advisory_logo2.png);
 	background-repeat: no-repeat;
 	width: 327px;
     height: 165px;
@@ -4740,8 +4740,8 @@ ul.contact_info li a:hover {
 }
 
 .article_container{
-	margin-top: 20px;
-	margin-bottom: 20px;
+	margin-top: 40px;
+	margin-bottom: 40px;
 }
 
 .box_article_left{
@@ -4754,6 +4754,7 @@ ul.contact_info li a:hover {
 
 .title_article{
 	color: #a32020;
+	font-size: 18px;
 }
 
 .title_article:hover{
@@ -4763,6 +4764,10 @@ ul.contact_info li a:hover {
 
 .subtitle_article{
 	color: #888;
+}
+
+.subtitle_article label{
+	font-size: 12px;
 }
 
 .advisory_expert{
@@ -5004,6 +5009,15 @@ ul.contact_info li a:hover {
 	text-align: center;
 }
 
+.info_banner_search_left{
+	position:absolute;
+	top: 50%;
+	margin-top: -170px;
+	left: 200px;
+	width: 400px;
+	text-align: center;
+}
+
 .find_advisor_title{
 	font-weight: 700;
     font-family: Lato,serif;
@@ -5108,4 +5122,76 @@ ul.contact_info li a:hover {
 
 .article_answer_margin{
 	margin-top: 20px;
+}
+
+.box_cat_title{
+	padding-bottom: 20px;
+	padding-top: 20px;
+	padding-left: 15px;
+	padding-right: 15px;
+	background-color: #f2f2f2;
+}
+
+.box_cat_title_label{
+	color: #a32020;
+}
+
+.box_cat_title_label:hover{
+	cursor: pointer;
+	color: #be5b20;
+}
+
+.title_article_category{
+	margin-top: 40px;
+}
+
+.advisory_article_container{
+	margin-top: 40px;
+	margin-bottom: 40px;
+}
+
+.list_category_article{
+	margin-top:10px;
+	margin-bottom: 10px;
+	min-height: 280px;
+}
+
+.specialist_part label{
+	font-size: 12px;
+    color: #565248;
+}
+
+.yellow-text-color{
+	color: #e4bb5f;
+}
+
+.yellow-text-color:hover{
+	color: #aa801e;
+	cursor: pointer;
+}
+
+.article_box_content{
+	padding: 10px;
+	border: 1px solid #E8E8E8;
+}
+
+.article_box_image{
+	border-radius: 5px 5px 0 0;
+	overflow: hidden;
+    position: relative;
+}
+
+.box_article_wrapper{
+	box-shadow: 3px 3px 4px #ddd;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+
+.created_advisor label, .date_advisor label{
+	font-size: 12px;
+}
+
+.created_advisor{
+	line-height: 12px;
 }
