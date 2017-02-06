@@ -716,6 +716,7 @@ function buildColumns(colDefs,list){
 			var colDefsTemp = colDefs[i];
 			tabCol.render = function(data, type, row, meta){
 				var paramRender = '';
+				console.log(colDefsTemp);
 				if(colDefsTemp.param){
 					for(var index = 0;index<colDefsTemp.param.length;index++){
 						if(index!=0){

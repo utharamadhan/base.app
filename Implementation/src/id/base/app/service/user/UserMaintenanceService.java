@@ -127,11 +127,7 @@ public class UserMaintenanceService implements MaintenanceService<AppUser>, IUse
 		c.add(Calendar.DATE, SystemParameter.PASSWORD_LIFETIME);
 		if(isCreateMode(appUser)){
 			appUser.setPassword(encryptPassword(appUser.getPassword()));
-			appUser.setStatus(2);
-			appUser.setAppRoles(populateAppRoles(appUser));
-			appUser.setActivationCode(generateActivationCode(appUser.getPassword()));
-			appUser.setUserType(2);
-			appUser.setAppRoles(getRoles(SystemConstant.UserRole.TRANSACTION_MEMBER));
+			appUser.setStatus(1);
 		}
 		userDao.saveOrUpdate(appUser);
 		if (isShouldUpdatePwdHistory) {
@@ -143,7 +139,6 @@ public class UserMaintenanceService implements MaintenanceService<AppUser>, IUse
 			history.setFkAppUser(appUser.getPkAppUser());
 			historyDAO.saveOrUpdate(history);
 		}
-		sendActivation(appUser);
 	}
 	
 	private void sendActivation(AppUser appUser) throws SystemException {
@@ -223,16 +218,6 @@ public class UserMaintenanceService implements MaintenanceService<AppUser>, IUse
 	public static void main(String[] args) {
 		UserMaintenanceService ser = new UserMaintenanceService();
 		System.out.println(ser.generateActivationCode("tes"));
-	}
-	
-	private List<AppRole> populateAppRoles(AppUser appUser) {
-		if(appUser.getRoleFlag() != null && appUser.getRoleFlag().equals(AppUser.USER_FRONTEND)){
-			AppRole role = appRoleDAO.findAppRoleByCode(SystemConstant.UserRole.TRANSACTION_MEMBER);
-			if(role != null){
-				return new ArrayList<AppRole>(Arrays.asList(role));
-			}
-		}
-		return null;
 	}
 	
 	private boolean isCreateMode(AppUser appUser) {

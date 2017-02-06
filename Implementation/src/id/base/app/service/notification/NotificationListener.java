@@ -2,9 +2,11 @@ package id.base.app.service.notification;
 
 import id.base.app.ILookupConstant;
 import id.base.app.ILookupGroupConstant;
+import id.base.app.SystemConstant;
 import id.base.app.rest.RestConstant;
 import id.base.app.rest.SpecificRestCaller;
 import id.base.app.service.lookup.ILookupService;
+import id.base.app.util.StringFunction;
 import id.base.app.valueobject.contact.Contact;
 import id.base.app.valueobject.notification.Notification;
 import id.base.app.valueobject.notification.NotificationEvent;
@@ -30,12 +32,23 @@ public class NotificationListener {
 	public void notify(NotificationEvent event) {
 		if(event.getSource() != null) {
 			Notification newObj = null;
+			Boolean isPushNotif = Boolean.FALSE;
 			if(event.getSource() instanceof Contact) {
-				newObj = Notification.getInstance((Contact) event.getSource(), 
-						lookupService.findByCode(ILookupConstant.NotificationActionType.CONTACT_US, ILookupGroupConstant.NOTIFICATION_ACTION_TYPE));
+				newObj = notificationService.findByTypeAndId(ILookupConstant.NotificationActionType.CONTACT_US, ((Contact)event.getSource()).getPkContact());
+				if (newObj == null) {					
+					newObj = Notification.getInstance((Contact) event.getSource(), 
+							lookupService.findByCode(ILookupConstant.NotificationActionType.CONTACT_US, ILookupGroupConstant.NOTIFICATION_ACTION_TYPE));
+					isPushNotif = Boolean.TRUE;
+				} else {
+					if(StringFunction.isNotEmpty(((Contact)event.getSource()).getAnswer())) {
+						newObj.setStatus(SystemConstant.NotificationConstant.REPLIED);	
+					} else {
+						newObj.setStatus(SystemConstant.NotificationConstant.READ);
+					}
+				}
 			}
 			
-			if(newObj != null) {
+			if(newObj != null && isPushNotif) {
 				notificationService.saveOrUpdate(newObj);
 				pushNotif(newObj);
 			}

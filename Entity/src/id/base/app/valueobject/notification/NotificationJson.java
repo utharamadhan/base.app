@@ -1,9 +1,12 @@
 package id.base.app.valueobject.notification;
 
+import id.base.app.ILookupConstant;
 import id.base.app.SystemConstant;
 import id.base.app.util.StringFunction;
 
 import java.io.Serializable;
+
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -16,7 +19,7 @@ public class NotificationJson implements Serializable {
 	public static NotificationJson getInstance(Notification notif) {
 		NotificationJson json = new NotificationJson();
 			json.setPkNotification(notif.getPkNotification());
-			json.setIsRead(notif.getIsRead());
+			json.setStatus(notif.getStatus());
 			json.setEmailFrom(notif.getEmailFrom());
 			json.setNameFrom(notif.getNameFrom());
 			json.setNotificationCode(notif.getActionTypeLookup() != null ? notif.getActionTypeLookup().getCode() : null);
@@ -24,6 +27,10 @@ public class NotificationJson implements Serializable {
 			json.setFkMaintenance(notif.getFkMaintenance());
 			json.setActionDate(notif.getActionDate() != null ? StringFunction.date2String(notif.getActionDate(), SystemConstant.SYSTEM_TIME_MASK_SECONDHAND) : null);
 			json.setActionAge(notif.getActionAge());
+			json.setOverviewMessage(notif.getOverviewMessage());
+			if(StringFunction.isNotEmpty(json.getNotificationCode())) {				
+				json.setDetailURL(ILookupConstant.NotificationActionType.URL_MAP.get(json.getNotificationCode()));
+			}
 		return json;
 	}
 	
@@ -36,8 +43,8 @@ public class NotificationJson implements Serializable {
 	@JsonProperty("notification_description")
 	private String notificationDescription;
 	
-	@JsonProperty("is_read")
-	private Boolean isRead;
+	@JsonProperty("status")
+	private Integer status;
 	
 	@JsonProperty("email_from")
 	private String emailFrom;
@@ -53,6 +60,12 @@ public class NotificationJson implements Serializable {
 	
 	@JsonProperty("action_age")
 	private String actionAge;
+	
+	@JsonProperty("detail_url")
+	private String detailURL;
+	
+	@JsonProperty("overview_message")
+	private String overviewMessage;
 
 	public Long getPkNotification() {
 		return pkNotification;
@@ -75,11 +88,11 @@ public class NotificationJson implements Serializable {
 		this.notificationDescription = notificationDescription;
 	}
 
-	public Boolean getIsRead() {
-		return isRead;
+	public Integer getStatus() {
+		return status;
 	}
-	public void setIsRead(Boolean isRead) {
-		this.isRead = isRead;
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 
 	public String getEmailFrom() {
@@ -115,6 +128,22 @@ public class NotificationJson implements Serializable {
 	}
 	public void setActionAge(String actionAge) {
 		this.actionAge = actionAge;
+	}
+	
+	@Transient
+	public String getDetailURL() {
+		return detailURL;
+	}
+	@Transient
+	public void setDetailURL(String detailURL) {
+		this.detailURL = detailURL;
+	}
+	
+	public String getOverviewMessage() {
+		return overviewMessage;
+	}
+	public void setOverviewMessage(String overviewMessage) {
+		this.overviewMessage = overviewMessage;
 	}
 	
 }

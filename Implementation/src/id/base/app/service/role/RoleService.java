@@ -44,7 +44,10 @@ public class RoleService implements MaintenanceService<AppRole>,IRoleService {
     }
 	
 	public void delete(Long[] objectPKs) throws SystemException {
-		roleDAO.delete(objectPKs);
+		for(Long objectPK : objectPKs) {
+			roleFunctionDAO.deleteAccessList(objectPK);
+			roleDAO.delete(objectPKs);
+		}
 	}
 
 	public PagingWrapper<AppRole> findAll(int startNo, int offset)
@@ -62,8 +65,6 @@ public class RoleService implements MaintenanceService<AppRole>,IRoleService {
 
 	public void saveOrUpdate(AppRole anObject) throws SystemException {
 		roleDAO.saveOrUpdate(anObject);
-		roleFunctionDAO.deleteAccessList(anObject.getPkAppRole());
-		roleFunctionDAO.insertAccessList(anObject.getPkAppRole(), anObject.getPkAppFunctionList()==null?new int[0]:anObject.getPkAppFunctionList());
 	}
 	
 	

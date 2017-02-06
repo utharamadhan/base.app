@@ -28,6 +28,7 @@ import id.base.app.rest.RestServiceConstant;
 import id.base.app.rest.SpecificRestCaller;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
+import id.base.app.valueobject.AppRole;
 import id.base.app.valueobject.Lookup;
 import id.base.app.valueobject.course.Course;
 import id.base.app.valueobject.course.GroupCourse;
@@ -57,6 +58,7 @@ public class LearningWebController {
 	public String view(ModelMap model, HttpServletRequest request, HttpServletResponse response){
 		List<SearchFilter> filter = new ArrayList<SearchFilter>();
 		List<SearchOrder> order = new ArrayList<SearchOrder>();
+		order.add(new SearchOrder(GroupCourse.ORDER_NO, SearchOrder.Sort.ASC));
 		List<GroupCourse> groups = getRestCaller().findAll(filter, order);
 		model.addAttribute("groups", groups);
 		return "/learning/main";

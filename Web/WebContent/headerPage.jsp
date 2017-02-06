@@ -3,16 +3,27 @@
 .unread-notification {
 	color : red;
 }
+.notification-label {
+	position: absolute;
+    top: 5px;
+    right: 35px;
+    background: red;
+    font-size: 12px;
+    line-height: 100%;
+    padding: 3px;
+    color: #fff !important;
+}
 </style>
 <ul class="nav navbar-nav quick-actions">
 	<li class="dropdown divided" id="current-user" style="min-width: 150px">
-		<a class="dropdown-toggle options" data-toggle="dropdown" href="#" style="float: right">
-			<span> 
-				<i class="fa fa-bell"></i>
-			</span>
-			 Notifications <span class="unread-mark unread-notification" style="display:none;">*</span>
+		<a id="dLabel" class="dropdown-toggle options" data-toggle="dropdown" href="#" style="float: right" role="button">
+			<i class="fa fa-bell" data-count="2">
+			</i>
 			<i class="fa fa-caret-down"></i>
 		</a>
+		<div id="container-unread-count" style="display: none;">
+			<label id="notification-unread-count" class="notification-label"></label>
+		</div>
 		<section id="notification-five-list"></section>
 	</li>
 	<li class="dropdown divided user" id="current-user" style="min-width: 100px">

@@ -4,19 +4,34 @@
 <meta charset="ISO-8859-1"/>
 <title>Dashboard</title></head>
 <style>
-
 .media-body, .media-left {
 	display: table-cell !important;
 }
-
 #basicInfoContent a{
 	color: #16a085 !important;
 }
-
 .notification-content {
 	font-size : 14px !important;
 }
-
+.stream-new-notifications {
+	text-align: center;
+	background: #e1e8ed;
+    border-left: 1px solid #e1e8ed;
+    border-right: 1px solid #e1e8ed;
+    background-clip: padding-box;
+   	padding: 10px;
+   	display: none;
+}
+.stream-new-notifications:hover {
+	background: #cbd0d4;
+	cursor: pointer;
+}
+.new-result-hidden {
+	display: none;
+}
+.notification-status {
+	font-style: italic;
+}
 </style>
 <body>
 <div id="content" class="col-md-12">
@@ -35,6 +50,11 @@
 		    	console.log('hello');
 		    	var sURL = /*[[@{/do/notification/showList}]]*/ #;
 		    	window.location = sURL;
+		    });
+		    
+		    $('.stream-new-notifications').click(function(e){
+		    	$('.stream-new-notifications').hide();
+		    	$('.new-result-hidden').removeClass('new-result-hidden');
 		    });
 	    });
 	/*]]>*/

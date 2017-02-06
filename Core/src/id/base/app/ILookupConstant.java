@@ -41,7 +41,7 @@ public interface ILookupConstant {
 		public static final String CONTACT_US 	= "CO";
 		public static final String ADVISORY		= "AD";
 		
-		public static final String CONTACT_US_URL = RestConstant.WEB_ADMIN_SERVICE + "/contactUs/userContact/showList";
+		public static final String CONTACT_US_URL = RestConstant.WEB_ADMIN_SERVICE + "/contactUs/userContact/showListNotif/";
 		
 		public static final Map<String, String> URL_MAP = new HashMap<>();
 		static {

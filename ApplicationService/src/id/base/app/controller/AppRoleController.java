@@ -115,60 +115,16 @@ public class AppRoleController extends SuperController<AppRole>{
 		service.saveNewUsers(userRolePK, pkUsers);
 	}
 	
-	/**
-	 * @param roles
-	 */
-	@RequestMapping(method=RequestMethod.GET, value="/saveRemoveAppRoles")
-	@ResponseBody
-	@Deprecated
-	public Map<String, Object> saveAppRoles(@RequestParam(value="rolePks") Long[] rolePks) throws SystemException {
-		Map<String, Object> resultMap = new HashMap<String, Object>();
-		Map<String, Object> resultMap2 = new HashMap<String, Object>();
-		List<ErrorHolder> errorHolders = new ArrayList<ErrorHolder>();
-		List<AppRole> roles = findObjects(rolePks);
-		String names="";
-		for(AppRole role : roles){
-			int size = resultMap.size();
-			service.saveOrUpdateMap(role, "remove");
-			if(size != resultMap.size()){
-				errorHolders.addAll((Collection<? extends ErrorHolder>) resultMap.get(SystemConstant.ERROR_LIST));
-				size = resultMap.size();
-			}
-			names = names+role.getName()+",";
-		}
-		if(errorHolders.size()>0){
-			resultMap2.put(SystemConstant.ERROR_LIST, errorHolders);
-		}
-		names = names.substring(0, names.length()-1);
-		resultMap2.put("name", names);
-		return resultMap2;
+	@Override
+	public AppRole preCreate(AppRole anObject) throws SystemException {
+			anObject.setType(SystemConstant.USER_TYPE_INTERNAL);
+		return validate(anObject);
 	}
 	
-	@RequestMapping(method=RequestMethod.POST, value="/addRole")
-	@ResponseStatus( HttpStatus.OK )
-	public void addRole(@RequestBody @Validated(CreateEntity.class) AppRole anObject, BindingResult bindingResult) throws SystemException {
-		if (bindingResult.hasErrors()) {
-            throw new InvalidRequestException("Invalid validation", bindingResult);
-        }
-		service.saveOrUpdateMap(preCreate(anObject), AppRole.OP_ADD);
-	}
-	
-	@RequestMapping(method=RequestMethod.POST, value="/editRole")
-	@ResponseStatus( HttpStatus.OK )
-	public void editRole(@RequestBody @Validated(UpdateEntity.class) AppRole anObject, BindingResult bindingResult) throws SystemException {
-		if (bindingResult.hasErrors()) {
-            throw new InvalidRequestException("Invalid validation", bindingResult);
-        }
-		service.saveOrUpdateMap(preUpdate(anObject), AppRole.OP_EDIT);
-	}
-	
-	@RequestMapping(method=RequestMethod.DELETE, value="/removeRole")
-	@ResponseStatus( HttpStatus.OK )
-	public void removeRole(@RequestParam(value="objectPKs") Long[] rolePks) throws SystemException {
-		List<AppRole> roles = findObjects(rolePks);
-		for(AppRole role : roles){
-			service.saveOrUpdateMap(role, AppRole.OP_REMOVE);
-		}
+	@Override
+	public AppRole preUpdate(AppRole anObject) throws SystemException { 
+			anObject.setType(SystemConstant.USER_TYPE_INTERNAL);
+		return validate(anObject);
 	}
 	
 	@Override
@@ -180,25 +136,12 @@ public class AppRoleController extends SuperController<AppRole>{
 		if(StringFunction.isEmpty(anObject.getName())){
 			errorHolders.add(new ErrorHolder(messageSource.getMessage("error.message.user.role.name.mandatory", null, Locale.ENGLISH)));
 		}
-		if(anObject.getType() == null || anObject.getType() == 0){
-			errorHolders.add(new ErrorHolder(messageSource.getMessage("error.message.user.role.type.mandatory", null, Locale.ENGLISH)));
-		}
 		if(errorHolders.size()>0){
 			throw new SystemException(errorHolders);
 		}
 		return anObject;
 	}
 	
-	@Override
-	public AppRole preUpdate(AppRole anObject) throws SystemException {
-			anObject.setType(SystemConstant.USER_TYPE_INTERNAL);
-		return validate(anObject);
-	}
-	
-	@Override
-	public AppRole preCreate(AppRole anObject) throws SystemException {
-		return validate(anObject);
-	}
 
 	@Override
 	public MaintenanceService<AppRole> getMaintenanceService() {

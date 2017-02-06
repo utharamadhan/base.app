@@ -5,23 +5,27 @@
 <div id="dailyNotifications-feed" class="panel" th:fragment="notificationsSection(notifications, unreadNotifications)">
 	<div class="panel-heading">
 		<h3 class="panel-title">
-			Daily Activity Feed <span class="pull-right label label-round label-warning" th:text="${unreadNotifications + ' Unread Notifications'}"></span>
+			Daily Activity Feed <span class="pull-right label label-round label-warning" th:text="${unreadNotifications + ' Unread Notifications'}" style="display:none;"></span>
 		</h3>
 	</div>
 	<div class="panel-body">
-		<ul class="list-group list-group-dividered list-group-full">
+		<div class="stream-new-notifications">
+			<a class="stream-new-notifications-content">
+				<span class="count-new-notifications"></span> new Results
+			</a>
+		</div>
+		<ul class="list-group list-group-dividered list-group-full dailyNotifications-feed-content">
 			<th:block th:if="${not #lists.isEmpty(notifications)}">
 				<li th:each="notification : ${notifications}" class="list-group-item">
 					<div class="media">
 						<div class="media-body col-md-12">
 							<h4 class="media-heading" style="width:100%;">
-								<small class="pull-right" th:text="${notification.actionAge}"></small>
-									<span th:unless="${isRead}" style="color: red;">*</span>
-									<a class="name" th:text="${notification.emailFrom}">Name</a>
+								<a class="name" th:text="${notification.emailFrom}">Name</a>
+								<small th:text="${notification.actionAge}"></small> <small class="notification-status" th:text="${notification.statusDescr}"></small>
 							</h4>
 							<small th:text="${notification.actionDate!=null?#dates.format(notification.actionDate, T(id.base.app.SystemConstant).SYSTEM_TIME_MASK_SECONDHAND):''}"></small>
 							<div class="notification-content content well" th:text="${notification.overviewMessage}"></div>
-							<small class="pull-right"><a th:href="${notification.detailURL}">read more</a></small>
+							<small class="pull-right"><a th:href="${notification.detailURL + notification.fkMaintenance}">read more</a></small>
 						</div>
 					</div>
 				</li>

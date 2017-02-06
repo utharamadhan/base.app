@@ -31,7 +31,7 @@ public class AppRoleDAO extends AbstractHibernateDAO<AppRole, Long> implements I
 		for(int i=0;i<objectPKs.length;i++){
 			AppRole object = new AppRole();
 			object = findAppRoleById(objectPKs[i]);
-			super.update(object);
+			super.delete(object);
 		}
 	}
 
