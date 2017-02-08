@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -131,7 +132,7 @@
 							<div class="col-md-3 align_center"> 
 								<img class="img-circle" th:src="@{/images/person/person1_small.jpg}"/>
 								<div class="advisor_description">
-									<h3 class="big-text yellow-text-color">George Martin</h3>
+									<h3 class="big-text yellow-text-color advisor_name">George Martin</h3>
 									<div class="specialist_part"><label>Global and Asia Pacific, Americas (APA) Advisory leader</label></div>
 									<br/>
 									<p class="small-text">
@@ -235,8 +236,13 @@
 				window.location.href = url;
 			});
 			
-			$('.title_article').unbind('click').click(function(){
-				var url = /*[[@{/page/advisory/sub/article/detail}]]*/
+			$('.box_cat_title_label').unbind('click').click(function(){
+				var url = /*[[@{/page/advisory/sub/article}]]*/
+				window.location.href = url;
+			});
+			
+			$('.advisor_name').unbind('click').click(function(){
+				var url = /*[[@{/page/advisory/sub/advisor/detail}]]*/
 				window.location.href = url;
 			});
 		});
