@@ -4771,7 +4771,7 @@ ul.contact_info li a:hover {
 }
 
 .advisory_expert{
-	background-color: #f0f1f2;
+	background-color: #fcfcfc;
 }
 
 .img-circle{
@@ -5072,6 +5072,7 @@ ul.contact_info li a:hover {
 	margin-right: 2px;
 	margin-left: 2px;
 	position: relative;
+	z-index: 1;
 }
 
 .article_category_list{
@@ -5089,12 +5090,34 @@ ul.contact_info li a:hover {
     line-height: 45px;
 }
 
+.position_right_info{
+	display: none !important;
+	float: right;
+    margin-right: 50px;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 45px;
+    font-size: 30px;
+    color: #5b5b5c;
+    z-index: 99;
+}
+
+.foreground_list_wrapper:hover .position_right_info{
+	display: inline-block !important;
+}
+
+.position_right_info:hover{
+	color: #602320;
+	cursor: pointer;
+}
+
 .foreground_list div label{
-	color: #a32020;
+	color: #602320;
 	float: left;
 	margin-left: 20px;
 	line-height: 45px;
 	margin-bottom: 0px !important;
+	font-size: 20px;
 }
 
 .foreground_list:hover{
@@ -5103,8 +5126,9 @@ ul.contact_info li a:hover {
 }
 
 .foreground_list:hover div label{
-	color: #dc6900;
+	color: #a32020;
 	cursor: pointer;
+	text-decoration: underline;
 }
 
 .content_article{
@@ -5194,4 +5218,86 @@ ul.contact_info li a:hover {
 
 .created_advisor{
 	line-height: 12px;
+}
+
+.consulting_detail{
+	margin-top: 40px;
+	margin-bottom: 40px;
+}
+
+.title_consulting_service{
+	color: #ff5353;
+	margin-bottom: 30px;
+	font-size: 24px;
+}
+
+.consulting_service_detail{
+	font-size: 16px;
+	line-height: 20px;
+}
+
+.info_consulting_banner{
+	position:absolute;
+	top: 50%;
+	margin-top: -170px;
+	left: 150px;
+	width: 450px;
+	text-align: center;	
+	background-color: #ffffff;
+	padding: 20px;
+}
+
+.title_consulting_content{
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.title_consulting_content h4{
+	font-size: 18px;
+	color: #a19335;
+}
+
+.category_advisory, .research_advisory, .advisor_advisory{
+	position: relative;
+}
+
+.input_text_custom{
+	width: 100%;
+    line-height: 46px;
+    height: 46px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.sectionvideo{
+	position: relative;
+    width: 100%;
+    height: auto !important;
+}
+
+.consulting_main_part{
+	position: relative;
+    top: -220px;
+    z-index: 99;
+}
+
+.info_wrapper{
+	position: absolute;
+    top: 0px;
+    right: 10px;
+}
+
+.foreground_list_wrapper{
+	position:relative;
+}
+
+.btn_custom{
+	font-size: 24px;
+	margin-left: 15px;
+	margin-right: 15px;
+}
+
+.calm_background{
+	background-color: #e6ebed;
+	padding-top: 40px;
 }
