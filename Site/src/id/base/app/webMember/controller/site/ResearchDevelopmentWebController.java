@@ -7,7 +7,7 @@ import id.base.app.rest.RestServiceConstant;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.valueobject.research.Research;
-import id.base.app.valueobject.research.ResearchTopic;
+import id.base.app.valueobject.research.ResearchTheme;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,8 +39,8 @@ public class ResearchDevelopmentWebController {
 		return new RestCaller<Research>(RestConstant.REST_SERVICE, RestServiceConstant.RESEARCH_SERVICE);
 	}
 	
-	protected RestCaller<ResearchTopic> getRestCallerTopic() {
-		return new RestCaller<ResearchTopic>(RestConstant.REST_SERVICE, RestServiceConstant.RESEARCH_TOPIC_SERVICE);
+	protected RestCaller<ResearchTheme> getRestCallerTopic() {
+		return new RestCaller<ResearchTheme>(RestConstant.REST_SERVICE, RestServiceConstant.RESEARCH_THEME_SERVICE);
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)
@@ -59,7 +59,7 @@ public class ResearchDevelopmentWebController {
 		List<SearchFilter> filter = new ArrayList<SearchFilter>();
 		List<SearchOrder> order = new ArrayList<SearchOrder>();
 		PagingWrapper<Research> researches = getRestCaller().findAllByFilter(startNo, offset, filter, order);
-		List<ResearchTopic> topics = getRestCallerTopic().findAll(null, null);
+		List<ResearchTheme> topics = getRestCallerTopic().findAll(null, null);
 		model.addAttribute("researches", researches);
 		model.addAttribute("topics", topics);
 		return "/research-development/list";
