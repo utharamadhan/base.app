@@ -1,0 +1,48 @@
+<div class="tile-body rounded-corners" th:fragment="pascaResearch(detail)">
+	<br/>
+	<div class="form-group">
+		<label class="col-sm-2 control-label" th:text="'Keluaran / Hasil Final / Diseminasi / Sosialisasi'">Keluaran / Hasil Final / Diseminasi / Sosialisasi</label>
+		<div class="col-sm-9 form-input-container">
+			<input id="tinyMCE-hidden" name="content" type="hidden"/>
+			<div class="tinyMCE-parent">					
+				<textarea class="tinyMCE-area" >
+				</textarea>
+			</div>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label" th:text="'Upload File'">Upload File</label>
+		<div class="col-sm-9 form-input-container">
+			<th:block th:if="${detail.imageURL != null}">
+				<input type="hidden" id="input-hidden-basicPictureURL" th:field="*{imageURL}"/>
+				<input type="file" class="form-control" id="input-file-basicPictureURL" style="display:none;"/>
+				<div id="container-basicPictureURL">
+					<img th:src="${detail.imageURL}" class="gcDetail-basicPicture"/>
+					<a href="#" class="btn btn-primary btn-xs margin-bottom-20 basicPicture-delete" data-toggle="tooltip" title="Delete"><i class="fa fa-trash"></i></a>
+				</div>
+			</th:block>
+			<th:block th:if="${detail.imageURL == null}">
+				<input type="hidden" id="input-hidden-basicPictureURL" name="imageURL"/>
+				<input type="file" class="form-control" id="input-file-basicPictureURL"/>
+				<div id="container-basicPictureURL" style='display:none;'>
+				</div>
+			</th:block>
+		</div>
+	</div>
+	<div>
+		<div class="form-group form-footer">				
+			<div class="col-sm-offset-4 col-sm-8">
+				<a href="#" id="student-detail-btn-cancel" class="btn btn-default student-detail-btn-cancel-class" type="reset" data-toggle="tooltip" title="">Batal</a>
+				<button id="student-detail-btn-save" class="btn btn-primary student-detail-btn-save-class" type="submit" data-toggle="tooltip" title="">Tambah</button>
+			</div>
+		</div>
+	</div>
+	<script th:inline="javascript">
+	/*<![CDATA[*/     
+		$(function(){
+			var uploadURL = /*[[@{/do/fileManager/upload/}]]*/ #;
+			initTextEditor('.tinyMCE-area', '.tinyMCE-parent', uploadURL);
+	    });
+	/*]]>*/
+	</script>
+</div>
