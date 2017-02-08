@@ -46,7 +46,7 @@ public class IAccessibilityConstant {
 		public static int INT_LEARNING_COURSE = 730;
 		
 	public static int INT_RESEARCH = 800;
-		public static int INT_RESEARCH_TOPIC = 810;
+		public static int INT_RESEARCH_THEME = 810;
 		public static int INT_RESEARCH_MAINTENANCE = 820;
 		public static int INT_RESEARCH_MANAGEMENT = 830;
 

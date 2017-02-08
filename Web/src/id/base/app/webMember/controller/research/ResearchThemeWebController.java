@@ -3,7 +3,6 @@ package id.base.app.webMember.controller.research;
 import id.base.app.SystemConstant;
 import id.base.app.exception.ErrorHolder;
 import id.base.app.paging.PagingWrapper;
-import id.base.app.rest.PathInterfaceRestCaller;
 import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
 import id.base.app.rest.RestServiceConstant;
@@ -12,7 +11,7 @@ import id.base.app.util.StringFunction;
 import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
-import id.base.app.valueobject.research.Research;
+import id.base.app.valueobject.AppUser;
 import id.base.app.valueobject.research.ResearchTheme;
 import id.base.app.webMember.DataTableCriterias;
 import id.base.app.webMember.controller.BaseController;
@@ -34,15 +33,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Scope(value="request")
 @Controller
-@RequestMapping("/research/researchMaintenance")
-public class ResearchMaintenanceWebController extends BaseController<Research> {
+@RequestMapping("/research/researchTheme")
+public class ResearchThemeWebController extends BaseController<ResearchTheme> {
 
-	private final String PATH_LIST = "/research/researchMaintenanceList";
-	private final String PATH_DETAIL = "/research/researchMaintenanceDetail";
+	private final String PATH_LIST = "/research/researchThemeList";
+	private final String PATH_DETAIL = "/research/researchThemeDetail";
 	
 	@Override
-	protected RestCaller<Research> getRestCaller() {
-		return new RestCaller<Research>(RestConstant.REST_SERVICE, RestServiceConstant.RESEARCH_SERVICE);
+	protected RestCaller<ResearchTheme> getRestCaller() {
+		return new RestCaller<ResearchTheme>(RestConstant.REST_SERVICE, RestServiceConstant.RESEARCH_THEME_SERVICE);
 	}
 
 	@Override
@@ -51,7 +50,7 @@ public class ResearchMaintenanceWebController extends BaseController<Research> {
 	}
 	
 	private void setDefaultFilter(HttpServletRequest request, List<SearchFilter> filters) {
-		filters.add(new SearchFilter(Research.STATUS, Operator.NOT_EQUAL, SystemConstant.ValidFlag.INVALID));
+		filters.add(new SearchFilter(ResearchTheme.STATUS, Operator.EQUALS, SystemConstant.ValidFlag.VALID));
 	}
 
 	@Override
@@ -59,7 +58,7 @@ public class ResearchMaintenanceWebController extends BaseController<Research> {
 		List<SearchFilter> filters = new ArrayList<>();
 		setDefaultFilter(request, filters);
 		if(StringFunction.isNotEmpty(columns.getSearch().get(DataTableCriterias.SearchCriterias.value))){
-			filters.add(new SearchFilter(Research.TITLE, Operator.LIKE, columns.getSearch().get(DataTableCriterias.SearchCriterias.value)));
+			filters.add(new SearchFilter(ResearchTheme.TITLE, Operator.LIKE, columns.getSearch().get(DataTableCriterias.SearchCriterias.value)));
 		}
 		return filters;
 	}
@@ -69,55 +68,39 @@ public class ResearchMaintenanceWebController extends BaseController<Research> {
 		if(orders != null) {
 			orders.clear();
 		}
-		orders.add(new SearchOrder(Research.PK_RESEARCH, SearchOrder.Sort.DESC));
+		orders.add(new SearchOrder(ResearchTheme.PK_RESEARCH_TOPIC, SearchOrder.Sort.DESC));
 		return orders;
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="showList")
 	public String showList(ModelMap model, HttpServletRequest request){
-		model.addAttribute("pagingWrapper", new PagingWrapper<Research>());
+		model.addAttribute("pagingWrapper", new PagingWrapper<AppUser>());
 		return getListPath();
 	}
 	
-	public void setDefaultData(ModelMap model) {
-		model.addAttribute("researchTopicOptions", getAllResearchTopicOptions());
-	}
-	
-	private List<ResearchTheme> getAllResearchTopicOptions() {
-		return new SpecificRestCaller<ResearchTheme>(RestConstant.REST_SERVICE, RestConstant.RM_RESEARCH_THEME, ResearchTheme.class).executeGetList(new PathInterfaceRestCaller() {
-			@Override
-			public String getPath() {
-				return "/findAllResearchTopicTitle";
-			}
-			
-			@Override
-			public Map<String, Object> getParameters() {
-				return new HashMap<String, Object>();
-			}
-		});
-	}
+	public void setDefaultData(ModelMap model) {}
 	
 	@RequestMapping(method=RequestMethod.GET, value="showAdd")
 	public String showAdd(ModelMap model, HttpServletRequest request){
-		setDefaultData(model);
-		model.addAttribute("detail", Research.getInstance());
+		model.addAttribute("detail", ResearchTheme.getInstance());
 		return PATH_DETAIL;
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="showEdit")
 	public String showEdit(@RequestParam(value="maintenancePK") final Long maintenancePK, @RequestParam Map<String, String> paramWrapper, ModelMap model, HttpServletRequest request){
 		setDefaultData(model);
-		model.addAttribute("detail", getRestCaller().findById(maintenancePK));
+		ResearchTheme detail = getRestCaller().findById(maintenancePK);
+		model.addAttribute("detail", detail);
 		return PATH_DETAIL;
 	}
 	
-	@RequestMapping(method=RequestMethod.POST, value="saveResearch")
+	@RequestMapping(method=RequestMethod.POST, value="saveResearchTheme")
 	@ResponseBody
-	public Map<String, Object> saveResearch(final Research anObject, HttpServletRequest request) {
+	public Map<String, Object> saveResearchTheme(final ResearchTheme anObject, HttpServletRequest request) {
 		Map<String, Object> resultMap = new HashMap<>();
 		List<ErrorHolder> errors = new ArrayList<>();
 		try{
-			errors = new SpecificRestCaller<Research>(RestConstant.REST_SERVICE, RestServiceConstant.RESEARCH_SERVICE).performPut("/update", anObject);
+			errors = new SpecificRestCaller<ResearchTheme>(RestConstant.REST_SERVICE, RestServiceConstant.RESEARCH_THEME_SERVICE).performPut("/update", anObject);
 			if(errors != null && errors.size() > 0){
 				resultMap.put(SystemConstant.ERROR_LIST, errors);
 			}

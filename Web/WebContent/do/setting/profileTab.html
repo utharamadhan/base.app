@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:ifs="http://padiku.id">
+<head>
+<meta charset="ISO-8859-1"/>
+<title>Profile Detail</title>
+</head>
+<style>
+
+</style>
+<body>
+<div id="content" class="col-md-12">
+	<div class="pageheader">
+		<div class="row col-md-8">
+			<h4><i class="fa fa-tachometer"></i> Setting / Profile
+			<span></span></h4>
+		</div>
+	</div>
+	<div class="row col-md-12">
+	<div>
+		<ul class="nav nav-tabs">
+			<li class="active"><a data-toggle="tab" href="#basicInfoTab">Basic Info</a></li>
+			<li class=""><a data-toggle="tab" href="#workTab">Work</a></li>
+			<li class=""><a data-toggle="tab" href="#educationTab">Education</a></li>
+			<li class=""><a data-toggle="tab" href="#activityTab">Activity</a></li>
+		</ul>	
+	</div>
+	<form action="#" id="student-detail-form" class="form-horizontal" method="POST" novalidate="novalidate" th:object="${detail}">
+	<input id="hidden-maintenancePK" type="hidden" th:field="*{pkParty}" class="enroll-data"/>
+	<section class="tile transparent tab-content">
+		<div id="basicInfoTab" class="tab-pane fade in active">
+			<div id="basicInfoContent" th:replace="setting/_profileBasicInfo :: basicInfo(${detail})"></div>
+		</div>
+		<div id="workTab" class="tab-pane fade">
+			<div id="workContent" th:replace="setting/_profileWork :: work(${detail})"></div>
+		</div>
+		<div id="educationTab" class="tab-pane fade">
+			<div id="educationContent" th:replace="setting/_profileEducation :: education(${detail})"></div>
+		</div>
+		<div id="activityTab" class="tab-pane fade">
+			<div id="activityContent" th:replace="setting/_profileActivity :: activity(${detail})"></div>
+		</div>
+	</section>
+	</form>
+	</div>
+</div>
+<script th:inline="javascript">
+	/*<![CDATA[*/
+	/*]]>*/
+</script>
+</body>
+</html>
