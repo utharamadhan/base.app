@@ -1,5 +1,6 @@
 package id.base.app.valueobject.research;
 
+import id.base.app.SystemConstant;
 import id.base.app.valueobject.BaseEntity;
 
 import java.io.Serializable;
@@ -22,7 +23,7 @@ public class ResearchTheme extends BaseEntity implements Serializable {
 	
 	private static final long serialVersionUID = -4393126578454824054L;
 	
-	public static final String PK_RESEARCH_TOPIC	= "pkResearchTopic";
+	public static final String PK_RESEARCH_THEME	= "pkResearchTheme";
 	public static final String TITLE 				= "title";
 	public static final String DESCRIPTION 			= "description";
 	public static final String STATUS				= "status";
@@ -76,5 +77,9 @@ public class ResearchTheme extends BaseEntity implements Serializable {
 
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+	
+	public String getStatusDescr() {
+		return SystemConstant.ValidFlag.validFlagMap.get(status);
 	}
 }

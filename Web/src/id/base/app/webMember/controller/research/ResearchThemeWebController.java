@@ -11,7 +11,7 @@ import id.base.app.util.StringFunction;
 import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
-import id.base.app.valueobject.AppUser;
+import id.base.app.valueobject.Lookup;
 import id.base.app.valueobject.research.ResearchTheme;
 import id.base.app.webMember.DataTableCriterias;
 import id.base.app.webMember.controller.BaseController;
@@ -50,7 +50,6 @@ public class ResearchThemeWebController extends BaseController<ResearchTheme> {
 	}
 	
 	private void setDefaultFilter(HttpServletRequest request, List<SearchFilter> filters) {
-		filters.add(new SearchFilter(ResearchTheme.STATUS, Operator.EQUALS, SystemConstant.ValidFlag.VALID));
 	}
 
 	@Override
@@ -68,20 +67,26 @@ public class ResearchThemeWebController extends BaseController<ResearchTheme> {
 		if(orders != null) {
 			orders.clear();
 		}
-		orders.add(new SearchOrder(ResearchTheme.PK_RESEARCH_TOPIC, SearchOrder.Sort.DESC));
+		orders.add(new SearchOrder(ResearchTheme.PK_RESEARCH_THEME, SearchOrder.Sort.DESC));
 		return orders;
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="showList")
 	public String showList(ModelMap model, HttpServletRequest request){
-		model.addAttribute("pagingWrapper", new PagingWrapper<AppUser>());
+		model.addAttribute("pagingWrapper", new PagingWrapper<ResearchTheme>());
 		return getListPath();
 	}
 	
-	public void setDefaultData(ModelMap model) {}
+	public void setDefaultData(ModelMap model) {
+		List<Lookup> statusOptions = new ArrayList<Lookup>();
+		statusOptions.add(Lookup.getInstanceShort(SystemConstant.ValidFlag.VALID.toString(), SystemConstant.ValidFlag.VALID_STR));
+		statusOptions.add(Lookup.getInstanceShort(SystemConstant.ValidFlag.INVALID.toString(), SystemConstant.ValidFlag.INVALID_STR));
+		model.addAttribute("statusOptions", statusOptions);
+	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="showAdd")
 	public String showAdd(ModelMap model, HttpServletRequest request){
+		setDefaultData(model);
 		model.addAttribute("detail", ResearchTheme.getInstance());
 		return PATH_DETAIL;
 	}
@@ -114,5 +119,4 @@ public class ResearchThemeWebController extends BaseController<ResearchTheme> {
 	protected String getListPath() {
 		return PATH_LIST;
 	}
-
 }

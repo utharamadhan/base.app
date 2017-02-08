@@ -1,6 +1,5 @@
 package id.base.app.controller.research;
 
-import id.base.app.SystemConstant;
 import id.base.app.controller.SuperController;
 import id.base.app.exception.ErrorHolder;
 import id.base.app.exception.SystemException;
@@ -49,7 +48,6 @@ public class ResearchThemeController extends SuperController<ResearchTheme>{
 	
 	@Override
 	public ResearchTheme preUpdate(ResearchTheme anObject) throws SystemException{
-		anObject.setStatus(SystemConstant.ValidFlag.VALID);
 		return validate(anObject);
 	}
 	
