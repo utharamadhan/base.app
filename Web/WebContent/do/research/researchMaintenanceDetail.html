@@ -50,19 +50,9 @@
 						<div class="form-group">
 							<label class="col-sm-2 control-label" th:text="'Sub Title'">Sub Title</label>
 							<div class="col-sm-9 form-input-container">
-								<input type="text" class="form-control" placeholder="Sub Title" id="input-text-title" th:field="*{subTitle}"/>
+								<input type="text" class="form-control" placeholder="Sub Title" id="input-text-title" th:field="*{subtitle}"/>
 							</div>
 						</div>
-						<div class="form-group">
-                          	<label class="col-sm-2 control-label">Research Date</label>
-                          	<div class="col-sm-4">
-                            	<input type='text' class="datepicker input-date form-control" th:name="researchDateFrom" th:value="${detail.researchDateFrom!=null?#dates.format(detail.researchDateFrom, T(id.base.app.SystemConstant).SYSTEM_DATE_MASK_2):''}" />
-                           </div>
-                           <div class="col-sm-1"><label> - </label></div>
-                           <div class="col-sm-4">
-                            	<input type='text' class="datepicker input-date form-control" th:name="researchDateTo" th:value="${detail.researchDateTo!=null?#dates.format(detail.researchDateTo, T(id.base.app.SystemConstant).SYSTEM_DATE_MASK_2):''}" />
-                           </div>
-                       	</div>
 						<div class="form-group">
 							<label class="col-sm-2 control-label" th:text="'Featured Image'">Featured Image</label>
 							<div class="col-sm-9 form-input-container">
