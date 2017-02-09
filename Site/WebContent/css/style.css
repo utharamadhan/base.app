@@ -486,7 +486,7 @@ h4.modal-title{
     display: block;
 }
 .footer {
-    background: #ecf3f7;
+    background: #f4fafd;
     padding: 20px 0;
 }
 .about_inner {
@@ -661,7 +661,7 @@ h4.modal-title{
     width: 100%;
     float: left;
     height: auto;
-    padding: 35px 0px;
+    padding: 5px 0px;
 }
 .menuLink>li>a {
     line-height: 30px;
@@ -1253,6 +1253,7 @@ h4.modal-title{
 .copyRight {
     margin-bottom: 0!important;
     color:black;
+    font-size: 12px;
 }
 .list-inline.footerMenu {
     float: right;
@@ -3022,9 +3023,22 @@ ul.contact_info li a:hover {
 .block_quate.custom {
     margin-top: 0;
 }
-.menuFooter .fa {
-    background: #c5c5c5 none repeat scroll 0 0;
-    color: #fff;
+.socMedFooter{
+    background-color: #004fb6;
+	color: white;
+	text-align:center;
+}
+.socialFollow{
+	padding: 18px 0px;
+}
+.socialFollow .labelSocialFollow{
+	font-size: 24px;
+    font-style: italic;
+    margin-right: 10px;
+}
+.socialFollow .fa {
+    background: #fcdb00 none repeat scroll 0 0;
+    color: #004fb6;
     font-size: 18px;
     height: 31px;
     line-height: 32px;
@@ -3037,8 +3051,33 @@ ul.contact_info li a:hover {
     -moz-opacity: 1;
     opacity: 1;
 }
-.menuFooter .fa:hover {
+.socialFollow .fa:hover {
     opacity: 0.8;
+}
+#footer{
+	margin-top: 5px;
+}
+#footernav, #footernav ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    line-height: 1;
+    float: left;
+}
+#footernav li {
+    float: left;
+    text-align: left;
+}
+#footernav a {
+    display: block;
+    padding: 8px 0;
+    text-decoration: none;
+    margin-left: 12px;
+    width: 112px;
+    border-top: 4px solid #939598;
+}
+#footernav a.nav1 {
+	margin-left: 0px;
 }
 .ebook_section .post h1 a{
 	font-size:14px;
