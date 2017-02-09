@@ -37,6 +37,16 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
    		</property>
 	</bean>
 	
+	<bean id="imageSharingURLInitialization" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+   		<property name="targetClass" value="id.base.app.SystemConstant" />
+   		<property name="targetMethod" value="setImageSharingURL" />
+   		<property name="arguments">
+      		<list>
+         		<value>${images.mapping.url}</value>
+      		</list>
+   		</property>
+	</bean>
+	
 	<bean id="log4jInitialization" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
    		<property name="targetClass" value="org.springframework.util.Log4jConfigurer" />
    		<property name="targetMethod" value="initLogging" />

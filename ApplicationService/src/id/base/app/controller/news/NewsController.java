@@ -10,6 +10,9 @@ import id.base.app.service.news.INewsService;
 import id.base.app.util.StringFunction;
 import id.base.app.valueobject.news.News;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -47,6 +50,28 @@ public class NewsController extends SuperController<News>{
 	public News preUpdate(News anObject) throws SystemException{
 		anObject.setStatus(SystemConstant.ValidFlag.VALID);
 		return validate(anObject);
+	}
+	
+	@Override
+	public void postUpdate(Object oldObject, News newObject) {
+		try {
+			if(oldObject != null && oldObject instanceof News && newObject != null && StringFunction.isNotEmpty(newObject.getImageURL())) {
+				if (!((News)oldObject).getImageURL().equalsIgnoreCase(newObject.getImageURL())) {
+					String oldURL = ((News)oldObject).getImageURL();
+					String fileSystemURL = SystemConstant.FILE_STORAGE + oldURL.substring(SystemConstant.IMAGE_SHARING_URL.length(), oldURL.length());
+					Path path = Paths.get(fileSystemURL);
+					Files.deleteIfExists(path);
+				}
+			}	
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage(), e);
+		}
+	}
+	
+	@Override
+	public News getOldObject(News object) throws SystemException {
+		News oldObject = new News();
+		return object.getPkNews() != null ? cloneObject(oldObject, findById(object.getPkNews())) : null;
 	}
 	
 }

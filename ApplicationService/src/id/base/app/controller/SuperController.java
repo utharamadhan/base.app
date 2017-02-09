@@ -18,6 +18,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -71,6 +72,15 @@ public abstract class SuperController<T> {
 	public T preUpdate(T anObject) throws SystemException{
 		LOGGER.warn("Calling Pre-Update without implementation: {}", this.getClass().getName());
 		return anObject;
+	}
+	
+	public void postUpdate(Object oldObject, T newObject) throws SystemException {
+		LOGGER.warn("Calling Post-Update without implementation: {}", this.getClass().getName());
+	}
+	
+	public Object getOldObject(T object) throws SystemException {
+		LOGGER.warn("Calling Get-Old-Object without implementation: {}", this.getClass().getName());
+		return object;
 	}
 	
 	public Long[] preDelete(Long[] objectPKs) throws SystemException{
@@ -127,7 +137,9 @@ public abstract class SuperController<T> {
 		if (bindingResult.hasErrors()) {
             throw new InvalidRequestException("Invalid validation", bindingResult);
         }
+		Object oldObject = getOldObject(anObject);
 	    getMaintenanceService().saveOrUpdate(preUpdate(anObject));
+	    postUpdate(oldObject, anObject);
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/listByIds")
@@ -186,6 +198,16 @@ public abstract class SuperController<T> {
 			LOGGER.error("error finding your data",e);
 			throw new SystemException(new ErrorHolder("error finding your data"));
 		}
+	}
+	
+	public T cloneObject(T target, T src) {
+		try {
+			BeanUtils.copyProperties(target, src);
+			return target;	
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage(), e);
+		}
+		return null;
 	}
 	
 }
