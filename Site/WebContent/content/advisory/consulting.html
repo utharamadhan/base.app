@@ -29,7 +29,7 @@
 			
 			<section class="consulting_main_part">
 				<!-- Start Advisor Data -->
-				<div class="advisory_expert">
+				<div class="category_advisory_selection">
 					<div class="container">
 						<div class="advisor_container">
 							<div class="advisor-title add-animation animate">
@@ -171,8 +171,8 @@
 									</div>
 								</div>
 								<div class="advisory_consult">
-									<button type="button" class="btn btn-default back_research btn_custom"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> &nbsp;BACK</button>
-									<button type="button" class="btn btn-primary continue_research btn_custom">CONTINUE &nbsp;<span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span></button>
+									<button type="button" class="btn btn-default back_research btn_custom mrdy_btn"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> &nbsp;BACK</button>
+									<button type="button" class="btn btn-primary continue_research btn_custom mrdy_btn">CONTINUE &nbsp;<span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span></button>
 								</div>	
 							</div>
 							<div class="advisor_advisory" style="display: none;">
@@ -193,8 +193,8 @@
 									</div>
 								</div>
 								<div class="advisory_consult">
-									<button type="button" class="btn btn-default cancel_research btn_custom"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> &nbsp;CANCEL</button>
-									<button type="button" class="btn btn-primary consult_research btn_custom">CONSULT</button>
+									<button type="button" class="btn btn-default cancel_research btn_custom mrdy_btn"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> &nbsp;CANCEL</button>
+									<button type="button" class="btn btn-primary consult_research btn_custom mrdy_btn">CONSULT</button>
 								</div>	
 							</div>
 						</div>
@@ -245,11 +245,11 @@
 												<div class="col-xs-12 col-sm-11">
 													<div class="form-group">
 														<label>Question <span class="error">*</span></label>
-														<textarea class="form-control" cols="10" rows="9" name="message"></textarea>
+														<textarea class="form-control" cols="10" rows="9" name="question"></textarea>
 													</div>
 												</div>
 											</div><!--end row-->
-											<input type="button" value="SUBMIT" class="commonBtn mrdy_btn" id="sendEmail" />
+											<input type="button" value="SUBMIT" class="commonBtn mrdy_btn" id="submitQuestion" />
 										</form>
 									</div>  
 									
@@ -281,7 +281,36 @@
 						
 					});
 				});
-		}           
+		}         
+		
+		function askQuesstion(sURL){
+			var img_url = /*[[@{/images/gif/loading_gear.gif}]]*/;
+			$.ajax({ 
+			    type: "POST",
+			    url: sURL,
+			    data:$('#advisory_form').serialize(),
+			    dataType: 'json',
+			    success: function(data){
+			    	if(data.success){
+			    		alert(data.message);
+			    		location.reload();
+			    	}else{
+			    		alert(data.message);
+			    	}
+			    },beforeSend: function($jqXHR, $textStatus){
+					$('.mrdy_btn').disableBtn({enabled:false});
+					$('.mrdy_overlay').html('<div class="col-md-12 loading_reload" style="display: block; margin-left: auto; margin-right: auto;text-align: center;top: 40%;"><img src="'+img_url+'" /></div>');
+				},
+				error: function ($jqXHR, $textStatus, $errorThrown) {
+					$('.loading_reload').remove();
+					$('.mrdy_btn').disableBtn({enabled:true});
+				},
+				complete: function($jqXHR, $textStatus){
+					$('.loading_reload').remove();
+					$('.mrdy_btn').disableBtn({enabled:true});
+				} 
+			});
+		}
 		           
 		$(function(){  
 			$('.foreground_list').unbind('click').click(function(){
@@ -329,6 +358,11 @@
 			$('.position_right_info').unbind('click').click(function(){
 				var url = /*[[@{/page/advisory/sub/consulting/detail}]]*/
 				window.location.href = url;
+			});
+			
+			$("#submitQuestion").unbind('click').click(function(){
+				var sURL = /*[[@{/page/advisory/askQuesstion}]]*/ #;
+				askQuesstion(sURL);
 			});
 		});
 		

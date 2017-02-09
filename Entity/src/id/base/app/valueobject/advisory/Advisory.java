@@ -50,6 +50,15 @@ public class Advisory extends BaseEntity implements Serializable {
 	@Column(name="ANSWER")
 	private String answer;
 	
+	@Column(name="NAME")
+	private String name;
+	
+	@Column(name="TELP")
+	private String telp;
+	
+	@Column(name="EMAIL")
+	private String email;
+	
 	@Column(name="STATUS")
 	private Integer status;
 
@@ -86,6 +95,24 @@ public class Advisory extends BaseEntity implements Serializable {
 	}
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getTelp() {
+		return telp;
+	}
+	public void setTelp(String telp) {
+		this.telp = telp;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
 }

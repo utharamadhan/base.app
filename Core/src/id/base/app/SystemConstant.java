@@ -364,4 +364,11 @@ public class SystemConstant  {
 		}
 		
 	}
+	
+	public static final class StatusAdvisory{
+		public static final Integer CLOSED = 0;
+		public static final Integer NEW = 1;
+		public static final Integer OPEN = 2;
+		public static final Integer ANSWERED = 3;
+	}
 }
