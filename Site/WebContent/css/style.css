@@ -4810,6 +4810,10 @@ ul.contact_info li a:hover {
 }
 
 .advisory_expert{
+	background-color: #f0f1f2;
+}
+
+.category_advisory_selection{
 	background-color: #fcfcfc;
 }
 
