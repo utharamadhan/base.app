@@ -47,12 +47,29 @@
 							<div class="col-md-3 align_center"> 
 								<img class="img-circle" th:src="@{/images/person/person1_small.jpg}"/>
 								<div class="advisor_description">
-									<h3 class="big-text">George Martin</h3>
+									<h3 class="big-text yellow-text-color advisor_name">George Martin</h3>
+									<div class="specialist_part"><label>Global and Asia Pacific, Americas (APA) Advisory leader</label></div>
 								</div>
 							</div> 
 							<div class="col-md-6">
 								<p class="small-text">
 									George is one of the co-founders and takes care of growth, product development and partnerships. She is analytical, driven and adapts easily to new conditions, while trying to keep everyone on track.
+                                </p>
+							</div>
+							<div class="col-md-3">
+							</div>
+						</div>
+						<div class="row advisor_list"> 
+							<div class="col-md-3 align_center"> 
+								<img class="img-circle" th:src="@{/images/person/person2_small.jpg}"/>
+								<div class="advisor_description">
+									<h3 class="big-text yellow-text-color advisor_name">Beniamin Marcu</h3>
+									<div class="specialist_part"><label>Global and Asia Pacific, Americas (APA) Advisory leader</label></div>
+								</div>
+							</div> 
+							<div class="col-md-6">
+								<p class="small-text">
+									Beni is the guy responsible for keeping the platform in check, improving its functionality and adding new features. He is driven, always open for learning more, friendly and a fan of Ruby on Rails.
                                 </p>
 							</div>
 							<div class="col-md-3">
@@ -106,57 +123,11 @@
 			</div>
 			
 			<!-- Closing advisory -->
-			<div class="custom_content custom" style="background-color: #ffe6e6;">
-				<div class="container large">
-					<div class="row">
-						<div class="col-xs-12 col-sm-8 col-md-8 custom_right">
-							<div class="single_content_left">
-								<h3>Ask Us</h3>
-								
-								<div class="contact_form">
-										
-									<form method="post" action="#" id="advisory_form">
-										<div class="row">
-											<div class="col-xs-12 col-sm-7">
-												<div class="form-group">
-													<label>Nama <span class="error">*</span></label>
-													<input type="text" class="form-control" name="name" />
-												</div>
-											</div>
-										</div><!--end row-->
-										
-										<div class="row">
-											<div class="col-xs-12 col-sm-7">
-												<div class="form-group">
-													<label>Email <span class="error">*</span></label>
-													<input type="text" class="form-control" name="email" />
-												</div>
-											</div>
-										</div><!--end row-->
-										
-										<div class="row">
-											<div class="col-xs-12 col-sm-11">
-												<div class="form-group">
-													<label>Question <span class="error">*</span></label>
-													<textarea class="form-control" cols="10" rows="9" name="message"></textarea>
-												</div>
-											</div>
-										</div><!--end row-->
-										<input type="button" value="SUBMIT" class="commonBtn mrdy_btn" id="sendEmail" />
-									</form>
-								</div>  
-								
-								
-							</div><!--end single content left-->
-							
-							
-							
-						</div>
-						
-					</div><!--end row-->
-					
-				</div>
-			</div><!--end custom content-->
+			<div class="advisory_consult">
+				<h1>Have A Question?</h1>
+				<p class="small-text">All your confusing and problem will be answered all by the experts.</p>
+				<button type="button" class="btn btn-primary consult_btn">CONSULT NOW <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span></button>
+			</div>
 			
 		</div><!--end post section-->
 		
@@ -165,6 +136,11 @@
 		$(function(){      
 			$('.consult_btn').unbind('click').click(function(){
 				var url = /*[[@{/page/advisory/sub/consulting}]]*/
+				window.location.href = url;
+			});
+			
+			$('.advisor_name').unbind('click').click(function(){
+				var url = /*[[@{/page/advisory/sub/advisor/detail}]]*/
 				window.location.href = url;
 			});
 		});

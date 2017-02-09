@@ -34,6 +34,7 @@ import id.base.app.valueobject.aboutUs.Engagement;
 import id.base.app.valueobject.aboutUs.ProgramPost;
 import id.base.app.valueobject.aboutUs.Tutor;
 import id.base.app.valueobject.advisory.Advisory;
+import id.base.app.valueobject.advisory.AdvisoryMenu;
 import id.base.app.valueobject.contact.Contact;
 import id.base.app.valueobject.course.Course;
 import id.base.app.valueobject.course.GroupCourse;
@@ -43,7 +44,7 @@ import id.base.app.valueobject.news.News;
 import id.base.app.valueobject.party.Party;
 import id.base.app.valueobject.publication.DigitalBook;
 import id.base.app.valueobject.research.Research;
-import id.base.app.valueobject.research.ResearchTopic;
+import id.base.app.valueobject.research.ResearchTheme;
 
 
 public class ParameterLoader extends ContextLoader implements ServletContextListener  {
@@ -211,14 +212,17 @@ public class ParameterLoader extends ContextLoader implements ServletContextList
 		RestCaller.BASE_CLASS.put(RestServiceConstant.COURSE_TAG_SERVICE, Tag.class);
 		
 		// research
-		RestCaller.BASE_URL.put(RestServiceConstant.RESEARCH_TOPIC_SERVICE, RestConstant.RM_RESEARCH_TOPIC);
-		RestCaller.BASE_CLASS.put(RestServiceConstant.RESEARCH_TOPIC_SERVICE, ResearchTopic.class);
+		RestCaller.BASE_URL.put(RestServiceConstant.RESEARCH_THEME_SERVICE, RestConstant.RM_RESEARCH_THEME);
+		RestCaller.BASE_CLASS.put(RestServiceConstant.RESEARCH_THEME_SERVICE, ResearchTheme.class);
 		RestCaller.BASE_URL.put(RestServiceConstant.RESEARCH_SERVICE, RestConstant.RM_RESEARCH);
 		RestCaller.BASE_CLASS.put(RestServiceConstant.RESEARCH_SERVICE, Research.class);
 		
 		// advisory
 		RestCaller.BASE_URL.put(RestServiceConstant.ADVISORY_SERVICE, RestConstant.RM_ADVISORY);
 		RestCaller.BASE_CLASS.put(RestServiceConstant.ADVISORY_SERVICE, Advisory.class);
+		
+		RestCaller.BASE_URL.put(RestServiceConstant.ADVISORY_MENU_SERVICE, RestConstant.RM_ADVISORY_MENU);
+		RestCaller.BASE_CLASS.put(RestServiceConstant.ADVISORY_MENU_SERVICE, AdvisoryMenu.class);
 		
 		// contact
 		RestCaller.BASE_URL.put(RestServiceConstant.CONTACT_SERVICE, RestConstant.RM_CONTACT);

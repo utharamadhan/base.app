@@ -486,7 +486,7 @@ h4.modal-title{
     display: block;
 }
 .footer {
-    background: #ecf3f7;
+    background: #f4fafd;
     padding: 20px 0;
 }
 .about_inner {
@@ -661,7 +661,7 @@ h4.modal-title{
     width: 100%;
     float: left;
     height: auto;
-    padding: 35px 0px;
+    padding: 5px 0px;
 }
 .menuLink>li>a {
     line-height: 30px;
@@ -1253,6 +1253,7 @@ h4.modal-title{
 .copyRight {
     margin-bottom: 0!important;
     color:black;
+    font-size: 12px;
 }
 .list-inline.footerMenu {
     float: right;
@@ -3022,9 +3023,22 @@ ul.contact_info li a:hover {
 .block_quate.custom {
     margin-top: 0;
 }
-.menuFooter .fa {
-    background: #c5c5c5 none repeat scroll 0 0;
-    color: #fff;
+.socMedFooter{
+    background-color: #004fb6;
+	color: white;
+	text-align:center;
+}
+.socialFollow{
+	padding: 18px 0px;
+}
+.socialFollow .labelSocialFollow{
+	font-size: 24px;
+    font-style: italic;
+    margin-right: 10px;
+}
+.socialFollow .fa {
+    background: #fcdb00 none repeat scroll 0 0;
+    color: #004fb6;
     font-size: 18px;
     height: 31px;
     line-height: 32px;
@@ -3037,8 +3051,33 @@ ul.contact_info li a:hover {
     -moz-opacity: 1;
     opacity: 1;
 }
-.menuFooter .fa:hover {
+.socialFollow .fa:hover {
     opacity: 0.8;
+}
+#footer{
+	margin-top: 5px;
+}
+#footernav, #footernav ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    line-height: 1;
+    float: left;
+}
+#footernav li {
+    float: left;
+    text-align: left;
+}
+#footernav a {
+    display: block;
+    padding: 8px 0;
+    text-decoration: none;
+    margin-left: 12px;
+    width: 112px;
+    border-top: 4px solid #939598;
+}
+#footernav a.nav1 {
+	margin-left: 0px;
 }
 .ebook_section .post h1 a{
 	font-size:14px;
@@ -4673,7 +4712,7 @@ ul.contact_info li a:hover {
 }
 
 .advisory_logo{
-	background-image: url(../images/advisory_logo.png);
+	background-image: url(../images/advisory_logo2.png);
 	background-repeat: no-repeat;
 	width: 327px;
     height: 165px;
@@ -4740,8 +4779,8 @@ ul.contact_info li a:hover {
 }
 
 .article_container{
-	margin-top: 20px;
-	margin-bottom: 20px;
+	margin-top: 40px;
+	margin-bottom: 40px;
 }
 
 .box_article_left{
@@ -4754,6 +4793,7 @@ ul.contact_info li a:hover {
 
 .title_article{
 	color: #a32020;
+	font-size: 18px;
 }
 
 .title_article:hover{
@@ -4765,8 +4805,16 @@ ul.contact_info li a:hover {
 	color: #888;
 }
 
+.subtitle_article label{
+	font-size: 12px;
+}
+
 .advisory_expert{
 	background-color: #f0f1f2;
+}
+
+.category_advisory_selection{
+	background-color: #fcfcfc;
 }
 
 .img-circle{
@@ -5004,6 +5052,15 @@ ul.contact_info li a:hover {
 	text-align: center;
 }
 
+.info_banner_search_left{
+	position:absolute;
+	top: 50%;
+	margin-top: -170px;
+	left: 200px;
+	width: 400px;
+	text-align: center;
+}
+
 .find_advisor_title{
 	font-weight: 700;
     font-family: Lato,serif;
@@ -5058,6 +5115,7 @@ ul.contact_info li a:hover {
 	margin-right: 2px;
 	margin-left: 2px;
 	position: relative;
+	z-index: 1;
 }
 
 .article_category_list{
@@ -5075,12 +5133,34 @@ ul.contact_info li a:hover {
     line-height: 45px;
 }
 
+.position_right_info{
+	display: none !important;
+	float: right;
+    margin-right: 50px;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 45px;
+    font-size: 30px;
+    color: #5b5b5c;
+    z-index: 99;
+}
+
+.foreground_list_wrapper:hover .position_right_info{
+	display: inline-block !important;
+}
+
+.position_right_info:hover{
+	color: #602320;
+	cursor: pointer;
+}
+
 .foreground_list div label{
-	color: #a32020;
+	color: #602320;
 	float: left;
 	margin-left: 20px;
 	line-height: 45px;
 	margin-bottom: 0px !important;
+	font-size: 20px;
 }
 
 .foreground_list:hover{
@@ -5089,8 +5169,9 @@ ul.contact_info li a:hover {
 }
 
 .foreground_list:hover div label{
-	color: #dc6900;
+	color: #a32020;
 	cursor: pointer;
+	text-decoration: underline;
 }
 
 .content_article{
@@ -5108,4 +5189,158 @@ ul.contact_info li a:hover {
 
 .article_answer_margin{
 	margin-top: 20px;
+}
+
+.box_cat_title{
+	padding-bottom: 20px;
+	padding-top: 20px;
+	padding-left: 15px;
+	padding-right: 15px;
+	background-color: #f2f2f2;
+}
+
+.box_cat_title_label{
+	color: #a32020;
+}
+
+.box_cat_title_label:hover{
+	cursor: pointer;
+	color: #be5b20;
+}
+
+.title_article_category{
+	margin-top: 40px;
+}
+
+.advisory_article_container{
+	margin-top: 40px;
+	margin-bottom: 40px;
+}
+
+.list_category_article{
+	margin-top:10px;
+	margin-bottom: 10px;
+	min-height: 280px;
+}
+
+.specialist_part label{
+	font-size: 12px;
+    color: #565248;
+}
+
+.yellow-text-color{
+	color: #e4bb5f;
+}
+
+.yellow-text-color:hover{
+	color: #aa801e;
+	cursor: pointer;
+}
+
+.article_box_content{
+	padding: 10px;
+	border: 1px solid #E8E8E8;
+}
+
+.article_box_image{
+	border-radius: 5px 5px 0 0;
+	overflow: hidden;
+    position: relative;
+}
+
+.box_article_wrapper{
+	box-shadow: 3px 3px 4px #ddd;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+
+.created_advisor label, .date_advisor label{
+	font-size: 12px;
+}
+
+.created_advisor{
+	line-height: 12px;
+}
+
+.consulting_detail{
+	margin-top: 40px;
+	margin-bottom: 40px;
+}
+
+.title_consulting_service{
+	color: #ff5353;
+	margin-bottom: 30px;
+	font-size: 24px;
+}
+
+.consulting_service_detail{
+	font-size: 16px;
+	line-height: 20px;
+}
+
+.info_consulting_banner{
+	position:absolute;
+	top: 50%;
+	margin-top: -170px;
+	left: 150px;
+	width: 450px;
+	text-align: center;	
+	background-color: #ffffff;
+	padding: 20px;
+}
+
+.title_consulting_content{
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.title_consulting_content h4{
+	font-size: 18px;
+	color: #a19335;
+}
+
+.category_advisory, .research_advisory, .advisor_advisory{
+	position: relative;
+}
+
+.input_text_custom{
+	width: 100%;
+    line-height: 46px;
+    height: 46px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.sectionvideo{
+	position: relative;
+    width: 100%;
+    height: auto !important;
+}
+
+.consulting_main_part{
+	position: relative;
+    top: -220px;
+    z-index: 99;
+}
+
+.info_wrapper{
+	position: absolute;
+    top: 0px;
+    right: 10px;
+}
+
+.foreground_list_wrapper{
+	position:relative;
+}
+
+.btn_custom{
+	font-size: 24px;
+	margin-left: 15px;
+	margin-right: 15px;
+}
+
+.calm_background{
+	background-color: #e6ebed;
+	padding-top: 40px;
 }

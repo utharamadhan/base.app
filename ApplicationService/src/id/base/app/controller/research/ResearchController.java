@@ -6,18 +6,13 @@ import id.base.app.exception.ErrorHolder;
 import id.base.app.exception.SystemException;
 import id.base.app.rest.RestConstant;
 import id.base.app.service.MaintenanceService;
-import id.base.app.service.research.IResearchBudgetingService;
-import id.base.app.service.research.IResearchGoalTargetService;
-import id.base.app.service.research.IResearchMemoService;
+import id.base.app.service.research.IResearchImplementationService;
+import id.base.app.service.research.IResearchOfficerService;
 import id.base.app.service.research.IResearchService;
-import id.base.app.service.research.IResearchTimePlanningService;
 import id.base.app.util.StringFunction;
 import id.base.app.validation.InvalidRequestException;
 import id.base.app.valueobject.research.Research;
-import id.base.app.valueobject.research.ResearchBudgeting;
-import id.base.app.valueobject.research.ResearchGoalTarget;
-import id.base.app.valueobject.research.ResearchMemo;
-import id.base.app.valueobject.research.ResearchTimePlanning;
+import id.base.app.valueobject.research.ResearchOfficer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,13 +39,10 @@ public class ResearchController extends SuperController<Research>{
 	@Autowired
 	private IResearchService researchService;
 	@Autowired
-	private IResearchTimePlanningService researchTimePlanningService;
+	private IResearchOfficerService researchOfficerService;
 	@Autowired
-	private IResearchBudgetingService researchBudgetingService;
-	@Autowired
-	private IResearchGoalTargetService researchGoalTargetService;
-	@Autowired
-	private IResearchMemoService researchMemoService;
+	private IResearchImplementationService researchImplementationService;
+
 
 	@Override
 	public Research validate(Research anObject) throws SystemException {
@@ -75,88 +67,31 @@ public class ResearchController extends SuperController<Research>{
 		return validate(anObject);
 	}
 	
-	@RequestMapping(method=RequestMethod.GET, value="/findTimePlanningByFkResearch/{fkResearch}")
+	@RequestMapping(method=RequestMethod.GET, value="/findOfficerByFkResearch/{fkResearch}")
 	@ResponseBody
-	public List<ResearchTimePlanning> findTimePlanningByFkResearch(@PathVariable(value="fkResearch") Long fkResearch, HttpServletResponse response){
-		return researchTimePlanningService.findTimePlanningByFkResearch(fkResearch);
+	public List<ResearchOfficer> findOfficerByFkResearch(@PathVariable(value="fkResearch") Long fkResearch, HttpServletResponse response){
+		return researchOfficerService.findByFkResearch(fkResearch);
 	}
 	
-	@RequestMapping(method=RequestMethod.GET, value="/findTimePlanningById/{id}")
+	@RequestMapping(method=RequestMethod.GET, value="/findOfficerById/{id}")
 	@ResponseBody
-	public ResearchTimePlanning findTimePlanningById(@PathVariable(value="id") Long id, HttpServletResponse response){
-		return researchTimePlanningService.findById(id);
+	public ResearchOfficer findOfficerById(@PathVariable(value="id") Long id, HttpServletResponse response){
+		return researchOfficerService.findById(id);
 	}
 	
-	@RequestMapping(method=RequestMethod.DELETE, value="/deleteTimePlanning")
+	@RequestMapping(method=RequestMethod.DELETE, value="/deleteOfficer")
 	@ResponseStatus( HttpStatus.OK )
-	public void deleteTimePlanning(@RequestParam(value="objectPKs") Long[] objectPKs) throws SystemException {
-		researchTimePlanningService.delete(objectPKs);
+	public void deleteOfficer(@RequestParam(value="objectPKs") Long[] objectPKs) throws SystemException {
+		researchOfficerService.delete(objectPKs);
 	}
 	
-	@RequestMapping(method=RequestMethod.GET, value="/findBudgetingByFkResearch/{fkResearch}")
-	@ResponseBody
-	public List<ResearchBudgeting> findBudgetingByFkResearch(@PathVariable(value="fkResearch") Long fkResearch, HttpServletResponse response){
-		return researchBudgetingService.findBudgetingByFkResearch(fkResearch);
-	}
-	
-	@RequestMapping(method=RequestMethod.GET, value="/findBudgetingById/{id}")
-	@ResponseBody
-	public ResearchBudgeting findBudgetingById(@PathVariable(value="id") Long id, HttpServletResponse response){
-		return researchBudgetingService.findById(id);
-	}
-	
-	@RequestMapping(method=RequestMethod.DELETE, value="/deleteBudgeting")
-	@ResponseStatus( HttpStatus.OK )
-	public void deleteBudgeting(@RequestParam(value="objectPKs") Long[] objectPKs) throws SystemException {
-		researchBudgetingService.delete(objectPKs);
-	}
-	
-	@RequestMapping(method=RequestMethod.GET, value="/findGoalTargetByFkResearch/{fkResearch}")
-	@ResponseBody
-	public List<ResearchGoalTarget> findGoalTargetByFkResearch(@PathVariable(value="fkResearch") Long fkResearch, HttpServletResponse response){
-		return researchGoalTargetService.findGoalTargetByFkResearch(fkResearch);
-	}
-	
-	@RequestMapping(method=RequestMethod.GET, value="/findGoalTargetById/{id}")
-	@ResponseBody
-	public ResearchGoalTarget findGoalTargetById(@PathVariable(value="id") Long id, HttpServletResponse response){
-		return researchGoalTargetService.findById(id);
-	}
-	
-	@RequestMapping(method=RequestMethod.DELETE, value="/deleteGoalTarget")
-	@ResponseStatus( HttpStatus.OK )
-	public void deleteGoalTarget(@RequestParam(value="objectPKs") Long[] objectPKs) throws SystemException {
-		researchGoalTargetService.delete(objectPKs);
-	}
-	
-	@RequestMapping(method=RequestMethod.GET, value="/findMemoByFkResearch/{fkResearch}")
-	@ResponseBody
-	public List<ResearchMemo> findMemoByFkResearch(@PathVariable(value="fkResearch") Long fkResearch, HttpServletResponse response){
-		return researchMemoService.findMemoByFkResearch(fkResearch);
-	}
-	
-	@RequestMapping(method=RequestMethod.GET, value="/findMemoById/{id}")
-	@ResponseBody
-	public ResearchMemo findMemoById(@PathVariable(value="id") Long id, HttpServletResponse response){
-		return researchMemoService.findById(id);	
-	}
-	
-	@RequestMapping(method=RequestMethod.DELETE, value="/deleteMemo")
-	@ResponseStatus( HttpStatus.OK )
-	public void deleteMemo(@RequestParam(value="objectPKs") Long[] objectPKs) throws SystemException {
-		researchMemoService.delete(objectPKs);
-	}
-	
-	private ResearchTimePlanning validateTimePlanning(ResearchTimePlanning anObject) throws SystemException {
+	private ResearchOfficer validateOfficer(ResearchOfficer anObject) throws SystemException {
 		List<ErrorHolder> errorList = new ArrayList<>();
-		if(anObject.getDateFrom()==null) {
-			errorList.add(new ErrorHolder(ResearchTimePlanning.DATE_FROM, messageSource.getMessage("error.mandatory", new String[]{"Date From"}, Locale.ENGLISH)));
+		if(StringFunction.isEmpty(anObject.getOfficerName())) {
+			errorList.add(new ErrorHolder(ResearchOfficer.OFFICER_NAME, messageSource.getMessage("error.mandatory", new String[]{"Officer Name"}, Locale.ENGLISH)));
 		}
-		if(anObject.getDateTo()==null) {
-			errorList.add(new ErrorHolder(ResearchTimePlanning.DATE_TO, messageSource.getMessage("error.mandatory", new String[]{"Date To"}, Locale.ENGLISH)));
-		}
-		if(StringFunction.isEmpty(anObject.getTitle())) {
-			errorList.add(new ErrorHolder(ResearchTimePlanning.TITLE, messageSource.getMessage("error.mandatory", new String[]{"Title"}, Locale.ENGLISH)));
+		if(StringFunction.isEmpty(anObject.getOfficerPosition())) {
+			errorList.add(new ErrorHolder(ResearchOfficer.OFFICER_POSITION, messageSource.getMessage("error.mandatory", new String[]{"Officer Position"}, Locale.ENGLISH)));
 		}
 		if(errorList.size() > 0) {
 			throw new SystemException(errorList);
@@ -164,107 +99,19 @@ public class ResearchController extends SuperController<Research>{
 		return anObject;
 	}
 	
-	private ResearchTimePlanning preUpdateTimePlanning(ResearchTimePlanning anObject) throws SystemException{
-		Research research = new Research();
+	private ResearchOfficer preUpdateOfficer(ResearchOfficer anObject) throws SystemException{
+		Research research = Research.getInstance();
 		research.setPkResearch(anObject.getFkResearch());
 		anObject.setResearch(research);
-		anObject.setStatus(SystemConstant.ValidFlag.VALID);
-		return validateTimePlanning(anObject);
+		return validateOfficer(anObject);
 	}
 	
-	@RequestMapping(method=RequestMethod.PUT, value="/saveTimePlanning")
+	@RequestMapping(method=RequestMethod.PUT, value="/saveOfficer")
 	@ResponseStatus( HttpStatus.OK )
-	public void saveTimePlanning(@RequestBody ResearchTimePlanning anObject, BindingResult bindingResult) throws SystemException {
+	public void saveOfficer(@RequestBody ResearchOfficer anObject, BindingResult bindingResult) throws SystemException {
 		if (bindingResult.hasErrors()) {
             throw new InvalidRequestException("Invalid validation", bindingResult);
         }
-		researchTimePlanningService.saveOrUpdate(preUpdateTimePlanning(anObject));
-	}
-	
-	private ResearchBudgeting validateBudgeting(ResearchBudgeting anObject) throws SystemException {
-		List<ErrorHolder> errorList = new ArrayList<>();
-		if(anObject.getBudgetDate()==null) {
-			errorList.add(new ErrorHolder(ResearchBudgeting.BUDGET_DATE, messageSource.getMessage("error.mandatory", new String[]{"Budget Date"}, Locale.ENGLISH)));
-		}
-		if(StringFunction.isEmpty(anObject.getTitle())) {
-			errorList.add(new ErrorHolder(ResearchBudgeting.TITLE, messageSource.getMessage("error.mandatory", new String[]{"Title"}, Locale.ENGLISH)));
-		}
-		if(errorList.size() > 0) {
-			throw new SystemException(errorList);
-		}
-		return anObject;
-	}
-	
-	private ResearchBudgeting preUpdateBudgeting(ResearchBudgeting anObject) throws SystemException{
-		Research research = new Research();
-		research.setPkResearch(anObject.getFkResearch());
-		anObject.setResearch(research);
-		anObject.setStatus(SystemConstant.ValidFlag.VALID);
-		return validateBudgeting(anObject);
-	}
-	
-	@RequestMapping(method=RequestMethod.PUT, value="/saveBudgeting")
-	@ResponseStatus( HttpStatus.OK )
-	public void saveBudgeting(@RequestBody ResearchBudgeting anObject, BindingResult bindingResult) throws SystemException {
-		if (bindingResult.hasErrors()) {
-            throw new InvalidRequestException("Invalid validation", bindingResult);
-        }
-		researchBudgetingService.saveOrUpdate(preUpdateBudgeting(anObject));
-	}
-	
-	private ResearchGoalTarget validateGoalTarget(ResearchGoalTarget anObject) throws SystemException {
-		List<ErrorHolder> errorList = new ArrayList<>();
-		if(StringFunction.isEmpty(anObject.getTitle())) {
-			errorList.add(new ErrorHolder(ResearchGoalTarget.TITLE, messageSource.getMessage("error.mandatory", new String[]{"Title"}, Locale.ENGLISH)));
-		}
-		if(errorList.size() > 0) {
-			throw new SystemException(errorList);
-		}
-		return anObject;
-	}
-	
-	private ResearchGoalTarget preUpdateGoalTarget(ResearchGoalTarget anObject) throws SystemException{
-		Research research = new Research();
-		research.setPkResearch(anObject.getFkResearch());
-		anObject.setResearch(research);
-		anObject.setStatus(SystemConstant.ValidFlag.VALID);
-		return validateGoalTarget(anObject);
-	}
-	
-	@RequestMapping(method=RequestMethod.PUT, value="/saveGoalTarget")
-	@ResponseStatus( HttpStatus.OK )
-	public void saveGoalTarget(@RequestBody ResearchGoalTarget anObject, BindingResult bindingResult) throws SystemException {
-		if (bindingResult.hasErrors()) {
-            throw new InvalidRequestException("Invalid validation", bindingResult);
-        }
-		researchGoalTargetService.saveOrUpdate(preUpdateGoalTarget(anObject));
-	}
-	
-	private ResearchMemo validateMemo(ResearchMemo anObject) throws SystemException {
-		List<ErrorHolder> errorList = new ArrayList<>();
-		if(StringFunction.isEmpty(anObject.getTitle())) {
-			errorList.add(new ErrorHolder(ResearchMemo.TITLE, messageSource.getMessage("error.mandatory", new String[]{"Title"}, Locale.ENGLISH)));
-		}
-		if(errorList.size() > 0) {
-			throw new SystemException(errorList);
-		}
-		return anObject;
-	}
-	
-	private ResearchMemo preUpdateMemo(ResearchMemo anObject) throws SystemException{
-		Research research = new Research();
-		research.setPkResearch(anObject.getFkResearch());
-		anObject.setResearch(research);
-		anObject.setStatus(SystemConstant.ValidFlag.VALID);
-		return validateMemo(anObject);
-	}
-	
-	@RequestMapping(method=RequestMethod.PUT, value="/saveMemo")
-	@ResponseStatus( HttpStatus.OK )
-	public void saveMemo(@RequestBody ResearchMemo anObject, BindingResult bindingResult) throws SystemException {
-		if (bindingResult.hasErrors()) {
-            throw new InvalidRequestException("Invalid validation", bindingResult);
-        }
-		researchMemoService.saveOrUpdate(preUpdateMemo(anObject));
+		researchOfficerService.saveOrUpdate(preUpdateOfficer(anObject));
 	}
 }

@@ -13,7 +13,7 @@ import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.valueobject.research.Research;
-import id.base.app.valueobject.research.ResearchTopic;
+import id.base.app.valueobject.research.ResearchTheme;
 import id.base.app.webMember.DataTableCriterias;
 import id.base.app.webMember.controller.BaseController;
 
@@ -83,8 +83,8 @@ public class ResearchMaintenanceWebController extends BaseController<Research> {
 		model.addAttribute("researchTopicOptions", getAllResearchTopicOptions());
 	}
 	
-	private List<ResearchTopic> getAllResearchTopicOptions() {
-		return new SpecificRestCaller<ResearchTopic>(RestConstant.REST_SERVICE, RestConstant.RM_RESEARCH_TOPIC, ResearchTopic.class).executeGetList(new PathInterfaceRestCaller() {
+	private List<ResearchTheme> getAllResearchTopicOptions() {
+		return new SpecificRestCaller<ResearchTheme>(RestConstant.REST_SERVICE, RestConstant.RM_RESEARCH_THEME, ResearchTheme.class).executeGetList(new PathInterfaceRestCaller() {
 			@Override
 			public String getPath() {
 				return "/findAllResearchTopicTitle";

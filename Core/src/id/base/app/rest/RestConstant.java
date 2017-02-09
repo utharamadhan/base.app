@@ -81,11 +81,12 @@ public class RestConstant {
 	public static final String RM_COURSE_TAG = "/course/courseTag";
 	
 	//research
-	public static final String RM_RESEARCH_TOPIC = "/research/researchTopic";
+	public static final String RM_RESEARCH_THEME = "/research/researchTheme";
 	public static final String RM_RESEARCH = "/research/research";
 	
 	//advisory
 	public static final String RM_ADVISORY = "/advisory";
+	public static final String RM_ADVISORY_MENU = "/advisory/menu";
 
 	//forecast call
 	public static final String RM_FORECAST_CALL = "/forecastCall";

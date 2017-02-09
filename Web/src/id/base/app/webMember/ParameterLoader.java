@@ -1,5 +1,17 @@
 package id.base.app.webMember;
 
+import javax.servlet.ServletContext;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+
+import org.jasypt.digest.config.SimpleDigesterConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.web.context.ContextLoader;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
+
 import id.base.app.LoginSession;
 import id.base.app.SystemParameter;
 import id.base.app.config.BeanUtilsConfigurer;
@@ -22,6 +34,7 @@ import id.base.app.valueobject.aboutUs.Engagement;
 import id.base.app.valueobject.aboutUs.ProgramPost;
 import id.base.app.valueobject.aboutUs.Tutor;
 import id.base.app.valueobject.advisory.Advisory;
+import id.base.app.valueobject.advisory.AdvisoryMenu;
 import id.base.app.valueobject.contact.Contact;
 import id.base.app.valueobject.course.Course;
 import id.base.app.valueobject.course.GroupCourse;
@@ -33,19 +46,7 @@ import id.base.app.valueobject.party.Party;
 import id.base.app.valueobject.party.Student;
 import id.base.app.valueobject.publication.DigitalBook;
 import id.base.app.valueobject.research.Research;
-import id.base.app.valueobject.research.ResearchTopic;
-
-import javax.servlet.ServletContext;
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
-
-import org.jasypt.digest.config.SimpleDigesterConfig;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
-import org.springframework.web.context.ContextLoader;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
+import id.base.app.valueobject.research.ResearchTheme;
 
 
 public class ParameterLoader extends ContextLoader implements ServletContextListener  {
@@ -213,14 +214,17 @@ public class ParameterLoader extends ContextLoader implements ServletContextList
 		RestCaller.BASE_CLASS.put(RestServiceConstant.COURSE_TAG_SERVICE, Tag.class);
 		
 		// research
-		RestCaller.BASE_URL.put(RestServiceConstant.RESEARCH_TOPIC_SERVICE, RestConstant.RM_RESEARCH_TOPIC);
-		RestCaller.BASE_CLASS.put(RestServiceConstant.RESEARCH_TOPIC_SERVICE, ResearchTopic.class);
+		RestCaller.BASE_URL.put(RestServiceConstant.RESEARCH_THEME_SERVICE, RestConstant.RM_RESEARCH_THEME);
+		RestCaller.BASE_CLASS.put(RestServiceConstant.RESEARCH_THEME_SERVICE, ResearchTheme.class);
 		RestCaller.BASE_URL.put(RestServiceConstant.RESEARCH_SERVICE, RestConstant.RM_RESEARCH);
 		RestCaller.BASE_CLASS.put(RestServiceConstant.RESEARCH_SERVICE, Research.class);
 		
 		// advisory
 		RestCaller.BASE_URL.put(RestServiceConstant.ADVISORY_SERVICE, RestConstant.RM_ADVISORY);
 		RestCaller.BASE_CLASS.put(RestServiceConstant.ADVISORY_SERVICE, Advisory.class);
+		
+		RestCaller.BASE_URL.put(RestServiceConstant.ADVISORY_MENU_SERVICE, RestConstant.RM_ADVISORY_MENU);
+		RestCaller.BASE_CLASS.put(RestServiceConstant.ADVISORY_MENU_SERVICE, AdvisoryMenu.class);
 		
 		//student
 		RestCaller.BASE_URL.put(RestServiceConstant.STUDENT_SERVICE, RestConstant.RM_STUDENT);

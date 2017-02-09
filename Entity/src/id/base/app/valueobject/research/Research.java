@@ -3,7 +3,7 @@ package id.base.app.valueobject.research;
 import id.base.app.valueobject.BaseEntity;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -12,6 +12,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -23,22 +25,14 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @Table(name = "RESEARCH")
 @JsonIdentityInfo(generator=ObjectIdGenerators.UUIDGenerator.class, property="researchJid", scope=Research.class)
 public class Research extends BaseEntity implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 366527046429586298L;
+	
+	private static final long serialVersionUID = 6910120534807760943L;
 	
 	public static final String PK_RESEARCH			= "pkResearch";
+	public static final String IS_INTERNAL			= "isInternal";
 	public static final String TITLE 				= "title";
 	public static final String SUB_TITLE			= "subTitle";
-	public static final String ABSTRACT 			= "abstract";
-	public static final String INTRODUCTION			= "introduction";
-	public static final String LITERATURE_REVIEW	= "literatureReview";
-	public static final String METHODS				= "methods";
-	public static final String RESULTS				= "results";
 	public static final String STATUS				= "status";
-	public static final String RESEARCH_DATE		= "researchDate";
-	public static final String IS_MANAGEMENT		= "isManagement";
 	
 	public static Research getInstance() {
 		return new Research();
@@ -50,62 +44,60 @@ public class Research extends BaseEntity implements Serializable {
 	@Column(name = "PK_RESEARCH", unique = true ,nullable = false)
 	private Long pkResearch;
 	
+	@Column(name="IS_INTERNAL")
+	private Boolean isInternal;
+	
+	@ManyToOne
+	@JoinColumn(name="FK_RESEARCH_THEME")
+	private ResearchTheme researchTheme;
+	
 	@Column(name="TITLE")
 	private String title;
 	
 	@Column(name="SUBTITLE")
-	private String subTitle;
+	private String subtitle;
 	
 	@Column(name="IMAGE_URL")
 	private String imageURL;
 	
-	@Column(name="ABSTRACT_DESC")
-	private String abstractDesc;
+	@Column(name="DESCRIPTION")
+	private String description;
 	
-	@Column(name="INTRODUCTION")
-	private String introduction;
+	@Column(name="PRINCIPLE_PERMIT_FILE")
+	private String principlePermitFile;
 	
-	@Column(name="LITERATURE_REVIEW")
-	private String literatureReview;
+	@Column(name="PRINCIPLE_PERMIT_DESCRIPTION")
+	private String principlePermitDescription;
 	
-	@Column(name="METHODS")
-	private String methods;
+	@Column(name="PROCUREMENT_FILE")
+	private String procurementFile;
 	
-	@Column(name="RESULTS")
-	private String results;
+	@Column(name="PROCUREMENT_DESCRIPTION")
+	private String procurementDescription;
 	
-	@Column(name="RESEARCH_DATE_FROM")
-	private Date researchDateFrom;
+	@Column(name="WORK_ORDER_FILE")
+	private String workOrderFile;
 	
-	@Column(name="RESEARCH_DATE_TO")
-	private Date researchDateTo;
+	@Column(name="WORK_ORDER_DESCRIPTION")
+	private String workOrderDescription;
 	
+	@Column(name="VENDOR")
+	private String vendor;
+	
+	@Column(name="PROJECT_VALUE")
+	private BigDecimal projectValue;
+		
 	@Column(name="STATUS")
 	private Integer status;
 	
-	@Column(name="IS_MANAGEMENT")
-	private Boolean isManagement;
+	@OneToMany(mappedBy="research", cascade=CascadeType.DETACH)
+	private List<ResearchOfficer> researchers;
 	
 	@OneToMany(mappedBy="research", cascade=CascadeType.DETACH)
-	private List<ResearchResearchTopic> researchTopics;
+	private List<ResearchImplementation> implementations;
 	
 	@OneToMany(mappedBy="research", cascade=CascadeType.DETACH)
-	private List<ResearchResearcher> researchers;
-	
-	@OneToMany(mappedBy="research", cascade=CascadeType.DETACH)
-	private List<ResearchTimePlanning> timePlannings;
-	
-	@OneToMany(mappedBy="research", cascade=CascadeType.DETACH)
-	private List<ResearchBudgeting> budgetings;
-	
-	@OneToMany(mappedBy="research", cascade=CascadeType.DETACH)
-	private List<ResearchGoalTarget> goalTarget;
-	
-	@OneToMany(mappedBy="research", cascade=CascadeType.DETACH)
-	private List<ResearchMemo> memos;
-	
-	@OneToMany(mappedBy="research", cascade=CascadeType.DETACH)
-	private List<ResearchFile> files;
+	private List<ResearchResult> results;
 
 	public Long getPkResearch() {
 		return pkResearch;
@@ -113,6 +105,22 @@ public class Research extends BaseEntity implements Serializable {
 
 	public void setPkResearch(Long pkResearch) {
 		this.pkResearch = pkResearch;
+	}
+
+	public Boolean getIsInternal() {
+		return isInternal;
+	}
+
+	public void setIsInternal(Boolean isInternal) {
+		this.isInternal = isInternal;
+	}
+
+	public ResearchTheme getResearchTheme() {
+		return researchTheme;
+	}
+
+	public void setResearchTheme(ResearchTheme researchTheme) {
+		this.researchTheme = researchTheme;
 	}
 
 	public String getTitle() {
@@ -123,12 +131,12 @@ public class Research extends BaseEntity implements Serializable {
 		this.title = title;
 	}
 
-	public String getSubTitle() {
-		return subTitle;
+	public String getSubtitle() {
+		return subtitle;
 	}
 
-	public void setSubTitle(String subTitle) {
-		this.subTitle = subTitle;
+	public void setSubtitle(String subtitle) {
+		this.subtitle = subtitle;
 	}
 
 	public String getImageURL() {
@@ -139,60 +147,76 @@ public class Research extends BaseEntity implements Serializable {
 		this.imageURL = imageURL;
 	}
 
-	public String getAbstractDesc() {
-		return abstractDesc;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setAbstractDesc(String abstractDesc) {
-		this.abstractDesc = abstractDesc;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
-	public String getIntroduction() {
-		return introduction;
+	public String getPrinciplePermitFile() {
+		return principlePermitFile;
 	}
 
-	public void setIntroduction(String introduction) {
-		this.introduction = introduction;
+	public void setPrinciplePermitFile(String principlePermitFile) {
+		this.principlePermitFile = principlePermitFile;
 	}
 
-	public String getLiteratureReview() {
-		return literatureReview;
+	public String getPrinciplePermitDescription() {
+		return principlePermitDescription;
 	}
 
-	public void setLiteratureReview(String literatureReview) {
-		this.literatureReview = literatureReview;
+	public void setPrinciplePermitDescription(String principlePermitDescription) {
+		this.principlePermitDescription = principlePermitDescription;
 	}
 
-	public String getMethods() {
-		return methods;
+	public String getProcurementFile() {
+		return procurementFile;
 	}
 
-	public void setMethods(String methods) {
-		this.methods = methods;
+	public void setProcurementFile(String procurementFile) {
+		this.procurementFile = procurementFile;
 	}
 
-	public String getResults() {
-		return results;
+	public String getProcurementDescription() {
+		return procurementDescription;
 	}
 
-	public void setResults(String results) {
-		this.results = results;
+	public void setProcurementDescription(String procurementDescription) {
+		this.procurementDescription = procurementDescription;
 	}
 
-	public Date getResearchDateFrom() {
-		return researchDateFrom;
+	public String getWorkOrderFile() {
+		return workOrderFile;
 	}
 
-	public void setResearchDateFrom(Date researchDateFrom) {
-		this.researchDateFrom = researchDateFrom;
+	public void setWorkOrderFile(String workOrderFile) {
+		this.workOrderFile = workOrderFile;
 	}
 
-	public Date getResearchDateTo() {
-		return researchDateTo;
+	public String getWorkOrderDescription() {
+		return workOrderDescription;
 	}
 
-	public void setResearchDateTo(Date researchDateTo) {
-		this.researchDateTo = researchDateTo;
+	public void setWorkOrderDescription(String workOrderDescription) {
+		this.workOrderDescription = workOrderDescription;
+	}
+
+	public String getVendor() {
+		return vendor;
+	}
+
+	public void setVendor(String vendor) {
+		this.vendor = vendor;
+	}
+
+	public BigDecimal getProjectValue() {
+		return projectValue;
+	}
+
+	public void setProjectValue(BigDecimal projectValue) {
+		this.projectValue = projectValue;
 	}
 
 	public Integer getStatus() {
@@ -202,68 +226,29 @@ public class Research extends BaseEntity implements Serializable {
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
-	
-	public Boolean getIsManagement() {
-		return isManagement;
-	}
 
-	public void setIsManagement(Boolean isManagement) {
-		this.isManagement = isManagement;
-	}
-
-	public List<ResearchResearchTopic> getResearchTopics() {
-		return researchTopics;
-	}
-
-	public void setResearchTopics(List<ResearchResearchTopic> researchTopics) {
-		this.researchTopics = researchTopics;
-	}
-
-	public List<ResearchResearcher> getResearchers() {
+	public List<ResearchOfficer> getResearchers() {
 		return researchers;
 	}
 
-	public void setResearchers(List<ResearchResearcher> researchers) {
+	public void setResearchers(List<ResearchOfficer> researchers) {
 		this.researchers = researchers;
 	}
 
-	public List<ResearchTimePlanning> getTimePlannings() {
-		return timePlannings;
+	public List<ResearchImplementation> getImplementations() {
+		return implementations;
 	}
 
-	public void setTimePlannings(List<ResearchTimePlanning> timePlannings) {
-		this.timePlannings = timePlannings;
+	public void setImplementations(List<ResearchImplementation> implementations) {
+		this.implementations = implementations;
 	}
 
-	public List<ResearchBudgeting> getBudgetings() {
-		return budgetings;
+	public List<ResearchResult> getResults() {
+		return results;
 	}
 
-	public void setBudgetings(List<ResearchBudgeting> budgetings) {
-		this.budgetings = budgetings;
+	public void setResults(List<ResearchResult> results) {
+		this.results = results;
 	}
-
-	public List<ResearchGoalTarget> getGoalTarget() {
-		return goalTarget;
-	}
-
-	public void setGoalTarget(List<ResearchGoalTarget> goalTarget) {
-		this.goalTarget = goalTarget;
-	}
-
-	public List<ResearchMemo> getMemos() {
-		return memos;
-	}
-
-	public void setMemos(List<ResearchMemo> memos) {
-		this.memos = memos;
-	}
-
-	public List<ResearchFile> getFiles() {
-		return files;
-	}
-
-	public void setFiles(List<ResearchFile> files) {
-		this.files = files;
-	}
+	
 }

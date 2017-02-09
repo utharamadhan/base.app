@@ -56,11 +56,12 @@ public class RestServiceConstant {
 	public static final String COURSE_TAG_SERVICE 		= "courseTagService";
 	
 	//research
-	public static final String RESEARCH_TOPIC_SERVICE = "researchTopicService";
+	public static final String RESEARCH_THEME_SERVICE = "researchThemeService";
 	public static final String RESEARCH_SERVICE = "researchService";
 	
 	//advisory
 	public static final String ADVISORY_SERVICE = "advisoryService";
+	public static final String ADVISORY_MENU_SERVICE = "advisoryMenuService";
 	
 	//contact
 	public static final String CONTACT_SERVICE = "contactService";

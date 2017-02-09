@@ -10,22 +10,16 @@
 				<div class="container">
 					<ul>
 					<li><a th:href="@{/}">Home</a></li>
-					<li><a href="#">Advisory</a></li>
+					<li><a th:href="@{/page/advisory}">Advisory</a></li>
 					</ul>
 				</div>
 			</div>
 		</div>
 		<div class="advisory_section">
 			<div class="advisory_banner">
-				<div class="parallax-window" data-parallax="scroll" th:attr="data-image-src=@{/images/profesional.jpg}" ></div>
-				<div class="tp-mask-wrap">
-					<div class="tp-caption">
-						<div class="tp-caption-wrapper"><label class="tp-label-main">Best Advisor</label></div>
-						<div class="tp-caption-wrapper"><label class="tp-label">Professional legal advisor.</label></div>
-					</div>
-				</div>
-				<div class="info_banner_search">
-					<h1 class="find_advisor_title">Find Advisor</h1>
+				<div class="parallax-window" data-parallax="scroll" th:attr="data-image-src=@{/images/advisor_banner.jpg}" ></div>
+				<div class="info_banner_search_left">
+					<h1 class="find_advisor_title">Find Expert Advisor</h1>
 					<div class="part_div">
 						<select class="select_tema">
 							<option>Select Category</option>
@@ -56,7 +50,8 @@
 							<div class="col-md-3 align_center"> 
 								<img class="img-circle" th:src="@{/images/person/person1_small.jpg}"/>
 								<div class="advisor_description">
-									<h3 class="big-text">George Martin</h3>
+									<h3 class="big-text yellow-text-color advisor_name">George Martin</h3>
+									<div class="specialist_part"><label>Global and Asia Pacific, Americas (APA) Advisory leader</label></div>
 									<br/>
 									<p class="small-text">
 										George is one of the co-founders and takes care of growth, product development and partnerships. She is analytical, driven and adapts easily to new conditions, while trying to keep everyone on track.
@@ -69,7 +64,8 @@
 							<div class="col-md-3 align_center"> 
 								<img class="img-circle" th:src="@{/images/person/person2_small.jpg}"/>
 								<div class="advisor_description">
-                                    <h3 class="big-text">Beniamin Marcu</h3>
+                                    <h3 class="big-text yellow-text-color advisor_name">Beniamin Marcu</h3>
+                                    <div class="specialist_part"><label>Global and Asia Pacific, Americas (APA) Advisory leader</label></div>
                                     <br/>
                                     <p class="small-text">Beni is the guy responsible for keeping the platform in check, improving its functionality and adding new features. He is driven, always open for learning more, friendly and a fan of Ruby on Rails.
                                     </p>
@@ -81,7 +77,8 @@
 							<div class="col-md-3 align_center"> 
 								<img class="img-circle" th:src="@{/images/person/person3_small.jpg}"/>
 								<div class="advisor_description">
-                                    <h3 class="big-text">Diana Caliman </h3>
+                                    <h3 class="big-text yellow-text-color advisor_name">Diana Caliman </h3>
+                                    <div class="specialist_part"><label>Global and Asia Pacific, Americas (APA) Advisory leader</label></div>
                                     <br/>
                                     <p class="small-text">Diana is the person behind our social media channels, she takes care of our users' community and communication. She is ambitious, hard-working, instantly likeable and fun to be around.
                                     </p>
@@ -93,7 +90,8 @@
 							<div class="col-md-3 align_center"> 
 								<img class="img-circle" th:src="@{/images/person/person4_small.jpg}"/>
 								<div class="advisor_description">
-                                	<h3 class="big-text">Elena Conacel </h3>
+                                	<h3 class="big-text yellow-text-color advisor_name">Elena Conacel </h3>
+                                	<div class="specialist_part"><label>Global and Asia Pacific, Americas (APA) Advisory leader</label></div>
                                 	<br/>
                                 	<p class="small-text">
                                 	Elena is one of the co-founders and takes care of growth, product development and partnerships. She is analytical, driven and adapts easily to new conditions, while trying to keep everyone on track.
@@ -104,9 +102,10 @@
                               	</div>
 							</div>
 							<div class="col-md-3 align_center"> 
-								<img class="img-circle" th:src="@{/images/person/person1_small.jpg}"/>
+								<img class="img-circle" th:src="@{/images/person/person5_small.jpg}"/>
 								<div class="advisor_description">
-									<h3 class="big-text">George Martin</h3>
+									<h3 class="big-text yellow-text-color advisor_name">Michaerl Inhaler</h3>
+									<div class="specialist_part"><label>Global and Asia Pacific, Americas (APA) Advisory leader</label></div>
 									<br/>
 									<p class="small-text">
 										George is one of the co-founders and takes care of growth, product development and partnerships. She is analytical, driven and adapts easily to new conditions, while trying to keep everyone on track.
@@ -117,9 +116,91 @@
 								</div>
 							</div> 
 							<div class="col-md-3 align_center"> 
-								<img class="img-circle" th:src="@{/images/person/person2_small.jpg}"/>
+								<img class="img-circle" th:src="@{/images/person/person6_small.jpg}"/>
 								<div class="advisor_description">
-                                    <h3 class="big-text">Beniamin Marcu</h3>
+                                    <h3 class="big-text yellow-text-color advisor_name">Ben Syafii</h3>
+                                    <div class="specialist_part"><label>Global and Asia Pacific, Americas (APA) Advisory leader</label></div>
+                                    <br/>
+                                    <p class="small-text">Beni is the guy responsible for keeping the platform in check, improving its functionality and adding new features. He is driven, always open for learning more, friendly and a fan of Ruby on Rails.
+                                    </p>
+                                    <div>
+                                    	<a href="#" class="link_see_article">View Article</a>
+                                    </div>
+                                </div>
+							</div>
+							<div class="col-md-3 align_center"> 
+								<img class="img-circle" th:src="@{/images/person/person7_small.jpg}"/>
+								<div class="advisor_description">
+									<h3 class="big-text yellow-text-color advisor_name">Minimal One</h3>
+									<div class="specialist_part"><label>Global and Asia Pacific, Americas (APA) Advisory leader</label></div>
+									<br/>
+									<p class="small-text">
+										George is one of the co-founders and takes care of growth, product development and partnerships. She is analytical, driven and adapts easily to new conditions, while trying to keep everyone on track.
+                                    </p>
+                                    <div>
+                                    	<a href="#" class="link_see_article">View Article</a>
+                                    </div>
+								</div>
+							</div> 
+							<div class="col-md-3 align_center"> 
+								<img class="img-circle" th:src="@{/images/person/person8_small.jpg}"/>
+								<div class="advisor_description">
+                                    <h3 class="big-text yellow-text-color advisor_name">Kylie Mini</h3>
+                                    <div class="specialist_part"><label>Global and Asia Pacific, Americas (APA) Advisory leader</label></div>
+                                    <br/>
+                                    <p class="small-text">Beni is the guy responsible for keeping the platform in check, improving its functionality and adding new features. He is driven, always open for learning more, friendly and a fan of Ruby on Rails.
+                                    </p>
+                                    <div>
+                                    	<a href="#" class="link_see_article">View Article</a>
+                                    </div>
+                                </div>
+							</div>
+							<div class="col-md-3 align_center"> 
+								<img class="img-circle" th:src="@{/images/person/person5_small.jpg}"/>
+								<div class="advisor_description">
+									<h3 class="big-text yellow-text-color advisor_name">Michaerl Inhaler</h3>
+									<div class="specialist_part"><label>Global and Asia Pacific, Americas (APA) Advisory leader</label></div>
+									<br/>
+									<p class="small-text">
+										George is one of the co-founders and takes care of growth, product development and partnerships. She is analytical, driven and adapts easily to new conditions, while trying to keep everyone on track.
+                                    </p>
+                                    <div>
+                                    	<a href="#" class="link_see_article">View Article</a>
+                                    </div>
+								</div>
+							</div> 
+							<div class="col-md-3 align_center"> 
+								<img class="img-circle" th:src="@{/images/person/person6_small.jpg}"/>
+								<div class="advisor_description">
+                                    <h3 class="big-text yellow-text-color advisor_name">Ben Syafii</h3>
+                                    <div class="specialist_part"><label>Global and Asia Pacific, Americas (APA) Advisory leader</label></div>
+                                    <br/>
+                                    <p class="small-text">Beni is the guy responsible for keeping the platform in check, improving its functionality and adding new features. He is driven, always open for learning more, friendly and a fan of Ruby on Rails.
+                                    </p>
+                                    <div>
+                                    	<a href="#" class="link_see_article">View Article</a>
+                                    </div>
+                                </div>
+							</div>
+							<div class="col-md-3 align_center"> 
+								<img class="img-circle" th:src="@{/images/person/person7_small.jpg}"/>
+								<div class="advisor_description">
+									<h3 class="big-text yellow-text-color advisor_name">Minimal One</h3>
+									<div class="specialist_part"><label>Global and Asia Pacific, Americas (APA) Advisory leader</label></div>
+									<br/>
+									<p class="small-text">
+										George is one of the co-founders and takes care of growth, product development and partnerships. She is analytical, driven and adapts easily to new conditions, while trying to keep everyone on track.
+                                    </p>
+                                    <div>
+                                    	<a href="#" class="link_see_article">View Article</a>
+                                    </div>
+								</div>
+							</div> 
+							<div class="col-md-3 align_center"> 
+								<img class="img-circle" th:src="@{/images/person/person8_small.jpg}"/>
+								<div class="advisor_description">
+                                    <h3 class="big-text yellow-text-color advisor_name">Kylie Mini</h3>
+                                    <div class="specialist_part"><label>Global and Asia Pacific, Americas (APA) Advisory leader</label></div>
                                     <br/>
                                     <p class="small-text">Beni is the guy responsible for keeping the platform in check, improving its functionality and adding new features. He is driven, always open for learning more, friendly and a fan of Ruby on Rails.
                                     </p>
@@ -129,6 +210,7 @@
                                 </div>
 							</div>
 						</div>
+						<div class="bouton bouton-brown"><a th:href="@{/page/advisory/sub/advisor}"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Load More</a></div>
 					</div>
 				</div>
 			</div>
@@ -147,6 +229,16 @@
 		$(function(){ 
 			$('.consult_btn').unbind('click').click(function(){
 				var url = /*[[@{/page/advisory/sub/consulting}]]*/
+				window.location.href = url;
+			});
+			
+			$('.advisor_name').unbind('click').click(function(){
+				var url = /*[[@{/page/advisory/sub/advisor/detail}]]*/
+				window.location.href = url;
+			});
+			
+			$('.link_see_article').unbind('click').click(function(){
+				var url = /*[[@{/page/advisory/sub/article}]]*/
 				window.location.href = url;
 			});
 		});

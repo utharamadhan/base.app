@@ -95,6 +95,8 @@ public class ContactUsWebController {
 		Map<String, Object> resultMap = new HashMap<>();
 		final String username = ApplicationProperties.getProperty("email.smtp.username");
 		final String password = ApplicationProperties.getProperty("email.smtp.password");
+		final String host = ApplicationProperties.getProperty("mail.smtp.host");
+		final String port = ApplicationProperties.getProperty("mail.smtp.port");
 		
 		String contactName = params.get("name");
 		String contactEmail = params.get("email");
@@ -167,8 +169,8 @@ public class ContactUsWebController {
 		Properties props = new Properties();
 		props.put("mail.smtp.auth", "true");
 		props.put("mail.smtp.starttls.enable", "true");
-		props.put("mail.smtp.host", ApplicationProperties.getProperty("mail.smtp.host"));
-		props.put("mail.smtp.port", ApplicationProperties.getProperty("mail.smtp.port"));
+		props.put("mail.smtp.host", host);
+		props.put("mail.smtp.port", port);
 		props.put("mail.smtp.from", from);
 
 		Session session = Session.getInstance(props,

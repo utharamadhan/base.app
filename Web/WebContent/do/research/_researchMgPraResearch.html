@@ -1,0 +1,191 @@
+<div class="tile-body rounded-corners" th:fragment="praResearch(detail)">
+	<br/>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<label class="col-sm-2 control-label" th:text="'Research Title'">Research Title</label>
+				<div class="col-sm-9 form-input-container">
+					<input type="text" class="form-control" placeholder="Research Title" id="input-text-title" th:field="*{title}"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label" th:text="'Research Subtitle'">Research Subtitle</label>
+				<div class="col-sm-9 form-input-container">
+					<input type="text" class="form-control" placeholder="Research Subtitle" id="input-text-title" th:field="*{title}"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label" th:text="'Featured Image'">Featured Image</label>
+				<div class="col-sm-9 form-input-container">
+					<th:block th:if="${detail.imageURL != null}">
+						<input type="hidden" id="input-hidden-basicPictureURL" th:field="*{imageURL}"/>
+						<input type="file" class="form-control" id="input-file-basicPictureURL" style="display:none;"/>
+						<div id="container-basicPictureURL">
+							<img th:src="${detail.imageURL}" class="gcDetail-basicPicture"/>
+							<a href="#" class="btn btn-primary btn-xs margin-bottom-20 basicPicture-delete" data-toggle="tooltip" title="Delete"><i class="fa fa-trash"></i></a>
+						</div>
+					</th:block>
+					<th:block th:if="${detail.imageURL == null}">
+						<input type="hidden" id="input-hidden-basicPictureURL" name="imageURL"/>
+						<input type="file" class="form-control" id="input-file-basicPictureURL"/>
+						<div id="container-basicPictureURL" style='display:none;'>
+						</div>
+					</th:block>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-11 form-input-container">
+					<div class="panel-group" id="accordion">
+					  <div class="panel panel-default">
+					    <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" data-target="#collapseDesc">
+					      <h4 class="panel-title">
+					        <a class="accordion-toggle" th:text="'Description'">Description</a>
+					      </h4>
+					    </div>
+					    <div id="collapseDesc" class="panel-collapse collapse">
+					        <input id="tinyMCE-hidden" name="abstractDesc" type="hidden"/>
+							<div class="tinyMCE-parent">					
+								<textarea class="tinyMCE-area">
+								</textarea>
+							</div>
+					    </div>
+					  </div>
+					  <div class="panel panel-default">
+					    <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" data-target="#collapseOne">
+					      <h4 class="panel-title">
+					        <a class="accordion-toggle" th:text="'Ijin Prinsip'">Ijin Prinsip</a>
+					      </h4>
+					    </div>
+					    <div id="collapseOne" class="panel-collapse collapse">
+					        <input id="tinyMCE-hidden" name="abstractDesc" type="hidden"/>
+							<div class="tinyMCE-parent">					
+								<textarea class="tinyMCE-area">
+								</textarea>
+							</div>
+							<br/>
+							<div class="form-group">
+								<label class="col-sm-2 control-label" th:text="'Upload File'">Upload File</label>
+								<div class="col-sm-9 form-input-container">
+									<th:block th:if="${detail.imageURL != null}">
+										<input type="hidden" id="input-hidden-basicPictureURL" th:field="*{imageURL}"/>
+										<input type="file" class="form-control" id="input-file-basicPictureURL" style="display:none;"/>
+										<div id="container-basicPictureURL">
+											<img th:src="${detail.imageURL}" class="gcDetail-basicPicture"/>
+											<a href="#" class="btn btn-primary btn-xs margin-bottom-20 basicPicture-delete" data-toggle="tooltip" title="Delete"><i class="fa fa-trash"></i></a>
+										</div>
+									</th:block>
+									<th:block th:if="${detail.imageURL == null}">
+										<input type="hidden" id="input-hidden-basicPictureURL" name="imageURL"/>
+										<input type="file" class="form-control" id="input-file-basicPictureURL"/>
+										<div id="container-basicPictureURL" style='display:none;'>
+										</div>
+									</th:block>
+								</div>
+							</div>
+					    </div>
+					  </div>
+					  <div class="panel panel-default">
+					    <div class="panel-heading">
+					      <h4 class="panel-title"  data-toggle="collapse" data-parent="#accordion" data-target="#collapseTwo">
+					        <a class="accordion-toggle" th:text="'Pengadaan'">Pengadaan</a>
+					      </h4>
+					    </div>
+					    <div id="collapseTwo" class="panel-collapse collapse">
+					        <input id="tinyMCE-hidden" name="introduction" type="hidden"/>
+							<div class="tinyMCE-parent">					
+								<textarea class="tinyMCE-area">
+								</textarea>
+							</div>
+							<br/>
+							<div class="form-group">
+								<label class="col-sm-2 control-label" th:text="'Upload File'">Upload File</label>
+								<div class="col-sm-9 form-input-container">
+									<th:block th:if="${detail.imageURL != null}">
+										<input type="hidden" id="input-hidden-basicPictureURL" th:field="*{imageURL}"/>
+										<input type="file" class="form-control" id="input-file-basicPictureURL" style="display:none;"/>
+										<div id="container-basicPictureURL">
+											<img th:src="${detail.imageURL}" class="gcDetail-basicPicture"/>
+											<a href="#" class="btn btn-primary btn-xs margin-bottom-20 basicPicture-delete" data-toggle="tooltip" title="Delete"><i class="fa fa-trash"></i></a>
+										</div>
+									</th:block>
+									<th:block th:if="${detail.imageURL == null}">
+										<input type="hidden" id="input-hidden-basicPictureURL" name="imageURL"/>
+										<input type="file" class="form-control" id="input-file-basicPictureURL"/>
+										<div id="container-basicPictureURL" style='display:none;'>
+										</div>
+									</th:block>
+								</div>
+							</div>
+					    </div>
+					  </div>
+					  <div class="panel panel-default">
+					    <div class="panel-heading">
+					      <h4 class="panel-title" data-toggle="collapse" data-parent="#accordion" data-target="#collapseThree">
+					        <a class="accordion-toggle" th:text="'SPK dan PKS'">SPK dan PKS</a>
+					      </h4>
+					    </div>
+					    <div id="collapseThree" class="panel-collapse collapse">
+					        <input id="tinyMCE-hidden" name="literatureReview" type="hidden"/>
+							<div class="tinyMCE-parent">					
+								<textarea class="tinyMCE-area">
+								</textarea>
+							</div>
+							<br/>
+							<div class="form-group">
+								<label class="col-sm-2 control-label" th:text="'Upload File'">Upload File</label>
+								<div class="col-sm-9 form-input-container">
+									<th:block th:if="${detail.imageURL != null}">
+										<input type="hidden" id="input-hidden-basicPictureURL" th:field="*{imageURL}"/>
+										<input type="file" class="form-control" id="input-file-basicPictureURL" style="display:none;"/>
+										<div id="container-basicPictureURL">
+											<img th:src="${detail.imageURL}" class="gcDetail-basicPicture"/>
+											<a href="#" class="btn btn-primary btn-xs margin-bottom-20 basicPicture-delete" data-toggle="tooltip" title="Delete"><i class="fa fa-trash"></i></a>
+										</div>
+									</th:block>
+									<th:block th:if="${detail.imageURL == null}">
+										<input type="hidden" id="input-hidden-basicPictureURL" name="imageURL"/>
+										<input type="file" class="form-control" id="input-file-basicPictureURL"/>
+										<div id="container-basicPictureURL" style='display:none;'>
+										</div>
+									</th:block>
+								</div>
+							</div>
+					    </div>
+					  </div>
+					</div>	
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label" th:text="'Vendor'">Vendor</label>
+				<div class="col-sm-9 form-input-container">
+					<input type="text" class="form-control" placeholder="Vendor" id="input-text-title" th:field="*{title}"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label" th:text="'Project Value'">Project Value</label>
+				<div class="col-sm-9 form-input-container">
+					<div class="input-group">
+					  <span class="input-group-addon" id="addon-project-val">Rp.</span>
+					  <input type="text" class="form-control" placeholder="Project Value" aria-describedby="addon-project-val"/>
+					</div>
+				</div>
+			</div>
+			<div>
+				<div class="form-group form-footer">				
+					<div class="col-sm-offset-3 col-sm-9">
+						<a href="#" id="student-detail-btn-cancel" class="btn btn-default student-detail-btn-cancel-class" type="reset" data-toggle="tooltip" title="">Batal</a>
+						<button id="student-detail-btn-save" class="btn btn-primary student-detail-btn-save-class" type="submit" data-toggle="tooltip" title="">Tambah</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script th:inline="javascript">
+	/*<![CDATA[*/     
+		$(function(){
+			var uploadURL = /*[[@{/do/fileManager/upload/}]]*/ #;
+			initTextEditor('.tinyMCE-area', '.tinyMCE-parent', uploadURL);
+	    });
+	/*]]>*/
+	</script>
+</div>

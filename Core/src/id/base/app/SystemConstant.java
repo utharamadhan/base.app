@@ -277,17 +277,14 @@ public class SystemConstant  {
 	public static final class ValidFlag {
 		public static Integer INVALID 			= 0;
 		public static Integer VALID 			= 1;
-		public static Integer VALID_MODIFIED 	= 2;
 		
 		public static String INVALID_STR	= "Invalid";
 		public static String VALID_STR		= "Valid";
-		public static String VALID_MODIFIED_STR	= "Valid Modified";
 		
 		public static HashMap<Integer, String> validFlagMap = new HashMap<>();
 		static{
 			validFlagMap.put(INVALID, INVALID_STR);
 			validFlagMap.put(VALID, VALID_STR);
-			validFlagMap.put(VALID_MODIFIED, VALID_MODIFIED_STR);
 		}
 	}
 	
@@ -295,19 +292,6 @@ public class SystemConstant  {
 	
 	public static void setImageSharingURL(String imageSharingURL) {
 		IMAGE_SHARING_URL = imageSharingURL;
-	}
-	
-	public static final class StatusTransInItem {
-		public static Integer INVALID 			= 0;
-		public static Integer VALID 			= 1;
-		public static Integer EMPTY 			= 2;
-	}
-	
-	public static final class StatusProd {
-		public static final Integer INVALID = 0;
-		public static final Integer VALID = 1;
-		public static final Integer COMPLETE = 2;
-		public static final Integer PAST = 3;
 	}
 	
 	public static final String USER_OBJECT_KEY = "user";
@@ -327,48 +311,6 @@ public class SystemConstant  {
 	}
 	
 	public static final String EMPTY_KEYWORD = "";
-	
-	public static final class UsageItemType {
-		public static final String BAHAN_BAKU_PRODUKSI	= "BBP";
-		public static final String BARANG_PENUNJANG_PRODUKSI = "BPP";
-	}
-	
-	public static final String USAGE_THIRD_PARTY = "TP";
-	
-	public static final class TransInSourceType {
-		public static final String BUYING	= "BUY";
-		public static final String MAKLON	= "MKN";
-		
-		public static final String BUYING_DESCR = "Pembelian";
-		public static final String MAKLON_DESCR = "Maklon";
-		
-		public static final HashMap<String, String> TRANS_IN_SOURCE_TYPE_DESCR = new HashMap<>();
-		static {
-			TRANS_IN_SOURCE_TYPE_DESCR.put(BUYING, BUYING_DESCR);
-			TRANS_IN_SOURCE_TYPE_DESCR.put(MAKLON, MAKLON_DESCR);
-		}
-	}
-	
-	public static final class TransOutSourceType {
-		public static final String SALES	= "SLS";
-	}
-	
-	public static final class TransOutFilter {
-		public static final String ALL = "ALL";
-		public static final String IN = "IN";
-		public static final String PROD = "PROD";
-		
-		public static final String ALL_DESCR = "Semua";
-		public static final String IN_DESCR = "Pembelian";
-		public static final String PROD_DESCR = "Produksi";
-		
-		public static final HashMap<String, String> TRANS_OUT_DESCRIPTION = new HashMap<>();
-		static {
-			TRANS_OUT_DESCRIPTION.put(ALL, ALL_DESCR);
-			TRANS_OUT_DESCRIPTION.put(IN, IN_DESCR);
-			TRANS_OUT_DESCRIPTION.put(PROD, PROD_DESCR);
-		}
-	}
 	
 	public static final class NotificationConstant {
 		public static final Integer UNREAD = 0;
@@ -421,5 +363,12 @@ public class SystemConstant  {
 			REDIRECT_MAP.put(EIGHTH_LOOKUP, EIGHTH_LOOKUP_REDIRECT_URL);
 		}
 		
+	}
+	
+	public static final class StatusAdvisory{
+		public static final Integer CLOSED = 0;
+		public static final Integer NEW = 1;
+		public static final Integer OPEN = 2;
+		public static final Integer ANSWERED = 3;
 	}
 }

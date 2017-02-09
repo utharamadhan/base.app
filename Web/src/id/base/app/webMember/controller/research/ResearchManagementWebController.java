@@ -13,10 +13,7 @@ import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.valueobject.research.Research;
-import id.base.app.valueobject.research.ResearchBudgeting;
-import id.base.app.valueobject.research.ResearchGoalTarget;
-import id.base.app.valueobject.research.ResearchMemo;
-import id.base.app.valueobject.research.ResearchTimePlanning;
+import id.base.app.valueobject.research.ResearchOfficer;
 import id.base.app.webMember.DataTableCriterias;
 import id.base.app.webMember.controller.BaseController;
 
@@ -55,7 +52,6 @@ public class ResearchManagementWebController extends BaseController<Research> {
 	}
 	
 	private void setDefaultFilter(HttpServletRequest request, List<SearchFilter> filters) {
-		filters.add(new SearchFilter(Research.IS_MANAGEMENT, Operator.EQUALS, Boolean.TRUE, Boolean.class));
 		filters.add(new SearchFilter(Research.STATUS, Operator.NOT_EQUAL, SystemConstant.ValidFlag.INVALID));
 	}
 
@@ -113,14 +109,14 @@ public class ResearchManagementWebController extends BaseController<Research> {
 		return resultMap;
 	}
 
-	@RequestMapping(method=RequestMethod.GET, value="/listTimePlanning")
+	@RequestMapping(method=RequestMethod.GET, value="/listOfficer")
 	@ResponseBody
-	public List<ResearchTimePlanning> showTimePlanningList(@RequestParam(value="fkResearch")final Long fkResearch, HttpServletRequest request){
-		List<ResearchTimePlanning> list = new SpecificRestCaller<ResearchTimePlanning>(RestConstant.REST_SERVICE, RestConstant.RM_RESEARCH, ResearchTimePlanning.class).executeGetList(new PathInterfaceRestCaller() {
+	public List<ResearchOfficer> showTimePlanningList(@RequestParam(value="fkResearch")final Long fkResearch, HttpServletRequest request){
+		List<ResearchOfficer> list = new SpecificRestCaller<ResearchOfficer>(RestConstant.REST_SERVICE, RestConstant.RM_RESEARCH, ResearchOfficer.class).executeGetList(new PathInterfaceRestCaller() {
 			
 			@Override
 			public String getPath() {
-				return "/findTimePlanningByFkResearch/{fkResearch}";
+				return "/findOfficerByFkResearch/{fkResearch}";
 			}
 			
 			@Override
@@ -133,141 +129,13 @@ public class ResearchManagementWebController extends BaseController<Research> {
 		return list;
 	}
 	
-	@RequestMapping(method=RequestMethod.GET, value="/listBudgeting")
+	@RequestMapping(method=RequestMethod.POST, value="saveOfficer")
 	@ResponseBody
-	public List<ResearchBudgeting> showBudgetingList(@RequestParam(value="fkResearch")final Long fkResearch, HttpServletRequest request){
-		List<ResearchBudgeting> list = new SpecificRestCaller<ResearchBudgeting>(RestConstant.REST_SERVICE, RestConstant.RM_RESEARCH, ResearchBudgeting.class).executeGetList(new PathInterfaceRestCaller() {
-			
-			@Override
-			public String getPath() {
-				return "/findBudgetingByFkResearch/{fkResearch}";
-			}
-			
-			@Override
-			public Map<String, Object> getParameters() {
-				Map<String, Object> map = new HashMap<>();
-				map.put("fkResearch", fkResearch);
-				return map;
-			}
-		});
-		return list;
-	}
-	
-	@RequestMapping(method=RequestMethod.GET, value="/listGoalTarget")
-	@ResponseBody
-	public List<ResearchGoalTarget> showGoalTargetList(@RequestParam(value="fkResearch")final Long fkResearch, HttpServletRequest request){
-		List<ResearchGoalTarget> list = new SpecificRestCaller<ResearchGoalTarget>(RestConstant.REST_SERVICE, RestConstant.RM_RESEARCH, ResearchGoalTarget.class).executeGetList(new PathInterfaceRestCaller() {
-			
-			@Override
-			public String getPath() {
-				return "/findGoalTargetByFkResearch/{fkResearch}";
-			}
-			
-			@Override
-			public Map<String, Object> getParameters() {
-				Map<String, Object> map = new HashMap<>();
-				map.put("fkResearch", fkResearch);
-				return map;
-			}
-		});
-		return list;
-	}
-	
-	@RequestMapping(method=RequestMethod.GET, value="/listMemo")
-	@ResponseBody
-	public List<ResearchMemo> showMemoList(@RequestParam(value="fkResearch")final Long fkResearch, HttpServletRequest request){
-		List<ResearchMemo> list = new SpecificRestCaller<ResearchMemo>(RestConstant.REST_SERVICE, RestConstant.RM_RESEARCH, ResearchMemo.class).executeGetList(new PathInterfaceRestCaller() {
-			
-			@Override
-			public String getPath() {
-				return "/findMemoByFkResearch/{fkResearch}";
-			}
-			
-			@Override
-			public Map<String, Object> getParameters() {
-				Map<String, Object> map = new HashMap<>();
-				map.put("fkResearch", fkResearch);
-				return map;
-			}
-		});
-		return list;
-	}
-	
-	@RequestMapping(method=RequestMethod.GET, value="/findTimePlanningById")
-	@ResponseBody
-	public ResearchTimePlanning findTimePlanningById(@RequestParam(value="id")final Long id, HttpServletRequest request){
-		ResearchTimePlanning obj = new SpecificRestCaller<ResearchTimePlanning>(RestConstant.REST_SERVICE, RestConstant.RM_RESEARCH, ResearchTimePlanning.class).executeGet(new PathInterfaceRestCaller() {
-			
-			@Override
-			public String getPath() {
-				return "/findTimePlanningById/{id}";
-			}
-			
-			@Override
-			public Map<String, Object> getParameters() {
-				Map<String, Object> map = new HashMap<>();
-				map.put("id", id);
-				return map;
-			}
-		});
-		return obj;
-	}
-	
-	@RequestMapping(method=RequestMethod.POST, value="saveTimePlanning")
-	@ResponseBody
-	public Map<String, Object> saveTimePlanning(final ResearchTimePlanning anObject, HttpServletRequest request) {
+	public Map<String, Object> saveOfficer(final ResearchOfficer anObject, HttpServletRequest request) {
 		Map<String, Object> resultMap = new HashMap<>();
 		List<ErrorHolder> errors = new ArrayList<>();
 		try{
-			errors = new SpecificRestCaller<ResearchTimePlanning>(RestConstant.REST_SERVICE, RestServiceConstant.RESEARCH_SERVICE).performPut("/saveTimePlanning", anObject);
-			if(errors != null && errors.size() > 0){
-				resultMap.put(SystemConstant.ERROR_LIST, errors);
-			}
-		}catch(Exception e){
-			LOGGER.error(e.getMessage(), e);
-		}
-		return resultMap;
-	}
-	
-	@RequestMapping(method=RequestMethod.POST, value="saveBudgeting")
-	@ResponseBody
-	public Map<String, Object> saveBudgeting(final ResearchBudgeting anObject, HttpServletRequest request) {
-		Map<String, Object> resultMap = new HashMap<>();
-		List<ErrorHolder> errors = new ArrayList<>();
-		try{
-			errors = new SpecificRestCaller<ResearchBudgeting>(RestConstant.REST_SERVICE, RestServiceConstant.RESEARCH_SERVICE).performPut("/saveBudgeting", anObject);
-			if(errors != null && errors.size() > 0){
-				resultMap.put(SystemConstant.ERROR_LIST, errors);
-			}
-		}catch(Exception e){
-			LOGGER.error(e.getMessage(), e);
-		}
-		return resultMap;
-	}
-	
-	@RequestMapping(method=RequestMethod.POST, value="saveGoalTarget")
-	@ResponseBody
-	public Map<String, Object> saveGoalTarget(final ResearchGoalTarget anObject, HttpServletRequest request) {
-		Map<String, Object> resultMap = new HashMap<>();
-		List<ErrorHolder> errors = new ArrayList<>();
-		try{
-			errors = new SpecificRestCaller<ResearchGoalTarget>(RestConstant.REST_SERVICE, RestServiceConstant.RESEARCH_SERVICE).performPut("/saveGoalTarget", anObject);
-			if(errors != null && errors.size() > 0){
-				resultMap.put(SystemConstant.ERROR_LIST, errors);
-			}
-		}catch(Exception e){
-			LOGGER.error(e.getMessage(), e);
-		}
-		return resultMap;
-	}
-	
-	@RequestMapping(method=RequestMethod.POST, value="saveMemo")
-	@ResponseBody
-	public Map<String, Object> saveMemo(final ResearchMemo anObject, HttpServletRequest request) {
-		Map<String, Object> resultMap = new HashMap<>();
-		List<ErrorHolder> errors = new ArrayList<>();
-		try{
-			errors = new SpecificRestCaller<ResearchMemo>(RestConstant.REST_SERVICE, RestServiceConstant.RESEARCH_SERVICE).performPut("/saveMemo", anObject);
+			errors = new SpecificRestCaller<ResearchOfficer>(RestConstant.REST_SERVICE, RestServiceConstant.RESEARCH_SERVICE).performPut("/saveOfficer", anObject);
 			if(errors != null && errors.size() > 0){
 				resultMap.put(SystemConstant.ERROR_LIST, errors);
 			}
