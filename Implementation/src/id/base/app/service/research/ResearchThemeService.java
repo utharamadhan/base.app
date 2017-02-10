@@ -19,26 +19,26 @@ import org.springframework.transaction.annotation.Transactional;
 public class ResearchThemeService implements IResearchThemeService {
 
 	@Autowired
-	private IResearchThemeDAO researchTopicDAO;
+	private IResearchThemeDAO researchThemeDAO;
     
 	public PagingWrapper<ResearchTheme> findAll(int startNo, int offset) throws SystemException {
 		return null;
 	}
 
 	public ResearchTheme findById(Long id) throws SystemException {
-		return researchTopicDAO.findById(id);
+		return researchThemeDAO.findById(id);
 	}
 
 	public void saveOrUpdate(ResearchTheme anObject) throws SystemException {
-		researchTopicDAO.saveOrUpdate(anObject);
+		researchThemeDAO.saveOrUpdate(anObject);
 	}
 
 	public void delete(Long[] objectPKs) throws SystemException {
-		researchTopicDAO.delete(objectPKs);
+		researchThemeDAO.delete(objectPKs);
 	}
 
 	public PagingWrapper<ResearchTheme> findAllByFilter(int startNo, int offset, List<SearchFilter> filter, List<SearchOrder> order) throws SystemException {
-		return researchTopicDAO.findAllByFilter(startNo, offset, filter, order);
+		return researchThemeDAO.findAllByFilter(startNo, offset, filter, order);
 	}
 	
 	@Override
@@ -46,7 +46,7 @@ public class ResearchThemeService implements IResearchThemeService {
 		List<ResearchTheme> objects = new ArrayList<>();
 		ResearchTheme object = null;
 		for(Long l:objectPKs){
-			object = researchTopicDAO.findById(l);
+			object = researchThemeDAO.findById(l);
 			objects.add(object);
 		}
 		return objects;
@@ -54,12 +54,12 @@ public class ResearchThemeService implements IResearchThemeService {
 
 	@Override
 	public List<ResearchTheme> findAll(List<SearchFilter> filter, List<SearchOrder> order) throws SystemException {
-		return researchTopicDAO.findAll(filter, order);
+		return researchThemeDAO.findAll(filter, order);
 	}
 
 	@Override
 	public List<ResearchTheme> findAllResearchThemeTitle() throws SystemException {
-		return researchTopicDAO.findAllResearchThemeTitle();
+		return researchThemeDAO.findAllResearchThemeTitle();
 	}
 
 }
