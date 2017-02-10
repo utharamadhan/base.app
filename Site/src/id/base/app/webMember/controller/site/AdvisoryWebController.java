@@ -176,7 +176,7 @@ public class AdvisoryWebController {
 		String contactQuestion = params.get("question");
 		String contactTelp = params.get("telp");
 		
-		if(contactName == null || contactEmail == null || contactQuestion == null){
+		if(contactName == null || contactEmail == null || contactQuestion == null || "".equals(contactName) || "".equals(contactEmail) || "".equals(contactQuestion)){
 			resultMap.put("success", false);
 	         resultMap.put("message", "Your question failed to processed, There was an empty field!");
 	         return resultMap;
