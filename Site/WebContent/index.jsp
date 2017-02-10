@@ -72,8 +72,8 @@
 			background-color: rgba(255,255,255,0.9);
 			line-height: 1.8;
 			padding: 20px 0px;
-			border-bottom-left-radius: 20px;
-			border-bottom-right-radius: 20px;
+			border-bottom-left-radius: 10px;
+			border-bottom-right-radius: 10px;
 			font-weight: 700;
 			border-bottom: 2px solid #f4202f;
 		}
@@ -195,7 +195,7 @@
 			background-size: auto 100%;
 			background-repeat: no-repeat;
 			background-position: left top;
-			height: 549.08px;
+			height: 550px;
 		}
 		.contactArea .contact-wrapper{
 			max-width: 600px;
@@ -379,6 +379,17 @@
 					<div class="contact-button">
 						<a href="page/contact" class="btn btn-secondary btn-medium">Kontak Kami</a>
 					</div>
+				</div>
+			</div>
+		</div>
+		<div class="socMedFooter">
+			<div class="container">
+				<div class="socialFollow">
+					<span class="labelSocialFollow">Follow Us</span>
+					<a href="#"><i class="fa fa-twitter"></i></a>
+					<a href="#"><i class="fa fa-facebook"></i></a>
+					<a href="#"><i class="fa fa-google-plus"></i></a>
+					<a href="#"><i class="fa fa-youtube-play"></i></a>
 				</div>
 			</div>
 		</div>
