@@ -178,7 +178,7 @@ public class AdvisoryWebController {
 		
 		if(contactName == null || contactEmail == null || contactQuestion == null){
 			resultMap.put("success", false);
-	         resultMap.put("message", "Your email failed to processed, There was an empty field!");
+	         resultMap.put("message", "Your question failed to processed, There was an empty field!");
 	         return resultMap;
 		}
 		
@@ -192,7 +192,7 @@ public class AdvisoryWebController {
 		List<ErrorHolder> errors = getRestCaller().create(advisory);
 		if(!errors.isEmpty()){
 			resultMap.put("success", false);
-	         resultMap.put("message", "Your email failed to processed, There was an empty field!");
+	         resultMap.put("message", "Your question failed to processed, There was an empty field!");
 	         return resultMap;
 		}
 		
@@ -226,17 +226,13 @@ public class AdvisoryWebController {
 	
 	         message.setText(text);
 	
-	         
 	         Transport.send(message);
 	         
-	         resultMap.put("success", true);
-	         resultMap.put("message", "Your email successfully been processed");
 		}catch(MessagingException e) {
-			resultMap.put("success", false);
-	         resultMap.put("message", "Your email failed to processed");
-	         return resultMap;
+			e.printStackTrace();
 		}
-		
+		resultMap.put("success", true);
+        resultMap.put("message", "Your question successfully been processed");
 		return resultMap;
 	}
 	

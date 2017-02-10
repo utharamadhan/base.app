@@ -214,6 +214,33 @@
 									<div class="contact_form">
 											
 										<form method="post" action="#" id="advisory_form">
+											<div class="row category_input" style="display: none;">
+												<div class="col-xs-12 col-sm-7">
+													<div class="form-group">
+														<label>Category <span class="error">*</span></label>
+														<input type="text" class="form-control" name="category" readonly="readonly"/>
+													</div>
+												</div>
+											</div><!--end row-->
+											
+											<div class="row research_input" style="display: none;">
+												<div class="col-xs-12 col-sm-7">
+													<div class="form-group">
+														<label>Research <span class="error">*</span></label>
+														<input type="text" class="form-control" name="research" readonly="readonly"/>
+													</div>
+												</div>
+											</div><!--end row-->
+											
+											<div class="row advisor_input" style="display: none;">
+												<div class="col-xs-12 col-sm-7">
+													<div class="form-group">
+														<label>Advisor <span class="error">*</span></label>
+														<input type="text" class="form-control" name="advisor" readonly="readonly"/>
+													</div>
+												</div>
+											</div><!--end row-->
+										
 											<div class="row">
 												<div class="col-xs-12 col-sm-7">
 													<div class="form-group">
@@ -311,9 +338,32 @@
 				} 
 			});
 		}
+		
+		function resetField(type){
+			if(type){
+				if(type == 'category'){
+					$('.category_input').find('input[name="category"]').val('');
+					$('.research_input').find('input[name="research"]').val('');
+					$('.advisor_input').find('input[name="advisor"]').val('');
+				}else if(type == "research"){
+					$('.research_input').find('input[name="research"]').val('');
+					$('.advisor_input').find('input[name="advisor"]').val('');
+				}else if(type == "advisor"){
+					$('.advisor_input').find('input[name="advisor"]').val('');
+				}
+			}else{
+				$('.category_input').find('input[name="category"]').val('');
+				$('.research_input').find('input[name="research"]').val('');
+				$('.advisor_input').find('input[name="advisor"]').val('');
+			}
+		}
 		           
 		$(function(){  
 			$('.foreground_list').unbind('click').click(function(){
+				/* resetField('category');
+				var val = $(this).find('.label_want').html();
+				$('.category_input').find('input[name="category"]').val(val);
+				$('.category_input').show(); */
 				changeToCategory();
 			});
 			
@@ -330,6 +380,10 @@
 			})
 			
 			$('.continue_research').unbind('click').click(function(){
+				/* resetField('research');
+				var val = $('.research_advisory').find('input[type="text"]').val();
+				$('.research_input').find('input[name="research"]').val(val);
+				$('.research_input').show(); */
 				var url = /*[[@{/page/advisory/sub/article}]]*/
 				//window.location.href = url;
 				var widthScreen = $( window ).width();
