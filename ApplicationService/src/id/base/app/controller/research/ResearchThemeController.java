@@ -25,7 +25,6 @@ public class ResearchThemeController extends SuperController<ResearchTheme>{
 	@Autowired
 	private IResearchThemeService researchThemeService;
 	
-
 	@Override
 	public ResearchTheme validate(ResearchTheme anObject) throws SystemException {
 		List<ErrorHolder> errorList = new ArrayList<>();
@@ -55,6 +54,5 @@ public class ResearchThemeController extends SuperController<ResearchTheme>{
 	@ResponseBody
 	public List<ResearchTheme> findAllResearchThemeTitle() {
 		return researchThemeService.findAllResearchThemeTitle();
-	}
-	
+	}	
 }
