@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:ifs="http://padiku.id">
+<head>
+<meta charset="ISO-8859-1"/>
+<title>Category Maintenance</title>
+</head>
+<style>
+.dataTables_scrollBody {
+	height : auto !important;
+	min-height : 120px;
+}
+</style>
+<body>
+<div id="content" class="col-md-12">
+	<div id="category-detail-container"></div>
+	<div id="category-list-container">
+	<div class="pageheader">
+		<h4><i class="fa fa-shopping-basket"></i> Category Editor / Category List
+		<span></span></h4>
+	</div>
+	<div class="col-md-4 tile-body no-vpadding" style="margin:10px;">
+		<a href="#" id="category-btn-add" class="btn btn-primary" style="margin-bottom:5px"><i class="fa fa-plus dropdown-plus"></i> &nbsp; Add</a>
+	</div>
+	<div class="main">
+		<div class="row">
+			<div class="col-md-12">	
+				<section class="tile transparent">
+					<div class="table-responsive">
+						<div class="tile-body rounded-corners">
+	                      	<table id="category-list-table" class="table table-datatable table-custom">
+		                        <thead>
+		                          <tr>
+		                            <th>Name</th>
+		                            <th>Title</th>
+									<th>E/D</th>
+		                          </tr>
+		                        </thead>
+	                     	</table>
+	                     	<div style="padding-bottom: 3px; bottom: 0;" th:replace="pagingDiv::pager (${pagingWrapper}, ${#dates.createNow()}, 'category-list-table', 'contentArea')">
+							</div>
+                     	</div>
+					</div>
+				</section>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script th:inline="javascript">
+	/*<![CDATA[*/
+		function showAdd() {
+	    	var sURL = /*[[@{/do/advisory/category/showAdd?skipdecorator=}]]*/ #;
+	    	showScreen('category-list-container', 'category-detail-container', sURL);
+		}
+		
+		function showDetail(maintenancePK) {
+			var sURL = /*[[@{/do/advisory/category/showEdit?maintenancePK=}]]*/ #;
+			showScreen('category-list-container', 'category-detail-container', sURL + maintenancePK + "&skipdecorator=");
+		}
+		
+		function deleteItem(maintenancePK) {
+			var sURL = /*[[@{/do/advisory/category/delete?}]]*/ #;
+			var serializedData = "maintenancePKs=" + maintenancePK;
+			$.post(sURL, serializedData,function(data){
+				if(data.errorList!=null){
+					//show error message
+				}else{
+					search();
+				}
+			});
+		} 
+		
+		function deleteCategory() {
+			var sURL = /*[[@{/do/advisory/category/deleteCategory?skipDecorator}]]*/ #;
+			$.post(sURL, $('.category-list-check-delete').serialize(), function(data){
+				if(data.errorList!=null){
+					
+				}else{
+					location.reload(true);
+				}
+			});
+		}
+	
+	    $(function(){
+		    setMenuActive('category');
+		    var colDefs = [{ name : "code" }, 
+		                   { name : "name" },
+	    	               { type : "deleteAndEdit" , param : [ "pkCategory" ] }
+	    	               ];
+		    var sURL = /*[[@{/do/advisory/category/list?}]]*/ #;
+		    buildDataTable(/*[[@{/}]]*/, sURL, 'category-list-table', 450, colDefs, null, null);
+	    });
+	    
+		$('#category-btn-add').click(function(){
+			showAdd();
+		});
+		
+		$('#category-btn-delete').click(function(){
+			deleteCategory();
+		});
+		
+	/*]]>*/
+</script>
+</body>
+</html>

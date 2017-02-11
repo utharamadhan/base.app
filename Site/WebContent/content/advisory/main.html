@@ -64,52 +64,10 @@
 	                        </div>
 	                    </div>
 						<div class="row article_container">
-							<div class="col-md-3 list_category_article"> 
-								<img th:src="@{/images/concept_house.jpg}" />
+							<div class="col-md-3 list_category_article" th:each="category, i : ${categories}" th:if="${i.index &lt; 8}"> 
+								<img th:src="${category.basicPictureURL}" />
 								<div class="box_cat_title">
-									<h4 class="box_cat_title_label">Make a Concept House</h4>
-								</div>
-							</div>
-							<div class="col-md-3 list_category_article"> 
-								<img th:src="@{/images/best_quality_house.jpg}" />
-								<div class="box_cat_title">
-									<h4 class="box_cat_title_label">How to Get Best Quality</h4>
-								</div>
-							</div>
-							<div class="col-md-3 list_category_article"> 
-								<img th:src="@{/images/private_investment.jpg}" />
-								<div class="box_cat_title">
-									<h4 class="box_cat_title_label">Are we nearly there yet? Private equity and the responsible investment journey</h4>
-								</div>
-							</div>
-							<div class="col-md-3 list_category_article"> 
-								<img th:src="@{/images/bisnis_properti2.jpg}" />
-								<div class="box_cat_title">
-									<h4 class="box_cat_title_label">How to start property business</h4>
-								</div>
-							</div>
-							<div class="col-md-3 list_category_article"> 
-								<img th:src="@{/images/concept_house.jpg}" />
-								<div class="box_cat_title">
-									<h4 class="box_cat_title_label">Make a Concept House</h4>
-								</div>
-							</div>
-							<div class="col-md-3 list_category_article"> 
-								<img th:src="@{/images/best_quality_house.jpg}" />
-								<div class="box_cat_title">
-									<h4 class="box_cat_title_label">How to Get Best Quality</h4>
-								</div>
-							</div>
-							<div class="col-md-3 list_category_article"> 
-								<img th:src="@{/images/private_investment.jpg}" />
-								<div class="box_cat_title">
-									<h4 class="box_cat_title_label">Are we nearly there yet? Private equity and the responsible investment journey</h4>
-								</div>
-							</div>
-							<div class="col-md-3 list_category_article"> 
-								<img th:src="@{/images/bisnis_properti2.jpg}" />
-								<div class="box_cat_title">
-									<h4 class="box_cat_title_label">How to start property business</h4>
+									<h4 class="box_cat_title_label" th:text="${category.name}">Make a Concept House</h4>
 								</div>
 							</div>
 						</div>
@@ -129,90 +87,17 @@
 	                        </div>
 	                    </div>
 						<div class="row advisor_list"> 
-							<div class="col-md-3 align_center"> 
-								<img class="img-circle" th:src="@{/images/person/person1_small.jpg}"/>
+							<div class="col-md-3 align_center" th:each="advisor, i : ${advisors}" th:if="${i.index &lt; 8}"> 
+								<img class="img-circle" th:src="${advisor.basicPictureURL}"/>
 								<div class="advisor_description">
-									<h3 class="big-text yellow-text-color advisor_name">George Martin</h3>
-									<div class="specialist_part"><label>Global and Asia Pacific, Americas (APA) Advisory leader</label></div>
+									<h3 class="big-text yellow-text-color advisor_name" th:text="${advisor.name}">George Martin</h3>
+									<div class="specialist_part"><label th:text="${advisor.title}">Global and Asia Pacific, Americas (APA) Advisory leader</label></div>
 									<br/>
-									<p class="small-text">
+									<p class="small-text" th:text="${advisor.profileDescription}">
 										George is one of the co-founders and takes care of growth, product development and partnerships. She is analytical, driven and adapts easily to new conditions, while trying to keep everyone on track.
                                     </p>
 								</div>
 							</div> 
-							<div class="col-md-3 align_center"> 
-								<img class="img-circle" th:src="@{/images/person/person2_small.jpg}"/>
-								<div class="advisor_description">
-                                    <h3 class="big-text yellow-text-color">Beniamin Marcu</h3>
-                                    <div class="specialist_part"><label>Global and Asia Pacific, Americas (APA) Advisory leader</label></div>
-                                    <br/>
-                                    <p class="small-text">Beni is the guy responsible for keeping the platform in check, improving its functionality and adding new features. He is driven, always open for learning more, friendly and a fan of Ruby on Rails.
-                                    </p>
-                                </div>
-							</div>
-							<div class="col-md-3 align_center"> 
-								<img class="img-circle" th:src="@{/images/person/person3_small.jpg}"/>
-								<div class="advisor_description">
-                                    <h3 class="big-text yellow-text-color">Diana Caliman </h3>
-                                    <div class="specialist_part"><label>Global and Asia Pacific, Americas (APA) Advisory leader</label></div>
-                                    <br/>
-                                    <p class="small-text">Diana is the person behind our social media channels, she takes care of our users' community and communication. She is ambitious, hard-working, instantly likeable and fun to be around.
-                                    </p>
-                                </div>
-							</div>
-							<div class="col-md-3 align_center"> 
-								<img class="img-circle" th:src="@{/images/person/person4_small.jpg}"/>
-								<div class="advisor_description">
-                                	<h3 class="big-text yellow-text-color">Elena Conacel </h3>
-                                	<div class="specialist_part"><label>Global and Asia Pacific, Americas (APA) Advisory leader</label></div>
-                                	<br/>
-                                	<p class="small-text">
-                                	Elena is one of the co-founders and takes care of growth, product development and partnerships. She is analytical, driven and adapts easily to new conditions, while trying to keep everyone on track.
-                                	</p>
-                              	</div>
-							</div>
-							<div class="col-md-3 align_center"> 
-								<img class="img-circle" th:src="@{/images/person/person5_small.jpg}"/>
-								<div class="advisor_description">
-									<h3 class="big-text yellow-text-color">Michaerl Inhaler</h3>
-									<div class="specialist_part"><label>Global and Asia Pacific, Americas (APA) Advisory leader</label></div>
-									<br/>
-									<p class="small-text">
-										George is one of the co-founders and takes care of growth, product development and partnerships. She is analytical, driven and adapts easily to new conditions, while trying to keep everyone on track.
-                                    </p>
-								</div>
-							</div> 
-							<div class="col-md-3 align_center"> 
-								<img class="img-circle" th:src="@{/images/person/person6_small.jpg}"/>
-								<div class="advisor_description">
-                                    <h3 class="big-text yellow-text-color">Ben Syafii</h3>
-                                    <div class="specialist_part"><label>Global and Asia Pacific, Americas (APA) Advisory leader</label></div>
-                                    <br/>
-                                    <p class="small-text">Beni is the guy responsible for keeping the platform in check, improving its functionality and adding new features. He is driven, always open for learning more, friendly and a fan of Ruby on Rails.
-                                    </p>
-                                </div>
-							</div>
-							<div class="col-md-3 align_center"> 
-								<img class="img-circle" th:src="@{/images/person/person7_small.jpg}"/>
-								<div class="advisor_description">
-									<h3 class="big-text yellow-text-color">Minimal One</h3>
-									<div class="specialist_part"><label>Global and Asia Pacific, Americas (APA) Advisory leader</label></div>
-									<br/>
-									<p class="small-text">
-										George is one of the co-founders and takes care of growth, product development and partnerships. She is analytical, driven and adapts easily to new conditions, while trying to keep everyone on track.
-                                    </p>
-								</div>
-							</div> 
-							<div class="col-md-3 align_center"> 
-								<img class="img-circle" th:src="@{/images/person/person8_small.jpg}"/>
-								<div class="advisor_description">
-                                    <h3 class="big-text yellow-text-color">Kylie Mini</h3>
-                                    <div class="specialist_part"><label>Global and Asia Pacific, Americas (APA) Advisory leader</label></div>
-                                    <br/>
-                                    <p class="small-text">Beni is the guy responsible for keeping the platform in check, improving its functionality and adding new features. He is driven, always open for learning more, friendly and a fan of Ruby on Rails.
-                                    </p>
-                                </div>
-							</div>
 						</div>
 						<div class="bouton bouton-brown"><a th:href="@{/page/advisory/sub/advisor}">View More</a></div>
 					</div>

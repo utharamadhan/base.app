@@ -1,3 +1,6 @@
 -- Advisor Menu
 INSERT INTO APP_FUNCTION (PK_APP_FUNCTION, FK_APP_FUNCTION_PARENT, NAME, DESCR, ACCESS_PAGE, IS_ACTIVE, USER_TYPE, ORDER_NO)
-VALUES (960, 900, 'Category', 'INT_ADVISORY_CATEGORY', '/do/advisory/category/showList', true, 1, 6);
+VALUES (950, 900, 'Advisor', 'INT_ADVISORY_ADVISOR', '/do/advisory/advisor/showList', true, 1, 5);
+
+
+

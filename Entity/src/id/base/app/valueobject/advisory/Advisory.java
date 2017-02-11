@@ -20,7 +20,7 @@ import id.base.app.valueobject.aboutUs.Tutor;
 
 @Entity
 @Table(name = "ADVISORY")
-@JsonIdentityInfo(generator=ObjectIdGenerators.UUIDGenerator.class, property="advisoryJid", scope=Advisory.class)
+@JsonIdentityInfo(generator=ObjectIdGenerators.UUIDGenerator.class, property="advisorJid", scope=Advisor.class)
 public class Advisory extends BaseEntity implements Serializable {
 	/**
 	 * 

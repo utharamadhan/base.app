@@ -48,106 +48,25 @@
 			                    </div>
 								<div class="row article_category_list"> 
 									<div class="col-md-6"> 
-										<div class="foreground_list_wrapper">
+										<div class="foreground_list_wrapper" th:each="category, i : ${categories}" th:if="${i.count % 2 !=0}">
 											<div class="foreground_list">
-												<div><label class="label_want">Make a Concept House</label></div>
+												<div><label class="label_want" th:text="${category.name}">Make a Concept House</label></div>
 												<div>
 													<span class="glyphicon glyphicon-play position_right" aria-hidden="true"></span>
 												</div>
 											</div>
-											<div class="info_wrapper"><span class="glyphicon glyphicon-info-sign position_right_info" aria-hidden="true"></span></div>
-										</div>
-										<div class="foreground_list_wrapper">
-											<div class="foreground_list">
-												<div><label class="label_want">How to Get Best Quality</label></div>
-												<div>
-													<span class="glyphicon glyphicon-play position_right" aria-hidden="true"></span>
-												</div>
-											</div>
-											<div class="info_wrapper"><span class="glyphicon glyphicon-info-sign position_right_info" aria-hidden="true"></span></div>
-										</div>
-										<div class="foreground_list_wrapper">
-											<div class="foreground_list">
-												<div><label class="label_want">Create unique customer experiences</label></div>
-												<div>
-													<span class="glyphicon glyphicon-play position_right" aria-hidden="true"></span>
-												</div>
-											</div>
-											<div class="info_wrapper"><span class="glyphicon glyphicon-info-sign position_right_info" aria-hidden="true"></span></div>
-										</div>
-										<div class="foreground_list_wrapper">
-											<div class="foreground_list">
-												<div><label class="label_want">Make a Concept House</label></div>
-												<div>
-													<span class="glyphicon glyphicon-play position_right" aria-hidden="true"></span>
-												</div>
-											</div>
-											<div class="info_wrapper"><span class="glyphicon glyphicon-info-sign position_right_info" aria-hidden="true"></span></div>
-										</div>
-										<div class="foreground_list_wrapper">
-											<div class="foreground_list">
-												<div><label class="label_want">How to Get Best Quality</label></div>
-												<div>
-													<span class="glyphicon glyphicon-play position_right" aria-hidden="true"></span>
-												</div>
-											</div>
-											<div class="info_wrapper"><span class="glyphicon glyphicon-info-sign position_right_info" aria-hidden="true"></span></div>
-										</div>
-										<div class="foreground_list_wrapper">
-											<div class="foreground_list">
-												<div><label class="label_want">Create unique customer experiences</label></div>
-												<div>
-													<span class="glyphicon glyphicon-play position_right" aria-hidden="true"></span>
-												</div>
-											</div>
-											<div class="info_wrapper"><span class="glyphicon glyphicon-info-sign position_right_info" aria-hidden="true"></span></div>
+											<div class="info_wrapper"><span class="glyphicon glyphicon-info-sign position_right_info" aria-hidden="true" th:attr="data=${category.pkCategory}"></span></div>
 										</div>
 									</div>
 									<div class="col-md-6"> 
-										<div class="foreground_list_wrapper">
+										<div class="foreground_list_wrapper" th:each="category, i : ${categories}" th:if="${i.count % 2 ==0}">
 											<div class="foreground_list">
-												<div><label class="label_want">Secure assets</label></div>
+												<div><label class="label_want" th:text="${category.name}">Secure assets</label></div>
 												<div>
 													<span class="glyphicon glyphicon-play position_right" aria-hidden="true"></span>
 												</div>
-												<div class="info_wrapper"><span class="glyphicon glyphicon-info-sign position_right_info" aria-hidden="true"></span></div>
+												<div class="info_wrapper"><span class="glyphicon glyphicon-info-sign position_right_info" aria-hidden="true" th:attr="data=${category.pkCategory}"></span></div>
 											</div>
-										</div>
-										<div class="foreground_list_wrapper">
-											<div class="foreground_list">
-												<div><label class="label_want">Stimulate innovation</label></div>
-												<div>
-													<span class="glyphicon glyphicon-play position_right" aria-hidden="true"></span>
-												</div>
-												<div class="info_wrapper"><span class="glyphicon glyphicon-info-sign position_right_info" aria-hidden="true"></span></div>
-											</div>
-										</div>
-										<div class="foreground_list_wrapper">
-											<div class="foreground_list">
-												<div><label class="label_want">Align costs with business strategy</label></div>
-												<div>
-													<span class="glyphicon glyphicon-play position_right" aria-hidden="true"></span>
-												</div>
-												<div class="info_wrapper"><span class="glyphicon glyphicon-info-sign position_right_info" aria-hidden="true"></span></div>
-											</div>
-										</div>
-										<div class="foreground_list_wrapper">
-											<div class="foreground_list">
-												<div><label class="label_want">Stimulate innovation</label></div>
-												<div>
-													<span class="glyphicon glyphicon-play position_right" aria-hidden="true"></span>
-												</div>
-												<div class="info_wrapper"><span class="glyphicon glyphicon-info-sign position_right_info" aria-hidden="true"></span></div>
-											</div>
-										</div>
-										<div class="foreground_list_wrapper">
-											<div class="foreground_list">
-												<div><label class="label_want">Align costs with business strategy</label></div>
-												<div>
-													<span class="glyphicon glyphicon-play position_right" aria-hidden="true"></span>
-												</div>
-											</div>
-											<div class="info_wrapper"><span class="glyphicon glyphicon-info-sign position_right_info" aria-hidden="true"></span></div>
 										</div>
 									</div> 
 								</div>
@@ -186,9 +105,8 @@
 								<div class="row article_category_list"> 
 									<div class="col-md-12">
 										<select class="select_tema advisor_label">
-											<option>Select Advisor</option>
-											<option>Michael</option>
-											<option>Benny</option>
+											<option value="">Select Advisor</option>
+											<option th:each="advisor, i : ${advisors}" th:value="${advisor.pkAdvisor}" th:text="${advisor.name}">George Martin</option>
 										</select>
 									</div>
 								</div>
@@ -422,7 +340,9 @@
 			});
 			
 			$('.position_right_info').unbind('click').click(function(){
-				var url = /*[[@{/page/advisory/sub/consulting/detail}]]*/
+				var url = /*[[@{/page/advisory/sub/category/detail/}]]*/
+				var idx = $(this).attr('data');
+				url += idx;
 				window.location.href = url;
 			});
 			
