@@ -33,8 +33,10 @@ import id.base.app.valueobject.aboutUs.CommonPost;
 import id.base.app.valueobject.aboutUs.Engagement;
 import id.base.app.valueobject.aboutUs.ProgramPost;
 import id.base.app.valueobject.aboutUs.Tutor;
+import id.base.app.valueobject.advisory.Advisor;
 import id.base.app.valueobject.advisory.Advisory;
 import id.base.app.valueobject.advisory.AdvisoryMenu;
+import id.base.app.valueobject.advisory.Category;
 import id.base.app.valueobject.contact.Contact;
 import id.base.app.valueobject.course.Course;
 import id.base.app.valueobject.course.GroupCourse;
@@ -223,6 +225,12 @@ public class ParameterLoader extends ContextLoader implements ServletContextList
 		
 		RestCaller.BASE_URL.put(RestServiceConstant.ADVISORY_MENU_SERVICE, RestConstant.RM_ADVISORY_MENU);
 		RestCaller.BASE_CLASS.put(RestServiceConstant.ADVISORY_MENU_SERVICE, AdvisoryMenu.class);
+		
+		RestCaller.BASE_URL.put(RestServiceConstant.ADVISOR_SERVICE, RestConstant.RM_ADVISOR);
+		RestCaller.BASE_CLASS.put(RestServiceConstant.ADVISOR_SERVICE, Advisor.class);
+		
+		RestCaller.BASE_URL.put(RestServiceConstant.ADVISORY_CATEGORY_SERVICE, RestConstant.RM_ADVISORY_CATEGORY);
+		RestCaller.BASE_CLASS.put(RestServiceConstant.ADVISORY_CATEGORY_SERVICE, Category.class);
 		
 		// contact
 		RestCaller.BASE_URL.put(RestServiceConstant.CONTACT_SERVICE, RestConstant.RM_CONTACT);

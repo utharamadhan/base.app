@@ -26,6 +26,17 @@ function replaceall(str,replace,with_this)
 }
 //End function for replace all character with the replace char
 
+function scrollToBottom(id, not){
+	var scrollHeight = $("#"+id).offset().top;
+	if(not){
+		scrollHeight = scrollHeight - not;
+	}
+	
+	$('html, body').animate({
+        scrollTop: scrollHeight
+    }, 2000);
+}
+
 $(function(){
 	if($('#template').length>0){
 		$('.template_part').html($('#template').clone().wrap('<div></div>').parent().html());

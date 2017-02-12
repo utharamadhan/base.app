@@ -48,106 +48,25 @@
 			                    </div>
 								<div class="row article_category_list"> 
 									<div class="col-md-6"> 
-										<div class="foreground_list_wrapper">
+										<div class="foreground_list_wrapper" th:each="category, i : ${categories}" th:if="${i.count % 2 !=0}">
 											<div class="foreground_list">
-												<div><label class="label_want">Make a Concept House</label></div>
+												<div><label class="label_want" th:text="${category.name}">Make a Concept House</label></div>
 												<div>
 													<span class="glyphicon glyphicon-play position_right" aria-hidden="true"></span>
 												</div>
 											</div>
-											<div class="info_wrapper"><span class="glyphicon glyphicon-info-sign position_right_info" aria-hidden="true"></span></div>
-										</div>
-										<div class="foreground_list_wrapper">
-											<div class="foreground_list">
-												<div><label class="label_want">How to Get Best Quality</label></div>
-												<div>
-													<span class="glyphicon glyphicon-play position_right" aria-hidden="true"></span>
-												</div>
-											</div>
-											<div class="info_wrapper"><span class="glyphicon glyphicon-info-sign position_right_info" aria-hidden="true"></span></div>
-										</div>
-										<div class="foreground_list_wrapper">
-											<div class="foreground_list">
-												<div><label class="label_want">Create unique customer experiences</label></div>
-												<div>
-													<span class="glyphicon glyphicon-play position_right" aria-hidden="true"></span>
-												</div>
-											</div>
-											<div class="info_wrapper"><span class="glyphicon glyphicon-info-sign position_right_info" aria-hidden="true"></span></div>
-										</div>
-										<div class="foreground_list_wrapper">
-											<div class="foreground_list">
-												<div><label class="label_want">Make a Concept House</label></div>
-												<div>
-													<span class="glyphicon glyphicon-play position_right" aria-hidden="true"></span>
-												</div>
-											</div>
-											<div class="info_wrapper"><span class="glyphicon glyphicon-info-sign position_right_info" aria-hidden="true"></span></div>
-										</div>
-										<div class="foreground_list_wrapper">
-											<div class="foreground_list">
-												<div><label class="label_want">How to Get Best Quality</label></div>
-												<div>
-													<span class="glyphicon glyphicon-play position_right" aria-hidden="true"></span>
-												</div>
-											</div>
-											<div class="info_wrapper"><span class="glyphicon glyphicon-info-sign position_right_info" aria-hidden="true"></span></div>
-										</div>
-										<div class="foreground_list_wrapper">
-											<div class="foreground_list">
-												<div><label class="label_want">Create unique customer experiences</label></div>
-												<div>
-													<span class="glyphicon glyphicon-play position_right" aria-hidden="true"></span>
-												</div>
-											</div>
-											<div class="info_wrapper"><span class="glyphicon glyphicon-info-sign position_right_info" aria-hidden="true"></span></div>
+											<div class="info_wrapper"><span class="glyphicon glyphicon-info-sign position_right_info" aria-hidden="true" th:attr="data=${category.pkCategory}"></span></div>
 										</div>
 									</div>
 									<div class="col-md-6"> 
-										<div class="foreground_list_wrapper">
+										<div class="foreground_list_wrapper" th:each="category, i : ${categories}" th:if="${i.count % 2 ==0}">
 											<div class="foreground_list">
-												<div><label class="label_want">Secure assets</label></div>
+												<div><label class="label_want" th:text="${category.name}">Secure assets</label></div>
 												<div>
 													<span class="glyphicon glyphicon-play position_right" aria-hidden="true"></span>
 												</div>
-												<div class="info_wrapper"><span class="glyphicon glyphicon-info-sign position_right_info" aria-hidden="true"></span></div>
+												<div class="info_wrapper"><span class="glyphicon glyphicon-info-sign position_right_info" aria-hidden="true" th:attr="data=${category.pkCategory}"></span></div>
 											</div>
-										</div>
-										<div class="foreground_list_wrapper">
-											<div class="foreground_list">
-												<div><label class="label_want">Stimulate innovation</label></div>
-												<div>
-													<span class="glyphicon glyphicon-play position_right" aria-hidden="true"></span>
-												</div>
-												<div class="info_wrapper"><span class="glyphicon glyphicon-info-sign position_right_info" aria-hidden="true"></span></div>
-											</div>
-										</div>
-										<div class="foreground_list_wrapper">
-											<div class="foreground_list">
-												<div><label class="label_want">Align costs with business strategy</label></div>
-												<div>
-													<span class="glyphicon glyphicon-play position_right" aria-hidden="true"></span>
-												</div>
-												<div class="info_wrapper"><span class="glyphicon glyphicon-info-sign position_right_info" aria-hidden="true"></span></div>
-											</div>
-										</div>
-										<div class="foreground_list_wrapper">
-											<div class="foreground_list">
-												<div><label class="label_want">Stimulate innovation</label></div>
-												<div>
-													<span class="glyphicon glyphicon-play position_right" aria-hidden="true"></span>
-												</div>
-												<div class="info_wrapper"><span class="glyphicon glyphicon-info-sign position_right_info" aria-hidden="true"></span></div>
-											</div>
-										</div>
-										<div class="foreground_list_wrapper">
-											<div class="foreground_list">
-												<div><label class="label_want">Align costs with business strategy</label></div>
-												<div>
-													<span class="glyphicon glyphicon-play position_right" aria-hidden="true"></span>
-												</div>
-											</div>
-											<div class="info_wrapper"><span class="glyphicon glyphicon-info-sign position_right_info" aria-hidden="true"></span></div>
 										</div>
 									</div> 
 								</div>
@@ -167,7 +86,7 @@
 											<option>Make a Concept House</option>
 											<option>How to Get Best Quality</option>
 										</select> -->
-										<input type="text" name="" class="input_text_custom" placeholder="Research &amp; Insight" />
+										<input type="text" name="" class="input_text_custom article_label" placeholder="Research &amp; Insight" />
 									</div>
 								</div>
 								<div class="advisory_consult">
@@ -185,10 +104,9 @@
 			                    </div>
 								<div class="row article_category_list"> 
 									<div class="col-md-12">
-										<select class="select_tema">
-											<option>Select Advisor</option>
-											<option>Michael</option>
-											<option>Benny</option>
+										<select class="select_tema advisor_label">
+											<option value="">Select Advisor</option>
+											<option th:each="advisor, i : ${advisors}" th:value="${advisor.pkAdvisor}" th:text="${advisor.name}">George Martin</option>
 										</select>
 									</div>
 								</div>
@@ -203,7 +121,7 @@
 				
 				
 				<!-- Closing advisory -->
-				<div class="custom_content custom">
+				<div class="custom_content custom" id="consult_form_part">
 					<div class="container large">
 						
 						<div class="row">
@@ -214,6 +132,33 @@
 									<div class="contact_form">
 											
 										<form method="post" action="#" id="advisory_form">
+											<div class="row category_input" style="display: none;">
+												<div class="col-xs-12 col-sm-7">
+													<div class="form-group">
+														<label>Category <span class="error">*</span></label>
+														<input type="text" class="form-control" name="category" readonly="readonly"/>
+													</div>
+												</div>
+											</div><!--end row-->
+											
+											<div class="row research_input" style="display: none;">
+												<div class="col-xs-12 col-sm-7">
+													<div class="form-group">
+														<label>Research <span class="error">*</span></label>
+														<input type="text" class="form-control" name="research" readonly="readonly"/>
+													</div>
+												</div>
+											</div><!--end row-->
+											
+											<div class="row advisor_input" style="display: none;">
+												<div class="col-xs-12 col-sm-7">
+													<div class="form-group">
+														<label>Advisor <span class="error">*</span></label>
+														<input type="text" class="form-control" name="advisor" readonly="readonly"/>
+													</div>
+												</div>
+											</div><!--end row-->
+										
 											<div class="row">
 												<div class="col-xs-12 col-sm-7">
 													<div class="form-group">
@@ -250,6 +195,7 @@
 												</div>
 											</div><!--end row-->
 											<input type="button" value="SUBMIT" class="commonBtn mrdy_btn" id="submitQuestion" />
+											<button type="button" class="btn btn-default cancel_ask btn_custom_cancel mrdy_btn">CANCEL</button>
 										</form>
 									</div>  
 									
@@ -311,13 +257,46 @@
 				} 
 			});
 		}
+		
+		function resetField(type){
+			if(type){
+				if(type == 'category'){
+					$('.category_input').find('input[name="category"]').val('');
+					$('.category_input').hide();
+					$('.research_input').find('input[name="research"]').val('');
+					$('.research_input').hide();
+					$('.advisor_input').find('input[name="advisor"]').val('');
+					$('.advisor_input').hide();
+				}else if(type == "research"){
+					$('.research_input').find('input[name="research"]').val('');
+					$('.research_input').hide();
+					$('.advisor_input').find('input[name="advisor"]').val('');
+					$('.advisor_input').hide();
+				}else if(type == "advisor"){
+					$('.advisor_input').find('input[name="advisor"]').val('');
+					$('.advisor_input').hide();
+				}
+			}else{
+				$('.category_input').find('input[name="category"]').val('');
+				$('.category_input').hide();
+				$('.research_input').find('input[name="research"]').val('');
+				$('.research_input').hide();
+				$('.advisor_input').find('input[name="advisor"]').val('');
+				$('.advisor_input').hide();
+			}
+		}
 		           
 		$(function(){  
 			$('.foreground_list').unbind('click').click(function(){
+				resetField('category');
+				var val = $(this).find('.label_want').html();
+				$('.category_input').find('input[name="category"]').val(val);
+				$('.category_input').show();
 				changeToCategory();
 			});
 			
 			$('.back_research').unbind('click').click(function(){
+				resetField('research');
 				var widthScreen = $( window ).width();
 				$('.category_advisory').css('left',widthScreen*-1);
 				$('.research_advisory').animate({left: widthScreen*1}, 1000,function(){
@@ -330,6 +309,10 @@
 			})
 			
 			$('.continue_research').unbind('click').click(function(){
+				resetField('research');
+				var val = $('.research_advisory').find('.article_label').val();
+				$('.research_input').find('input[name="research"]').val(val);
+				$('.research_input').show();
 				var url = /*[[@{/page/advisory/sub/article}]]*/
 				//window.location.href = url;
 				var widthScreen = $( window ).width();
@@ -344,6 +327,7 @@
 			});
 			
 			$('.cancel_research').unbind('click').click(function(){
+				resetField('advisor');
 				var widthScreen = $( window ).width();
 				$('.research_advisory').css('left',widthScreen*-1);
 				$('.advisor_advisory').animate({left: widthScreen*1}, 1000,function(){
@@ -356,13 +340,36 @@
 			});
 			
 			$('.position_right_info').unbind('click').click(function(){
-				var url = /*[[@{/page/advisory/sub/consulting/detail}]]*/
+				var url = /*[[@{/page/advisory/sub/category/detail/}]]*/
+				var idx = $(this).attr('data');
+				url += idx;
 				window.location.href = url;
 			});
 			
 			$("#submitQuestion").unbind('click').click(function(){
 				var sURL = /*[[@{/page/advisory/askQuesstion}]]*/ #;
 				askQuesstion(sURL);
+			});
+			
+			$('.cancel_ask').unbind('click').click(function(){
+				resetField('category');
+				var widthScreen = $( window ).width();
+				$('.category_advisory').css('left',widthScreen*-1);
+				$('.advisor_advisory').animate({left: widthScreen*1}, 1000,function(){
+					$('.advisor_advisory').hide();
+					$('.category_advisory').show();
+					$('.category_advisory').animate({left: 0}, 1000,function(){
+						
+					});
+				});
+			});
+			
+			$('.consult_research').unbind('click').click(function(){
+				resetField('advisor');
+				var val = $('.advisor_advisory').find('.advisor_label option:selected').html();
+				$('.advisor_input').find('input[name="advisor"]').val(val);
+				$('.advisor_input').show();
+				scrollToBottom('consult_form_part', 72);
 			});
 		});
 		

@@ -5344,3 +5344,11 @@ ul.contact_info li a:hover {
 	background-color: #e6ebed;
 	padding-top: 40px;
 }
+
+.btn_custom_cancel{
+	font-size: 17px;
+    margin-left: 15px;
+    margin-right: 15px;
+    padding: 0 40px;
+    line-height: 42px;
+}

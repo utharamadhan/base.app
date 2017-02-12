@@ -22,18 +22,14 @@
 					<h1 class="find_advisor_title">Find Best Article</h1>
 					<div class="part_div">
 						<select class="select_tema">
-							<option>Select Category</option>
-							<option>Make a Concept House</option>
-							<option>How to Get Best Quality</option>
+							<option value="">Select Category</option>
+							<option th:each="category, i : ${categories}" th:text="${category.name}">Make a Concept House</option>
 						</select>
 					</div>
 					<div class="part_div">
 						<select class="select_tema">
-							<option>Select Advisor</option>
-							<option>George Martin</option>
-							<option>Beniamin Marcu</option>
-							<option>Diana Caliman</option>
-							<option>Elena Conacel</option>
+							<option value="">Select Advisor</option>
+							<option th:each="advisor, i : ${advisors}" th:value="${advisor.pkAdvisor}" th:text="${advisor.name}">George Martin</option>
 						</select>
 					</div>
 					<div class="part_div">

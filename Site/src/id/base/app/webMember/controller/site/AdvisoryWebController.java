@@ -27,7 +27,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import id.base.app.ILookupConstant;
 import id.base.app.SystemConstant;
 import id.base.app.exception.ErrorHolder;
 import id.base.app.paging.PagingWrapper;
@@ -35,14 +34,12 @@ import id.base.app.properties.ApplicationProperties;
 import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
 import id.base.app.rest.RestServiceConstant;
-import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
-import id.base.app.valueobject.Lookup;
+import id.base.app.valueobject.advisory.Advisor;
 import id.base.app.valueobject.advisory.Advisory;
 import id.base.app.valueobject.advisory.AdvisoryMenu;
-import id.base.app.valueobject.contact.Contact;
-import id.base.app.valueobject.course.Course;
+import id.base.app.valueobject.advisory.Category;
 
 @Scope(value="request")
 @RequestMapping(value="/advisory")
@@ -59,14 +56,33 @@ public class AdvisoryWebController {
 		return new RestCaller<AdvisoryMenu>(RestConstant.REST_SERVICE, RestServiceConstant.ADVISORY_MENU_SERVICE);
 	}
 	
+	protected RestCaller<Advisor> getRestCallerAdvisor() {
+		return new RestCaller<Advisor>(RestConstant.REST_SERVICE, RestServiceConstant.ADVISOR_SERVICE);
+	}
+	
+	protected RestCaller<Category> getRestCallerCategory() {
+		return new RestCaller<Category>(RestConstant.REST_SERVICE, RestServiceConstant.ADVISORY_CATEGORY_SERVICE);
+	}
+	
 	@RequestMapping(method=RequestMethod.GET)
 	public String view(ModelMap model, HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value="startNo",defaultValue="1") int startNo, 
 			@RequestParam(value="offset",defaultValue="6") int offset,
 			@RequestParam(value="filter", defaultValue="", required=false) String filterJson
 		){
+		//Advisor Menu 
 		List<AdvisoryMenu> menus = getRestCallerMenu().findAll(new ArrayList<SearchFilter>(), new ArrayList<SearchOrder>());
 		model.addAttribute("menus", menus);
+		
+		//Advisor
+		List<Advisor> advisors = new ArrayList<Advisor>();
+		advisors = getRestCallerAdvisor().findAll(new ArrayList<SearchFilter>(), new ArrayList<SearchOrder>());
+		model.addAttribute("advisors", advisors);
+		
+		//Category
+		List<Category> categories = new ArrayList<Category>();
+		categories = getRestCallerCategory().findAll(new ArrayList<SearchFilter>(), new ArrayList<SearchOrder>());
+		model.addAttribute("categories", categories);
 		return "/advisory/main";
 	}
 	
@@ -117,10 +133,34 @@ public class AdvisoryWebController {
 	@RequestMapping(method=RequestMethod.GET, value="/sub/advisor")
 	public String advisor(ModelMap model, HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value="startNo",defaultValue="1") int startNo, 
-			@RequestParam(value="offset",defaultValue="6") int offset,
+			@RequestParam(value="offset",defaultValue="12") int offset,
 			@RequestParam(value="filter", defaultValue="", required=false) String filterJson
 		){
+		List<SearchFilter> filter = new ArrayList<SearchFilter>();
+		List<SearchOrder> order = new ArrayList<SearchOrder>();
+		PagingWrapper<Advisor> advisors = getRestCallerAdvisor().findAllByFilter(startNo, offset, filter, order);
+		model.addAttribute("advisors", advisors);
+		
+		//Category
+		List<Category> categories = new ArrayList<Category>();
+		categories = getRestCallerCategory().findAll(new ArrayList<SearchFilter>(), new ArrayList<SearchOrder>());
+		model.addAttribute("categories", categories);
 		return "/advisory/advisor";
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/sub/advisor/load")
+	@ResponseBody
+	public Map<String, Object> advisorLoad(ModelMap model, HttpServletRequest request, HttpServletResponse response,
+			@RequestParam(value="startNo",defaultValue="1") int startNo, 
+			@RequestParam(value="offset",defaultValue="12") int offset,
+			@RequestParam(value="filter", defaultValue="", required=false) String filterJson
+		){
+		Map<String, Object> resultMap = new HashMap<>();
+		List<SearchFilter> filter = new ArrayList<SearchFilter>();
+		List<SearchOrder> order = new ArrayList<SearchOrder>();
+		PagingWrapper<Advisor> advisors = getRestCallerAdvisor().findAllByFilter(startNo, offset, filter, order);
+		resultMap.put("advisors", advisors);
+		return resultMap;
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/sub/advisor/detail")
@@ -136,6 +176,14 @@ public class AdvisoryWebController {
 			@RequestParam(value="offset",defaultValue="6") int offset,
 			@RequestParam(value="filter", defaultValue="", required=false) String filterJson
 		){
+		List<Advisor> advisors = new ArrayList<Advisor>();
+		advisors = getRestCallerAdvisor().findAll(new ArrayList<SearchFilter>(), new ArrayList<SearchOrder>());
+		model.addAttribute("advisors", advisors);
+		
+		//Category
+		List<Category> categories = new ArrayList<Category>();
+		categories = getRestCallerCategory().findAll(new ArrayList<SearchFilter>(), new ArrayList<SearchOrder>());
+		model.addAttribute("categories", categories);
 		return "/advisory/article";
 	}
 	
@@ -152,14 +200,25 @@ public class AdvisoryWebController {
 			@RequestParam(value="offset",defaultValue="6") int offset,
 			@RequestParam(value="filter", defaultValue="", required=false) String filterJson
 		){
+		List<Advisor> advisors = new ArrayList<Advisor>();
+		advisors = getRestCallerAdvisor().findAll(new ArrayList<SearchFilter>(), new ArrayList<SearchOrder>());
+		model.addAttribute("advisors", advisors);
+		
+		//Category
+		List<Category> categories = new ArrayList<Category>();
+		categories = getRestCallerCategory().findAll(new ArrayList<SearchFilter>(), new ArrayList<SearchOrder>());
+		model.addAttribute("categories", categories);
 		return "/advisory/consulting";
 	}
 	
-	@RequestMapping(method=RequestMethod.GET, value="/sub/consulting/detail")
-	public String detailConsulting(ModelMap model, HttpServletRequest request, HttpServletResponse response,
+	@RequestMapping(method=RequestMethod.GET, value="/sub/category/detail/{id}")
+	public String detailCategory(ModelMap model, HttpServletRequest request, HttpServletResponse response,
+			@PathVariable(value="id") Long pkCategory,
 			@RequestParam(value="filter", defaultValue="", required=false) String filterJson
 		){
-		return "/advisory/consultingDetail";
+		Category category = getRestCallerCategory().findById(pkCategory);
+		model.addAttribute("category", category);
+		return "/advisory/categoryDetail";
 	}
 	
 	@RequestMapping(method=RequestMethod.POST, value="/askQuesstion")
@@ -176,9 +235,9 @@ public class AdvisoryWebController {
 		String contactQuestion = params.get("question");
 		String contactTelp = params.get("telp");
 		
-		if(contactName == null || contactEmail == null || contactQuestion == null){
+		if(contactName == null || contactEmail == null || contactQuestion == null || "".equals(contactName) || "".equals(contactEmail) || "".equals(contactQuestion)){
 			resultMap.put("success", false);
-	         resultMap.put("message", "Your email failed to processed, There was an empty field!");
+	         resultMap.put("message", "Your question failed to processed, There was an empty field!");
 	         return resultMap;
 		}
 		
@@ -192,7 +251,7 @@ public class AdvisoryWebController {
 		List<ErrorHolder> errors = getRestCaller().create(advisory);
 		if(!errors.isEmpty()){
 			resultMap.put("success", false);
-	         resultMap.put("message", "Your email failed to processed, There was an empty field!");
+	         resultMap.put("message", "Your question failed to processed, There was an empty field!");
 	         return resultMap;
 		}
 		
@@ -226,17 +285,13 @@ public class AdvisoryWebController {
 	
 	         message.setText(text);
 	
-	         
 	         Transport.send(message);
 	         
-	         resultMap.put("success", true);
-	         resultMap.put("message", "Your email successfully been processed");
 		}catch(MessagingException e) {
-			resultMap.put("success", false);
-	         resultMap.put("message", "Your email failed to processed");
-	         return resultMap;
+			e.printStackTrace();
 		}
-		
+		resultMap.put("success", true);
+        resultMap.put("message", "Your question successfully been processed");
 		return resultMap;
 	}
 	

@@ -26,7 +26,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @JsonIdentityInfo(generator=ObjectIdGenerators.UUIDGenerator.class, property="researchJid", scope=Research.class)
 public class Research extends BaseEntity implements Serializable {
 	
-	private static final long serialVersionUID = 6910120534807760943L;
+	private static final long serialVersionUID = -4581348296050006591L;
 	
 	public static final String PK_RESEARCH			= "pkResearch";
 	public static final String IS_INTERNAL			= "isInternal";
