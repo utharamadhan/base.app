@@ -61,7 +61,7 @@
 	    		var hiddenPK = $('#hidden-maintenancePK').val();
 	    		var validationType = $('.student-li-tab.active').attr('validationType');
 	    		$('#hidden-validationType').val(validationType);
-				var sURL = /*[[@{/do/student/saveStudent/}]]*/ #;
+				var sURL = /*[[@{/do/student/database/saveStudent/}]]*/ #;
 				$.post(sURL, $("#student-detail-form").serialize(), function(data) {
 					if(data.errorList!=null){
 						displayErrorParsley(data.errorList);
@@ -81,7 +81,7 @@
 			
 			var enrollCourse = function() {
 				var maintenancePK = $('#hidden-maintenancePK').val();
-				var sURL = /*[[@{/do/student/enrollCourse}]]*/ #;
+				var sURL = /*[[@{/do/student/database/enrollCourse}]]*/ #;
 				$.post(sURL, $(".enroll-data").serialize(), function(data) {
 					if(data.errorList != null) {
 						displayErrorParsley(data.errorList);
@@ -96,7 +96,7 @@
 			
 			var processLearning = function(itemPK, actionType) {
 				var parentPK = $('#hidden-maintenancePK').val();
-				var sURL = /*[[@{/do/student/processLearning}]]*/ #;
+				var sURL = /*[[@{/do/student/database/processLearning}]]*/ #;
 				$.post(sURL, "itemPK="+itemPK+"&actionType="+actionType, function(data) {
 					if(data.errorList != null) {
 						displayErrorParsley(data.errorList);
