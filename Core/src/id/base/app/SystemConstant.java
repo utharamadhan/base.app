@@ -371,4 +371,6 @@ public class SystemConstant  {
 		public static final Integer OPEN = 2;
 		public static final Integer ANSWERED = 3;
 	}
+	
+	public static final String DEFAULT_TITLE_RESEARCH = "-- no title --";
 }

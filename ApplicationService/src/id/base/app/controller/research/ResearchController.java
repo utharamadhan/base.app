@@ -11,6 +11,7 @@ import id.base.app.service.research.IResearchOfficerService;
 import id.base.app.service.research.IResearchService;
 import id.base.app.util.StringFunction;
 import id.base.app.validation.InvalidRequestException;
+import id.base.app.valueobject.UpdateEntity;
 import id.base.app.valueobject.research.Research;
 import id.base.app.valueobject.research.ResearchOfficer;
 
@@ -23,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,7 +45,6 @@ public class ResearchController extends SuperController<Research>{
 	@Autowired
 	private IResearchImplementationService researchImplementationService;
 
-
 	@Override
 	public Research validate(Research anObject) throws SystemException {
 		List<ErrorHolder> errorList = new ArrayList<>();
@@ -63,8 +64,22 @@ public class ResearchController extends SuperController<Research>{
 	
 	@Override
 	public Research preUpdate(Research anObject) throws SystemException{
+		if(anObject.getPkResearch()==null && StringFunction.isEmpty(anObject.getTitle())){
+			anObject.setTitle(SystemConstant.DEFAULT_TITLE_RESEARCH);
+		}
 		anObject.setStatus(SystemConstant.ValidFlag.VALID);
 		return validate(anObject);
+	}
+	
+	@RequestMapping(method=RequestMethod.PUT, value="/updateReturn")
+	@ResponseBody
+	@ResponseStatus( HttpStatus.OK )
+	public Long updateReturn(@RequestBody @Validated(UpdateEntity.class) Research research, BindingResult bindingResult) throws SystemException {
+		if (bindingResult.hasErrors()) {
+            throw new InvalidRequestException("Invalid validation", bindingResult);
+        }
+	    getMaintenanceService().saveOrUpdate(preUpdate(research));
+	    return research.getPkResearch();
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/findOfficerByFkResearch/{fkResearch}")

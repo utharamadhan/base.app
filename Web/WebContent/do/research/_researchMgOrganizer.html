@@ -1,157 +1,58 @@
 <div class="tile-body rounded-corners" th:fragment="organizer(detail)">
 	<br/>
-	<div class="row">
-		<div class="col-md-3"></div>
-		<div class="col-md-3">
-			<div class="funkyradio">
-		        <div class="funkyradio-primary">
-		            <input type="radio" name="radio" id="radio1" checked="checked"/>
-		            <label for="radio1">Internal</label>
-		        </div>
-		    </div>
+	<form action="#" id="rm-organizer-detail-form" class="form-horizontal" method="POST" novalidate="novalidate">
+		<div class="row">
+			<div class="col-md-3"></div>
+			<div class="col-md-3">
+				<div class="funkyradio">
+			        <div class="funkyradio-primary">
+			        	<input type="radio" th:field="*{isInternal}" value="true"/>
+			            <label for="isInternal1">Internal</label>
+			        </div>
+			    </div>
+			</div>
+			<div class="col-md-3">
+				<div class="funkyradio">
+			        <div class="funkyradio-primary">
+			            <input type="radio" th:field="*{isInternal}" value="false"/>
+			            <label for="isInternal2">External</label>
+			        </div>
+			    </div>
+			</div>
+			<div class="col-md-3"></div>
 		</div>
-		<div class="col-md-3">
-			<div class="funkyradio">
-		        <div class="funkyradio-primary">
-		            <input type="radio" name="radio" id="radio2"/>
-		            <label for="radio2">External</label>
-		        </div>
-		    </div>
-		</div>
-		<div class="col-md-3"></div>
-	</div>
-	<br/>
-	<div>
-		<div class="form-group form-footer">				
-			<div class="col-sm-offset-3 col-sm-9">
-				<a href="#" id="student-detail-btn-cancel" class="btn btn-default student-detail-btn-cancel-class" type="reset" data-toggle="tooltip" title="">Batal</a>
-				<button id="student-detail-btn-save" class="btn btn-primary student-detail-btn-save-class" type="submit" data-toggle="tooltip" title="">Simpan</button>
+		<br/>
+		<div>
+			<div class="form-group form-footer">				
+				<div class="col-sm-offset-3 col-sm-9">
+					<a href="#" class="btn btn-default btn-back-to-list" type="reset" data-toggle="tooltip" title="">Kembali Ke List</a>
+					<button id="rm-tab1-btn-save" class="btn btn-primary" type="submit" data-toggle="tooltip" title="">Simpan &#38; Lanjutkan</button>
+				</div>
 			</div>
 		</div>
-	</div>
+	</form>
 	<script th:inline="javascript">
 	/*<![CDATA[*/     
-		function initDeletePicture() {
-			$('.basicPicture-delete').click(function(e){
-				e.preventDefault();
-				$('#input-file-basicPictureURL').show();
-				$('#container-basicPictureURL').html("");
-				$('#input-hidden-basicPictureURL, #input-file-basicPictureURL').val("");
-				$('#container-basicPictureURL').hide();
-			});
-		}
-	
-	    $(function(){
-	    	initDeletePicture();
-	    	var uploadURL = /*[[@{/do/fileManager/upload/}]]*/ #;
-	    	initDatePicker("datepicker", "dd/mm/yyyy");
-	    	initTextEditor('.tinyMCE-area', '.tinyMCE-parent', uploadURL);
-			var backToList = function(){
-				returnToList('researchMaintenance-detail-container', 'researchMaintenance-list-container', true);
-			};
-	    	
-			var submitForm = function(){
+		$(function(){
+			var submitFormOrganizer = function(){
 				cleanErrorParsley();
 				var sURL = /*[[@{/do/research/researchMaintenance/saveResearch/}]]*/ #;
-				$.post(sURL, $("#researchMaintenance-detail-form").serialize(), function(data) {
+				$.post(sURL, {pkResearch:$('#maintenancePK').val(), isInternal:$('input[name=isInternal]').val()}, function(data) {
 					if(data.errorList!=null){
 						displayErrorParsley(data.errorList);
 					}else{
-						backToList();
+						$('#maintenancePK').val(data.maintenancePK);
+						$('#projectOfficerLink').click();
 					}
 				});
 			};
 			
-			var showImage = function(imageURL) {
-				$('#input-file-basicPictureURL').hide();
-				var htmlContent = '<image src="'+imageURL+'" style="max-height:250px;"></image>';
-				htmlContent += '<a href="#" class="btn btn-primary btn-xs margin-bottom-20 basicPicture-delete" data-toggle="tooltip" title="Delete" style="position:absolute; left:25px; top:10px;"><i class="fa fa-trash"></i></a>';
-				$('#container-basicPictureURL').html(htmlContent);
-				$('#input-hidden-basicPictureURL').val(imageURL);
-				$('#container-basicPictureURL').show();
-				initDeletePicture();
-			}
-			
-			var uploadFile = function(image, uploadURL) {
-				var data = new FormData();
-				data.append('file', image);
-				var xhr = new XMLHttpRequest();
-				xhr.open('POST', uploadURL, true);
-				xhr.onreadystatechange = function() {
-				  if (xhr.readyState === 4) {
-				    var response = JSON.parse(xhr.responseText);
-				    if (response) {
-				      	showImage(response);
-				    } else {
-				      	var reader = new FileReader();
-				      	reader.onload = function(e) {
-				        	callback(e.target.result);
-				      	};
-				      	reader.readAsDataURL(image);
-				    }
-				  }
-				}
-				xhr.send(data);
-			};
-			
-			var thisObj = '';
-			$(document).unbind('change').on('change', '#input-file-basicPictureURL', function(){
-				var sURL = /*[[@{/do/fileManager/uploadFeaturedImage/}]]*/ #;
-				var thisObj = $('#input-file-basicPictureURL')[0];
-				uploadFile(thisObj.files[0], sURL);
-			});
-			
-			var showFile = function(fileURL) {
-				$('#input-file-fileURL').hide();
-				var htmlContent = '<label style="margin-right:10px;">Uploaded File</label>';
-				htmlContent += '<a href="#" class="btn btn-primary btn-xs margin-bottom-20 file-delete" data-toggle="tooltip" title="Delete"><i class="fa fa-trash"></i></a>';
-				$('#container-fileURL').html(htmlContent);
-				$('#input-hidden-fileURL').val(fileURL);
-				$('#container-fileURL').show();
-				initDeleteFile();			
-			}
-			
-			var uploadFile = function(image, uploadURL, isImage) {
-				var data = new FormData();
-				data.append('file', image);
-				var xhr = new XMLHttpRequest();
-				xhr.open('POST', uploadURL, true);
-				xhr.onreadystatechange = function() {
-				  if (xhr.readyState === 4) {
-				    var response = JSON.parse(xhr.responseText);
-				    if (isImage == true) {
-				    	if (response) {
-					      	showImage(response);
-					    } else {
-					      	var reader = new FileReader();
-					      	reader.onload = function(e) {
-					        	callback(e.target.result);
-					      	};
-					      	reader.readAsDataURL(image);
-					    }	
-				    } else {
-				    	if (response) {
-				    		showFile(response);
-				    	}
-				    }
-				  }
-				}
-				xhr.send(data);
-			};
-			
-			$('#input-file-fileURL').change(function(){
-				var sURL = /*[[@{/do/fileManager/uploadEBookFile/}]]*/ #;
-				var thisObj = $('#input-file-fileURL')[0];
-				uploadFile(thisObj.files[0], sURL, false);
-			});
-			
-			$('#researchMaintenance-detail-btn-save').click(function(e){
+			$('#rm-tab1-btn-save').click(function(e){
 				e.preventDefault();
-				submitForm();
+				submitFormOrganizer();
 			});
 			
-			$('#researchMaintenance-detail-btn-cancel').click(function(e){
-				e.preventDefault();
+			$('.btn-back-to-list').click(function(){
 				backToList();
 			});
 	    });
