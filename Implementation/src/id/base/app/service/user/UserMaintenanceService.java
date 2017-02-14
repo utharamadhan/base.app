@@ -125,7 +125,7 @@ public class UserMaintenanceService implements MaintenanceService<AppUser>, IUse
 		Calendar c = Calendar.getInstance();
 		c.setTime(DateTimeFunction.getCurrentDate());
 		c.add(Calendar.DATE, SystemParameter.PASSWORD_LIFETIME);
-		if(isCreateMode(appUser)){
+		if(isCreateMode(appUser) || appUser.getIsNewPassword()){
 			appUser.setPassword(encryptPassword(appUser.getPassword()));
 			appUser.setStatus(1);
 		}
@@ -632,6 +632,16 @@ public class UserMaintenanceService implements MaintenanceService<AppUser>, IUse
 	@Override
 	public Boolean validateActivationCode(String userName, String activationCode) throws SystemException {
 		return userDao.validateActivationCode(userName, activationCode);
+	}
+
+	@Override
+	public AppUser findByEmail(String email) throws SystemException {
+		return userDao.findByEmail(email);
+	}
+
+	@Override
+	public Boolean validateResetPasswordToken(String email, String token) throws SystemException {		
+		return userDao.validateResetPasswordToken(email, token);
 	}
 
 }

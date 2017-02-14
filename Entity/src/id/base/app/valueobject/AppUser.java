@@ -46,6 +46,8 @@ public class AppUser extends BaseEntity implements Serializable {
 	public static final String EMAIL = "email" ;
 	public static final String APP_ROLE = "appRole" ;
 	public static final String APP_ROLE_NAME = "appRole.name" ;
+	public static final String APP_ROLE_CODE = "appRole.code" ;
+	public static final String APP_ROLES_CODE = "appRoles.code" ;
 	public static final String APP_ROLES = "appRoles";
 	public static final String STATUS = "status";
 	public static final String SUPER_USER="superUser";
@@ -58,6 +60,7 @@ public class AppUser extends BaseEntity implements Serializable {
 	public static final String ACTIVATION_CODE = "activationCode";
 	public static final String ACTIVATION_METHOD = "activationMethod";
 	public static final String LOCK = "lock";
+	public static final String RESET_PASSWORD_TOKEN = "resetPasswordToken";
 	
 	public static final String USER_FRONTEND = "userFrontEnd";
 	
@@ -126,8 +129,14 @@ public class AppUser extends BaseEntity implements Serializable {
     @Column(name = "ACTIVATION_METHOD")
     private Integer activationMethod;
     
+    @Column(name = "RESET_PASSWORD_TOKEN")
+    private String resetPasswordToken;
+    
     @Transient
     private String roleFlag;
+    
+    @Transient
+    private Boolean isNewPassword;
     
     @ManyToMany(
 			fetch = FetchType.LAZY
@@ -296,5 +305,25 @@ public class AppUser extends BaseEntity implements Serializable {
 	public void setActivationMethod(Integer activationMethod) {
 		this.activationMethod = activationMethod;
 	}
+
+	public String getResetPasswordToken() {
+		return resetPasswordToken;
+	}
+	public void setResetPasswordToken(String resetPasswordToken) {
+		this.resetPasswordToken = resetPasswordToken;
+	}
+
+	@Transient
+	public Boolean getIsNewPassword() {
+		if(isNewPassword == null) {
+			return Boolean.FALSE;
+		}
+		return isNewPassword;
+	}
+	@Transient
+	public void setIsNewPassword(Boolean isNewPassword) {
+		this.isNewPassword = isNewPassword;
+	}
+	
 	
 }

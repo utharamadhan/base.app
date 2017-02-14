@@ -193,6 +193,12 @@ public class SystemConstant  {
 	
 	
 	public static String ACTIVATION_URL = "/Web/do/registration/activationPage";
+	
+	public static String UPDATE_PASSWORD_URL = "/Web/do/forgotPassword/updatePassword?token=";
+	public static void setUpdatePasswordURL(String updatePasswordURL) {
+		UPDATE_PASSWORD_URL = updatePasswordURL;
+	}
+	
 	public static String LOGIN_URL = "http://hfc.com";
 	public static void setUrl(String url){
 		LOGIN_URL = url;
@@ -308,6 +314,7 @@ public class SystemConstant  {
 		public static final String SUPER_ADMIN 			= "SA";
 		public static final String HEAD_MEMBER 			= "HM";
 		public static final String TRANSACTION_MEMBER 	= "MT";
+		public static final String ADVISOR			 	= "AD";
 	}
 	
 	public static final String EMPTY_KEYWORD = "";

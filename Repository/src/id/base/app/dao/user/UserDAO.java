@@ -295,4 +295,22 @@ public class UserDAO extends AbstractHibernateDAO<AppUser, Long> implements IUse
 		return (AppUser) crit.uniqueResult();
 	}
 
+	@Override
+	public AppUser findByEmail(String email) throws SystemException {
+		Criteria crit = getSession().createCriteria(domainClass);
+			crit.add(Restrictions.eq(AppUser.EMAIL, email));
+			crit.setMaxResults(1);
+		return (AppUser) crit.uniqueResult();
+	}
+
+	@Override
+	public Boolean validateResetPasswordToken(String email, String token) throws SystemException {
+		Criteria crit = getSession().createCriteria(domainClass);
+			crit.add(Restrictions.eq(AppUser.EMAIL, email));
+			crit.add(Restrictions.eq(AppUser.RESET_PASSWORD_TOKEN, token));
+			crit.setProjection(Projections.rowCount());
+		Long rowCount = (Long) crit.uniqueResult();
+		return rowCount != null && rowCount > 0 ? Boolean.TRUE : Boolean.FALSE;
+	}
+
 }

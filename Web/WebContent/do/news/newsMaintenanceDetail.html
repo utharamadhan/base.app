@@ -107,10 +107,21 @@
 	</div>
 	<script th:inline="javascript">
 	/*<![CDATA[*/
+	    function initDeletePicture() {
+			$('.image-delete').click(function(e){
+				e.preventDefault();
+				$('#input-file-imageURL').show();
+				$('#container-imageURL').html("");
+				$('#input-hidden-imageURL, #input-file-imageURL').val("");
+				$('#container-imageURL').hide();
+			});
+		}
+	
 	    $(function(){
 	    	var uploadURL = /*[[@{/do/fileManager/upload/}]]*/ #;
 	    	initDatePicker("datepicker", "dd/mm/yyyy");
 	    	initTextEditor('#tinyMCE-area', '#tinyMCE-parent', uploadURL);
+	    	initDeletePicture();
 	    	
 			var backToList = function(){
 				removeTextEditor("tinyMCE-area", "tinyMCE-parent");

@@ -29,7 +29,7 @@
 					<div class="part_div">
 						<select class="select_tema">
 							<option value="">Select Advisor</option>
-							<option th:each="advisor, i : ${advisors}" th:value="${advisor.pkAdvisor}" th:text="${advisor.name}">George Martin</option>
+							<option th:each="advisor, i : ${advisors}" th:value="${advisor.party.pkParty}" th:text="${advisor.party.name}">George Martin</option>
 						</select>
 					</div>
 					<div class="part_div">
