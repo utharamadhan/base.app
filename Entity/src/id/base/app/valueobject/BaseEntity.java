@@ -9,7 +9,7 @@ import javax.persistence.MappedSuperclass;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @MappedSuperclass
-@JsonIgnoreProperties(allowGetters=false,allowSetters=false,value={"modifiedBy","creationTime","modificationTime"})
+@JsonIgnoreProperties(allowGetters=false,allowSetters=false,value={"modifiedBy","modificationTime"})
 public class BaseEntity implements Serializable{
 	
 	private static final long serialVersionUID = 7584899651889367138L;

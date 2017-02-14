@@ -47,6 +47,7 @@
 	                    </div>
 						<div class="row advisor_list"> 
 							<div id="template" class="col-md-3 align_center" th:each="advisor, i : ${advisors.result}"> 
+								<input type="hidden" name="pkAdvisor" class="id_advisor" th:value="${advisor.party.pkParty}"/>
 								<img class="img-circle" th:src="${advisor.party.basicPictureURL}"/>
 								<div class="advisor_description">
 									<h3 class="big-text yellow-text-color advisor_name" th:text="${advisor.party.name}">George Martin</h3>
@@ -98,6 +99,7 @@
 			var load_content = '';
 			for(var i=0;i<datas.length;i++){
 				var cloning = $('.template_part .data_result').eq(0).clone();
+				cloning.find('.id_advisor').val(datas[i].party.pkParty);
 				cloning.find('.img-circle').attr('src',datas[i].party.basicPictureURL);
 				cloning.find('.advisor_name').html(datas[i].party.name);
 				cloning.find('.specialist_part').html(datas[i].party.title);

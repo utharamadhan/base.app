@@ -17,7 +17,7 @@
 		</div>
 		<div class="advisory_section">
 			<div class="advisory_banner">
-				<div class="parallax-window" data-parallax="scroll" th:attr="data-image-src=@{/images/concept_house.jpg}" ></div>
+				<div class="parallax-window" data-parallax="scroll" th:attr="data-image-src=${article.basicPictureURL}" ></div>
 			</div>
 			
 			<!-- Start advisory article -->
@@ -26,7 +26,7 @@
 					<div class="article_container row">
 						<div class="col-lg-12 col-md-12 col-sm-12"> 
 							<div class="row"> 
-								<p class="content_article">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed dictum lectus. Donec lacus ante, tristique non nulla in, gravida pharetra velit. Fusce vestibulum, massa at vulputate tempor, nibh turpis suscipit ipsum, eget tempor orci eros sit amet mi. Donec vehicula erat ornare efficitur pretium. Nam tempus augue in erat malesuada, a scelerisque purus dictum. Aliquam ut diam risus. In sed felis pretium, dictum nisi hendrerit, faucibus lacus. Fusce dapibus, sapien suscipit tempor rutrum, tortor risus aliquet erat, eget posuere purus magna et diam. Duis at posuere orci, vel facilisis massa. Ut aliquet, sapien vel congue vehicula, ligula erat sodales eros, vel semper ligula quam sit amet ligula. Integer libero velit, porta vel interdum id, condimentum cursus lorem.</p>
+								<p class="content_article" th:text="${article.content}">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed dictum lectus. Donec lacus ante, tristique non nulla in, gravida pharetra velit. Fusce vestibulum, massa at vulputate tempor, nibh turpis suscipit ipsum, eget tempor orci eros sit amet mi. Donec vehicula erat ornare efficitur pretium. Nam tempus augue in erat malesuada, a scelerisque purus dictum. Aliquam ut diam risus. In sed felis pretium, dictum nisi hendrerit, faucibus lacus. Fusce dapibus, sapien suscipit tempor rutrum, tortor risus aliquet erat, eget posuere purus magna et diam. Duis at posuere orci, vel facilisis massa. Ut aliquet, sapien vel congue vehicula, ligula erat sodales eros, vel semper ligula quam sit amet ligula. Integer libero velit, porta vel interdum id, condimentum cursus lorem.</p>
 							</div> 
 						</div>
 					</div>

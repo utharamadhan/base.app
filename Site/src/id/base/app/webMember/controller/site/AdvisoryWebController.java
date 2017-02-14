@@ -42,6 +42,7 @@ import id.base.app.valueobject.AppUser;
 import id.base.app.valueobject.advisory.Advisor;
 import id.base.app.valueobject.advisory.Advisory;
 import id.base.app.valueobject.advisory.AdvisoryMenu;
+import id.base.app.valueobject.advisory.Article;
 import id.base.app.valueobject.advisory.Category;
 
 @Scope(value="request")
@@ -69,6 +70,10 @@ public class AdvisoryWebController {
 	
 	protected RestCaller<AppUser> getRestCallerUser() {
 		return new RestCaller<AppUser>(RestConstant.REST_SERVICE, RestServiceConstant.USER_SERVICE);
+	}
+	
+	protected RestCaller<Article> getRestCallerArticle() {
+		return new RestCaller<Article>(RestConstant.REST_SERVICE, RestServiceConstant.ADVISORY_ARTICLE_SERVICE);
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)
@@ -186,7 +191,7 @@ public class AdvisoryWebController {
 	@RequestMapping(method=RequestMethod.GET, value="/sub/article")
 	public String article(ModelMap model, HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value="startNo",defaultValue="1") int startNo, 
-			@RequestParam(value="offset",defaultValue="6") int offset,
+			@RequestParam(value="offset",defaultValue="12") int offset,
 			@RequestParam(value="filter", defaultValue="", required=false) String filterJson
 		){
 		List<SearchFilter> filter = new ArrayList<SearchFilter>();
@@ -201,13 +206,37 @@ public class AdvisoryWebController {
 		List<Category> categories = new ArrayList<Category>();
 		categories = getRestCallerCategory().findAll(new ArrayList<SearchFilter>(), new ArrayList<SearchOrder>());
 		model.addAttribute("categories", categories);
+		
+		List<SearchFilter> filterArticle = new ArrayList<SearchFilter>();
+		List<SearchOrder> orderArticle = new ArrayList<SearchOrder>();
+		PagingWrapper<Article> articles = getRestCallerArticle().findAllByFilter(startNo, offset, filterArticle, orderArticle);
+		model.addAttribute("articles", articles);
 		return "/advisory/article";
 	}
 	
-	@RequestMapping(method=RequestMethod.GET, value="/sub/article/detail")
-	public String detailArticle(ModelMap model, HttpServletRequest request, HttpServletResponse response,
+	@RequestMapping(method=RequestMethod.GET, value="/sub/article/load")
+	@ResponseBody
+	public Map<String, Object> articleLoad(ModelMap model, HttpServletRequest request, HttpServletResponse response,
+			@RequestParam(value="startNo",defaultValue="1") int startNo, 
+			@RequestParam(value="offset",defaultValue="12") int offset,
 			@RequestParam(value="filter", defaultValue="", required=false) String filterJson
 		){
+		Map<String, Object> resultMap = new HashMap<>();
+		List<SearchFilter> filterArticle = new ArrayList<SearchFilter>();
+		List<SearchOrder> orderArticle = new ArrayList<SearchOrder>();
+		PagingWrapper<Article> articles = getRestCallerArticle().findAllByFilter(startNo, offset, filterArticle, orderArticle);
+		resultMap.put("articles", articles);
+		return resultMap;
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/sub/article/detail/{id}")
+	public String detailArticle(ModelMap model, HttpServletRequest request, HttpServletResponse response,
+			@PathVariable(value="id") Long pkArticle,
+			@RequestParam(value="filter", defaultValue="", required=false) String filterJson
+		){
+		Article article = new Article();
+		article = getRestCallerArticle().findById(pkArticle);
+		model.addAttribute("article", article);
 		return "/advisory/articleDetail";
 	}
 	
