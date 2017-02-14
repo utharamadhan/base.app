@@ -2,6 +2,7 @@ package id.base.app.webMember.controller.research;
 
 import id.base.app.SystemConstant;
 import id.base.app.exception.ErrorHolder;
+import id.base.app.exception.SystemException;
 import id.base.app.paging.PagingWrapper;
 import id.base.app.rest.PathInterfaceRestCaller;
 import id.base.app.rest.RestCaller;
@@ -83,8 +84,17 @@ public class ResearchManagementWebController extends BaseController<Research> {
 	
 	@RequestMapping(method=RequestMethod.GET, value="showAdd")
 	public String showAdd(ModelMap model, HttpServletRequest request){
-		model.addAttribute("detail", Research.getInstance());
+		Research obj = Research.getInstance();
+		obj.setIsInternal(Boolean.TRUE);
+		model.addAttribute("detail", obj);
 		model.addAttribute("mode", "creation");
+		return PATH_DETAIL;
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="showEdit")
+	public String showEdit(@RequestParam(value="maintenancePK") final Long maintenancePK, @RequestParam Map<String, String> paramWrapper, ModelMap model, HttpServletRequest request){
+		Research detail = getRestCaller().findById(maintenancePK);
+		model.addAttribute("detail", detail);
 		return PATH_DETAIL;
 	}
 
@@ -99,16 +109,17 @@ public class ResearchManagementWebController extends BaseController<Research> {
 		Map<String, Object> resultMap = new HashMap<>();
 		List<ErrorHolder> errors = new ArrayList<>();
 		try{
-			errors = new SpecificRestCaller<Research>(RestConstant.REST_SERVICE, RestServiceConstant.RESEARCH_SERVICE).performPut("/update", anObject);
+			Long pkResearch = (Long) new SpecificRestCaller<Research>(RestConstant.REST_SERVICE, RestServiceConstant.RESEARCH_SERVICE).performPutReturn("/updateReturn", anObject, Long.class);
+			resultMap.put("maintenancePK", pkResearch);
+		}catch(SystemException e){
+			errors = e.getErrors();
 			if(errors != null && errors.size() > 0){
 				resultMap.put(SystemConstant.ERROR_LIST, errors);
 			}
-		}catch(Exception e){
-			LOGGER.error(e.getMessage(), e);
 		}
 		return resultMap;
 	}
-
+	
 	@RequestMapping(method=RequestMethod.GET, value="/listOfficer")
 	@ResponseBody
 	public List<ResearchOfficer> showTimePlanningList(@RequestParam(value="fkResearch")final Long fkResearch, HttpServletRequest request){

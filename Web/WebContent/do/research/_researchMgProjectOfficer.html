@@ -1,47 +1,67 @@
 <div class="tile-body rounded-corners" th:fragment="projectOfficer(detail)">
 	<br/>
-	<div class="row">
-		<div class="col-md-5">
-			<div class="form-group">
-				<label class="col-sm-4 control-label" th:text="'Name'">Name</label>
-				<div class="col-sm-8 form-input-container">
-					<input type="text" class="form-control" placeholder="Name" id="input-text-title" th:field="*{title}"/>
+	<form action="#" id="rm-officer-detail-form" class="form-horizontal" method="POST" novalidate="novalidate">
+		<input id="pkOfficer" type="hidden"/>
+		<div class="row">
+			<div class="col-md-5">
+				<div class="form-group">
+					<label class="col-sm-4 control-label" th:text="'Name'">Name</label>
+					<div class="col-sm-8 form-input-container">
+						<input type="text" class="form-control" name="name" placeholder="Name" id="input-text-title"/>
+					</div>
 				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-sm-4 control-label" th:text="'Position'">Position</label>
-				<div class="col-sm-8 form-input-container">
-					<input type="text" class="form-control" placeholder="Position" id="input-text-title" th:field="*{title}"/>
+				<div class="form-group">
+					<label class="col-sm-4 control-label" th:text="'Position'">Position</label>
+					<div class="col-sm-8 form-input-container">
+						<input type="text" class="form-control" name="position" placeholder="Position" id="input-text-title"/>
+					</div>
 				</div>
-			</div>
-			<div>
-				<div class="form-group form-footer">				
-					<div class="col-sm-offset-3 col-sm-9">
-						<a href="#" id="student-detail-btn-cancel" class="btn btn-default student-detail-btn-cancel-class" type="reset" data-toggle="tooltip" title="">Batal</a>
-						<button id="student-detail-btn-save" class="btn btn-primary student-detail-btn-save-class" type="submit" data-toggle="tooltip" title="">Tambah</button>
+				<div>
+					<div class="form-group form-footer">				
+						<div class="col-sm-offset-3 col-sm-9">
+							<a href="#" class="btn btn-default btn-back-to-list" type="reset" data-toggle="tooltip" title="">Kembali Ke List</a>
+							<button id="rm-tab2-btn-save" class="btn btn-primary" type="submit" data-toggle="tooltip" title="">Simpan &#38; Lanjutkan</button>
+						</div>
 					</div>
 				</div>
 			</div>
+			<div class="col-md-7">
+				<table id="budgeting-list-table" class="table table-datatable table-custom">
+	            	<thead>
+	                	<tr>
+	                   		<th width="50%">Name</th>
+	                   		<th width="40%">Position</th>
+							<th width="10%">E/D</th>
+	                  	</tr>
+	              	</thead>
+	          	</table>
+			</div>
 		</div>
-		<div class="col-md-7">
-			<table id="budgeting-list-table" class="table table-datatable table-custom">
-            	<thead>
-                	<tr>
-                   		<th width="50%">Name</th>
-                   		<th width="40%">Position</th>
-						<th width="10%">E/D</th>
-                  	</tr>
-              	</thead>
-          	</table>
-		</div>
-	</div>
+	</form>
 	<script th:inline="javascript">
 	/*<![CDATA[*/     
 		$(function(){
-			initDatePicker("datepicker", "dd/mm/yyyy");
-			initTimePicker("timepicker", 'g:i');
-			var uploadURL = /*[[@{/do/fileManager/upload/}]]*/ #;
-			initTextEditor('.tinyMCE-area', '.tinyMCE-parent', uploadURL);
+			var submitFormOfficer = function(){
+				cleanErrorParsley();
+				var sURL = /*[[@{/do/research/researchMaintenance/saveOfficer/}]]*/ #;
+				$.post(sURL, {fkResearch:$('#maintenancePK').val(),officerName:$('#rm-officer-detail-form input[name=name]').val(), 
+					officerPosition:$('#rm-officer-detail-form input[name=position]').val()}, function(data) {
+					if(data.errorList!=null){
+						displayErrorParsley(data.errorList);
+					}else{
+						//reload list officer
+					}
+				});
+			};
+			
+			$('#rm-tab2-btn-save').click(function(e){
+				e.preventDefault();
+				submitFormOfficer();
+			});
+			
+			$('.btn-back-to-list').click(function(){
+				backToList();
+			});
 	    });
 	/*]]>*/
 	</script>
