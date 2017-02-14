@@ -43,8 +43,8 @@ public class ShortLifeSessionFilter2 implements Filter{
 	}
 	
 	private static final String URL_ACTIVATION = "/do/registration/activation";
-	private static final String URL_INITIAL_WIZARD = "initialWizard";
 	private static final String WEB_SOCKET_CONTROLLER = "webSocketController";
+	private static final String FORGOT_PASSWORD = "/forgotPassword";
 	
 	@Override
 	public void destroy() {
@@ -61,7 +61,8 @@ public class ShortLifeSessionFilter2 implements Filter{
 		String redirect = null;
 		if(BYPASS_TOKEN.contains(requestURIminusCtxPath) 
 				|| requestURIminusCtxPath.startsWith(URL_ACTIVATION)
-					|| requestURIminusCtxPath.contains(WEB_SOCKET_CONTROLLER)){
+					|| requestURIminusCtxPath.contains(WEB_SOCKET_CONTROLLER)
+						|| requestURIminusCtxPath.contains(FORGOT_PASSWORD)){
 			chain.doFilter(request, response);
 		}else{
 			Cookie[] cookies = request.getCookies();

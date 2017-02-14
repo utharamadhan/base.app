@@ -63,4 +63,8 @@ public interface IUserService extends MaintenanceService<AppUser>{
 	
 	public Boolean isPhoneAlreadyInUsed(String phoneNumber) throws SystemException;
 	
+	public AppUser findByEmail(String email) throws SystemException;
+	
+	public Boolean validateResetPasswordToken(String email, String token) throws SystemException;
+	
 }
