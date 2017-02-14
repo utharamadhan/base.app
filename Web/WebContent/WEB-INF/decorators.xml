@@ -6,6 +6,7 @@
 		<pattern>/login.jsp</pattern>
 		<pattern>/errorNotLogin.jsp</pattern>
         <pattern>/LoginAction.do*</pattern>
+        <pattern>*/forgotPassword*</pattern>
 		<pattern>/*LogoffAction.do*</pattern>
 		<pattern>*logout.jsp</pattern>
         <pattern>*Export*</pattern>

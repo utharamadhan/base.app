@@ -1,16 +1,5 @@
 package id.base.app.controller.course;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-
 import id.base.app.SystemConstant;
 import id.base.app.controller.SuperController;
 import id.base.app.exception.ErrorHolder;
@@ -21,6 +10,20 @@ import id.base.app.service.MaintenanceService;
 import id.base.app.service.course.ICourseService;
 import id.base.app.util.StringFunction;
 import id.base.app.valueobject.course.Course;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(RestConstant.RM_COURSE)
@@ -55,6 +58,28 @@ public class CourseController extends SuperController<Course> {
 	public Course preUpdate(Course anObject) throws SystemException {
 		anObject.setStatus(SystemConstant.ValidFlag.VALID);
 		return validate(anObject);
+	}
+	
+	@Override
+	public void postUpdate(Object oldObject, Course newObject) {
+		try {
+			if(oldObject != null && oldObject instanceof Course && newObject != null && StringFunction.isNotEmpty(newObject.getBasicPictureURL())) {
+				if (!((Course)oldObject).getBasicPictureURL().equalsIgnoreCase(newObject.getBasicPictureURL())) {
+					String oldURL = ((Course)oldObject).getBasicPictureURL();
+					String fileSystemURL = SystemConstant.FILE_STORAGE + oldURL.substring(SystemConstant.IMAGE_SHARING_URL.length(), oldURL.length());
+					Path path = Paths.get(fileSystemURL);
+					Files.deleteIfExists(path);
+				}
+			}	
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage(), e);
+		}
+	}
+	
+	@Override
+	public Course getOldObject(Course object) throws SystemException {
+		Course oldObject = new Course();
+		return object.getPkCourse() != null ? cloneObject(oldObject, findById(object.getPkCourse())) : null;
 	}
 
 	@RequestMapping(value = "/findAllCourseCodeName")

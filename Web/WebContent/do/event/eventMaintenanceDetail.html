@@ -82,10 +82,10 @@
 						</div>
 						<div class="form-group">
 							<label class="col-sm-2 control-label" th:text="'Description'">Description</label>
-							<input name="description" type="hidden"/>
-							<div class="col-sm-10">							
-								<div id="descriptionQuill">
-								</div>
+							<input id="tinyMCE-hidden" name="description" type="hidden"/>
+							<div id="tinyMCE-parent" class="col-sm-10">					
+								<textarea id="tinyMCE-area" th:text="*{description}">
+								</textarea>
 							</div>
 						</div>
 						<div class="form-group">
@@ -119,7 +119,9 @@
 		}
 	           
 	    $(function(){
+	    	var uploadURL = /*[[@{/do/fileManager/upload/}]]*/ #;
 	    	initDeletePicture();
+	    	initTextEditor('#tinyMCE-area', '#tinyMCE-parent', uploadURL);
 	    	
 	    	$('.datepicker').datepicker({
 	    	    autoclose: true,
@@ -152,34 +154,21 @@
 				}
 				xhr.send(data);
 			};
-			
-			var descriptionQuill = new Quill('#descriptionQuill', {
-		    	theme: 'snow',
-		    	modules: {
-			    	toolbar: toolbarOptions
-				},
-				imageHandler: imageHandler
-		  	});
-			
-			var description = [[${detail.description}]];
-			if(description) {
-				var contentJson = JSON.parse(description);
-				descriptionQuill.setContents(contentJson.ops);
-			}
 	    	
 			var backToList = function(){
+				removeTextEditor("tinyMCE-area", "tinyMCE-parent");
 				returnToList('event-detail-container', 'event-list-container', true);
 			};
 	    	
 			var submitForm = function(){
 				cleanErrorParsley();
 				var sURL = /*[[@{/do/event/eventMaintenance/saveEvent/}]]*/ #;
-				$('input[name="description"]').val(JSON.stringify(descriptionQuill.getContents()));
+				$('#tinyMCE-hidden').val(tinymce.get('tinyMCE-area').getContent());
 				$.post(sURL, $("#event-detail-form").serialize(), function(data) {
 					if(data.errorList!=null){
 						displayErrorParsley(data.errorList);
 					}else{
-						backToList();
+						bootBoxSuccessSave('Event Successfully Saved', backToList);
 					}
 				});
 			};

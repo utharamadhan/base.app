@@ -70,7 +70,7 @@
                 <label for='password'>Enter your password</label>
               </div>
               <label style='float: right;'>
-								<a class='pink-text' href='#!'><b>Forgot Password?</b></a>
+								<a id="forgotPassword" class='pink-text' href='#!'><b>Forgot Password?</b></a>
 							</label>
             </div>
 
@@ -143,6 +143,15 @@
     			return true;
     		}
     		
+    		var forgotPassword = function() {
+    			var rand = Math.random().toString(36).substring(7);
+    			var url = protocol+"://"+domain+":"+defaultPort+webTransContext+"/do/forgotPassword";
+    			var html = "<form id='"+rand+"' style='display:none' method='post' action='"+url+"'><input type='submit'></form>";
+				$('#div-post').html(html);
+				$('#'+rand).submit();
+				$('#div-post').html('');
+    		}
+    		
     		var loginPost = function(num){
     			var user = document.getElementById('username').value;
     			var password = document.getElementById('password').value;
@@ -171,6 +180,11 @@
     		$('.btn-login').click(function(e){
     			e.preventDefault();
     			loginPost(2);
+    		});
+    		
+    		$('#forgotPassword').click(function(e){
+    			e.preventDefault();
+    			forgotPassword();
     		});
     		
     		var getExpiry = function(){

@@ -24,7 +24,6 @@ import javax.servlet.http.HttpServletResponse;
 public class TokenAuthenticationFilter implements Filter{
 	
 	private static String LANDING_PAGE = "";
-	private static String LANDING_PAGE_LOGIN = "/do/landingPage/loginPost";
 	private static String REGISTRATION = "/do/registration";
 	private static String ACTIVATION_PAGE = "/do/registration/activationPage";
 	private static String ACTIVATION = "/do/registration/activation/";
@@ -33,9 +32,9 @@ public class TokenAuthenticationFilter implements Filter{
 	private static String REGISTRATION_SUBMIT = REGISTRATION + "/submit";
 	private static String TOKEN_EXPIRED = "";
 	private static String TOKEN_EXPIRED_AJAX = "";
-	private static String TOKEN_INVALID = "";
 	private static String REGEN_EXPIRE = "15";
 	private static String WEB_SOCKET = "/webSocketController";
+	private static String FORGOT_PASSWORD = "/forgotPassword";
 
 	@Override
 	public void destroy() {
@@ -86,7 +85,8 @@ public class TokenAuthenticationFilter implements Filter{
 						|| request.getRequestURI().startsWith(urlActivation)
 							|| request.getRequestURI().equals(urlActivationPage) 
 								|| request.getRequestURI().equals(urlActivationSubmit)
-									|| request.getRequestURI().contains(WEB_SOCKET)) {
+									|| request.getRequestURI().contains(WEB_SOCKET)
+										|| request.getRequestURI().contains(FORGOT_PASSWORD)) {
 				//not doChain
 				chain.doFilter(request, response);
 			} else {
@@ -188,7 +188,6 @@ public class TokenAuthenticationFilter implements Filter{
 			p.load(fis);
 			LANDING_PAGE = p.getProperty("landingPage");
 			TOKEN_EXPIRED = p.getProperty("tokenExpired");
-			TOKEN_INVALID = p.getProperty("tokenInvalid");
 			TOKEN_EXPIRED_AJAX = p.getProperty("tokenExpiredAjax");
 			REGEN_EXPIRE = p.getProperty("regenExpire");
 		} catch (FileNotFoundException e) {

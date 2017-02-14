@@ -93,6 +93,6 @@ public class RestConstant {
 
 	//forecast call
 	public static final String RM_FORECAST_CALL = "/forecastCall";
-	
+	public static final String RM_FORGOT_PASSWORD = "/forgotPassword";
 	
 }

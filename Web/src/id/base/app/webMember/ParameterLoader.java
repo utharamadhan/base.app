@@ -249,5 +249,8 @@ public class ParameterLoader extends ContextLoader implements ServletContextList
 		
 		RestCaller.BASE_URL.put(RestServiceConstant.NOTIFICATION_SERVICE, RestConstant.RM_NOTIFICATION);
 		RestCaller.BASE_CLASS.put(RestServiceConstant.NOTIFICATION_SERVICE, Notification.class);
+		RestCaller.BASE_URL.put(RestServiceConstant.FORGOT_PASSWORD_SERVICE, RestConstant.RM_FORGOT_PASSWORD);
+		RestCaller.BASE_CLASS.put(RestServiceConstant.FORGOT_PASSWORD_SERVICE,  String.class);
+		
 	}
 }

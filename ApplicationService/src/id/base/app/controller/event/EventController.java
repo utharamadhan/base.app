@@ -13,8 +13,10 @@ import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.valueobject.event.Event;
-import id.base.app.valueobject.publication.DigitalBook;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -60,6 +62,28 @@ public class EventController extends SuperController<Event>{
 	public Event preUpdate(Event anObject) throws SystemException{
 		anObject.setStatus(SystemConstant.ValidFlag.VALID);
 		return validate(anObject);
+	}
+	
+	@Override
+	public void postUpdate(Object oldObject, Event newObject) {
+		try {
+			if(oldObject != null && oldObject instanceof Event && newObject != null && StringFunction.isNotEmpty(newObject.getCoverImageURL())) {
+				if (!((Event)oldObject).getCoverImageURL().equalsIgnoreCase(newObject.getCoverImageURL())) {
+					String oldURL = ((Event)oldObject).getCoverImageURL();
+					String fileSystemURL = SystemConstant.FILE_STORAGE + oldURL.substring(SystemConstant.IMAGE_SHARING_URL.length(), oldURL.length());
+					Path path = Paths.get(fileSystemURL);
+					Files.deleteIfExists(path);
+				}
+			}	
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage(), e);
+		}
+	}
+	
+	@Override
+	public Event getOldObject(Event object) throws SystemException {
+		Event oldObject = new Event();
+		return object.getPkEvent() != null ? cloneObject(oldObject, findById(object.getPkEvent())) : null;
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/findArchived")

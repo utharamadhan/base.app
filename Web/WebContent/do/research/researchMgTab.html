@@ -25,17 +25,15 @@
 	<div class="row col-md-12">
 	<div>
 		<ul class="nav nav-tabs">
-			<li class="active"><a data-toggle="tab" href="#organizerTab" class="rmg-nav-tab">Organizer</a></li>
-			<li><a data-toggle="tab" href="#projectOfficerTab" class="rmg-nav-tab">Project Officer</a></li>
-			<li><a data-toggle="tab" href="#praResearchTab" class="rmg-nav-tab">Pra-Research</a></li>
-			<li><a data-toggle="tab" href="#implementationTab" class="rmg-nav-tab">Implementation</a></li>
-			<li><a data-toggle="tab" href="#pascaResearchTab" class="rmg-nav-tab">Pasca-Research</a></li>
-			<li><a data-toggle="tab" href="#summaryTab" class="rmg-nav-tab">Summary</a></li>
+			<li class="active"><a data-toggle="tab" href="#organizerTab" id="organizerLink" class="rmg-nav-tab">Organizer</a></li>
+			<li><a data-toggle="tab" href="#projectOfficerTab" id="projectOfficerLink" class="rmg-nav-tab">Project Officer</a></li>
+			<li><a data-toggle="tab" href="#praResearchTab" id="praResearchLink" class="rmg-nav-tab">Pra-Research</a></li>
+			<li><a data-toggle="tab" href="#implementationTab" id="implementationLink" class="rmg-nav-tab">Implementation</a></li>
+			<li><a data-toggle="tab" href="#pascaResearchTab" id="pascaResearchLink" class="rmg-nav-tab">Pasca-Research</a></li>
+			<li><a data-toggle="tab" href="#summaryTab" id="summaryLink" class="rmg-nav-tab">Summary</a></li>
 		</ul>	
 	</div>
-	<form action="#" id="rmg-detail-form" class="form-horizontal" method="POST" novalidate="novalidate" th:object="${detail}">
-	<input type="hidden" th:field="*{pkResearch}" class="enroll-data"/>
-	<section class="tile transparent tab-content">
+	<section class="tile transparent tab-content" th:object="${detail}">
 		<div id="organizerTab" class="tab-pane fade in active">
 			<div id="organizerContent" th:replace="research/_researchMgOrganizer :: organizer(${detail})"></div>
 		</div>
@@ -55,62 +53,13 @@
 			<div id="summaryContent" th:replace="research/_researchMgSummary :: summary(${detail})"></div>
 		</div>
 	</section>
-	</form>
 	</div>
+	<input id="maintenancePK" type="hidden" th:field="${detail.pkResearch}"/>
 	<script th:inline="javascript">
 	/*<![CDATA[*/
-	           
-	    $(function(){
-	    	initDatePicker("datepicker", "dd/mm/yyyy");
-	    	
-	    	var submitForm = function(){
-				cleanErrorParsley();
-				var sURL = /*[[@{/do/student/saveStudent/}]]*/ #;
-				$.post(sURL, $("#student-detail-form").serialize(), function(data) {
-					if(data.errorList!=null){
-						displayErrorParsley(data.errorList);
-					}else{
-						backToList();
-					}
-				});
-			};
-			
-			var enrollCourse = function() {
-				var sURL = /*[[@{/do/student/enrollCourse}]]*/ #;
-				$.post(sURL, $(".enroll-data").serialize(), function(data) {
-					if(data.errorList != null) {
-						displayErrorParsley(data.errorList);
-					} else {
-						backToList();
-					}
-				});
-			};
-	    	
-	    	var backToList = function(){
-				returnToList('student-detail-container', 'student-list-container', true);
-			};
-	    	
-	    	$('.student-detail-btn-save-class').click(function(e){
-				e.preventDefault();
-				submitForm();
-			});
-			
-			$('.student-detail-btn-cancel-class').click(function(e){
-				e.preventDefault();
-				backToList();
-			});
-			
-			$('.student-nav-tab').click(function(e){
-				 $(this).tab('show');
-			});
-			
-			$('#student-detail-btn-enrollCourse').click(function(e){
-				e.preventDefault();
-				enrollCourse();
-			});
-			
-	    });
-	
+	  	function backToList(){
+			returnToList('rm-detail-container', 'rm-list-container', true);
+		};
 	/*]]>*/
 	</script>
 </body>

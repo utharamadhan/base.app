@@ -12,14 +12,14 @@
 </style>
 <body>
 <div id="content" class="col-md-12">
-	<div id="researchManagement-detail-container"></div>
-	<div id="researchManagement-list-container">
+	<div id="rm-detail-container"></div>
+	<div id="rm-list-container">
 	<div class="pageheader">
 		<h4><i class="fa fa-shopping-basket"></i> Research / Research Management List
 		<span></span></h4>
 	</div>
 	<div class="col-md-4 tile-body no-vpadding" style="margin:10px;">
-		<a href="#" id="researchManagement-btn-add" class="btn btn-primary" style="margin-bottom:5px"><i class="fa fa-plus dropdown-plus"></i> &nbsp; Add</a>
+		<a href="#" id="rm-btn-add" class="btn btn-primary" style="margin-bottom:5px"><i class="fa fa-plus dropdown-plus"></i> &nbsp; Add</a>
 	</div>
 	<div class="main">
 		<div class="row">
@@ -27,7 +27,7 @@
 				<section class="tile transparent">
 					<div class="table-responsive">
 						<div class="tile-body rounded-corners">
-	                      	<table id="researchManagement-list-table" class="table table-datatable table-custom">
+	                      	<table id="rm-list-table" class="table table-datatable table-custom">
 		                        <thead>
 		                          <tr>
 		                            <th>Title</th>
@@ -35,7 +35,7 @@
 		                          </tr>
 		                        </thead>
 	                     	</table>
-	                     	<div style="padding-bottom: 3px; bottom: 0;" th:replace="pagingDiv::pager (${pagingWrapper}, ${#dates.createNow()}, 'researchManagement-list-table', 'contentArea')">
+	                     	<div style="padding-bottom: 3px; bottom: 0;" th:replace="pagingDiv::pager (${pagingWrapper}, ${#dates.createNow()}, 'rm-list-table', 'contentArea')">
 							</div>
                      	</div>
 					</div>
@@ -49,12 +49,12 @@
 	/*<![CDATA[*/
 		function showAdd() {
 	    	var sURL = /*[[@{/do/research/researchManagement/showAdd?skipdecorator=}]]*/ #;
-	    	showScreen('researchManagement-list-container', 'researchManagement-detail-container', sURL);
+	    	showScreen('rm-list-container', 'rm-detail-container', sURL);
 		}
 		
 		function showDetail(maintenancePK) {
 			var sURL = /*[[@{/do/research/researchManagement/showEdit?maintenancePK=}]]*/ #;
-			showScreen('researchManagement-list-container', 'researchManagement-detail-container', sURL + maintenancePK + "&skipdecorator=");
+			showScreen('rm-list-container', 'rm-detail-container', sURL + maintenancePK + "&skipdecorator=");
 		}
 		
 		function deleteItem(maintenancePK) {
@@ -69,9 +69,9 @@
 			});
 		} 
 		
-		function deleteProgramPost() {
+		function deleteRM() {
 			var sURL = /*[[@{/do/research/researchManagement/deleteProgramPost?skipDecorator}]]*/ #;
-			$.post(sURL, $('.researchManagement-list-check-delete').serialize(), function(data){
+			$.post(sURL, $('.rm-list-check-delete').serialize(), function(data){
 				if(data.errorList!=null){
 					
 				}else{
@@ -86,15 +86,15 @@
 	    	               { type : "deleteAndEdit" , param : [ "pkResearch" ] }
 	    	               ];
 		    var sURL = /*[[@{/do/research/researchManagement/list?}]]*/ #;
-		    buildDataTable(/*[[@{/}]]*/, sURL, 'researchManagement-list-table', 450, colDefs, null, null);
+		    buildDataTable(/*[[@{/}]]*/, sURL, 'rm-list-table', 450, colDefs, null, null);
 	    });
 	    
-		$('#researchManagement-btn-add').click(function(){
+		$('#rm-btn-add').click(function(){
 			showAdd();
 		});
 		
-		$('#researchManagement-btn-delete').click(function(){
-			deleteProgramPost();
+		$('#rm-btn-delete').click(function(){
+			deleteRM();
 		});
 		
 	/*]]>*/
