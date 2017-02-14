@@ -308,6 +308,7 @@ public class SystemConstant  {
 		public static final String SUPER_ADMIN 			= "SA";
 		public static final String HEAD_MEMBER 			= "HM";
 		public static final String TRANSACTION_MEMBER 	= "MT";
+		public static final String ADVISOR			 	= "AD";
 	}
 	
 	public static final String EMPTY_KEYWORD = "";

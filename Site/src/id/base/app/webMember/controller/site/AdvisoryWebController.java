@@ -34,8 +34,11 @@ import id.base.app.properties.ApplicationProperties;
 import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
 import id.base.app.rest.RestServiceConstant;
+import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
+import id.base.app.util.dao.SearchOrder.Sort;
+import id.base.app.valueobject.AppUser;
 import id.base.app.valueobject.advisory.Advisor;
 import id.base.app.valueobject.advisory.Advisory;
 import id.base.app.valueobject.advisory.AdvisoryMenu;
@@ -64,6 +67,10 @@ public class AdvisoryWebController {
 		return new RestCaller<Category>(RestConstant.REST_SERVICE, RestServiceConstant.ADVISORY_CATEGORY_SERVICE);
 	}
 	
+	protected RestCaller<AppUser> getRestCallerUser() {
+		return new RestCaller<AppUser>(RestConstant.REST_SERVICE, RestServiceConstant.USER_SERVICE);
+	}
+	
 	@RequestMapping(method=RequestMethod.GET)
 	public String view(ModelMap model, HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value="startNo",defaultValue="1") int startNo, 
@@ -75,8 +82,12 @@ public class AdvisoryWebController {
 		model.addAttribute("menus", menus);
 		
 		//Advisor
-		List<Advisor> advisors = new ArrayList<Advisor>();
-		advisors = getRestCallerAdvisor().findAll(new ArrayList<SearchFilter>(), new ArrayList<SearchOrder>());
+		List<SearchFilter> filter = new ArrayList<SearchFilter>();
+		filter.add(new SearchFilter(AppUser.APP_ROLES_CODE, Operator.EQUALS, SystemConstant.UserRole.ADVISOR));
+		List<SearchOrder> order = new ArrayList<SearchOrder>();
+		order.add(new SearchOrder(AppUser.PK_APP_USER, Sort.ASC));
+		List<AppUser> advisors = new ArrayList<AppUser>();
+		advisors = getRestCallerUser().findAll(filter, order);
 		model.addAttribute("advisors", advisors);
 		
 		//Category
@@ -137,8 +148,9 @@ public class AdvisoryWebController {
 			@RequestParam(value="filter", defaultValue="", required=false) String filterJson
 		){
 		List<SearchFilter> filter = new ArrayList<SearchFilter>();
+		filter.add(new SearchFilter(AppUser.APP_ROLES_CODE, Operator.EQUALS, SystemConstant.UserRole.ADVISOR));
 		List<SearchOrder> order = new ArrayList<SearchOrder>();
-		PagingWrapper<Advisor> advisors = getRestCallerAdvisor().findAllByFilter(startNo, offset, filter, order);
+		PagingWrapper<AppUser> advisors = getRestCallerUser().findAllByFilter(startNo, offset, filter, order);
 		model.addAttribute("advisors", advisors);
 		
 		//Category
@@ -157,8 +169,9 @@ public class AdvisoryWebController {
 		){
 		Map<String, Object> resultMap = new HashMap<>();
 		List<SearchFilter> filter = new ArrayList<SearchFilter>();
+		filter.add(new SearchFilter(AppUser.APP_ROLES_CODE, Operator.EQUALS, SystemConstant.UserRole.ADVISOR));
 		List<SearchOrder> order = new ArrayList<SearchOrder>();
-		PagingWrapper<Advisor> advisors = getRestCallerAdvisor().findAllByFilter(startNo, offset, filter, order);
+		PagingWrapper<AppUser> advisors = getRestCallerUser().findAllByFilter(startNo, offset, filter, order);
 		resultMap.put("advisors", advisors);
 		return resultMap;
 	}
@@ -176,8 +189,12 @@ public class AdvisoryWebController {
 			@RequestParam(value="offset",defaultValue="6") int offset,
 			@RequestParam(value="filter", defaultValue="", required=false) String filterJson
 		){
-		List<Advisor> advisors = new ArrayList<Advisor>();
-		advisors = getRestCallerAdvisor().findAll(new ArrayList<SearchFilter>(), new ArrayList<SearchOrder>());
+		List<SearchFilter> filter = new ArrayList<SearchFilter>();
+		filter.add(new SearchFilter(AppUser.APP_ROLES_CODE, Operator.EQUALS, SystemConstant.UserRole.ADVISOR));
+		List<SearchOrder> order = new ArrayList<SearchOrder>();
+		order.add(new SearchOrder(AppUser.PK_APP_USER, Sort.ASC));
+		List<AppUser> advisors = new ArrayList<AppUser>();
+		advisors = getRestCallerUser().findAll(filter, order);
 		model.addAttribute("advisors", advisors);
 		
 		//Category
@@ -200,8 +217,12 @@ public class AdvisoryWebController {
 			@RequestParam(value="offset",defaultValue="6") int offset,
 			@RequestParam(value="filter", defaultValue="", required=false) String filterJson
 		){
-		List<Advisor> advisors = new ArrayList<Advisor>();
-		advisors = getRestCallerAdvisor().findAll(new ArrayList<SearchFilter>(), new ArrayList<SearchOrder>());
+		List<SearchFilter> filter = new ArrayList<SearchFilter>();
+		filter.add(new SearchFilter(AppUser.APP_ROLES_CODE, Operator.EQUALS, SystemConstant.UserRole.ADVISOR));
+		List<SearchOrder> order = new ArrayList<SearchOrder>();
+		order.add(new SearchOrder(AppUser.PK_APP_USER, Sort.ASC));
+		List<AppUser> advisors = new ArrayList<AppUser>();
+		advisors = getRestCallerUser().findAll(filter, order);
 		model.addAttribute("advisors", advisors);
 		
 		//Category

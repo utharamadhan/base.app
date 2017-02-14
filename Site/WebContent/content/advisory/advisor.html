@@ -46,13 +46,13 @@
 	                        </div>
 	                    </div>
 						<div class="row advisor_list"> 
-							<div class="col-md-3 align_center" th:each="advisor, i : ${advisors.result}"> 
-								<img class="img-circle" th:src="${advisor.basicPictureURL}"/>
+							<div id="template" class="col-md-3 align_center" th:each="advisor, i : ${advisors.result}"> 
+								<img class="img-circle" th:src="${advisor.party.basicPictureURL}"/>
 								<div class="advisor_description">
-									<h3 class="big-text yellow-text-color advisor_name" th:text="${advisor.name}">George Martin</h3>
-									<div class="specialist_part"><label th:text="${advisor.title}">Global and Asia Pacific, Americas (APA) Advisory leader</label></div>
+									<h3 class="big-text yellow-text-color advisor_name" th:text="${advisor.party.name}">George Martin</h3>
+									<div class="specialist_part"><label th:text="${advisor.party.title}">Global and Asia Pacific, Americas (APA) Advisory leader</label></div>
 									<br/>
-									<p class="small-text" th:text="${advisor.profileDescription}">
+									<p class="small-text description" th:text="${advisor.party.profileDescription}">
 										George is one of the co-founders and takes care of growth, product development and partnerships. She is analytical, driven and adapts easily to new conditions, while trying to keep everyone on track.
                                     </p>
                                     <div>
@@ -98,8 +98,10 @@
 			var load_content = '';
 			for(var i=0;i<datas.length;i++){
 				var cloning = $('.template_part .data_result').eq(0).clone();
-				cloning.find('.post_thumb img').attr('src',datas[i].basicPictureURL);
-				cloning.find('.post_title').html(datas[i].name);
+				cloning.find('.img-circle').attr('src',datas[i].party.basicPictureURL);
+				cloning.find('.advisor_name').html(datas[i].party.name);
+				cloning.find('.specialist_part').html(datas[i].party.title);
+				cloning.find('.description').html(datas[i].party.profileDescription);
 				cloning.wrap('<div></div>');
 				if(!load){
 					$('.list_data').append(cloning.parent().html());
@@ -133,9 +135,9 @@
 		            success: function (data) {
 		            	$('.load_pagination').hide();
 		            	$('.mrdy_btn').disableBtn({enabled:true});
-		            	processData(data.tutors.result, false);		
-		            	var newMaxRecord = data.tutors.maxRecord;
-		            	var newCurrentRecord = data.tutors.currentRecord;
+		            	processData(data.advisors.result, false);		
+		            	var newMaxRecord = data.advisors.maxRecord;
+		            	var newCurrentRecord = data.advisors.currentRecord;
 		            	showPaging(newMaxRecord, newCurrentRecord);
 		            },
 		            beforeSend: function($jqXHR, $textStatus){

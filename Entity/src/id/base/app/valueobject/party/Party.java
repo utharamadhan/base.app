@@ -98,8 +98,17 @@ public class Party extends BaseEntity implements Serializable{
 	@Column(name = "NAME")
 	private String name;
 	
+	@Column(name="TITLE")
+	private String title;
+	
 	@Column(name = "NPWP")
 	private String npwp;
+	
+	@Column(name="PROFILE_DESCRIPTION")
+	private String profileDescription;
+	
+	@Column(name="BASIC_PICTURE_URL")
+	private String basicPictureURL;
 	
 	@OneToMany(mappedBy="party", cascade=CascadeType.ALL)
 	@Column
@@ -144,11 +153,35 @@ public class Party extends BaseEntity implements Serializable{
 		this.name = name;
 	}
 	
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
 	public String getNpwp() {
 		return npwp;
 	}
 	public void setNpwp(String npwp) {
 		this.npwp = npwp;
+	}
+	
+	public String getProfileDescription() {
+		return profileDescription;
+	}
+
+	public void setProfileDescription(String profileDescription) {
+		this.profileDescription = profileDescription;
+	}
+
+	public String getBasicPictureURL() {
+		return basicPictureURL;
+	}
+
+	public void setBasicPictureURL(String basicPictureURL) {
+		this.basicPictureURL = basicPictureURL;
 	}
 
 	public Set<PartyRole> getPartyRoles() {

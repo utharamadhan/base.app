@@ -64,6 +64,7 @@ public class RestServiceConstant {
 	public static final String ADVISORY_MENU_SERVICE = "advisoryMenuService";
 	public static final String ADVISOR_SERVICE = "advisorService";
 	public static final String ADVISORY_CATEGORY_SERVICE = "advisoryCategoryService";
+	public static final String ADVISORY_ARTICLE_SERVICE = "advisoryArticleService";
 	
 	//contact
 	public static final String CONTACT_SERVICE = "contactService";

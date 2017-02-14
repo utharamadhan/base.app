@@ -89,6 +89,7 @@ public class RestConstant {
 	public static final String RM_ADVISORY_MENU = "/advisory/menu";
 	public static final String RM_ADVISOR = "/advisory/advisor";
 	public static final String RM_ADVISORY_CATEGORY = "/advisory/category";
+	public static final String RM_ADVISORY_ARTICLE = "/advisory/article";
 
 	//forecast call
 	public static final String RM_FORECAST_CALL = "/forecastCall";
