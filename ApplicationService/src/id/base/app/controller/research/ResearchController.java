@@ -64,7 +64,32 @@ public class ResearchController extends SuperController<Research>{
 	
 	@Override
 	public Research preUpdate(Research anObject) throws SystemException{
-		if(anObject.getPkResearch()==null && StringFunction.isEmpty(anObject.getTitle())){
+		if(anObject.getPkResearch()!=null){
+			if(SystemConstant.TabResearchManagement.ORGANIZER.equals(anObject.getFromTab()) || 
+					SystemConstant.TabResearchManagement.PRE.equals(anObject.getFromTab())){
+				Research newObject = getMaintenanceService().findById(anObject.getPkResearch());
+				if(SystemConstant.TabResearchManagement.ORGANIZER.equals(anObject.getFromTab())){
+					newObject.setIsInternal(anObject.getIsInternal());
+				}
+				if(SystemConstant.TabResearchManagement.PRE.equals(anObject.getFromTab())){
+					newObject.setResearchTheme(anObject.getResearchTheme());
+					newObject.setTitle(anObject.getTitle());
+					newObject.setSubtitle(anObject.getSubtitle());
+					newObject.setImageURL(anObject.getImageURL());
+					newObject.setDescription(anObject.getDescription());
+					newObject.setPrinciplePermitDescription(anObject.getPrinciplePermitDescription());
+					newObject.setPrinciplePermitFile(anObject.getPrinciplePermitFile());
+					newObject.setProcurementDescription(anObject.getProcurementDescription());
+					newObject.setProcurementFile(anObject.getProcurementFile());
+					newObject.setWorkOrderDescription(anObject.getWorkOrderDescription());
+					newObject.setWorkOrderFile(anObject.getWorkOrderFile());
+					newObject.setVendor(anObject.getVendor());
+					newObject.setProjectValue(anObject.getProjectValue());
+				}
+				anObject = newObject;
+			}
+			
+		} else if(StringFunction.isEmpty(anObject.getTitle())){
 			anObject.setTitle(SystemConstant.DEFAULT_TITLE_RESEARCH);
 		}
 		anObject.setStatus(SystemConstant.ValidFlag.VALID);

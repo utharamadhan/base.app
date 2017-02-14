@@ -60,6 +60,33 @@
 	  	function backToList(){
 			returnToList('rm-detail-container', 'rm-list-container', true);
 		};
+		
+		function setListOfficer(){
+			var listURL = /*[[@{/do/research/researchManagement/listOfficer}]]*/ #;
+			$.get(listURL, {maintenancePK:$('#maintenancePK').val()}, function(data){
+				var container = $('#projectOfficerContent');
+				var bodyTable = $('#officer-list-table tbody');
+				var html = "";
+				for(var i=1;i<=data.length;i++) {
+					if(i%2==0){
+						html += "<tr class='even'>";
+					}else{
+						html += "<tr class='odd'>";	
+					}
+					html += "<td>"+data[i-1].officerName+"</td>";
+					html += "<td>"+data[i-1].officerPosition+"</td>"; 
+					html += '<td><a href="#" class="btn btn-primary btn-xs btn-edit-officer" data-toggle="tooltip" title="" data-original-title="Edit" style="margin-right:5px;"><i class="fa fa-edit"></i></a>\<a href="#" class="btn btn-primary btn-xs btn-delete-officer" data-toggle="tooltip" title="" data-original-title="Delete"><i class="fa fa-trash"></i></a></td>';
+					html += "</tr>";
+				};
+				bodyTable.html(html);
+			});
+		}
+		
+		$(function(){
+			if($('#maintenancePK').val()!=""){
+				setListOfficer();
+			}
+		});
 	/*]]>*/
 	</script>
 </body>

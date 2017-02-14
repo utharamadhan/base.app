@@ -373,4 +373,13 @@ public class SystemConstant  {
 	}
 	
 	public static final String DEFAULT_TITLE_RESEARCH = "-- no title --";
+	
+	public static final class TabResearchManagement{
+		public static final Integer ORGANIZER = 1;
+		public static final Integer OFFICER = 2;
+		public static final Integer PRE = 3;
+		public static final Integer IMPLEMENTATION = 4;
+		public static final Integer PASCA = 5;
+		public static final Integer SUMMARY = 6;
+	}
 }
