@@ -17,6 +17,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -98,6 +99,9 @@ public class Research extends BaseEntity implements Serializable {
 	
 	@OneToMany(mappedBy="research", cascade=CascadeType.DETACH)
 	private List<ResearchResult> results;
+	
+	@Transient
+	private Integer fromTab;
 
 	public Long getPkResearch() {
 		return pkResearch;
@@ -249,6 +253,14 @@ public class Research extends BaseEntity implements Serializable {
 
 	public void setResults(List<ResearchResult> results) {
 		this.results = results;
+	}
+
+	public Integer getFromTab() {
+		return fromTab;
+	}
+
+	public void setFromTab(Integer fromTab) {
+		this.fromTab = fromTab;
 	}
 	
 }

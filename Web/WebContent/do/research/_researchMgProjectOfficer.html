@@ -7,26 +7,26 @@
 				<div class="form-group">
 					<label class="col-sm-4 control-label" th:text="'Name'">Name</label>
 					<div class="col-sm-8 form-input-container">
-						<input type="text" class="form-control" name="name" placeholder="Name" id="input-text-title"/>
+						<input type="text" class="form-control" name="officerName" placeholder="Name" id="input-text-title"/>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-4 control-label" th:text="'Position'">Position</label>
 					<div class="col-sm-8 form-input-container">
-						<input type="text" class="form-control" name="position" placeholder="Position" id="input-text-title"/>
+						<input type="text" class="form-control" name="officerPosition" placeholder="Position" id="input-text-title"/>
 					</div>
 				</div>
 				<div>
 					<div class="form-group form-footer">				
 						<div class="col-sm-offset-3 col-sm-9">
-							<a href="#" class="btn btn-default btn-back-to-list" type="reset" data-toggle="tooltip" title="">Kembali Ke List</a>
-							<button id="rm-tab2-btn-save" class="btn btn-primary" type="submit" data-toggle="tooltip" title="">Simpan &#38; Lanjutkan</button>
+							<a href="#" class="btn btn-default" id="rm-tab2-btn-cancel" type="reset" data-toggle="tooltip" title="">Batal</a>
+							<button id="rm-tab2-btn-save" class="btn btn-primary" type="submit" data-toggle="tooltip" title="">Simpan</button>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="col-md-7">
-				<table id="budgeting-list-table" class="table table-datatable table-custom">
+				<table id="officer-list-table" class="table table-datatable table-custom">
 	            	<thead>
 	                	<tr>
 	                   		<th width="50%">Name</th>
@@ -34,26 +34,47 @@
 							<th width="10%">E/D</th>
 	                  	</tr>
 	              	</thead>
+	              	<tbody></tbody>
 	          	</table>
+			</div>
+		</div>
+		<br/>
+		<div>
+			<div class="form-group form-footer">				
+				<div class="col-sm-offset-3 col-sm-9">
+					<a href="#" class="btn btn-default btn-back-to-list" type="reset" data-toggle="tooltip" title="">Kembali Ke List</a>
+					<button id="rm-tab2-btn-next" class="btn btn-primary" type="button" data-toggle="tooltip" title="">Lanjutkan</button>
+				</div>
 			</div>
 		</div>
 	</form>
 	<script th:inline="javascript">
 	/*<![CDATA[*/     
 		$(function(){
+			var clearFormOfficer = function(){
+				cleanErrorParsley();
+				$('#rm-officer-detail-form input').val('');
+			};
+			
 			var submitFormOfficer = function(){
 				cleanErrorParsley();
-				var sURL = /*[[@{/do/research/researchMaintenance/saveOfficer/}]]*/ #;
-				$.post(sURL, {fkResearch:$('#maintenancePK').val(),officerName:$('#rm-officer-detail-form input[name=name]').val(), 
-					officerPosition:$('#rm-officer-detail-form input[name=position]').val()}, function(data) {
+				var sURL = /*[[@{/do/research/researchManagement/saveOfficer/}]]*/ #;
+				$.post(sURL, {fkResearch:$('#maintenancePK').val(),officerName:$('#rm-officer-detail-form input[name=officerName]').val(), 
+					officerPosition:$('#rm-officer-detail-form input[name=officerPosition]').val()}, function(data) {
 					if(data.errorList!=null){
 						displayErrorParsley(data.errorList);
 					}else{
+						clearFormOfficer();
+						setListOfficer();
 						//reload list officer
 					}
 				});
 			};
 			
+			$('#rm-tab2-btn-cancel').click(function(e){
+				e.preventDefault();
+				clearFormOfficer();
+			});
 			$('#rm-tab2-btn-save').click(function(e){
 				e.preventDefault();
 				submitFormOfficer();
@@ -61,6 +82,10 @@
 			
 			$('.btn-back-to-list').click(function(){
 				backToList();
+			});
+			
+			$('#rm-tab2-btn-next').click(function(){
+				$('#praResearchLink').click();
 			});
 	    });
 	/*]]>*/

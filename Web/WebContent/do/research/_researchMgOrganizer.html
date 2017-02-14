@@ -6,7 +6,12 @@
 			<div class="col-md-3">
 				<div class="funkyradio">
 			        <div class="funkyradio-primary">
-			        	<input type="radio" th:field="*{isInternal}" value="true"/>
+			        	<th:block th:if="${detail.isInternal}">
+			        		<input type="radio" th:field="*{isInternal}" value="true" checked="checked"/>
+			        	</th:block>
+			        	<th:block th:if="${!detail.isInternal}">
+			        		<input type="radio" th:field="*{isInternal}" value="true"/>
+			        	</th:block>
 			            <label for="isInternal1">Internal</label>
 			        </div>
 			    </div>
@@ -14,7 +19,12 @@
 			<div class="col-md-3">
 				<div class="funkyradio">
 			        <div class="funkyradio-primary">
-			            <input type="radio" th:field="*{isInternal}" value="false"/>
+			        	<th:block th:if="${!detail.isInternal}">
+			            	<input type="radio" th:field="*{isInternal}" value="false" checked="checked"/>
+			            </th:block>
+			            <th:block th:if="${detail.isInternal}">
+			            	<input type="radio" th:field="*{isInternal}" value="false"/>
+			            </th:block>
 			            <label for="isInternal2">External</label>
 			        </div>
 			    </div>
@@ -36,8 +46,9 @@
 		$(function(){
 			var submitFormOrganizer = function(){
 				cleanErrorParsley();
-				var sURL = /*[[@{/do/research/researchMaintenance/saveResearch/}]]*/ #;
-				$.post(sURL, {pkResearch:$('#maintenancePK').val(), isInternal:$('input[name=isInternal]').val()}, function(data) {
+				var sURL = /*[[@{/do/research/researchManagement/saveResearch/}]]*/ #;
+				var fromTab = /*[[${T(id.base.app.SystemConstant.TabResearchManagement).ORGANIZER}]]*/;
+				$.post(sURL, {pkResearch:$('#maintenancePK').val(), isInternal:$('input[name=isInternal]:checked').val(), fromTab:fromTab}, function(data) {
 					if(data.errorList!=null){
 						displayErrorParsley(data.errorList);
 					}else{

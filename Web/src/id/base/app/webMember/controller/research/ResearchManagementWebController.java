@@ -15,6 +15,7 @@ import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.valueobject.research.Research;
 import id.base.app.valueobject.research.ResearchOfficer;
+import id.base.app.valueobject.research.ResearchTheme;
 import id.base.app.webMember.DataTableCriterias;
 import id.base.app.webMember.controller.BaseController;
 
@@ -76,6 +77,10 @@ public class ResearchManagementWebController extends BaseController<Research> {
 		return orders;
 	}
 	
+	public void setDefaultData(ModelMap model) {
+		model.addAttribute("themeOptions", getThemeList());
+	}
+	
 	@RequestMapping(method=RequestMethod.GET, value="showList")
 	public String showList(ModelMap model, HttpServletRequest request){
 		model.addAttribute("pagingWrapper", new PagingWrapper<Research>());
@@ -84,6 +89,7 @@ public class ResearchManagementWebController extends BaseController<Research> {
 	
 	@RequestMapping(method=RequestMethod.GET, value="showAdd")
 	public String showAdd(ModelMap model, HttpServletRequest request){
+		setDefaultData(model);
 		Research obj = Research.getInstance();
 		obj.setIsInternal(Boolean.TRUE);
 		model.addAttribute("detail", obj);
@@ -93,6 +99,7 @@ public class ResearchManagementWebController extends BaseController<Research> {
 	
 	@RequestMapping(method=RequestMethod.GET, value="showEdit")
 	public String showEdit(@RequestParam(value="maintenancePK") final Long maintenancePK, @RequestParam Map<String, String> paramWrapper, ModelMap model, HttpServletRequest request){
+		setDefaultData(model);
 		Research detail = getRestCaller().findById(maintenancePK);
 		model.addAttribute("detail", detail);
 		return PATH_DETAIL;
@@ -122,7 +129,7 @@ public class ResearchManagementWebController extends BaseController<Research> {
 	
 	@RequestMapping(method=RequestMethod.GET, value="/listOfficer")
 	@ResponseBody
-	public List<ResearchOfficer> showTimePlanningList(@RequestParam(value="fkResearch")final Long fkResearch, HttpServletRequest request){
+	public List<ResearchOfficer> listOfficer(@RequestParam(value="maintenancePK")final Long fkResearch, HttpServletRequest request){
 		List<ResearchOfficer> list = new SpecificRestCaller<ResearchOfficer>(RestConstant.REST_SERVICE, RestConstant.RM_RESEARCH, ResearchOfficer.class).executeGetList(new PathInterfaceRestCaller() {
 			
 			@Override
@@ -155,5 +162,13 @@ public class ResearchManagementWebController extends BaseController<Research> {
 		}
 		return resultMap;
 	}
-
+	
+	private List<ResearchTheme> getThemeList(){
+		List<SearchFilter> sf = new ArrayList<>();
+		sf.add(new SearchFilter(ResearchTheme.STATUS,Operator.EQUALS,SystemConstant.ValidFlag.VALID));
+		List<SearchOrder> so = new ArrayList<>();
+		so.add(new SearchOrder(ResearchTheme.TITLE, SearchOrder.Sort.ASC));
+		List<ResearchTheme> list = new RestCaller<ResearchTheme>(RestConstant.REST_SERVICE, RestServiceConstant.RESEARCH_THEME_SERVICE).findAll(sf, so);
+		return list;
+	}
 }
