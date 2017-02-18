@@ -49,14 +49,14 @@
                            		</select>
                            	</div>
 						</div>
-						<!--div class="form-group">
+						<div class="form-group">
 							<label class="col-sm-2 control-label" th:text="'Tag'">Tag</label>
 							<div class="col-sm-9 form-input-container">
 								<select class="course-detail-groupCourseSelect chosen-select form-control tagSelection" multiple="multiple">
 									<option th:each="opt : ${tagOptions}" th:value="${opt.pkTag}" th:text="${opt.name}" >Name</option>
                            		</select>
                            	</div>
-						</div-->
+						</div>
 						<div class="form-group">
 							<label class="col-sm-2 control-label" th:text="'Code'">Code</label>
 							<div class="col-sm-9 form-input-container">
@@ -156,8 +156,10 @@
 		var generateTag = function(){
 			$('.tagSelection option:selected').each(function(idx){
 				var val = $(this).val();
-				var template = '<input type="hidden" value="'+val+'" name="courseTags['+idx+'].pkTag" />';
-				$('.tagSelection').after(template);
+				if(val){
+					var template = '<input type="hidden" value="'+val+'" name="courseTags['+idx+'].pkTag" />';
+					$('.tagSelection').after(template);
+				}
 			});
 		}
 		

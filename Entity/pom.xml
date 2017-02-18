@@ -89,6 +89,11 @@
   		<artifactId>utils</artifactId>
   		<version>0.0.1</version>
   	</dependency>
+  	<dependency>
+		<groupId>com.voodoodyne.jackson.jsog</groupId>
+		<artifactId>jackson-jsog</artifactId>
+		<version>1.1</version>
+	</dependency>
   </dependencies>
   <parent>
 		<groupId>id.base.app</groupId>

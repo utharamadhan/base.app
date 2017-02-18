@@ -52,6 +52,7 @@
 											<div class="foreground_list">
 												<div><label class="label_want" th:text="${category.name}">Make a Concept House</label></div>
 												<div>
+													<input type="hidden" class="idCategory" th:value="${category.pkCategory}"/>
 													<span class="glyphicon glyphicon-play position_right" aria-hidden="true"></span>
 												</div>
 											</div>
@@ -63,6 +64,7 @@
 											<div class="foreground_list">
 												<div><label class="label_want" th:text="${category.name}">Secure assets</label></div>
 												<div>
+													<input type="hidden" class="idCategory" th:value="${category.pkCategory}" />
 													<span class="glyphicon glyphicon-play position_right" aria-hidden="true"></span>
 												</div>
 												<div class="info_wrapper"><span class="glyphicon glyphicon-info-sign position_right_info" aria-hidden="true" th:attr="data=${category.pkCategory}"></span></div>
@@ -86,7 +88,11 @@
 											<option>Make a Concept House</option>
 											<option>How to Get Best Quality</option>
 										</select> -->
-										<input type="text" name="" class="input_text_custom article_label" placeholder="Research &amp; Insight" />
+										<!-- <input type="text" name="" class="input_text_custom article_label" placeholder="Research &amp; Insight" /> -->
+										<select class="select_tema article_label">
+											<option value="">Select Article</option>
+											<option th:each="article, i : ${articles}" th:value="${article.pkArticle}" th:text="${article.name}">Concept House</option>
+										</select>
 									</div>
 								</div>
 								<div class="advisory_consult">
@@ -136,7 +142,8 @@
 												<div class="col-xs-12 col-sm-7">
 													<div class="form-group">
 														<label>Category <span class="error">*</span></label>
-														<input type="text" class="form-control" name="category" readonly="readonly"/>
+														<input type="text" class="form-control categoryView" name="" readonly="readonly"/>
+														<input type="hidden" class="form-control" name="category" readonly="readonly"/>
 													</div>
 												</div>
 											</div><!--end row-->
@@ -145,6 +152,7 @@
 												<div class="col-xs-12 col-sm-7">
 													<div class="form-group">
 														<label>Research <span class="error">*</span></label>
+														<input type="text" class="form-control researchView" name="" readonly="readonly"/>
 														<input type="text" class="form-control" name="research" readonly="readonly"/>
 													</div>
 												</div>
@@ -154,6 +162,7 @@
 												<div class="col-xs-12 col-sm-7">
 													<div class="form-group">
 														<label>Advisor <span class="error">*</span></label>
+														<input type="text" class="form-control advisorView" name="" readonly="readonly"/>
 														<input type="text" class="form-control" name="advisor" readonly="readonly"/>
 													</div>
 												</div>
@@ -290,7 +299,9 @@
 			$('.foreground_list').unbind('click').click(function(){
 				resetField('category');
 				var val = $(this).find('.label_want').html();
-				$('.category_input').find('input[name="category"]').val(val);
+				var paramVal = $(this).find('.idCategory').val();
+				$('.category_input').find('input[name="category"]').val(paramVal);
+				$('.category_input').find('.categoryView').val(val);
 				$('.category_input').show();
 				changeToCategory();
 			});
@@ -310,9 +321,13 @@
 			
 			$('.continue_research').unbind('click').click(function(){
 				resetField('research');
-				var val = $('.research_advisory').find('.article_label').val();
-				$('.research_input').find('input[name="research"]').val(val);
-				$('.research_input').show();
+				var validVal = $('.research_advisory').find('.article_label option:selected').val();
+				if(validVal){
+					var val = $('.research_advisory').find('.article_label option:selected').html();
+					$('.research_input').find('.reseearchView').val(val);
+					$('.research_input').find('input[name="research"]').val(validVal);
+					$('.research_input').show();
+				}
 				var url = /*[[@{/page/advisory/sub/article}]]*/
 				//window.location.href = url;
 				var widthScreen = $( window ).width();
@@ -366,9 +381,13 @@
 			
 			$('.consult_research').unbind('click').click(function(){
 				resetField('advisor');
-				var val = $('.advisor_advisory').find('.advisor_label option:selected').html();
-				$('.advisor_input').find('input[name="advisor"]').val(val);
-				$('.advisor_input').show();
+				var validVal = $('.advisor_advisory').find('.advisor_label option:selected').val();
+				if(validVal){
+					var val = $('.advisor_advisory').find('.advisor_label option:selected').html();
+					$('.advisor_input').find('.advisorView').val(val);
+					$('.advisor_input').find('input[name="advisor"]').val(validVal);
+					$('.advisor_input').show();
+				}
 				scrollToBottom('consult_form_part', 72);
 			});
 		});

@@ -51,6 +51,15 @@
 							</div>
 						</div>
 						<div class="form-group">
+							<label class="col-sm-2 control-label" th:text="'Others Advisor'">Others Advisor</label>
+							<div class="col-sm-8 form-input-container">
+								<select class="course-detail-groupCourseSelect chosen-select form-control advisorSelection" multiple="multiple">
+									<option value="">Select Others Advisor</option>
+									<option th:each="advisor, i : ${advisors}" th:text="${advisor.party.name}" th:value="${advisor.pkAppUser}">Mardy Jonathan</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
 							<label class="col-sm-2 control-label" th:text="'Name'">Name</label>
 							<div class="col-sm-8 form-input-container">
 								<input type="text" class="form-control" placeholder="Name" name="srch-term" id="input-text-name" th:field="*{name}"/>
@@ -107,7 +116,29 @@
 			});
 		}
 	
+	    var generateAdvisor = function(){
+			$('.advisorSelection option:selected').each(function(idx){
+				var val = $(this).val();
+				if(val){
+					var template = '<input type="hidden" value="'+val+'" name="advisor['+idx+'].pkAppUser" />';
+					$('.advisorSelection').after(template);
+				}
+			});
+		}
+	    
+	    var loadAdvisor = function(){
+			var createdAdvisors = /*[[${createdAdvisors}]]*/'';
+			if(createdAdvisors){
+				for(var i=0;i<createdAdvisors.length;i++){
+					var val = createdAdvisors[i].pkAppUser;
+					$('.advisorSelection').find('option[value="'+val+'"]').attr('selected','selected');
+				}
+			}
+		}
+	    
 	    $(function(){
+	    	loadAdvisor();
+	    	
 	    	var uploadURL = /*[[@{/do/fileManager/upload/}]]*/ #;
 	    	initDatePicker("datepicker", "dd/mm/yyyy");
 	    	initTextEditor('#tinyMCE-area', '#tinyMCE-parent', uploadURL);
@@ -119,6 +150,7 @@
 	    	
 			var submitForm = function(){
 				cleanErrorParsley();
+				generateAdvisor();
 				$('#tinyMCE-hidden').val(tinymce.get('tinyMCE-area').getContent());
 				var sURL = /*[[@{/do/advisory/researchInsight/saveArticle/}]]*/ #;
 				$.post(sURL, $("#article-detail-form").serialize(), function(data) {

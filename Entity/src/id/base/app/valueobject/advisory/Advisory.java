@@ -15,12 +15,12 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
+import id.base.app.valueobject.AppUser;
 import id.base.app.valueobject.BaseEntity;
-import id.base.app.valueobject.aboutUs.Tutor;
 
 @Entity
 @Table(name = "ADVISORY")
-@JsonIdentityInfo(generator=ObjectIdGenerators.UUIDGenerator.class, property="advisorJid", scope=Advisor.class)
+@JsonIdentityInfo(generator=ObjectIdGenerators.UUIDGenerator.class, property="advisoryJid", scope=Advisory.class)
 public class Advisory extends BaseEntity implements Serializable {
 	/**
 	 * 
@@ -42,7 +42,15 @@ public class Advisory extends BaseEntity implements Serializable {
 		
 	@ManyToOne
 	@JoinColumn(name="FK_TUTOR")
-	private Tutor tutor;
+	private AppUser tutor;
+	
+	@ManyToOne
+	@JoinColumn(name="FK_CATEGORY")
+	private Category category;
+	
+	@ManyToOne
+	@JoinColumn(name="FK_ARTICLE")
+	private Article article;
 	
 	@Column(name="QUESTION")
 	private String question;
@@ -69,10 +77,10 @@ public class Advisory extends BaseEntity implements Serializable {
 		this.pkAdvisory = pkAdvisory;
 	}
 
-	public Tutor getTutor() {
+	public AppUser getTutor() {
 		return tutor;
 	}
-	public void setTutor(Tutor tutor) {
+	public void setTutor(AppUser tutor) {
 		this.tutor = tutor;
 	}
 
@@ -113,6 +121,18 @@ public class Advisory extends BaseEntity implements Serializable {
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public Category getCategory() {
+		return category;
+	}
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+	public Article getArticle() {
+		return article;
+	}
+	public void setArticle(Article article) {
+		this.article = article;
 	}
 	
 }

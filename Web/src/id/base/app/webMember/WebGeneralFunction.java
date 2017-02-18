@@ -132,9 +132,13 @@ public class WebGeneralFunction {
 		
 		if(null != login.getAccessInfo()){
 			List<Long> userRoles = new ArrayList<>();
+			List<Integer> tempUserRoles = new ArrayList<>();
 			try {
 				Map<String, Object> map = new ObjectMapper().readValue(login.getAccessInfo(), new TypeReference<HashMap<String, Object>>(){});
-				userRoles = (List<Long>) map.get("userRoles");
+				tempUserRoles = (List<Integer>) map.get("userRoles");
+				for(Integer tempUserRole : tempUserRoles){
+					userRoles.add(tempUserRole.longValue());
+				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

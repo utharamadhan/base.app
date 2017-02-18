@@ -39,7 +39,6 @@ import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.util.dao.SearchOrder.Sort;
 import id.base.app.valueobject.AppUser;
-import id.base.app.valueobject.advisory.Advisor;
 import id.base.app.valueobject.advisory.Advisory;
 import id.base.app.valueobject.advisory.AdvisoryMenu;
 import id.base.app.valueobject.advisory.Article;
@@ -58,10 +57,6 @@ public class AdvisoryWebController {
 	
 	protected RestCaller<AdvisoryMenu> getRestCallerMenu() {
 		return new RestCaller<AdvisoryMenu>(RestConstant.REST_SERVICE, RestServiceConstant.ADVISORY_MENU_SERVICE);
-	}
-	
-	protected RestCaller<Advisor> getRestCallerAdvisor() {
-		return new RestCaller<Advisor>(RestConstant.REST_SERVICE, RestServiceConstant.ADVISOR_SERVICE);
 	}
 	
 	protected RestCaller<Category> getRestCallerCategory() {
@@ -258,6 +253,12 @@ public class AdvisoryWebController {
 		List<Category> categories = new ArrayList<Category>();
 		categories = getRestCallerCategory().findAll(new ArrayList<SearchFilter>(), new ArrayList<SearchOrder>());
 		model.addAttribute("categories", categories);
+		
+		//Article 
+		List<SearchFilter> filterArticle = new ArrayList<SearchFilter>();
+		List<SearchOrder> orderArticle = new ArrayList<SearchOrder>();
+		List<Article> articles = getRestCallerArticle().findAll(filterArticle, orderArticle);
+		model.addAttribute("articles", articles);
 		return "/advisory/consulting";
 	}
 	
@@ -284,6 +285,9 @@ public class AdvisoryWebController {
 		String contactEmail = params.get("email");
 		String contactQuestion = params.get("question");
 		String contactTelp = params.get("telp");
+		Long category = params.get("category")!=null ? new Long(params.get("category")) : 0L;
+		Long article = params.get("article")!=null ? new Long(params.get("article")) : 0L;
+		Long advisor = params.get("advisor")!=null ? new Long(params.get("advisor")) : 0L;
 		
 		if(contactName == null || contactEmail == null || contactQuestion == null || "".equals(contactName) || "".equals(contactEmail) || "".equals(contactQuestion)){
 			resultMap.put("success", false);
@@ -298,6 +302,9 @@ public class AdvisoryWebController {
 		advisory.setTelp(contactTelp);
 		advisory.setQuestion(contactQuestion);
 		advisory.setStatus(SystemConstant.StatusAdvisory.NEW);
+		if(category.compareTo(0L)>0){
+			Category dataCategory = getRestCallerCategory().findById(category);
+		}
 		List<ErrorHolder> errors = getRestCaller().create(advisory);
 		if(!errors.isEmpty()){
 			resultMap.put("success", false);

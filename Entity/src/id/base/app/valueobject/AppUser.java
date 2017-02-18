@@ -1,10 +1,9 @@
 package id.base.app.valueobject;
 
-import id.base.app.valueobject.party.Party;
-
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -23,6 +22,9 @@ import javax.persistence.Transient;
 
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
+
+import id.base.app.valueobject.advisory.Article;
+import id.base.app.valueobject.party.Party;
 
 @Entity
 @Table(name = "APP_USER")
@@ -53,6 +55,8 @@ public class AppUser extends BaseEntity implements Serializable {
 	public static final String SUPER_USER="superUser";
 	public static final String PASSWORD = "password";
 	public static final String PASSWORD_CONFIRMATION = "passwordConfirmation";
+	public static final String ARTICLE = "articles";
+	public static final String ARTICLE_PK = "articles.pkArticle";
 	public static final String PARTY = "party";
 	public static final String PARTY_NAME = PARTY + ".name";
 	public static final String PARTY_CONTACTS = PARTY + ".partyContacts";
@@ -145,6 +149,9 @@ public class AppUser extends BaseEntity implements Serializable {
 			joinColumns=@JoinColumn(name="FK_APP_USER"),
 			inverseJoinColumns=@JoinColumn(name="FK_APP_ROLE"))
 	private List<AppRole> appRoles;
+    
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy="advisor")
+	private Set<Article> articles;
 	
 	public Long getPkAppUser() {
 		return pkAppUser;
@@ -323,6 +330,14 @@ public class AppUser extends BaseEntity implements Serializable {
 	@Transient
 	public void setIsNewPassword(Boolean isNewPassword) {
 		this.isNewPassword = isNewPassword;
+	}
+
+	public Set<Article> getArticles() {
+		return articles;
+	}
+
+	public void setArticles(Set<Article> articles) {
+		this.articles = articles;
 	}
 	
 	

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import id.base.app.AbstractHibernateDAO;
 import id.base.app.exception.SystemException;
 import id.base.app.paging.PagingWrapper;
+import id.base.app.util.DateTimeFunction;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.valueobject.advisory.Article;
@@ -23,6 +24,7 @@ public class ArticleDAO extends AbstractHibernateDAO<Article, Long> implements I
 	@Override
 	public void saveOrUpdate(Article anObject) throws SystemException {
 		if (anObject.getPkArticle()==null) {
+			anObject.setArticleTime(DateTimeFunction.getCurrentDate());
 			super.create(anObject);
 		} else {
 		    super.update(anObject);

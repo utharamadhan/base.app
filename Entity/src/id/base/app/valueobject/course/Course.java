@@ -3,8 +3,6 @@ package id.base.app.valueobject.course;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -90,7 +88,7 @@ public class Course extends BaseEntity implements Serializable {
 	@JoinTable(name="COURSE_TAG",
 	joinColumns=@JoinColumn(name="FK_COURSE"),
 	inverseJoinColumns=@JoinColumn(name="FK_TAG"))
-	private Set<Tag> courseTags;
+	private List<Tag> courseTags = new ArrayList<Tag>();
 	
 	@Transient
 	private String tags;
@@ -167,10 +165,10 @@ public class Course extends BaseEntity implements Serializable {
 		this.admissionRequirement = admissionRequirement;
 	}
 
-	public Set<Tag> getCourseTags() {
+	public List<Tag> getCourseTags() {
 		return courseTags;
 	}
-	public void setCourseTags(Set<Tag> courseTags) {
+	public void setCourseTags(List<Tag> courseTags) {
 		this.courseTags = courseTags;
 	}
 
