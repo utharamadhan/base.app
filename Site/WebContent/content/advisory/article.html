@@ -52,7 +52,7 @@
 									<input type="hidden" name="pkArticle" th:value="${article.pkArticle}" class="id_article" />
 									<h2 class="title_article" th:text="${article.name}">Concept House</h2>
 									<div class="subtitle_article"><label th:text="${article.category.name}">Make a Concept House</label></div>
-									<div class="created_advisor"><label>By: &nbsp;</label><label th:text="${article.createdBy}" class="created_by">John Doe</label></div>
+									<div class="created_advisor"><label>By: &nbsp;</label><label th:text="${article.createdAdvisor}" class="created_by">John Doe</label></div>
 									<div class="date_advisor"><label>Created: &nbsp;</label><label th:text="${#dates.format(article.articleTime, 'dd MMMM yyyy')}" class="article_date">30 Januari 2017</label></div>
 									<p class="article_content" th:text="${#strings.substring(article.content,0,200) + ' ...'}" th:if="${#strings.length(article.content) &gt; 200}">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed dictum lectus. Donec lacus ante, tristique non ...</p>
 									<p class="article_content" th:text="${article.content}" th:if="${#strings.length(article.content) &lt; 200}">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed dictum lectus. Donec lacus ante, tristique non ...</p>
@@ -102,7 +102,7 @@
 				cloning.find('.article_box_image').attr('src',datas[i].basicPictureURL);
 				cloning.find('.title_article').html(datas[i].name);
 				cloning.find('.subtitle_article label').html(datas[i].category.name);
-				cloning.find('.created_by').html(datas[i].createdBy);
+				cloning.find('.created_by').html(datas[i].createdAdvisor);
 				cloning.find('.article_date').html(moment(datas[i].articleTime).format('DD MMMM YYYY'));
 				if(datas[i].content){
 					if(datas[i].content.length>200){

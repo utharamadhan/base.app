@@ -116,11 +116,12 @@ public class AdvisoryResearchInsightWebController extends BaseController<Article
 					}
 				}
 			}
+			
+			if(exclude){
+				filter.add(new SearchFilter(AppUser.PK_APP_USER, Operator.NOT_EQUAL, userLogin.getPkAppUser()));
+			}
 		}
 		
-		if(exclude){
-			filter.add(new SearchFilter(AppUser.PK_APP_USER, Operator.NOT_EQUAL, userLogin.getPkAppUser()));
-		}
 		filter.add(new SearchFilter(AppUser.APP_ROLES_CODE, Operator.EQUALS, SystemConstant.UserRole.ADVISOR));
 		List<AppUser> advisors = getRestCallerUser().findAll(filter, order);
 		model.addAttribute("advisors", advisors);
@@ -163,6 +164,7 @@ public class AdvisoryResearchInsightWebController extends BaseController<Article
 	@RequestMapping(method=RequestMethod.POST, value="saveArticle")
 	@ResponseBody
 	public Map<String, Object> saveArticle(final Article anObject, HttpServletRequest request) {
+		includeUserLogin(anObject);
 		Map<String, Object> resultMap = new HashMap<>();
 		List<ErrorHolder> errors = new ArrayList<>();
 		try{
@@ -176,6 +178,30 @@ public class AdvisoryResearchInsightWebController extends BaseController<Article
 		return resultMap;
 	}
 
+	private void includeUserLogin(Article anObject){
+		LoginSession userLogin = LoginSessionUtil.getLogin();
+		boolean include = false;
+		if(userLogin!=null){
+			if(userLogin.getUserRoles()!=null){
+				for(Long pkRoles : userLogin.getUserRoles()){
+					AppRole role = getRestCallerRole().findById(pkRoles);
+					if(SystemConstant.UserRole.ADVISOR.equals(role.getCode())){
+						include = true;
+						break;
+					}
+				}
+			}
+			
+			if(include){
+				AppUser user = getRestCallerUser().findById(userLogin.getPkAppUser());
+				if(anObject.getAdvisor()==null){
+					anObject.setAdvisor(new ArrayList<AppUser>());
+				}
+				anObject.getAdvisor().add(user);
+			}
+		}
+	}
+	
 	@Override
 	protected String getListPath() {
 		return PATH_LIST;
