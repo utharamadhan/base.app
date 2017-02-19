@@ -44,6 +44,10 @@ public class UserMaintenanceWebController extends BaseController<AppUser> {
 	protected RestCaller<AppUser> getRestCaller() {
 		return new RestCaller<AppUser>(RestConstant.REST_SERVICE, RestServiceConstant.USER_SERVICE);
 	}
+	
+	protected RestCaller<AppRole> getRestCallerRole() {
+		return new RestCaller<AppRole>(RestConstant.REST_SERVICE, RestServiceConstant.ROLE_SERVICE);
+	}
 
 	@Override
 	protected List<SearchFilter> convertForFilter(Map<String, String> paramWrapper) {
@@ -95,6 +99,11 @@ public class UserMaintenanceWebController extends BaseController<AppUser> {
 		setDefaultData(model);
 		AppUser detail = getRestCaller().findById(maintenancePK);
 		model.addAttribute("detail", detail);
+		List<SearchFilter> filter = new ArrayList<SearchFilter>();
+		filter.add(new SearchFilter(AppRole.USERS_ID, Operator.EQUALS, maintenancePK, Long.class));
+		List<SearchOrder> order = new ArrayList<SearchOrder>();
+		List<AppRole> roles = getRestCallerRole().findAll(filter, order);		
+		model.addAttribute("roles", roles);
 		return PATH_DETAIL;
 	}
 	

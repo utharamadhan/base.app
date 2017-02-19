@@ -253,6 +253,9 @@ public class UserController extends SuperController<AppUser>{
 						}
 					}
 				}
+				appUser.getParty().setProfileDescription(anObject.getParty().getProfileDescription());
+				appUser.getParty().setTitle(anObject.getParty().getTitle());
+				appUser.getParty().setBasicPictureURL(anObject.getParty().getBasicPictureURL());
 			}
 			appUser.setUserName(anObject.getUserName());
 			appUser.setEmail(anObject.getEmail());
@@ -311,7 +314,7 @@ public class UserController extends SuperController<AppUser>{
 		} else {
 			if(StringFunction.isNotEmpty(anObject.getEmail()) && !EmailFunction.isAddressValidRegex(anObject.getEmail())){
 				errors.add(new ErrorHolder(AppUser.EMAIL, messageSource.getMessage("error.user.email.invalid", null, Locale.ENGLISH)));
-			} else if(StringFunction.isNotEmpty(anObject.getEmail()) && userService.isEmailAlreadyInUsed(anObject.getEmail(), anObject.getPkAppUser())) {
+			} else if(StringFunction.isNotEmpty(anObject.getEmail()) && userService.isEmailAlreadyInUsed(anObject.getPkAppUser(), anObject.getEmail())) {
 				errors.add(new ErrorHolder(AppUser.EMAIL, messageSource.getMessage("error.user.email.already.inused", null, Locale.ENGLISH)));
 			}
 		}
@@ -344,16 +347,6 @@ public class UserController extends SuperController<AppUser>{
 		}
 		
 		return anObject;
-	}
-	
-	@Override
-	public AppUser getOldObject(AppUser object) throws SystemException {
-		AppUser oldObject = new AppUser();
-		oldObject = object.getPkAppUser() != null ? findById(object.getPkAppUser()) : null;
-		if(oldObject!=null){
-			cloneObject(oldObject, findById(object.getPkAppUser()));
-		}
-		return oldObject;
 	}
 	
 }
