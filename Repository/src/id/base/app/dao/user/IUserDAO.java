@@ -65,7 +65,9 @@ public interface IUserDAO {
 	
 	public void updateInitialWizard(Long pkAppUser, Integer initialWizardStep) throws SystemException;
 	
-	public Boolean isEmailAlreadyInUsed(String email, Long self) throws SystemException;
+	public Boolean isUserNameAlreadyInUsed(Long pkAppUser, String userName) throws SystemException;
+	
+	public Boolean isEmailAlreadyInUsed(Long pkAppUser, String email) throws SystemException;
 	
 	public Boolean isPhoneAlreadyInUsed(String phoneNumber) throws SystemException;
 	

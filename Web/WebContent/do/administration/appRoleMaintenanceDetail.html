@@ -80,9 +80,7 @@
 					if(data.errorList!=null){
 						displayErrorParsley(data.errorList);
 					}else{
-						bootBoxSuccessSave("Role Successfully Saved", function(){
-				    		backToList();
-				    	});
+						bootBoxSuccessSave('Role Successfully Saved', backToList);
 					}
 				});
 			};

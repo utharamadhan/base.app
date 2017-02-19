@@ -256,14 +256,26 @@ public class UserDAO extends AbstractHibernateDAO<AppUser, Long> implements IUse
 			user.setInitialWizardStep(initialWizardStep);
 		saveOrUpdate(user);
 	}
+	
+	@Override
+	public Boolean isUserNameAlreadyInUsed(Long pkAppUser, String userName) throws SystemException {
+		Criteria crit = getSession().createCriteria(domainClass);
+			if( pkAppUser != null) {
+				crit.add(Restrictions.ne(AppUser.PK_APP_USER, pkAppUser));	
+			}
+			crit.add(Restrictions.eq(AppUser.USER_NAME, userName).ignoreCase());
+			crit.setProjection(Projections.rowCount());
+		Long countRow = (Long) crit.uniqueResult();
+		return countRow != null && countRow > 0 ? Boolean.TRUE : Boolean.FALSE;
+	}
 
 	@Override
-	public Boolean isEmailAlreadyInUsed(String email, Long self) throws SystemException {
+	public Boolean isEmailAlreadyInUsed(Long pkAppUser, String email) throws SystemException {
 		Criteria crit = getSession().createCriteria(domainClass);
-			crit.add(Restrictions.eq(AppUser.EMAIL, email).ignoreCase());
-			if(self!=null){
-				crit.add(Restrictions.ne(AppUser.PK_APP_USER, self));
+			if( pkAppUser != null) {
+				crit.add(Restrictions.ne(AppUser.PK_APP_USER, pkAppUser));	
 			}
+			crit.add(Restrictions.eq(AppUser.EMAIL, email).ignoreCase());
 			crit.setProjection(Projections.rowCount());
 		Long countRow = (Long) crit.uniqueResult();
 		return countRow != null && countRow > 0 ? Boolean.TRUE : Boolean.FALSE;
