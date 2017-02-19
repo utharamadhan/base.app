@@ -43,6 +43,7 @@ import java.util.regex.Pattern;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
+import org.hibernate.collection.spi.PersistentCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -101,7 +102,11 @@ public class UserMaintenanceService implements MaintenanceService<AppUser>, IUse
 	}
 
 	public AppUser findById(Long id) throws SystemException {
-		return  userDao.findAppUserById(id);
+		AppUser appUser = userDao.findAppUserById(id);
+		if (appUser != null && appUser.getParty() != null && appUser.getParty().getPartyContacts() != null) {
+			((PersistentCollection)appUser.getParty().getPartyContacts()).forceInitialization();
+		}
+		return appUser;
 	}
 	
 	public AppUser findAuthorizedMerchantByUserId(Long userId) throws SystemException {
@@ -240,9 +245,6 @@ public class UserMaintenanceService implements MaintenanceService<AppUser>, IUse
 		if(appUser == null) {
 			throw new SystemException(new ErrorHolder("error.user.not.found"));
 		}
-		/*for (Merchant merchant : appUser.getAuthorizedMerchants()) {
-			 merchant.getMerchantPK();
-		}*/
 		return appUser;
 	}
 	
@@ -618,10 +620,15 @@ public class UserMaintenanceService implements MaintenanceService<AppUser>, IUse
 	public void updateInitialWizard(Long pkAppUser, Integer initialWizardStep) throws SystemException {
 		userDao.updateInitialWizard(pkAppUser, initialWizardStep);
 	}
+	
+	@Override
+	public Boolean isUserNameAlreadyInUsed(Long pkAppUser, String userName) throws SystemException {
+		return userDao.isUserNameAlreadyInUsed(pkAppUser, userName);
+	}
 
 	@Override
-	public Boolean isEmailAlreadyInUsed(String email) throws SystemException {
-		return userDao.isEmailAlreadyInUsed(email);
+	public Boolean isEmailAlreadyInUsed(Long pkAppUser, String email) throws SystemException {
+		return userDao.isEmailAlreadyInUsed(pkAppUser, email);
 	}
 
 	@Override

@@ -59,16 +59,21 @@
 		}
 		
 		function deleteItem(maintenancePK) {
-			var sURL = /*[[@{/do/appRoleMaintenance/delete?}]]*/ #;
-			var serializedData = "maintenancePKs=" + maintenancePK;
-			$.post(sURL, serializedData,function(data){
-				if(data.errorList!=null){
-					//show error message
-				}else{
-					search();
+			var callbackDelete = function(result) {
+				if (result) {
+					var sURL = /*[[@{/do/appRoleMaintenance/delete?}]]*/ #;
+					var serializedData = "maintenancePKs=" + maintenancePK;
+					$.post(sURL, serializedData,function(data){
+						if(data.errorList!=null){
+							//show error message
+						}else{
+							search();
+						}
+					});
 				}
-			});
-		} 
+			}
+			bootBoxConfirmation(callbackDelete);
+		}
 		
 		function deleteAppRoleMaintenance() {
 			var sURL = /*[[@{/do/appRoleMaintenance/delete?skipDecorator}]]*/ #;

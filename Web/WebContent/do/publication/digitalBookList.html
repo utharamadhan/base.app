@@ -58,16 +58,21 @@
 		}
 		
 		function deleteItem(maintenancePK) {
-			var sURL = /*[[@{/do/publication/digitalBook/delete?}]]*/ #;
-			var serializedData = "maintenancePKs=" + maintenancePK;
-			$.post(sURL, serializedData,function(data){
-				if(data.errorList!=null){
-					//show error message
-				}else{
-					search();
+			var callbackDelete = function(result) {
+				if (result) {
+					var sURL = /*[[@{/do/publication/digitalBook/delete?}]]*/ #;
+					var serializedData = "maintenancePKs=" + maintenancePK;
+					$.post(sURL, serializedData,function(data){
+						if(data.errorList!=null){
+							//show error message
+						}else{
+							search();
+						}
+					});
 				}
-			});
-		} 
+			}
+			bootBoxConfirmation(callbackDelete);
+		}
 		
 		function deleteProgramPost() {
 			var sURL = /*[[@{/do/publication/digitalBook/deleteDigitalBook?skipDecorator}]]*/ #;

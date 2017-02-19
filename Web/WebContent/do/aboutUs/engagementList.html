@@ -58,16 +58,21 @@
 		}
 		
 		function deleteItem(maintenancePK) {
-			var sURL = /*[[@{/do/aboutUs/engagement/delete?}]]*/ #;
-			var serializedData = "maintenancePKs=" + maintenancePK;
-			$.post(sURL, serializedData,function(data){
-				if(data.errorList!=null){
-					//show error message
-				}else{
-					search();
+			var callbackDelete = function(result) {
+				if (result) {
+					var sURL = /*[[@{/do/aboutUs/engagement/delete?}]]*/ #;
+					var serializedData = "maintenancePKs=" + maintenancePK;
+					$.post(sURL, serializedData,function(data){
+						if(data.errorList!=null){
+							//show error message
+						}else{
+							search();
+						}
+					});
 				}
-			});
-		} 
+			}
+			bootBoxConfirmation(callbackDelete);
+		}
 		
 		function deleteEngagement() {
 			var sURL = /*[[@{/do/aboutUs/engagement/deleteEngagement?skipDecorator}]]*/ #;
