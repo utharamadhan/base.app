@@ -16,6 +16,8 @@ import id.base.app.util.StringFunction;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.valueobject.AppUser;
+import id.base.app.valueobject.BaseEntity;
+import id.base.app.valueobject.course.Course;
 import id.base.app.valueobject.party.Party;
 import id.base.app.valueobject.party.PartyContact;
 
@@ -27,6 +29,7 @@ import java.util.Locale;
 
 import javax.ws.rs.QueryParam;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -40,6 +43,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.util.BeanUtil;
 
 @RestController
 @RequestMapping(RestConstant.RM_USER)
@@ -284,11 +288,11 @@ public class UserController extends SuperController<AppUser>{
 		} else {
 			if(StringFunction.isNotEmpty(anObject.getEmail()) && !EmailFunction.isAddressValidRegex(anObject.getEmail())){
 				errors.add(new ErrorHolder(AppUser.EMAIL, messageSource.getMessage("error.user.email.invalid", null, Locale.ENGLISH)));
-			} else if(StringFunction.isNotEmpty(anObject.getEmail()) && userService.isEmailAlreadyInUsed(anObject.getEmail())) {
+			} else if(StringFunction.isNotEmpty(anObject.getEmail()) && userService.isEmailAlreadyInUsed(anObject.getEmail(), anObject.getPkAppUser())) {
 				errors.add(new ErrorHolder(AppUser.EMAIL, messageSource.getMessage("error.user.email.already.inused", null, Locale.ENGLISH)));
 			}
 		}
-		if (anObject.getParty() == null || anObject.getParty().getPartyContacts() == null || anObject.getParty().getPartyContacts().size() < 1) {
+		/*if (anObject.getParty() == null || anObject.getParty().getPartyContacts() == null || anObject.getParty().getPartyContacts().size() < 1) {
 			errors.add(new ErrorHolder(String.format(AppUser.PARTY_CONTACTS_CONTACT, 0), messageSource.getMessage("error.user.phoneNumber.mandatory", null, Locale.ENGLISH)));
 		} else {
 			if (isPhoneNumberNull(anObject)) {
@@ -300,7 +304,7 @@ public class UserController extends SuperController<AppUser>{
 					contact.setParty(anObject.getParty());
 				}
 			}
-		}
+		}*/
 		if (StringFunction.isEmpty(anObject.getPassword())) {
 			errors.add(new ErrorHolder(AppUser.PASSWORD, messageSource.getMessage("error.user.password.mandatory", null, Locale.ENGLISH)));
 		}
@@ -317,6 +321,16 @@ public class UserController extends SuperController<AppUser>{
 		}
 		
 		return anObject;
+	}
+	
+	@Override
+	public AppUser getOldObject(AppUser object) throws SystemException {
+		AppUser oldObject = new AppUser();
+		oldObject = object.getPkAppUser() != null ? findById(object.getPkAppUser()) : null;
+		if(oldObject!=null){
+			cloneObject(oldObject, findById(object.getPkAppUser()));
+		}
+		return oldObject;
 	}
 	
 }

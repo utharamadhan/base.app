@@ -620,8 +620,8 @@ public class UserMaintenanceService implements MaintenanceService<AppUser>, IUse
 	}
 
 	@Override
-	public Boolean isEmailAlreadyInUsed(String email) throws SystemException {
-		return userDao.isEmailAlreadyInUsed(email);
+	public Boolean isEmailAlreadyInUsed(String email, Long self) throws SystemException {
+		return userDao.isEmailAlreadyInUsed(email,self);
 	}
 
 	@Override

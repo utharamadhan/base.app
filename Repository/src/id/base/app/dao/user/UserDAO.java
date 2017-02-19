@@ -258,9 +258,12 @@ public class UserDAO extends AbstractHibernateDAO<AppUser, Long> implements IUse
 	}
 
 	@Override
-	public Boolean isEmailAlreadyInUsed(String email) throws SystemException {
+	public Boolean isEmailAlreadyInUsed(String email, Long self) throws SystemException {
 		Criteria crit = getSession().createCriteria(domainClass);
 			crit.add(Restrictions.eq(AppUser.EMAIL, email).ignoreCase());
+			if(self!=null){
+				crit.add(Restrictions.ne(AppUser.PK_APP_USER, self));
+			}
 			crit.setProjection(Projections.rowCount());
 		Long countRow = (Long) crit.uniqueResult();
 		return countRow != null && countRow > 0 ? Boolean.TRUE : Boolean.FALSE;

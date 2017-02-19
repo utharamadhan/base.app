@@ -59,7 +59,7 @@ public interface IUserService extends MaintenanceService<AppUser>{
 	
 	public void updateInitialWizard(Long pkAppUser, Integer initialWizardStep) throws SystemException;
 	
-	public Boolean isEmailAlreadyInUsed(String email) throws SystemException;
+	public Boolean isEmailAlreadyInUsed(String email, Long self) throws SystemException;
 	
 	public Boolean isPhoneAlreadyInUsed(String phoneNumber) throws SystemException;
 	

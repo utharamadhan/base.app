@@ -176,10 +176,13 @@ public class AdvisoryWebController {
 		return resultMap;
 	}
 	
-	@RequestMapping(method=RequestMethod.GET, value="/sub/advisor/detail")
+	@RequestMapping(method=RequestMethod.GET, value="/sub/advisor/detail/{id}")
 	public String detailAdvisor(ModelMap model, HttpServletRequest request, HttpServletResponse response,
+			@PathVariable(value="id") Long pkAppUser,
 			@RequestParam(value="filter", defaultValue="", required=false) String filterJson
 		){
+		AppUser advisor = getRestCallerUser().findById(pkAppUser);
+		model.addAttribute("advisor", advisor);
 		return "/advisory/advisorDetail";
 	}
 	
@@ -232,6 +235,11 @@ public class AdvisoryWebController {
 		Article article = new Article();
 		article = getRestCallerArticle().findById(pkArticle);
 		model.addAttribute("article", article);
+		List<SearchFilter> filter = new ArrayList<SearchFilter>();
+		filter.add(new SearchFilter(AppUser.STATUS, Operator.EQUALS, SystemConstant.ValidFlag.VALID));
+		filter.add(new SearchFilter(AppUser.ARTICLE_PK, Operator.EQUALS, pkArticle, Long.class));
+		List<SearchOrder> order = new ArrayList<SearchOrder>();
+		model.addAttribute("createdAdvisors", getRestCallerUser().findAll(filter, order));
 		return "/advisory/articleDetail";
 	}
 	

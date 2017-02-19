@@ -171,7 +171,7 @@
 			
 			$('.title_article, .read_more').unbind('click').click(function(e){
 				e.preventDefault();
-				var val = $(this).parent('.article_box_content').find('.id_article').val();
+				var val = $(this).parents('.article_box_content').find('.id_article').val();
 				var url = /*[[@{/page/advisory/sub/article/detail/}]]*/
 				url += val;
 				window.location.href = url;

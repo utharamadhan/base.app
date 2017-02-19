@@ -43,33 +43,18 @@
 	                            <div class="separator line-separator">&#x25A0;</div>
 	                        </div>
 	                    </div>
-						<div class="row advisor_list"> 
+						<div class="row advisor_list" th:each="advisor, i : ${createdAdvisors}"> 
 							<div class="col-md-3 align_center"> 
-								<img class="img-circle" th:src="@{/images/person/person1_small.jpg}"/>
+								<input type="hidden" name="pkAppUser" class="id_advisor" th:value="${advisor.pkAppUser}"/>
+								<img class="img-circle" th:src="${advisor.party.basicPictureURL}"/>
 								<div class="advisor_description">
-									<h3 class="big-text yellow-text-color advisor_name">George Martin</h3>
-									<div class="specialist_part"><label>Global and Asia Pacific, Americas (APA) Advisory leader</label></div>
+									<h3 class="big-text yellow-text-color advisor_name" th:text="${advisor.party.name}">George Martin</h3>
+									<div class="specialist_part"><label th:text="${advisor.party.title}">Global and Asia Pacific, Americas (APA) Advisory leader</label></div>
 								</div>
 							</div> 
 							<div class="col-md-6">
-								<p class="small-text">
+								<p class="small-text" th:text="${advisor.party.profileDescription}">
 									George is one of the co-founders and takes care of growth, product development and partnerships. She is analytical, driven and adapts easily to new conditions, while trying to keep everyone on track.
-                                </p>
-							</div>
-							<div class="col-md-3">
-							</div>
-						</div>
-						<div class="row advisor_list"> 
-							<div class="col-md-3 align_center"> 
-								<img class="img-circle" th:src="@{/images/person/person2_small.jpg}"/>
-								<div class="advisor_description">
-									<h3 class="big-text yellow-text-color advisor_name">Beniamin Marcu</h3>
-									<div class="specialist_part"><label>Global and Asia Pacific, Americas (APA) Advisory leader</label></div>
-								</div>
-							</div> 
-							<div class="col-md-6">
-								<p class="small-text">
-									Beni is the guy responsible for keeping the platform in check, improving its functionality and adding new features. He is driven, always open for learning more, friendly and a fan of Ruby on Rails.
                                 </p>
 							</div>
 							<div class="col-md-3">
@@ -140,7 +125,9 @@
 			});
 			
 			$('.advisor_name').unbind('click').click(function(){
-				var url = /*[[@{/page/advisory/sub/advisor/detail}]]*/
+				var idVal = $(this).parent().parent().find('.id_advisor').val();
+				var url = /*[[@{/page/advisory/sub/advisor/detail/}]]*/
+				url += idVal;
 				window.location.href = url;
 			});
 		});
