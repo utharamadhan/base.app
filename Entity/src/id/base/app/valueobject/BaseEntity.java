@@ -6,10 +6,11 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @MappedSuperclass
-@JsonIgnoreProperties(allowGetters=false,allowSetters=false,value={"modifiedBy","creationTime","modificationTime"})
+@JsonIgnoreProperties(allowGetters=false,allowSetters=false,value={"createdBy","modifiedBy","creationTime","modificationTime"})
 public class BaseEntity implements Serializable{
 	
 	private static final long serialVersionUID = 7584899651889367138L;
@@ -20,6 +21,7 @@ public class BaseEntity implements Serializable{
 	@Column(name="MODIFIED_BY", nullable=true, insertable=true, updatable=true)
 	protected String modifiedBy;
 
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy HH:mm:ss")
 	@Column(name="CREATION_TIME", nullable=true, insertable=true, updatable=false)
 	protected Date creationTime;
 	

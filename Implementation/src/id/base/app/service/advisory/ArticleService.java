@@ -7,11 +7,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import id.base.app.LoginSession;
+import id.base.app.SystemConstant;
 import id.base.app.dao.advisory.IArticleDAO;
+import id.base.app.dao.role.IAppRoleDAO;
+import id.base.app.dao.user.IUserDAO;
 import id.base.app.exception.SystemException;
 import id.base.app.paging.PagingWrapper;
+import id.base.app.rest.LoginSessionUtil;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
+import id.base.app.valueobject.AppRole;
+import id.base.app.valueobject.AppUser;
 import id.base.app.valueobject.aboutUs.Tutor;
 import id.base.app.valueobject.advisory.Article;
 
@@ -21,6 +28,12 @@ public class ArticleService implements IArticleService {
 
 	@Autowired
 	private IArticleDAO articleDAO;
+	
+	@Autowired
+	private IUserDAO userDAO;
+	
+	@Autowired
+	private IAppRoleDAO roleDAO;
     
 	public PagingWrapper<Tutor> findAll(int startNo, int offset) throws SystemException {
 		return null;

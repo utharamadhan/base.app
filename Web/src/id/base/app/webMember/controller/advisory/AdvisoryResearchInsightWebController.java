@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import id.base.app.LoginSession;
 import id.base.app.SystemConstant;
 import id.base.app.exception.ErrorHolder;
 import id.base.app.paging.PagingWrapper;
+import id.base.app.rest.LoginSessionUtil;
 import id.base.app.rest.PathInterfaceRestCaller;
 import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
@@ -27,10 +29,12 @@ import id.base.app.util.StringFunction;
 import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
+import id.base.app.valueobject.AppRole;
 import id.base.app.valueobject.AppUser;
 import id.base.app.valueobject.aboutUs.Tutor;
 import id.base.app.valueobject.advisory.Article;
 import id.base.app.valueobject.advisory.Category;
+import id.base.app.valueobject.course.Tag;
 import id.base.app.webMember.DataTableCriterias;
 import id.base.app.webMember.controller.BaseController;
 
@@ -49,6 +53,14 @@ public class AdvisoryResearchInsightWebController extends BaseController<Article
 
 	protected RestCaller<Category> getRestCallerCategory() {
 		return new RestCaller<Category>(RestConstant.REST_SERVICE, RestServiceConstant.ADVISORY_CATEGORY_SERVICE);
+	}
+	
+	protected RestCaller<AppRole> getRestCallerRole() {
+		return new RestCaller<AppRole>(RestConstant.REST_SERVICE, RestServiceConstant.ROLE_SERVICE);
+	}
+	
+	protected RestCaller<AppUser> getRestCallerUser() {
+		return new RestCaller<AppUser>(RestConstant.REST_SERVICE, RestServiceConstant.USER_SERVICE);
 	}
 	
 	@Override
@@ -89,6 +101,30 @@ public class AdvisoryResearchInsightWebController extends BaseController<Article
 		List<Category> categories = new ArrayList<Category>();
 		categories = getRestCallerCategory().findAll(new ArrayList<SearchFilter>(), new ArrayList<SearchOrder>());
 		model.addAttribute("categories", categories);
+		
+		List<SearchFilter> filter = new ArrayList<SearchFilter>();
+		List<SearchOrder> order = new ArrayList<SearchOrder>();
+		LoginSession userLogin = LoginSessionUtil.getLogin();
+		boolean exclude = false;
+		if(userLogin!=null){
+			if(userLogin.getUserRoles()!=null){
+				for(Long pkRoles : userLogin.getUserRoles()){
+					AppRole role = getRestCallerRole().findById(pkRoles);
+					if(SystemConstant.UserRole.ADVISOR.equals(role.getCode())){
+						exclude = true;
+						break;
+					}
+				}
+			}
+			
+			if(exclude){
+				filter.add(new SearchFilter(AppUser.PK_APP_USER, Operator.NOT_EQUAL, userLogin.getPkAppUser()));
+			}
+		}
+		
+		filter.add(new SearchFilter(AppUser.APP_ROLES_CODE, Operator.EQUALS, SystemConstant.UserRole.ADVISOR));
+		List<AppUser> advisors = getRestCallerUser().findAll(filter, order);
+		model.addAttribute("advisors", advisors);
 	}
 	
 	private List<Tutor> getAllTutorOptions() {
@@ -117,12 +153,18 @@ public class AdvisoryResearchInsightWebController extends BaseController<Article
 		setDefaultData(model);
 		Article detail = getRestCaller().findById(maintenancePK);
 		model.addAttribute("detail", detail);
+		List<SearchFilter> filter = new ArrayList<SearchFilter>();
+		filter.add(new SearchFilter(AppUser.STATUS, Operator.EQUALS, SystemConstant.ValidFlag.VALID));
+		filter.add(new SearchFilter(AppUser.ARTICLE_PK, Operator.EQUALS, maintenancePK, Long.class));
+		List<SearchOrder> order = new ArrayList<SearchOrder>();
+		model.addAttribute("createdAdvisors", getRestCallerUser().findAll(filter, order));
 		return PATH_DETAIL;
 	}
 	
 	@RequestMapping(method=RequestMethod.POST, value="saveArticle")
 	@ResponseBody
 	public Map<String, Object> saveArticle(final Article anObject, HttpServletRequest request) {
+		includeUserLogin(anObject);
 		Map<String, Object> resultMap = new HashMap<>();
 		List<ErrorHolder> errors = new ArrayList<>();
 		try{
@@ -136,6 +178,30 @@ public class AdvisoryResearchInsightWebController extends BaseController<Article
 		return resultMap;
 	}
 
+	private void includeUserLogin(Article anObject){
+		LoginSession userLogin = LoginSessionUtil.getLogin();
+		boolean include = false;
+		if(userLogin!=null){
+			if(userLogin.getUserRoles()!=null){
+				for(Long pkRoles : userLogin.getUserRoles()){
+					AppRole role = getRestCallerRole().findById(pkRoles);
+					if(SystemConstant.UserRole.ADVISOR.equals(role.getCode())){
+						include = true;
+						break;
+					}
+				}
+			}
+			
+			if(include){
+				AppUser user = getRestCallerUser().findById(userLogin.getPkAppUser());
+				if(anObject.getAdvisor()==null){
+					anObject.setAdvisor(new ArrayList<AppUser>());
+				}
+				anObject.getAdvisor().add(user);
+			}
+		}
+	}
+	
 	@Override
 	protected String getListPath() {
 		return PATH_LIST;

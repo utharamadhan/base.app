@@ -238,11 +238,26 @@ public class UserController extends SuperController<AppUser>{
 			throw new SystemException(new ArrayList<ErrorHolder>(Arrays.asList(new ErrorHolder("pkAppUser is required"))));
 		}
 		AppUser appUser = userService.findByUserName(anObject.getUserName());
-		anObject.setParty(appUser.getParty());
-		anObject.setSuperUser(Boolean.FALSE);
-		anObject.setUserType(1);
-		anObject.setLoginFailed(0);
-		return validate(anObject);
+		if(appUser != null) {
+			if(appUser.getParty() != null && anObject.getParty() != null) {				
+				appUser.getParty().setName(anObject.getParty().getName());
+				if(appUser.getParty().getPartyContacts() != null && anObject.getParty().getPartyContacts() != null) {
+					for(PartyContact dbObj : appUser.getParty().getPartyContacts()) {
+						for(PartyContact obj : anObject.getParty().getPartyContacts()) {
+							dbObj.setContact(obj.getContact());
+							break;
+						}
+					}
+				}
+			}
+			appUser.setUserName(anObject.getUserName());
+			appUser.setEmail(anObject.getEmail());
+			if(appUser.getAppRoles() != null && anObject.getAppRoles() != null) {
+					appUser.setAppRoles(anObject.getAppRoles());
+			}
+		}
+		appUser.setIsNewPassword(Boolean.FALSE);
+		return validate(appUser);
 	}
 	
 	private Boolean isPhoneNumberNull (AppUser anObject) {
@@ -276,7 +291,15 @@ public class UserController extends SuperController<AppUser>{
 		List<ErrorHolder> errors = new ArrayList<>();
 		
 		if (StringFunction.isEmpty(anObject.getParty().getName())) {
-			errors.add(new ErrorHolder(AppUser.PARTY_NAME, messageSource.getMessage("error.user.username.mandatory", null, Locale.ENGLISH)));
+			errors.add(new ErrorHolder(AppUser.PARTY_NAME, messageSource.getMessage("error.user.name.mandatory", null, Locale.ENGLISH)));
+		}
+		
+		if(StringFunction.isEmpty(anObject.getUserName())) {
+			errors.add(new ErrorHolder(AppUser.USER_NAME, messageSource.getMessage("error.user.username.mandatory", null, Locale.ENGLISH)));
+		} else {
+			if(userService.isUserNameAlreadyInUsed(anObject.getPkAppUser(), anObject.getUserName())) {
+				errors.add(new ErrorHolder(AppUser.USER_NAME, messageSource.getMessage("error.user.username.already.inused", null, Locale.ENGLISH)));	
+			}
 		}
 		
 		if(StringFunction.isEmpty(anObject.getEmail()) && isPhoneNumberNull(anObject)){
@@ -284,7 +307,7 @@ public class UserController extends SuperController<AppUser>{
 		} else {
 			if(StringFunction.isNotEmpty(anObject.getEmail()) && !EmailFunction.isAddressValidRegex(anObject.getEmail())){
 				errors.add(new ErrorHolder(AppUser.EMAIL, messageSource.getMessage("error.user.email.invalid", null, Locale.ENGLISH)));
-			} else if(StringFunction.isNotEmpty(anObject.getEmail()) && userService.isEmailAlreadyInUsed(anObject.getEmail())) {
+			} else if(StringFunction.isNotEmpty(anObject.getEmail()) && userService.isEmailAlreadyInUsed(anObject.getPkAppUser(), anObject.getEmail())) {
 				errors.add(new ErrorHolder(AppUser.EMAIL, messageSource.getMessage("error.user.email.already.inused", null, Locale.ENGLISH)));
 			}
 		}
@@ -301,13 +324,13 @@ public class UserController extends SuperController<AppUser>{
 				}
 			}
 		}
-		if (StringFunction.isEmpty(anObject.getPassword())) {
+		if (anObject.getIsNewPassword() && StringFunction.isEmpty(anObject.getPassword())) {
 			errors.add(new ErrorHolder(AppUser.PASSWORD, messageSource.getMessage("error.user.password.mandatory", null, Locale.ENGLISH)));
 		}
-		if (StringFunction.isEmpty(anObject.getPasswordConfirmation())) {
+		if (anObject.getIsNewPassword() && StringFunction.isEmpty(anObject.getPasswordConfirmation())) {
 			errors.add(new ErrorHolder(AppUser.PASSWORD_CONFIRMATION, messageSource.getMessage("error.user.passwordConfirmation.mandatory", null, Locale.ENGLISH)));
 		}
-		if (StringFunction.isNotEmpty(anObject.getPassword()) && StringFunction.isNotEmpty(anObject.getPasswordConfirmation()) 
+		if (anObject.getIsNewPassword() && StringFunction.isNotEmpty(anObject.getPassword()) && StringFunction.isNotEmpty(anObject.getPasswordConfirmation()) 
 				&& !anObject.getPassword().equals(anObject.getPasswordConfirmation())) {
 			errors.add(new ErrorHolder(AppUser.PASSWORD_CONFIRMATION, messageSource.getMessage("error.user.passwordConfirmation.invalid", null, Locale.ENGLISH)));
 		}

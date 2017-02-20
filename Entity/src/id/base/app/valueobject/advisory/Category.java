@@ -11,18 +11,18 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.voodoodyne.jackson.jsog.JSOGGenerator;
 
 import id.base.app.valueobject.BaseEntity;
 
 @Entity
 @Table(name = "CATEGORY")
-@JsonIdentityInfo(generator=ObjectIdGenerators.UUIDGenerator.class, property="categoryJid", scope=Category.class)
 public class Category extends BaseEntity implements Serializable {
+	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 8793258862185720735L;
+	private static final long serialVersionUID = 8342553462195240581L;
 	
 	public static final String PK_CATEGORY 	= "pkCategory";
 	public static final String CODE 		= "code";
