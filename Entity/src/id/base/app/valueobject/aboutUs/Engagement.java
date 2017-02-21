@@ -1,5 +1,6 @@
 package id.base.app.valueobject.aboutUs;
 
+import id.base.app.ILookupConstant;
 import id.base.app.valueobject.BaseEntity;
 
 import java.io.Serializable;
@@ -11,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "ENGAGEMENT")
@@ -43,6 +45,9 @@ public class Engagement extends BaseEntity implements Serializable {
 	
 	@Column(name="STATUS")
 	private Integer status;
+	
+	@Transient
+	private String statusStr;
 
 	public Long getPkEngagement() {
 		return pkEngagement;
@@ -71,5 +76,7 @@ public class Engagement extends BaseEntity implements Serializable {
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
-	
+	public String getStatusStr() {
+		return ILookupConstant.ArticleStatus.ARTICLE_STATUS_MAP.get(status);
+	}
 }
