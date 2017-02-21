@@ -71,6 +71,10 @@ public class AdvisoryWebController {
 		return new RestCaller<Article>(RestConstant.REST_SERVICE, RestServiceConstant.ADVISORY_ARTICLE_SERVICE);
 	}
 	
+	protected RestCaller<Advisory> getRestCallerAdvisory() {
+		return new RestCaller<Advisory>(RestConstant.REST_SERVICE, RestServiceConstant.ADVISORY_SERVICE);
+	}
+	
 	@RequestMapping(method=RequestMethod.GET)
 	public String view(ModelMap model, HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value="startNo",defaultValue="1") int startNo, 
@@ -149,6 +153,9 @@ public class AdvisoryWebController {
 		){
 		List<SearchFilter> filter = new ArrayList<SearchFilter>();
 		filter.add(new SearchFilter(AppUser.APP_ROLES_CODE, Operator.EQUALS, SystemConstant.UserRole.ADVISOR));
+		if(filterJson!=null && !"".equals(filterJson)){
+			filter.add(new SearchFilter(AppUser.PARTY_NAME, Operator.LIKE, filterJson));
+		}
 		List<SearchOrder> order = new ArrayList<SearchOrder>();
 		PagingWrapper<AppUser> advisors = getRestCallerUser().findAllByFilter(startNo, offset, filter, order);
 		model.addAttribute("advisors", advisors);
@@ -170,16 +177,27 @@ public class AdvisoryWebController {
 		Map<String, Object> resultMap = new HashMap<>();
 		List<SearchFilter> filter = new ArrayList<SearchFilter>();
 		filter.add(new SearchFilter(AppUser.APP_ROLES_CODE, Operator.EQUALS, SystemConstant.UserRole.ADVISOR));
+		if(filterJson!=null && !"".equals(filterJson)){
+			filter.add(new SearchFilter(AppUser.PARTY_NAME, Operator.LIKE, filterJson));
+		}
 		List<SearchOrder> order = new ArrayList<SearchOrder>();
 		PagingWrapper<AppUser> advisors = getRestCallerUser().findAllByFilter(startNo, offset, filter, order);
 		resultMap.put("advisors", advisors);
 		return resultMap;
 	}
 	
-	@RequestMapping(method=RequestMethod.GET, value="/sub/advisor/detail")
+	@RequestMapping(method=RequestMethod.GET, value="/sub/advisor/detail/{id}")
 	public String detailAdvisor(ModelMap model, HttpServletRequest request, HttpServletResponse response,
+			@PathVariable(value="id") Long pkAppUser,
 			@RequestParam(value="filter", defaultValue="", required=false) String filterJson
 		){
+		AppUser advisor = getRestCallerUser().findById(pkAppUser);
+		model.addAttribute("advisor", advisor);
+		List<SearchFilter> filter = new ArrayList<SearchFilter>();
+		filter.add(new SearchFilter(Article.ADVISOR_PK, Operator.EQUALS, pkAppUser, Long.class));
+		List<SearchOrder> order = new ArrayList<SearchOrder>();
+		List<Article> articles = getRestCallerArticle().findAll(filter, order);
+		model.addAttribute("articles", articles);
 		return "/advisory/advisorDetail";
 	}
 	
@@ -187,7 +205,8 @@ public class AdvisoryWebController {
 	public String article(ModelMap model, HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value="startNo",defaultValue="1") int startNo, 
 			@RequestParam(value="offset",defaultValue="12") int offset,
-			@RequestParam(value="filter", defaultValue="", required=false) String filterJson
+			@RequestParam(value="filter", defaultValue="", required=false) String filterJson,
+			@RequestParam Map<String,String> params
 		){
 		List<SearchFilter> filter = new ArrayList<SearchFilter>();
 		filter.add(new SearchFilter(AppUser.APP_ROLES_CODE, Operator.EQUALS, SystemConstant.UserRole.ADVISOR));
@@ -204,6 +223,10 @@ public class AdvisoryWebController {
 		
 		List<SearchFilter> filterArticle = new ArrayList<SearchFilter>();
 		List<SearchOrder> orderArticle = new ArrayList<SearchOrder>();
+		if(filterJson!=null && !"".equals(filterJson)){
+			filterArticle.add(new SearchFilter(Article.NAME, Operator.LIKE, filterJson));
+		}
+		mapperFromParam(params, model, filterArticle);
 		PagingWrapper<Article> articles = getRestCallerArticle().findAllByFilter(startNo, offset, filterArticle, orderArticle);
 		model.addAttribute("articles", articles);
 		return "/advisory/article";
@@ -214,11 +237,16 @@ public class AdvisoryWebController {
 	public Map<String, Object> articleLoad(ModelMap model, HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value="startNo",defaultValue="1") int startNo, 
 			@RequestParam(value="offset",defaultValue="12") int offset,
-			@RequestParam(value="filter", defaultValue="", required=false) String filterJson
+			@RequestParam(value="filter", defaultValue="", required=false) String filterJson,
+			@RequestParam Map<String,String> params
 		){
 		Map<String, Object> resultMap = new HashMap<>();
 		List<SearchFilter> filterArticle = new ArrayList<SearchFilter>();
 		List<SearchOrder> orderArticle = new ArrayList<SearchOrder>();
+		if(filterJson!=null && !"".equals(filterJson)){
+			filterArticle.add(new SearchFilter(Article.NAME, Operator.LIKE, filterJson));
+		}
+		mapperFromParam(params, model, filterArticle);
 		PagingWrapper<Article> articles = getRestCallerArticle().findAllByFilter(startNo, offset, filterArticle, orderArticle);
 		resultMap.put("articles", articles);
 		return resultMap;
@@ -232,6 +260,22 @@ public class AdvisoryWebController {
 		Article article = new Article();
 		article = getRestCallerArticle().findById(pkArticle);
 		model.addAttribute("article", article);
+		List<SearchFilter> filter = new ArrayList<SearchFilter>();
+		filter.add(new SearchFilter(AppUser.STATUS, Operator.EQUALS, SystemConstant.ValidFlag.VALID));
+		filter.add(new SearchFilter(AppUser.ARTICLE_PK, Operator.EQUALS, pkArticle, Long.class));
+		List<SearchOrder> order = new ArrayList<SearchOrder>();
+		model.addAttribute("createdAdvisors", getRestCallerUser().findAll(filter, order));
+		
+		//get question
+		List<SearchFilter> filterAdvisory = new ArrayList<SearchFilter>();
+		filterAdvisory.add(new SearchFilter(Advisory.ARTICLE_PK, Operator.EQUALS, pkArticle, Long.class));
+		if(article!=null && article.getCategory()!=null && article.getCategory().getPkCategory()!=null){
+			Long pkCategory = article.getCategory().getPkCategory();
+			filterAdvisory.add(new SearchFilter(Advisory.CATEGORY_PK, Operator.EQUALS, pkCategory, Long.class));
+		}
+		List<SearchOrder> orderAdvisory = new ArrayList<SearchOrder>();
+		List<Advisory> advisories = getRestCallerAdvisory().findAll(filterAdvisory, orderAdvisory);
+		model.addAttribute("advisories", advisories);
 		return "/advisory/articleDetail";
 	}
 	
@@ -239,7 +283,8 @@ public class AdvisoryWebController {
 	public String consulting(ModelMap model, HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value="startNo",defaultValue="1") int startNo, 
 			@RequestParam(value="offset",defaultValue="6") int offset,
-			@RequestParam(value="filter", defaultValue="", required=false) String filterJson
+			@RequestParam(value="filter", defaultValue="", required=false) String filterJson,
+			@RequestParam Map<String,String> params
 		){
 		List<SearchFilter> filter = new ArrayList<SearchFilter>();
 		filter.add(new SearchFilter(AppUser.APP_ROLES_CODE, Operator.EQUALS, SystemConstant.UserRole.ADVISOR));
@@ -259,6 +304,8 @@ public class AdvisoryWebController {
 		List<SearchOrder> orderArticle = new ArrayList<SearchOrder>();
 		List<Article> articles = getRestCallerArticle().findAll(filterArticle, orderArticle);
 		model.addAttribute("articles", articles);
+		
+		mapperFromParam(params, model, null);
 		return "/advisory/consulting";
 	}
 	
@@ -269,6 +316,13 @@ public class AdvisoryWebController {
 		){
 		Category category = getRestCallerCategory().findById(pkCategory);
 		model.addAttribute("category", category);
+		
+		//get question
+		List<SearchFilter> filterAdvisory = new ArrayList<SearchFilter>();
+		filterAdvisory.add(new SearchFilter(Advisory.CATEGORY_PK, Operator.EQUALS, pkCategory, Long.class));
+		List<SearchOrder> orderAdvisory = new ArrayList<SearchOrder>();
+		List<Advisory> advisories = getRestCallerAdvisory().findAll(filterAdvisory, orderAdvisory);
+		model.addAttribute("advisories", advisories);
 		return "/advisory/categoryDetail";
 	}
 	
@@ -285,9 +339,9 @@ public class AdvisoryWebController {
 		String contactEmail = params.get("email");
 		String contactQuestion = params.get("question");
 		String contactTelp = params.get("telp");
-		Long category = params.get("category")!=null ? new Long(params.get("category")) : 0L;
-		Long article = params.get("article")!=null ? new Long(params.get("article")) : 0L;
-		Long advisor = params.get("advisor")!=null ? new Long(params.get("advisor")) : 0L;
+		Long category = params.get("category")!=null && !"".equals(params.get("category")) ? new Long(params.get("category")) : 0L;
+		Long article = params.get("research")!=null && !"".equals(params.get("research")) ? new Long(params.get("research")) : 0L;
+		Long advisor = params.get("advisor")!=null && !"".equals(params.get("advisor")) ? new Long(params.get("advisor")) : 0L;
 		
 		if(contactName == null || contactEmail == null || contactQuestion == null || "".equals(contactName) || "".equals(contactEmail) || "".equals(contactQuestion)){
 			resultMap.put("success", false);
@@ -304,6 +358,15 @@ public class AdvisoryWebController {
 		advisory.setStatus(SystemConstant.StatusAdvisory.NEW);
 		if(category.compareTo(0L)>0){
 			Category dataCategory = getRestCallerCategory().findById(category);
+			advisory.setCategory(dataCategory);
+		}
+		if(article.compareTo(0L)>0){
+			Article dataArticle = getRestCallerArticle().findById(article);
+			advisory.setArticle(dataArticle);
+		}
+		if(advisor.compareTo(0L)>0){
+			AppUser dataAppUser = getRestCallerUser().findById(advisor);
+			advisory.setTutor(dataAppUser);
 		}
 		List<ErrorHolder> errors = getRestCaller().create(advisory);
 		if(!errors.isEmpty()){
@@ -350,6 +413,32 @@ public class AdvisoryWebController {
 		resultMap.put("success", true);
         resultMap.put("message", "Your question successfully been processed");
 		return resultMap;
+	}
+	
+	private void mapperFromParam(Map<String,String> params, ModelMap model, List<SearchFilter> filter){
+		if(params.containsKey("chooseCategory") && params.get("chooseCategory")!=null){
+			Long data = new Long(params.get("chooseCategory").toString());
+			if(filter!=null){
+				filter.add(new SearchFilter(Article.CATEGORY_PK, Operator.EQUALS, data, Long.class));
+			}
+			model.addAttribute("chooseCategory",data);
+		}
+		
+		if(params.containsKey("chooseAdvisor") && params.get("chooseAdvisor")!=null){
+			Long data = new Long(params.get("chooseAdvisor").toString());
+			if(filter!=null){
+				filter.add(new SearchFilter(Article.ADVISOR_PK, Operator.EQUALS, data, Long.class));
+			}
+			model.addAttribute("chooseAdvisor",data);
+		}
+		
+		if(params.containsKey("chooseArticle") && params.get("chooseArticle")!=null){
+			Long data = new Long(params.get("chooseArticle").toString());
+			if(filter!=null){
+				filter.add(new SearchFilter(Article.PK_ARTICLE, Operator.EQUALS, data, Long.class));
+			}
+			model.addAttribute("chooseArticle",data);
+		}
 	}
 	
 }

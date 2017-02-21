@@ -6,6 +6,9 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 
+import org.hibernate.Hibernate;
+import org.hibernate.proxy.HibernateProxy;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -58,5 +61,19 @@ public class BaseEntity implements Serializable{
 
 	public void setModificationTime(Date modificationTime) {
 		this.modificationTime = modificationTime;
+	}
+	
+	public static <T> T initializeAndUnproxy(T entity) {
+	    if (entity == null) {
+	        throw new 
+	           NullPointerException("Entity passed for initialization is null");
+	    }
+
+	    Hibernate.initialize(entity);
+	    if (entity instanceof HibernateProxy) {
+	        entity = (T) ((HibernateProxy) entity).getHibernateLazyInitializer()
+	                .getImplementation();
+	    }
+	    return entity;
 	}
 }

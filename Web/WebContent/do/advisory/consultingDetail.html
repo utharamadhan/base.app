@@ -31,13 +31,43 @@
 						</div>
 						<input id="advisory-detail-maintenancePk" type="hidden" th:field="*{pkAdvisory}"/>
 						<div class="form-group">
-							<label class="col-sm-2 control-label" th:text="'Tutor'">Tutor</label>
+							<label class="col-sm-2 control-label" th:text="'Category'">Category</label>
+							<div class="col-sm-8 form-input-container">
+								<select class="form-control selectionCategory" th:field="*{category.pkCategory}" th:if="${isNotAdvisor == true or category==null}">
+									<option value="">Select Category</option>
+									<option th:each="opt, i : ${categoryOptions}" th:text="${opt.name}" th:value="${opt.pkCategory}" th:selected="${category?.pkCategory == opt.pkCategory}">Make a Concept House</option>
+								</select>
+								<th:block th:if="${isNotAdvisor != true and category!=null}">
+									<input type="text" name="" th:value="${category?.name}" readonly="readonly"/>
+									<input type="hidden" name="category?.pkCategory" th:value="${category?.pkCategory}"/>
+								</th:block>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" th:text="'Article'">Article</label>
+							<div class="col-sm-8 form-input-container">
+								<select class="form-control selectionArticle" th:field="*{article.pkArticle}" th:if="${isNotAdvisor == true or article==null}">
+									<option value="">Select Article</option>
+									<option th:each="opt, i : ${articleOptions}" th:text="${opt.name}" th:value="${opt.pkArticle}" th:selected="${article?.pkArticle == opt.pkArticle}">Rumah Idaman</option>
+								</select>
+								<th:block th:if="${isNotAdvisor != true and article!=null}">
+									<input type="text" name="" th:value="${article?.name}" readonly="readonly"/>
+									<input type="hidden" name="article?.pkArticle" th:value="${article?.pkArticle}"/>
+								</th:block>
+							</div>
+						</div>
+						<div class="form-group" th:if="${isNotAdvisor == true}">
+							<label class="col-sm-2 control-label" th:text="'Advisor'">Advisor</label>
 							<div class="col-sm-9 form-input-container">
-								<select class="advisory-detail-groupAdvisorySelect chosen-select form-control" th:field="*{tutor.pkTutor}">
-									<option th:each="opt : ${tutorOptions}" th:value="${opt.pkTutor}" th:text="${opt.name}">Name</option>
+								<select class="form-control selectionTutor" th:field="*{tutor.pkAppUser}">
+									<option value="">Select Advisor</option>
+									<option th:each="opt : ${advisorOptions}" th:value="${opt.pkAppUser}" th:text="${opt.party.name}" th:selected="${tutor?.pkAppUser == opt.pkAppUser}">Name</option>
                            		</select>
                            	</div>
 						</div>
+						<th:block th:if="${isNotAdvisor != true}">
+							<input type="hidden" name="tutor.pkAppUser" th:value="${userLogin}" class="hiddenAdvisor"/>
+						</th:block>
 						<div class="form-group">
 							<label class="col-sm-2 control-label" th:text="'Question'">Question</label>
 							<div class="col-sm-9 form-input-container">
@@ -48,6 +78,17 @@
 							<label class="col-sm-2 control-label" th:text="'Answer'">Answer</label>
 							<div class="col-sm-9 form-input-container">
 								<input type="text" class="form-control" placeholder="Answer" name="srch-term" id="input-text-answer" th:field="*{answer}"/>
+							</div>
+						</div>
+						<div class="form-group" th:if="${isNotAdvisor == true}">
+							<label class="col-sm-2 control-label" th:text="'Status'">Status</label>
+							<div class="col-sm-9 form-input-container">
+								<select class="form-control" th:field="*{status}">
+									<option th:text="New" value="1" th:selected="${status == 1}">New</option>
+									<option th:text="Open" value="2" th:selected="${status == 2}">Open</option>
+									<option th:text="Answered" value="3" th:selected="${status == 3}">Answered</option>
+									<option th:text="Closed" value="3" th:selected="${status == 0}">Closed</option>
+								</select>
 							</div>
 						</div>
 						<div class="form-group form-footer">				
@@ -63,8 +104,85 @@
 	</div>
 	<script th:inline="javascript">
 	/*<![CDATA[*/
+	    var detail = /*[[${detail}]]*/;       
+	           
+	    function loadCategoryArticleBasedOnAdvisor(idAdvisor){
+			var sURL = /*[[@{/do/advisory/consulting/loadArticleAndCategory}]]*/
+	    	$.ajax({
+	            type: 'GET',
+	            url: sURL,
+	            data: {chooseAdvisor : idAdvisor},
+	            dataType: 'json',
+	            success: function (data) {
+	            	stopAJAXLoader();
+	            	if(data){
+	            		if(data.articles){
+	            			var articles = data.articles;
+	            			var dataOptions = '<option value="">'+$(".selectionArticle").find("option").eq(0).html()+'</option>';
+	            			for(var i=0;i<articles.length;i++){
+	            				var article = articles[i];
+	            				if(detail){
+	            					if(detail.article && detail.article.pkArticle){
+	            						if(detail.article.pkArticle==article.pkArticle){
+	            							dataOptions += '<option value="'+article.pkArticle+'" selected="selected">'+article.name+'</option>';
+	            							continue;
+	            						}
+	            					}
+	            				}
+            					dataOptions += '<option value="'+article.pkArticle+'">'+article.name+'</option>';
+	            			}
+	            			$('.selectionArticle').html(dataOptions);
+	            		}
+	            		
+	            		if(data.categories){
+	            			var categories = data.categories;
+	            			var dataOptions = '<option value="">'+$(".selectionCategory").find("option").eq(0).html()+'</option>';
+	            			for(var i=0;i<categories.length;i++){
+	            				var category = categories[i];
+	            				if(detail){
+	            					if(detail.category && detail.category.pkCategory){
+	            						if(detail.category.pkCategory==category.pkCategory){
+	            							dataOptions += '<option value="'+category.pkCategory+'" selected="selected">'+category.name+'</option>';
+	            							continue;
+	            						}
+	            					}
+	            				}
+	            				dataOptions += '<option value="'+category.pkCategory+'">'+category.name+'</option>';
+	            			}
+	            			$('.selectionCategory').html(dataOptions);
+	            		}
+	            	}
+	            },
+	            beforeSend: function($jqXHR, $textStatus){
+	            	startAJAXLoader();
+				},
+				error: function ($jqXHR, $textStatus, $errorThrown) {
+					stopAJAXLoader();
+				},
+				complete: function($jqXHR, $textStatus){
+					stopAJAXLoader();
+				}
+	        });	
+		}      
+	
+		function isAdvisorBehaviour(){
+			if($('.hiddenAdvisor').length>0){
+				var valueAdvisor = $('.hiddenAdvisor').val();
+				if(valueAdvisor){
+					loadCategoryArticleBasedOnAdvisor(valueAdvisor);
+				}
+			}else{
+				var valueAdvisor = $('.selectionTutor').find('option:selected').attr('value');
+				if(valueAdvisor){
+					loadCategoryArticleBasedOnAdvisor(valueAdvisor);
+				}
+			}
+		}
+	           
 	
 	    $(function(){
+	    	isAdvisorBehaviour();
+	    	
 			var backToList = function(){
 				returnToList('advisory-detail-container', 'advisory-list-container', true);
 			};
@@ -80,6 +198,13 @@
 					}
 				});
 			};
+			
+			$('.selectionTutor').unbind('change').change(function(){
+				var valueAdvisor = $(this).find('option:selected').attr('value');
+				if(valueAdvisor){
+					loadCategoryArticleBasedOnAdvisor(valueAdvisor);
+				}
+			});
 			
 			$('#advisory-detail-btn-save').click(function(e){
 				e.preventDefault();

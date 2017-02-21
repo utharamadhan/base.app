@@ -33,9 +33,13 @@ public class Article extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = -2886297042567028121L;
 	
 	public static final String PK_ARTICLE = "pkArticle";
-	public static final String NAME 	= "name";
-	public static final String CONTENT 	= "content";
-	public static final String STATUS 	= "status";
+	public static final String NAME 		= "name";
+	public static final String CONTENT 		= "content";
+	public static final String ADVISOR 		= "advisor";
+	public static final String ADVISOR_PK	= "advisor.pkAppUser";
+	public static final String CATEGORY		= "category";
+	public static final String CATEGORY_PK	= "category.pkCategory";
+	public static final String STATUS 		= "status";
 	
 	public static Article getInstance() {
 		return new Article();

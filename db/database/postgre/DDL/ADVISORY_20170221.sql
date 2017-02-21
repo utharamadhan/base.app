@@ -1,0 +1,1 @@
+ALTER TABLE ADVISORY DROP CONSTRAINT advisory_fk_tutor_fkey;

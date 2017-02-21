@@ -10,7 +10,7 @@
 				<div class="container">
 					<ul>
 					<li><a th:href="@{/}">Home</a></li>
-					<li><a href="#">Advisory</a></li>
+					<li><a th:href="@{/page/advisory}">Advisory</a></li>
 					</ul>
 				</div>
 			</div>
@@ -21,14 +21,15 @@
 					<div class="advisor_container">
 						<div class="row advisor_list"> 
 							<div class="col-md-3 align_center"> 
-								<img class="img-circle" th:src="@{/images/person/person1_small.jpg}"/>
+								<input type="hidden" name="pkAppUser" class="id_advisor" th:value="${advisor.pkAppUser}"/>
+								<img class="img-circle" th:src="${advisor.party.basicPictureURL}"/>
 								<div class="advisor_description">
-									<h3 class="big-text yellow-text-color advisor_name">George Martin</h3>
-									<div class="specialist_part"><label>Global and Asia Pacific, Americas (APA) Advisory leader</label></div>
+									<h3 class="big-text yellow-text-color advisor_name" th:text="${advisor.party.name}">George Martin</h3>
+									<div class="specialist_part"><label th:text="${advisor.party.title}">Global and Asia Pacific, Americas (APA) Advisory leader</label></div>
 								</div>
 							</div> 
 							<div class="col-md-6">
-								<p class="small-text">
+								<p class="small-text" th:text="${advisor.party.profileDescription}">
 									George is one of the co-founders and takes care of growth, product development and partnerships. She is analytical, driven and adapts easily to new conditions, while trying to keep everyone on track.
                                 </p>
 							</div>
@@ -43,107 +44,18 @@
 			<div class="advisory_article">
 				<div class="container">
 					<div class="article_container row">
-						<div class="col-md-3"> 
+						<div class="col-md-3" th:each="article, i : ${articles}"> 
 							<div class="box_article_wrapper">
-								<div class="article_box_image"><img th:src="@{/images/concept_house.jpg}" /></div> 
+								<div class="article_box_image"><img th:src="${article.basicPictureURL}" /></div> 
 								<div class="article_box_content">
-									<h2 class="title_article">Concept House</h2>
-									<div class="subtitle_article"><label>Make a Concept House</label></div>
-									<div class="created_advisor"><label>By: &nbsp;</label><label>John Doe</label></div>
-									<div class="date_advisor"><label>Created: &nbsp;</label><label>30 Januari 2017</label></div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed dictum lectus. Donec lacus ante, tristique non ... </p>
+									<input type="hidden" name="pkArticle" th:value="${article.pkArticle}" class="id_article" />
+									<h2 class="title_article" th:text="${article.name}">Concept House</h2>
+									<div class="subtitle_article"><label th:text="${article.category.name}">Make a Concept House</label></div>
+									<div class="created_advisor"><label>By: &nbsp;</label><label th:text="${article.createdAdvisor}" class="created_by">John Doe</label></div>
+									<div class="date_advisor"><label>Created: &nbsp;</label><label th:text="${#dates.format(article.articleTime, 'dd MMMM yyyy')}" class="article_date">30 Januari 2017</label></div>
+									<p class="article_content" th:text="${#strings.substring(article.content,0,200) + ' ...'}" th:if="${#strings.length(article.content) &gt; 200}">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed dictum lectus. Donec lacus ante, tristique non ...</p>
+									<p class="article_content" th:text="${article.content}" th:if="${#strings.length(article.content) &lt; 200}">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed dictum lectus. Donec lacus ante, tristique non ...</p>
 									<div><a href="#" style="font-size: 12px;">Read More</a></div>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-3"> 
-							<div class="box_article_wrapper">
-								<div class="article_box_image"><img th:src="@{/images/concept_house.jpg}" /></div> 
-								<div class="article_box_content">
-									<h2 class="title_article">Concept House</h2>
-									<div class="subtitle_article"><label>Make a Concept House</label></div>
-									<div class="created_advisor"><label>By: &nbsp;</label><label>John Doe</label></div>
-									<div class="date_advisor"><label>Created: &nbsp;</label><label>30 Januari 2017</label></div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed dictum lectus. Donec lacus ante, tristique non ... </p>
-									<div><a href="#" style="font-size: 12px;" class="read_more">Read More</a></div>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-3"> 
-							<div class="box_article_wrapper">
-								<div class="article_box_image"><img th:src="@{/images/concept_house.jpg}" /></div> 
-								<div class="article_box_content">
-									<h2 class="title_article">Concept House</h2>
-									<div class="subtitle_article"><label>Make a Concept House</label></div>
-									<div class="created_advisor"><label>By: &nbsp;</label><label>John Doe</label></div>
-									<div class="date_advisor"><label>Created: &nbsp;</label><label>30 Januari 2017</label></div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed dictum lectus. Donec lacus ante, tristique non ... </p>
-									<div><a href="#" style="font-size: 12px;" class="read_more">Read More</a></div>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-3"> 
-							<div class="box_article_wrapper">
-								<div class="article_box_image"><img th:src="@{/images/concept_house.jpg}" /></div> 
-								<div class="article_box_content">
-									<h2 class="title_article">Concept House</h2>
-									<div class="subtitle_article"><label>Make a Concept House</label></div>
-									<div class="created_advisor"><label>By: &nbsp;</label><label>John Doe</label></div>
-									<div class="date_advisor"><label>Created: &nbsp;</label><label>30 Januari 2017</label></div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed dictum lectus. Donec lacus ante, tristique non ... </p>
-									<div><a href="#" style="font-size: 12px;" class="read_more">Read More</a></div>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-3"> 
-							<div class="box_article_wrapper">
-								<div class="article_box_image"><img th:src="@{/images/concept_house.jpg}" /></div> 
-								<div class="article_box_content">
-									<h2 class="title_article">Concept House</h2>
-									<div class="subtitle_article"><label>Make a Concept House</label></div>
-									<div class="created_advisor"><label>By: &nbsp;</label><label>John Doe</label></div>
-									<div class="date_advisor"><label>Created: &nbsp;</label><label>30 Januari 2017</label></div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed dictum lectus. Donec lacus ante, tristique non ... </p>
-									<div><a href="#" style="font-size: 12px;" class="read_more">Read More</a></div>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-3"> 
-							<div class="box_article_wrapper">
-								<div class="article_box_image"><img th:src="@{/images/concept_house.jpg}" /></div> 
-								<div class="article_box_content">
-									<h2 class="title_article">Concept House</h2>
-									<div class="subtitle_article"><label>Make a Concept House</label></div>
-									<div class="created_advisor"><label>By: &nbsp;</label><label>John Doe</label></div>
-									<div class="date_advisor"><label>Created: &nbsp;</label><label>30 Januari 2017</label></div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed dictum lectus. Donec lacus ante, tristique non ... </p>
-									<div><a href="#" style="font-size: 12px;" class="read_more">Read More</a></div>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-3"> 
-							<div class="box_article_wrapper">
-								<div class="article_box_image"><img th:src="@{/images/concept_house.jpg}" /></div> 
-								<div class="article_box_content">
-									<h2 class="title_article">Concept House</h2>
-									<div class="subtitle_article"><label>Make a Concept House</label></div>
-									<div class="created_advisor"><label>By: &nbsp;</label><label>John Doe</label></div>
-									<div class="date_advisor"><label>Created: &nbsp;</label><label>30 Januari 2017</label></div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed dictum lectus. Donec lacus ante, tristique non ... </p>
-									<div><a href="#" style="font-size: 12px;" class="read_more">Read More</a></div>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-3"> 
-							<div class="box_article_wrapper">
-								<div class="article_box_image"><img th:src="@{/images/concept_house.jpg}" /></div> 
-								<div class="article_box_content">
-									<h2 class="title_article">Concept House</h2>
-									<div class="subtitle_article"><label>Make a Concept House</label></div>
-									<div class="created_advisor"><label>By: &nbsp;</label><label>John Doe</label></div>
-									<div class="date_advisor"><label>Created: &nbsp;</label><label>30 Januari 2017</label></div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed dictum lectus. Donec lacus ante, tristique non ... </p>
-									<div><a href="#" style="font-size: 12px;" class="read_more">Read More</a></div>
 								</div>
 							</div>
 						</div>
@@ -166,12 +78,17 @@
 		/*<![CDATA[*/
 		$(function(){      
 			$('.consult_btn').unbind('click').click(function(){
+				var chooseAdvisor = $('.id_advisor').val();
 				var url = /*[[@{/page/advisory/sub/consulting}]]*/
+				url+="?chooseAdvisor="+chooseAdvisor
 				window.location.href = url;
 			});
 			
-			$('.title_article, .read_more').unbind('click').click(function(){
-				var url = /*[[@{/page/advisory/sub/article/detail}]]*/
+			$('.title_article, .read_more').unbind('click').click(function(e){
+				e.preventDefault();
+				var val = $(this).parents('.article_box_content').find('.id_article').val();
+				var url = /*[[@{/page/advisory/sub/article/detail/}]]*/
+				url += val;
 				window.location.href = url;
 			});
 		});

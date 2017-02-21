@@ -112,6 +112,7 @@
 		            	var newMaxRecord = data.books.maxRecord;
 		            	var newCurrentRecord = data.books.currentRecord;
 		            	showPaging(newMaxRecord, newCurrentRecord);
+		            	$('.startNo').val(data.books.startRecordIndex);
 		            },
 		            beforeSend: function($jqXHR, $textStatus){
 						$('.load_pagination').show();
@@ -145,6 +146,7 @@
 		            	var newMaxRecord = data.books.maxRecord;
 		            	var newCurrentRecord = data.books.currentRecord;
 		            	showPaging(newMaxRecord, newCurrentRecord);
+		            	$('.startNo').val(data.books.startRecordIndex);
 		            },
 		            beforeSend: function($jqXHR, $textStatus){
 		            	$('.list_data').html('<div class="col-md-12 loading_reload" style="display: block; margin-left: auto; margin-right: auto;text-align: center;"><img src="'+img_url+'" /></div>');

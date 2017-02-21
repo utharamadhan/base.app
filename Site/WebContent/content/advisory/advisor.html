@@ -21,13 +21,7 @@
 				<div class="info_banner_search_left">
 					<h1 class="find_advisor_title">Find Expert Advisor</h1>
 					<div class="part_div">
-						<select class="select_tema">
-							<option value="">Select Category</option>
-							<option th:each="category, i : ${categories}" th:text="${category.name}">Make a Concept House</option>
-						</select>
-					</div>
-					<div class="part_div">
-						<input type="text" class="find_name" placeholder="Name"/>
+						<input type="text" class="find_name param" placeholder="Name"/>
 					</div>
 					<div class="part_div">
 						<button type="button" class="btn btn-danger btn_find">FIND NOW</button>
@@ -36,7 +30,7 @@
 			</div>
 			
 			<!-- Start Advisor Data -->
-			<div class="advisory_expert">
+			<div class="advisory_expert" id="advisory_expert">
 				<div class="container">
 					<div class="advisor_container">
 						<div class="advisor-title add-animation animate">
@@ -45,9 +39,9 @@
 	                            <div class="separator line-separator">&#x25A0;</div>
 	                        </div>
 	                    </div>
-						<div class="row advisor_list"> 
-							<div id="template" class="col-md-3 align_center" th:each="advisor, i : ${advisors.result}"> 
-								<input type="hidden" name="pkAdvisor" class="id_advisor" th:value="${advisor.party.pkParty}"/>
+						<div class="row advisor_list list_data"> 
+							<div id="template" class="col-md-3 align_center data_result" th:each="advisor, i : ${advisors.result}"> 
+								<input type="hidden" name="pkAppUser" class="id_advisor" th:value="${advisor.pkAppUser}"/>
 								<img class="img-circle" th:src="${advisor.party.basicPictureURL}"/>
 								<div class="advisor_description">
 									<h3 class="big-text yellow-text-color advisor_name" th:text="${advisor.party.name}">George Martin</h3>
@@ -58,20 +52,20 @@
                                     </p>
                                     <div>
                                     	<a href="#" class="link_see_article mrdy_btn">View Article</a>
-                                    	<input type="hidden" th:value="${advisors.startRecordIndex}" class="startNo"/>
-										<input type="hidden" th:value="${advisors.recordsPerPage}" class="offset"/>
                                     </div>
 								</div>
 							</div> 
-							<div class="row load_pagination" style="display: none;">
-								<div class="col-md-12">
-									<div class="col-md-4"></div>
-									<div class="col-md-4"> <img th:src="@{/images/gif/loading_linear.gif}" style="margin-left: 50px;"/> </div>
-									<div class="col-md-4"></div>
-								</div>
+						</div>
+						<input type="hidden" th:value="${advisors.startRecordIndex}" class="startNo"/>
+						<input type="hidden" th:value="${advisors.recordsPerPage}" class="offset"/>
+						<div class="row load_pagination" style="display: none;">
+							<div class="col-md-12">
+								<div class="col-md-4"></div>
+								<div class="col-md-4"> <img th:src="@{/images/gif/loading_linear.gif}" style="margin-left: 50px;"/> </div>
+								<div class="col-md-4"></div>
 							</div>
 						</div>
-						<div class="bouton bouton-brown"><a href="#" class="load_more"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Load More</a></div>
+						<div class="bouton bouton-brown" th:if="${#lists.size(advisors.result) &gt; 12}"><a href="#" class="load_more"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Load More</a></div>
 					</div>
 				</div>
 			</div>
@@ -99,7 +93,7 @@
 			var load_content = '';
 			for(var i=0;i<datas.length;i++){
 				var cloning = $('.template_part .data_result').eq(0).clone();
-				cloning.find('.id_advisor').val(datas[i].party.pkParty);
+				cloning.find('.id_advisor').val(datas[i].pkAppUser);
 				cloning.find('.img-circle').attr('src',datas[i].party.basicPictureURL);
 				cloning.find('.advisor_name').html(datas[i].party.name);
 				cloning.find('.specialist_part').html(datas[i].party.title);
@@ -115,7 +109,41 @@
 			if(load){
 				$('.list_data').html(load_content);
 			}
-		}           
+		}       
+		
+		function loadAdvisor(isLoad){
+			var sURL = /*[[@{/page/advisory/sub/advisor/load}]]*/
+			var param = $('.param').val();
+			var nextStartNo = parseInt($('.startNo').val()) + parseInt($('.offset').val());
+			var offset = $('.offset').val();
+			$.ajax({
+	            type: 'GET',
+	            url: sURL,
+	            data: {filter : param, startNo : nextStartNo, offset : offset},
+	            dataType: 'json',
+	            success: function (data) {
+	            	$('.load_pagination').hide();
+	            	$('.mrdy_btn').disableBtn({enabled:true});
+	            	processData(data.advisors.result, isLoad);		
+	            	var newMaxRecord = data.advisors.maxRecord;
+	            	var newCurrentRecord = data.advisors.currentRecord;
+	            	showPaging(newMaxRecord, newCurrentRecord);
+	            	$('.startNo').val(data.advisors.startRecordIndex);
+	            },
+	            beforeSend: function($jqXHR, $textStatus){
+					$('.load_pagination').show();
+					$('.mrdy_btn').disableBtn({enabled:false});
+				},
+				error: function ($jqXHR, $textStatus, $errorThrown) {
+					$('.load_pagination').hide();
+					$('.mrdy_btn').disableBtn({enabled:true});
+				},
+				complete: function($jqXHR, $textStatus){
+					$('.load_pagination').hide();
+					$('.mrdy_btn').disableBtn({enabled:true});
+				}
+	        });	
+		}
 		           
 		$(function(){ 
 			var maxRecord = /*[[${advisors.maxRecord}]]*/;
@@ -125,36 +153,7 @@
 			
 			$('.load_more').unbind('click').click(function(e){
 				e.preventDefault();
-				var sURL = /*[[@{/page/advisory/sub/advisor/load}]]*/
-				var param = $('.param').val();
-				var nextStartNo = parseInt($('.startNo').val()) + parseInt($('.offset').val());
-				var offset = $('.offset').val();
-				$.ajax({
-		            type: 'GET',
-		            url: sURL,
-		            data: {filter : param, startNo : nextStartNo, offset : offset},
-		            dataType: 'json',
-		            success: function (data) {
-		            	$('.load_pagination').hide();
-		            	$('.mrdy_btn').disableBtn({enabled:true});
-		            	processData(data.advisors.result, false);		
-		            	var newMaxRecord = data.advisors.maxRecord;
-		            	var newCurrentRecord = data.advisors.currentRecord;
-		            	showPaging(newMaxRecord, newCurrentRecord);
-		            },
-		            beforeSend: function($jqXHR, $textStatus){
-						$('.load_pagination').show();
-						$('.mrdy_btn').disableBtn({enabled:false});
-					},
-					error: function ($jqXHR, $textStatus, $errorThrown) {
-						$('.load_pagination').hide();
-						$('.mrdy_btn').disableBtn({enabled:true});
-					},
-					complete: function($jqXHR, $textStatus){
-						$('.load_pagination').hide();
-						$('.mrdy_btn').disableBtn({enabled:true});
-					}
-		        });				
+				loadAdvisor(false);			
 			});
 			
 			$('.consult_btn').unbind('click').click(function(){
@@ -162,13 +161,23 @@
 				window.location.href = url;
 			});
 			
+			$('.btn_find').unbind('click').click(function(e){
+				e.preventDefault();
+				loadAdvisor(true);
+				scrollToBottom('advisory_expert', 72);
+			});
+			
 			$('.advisor_name').unbind('click').click(function(){
-				var url = /*[[@{/page/advisory/sub/advisor/detail}]]*/
+				var idVal = $(this).parent().parent().find('.id_advisor').val();
+				var url = /*[[@{/page/advisory/sub/advisor/detail/}]]*/
+				url += idVal;
 				window.location.href = url;
 			});
 			
 			$('.link_see_article').unbind('click').click(function(){
+				var idAdvisor = $(this).parents('#template').find('.id_advisor').val();
 				var url = /*[[@{/page/advisory/sub/article}]]*/
+				url+= "?chooseAdvisor="+ idAdvisor;
 				window.location.href = url;
 			});
 		});
