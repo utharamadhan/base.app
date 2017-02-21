@@ -120,7 +120,7 @@ iframe {
     font-size: 16px;
     text-decoration: none;
     color: #000000;
-    padding: 11px 11px!important;
+    padding: 11px 14px!important;
     font-weight: 400;
 }
 .header .navbar-default .navbar-nav>li>a:hover {
@@ -158,8 +158,9 @@ iframe {
     -moz-border-radius: 2px!important;
     border-radius: 2px!important;
     left: 0px;
-    top: 75px;
-	position:fixed;
+    top: 72px;
+    position: fixed;
+    border-top: 3px solid #fcdb00;
 }
 .navbar-default .navbar-nav>.open .dropdown-menu>li>a:hover {
     color: #0056a1;
@@ -3440,7 +3441,7 @@ ul.contact_info li a:hover {
 	font-weight:600;
 	cursor:pointer;
 	box-shadow: 0 5px 15px rgba(0,0,0,.2);
-    border-radius: 5px;
+    border-radius: 25px;
 }
 @media only screen and (max-width: 479px) {
     .img-responsive {
