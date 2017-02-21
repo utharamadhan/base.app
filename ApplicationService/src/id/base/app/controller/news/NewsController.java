@@ -51,7 +51,6 @@ public class NewsController extends SuperController<News>{
 	
 	@Override
 	public News preUpdate(News anObject) throws SystemException{
-		anObject.setStatus(SystemConstant.ValidFlag.VALID);
 		return validate(anObject);
 	}
 	

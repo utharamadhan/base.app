@@ -60,7 +60,6 @@ public class EventController extends SuperController<Event>{
 	
 	@Override
 	public Event preUpdate(Event anObject) throws SystemException{
-		anObject.setStatus(SystemConstant.ValidFlag.VALID);
 		return validate(anObject);
 	}
 	

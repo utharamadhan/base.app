@@ -43,13 +43,13 @@
 						<input id="digitalBook-detail-maintenancePk" type="hidden" th:field="*{pkDigitalBook}"/>
 						<div class="form-group">
 							<label class="col-sm-2 control-label" th:text="'Title'">Title</label>
-							<div class="col-sm-10 form-input-container">
+							<div class="col-sm-9 form-input-container">
 								<input type="text" class="form-control" placeholder="Title" name="srch-term" id="input-text-title" th:field="*{title}"/>
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-2 control-label" th:text="'Cover Image'">Cover Image</label>
-							<div class="col-sm-10 form-input-container">
+							<div class="col-sm-9 form-input-container">
 								<th:block th:if="${detail.coverImageURL != null}">
 									<input type="hidden" id="input-hidden-coverImageURL" th:field="*{coverImageURL}"/>
 									<input type="file" class="form-control" id="input-file-coverImageURL" style="display:none;"/>
@@ -68,7 +68,7 @@
 						</div>
 						<div class="form-group">
 							<label class="col-sm-2 control-label" th:text="'File'">File</label>
-							<div class="col-sm-10 form-input-container">
+							<div class="col-sm-9 form-input-container">
 								<th:block th:if="${detail.fileURL != null}">
 									<input type="hidden" id="input-hidden-fileURL" th:field="*{fileURL}"/>
 									<input type="file" class="form-control" id="input-file-fileURL" style="display:none;"/>
@@ -85,20 +85,21 @@
 								</th:block>
 							</div>
 						</div>
-						<hr style="border-top: 1px;"/>
 						<div class="form-group">
-							<div class="col-sm-12">							
-								<label class="col-sm-1 control-label" th:text="'Description'">Description</label>
+							<label class="col-sm-2 control-label" th:text="'Description'">Description</label>
+							<input id="textEditor-description-hidden" name="description" type="hidden"/>
+							<div id="textEditor-description-parent" class="col-sm-9">					
+								<textarea id="textEditor-description-area" th:text="*{description}">
+								</textarea>
 							</div>
 						</div>
 						<div class="form-group">
-							<div class="col-sm-12">
-								<input id="textEditor-description-hidden" name="description" type="hidden"/>
-								<div id="textEditor-description-parent" class="col-sm-12">					
-									<textarea id="textEditor-description-area" th:text="*{description}">
-									</textarea>
-								</div>
-							</div>
+							<label class="col-sm-2 control-label" th:text="'Status'">Status</label>
+							<div class="col-sm-9 form-input-container">
+								<select class="chosen-select form-control" th:field="*{status}">
+									<option th:each="opt : ${statusOptions}" th:value="${opt.code}" th:text="${opt.name}">Name</option>
+                           		</select>
+                           	</div>
 						</div>
 						<div class="form-group form-footer">				
 							<div class="col-sm-offset-3 col-sm-9">

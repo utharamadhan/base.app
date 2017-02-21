@@ -8,7 +8,6 @@ import id.base.app.rest.RestConstant;
 import id.base.app.service.MaintenanceService;
 import id.base.app.service.aboutUs.IProgramPostService;
 import id.base.app.util.StringFunction;
-import id.base.app.valueobject.aboutUs.Engagement;
 import id.base.app.valueobject.aboutUs.ProgramPost;
 
 import java.util.ArrayList;
@@ -52,7 +51,6 @@ public class ProgramPostController extends SuperController<ProgramPost>{
 	
 	@Override
 	public ProgramPost preUpdate(ProgramPost anObject) throws SystemException{
-		anObject.setStatus(SystemConstant.ValidFlag.VALID);
 		return validate(anObject);
 	}
 	

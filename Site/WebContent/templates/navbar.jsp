@@ -111,8 +111,8 @@
 									<li class="col-sm-4">
 										<ul>
 											<li class="dropdown-header"><a href="#">Berita</a></li>
-											<c:forEach items="${programs}" var="program" varStatus="loop">
-											<li><a href="${ctx}/page/program/${program.pkProgramPost}">${program.title}</a></li>
+											<c:forEach items="${newsLatest}" var="news" varStatus="loop">
+											<li><a href="${ctx}/page/news/detail/${news.pkNews}">${news.title}</a></li>
 											</c:forEach>
 											<li><br/><div class="button-orange" onclick="javascript:window.location.href='${ctx}/page/news'">Lainnya...</div></li>
 										</ul>
@@ -120,8 +120,8 @@
 									<li class="col-sm-4">
 										<ul>
 											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/page/ebook">Kegiatan</a></li>
-											<c:forEach items="${ebooksLatest}" var="ebookLatest" varStatus="loop">
-											<li><a href="${ctx}/page/ebook/detail/${ebookLatest.pkDigitalBook}">${ebookLatest.title}</a></li>
+											<c:forEach items="${eventLatest}" var="event" varStatus="loop">
+											<li><a href="${ctx}/page/events/detail/${event.pkEvent}">${event.title}</a></li>
 											</c:forEach>
 											<li><br/><div class="button-orange" onclick="javascript:window.location.href='${ctx}/page/events/upcoming'">Lainnya...</div></li>
 										</ul>

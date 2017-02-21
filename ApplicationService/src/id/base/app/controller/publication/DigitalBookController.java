@@ -63,7 +63,6 @@ public class DigitalBookController extends SuperController<DigitalBook>{
 	
 	@Override
 	public DigitalBook preUpdate(DigitalBook anObject) throws SystemException{
-		anObject.setStatus(SystemConstant.ValidFlag.VALID);
 		return validate(anObject);
 	}
 	
