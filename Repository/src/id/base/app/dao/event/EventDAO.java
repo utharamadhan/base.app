@@ -16,9 +16,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.transform.ResultTransformer;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -88,7 +91,29 @@ public class EventDAO extends AbstractHibernateDAO<Event, Long> implements IEven
 		crit.add(Restrictions.ge(Event.EVENT_DATE, currentDate));
 		crit.addOrder(Order.desc(Event.EVENT_DATE));
 		crit.setMaxResults(number);
+		crit.setProjection(Projections.projectionList().
+				add(Projections.property(Event.PK_EVENT)).
+				add(Projections.property(Event.TITLE)).
+				add(Projections.property(Event.EVENT_DATE)));
+		crit.setResultTransformer(new ResultTransformer() {
+			@Override
+			public Object transformTuple(Object[] tuple, String[] aliases) {
+				Event obj = new Event();
+				try {
+					BeanUtils.copyProperty(obj, Event.PK_EVENT, tuple[0]);
+					BeanUtils.copyProperty(obj, Event.TITLE, tuple[1]);
+					BeanUtils.copyProperty(obj, Event.EVENT_DATE, tuple[2]);
+				} catch (Exception e) {
+					LOGGER.error(e.getMessage(), e);
+				}
+				return obj;
+			}
+			
+			@Override
+			public List transformList(List collection) {
+				return collection;
+			}
+		});
 		return crit.list();
 	}
-
 }

@@ -22,8 +22,6 @@ public class DigitalBook extends BaseEntity implements Serializable {
 	 */
 	private static final long serialVersionUID = 7698703933226904281L;
 	
-	private DigitalBook(){}
-	
 	public static final String PK_DIGITAL_BOOK = "pkDigitalBook";
 	public static final String TITLE = "title";
 	public static final String COVER_IMAGE_URL = "coverImageURL";

@@ -1,9 +1,11 @@
 package id.base.app.webMember.controller.site;
 
 import id.base.app.paging.PagingWrapper;
+import id.base.app.rest.QueryParamInterfaceRestCaller;
 import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
 import id.base.app.rest.RestServiceConstant;
+import id.base.app.rest.SpecificRestCaller;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.valueobject.research.Research;
@@ -44,11 +46,9 @@ public class ResearchDevelopmentWebController {
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public String view(ModelMap model, HttpServletRequest request, HttpServletResponse response,
-			@RequestParam(value="startNo",defaultValue="1") int startNo, 
-			@RequestParam(value="offset",defaultValue="6") int offset,
-			@RequestParam(value="filter", defaultValue="", required=false) String filterJson){
-		return this.list(model, request, response, startNo, offset, filterJson);
+	public String view(ModelMap model, HttpServletRequest request, HttpServletResponse response){
+		model.addAttribute("researchThemes", getResearchThemesTitle());
+		return "/research-development/main";
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/list")
@@ -124,6 +124,24 @@ public class ResearchDevelopmentWebController {
 		}
 		
 		return resultMap;
+	}
+	
+	private List<ResearchTheme> getResearchThemesTitle(){
+		SpecificRestCaller<ResearchTheme> rcRT = new SpecificRestCaller<ResearchTheme>(RestConstant.REST_SERVICE, RestServiceConstant.RESEARCH_THEME_SERVICE);
+		List<ResearchTheme> objList = rcRT.executeGetList(new QueryParamInterfaceRestCaller() {
+			
+			@Override
+			public String getPath() {
+				return "/findAllResearchThemeTitle";
+			}
+			
+			@Override
+			public Map<String, Object> getParameters() {
+				Map<String,Object> map = new HashMap<String, Object>();
+				return map;
+			}
+		});
+		return objList;
 	}
 	
 }

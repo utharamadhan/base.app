@@ -2,7 +2,6 @@ package id.base.app.dao.aboutUs;
 
 import id.base.app.AbstractHibernateDAO;
 import id.base.app.ILookupConstant;
-import id.base.app.SystemConstant;
 import id.base.app.exception.SystemException;
 import id.base.app.paging.PagingWrapper;
 import id.base.app.util.dao.SearchFilter;
@@ -12,9 +11,12 @@ import id.base.app.valueobject.aboutUs.ProgramPost;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.transform.ResultTransformer;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -61,7 +63,27 @@ public class ProgramPostDAO extends AbstractHibernateDAO<ProgramPost, Long> impl
 		crit.add(Restrictions.eq(ProgramPost.STATUS, ILookupConstant.ArticleStatus.PUBLISH));
 		crit.addOrder(Order.desc(ProgramPost.PK_PROGRAM_POST));
 		crit.setMaxResults(number);
+		crit.setProjection(Projections.projectionList().
+				add(Projections.property(ProgramPost.PK_PROGRAM_POST)).
+				add(Projections.property(ProgramPost.TITLE)));
+		crit.setResultTransformer(new ResultTransformer() {
+			@Override
+			public Object transformTuple(Object[] tuple, String[] aliases) {
+				ProgramPost obj = new ProgramPost();
+				try {
+					BeanUtils.copyProperty(obj, ProgramPost.PK_PROGRAM_POST, tuple[0]);
+					BeanUtils.copyProperty(obj, ProgramPost.TITLE, tuple[1]);
+				} catch (Exception e) {
+					LOGGER.error(e.getMessage(), e);
+				}
+				return obj;
+			}
+			
+			@Override
+			public List transformList(List collection) {
+				return collection;
+			}
+		});
 		return crit.list();
 	}
-
 }

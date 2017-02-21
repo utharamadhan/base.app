@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta name="author" content="Mardy Jonathan"/>
+<title></title>
+</head>
+<body>
+	<div class="breadcrumb-wrapper">
+			<div class="breadcrumb">
+				<div class="container">
+					<ul>
+					<li><a th:href="@{/}">Home</a></li>
+					<li><a th:href="@{/page/research-development}">Research &#38; Development</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="advisory_section">
+			<div class="advisory_banner">
+				<div class="parallax-window" data-parallax="scroll" th:attr="data-image-src=@{/images/background-research.jpg}" ></div>
+				<div class="info_banner_stories">
+					<h2 class="title_info_stories">Advisory Stories</h2>
+					<p class="desc_info_stories">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed dictum lectus. Donec lacus ante, tristique non nulla in, gravida pharetra velit. Fusce vestibulum, massa at vulputate tempor, nibh turpis suscipit ipsum, eget tempor orci eros sit amet mi.
+					</p>
+				</div>
+			</div>
+			
+			<!-- Start advisory article -->
+			<div class="advisory_article">
+				<div class="container">
+					<div class="article_container row">
+						<div class="col-md-12"> 
+							<div class="row"> 
+								<h2 class="title_article">The most pressing challenges our local and global communities face are deeply complex and can only be overcome by the combined efforts of diverse disciplines.</h2>
+								<div>
+									<p>Our Research Themes draw together our rich multi-disciplinary expertise to develop solutions to real-world problems of global relevance, within a local context. They provide an interdisciplinary setting for individuals, established research concentrations and our partners to work collaboratively, and capitalise on the advantages presented by our unique locality and existing areas of research excellence.</p>
+								</div>
+							</div> 
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- Start Advisor Data -->
+			<div class="stories_content_next">
+				<div class="parallax-window" data-parallax="scroll" th:attr="data-image-src=@{/images/background-research-themes.jpg}" ></div>
+				<div class="desc_stories_content_next">
+					<p class="desc_stories_content_next_parap">
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed dictum lectus. Donec lacus ante, tristique non nulla in, gravida pharetra velit. Fusce vestibulum, massa at vulputate tempor, nibh turpis suscipit ipsum, eget tempor orci eros sit amet mi. Donec vehicula erat ornare efficitur pretium. Nam tempus augue in erat malesuada, a scelerisque purus dictum. Aliquam ut diam risus. In sed felis pretium, dictum nisi hendrerit, faucibus lacus. Fusce dapibus, sapien suscipit tempor rutrum, tortor risus aliquet erat, eget posuere purus magna et diam. Duis at posuere orci, vel facilisis massa. Ut aliquet, sapien vel congue vehicula, ligula erat sodales eros, vel semper ligula quam sit amet ligula. Integer libero velit, porta vel interdum id, condimentum cursus lorem.
+					</p>
+				</div>
+			</div>
+		</div><!--end post section-->
+		
+		<script type="text/javascript" th:inline="javascript">
+		/*<![CDATA[*/
+		$(function(){  
+			
+		});
+		/*]]>*/
+		</script>
+</body>
+</html>
