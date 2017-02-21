@@ -1,5 +1,16 @@
 package id.base.app.webMember.controller.site;
 
+import id.base.app.ILookupConstant;
+import id.base.app.paging.PagingWrapper;
+import id.base.app.rest.RestCaller;
+import id.base.app.rest.RestConstant;
+import id.base.app.rest.RestServiceConstant;
+import id.base.app.util.dao.Operator;
+import id.base.app.util.dao.SearchFilter;
+import id.base.app.util.dao.SearchOrder;
+import id.base.app.util.dao.SearchOrder.Sort;
+import id.base.app.valueobject.news.News;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,17 +31,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import id.base.app.paging.PagingWrapper;
-import id.base.app.rest.RestCaller;
-import id.base.app.rest.RestConstant;
-import id.base.app.rest.RestServiceConstant;
-import id.base.app.util.dao.Operator;
-import id.base.app.util.dao.SearchFilter;
-import id.base.app.util.dao.SearchOrder;
-import id.base.app.util.dao.SearchOrder.Sort;
-import id.base.app.valueobject.news.News;
-import id.base.app.valueobject.publication.DigitalBook;
-
 @Scope(value="request")
 @RequestMapping(value="/news")
 @Controller
@@ -49,6 +49,7 @@ public class NewsWebController {
 			@RequestParam(value="filter", defaultValue="", required=false) String filterJson
 		){
 		List<SearchFilter> filter = new ArrayList<SearchFilter>();
+		filter.add(new SearchFilter(News.STATUS, Operator.EQUALS, ILookupConstant.ArticleStatus.PUBLISH, Integer.class));
 		if(StringUtils.isNotEmpty(filterJson)){
 			filter.add(new SearchFilter(News.TITLE, Operator.LIKE, filterJson));
 		}
@@ -68,6 +69,7 @@ public class NewsWebController {
 		){
 		Map<String, Object> resultMap = new HashMap<>();
 		List<SearchFilter> filter = new ArrayList<SearchFilter>();
+		filter.add(new SearchFilter(News.STATUS, Operator.EQUALS, ILookupConstant.ArticleStatus.PUBLISH, Integer.class));
 		if(StringUtils.isNotEmpty(filterJson)){
 			filter.add(new SearchFilter(News.TITLE, Operator.LIKE, filterJson));
 		}
@@ -80,12 +82,8 @@ public class NewsWebController {
 	
 	@RequestMapping(method=RequestMethod.GET, value="/detail/{id}")
 	public String detail(ModelMap model, HttpServletRequest request, HttpServletResponse response,
-			@PathVariable(value="id") Long id
-	){
-		List<SearchFilter> filter = new ArrayList<SearchFilter>();
-		List<SearchOrder> order = new ArrayList<SearchOrder>();
-		News detail = News.getInstance();
-		detail = getRestCaller().findById(id);
+			@PathVariable(value="id") Long id){
+		News detail = getRestCaller().findById(id);
 		model.addAttribute("detail", detail);
 		return "/news/detail";
 	}

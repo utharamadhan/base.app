@@ -1,5 +1,19 @@
 package id.base.app.webMember.controller.site;
 
+import id.base.app.ILookupConstant;
+import id.base.app.SystemConstant;
+import id.base.app.rest.QueryParamInterfaceRestCaller;
+import id.base.app.rest.RestCaller;
+import id.base.app.rest.RestConstant;
+import id.base.app.rest.RestServiceConstant;
+import id.base.app.rest.SpecificRestCaller;
+import id.base.app.util.DateTimeFunction;
+import id.base.app.util.dao.Operator;
+import id.base.app.util.dao.SearchFilter;
+import id.base.app.util.dao.SearchOrder;
+import id.base.app.valueobject.event.Event;
+import id.base.app.valueobject.event.EventJson;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,18 +37,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 
-import id.base.app.SystemConstant;
-import id.base.app.rest.QueryParamInterfaceRestCaller;
-import id.base.app.rest.RestCaller;
-import id.base.app.rest.RestConstant;
-import id.base.app.rest.RestServiceConstant;
-import id.base.app.rest.SpecificRestCaller;
-import id.base.app.util.DateTimeFunction;
-import id.base.app.util.dao.SearchFilter;
-import id.base.app.util.dao.SearchOrder;
-import id.base.app.valueobject.event.Event;
-import id.base.app.valueobject.event.EventJson;
-
 @Scope(value="request")
 @RequestMapping(value="/events")
 @Controller
@@ -57,6 +59,7 @@ public class EventsWebController {
 	public String archived(ModelMap model, HttpServletRequest request, HttpServletResponse response) throws JsonProcessingException{
 		List<SearchFilter> filter = new ArrayList<SearchFilter>();
 		List<SearchOrder> order = new ArrayList<SearchOrder>();
+		filter.add(new SearchFilter(Event.STATUS, Operator.EQUALS, ILookupConstant.ArticleStatus.PUBLISH));
 		final String filterJson = mapper.writeValueAsString(filter);
 		final String orderJson = mapper.writeValueAsString(order);
 		SpecificRestCaller<Event> eventRC = new SpecificRestCaller<Event>(RestConstant.REST_SERVICE, RestServiceConstant.EVENT_SERVICE);
@@ -85,6 +88,7 @@ public class EventsWebController {
 		ArrayNode jsonData = null;
 		List<SearchFilter> filter = new ArrayList<SearchFilter>();
 		List<SearchOrder> order = new ArrayList<SearchOrder>();
+		filter.add(new SearchFilter(Event.STATUS, Operator.EQUALS, ILookupConstant.ArticleStatus.PUBLISH));
 		final Map<String,String> param = params; 
 		final String filterJson = mapper.writeValueAsString(filter);
 		final String orderJson = mapper.writeValueAsString(order);

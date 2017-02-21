@@ -408,7 +408,9 @@
 				autoPlay:true
 			});
 			$('#help-select').change(function(){
-				if($(this).val()!=""){
+				if($(this).val()=="CO"){
+					location.href = "page/advisory/sub/consulting";
+				}else if($(this).val()!=""){
 					location.href = "page/contact?type="+$(this).val();
 				}
 			})

@@ -66,5 +66,10 @@ public class EventService implements IEventService {
 	public List<Event> findUpcoming(List<SearchFilter> filter, List<SearchOrder> order) throws SystemException {
 		return eventDAO.findUpcoming(filter, order);
 	}
+	
+	@Override
+	public List<Event> findLatestEventUpcoming(int number) throws SystemException {
+		return eventDAO.findLatestEventUpcoming(number);
+	}
 
 }

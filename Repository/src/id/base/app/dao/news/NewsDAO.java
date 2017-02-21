@@ -1,6 +1,7 @@
 package id.base.app.dao.news;
 
 import id.base.app.AbstractHibernateDAO;
+import id.base.app.ILookupConstant;
 import id.base.app.exception.SystemException;
 import id.base.app.paging.PagingWrapper;
 import id.base.app.util.dao.SearchFilter;
@@ -10,6 +11,9 @@ import id.base.app.valueobject.news.News;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -50,4 +54,12 @@ public class NewsDAO extends AbstractHibernateDAO<News, Long> implements INewsDA
 		return super.findAllWithPagingWrapper(startNo, offset, filter, order, null);
 	}
 
+	@Override
+	public List<News> findLatestNews(int number) throws SystemException {
+		Criteria crit = this.getSession().createCriteria(domainClass);
+		crit.add(Restrictions.eq(News.STATUS, ILookupConstant.ArticleStatus.PUBLISH));
+		crit.addOrder(Order.desc(News.PK_NEWS));
+		crit.setMaxResults(number);
+		return crit.list();
+	}
 }

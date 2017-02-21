@@ -1,5 +1,6 @@
 package id.base.app.webMember.controller.publication;
 
+import id.base.app.ILookupConstant;
 import id.base.app.ILookupGroupConstant;
 import id.base.app.SystemConstant;
 import id.base.app.exception.ErrorHolder;
@@ -52,7 +53,7 @@ public class EventWebController extends BaseController<Event> {
 	}
 	
 	private void setDefaultFilter(HttpServletRequest request, List<SearchFilter> filters) {
-		filters.add(new SearchFilter(Event.STATUS, Operator.EQUALS, SystemConstant.ValidFlag.VALID));
+		filters.add(new SearchFilter(Event.STATUS, Operator.NOT_EQUAL, ILookupConstant.ArticleStatus.DELETE, Integer.class));
 	}
 
 	@Override
@@ -82,7 +83,7 @@ public class EventWebController extends BaseController<Event> {
 	
 	public void setDefaultData(ModelMap model) {
 		LookupRestCaller lrc = new LookupRestCaller();
-		model.addAttribute("eventStatusOptions", lrc.findByLookupGroup(ILookupGroupConstant.EVENT_STATUS));
+		model.addAttribute("statusOptions", lrc.findByLookupGroup(ILookupGroupConstant.ARTICLE_STATUS));
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="showAdd")

@@ -1,5 +1,15 @@
 package id.base.app.webMember.controller.site;
 
+import id.base.app.ILookupConstant;
+import id.base.app.rest.RestCaller;
+import id.base.app.rest.RestConstant;
+import id.base.app.rest.RestServiceConstant;
+import id.base.app.util.dao.Operator;
+import id.base.app.util.dao.SearchFilter;
+import id.base.app.util.dao.SearchOrder;
+import id.base.app.util.dao.SearchOrder.Sort;
+import id.base.app.valueobject.aboutUs.Engagement;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,14 +25,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import id.base.app.rest.RestCaller;
-import id.base.app.rest.RestConstant;
-import id.base.app.rest.RestServiceConstant;
-import id.base.app.util.dao.SearchFilter;
-import id.base.app.util.dao.SearchOrder;
-import id.base.app.util.dao.SearchOrder.Sort;
-import id.base.app.valueobject.aboutUs.Engagement;
-
 @Scope(value="request")
 @RequestMapping(value="/engagement")
 @Controller
@@ -36,10 +38,8 @@ public class EngagementWebController {
 	
 	@RequestMapping(method=RequestMethod.GET, value="/{id}")
 	public String view(ModelMap model, HttpServletRequest request, HttpServletResponse response,
-			@PathVariable(value="id") Long id
-	){
-		Engagement detail = Engagement.getInstance();
-		detail = getRestCaller().findById(id);
+			@PathVariable(value="id") Long id){
+		Engagement detail = getRestCaller().findById(id);
 		model.addAttribute("detail", detail);
 		return "/engagement/main";
 	}
@@ -47,11 +47,11 @@ public class EngagementWebController {
 	@RequestMapping(method=RequestMethod.GET, value="/list")
 	public String list(ModelMap model, HttpServletRequest request, HttpServletResponse response){
 		List<SearchFilter> filter = new ArrayList<SearchFilter>();
+		filter.add(new SearchFilter(Engagement.STATUS, Operator.EQUALS, ILookupConstant.ArticleStatus.PUBLISH, Integer.class));
 		List<SearchOrder> order = new ArrayList<SearchOrder>();
 		order.add(new SearchOrder(Engagement.PK_ENGAGEMENT, Sort.DESC));
 		List<Engagement> engagesList = getRestCaller().findAll(filter, order);
 		model.addAttribute("engagesList", engagesList);
 		return "/engagement/list";
-	}
-	
+	}	
 }

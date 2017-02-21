@@ -1,5 +1,16 @@
 package id.base.app.webMember.controller.site;
 
+import id.base.app.ILookupConstant;
+import id.base.app.paging.PagingWrapper;
+import id.base.app.rest.RestCaller;
+import id.base.app.rest.RestConstant;
+import id.base.app.rest.RestServiceConstant;
+import id.base.app.util.dao.Operator;
+import id.base.app.util.dao.SearchFilter;
+import id.base.app.util.dao.SearchOrder;
+import id.base.app.util.dao.SearchOrder.Sort;
+import id.base.app.valueobject.publication.DigitalBook;
+
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
@@ -26,16 +37,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import id.base.app.paging.PagingWrapper;
-import id.base.app.rest.RestCaller;
-import id.base.app.rest.RestConstant;
-import id.base.app.rest.RestServiceConstant;
-import id.base.app.util.dao.Operator;
-import id.base.app.util.dao.SearchFilter;
-import id.base.app.util.dao.SearchOrder;
-import id.base.app.util.dao.SearchOrder.Sort;
-import id.base.app.valueobject.publication.DigitalBook;
-
 @Scope(value="request")
 @RequestMapping(value="/ebook")
 @Controller
@@ -56,6 +57,7 @@ public class EbookWebController {
 			@RequestParam(value="filter", defaultValue="", required=false) String filterJson
 	){
 		List<SearchFilter> filter = new ArrayList<SearchFilter>();
+		filter.add(new SearchFilter(DigitalBook.STATUS, Operator.EQUALS, ILookupConstant.ArticleStatus.PUBLISH, Integer.class));
 		if(StringUtils.isNotEmpty(filterJson)){
 			filter.add(new SearchFilter(DigitalBook.TITLE, Operator.LIKE, filterJson));
 		}
@@ -75,6 +77,7 @@ public class EbookWebController {
 	){
 		Map<String, Object> resultMap = new HashMap<>();
 		List<SearchFilter> filter = new ArrayList<SearchFilter>();
+		filter.add(new SearchFilter(DigitalBook.STATUS, Operator.EQUALS, ILookupConstant.ArticleStatus.PUBLISH, Integer.class));
 		if(StringUtils.isNotEmpty(filterJson)){
 			filter.add(new SearchFilter(DigitalBook.TITLE, Operator.LIKE, filterJson));
 		}
@@ -89,8 +92,6 @@ public class EbookWebController {
 	public String detail(ModelMap model, HttpServletRequest request, HttpServletResponse response,
 			@PathVariable(value="id") Long id
 	){
-		List<SearchFilter> filter = new ArrayList<SearchFilter>();
-		List<SearchOrder> order = new ArrayList<SearchOrder>();
 		DigitalBook detail = DigitalBook.getInstance();
 		detail = getRestCaller().findById(id);
 		model.addAttribute("detail", detail);
@@ -134,6 +135,5 @@ public class EbookWebController {
 		}
 		
 		return resultMap;
-	}
-	
+	}	
 }

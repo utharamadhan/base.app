@@ -19,6 +19,9 @@ import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -48,7 +51,6 @@ public class NewsController extends SuperController<News>{
 	
 	@Override
 	public News preUpdate(News anObject) throws SystemException{
-		anObject.setStatus(SystemConstant.ValidFlag.VALID);
 		return validate(anObject);
 	}
 	
@@ -72,6 +74,17 @@ public class NewsController extends SuperController<News>{
 	public News getOldObject(News object) throws SystemException {
 		News oldObject = new News();
 		return object.getPkNews() != null ? cloneObject(oldObject, findById(object.getPkNews())) : null;
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/findLatestNews")
+	@ResponseBody
+	public List<News> findLatestNews(@RequestParam(value="number") int number) throws SystemException {
+		try {
+			return newsService.findLatestNews(number);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new SystemException(new ErrorHolder("error finding your data"));
+		}
 	}
 	
 }

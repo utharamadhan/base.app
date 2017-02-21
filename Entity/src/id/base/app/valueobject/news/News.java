@@ -1,5 +1,6 @@
 package id.base.app.valueobject.news;
 
+import id.base.app.ILookupConstant;
 import id.base.app.util.StringFunction;
 import id.base.app.valueobject.BaseEntity;
 import id.base.app.valueobject.Lookup;
@@ -68,6 +69,9 @@ public class News extends BaseEntity implements Serializable {
 	private Integer status;
 	
 	@Transient
+	private String statusStr;
+	
+	@Transient
 	private String shortContent;
 
 	public Long getPkNews() {
@@ -124,6 +128,10 @@ public class News extends BaseEntity implements Serializable {
 	}
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+
+	public String getStatusStr() {
+		return ILookupConstant.ArticleStatus.ARTICLE_STATUS_MAP.get(status);
 	}
 	
 	@Transient

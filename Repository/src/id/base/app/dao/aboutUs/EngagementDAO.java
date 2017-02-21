@@ -1,18 +1,20 @@
 package id.base.app.dao.aboutUs;
 
 import id.base.app.AbstractHibernateDAO;
+import id.base.app.ILookupConstant;
+import id.base.app.SystemConstant;
 import id.base.app.exception.SystemException;
 import id.base.app.paging.PagingWrapper;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.valueobject.aboutUs.Engagement;
-import id.base.app.valueobject.publication.DigitalBook;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -56,9 +58,9 @@ public class EngagementDAO extends AbstractHibernateDAO<Engagement, Long> implem
 	@Override
 	public List<Engagement> findLatest(int number) throws SystemException {
 		Criteria crit = this.getSession().createCriteria(domainClass);
+		crit.add(Restrictions.eq(Engagement.STATUS, ILookupConstant.ArticleStatus.PUBLISH));
 		crit.addOrder(Order.desc(Engagement.PK_ENGAGEMENT));
 		crit.setMaxResults(number);
 		return crit.list();
 	}
-
 }

@@ -1,8 +1,13 @@
 package id.base.app.service.news;
 
+import id.base.app.exception.SystemException;
 import id.base.app.service.MaintenanceService;
 import id.base.app.valueobject.news.News;
 
+import java.util.List;
+
 public interface INewsService extends MaintenanceService<News> {
+
+	public List<News> findLatestNews(int number) throws SystemException;
 
 }

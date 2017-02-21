@@ -1,6 +1,5 @@
 package id.base.app.webMember.controller.notification;
 
-import id.base.app.ILookupGroupConstant;
 import id.base.app.paging.PagingWrapper;
 import id.base.app.rest.PathInterfaceRestCaller;
 import id.base.app.rest.RestCaller;
@@ -13,7 +12,6 @@ import id.base.app.valueobject.AppUser;
 import id.base.app.valueobject.notification.Notification;
 import id.base.app.webMember.DataTableCriterias;
 import id.base.app.webMember.controller.BaseController;
-import id.base.app.webMember.rest.LookupRestCaller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -92,8 +90,6 @@ public class NotificationWebController extends BaseController<Notification> {
 	}
 	
 	public void setDefaultData(ModelMap model) {
-		LookupRestCaller lrc = new LookupRestCaller();
-		model.addAttribute("newsStatusOptions", lrc.findByLookupGroup(ILookupGroupConstant.NEWS_STATUS));
 	}
 
 	@Override

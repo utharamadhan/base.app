@@ -231,8 +231,8 @@ public class UserController extends SuperController<AppUser>{
 		anObject.setUserType(SystemConstant.USER_TYPE_INTERNAL);
 		anObject.setLoginFailed(0);
 		anObject.setLock(Boolean.FALSE);
-		anObject.setPassword("master");
-		anObject.setPasswordConfirmation("master");
+		anObject.setPassword(SystemConstant.DEFAULT_USER_PASSWORD);
+		anObject.setPasswordConfirmation(SystemConstant.DEFAULT_USER_PASSWORD);
 		return validate(anObject);
 	}
 	

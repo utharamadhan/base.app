@@ -1,12 +1,10 @@
 package id.base.app.webMember;
 
-import id.base.app.SystemConstant;
 import id.base.app.rest.QueryParamInterfaceRestCaller;
 import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
 import id.base.app.rest.RestServiceConstant;
 import id.base.app.rest.SpecificRestCaller;
-import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.util.dao.SearchOrder.Sort;
@@ -14,6 +12,8 @@ import id.base.app.valueobject.aboutUs.CommonPost;
 import id.base.app.valueobject.aboutUs.Engagement;
 import id.base.app.valueobject.aboutUs.ProgramPost;
 import id.base.app.valueobject.course.Tag;
+import id.base.app.valueobject.event.Event;
+import id.base.app.valueobject.news.News;
 import id.base.app.valueobject.publication.DigitalBook;
 
 import java.io.IOException;
@@ -113,7 +113,7 @@ public class ShortLifeSessionFilter2 implements Filter{
 			@Override
 			public Map<String, Object> getParameters() {
 				Map<String,Object> map = new HashMap<String, Object>();
-				map.put("number", 4);
+				map.put("number", 5);
 				return map;
 			}
 		});
@@ -131,17 +131,53 @@ public class ShortLifeSessionFilter2 implements Filter{
 			@Override
 			public Map<String, Object> getParameters() {
 				Map<String,Object> map = new HashMap<String, Object>();
-				map.put("number", 2);
+				map.put("number", 5);
 				return map;
 			}
 		});
 		request.setAttribute("ebooksLatest", ebooks);
 		
-		//course tag
+		//news
+		SpecificRestCaller<News> rcNews = new SpecificRestCaller<News>(RestConstant.REST_SERVICE, RestServiceConstant.NEWS_SERVICE);
+		List<News> news = rcNews.executeGetList(new QueryParamInterfaceRestCaller() {
+			
+			@Override
+			public String getPath() {
+				return "/findLatestNews";
+			}
+			
+			@Override
+			public Map<String, Object> getParameters() {
+				Map<String,Object> map = new HashMap<String, Object>();
+				map.put("number", 5);
+				return map;
+			}
+		});
+		request.setAttribute("newsLatest", news);
+		
+		//event
+		SpecificRestCaller<Event> rcEvent = new SpecificRestCaller<Event>(RestConstant.REST_SERVICE, RestServiceConstant.EVENT_SERVICE);
+		List<Event> events = rcEvent.executeGetList(new QueryParamInterfaceRestCaller() {
+			
+			@Override
+			public String getPath() {
+				return "/findLatestEventUpcoming";
+			}
+			
+			@Override
+			public Map<String, Object> getParameters() {
+				Map<String,Object> map = new HashMap<String, Object>();
+				map.put("number", 5);
+				return map;
+			}
+		});
+		request.setAttribute("eventLatest", events);
+		
+		/*//course tag
 		List<SearchFilter> filterTag = new ArrayList<SearchFilter>();
 		filterTag.add(new SearchFilter(Tag.VALID, Operator.EQUALS, SystemConstant.ValidFlag.VALID));
 		List<SearchOrder> orderTag = new ArrayList<SearchOrder>();
-		request.setAttribute("tags_course", getRestTagCaller().findAll(filterTag, orderTag));
+		request.setAttribute("tags_course", getRestTagCaller().findAll(filterTag, orderTag));*/
 		
 		chain.doFilter(request, response);
 	}

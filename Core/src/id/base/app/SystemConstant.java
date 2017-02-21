@@ -167,6 +167,8 @@ public class SystemConstant  {
 	
 	public static final String VIOLATION_EXCEPTION_MESSAGES = "could not execute batch";
 	
+	public static final String DEFAULT_USER_PASSWORD = "master";
+	
 	public static final String DEFAULT_REPORT_TEMPLATE_LOCATION = "template";
 	
 	public static final class ActivationMethod {

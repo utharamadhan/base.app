@@ -12,9 +12,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import id.base.app.ILookupConstant;
 import id.base.app.valueobject.BaseEntity;
 import id.base.app.valueobject.Lookup;
 
@@ -65,6 +67,9 @@ public class Event extends BaseEntity implements Serializable {
 	
 	@Column(name="STATUS")
 	private Integer status;
+	
+	@Transient
+	private String statusStr;
 
 	public Long getPkEvent() {
 		return pkEvent;
@@ -121,5 +126,7 @@ public class Event extends BaseEntity implements Serializable {
 	public void setEventDate(Date eventDate) {
 		this.eventDate = eventDate;
 	}
-	
+	public String getStatusStr() {
+		return ILookupConstant.ArticleStatus.ARTICLE_STATUS_MAP.get(status);
+	}
 }

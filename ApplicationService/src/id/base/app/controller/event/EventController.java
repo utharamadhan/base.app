@@ -60,7 +60,6 @@ public class EventController extends SuperController<Event>{
 	
 	@Override
 	public Event preUpdate(Event anObject) throws SystemException{
-		anObject.setStatus(SystemConstant.ValidFlag.VALID);
 		return validate(anObject);
 	}
 	
@@ -124,6 +123,17 @@ public class EventController extends SuperController<Event>{
 			filter.add(new SearchFilter(Event.EVENT_DATE, Operator.EQUALS_OR_GREATER_THAN, startDate));
 			filter.add(new SearchFilter(Event.EVENT_DATE, Operator.EQUALS_OR_LESS_THAN, endDate));
 			return eventService.findUpcoming(filter, order);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new SystemException(new ErrorHolder("error finding your data"));
+		}
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/findLatestEventUpcoming")
+	@ResponseBody
+	public List<Event> findLatestEventUpcoming(@RequestParam(value="number") int number) throws SystemException {
+		try {
+			return eventService.findLatestEventUpcoming(number);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new SystemException(new ErrorHolder("error finding your data"));

@@ -52,7 +52,6 @@ public class EngagementController extends SuperController<Engagement>{
 	
 	@Override
 	public Engagement preUpdate(Engagement anObject) throws SystemException{
-		anObject.setStatus(SystemConstant.ValidFlag.VALID);
 		return validate(anObject);
 	}
 	
