@@ -11,7 +11,7 @@
 				<div class="container">
 					<ul>
 					<li><a th:href="@{/}">Home</a></li>
-					<li><a href="#">Advisory</a></li>
+					<li><a th:href="@{/page/advisory}">Advisory</a></li>
 					</ul>
 				</div>
 			</div>
@@ -67,6 +67,7 @@
 							<div class="col-md-3 list_category_article" th:each="category, i : ${categories}" th:if="${i.index &lt; 8}"> 
 								<img th:src="${category.basicPictureURL}" />
 								<div class="box_cat_title">
+									<input type="hidden" name="" class="pkCategory" th:value="${category.pkCategory}"/>
 									<h4 class="box_cat_title_label" th:text="${category.name}">Make a Concept House</h4>
 								</div>
 							</div>
@@ -88,6 +89,7 @@
 	                    </div>
 						<div class="row advisor_list"> 
 							<div class="col-md-3 align_center" th:each="advisor, i : ${advisors}" th:if="${i.index &lt; 8}"> 
+								<input type="hidden" name="pkAppUser" class="id_advisor" th:value="${advisor.pkAppUser}"/>
 								<img class="img-circle" th:src="${advisor.party.basicPictureURL}"/>
 								<div class="advisor_description">
 									<h3 class="big-text yellow-text-color advisor_name" th:text="${advisor.party.name}">George Martin</h3>
@@ -122,12 +124,16 @@
 			});
 			
 			$('.box_cat_title_label').unbind('click').click(function(){
+				var idCategory = $(this).parent().find('.pkCategory').val();
 				var url = /*[[@{/page/advisory/sub/article}]]*/
+				url += "?chooseCategory="+idCategory;
 				window.location.href = url;
 			});
 			
 			$('.advisor_name').unbind('click').click(function(){
-				var url = /*[[@{/page/advisory/sub/advisor/detail}]]*/
+				var idVal = $(this).parent().parent().find('.id_advisor').val();
+				var url = /*[[@{/page/advisory/sub/advisor/detail/}]]*/
+				url += idVal;
 				window.location.href = url;
 			});
 		});

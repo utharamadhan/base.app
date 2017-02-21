@@ -29,6 +29,12 @@ public class Advisory extends BaseEntity implements Serializable {
 	
 	public static final String PK_ADVISORY 		= "pkAdvisory";
 	public static final String STATUS			= "status";
+	public static final String TUTOR 			= "tutor";
+	public static final String TUTOR_PK 		= "tutor.pkAppUser";
+	public static final String ARTICLE 			= "article";
+	public static final String ARTICLE_PK 		= "article.pkArticle";
+	public static final String CATEGORY 		= "category";
+	public static final String CATEGORY_PK 		= "category.pkCategory";
 	
 	public static Advisory getInstance() {
 		return new Advisory();

@@ -40,7 +40,6 @@ public class AdvisoryController extends SuperController<Advisory>{
 	
 	@Override
 	public Advisory preUpdate(Advisory anObject) throws SystemException{
-		anObject.setStatus(SystemConstant.ValidFlag.VALID);
 		return validate(anObject);
 	}
 	

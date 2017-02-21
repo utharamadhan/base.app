@@ -10,7 +10,7 @@
 				<div class="container">
 					<ul>
 					<li><a th:href="@{/}">Home</a></li>
-					<li><a href="#">Advisory</a></li>
+					<li><a th:href="@{/page/advisory}">Advisory</a></li>
 					</ul>
 				</div>
 			</div>
@@ -132,7 +132,7 @@
 						
 						<div class="row">
 							<div class="col-xs-12 col-sm-8 col-md-8 custom_right">
-								<div class="single_content_left">
+								<div class="single_content_left" style="border: 0;">
 									<h3>Ask Us</h3>
 									
 									<div class="contact_form">
@@ -153,7 +153,7 @@
 													<div class="form-group">
 														<label>Research <span class="error">*</span></label>
 														<input type="text" class="form-control researchView" name="" readonly="readonly"/>
-														<input type="text" class="form-control" name="research" readonly="readonly"/>
+														<input type="hidden" class="form-control" name="research" readonly="readonly"/>
 													</div>
 												</div>
 											</div><!--end row-->
@@ -163,7 +163,7 @@
 													<div class="form-group">
 														<label>Advisor <span class="error">*</span></label>
 														<input type="text" class="form-control advisorView" name="" readonly="readonly"/>
-														<input type="text" class="form-control" name="advisor" readonly="readonly"/>
+														<input type="hidden" class="form-control" name="advisor" readonly="readonly"/>
 													</div>
 												</div>
 											</div><!--end row-->
@@ -224,19 +224,61 @@
 		
 		<script type="text/javascript" th:inline="javascript">
 		/*<![CDATA[*/
-		function changeToCategory(){
-			var url = /*[[@{/page/advisory/sub/article}]]*/
-				//window.location.href = url;
-				var widthScreen = $( window ).width();
-				$('.research_advisory').css('left',widthScreen);
-				$('.category_advisory').animate({left: widthScreen*-1}, 1000,function(){
-					$('.category_advisory').hide();
-					$('.research_advisory').show();
-					$('.research_advisory').animate({left: 0}, 1000,function(){
-						
-					});
+		var chooseCategory = /*[[${chooseCategory}]]*/;
+		var chooseArticle = /*[[${chooseArticle}]]*/;
+		var chooseAdvisor = /*[[${chooseAdvisor}]]*/;
+		           
+		function changeToResearch(){
+			var widthScreen = $( window ).width();
+			$('.research_advisory').css('left',widthScreen);
+			$('.category_advisory').animate({left: widthScreen*-1}, 1000,function(){
+				$('.category_advisory').hide();
+				$('.research_advisory').show();
+				$('.research_advisory').animate({left: 0}, 1000,function(){
+					
 				});
-		}         
+			});
+		}    
+		
+		function changeToAdvisor(){
+			var widthScreen = $( window ).width();
+			$('.advisor_advisory').css('left',widthScreen);
+			$('.research_advisory').animate({left: widthScreen*-1}, 1000,function(){
+				$('.research_advisory').hide();
+				$('.advisor_advisory').show();
+				$('.advisor_advisory').animate({left: 0}, 1000,function(){
+					
+				});
+			});
+		}
+		
+		function finalChoose(){
+			scrollToBottom('consult_form_part', 72);
+		}
+		
+		function changeBackToCategory(){
+			var widthScreen = $( window ).width();
+			$('.category_advisory').css('left',widthScreen*-1);
+			$('.advisor_advisory').animate({left: widthScreen*1}, 1000,function(){
+				$('.advisor_advisory').hide();
+				$('.category_advisory').show();
+				$('.category_advisory').animate({left: 0}, 1000,function(){
+					
+				});
+			});
+		}
+		
+		function changeBackToResearch(){
+			var widthScreen = $( window ).width();
+			$('.research_advisory').css('left',widthScreen*-1);
+			$('.advisor_advisory').animate({left: widthScreen*1}, 1000,function(){
+				$('.advisor_advisory').hide();
+				$('.research_advisory').show();
+				$('.research_advisory').animate({left: 0}, 1000,function(){
+					
+				});
+			});
+		}
 		
 		function askQuesstion(sURL){
 			var img_url = /*[[@{/images/gif/loading_gear.gif}]]*/;
@@ -294,8 +336,56 @@
 				$('.advisor_input').hide();
 			}
 		}
+		
+		function loadCriteria(){
+			if(chooseCategory){
+				resetField('category');
+				var val = $('.article_category_list').find('.idCategory[value="'+chooseCategory+'"]').parent().parent().find('.label_want').html();
+				var paramVal = chooseCategory;
+				$('.category_input').find('input[name="category"]').val(paramVal);
+				$('.category_input').find('.categoryView').val(val);
+				$('.category_input').show();
+				if(!chooseArticle){
+					changeToResearch();
+				}
+			}
+			
+			if(chooseArticle){
+				if($('.research_advisory').is(':hidden')){
+					changeToResearch();
+				}
+				
+				resetField('research');
+				$('.research_advisory').find('.article_label option[value="'+chooseArticle+'"]').attr('selected','selected');
+				var validVal = $('.research_advisory').find('.article_label option:selected').val();
+				if(validVal){
+					var val = $('.research_advisory').find('.article_label option:selected').html();
+					$('.research_input').find('.researchView').val(val);
+					$('.research_input').find('input[name="research"]').val(validVal);
+					$('.research_input').show();
+				}
+				changeToAdvisor();
+			}
+			
+			if(chooseAdvisor){
+				if($('.advisor_advisory').is(':hidden')){
+					changeToResearch();
+					changeToAdvisor();
+				}
+				
+				resetField('advisor');
+				$('.advisor_advisory').find('.advisor_label option[value="'+chooseAdvisor+'"]').attr('selected','selected');
+				var val = $('.advisor_advisory').find('.advisor_label option:selected').html();
+				$('.advisor_input').find('.advisorView').val(val);
+				$('.advisor_input').find('input[name="advisor"]').val(chooseAdvisor);
+				$('.advisor_input').show();
+				finalChoose();
+			}
+		}
 		           
 		$(function(){  
+			loadCriteria();
+			
 			$('.foreground_list').unbind('click').click(function(){
 				resetField('category');
 				var val = $(this).find('.label_want').html();
@@ -303,7 +393,7 @@
 				$('.category_input').find('input[name="category"]').val(paramVal);
 				$('.category_input').find('.categoryView').val(val);
 				$('.category_input').show();
-				changeToCategory();
+				changeToResearch();
 			});
 			
 			$('.back_research').unbind('click').click(function(){
@@ -324,34 +414,16 @@
 				var validVal = $('.research_advisory').find('.article_label option:selected').val();
 				if(validVal){
 					var val = $('.research_advisory').find('.article_label option:selected').html();
-					$('.research_input').find('.reseearchView').val(val);
+					$('.research_input').find('.researchView').val(val);
 					$('.research_input').find('input[name="research"]').val(validVal);
 					$('.research_input').show();
 				}
-				var url = /*[[@{/page/advisory/sub/article}]]*/
-				//window.location.href = url;
-				var widthScreen = $( window ).width();
-				$('.advisor_advisory').css('left',widthScreen);
-				$('.research_advisory').animate({left: widthScreen*-1}, 1000,function(){
-					$('.research_advisory').hide();
-					$('.advisor_advisory').show();
-					$('.advisor_advisory').animate({left: 0}, 1000,function(){
-						
-					});
-				});
+				changeToAdvisor();
 			});
 			
 			$('.cancel_research').unbind('click').click(function(){
 				resetField('advisor');
-				var widthScreen = $( window ).width();
-				$('.research_advisory').css('left',widthScreen*-1);
-				$('.advisor_advisory').animate({left: widthScreen*1}, 1000,function(){
-					$('.advisor_advisory').hide();
-					$('.research_advisory').show();
-					$('.research_advisory').animate({left: 0}, 1000,function(){
-						
-					});
-				});
+				changeBackToResearch();
 			});
 			
 			$('.position_right_info').unbind('click').click(function(){
@@ -368,15 +440,7 @@
 			
 			$('.cancel_ask').unbind('click').click(function(){
 				resetField('category');
-				var widthScreen = $( window ).width();
-				$('.category_advisory').css('left',widthScreen*-1);
-				$('.advisor_advisory').animate({left: widthScreen*1}, 1000,function(){
-					$('.advisor_advisory').hide();
-					$('.category_advisory').show();
-					$('.category_advisory').animate({left: 0}, 1000,function(){
-						
-					});
-				});
+				changeBackToCategory();
 			});
 			
 			$('.consult_research').unbind('click').click(function(){
@@ -388,7 +452,7 @@
 					$('.advisor_input').find('input[name="advisor"]').val(validVal);
 					$('.advisor_input').show();
 				}
-				scrollToBottom('consult_form_part', 72);
+				finalChoose();
 			});
 		});
 		

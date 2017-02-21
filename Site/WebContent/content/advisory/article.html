@@ -10,7 +10,7 @@
 				<div class="container">
 					<ul>
 					<li><a th:href="@{/}">Home</a></li>
-					<li><a href="#">Advisory</a></li>
+					<li><a th:href="@{/page/advisory}">Advisory</a></li>
 					</ul>
 				</div>
 			</div>
@@ -21,15 +21,15 @@
 				<div class="info_banner_search">
 					<h1 class="find_advisor_title">Find Best Article</h1>
 					<div class="part_div">
-						<select class="select_tema">
+						<select class="select_tema selectionCategory">
 							<option value="">Select Category</option>
-							<option th:each="category, i : ${categories}" th:text="${category.name}">Make a Concept House</option>
+							<option th:each="category, i : ${categories}" th:value="${category.pkCategory}" th:text="${category.name}" th:selected="${category.pkCategory == chooseCategory}">Make a Concept House</option>
 						</select>
 					</div>
 					<div class="part_div">
-						<select class="select_tema">
+						<select class="select_tema selectionAdvisor">
 							<option value="">Select Advisor</option>
-							<option th:each="advisor, i : ${advisors}" th:value="${advisor.party.pkParty}" th:text="${advisor.party.name}">George Martin</option>
+							<option th:each="advisor, i : ${advisors}" th:value="${advisor.party.pkParty}" th:text="${advisor.party.name}" th:selected="${advisor.pkAppUser == chooseAdvisor}">George Martin</option>
 						</select>
 					</div>
 					<div class="part_div">
@@ -42,10 +42,10 @@
 			</div>
 			
 			<!-- Start advisory article -->
-			<div class="advisory_article">
+			<div class="advisory_article" id="advisory_article">
 				<div class="container">
-					<div class="article_container row">
-						<div id="template" class="col-md-3" th:each="article, i : ${articles.result}"> 
+					<div class="article_container row list_data">
+						<div id="template" class="col-md-3 data_result" th:each="article, i : ${articles.result}"> 
 							<div class="box_article_wrapper">
 								<div class="article_box_image"><img th:src="${article.basicPictureURL}" /></div> 
 								<div class="article_box_content">
@@ -60,15 +60,17 @@
 								</div>
 							</div>
 						</div>
-						<div class="row load_pagination" style="display: none;">
-							<div class="col-md-12">
-								<div class="col-md-4"></div>
-								<div class="col-md-4"> <img th:src="@{/images/gif/loading_linear.gif}" style="margin-left: 50px;"/> </div>
-								<div class="col-md-4"></div>
-							</div>
+					</div>
+					<input type="hidden" th:value="${articles.startRecordIndex}" class="startNo"/>
+					<input type="hidden" th:value="${articles.recordsPerPage}" class="offset"/>
+					<div class="row load_pagination" style="display: none;">
+						<div class="col-md-12">
+							<div class="col-md-4"></div>
+							<div class="col-md-4"> <img th:src="@{/images/gif/loading_linear.gif}" style="margin-left: 50px;"/> </div>
+							<div class="col-md-4"></div>
 						</div>
 					</div>
-					<div class="bouton bouton-red"><a href="#" class="load_more"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Load More</a></div>
+					<div class="bouton bouton-red" th:if="${#lists.size(articles.result) &gt; 12}"><a href="#" class="load_more"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Load More</a></div>
 					<div style="margin-bottom: 20px;"></div>
 				</div>
 			</div>
@@ -122,46 +124,61 @@
 			if(load){
 				$('.list_data').html(load_content);
 			}
-		}           
+		}       
+		
+		function loadData(isLoad){
+			var sURL = /*[[@{/page/advisory/sub/article/load}]]*/
+			var param = $('.param').val();
+			var chooseCategory = $('.selectionCategory').find('option:selected').val(); 
+			var chooseAdvisor = $('.selectionAdvisor').find('option:selected').val();
+			var nextStartNo = parseInt($('.startNo').val()) + parseInt($('.offset').val());
+			var offset = $('.offset').val();
+			$.ajax({
+	            type: 'GET',
+	            url: sURL,
+	            data: {filter : param, startNo : nextStartNo, offset : offset, chooseAdvisor : chooseAdvisor, chooseCategory : chooseCategory},
+	            dataType: 'json',
+	            success: function (data) {
+	            	$('.load_pagination').hide();
+	            	$('.mrdy_btn').disableBtn({enabled:true});
+	            	processData(data.articles.result, isLoad);		
+	            	var newMaxRecord = data.articles.maxRecord;
+	            	var newCurrentRecord = data.articles.currentRecord;
+	            	showPaging(newMaxRecord, newCurrentRecord);
+	            	$('.startNo').val(data.articles.startRecordIndex);
+	            },
+	            beforeSend: function($jqXHR, $textStatus){
+					$('.load_pagination').show();
+					$('.mrdy_btn').disableBtn({enabled:false});
+				},
+				error: function ($jqXHR, $textStatus, $errorThrown) {
+					$('.load_pagination').hide();
+					$('.mrdy_btn').disableBtn({enabled:true});
+				},
+				complete: function($jqXHR, $textStatus){
+					$('.load_pagination').hide();
+					$('.mrdy_btn').disableBtn({enabled:true});
+				}
+	        });	
+		}
 		           
 		$(function(){      
 			var maxRecord = /*[[${articles.maxRecord}]]*/;
 			var currentRecord = /*[[${articles.currentRecord}]]*/;
+			var chooseCategory = /*[[${chooseCategory}]]*/';
+			var chooseAdvisor = /*[[${chooseAdvisor}]]*/';	
 			
 			showPaging(maxRecord, currentRecord);
 			
 			$('.load_more').unbind('click').click(function(e){
 				e.preventDefault();
-				var sURL = /*[[@{/page/advisory/sub/article/load}]]*/
-				var param = $('.param').val();
-				var nextStartNo = parseInt($('.startNo').val()) + parseInt($('.offset').val());
-				var offset = $('.offset').val();
-				$.ajax({
-		            type: 'GET',
-		            url: sURL,
-		            data: {filter : param, startNo : nextStartNo, offset : offset},
-		            dataType: 'json',
-		            success: function (data) {
-		            	$('.load_pagination').hide();
-		            	$('.mrdy_btn').disableBtn({enabled:true});
-		            	processData(data.articles.result, false);		
-		            	var newMaxRecord = data.articles.maxRecord;
-		            	var newCurrentRecord = data.articles.currentRecord;
-		            	showPaging(newMaxRecord, newCurrentRecord);
-		            },
-		            beforeSend: function($jqXHR, $textStatus){
-						$('.load_pagination').show();
-						$('.mrdy_btn').disableBtn({enabled:false});
-					},
-					error: function ($jqXHR, $textStatus, $errorThrown) {
-						$('.load_pagination').hide();
-						$('.mrdy_btn').disableBtn({enabled:true});
-					},
-					complete: function($jqXHR, $textStatus){
-						$('.load_pagination').hide();
-						$('.mrdy_btn').disableBtn({enabled:true});
-					}
-		        });				
+				loadData(false);		
+			});
+			
+			$('.btn_find').unbind('click').click(function(e){
+				e.preventDefault();
+				loadData(true);
+				scrollToBottom('advisory_article', 72);
 			});
 			
 			$('.consult_btn').unbind('click').click(function(){

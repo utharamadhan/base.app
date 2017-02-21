@@ -10,7 +10,7 @@
 				<div class="container">
 					<ul>
 					<li><a th:href="@{/}">Home</a></li>
-					<li><a href="#">Advisory</a></li>
+					<li><a th:href="@{/page/advisory}">Advisory</a></li>
 					</ul>
 				</div>
 			</div>
@@ -74,33 +74,15 @@
                     </div>
 					<div class="article_container row">
 						<div class="col-lg-12 col-md-12 col-sm-12"> 
-							<div class="row"> 
+							<div class="row" th:each="advisory, i : ${advisories}"> 
 								<div class="col-xs-12 col-sm-12 col-md-12 courses_right article_answer_border">
 									<div class="article_answer_margin">
-										<h1 style="color: #108dce;">Rumah konsep apakah bisa terwujud?</h1>
+										<h1 style="color: #108dce;" th:text="${advisory.question}">Rumah konsep apakah bisa terwujud?</h1>
 										<div style="margin-top:30px;"><label style="font-size: 30px; font-weight: 100;">Jawaban : </label></div>
-										<div style="margin-top:10px;"><p>Pastinya anda harus percaya itu dengan tekun dan giat semua bisa terwujud.</p></div>
+										<div style="margin-top:10px;"><p th:text="${advisory.answer}">Pastinya anda harus percaya itu dengan tekun dan giat semua bisa terwujud.</p></div>
 									</div><!--end content left-->
 								</div>
 							</div>
-							<div class="row"> 
-								<div class="col-xs-12 col-sm-12 col-md-12 courses_right article_answer_border">
-									<div class="article_answer_margin">
-										<h1 style="color: #108dce;">Berapa biaya untuk rumah konsep?</h1>
-										<div style="margin-top:30px;"><label style="font-size: 30px; font-weight: 100;">Jawaban : </label></div>
-										<div style="margin-top:10px;"><p>Biaya memang cukup tinggi, tapi kalo dengan bisnis plan yang tepat maka akan ada dana dari investor yang bisa membantu.</p></div>
-									</div><!--end content left-->
-								</div>
-							</div> 
-							<div class="row"> 
-								<div class="col-xs-12 col-sm-12 col-md-12 courses_right article_answer_border">
-									<div class="article_answer_margin">
-										<h1 style="color: #108dce;">Apakah rumah konsep bisa memberikan keuntungan?</h1>
-										<div style="margin-top:30px;"><label style="font-size: 30px; font-weight: 100;">Jawaban : </label></div>
-										<div style="margin-top:10px;"><p>Bisa saja, sekali lagi semua berdasarkan bisnis plan yang baik.</p></div>
-									</div><!--end content left-->
-								</div>
-							</div> 
 						</div>
 					</div>
 					<div style="margin-bottom: 20px;"></div>
@@ -120,7 +102,10 @@
 		/*<![CDATA[*/
 		$(function(){      
 			$('.consult_btn').unbind('click').click(function(){
+				var pkArticle = /*[[${article.pkArticle}]]*/;
+				var pkCategory = /*[[${article.category.pkCategory}]]*/;
 				var url = /*[[@{/page/advisory/sub/consulting}]]*/
+				url+="?chooseCategory="+pkCategory+"&chooseArticle="+pkArticle;
 				window.location.href = url;
 			});
 			
