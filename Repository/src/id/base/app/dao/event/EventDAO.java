@@ -1,6 +1,7 @@
 package id.base.app.dao.event;
 
 import id.base.app.AbstractHibernateDAO;
+import id.base.app.ILookupConstant;
 import id.base.app.SystemConstant;
 import id.base.app.exception.SystemException;
 import id.base.app.paging.PagingWrapper;
@@ -15,6 +16,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -61,6 +65,7 @@ public class EventDAO extends AbstractHibernateDAO<Event, Long> implements IEven
 		order = order == null ? new ArrayList<SearchOrder>() : order;
 		String now = DateTimeFunction.date2String(new Date(), SystemConstant.SYSTEM_TIME_MASK);
 		Date currentDate = DateTimeFunction.string2Date(now, SystemConstant.SYSTEM_TIME_MASK);
+		filter.add(new SearchFilter(Event.STATUS, Operator.EQUALS, ILookupConstant.ArticleStatus.PUBLISH, Integer.class));
 		filter.add(new SearchFilter(Event.EVENT_DATE, Operator.LESS_THAN, currentDate));
 		order.add(new SearchOrder(Event.EVENT_DATE, Sort.DESC));
 		return this.findAll(filter, order);
@@ -69,9 +74,21 @@ public class EventDAO extends AbstractHibernateDAO<Event, Long> implements IEven
 	@Override
 	public List<Event> findUpcoming(List<SearchFilter> filter, List<SearchOrder> order) throws SystemException {
 		filter = filter == null ? new ArrayList<SearchFilter>() : filter;
+		filter.add(new SearchFilter(Event.STATUS, Operator.EQUALS, ILookupConstant.ArticleStatus.PUBLISH, Integer.class));
 		order = order == null ? new ArrayList<SearchOrder>() : order;
 		order.add(new SearchOrder(Event.EVENT_DATE, Sort.DESC));
 		return this.findAll(filter, order);
+	}
+	
+	@Override
+	public List<Event> findLatestEventUpcoming(int number) throws SystemException {
+		Date currentDate = DateTimeFunction.getCurrentDate();
+		Criteria crit = this.getSession().createCriteria(domainClass);
+		crit.add(Restrictions.eq(Event.STATUS, ILookupConstant.ArticleStatus.PUBLISH));
+		crit.add(Restrictions.ge(Event.EVENT_DATE, currentDate));
+		crit.addOrder(Order.desc(Event.EVENT_DATE));
+		crit.setMaxResults(number);
+		return crit.list();
 	}
 
 }

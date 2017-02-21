@@ -130,4 +130,15 @@ public class EventController extends SuperController<Event>{
 		}
 	}
 	
+	@RequestMapping(method=RequestMethod.GET, value="/findLatestEventUpcoming")
+	@ResponseBody
+	public List<Event> findLatestEventUpcoming(@RequestParam(value="number") int number) throws SystemException {
+		try {
+			return eventService.findLatestEventUpcoming(number);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new SystemException(new ErrorHolder("error finding your data"));
+		}
+	}
+	
 }

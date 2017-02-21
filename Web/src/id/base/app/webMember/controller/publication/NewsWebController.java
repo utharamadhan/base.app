@@ -1,5 +1,6 @@
 package id.base.app.webMember.controller.publication;
 
+import id.base.app.ILookupConstant;
 import id.base.app.ILookupGroupConstant;
 import id.base.app.SystemConstant;
 import id.base.app.exception.ErrorHolder;
@@ -53,7 +54,7 @@ public class NewsWebController extends BaseController<News> {
 	}
 	
 	private void setDefaultFilter(HttpServletRequest request, List<SearchFilter> filters) {
-		filters.add(new SearchFilter(News.STATUS, Operator.EQUALS, SystemConstant.ValidFlag.VALID));
+		filters.add(new SearchFilter(News.STATUS, Operator.NOT_EQUAL, ILookupConstant.ArticleStatus.DELETE, Integer.class));
 	}
 
 	@Override
@@ -83,7 +84,7 @@ public class NewsWebController extends BaseController<News> {
 	
 	public void setDefaultData(ModelMap model) {
 		LookupRestCaller lrc = new LookupRestCaller();
-		model.addAttribute("newsStatusOptions", lrc.findByLookupGroup(ILookupGroupConstant.NEWS_STATUS));
+		model.addAttribute("statusOptions", lrc.findByLookupGroup(ILookupGroupConstant.ARTICLE_STATUS));
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="showAdd")

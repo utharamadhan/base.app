@@ -57,4 +57,8 @@ public class NewsService implements INewsService {
 		return newsDAO.findAll(filter, order);
 	}
 
+	@Override
+	public List<News> findLatestNews(int number) throws SystemException {
+		return newsDAO.findLatestNews(number);
+	}
 }

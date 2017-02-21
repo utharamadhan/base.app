@@ -61,9 +61,9 @@
 								</ul> --%>
 							  
 							  <ul class="nav navbar-nav navbar-right">
-								<li class=""><a href="<%=request.getContextPath()%>/">Home</a></li>
+								<li class=""><a href="<%=request.getContextPath()%>/">Beranda</a></li>
 								<li class="dropdown mega-dropdown">
-								  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">About Us <span class="caret"></span></a>
+								  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tentang Kami <span class="caret"></span></a>
 								  <ul class="dropdown-menu mega-dropdown-menu row about-us-mega-menu">
 									<li class="col-sm-4">
 										<ul>
@@ -72,6 +72,8 @@
 											<li class="divider"></li>
 											</c:forEach>
 											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/page/lecturer">Tim Pengajar</a></li>
+											<li class="divider"></li>
+											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/page/advisory/sub/advisor">Tim Advisor</a></li>
 										</ul>
 									</li>
 									<li class="col-sm-4">
@@ -80,7 +82,7 @@
 											<c:forEach items="${engages}" var="engage" varStatus="loop">
 											<li><a href="${ctx}/page/engagement/${engage.pkEngagement}">${engage.title}</a></li>
 											</c:forEach>
-											<li><br/><div class="button-orange" onclick="javascript:window.location.href='${ctx}/page/engagement/list'">LAINNYA...</div></li>
+											<li><br/><div class="button-orange" onclick="javascript:window.location.href='${ctx}/page/engagement/list'">Lainnya...</div></li>
 										</ul>
 									</li>
 									<li class="col-sm-4">
@@ -89,60 +91,71 @@
 											<c:forEach items="${programs}" var="program" varStatus="loop">
 											<li><a href="${ctx}/page/program/${program.pkProgramPost}">${program.title}</a></li>
 											</c:forEach>
-											<li><br/><div class="button-orange" onclick="javascript:window.location.href='${ctx}/page/program/list'">LAINNYA...</div></li>
+											<li><br/><div class="button-orange" onclick="javascript:window.location.href='${ctx}/page/program/list'">Lainnya...</div></li>
 										</ul>
 									</li>
 								  </ul>
 								</li>
 								<li class="dropdown">
-								  <a href="/#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Publications <span class="caret"></span></a>
+								  <a href="/#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Publikasi <span class="caret"></span></a>
 								  <ul class="dropdown-menu mega-dropdown-menu row publications-mega-menu">
-									<li class="col-sm-6">
+									<li class="col-sm-4">
 										<ul>
-											<li class="dropdown-header"><a href="#">Research Report</a></li>
-											<li class="row">
-												<div class="col-md-12">
-													<div class="col-md-3">
-														<div class="publication-year">2014</div>
-													</div>
-													<div class="col-md-3">
-														<div class="publication-year">2015</div>
-													</div>
-													<div class="col-md-3">
-														<div class="publication-year">2016</div>
-													</div>
-												</div>
-											</li>
-											<c:forEach items="${researchs}" var="research" varStatus="loop">
-											<li><a href="${research.link}">${research.title}</a></li>
+											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/page/ebook">Buku Elektronik</a></li>
+											<c:forEach items="${ebooksLatest}" var="ebookLatest" varStatus="loop">
+											<li><a href="${ctx}/page/ebook/detail/${ebookLatest.pkDigitalBook}">${ebookLatest.title}</a></li>
 											</c:forEach>
+											<li><br/><div class="button-orange" onclick="javascript:window.location.href='${ctx}/page/ebook'">Lainnya...</div></li>
 										</ul>
 									</li>
-									<li class="col-sm-6">
+									<li class="col-sm-4">
 										<ul>
-											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/page/ebook">Digital Books</a></li>
-											<li>
-												<c:forEach items="${ebooksLatest}" var="ebookLatest" varStatus="loop">
-												<div class="col-md-6">
-													<img src="${ebookLatest.coverImageURL}"/>
-												</div>
-												</c:forEach>
+											<li class="dropdown-header"><a href="#">Berita</a></li>
+											<c:forEach items="${programs}" var="program" varStatus="loop">
+											<li><a href="${ctx}/page/program/${program.pkProgramPost}">${program.title}</a></li>
+											</c:forEach>
+											<li><br/><div class="button-orange" onclick="javascript:window.location.href='${ctx}/page/news'">Lainnya...</div></li>
+										</ul>
+									</li>
+									<li class="col-sm-4">
+										<ul>
+											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/page/ebook">Kegiatan</a></li>
+											<c:forEach items="${ebooksLatest}" var="ebookLatest" varStatus="loop">
+											<li><a href="${ctx}/page/ebook/detail/${ebookLatest.pkDigitalBook}">${ebookLatest.title}</a></li>
+											</c:forEach>
+											<li><br/><div class="button-orange" onclick="javascript:window.location.href='${ctx}/page/events/upcoming'">Lainnya...</div></li>
 										</ul>
 									</li>
 								  </ul>
 								</li>
-								<li><a href="<%=request.getContextPath()%>/page/news">News</a></li>
 								<li class="dropdown">
-								  <a href="/index.html#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Events/Workshops <span class="caret"></span></a>
-								  <ul class="dropdown-menu mega-dropdown-menu row events-mega-menu">
-									<li class="col-sm-6">
+								  <a href="/#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Program <span class="caret"></span></a>
+								  <ul class="dropdown-menu mega-dropdown-menu row publications-mega-menu">
+									<li class="col-sm-4">
 										<ul>
-											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/page/events/archived">Archived</a></li>
+											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/page/ebook">Buku Elektronik</a></li>
+											<c:forEach items="${ebooksLatest}" var="ebookLatest" varStatus="loop">
+											<li><a href="${ctx}/page/program/${ebookLatest.pkDigitalBook}">${ebookLatest.title}</a></li>
+											</c:forEach>
+											<li><br/><div class="button-orange" onclick="javascript:window.location.href='${ctx}/page/program/list'">Lainnya...</div></li>
 										</ul>
 									</li>
-									<li class="col-sm-6">
+									<li class="col-sm-4">
 										<ul>
-											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/page/events/upcoming">Upcoming</a></li>
+											<li class="dropdown-header"><a href="#">Berita</a></li>
+											<c:forEach items="${newsLatest}" var="news" varStatus="loop">
+											<li><a href="${ctx}/page/news/detail/${news.pkNews}">${news.title}</a></li>
+											</c:forEach>
+											<li><br/><div class="button-orange" onclick="javascript:window.location.href='${ctx}/page/news'">Lainnya...</div></li>
+										</ul>
+									</li>
+									<li class="col-sm-4">
+										<ul>
+											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/page/ebook">Kegiatan</a></li>
+											<c:forEach items="${eventLatest}" var="eventLatest" varStatus="loop">
+											<li><a href="${ctx}/page/program/${ebookLatest.pkDigitalBook}">${ebookLatest.title}</a></li>
+											</c:forEach>
+											<li><br/><div class="button-orange" onclick="javascript:window.location.href='${ctx}/page/events/upcoming'">Lainnya...</div></li>
 										</ul>
 									</li>
 								  </ul>
