@@ -219,7 +219,7 @@
 		}
 		.btn-medium{
 		    padding: 10px 25px;
-			border-radius: 15px;
+			border-radius: 25px;
 		}
 	</style>
 		<div class="banner carousel slide" id="recommended-item-carousel" data-ride="carousel">
