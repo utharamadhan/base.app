@@ -41,6 +41,22 @@
 								</span>
 							</span>
 						</nav>
+						<!-- <nav class="clearfix" th:if="${#lists.size(menus) &gt; 0}">
+							<span class="set-1">
+								<span class="content_float_right">
+									<span th:each="menu, i : ${menus}" th:if="${i.index &lt; leftMenu}">
+										<a th:href="@{${menu.link}}" th:title="${menu.name}" class="menu_choice_left content_float_left" th:text="${menu.name}">Advisory Story</a>
+									</span>
+								</span>
+							</span>
+							<span class="set-2">
+								<span class="content_float_left">
+									<span th:each="menu, i : ${menus}" th:if="${i.index &lt; rightMenu + leftMenu and i.count &gt; leftMenu}">
+										<a th:href="@{${menu.link}}" th:title="${menu.name}" class="menu_choice_left content_float_left" th:text="${menu.name}">Advisory Story</a>
+									</span>
+								</span>
+							</span>
+						</nav> -->
 					</div>
 				</div>
 			</div>

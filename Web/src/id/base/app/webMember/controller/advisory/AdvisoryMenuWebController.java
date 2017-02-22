@@ -26,8 +26,8 @@ import id.base.app.util.StringFunction;
 import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
-import id.base.app.valueobject.advisory.Advisory;
 import id.base.app.valueobject.advisory.AdvisoryMenu;
+import id.base.app.valueobject.advisory.AdvisoryPost;
 import id.base.app.webMember.DataTableCriterias;
 import id.base.app.webMember.controller.BaseController;
 
@@ -42,6 +42,10 @@ public class AdvisoryMenuWebController extends BaseController<AdvisoryMenu> {
 	@Override
 	protected RestCaller<AdvisoryMenu> getRestCaller() {
 		return new RestCaller<AdvisoryMenu>(RestConstant.REST_SERVICE, RestServiceConstant.ADVISORY_MENU_SERVICE);
+	}
+	
+	protected RestCaller<AdvisoryPost> getRestCallerPost() {
+		return new RestCaller<AdvisoryPost>(RestConstant.REST_SERVICE, RestServiceConstant.ADVISORY_POST_SERVICE);
 	}
 
 	@Override
@@ -79,6 +83,7 @@ public class AdvisoryMenuWebController extends BaseController<AdvisoryMenu> {
 	}
 	
 	public void setDefaultData(ModelMap model) {
+		model.addAttribute("posts", getRestCallerPost().findAll(new ArrayList<SearchFilter>(), new ArrayList<SearchOrder>()));
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="showAdd")
@@ -100,6 +105,7 @@ public class AdvisoryMenuWebController extends BaseController<AdvisoryMenu> {
 	@ResponseBody
 	public Map<String, Object> saveAdvisory(final AdvisoryMenu anObject, HttpServletRequest request) {
 		Map<String, Object> resultMap = new HashMap<>();
+		clear(anObject);
 		List<ErrorHolder> errors = new ArrayList<>();
 		try{
 			errors = new SpecificRestCaller<AdvisoryMenu>(RestConstant.REST_SERVICE, RestServiceConstant.ADVISORY_MENU_SERVICE).performPut("/update", anObject);
@@ -110,6 +116,12 @@ public class AdvisoryMenuWebController extends BaseController<AdvisoryMenu> {
 			LOGGER.error(e.getMessage(), e);
 		}
 		return resultMap;
+	}
+	
+	private void clear(AdvisoryMenu anObject){
+		if(anObject!=null && anObject.getPost()!=null && anObject.getPost().getPkAdvisoryPost()==null){
+			anObject.setPost(null);
+		}
 	}
 
 	@Override

@@ -82,8 +82,19 @@ public class AdvisoryWebController {
 			@RequestParam(value="filter", defaultValue="", required=false) String filterJson
 		){
 		//Advisor Menu 
-		List<AdvisoryMenu> menus = getRestCallerMenu().findAll(new ArrayList<SearchFilter>(), new ArrayList<SearchOrder>());
+		List<SearchOrder> orderMenu = new ArrayList<SearchOrder>();
+		orderMenu.add(new SearchOrder(AdvisoryMenu.ORDER_NO, Sort.ASC));
+		List<AdvisoryMenu> menus = getRestCallerMenu().findAll(new ArrayList<SearchFilter>(), orderMenu);
 		model.addAttribute("menus", menus);
+		double leftMenu = 0;
+		double rightMenu = 0;
+		double sizeMenu = menus.size();
+		if(sizeMenu>0){
+			leftMenu = Math.ceil(sizeMenu/2);
+			rightMenu = sizeMenu - leftMenu;
+		}
+		model.addAttribute("leftMenu", leftMenu);
+		model.addAttribute("rightMenu", rightMenu);
 		
 		//Advisor
 		List<SearchFilter> filter = new ArrayList<SearchFilter>();

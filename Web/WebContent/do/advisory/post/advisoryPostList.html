@@ -15,7 +15,7 @@
 	<div id="advisory-detail-container"></div>
 	<div id="advisory-list-container">
 	<div class="pageheader">
-		<h4><i class="fa fa-shopping-basket"></i> Advisory Menu Editor / Advisory Menu List
+		<h4><i class="fa fa-shopping-basket"></i> Advisory Post Editor / Advisory Post List
 		<span></span></h4>
 	</div>
 	<div class="col-md-4 tile-body no-vpadding" style="margin:10px;">
@@ -30,7 +30,6 @@
 	                      	<table id="advisory-list-table" class="table table-datatable table-custom">
 		                        <thead>
 		                          <tr>
-		                            <th>Code</th>
 									<th>Name</th>
 									<th>E/D</th>
 		                          </tr>
@@ -49,17 +48,17 @@
 <script th:inline="javascript">
 	/*<![CDATA[*/
 		function showAdd() {
-	    	var sURL = /*[[@{/do/advisory/menu/showAdd?skipdecorator=}]]*/ #;
+	    	var sURL = /*[[@{/do/advisory/post/showAdd?skipdecorator=}]]*/ #;
 	    	showScreen('advisory-list-container', 'advisory-detail-container', sURL);
 		}
 		
 		function showDetail(maintenancePK) {
-			var sURL = /*[[@{/do/advisory/menu/showEdit?maintenancePK=}]]*/ #;
+			var sURL = /*[[@{/do/advisory/post/showEdit?maintenancePK=}]]*/ #;
 			showScreen('advisory-list-container', 'advisory-detail-container', sURL + maintenancePK + "&skipdecorator=");
 		}
 		
 		function deleteItem(maintenancePK) {
-			var sURL = /*[[@{/do/advisory/menu/delete?}]]*/ #;
+			var sURL = /*[[@{/do/advisory/post/delete?}]]*/ #;
 			var serializedData = "maintenancePKs=" + maintenancePK;
 			$.post(sURL, serializedData,function(data){
 				if(data.errorList!=null){
@@ -71,7 +70,7 @@
 		} 
 		
 		function deleteAdvisory() {
-			var sURL = /*[[@{/do/advisory/menu/deleteAdvisory?skipDecorator}]]*/ #;
+			var sURL = /*[[@{/do/advisory/post/deleteAdvisory?skipDecorator}]]*/ #;
 			$.post(sURL, $('.advisory-list-check-delete').serialize(), function(data){
 				if(data.errorList!=null){
 					
@@ -82,12 +81,11 @@
 		}
 	
 	    $(function(){
-		    setMenuActive('advisoryMenu');
-		    var colDefs = [{ name : "code" }, 
-	    	               { name : "name" },
-	    	               { type : "deleteAndEdit" , param : [ "pkAdvisoryMenu" ] }
+		    setMenuActive('advisoryPost');
+		    var colDefs = [{ name : "name" },
+	    	               { type : "deleteAndEdit" , param : [ "pkAdvisoryPost" ] }
 	    	               ];
-		    var sURL = /*[[@{/do/advisory/menu/list?}]]*/ #;
+		    var sURL = /*[[@{/do/advisory/post/list?}]]*/ #;
 		    buildDataTable(/*[[@{/}]]*/, sURL, 'advisory-list-table', 450, colDefs, null, null);
 	    });
 	    

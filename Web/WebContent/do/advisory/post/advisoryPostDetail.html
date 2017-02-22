@@ -7,7 +7,7 @@
 <body>
 	<div class="pageheader">
 		<div class="row col-md-8">
-			<h4><i class="fa fa-tachometer"></i> Advisory Menu Editor / Advisory Menu List / Advisory Menu Detail
+			<h4><i class="fa fa-tachometer"></i> Advisory Post Editor / Advisory Post List / Advisory Post Detail
 			<span></span></h4>
 		</div>
 	</div>
@@ -29,13 +29,7 @@
 							</div>									
 							&nbsp;
 						</div>
-						<input id="advisory-detail-maintenancePk" type="hidden" th:field="*{pkAdvisoryMenu}"/>
-						<div class="form-group">
-							<label class="col-sm-2 control-label" th:text="'Code'">Code</label>
-							<div class="col-sm-9 form-input-container">
-								<input type="text" class="form-control" placeholder="Code" name="srch-term" id="input-text-code" th:field="*{code}"/>
-							</div>
-						</div>
+						<input id="advisory-detail-maintenancePk" type="hidden" th:field="*{pkAdvisoryPost}"/>
 						<div class="form-group">
 							<label class="col-sm-2 control-label" th:text="'Name'">Name</label>
 							<div class="col-sm-9 form-input-container">
@@ -43,26 +37,11 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-2 control-label" th:text="'Order'">Order</label>
-							<div class="col-sm-9 form-input-container">
-								<input type="text" class="form-control" placeholder="Order" name="srch-term" th:field="*{orderNo}"/>
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="col-sm-2 control-label" th:text="'Type'">Type</label>
-							<div class="col-sm-9 form-input-container">
-								<span><input type="radio" value="1" id="post" class="" checked="checked" th:field="*{type}"/><label for="post" th:text="'Post'">Post</label></span>
-								<span style="margin-left: 10px;"><input type="radio" value="2" id="link" class="" th:field="*{type}"/><label for="link" th:text="'Link'">Link</label></span>
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="col-sm-2 control-label"></label>
-							<div class="col-sm-9 form-input-container">
-								<select class="form-control postValue" name="post.pkAdvisoryPost">
-									<option value="">Select Post</option>
-									<option th:each="opt : ${posts}" th:text="${opt.name}" th:value="${opt.pkAdvisoryPost}" th:selected="${opt.pkAdvisoryPost == post?.pkAdvisoryPost}"></option>
-								</select>
-								<input type="text" class="form-control linkValue" placeholder="Link" style="display: none;" th:field="*{link}"/>
+							<label class="col-sm-2 control-label" th:text="'Content'">Content</label>
+							<input id="tinyMCE-hidden" name="content" type="hidden"/>
+							<div id="tinyMCE-parent" class="col-sm-9">					
+								<textarea id="tinyMCE-area" th:text="*{content}">
+								</textarea>
 							</div>
 						</div>
 						<div class="form-group form-footer">				
@@ -78,19 +57,21 @@
 	</div>
 	<script th:inline="javascript">
 	/*<![CDATA[*/
-	    function showLinkOrPost(){
-			var id = $('input[name="type"]:checked').attr('id');
-			if(id=='post'){
-				$('.postValue').show();
-				$('.linkValue').hide();
-			}else if(id='link'){
-				$('.postValue').hide();
-				$('.linkValue').show();
-			}
-		}
-	
+	    function initDeletePicture() {
+			$('.basicPicture-delete').click(function(e){
+				e.preventDefault();
+				$('#input-file-basicPictureURL').show();
+				$('#container-basicPictureURL').html("");
+				$('#input-hidden-basicPictureURL, #input-file-basicPictureURL').val("");
+				$('#container-basicPictureURL').hide();
+			});
+		}       
+	           
 	    $(function(){
-	    	showLinkOrPost();
+	    	var uploadURL = /*[[@{/do/fileManager/upload/}]]*/ #;
+	    	initTextEditor('#tinyMCE-area', '#tinyMCE-parent', uploadURL);
+	    	
+	    	initDeletePicture();
 	    	
 			var backToList = function(){
 				returnToList('advisory-detail-container', 'advisory-list-container', true);
@@ -98,7 +79,7 @@
 			
 			var submitForm = function(){
 				cleanErrorParsley();
-				var sURL = /*[[@{/do/advisory/menu/saveAdvisoryMenu/}]]*/ #;
+				var sURL = /*[[@{/do/advisory/post/saveAdvisoryPost/}]]*/ #;
 				$.post(sURL, $("#advisory-detail-form").serialize(), function(data) {
 					if(data.errorList!=null){
 						displayErrorParsley(data.errorList);
@@ -108,16 +89,37 @@
 				});
 			};
 			
-			$('input[name="type"]').unbind('change').change(function(){
-				var id = $(this).attr('id');
-				if(id=='post'){
-					$('.postValue').show();
-					$('.linkValue').hide();
-				}else if(id='link'){
-					$('.postValue').hide();
-					$('.linkValue').show();
+			var showImage = function(imageURL) {
+				$('#input-file-basicPictureURL').hide();
+				var htmlContent = '<image src="'+imageURL+'" style="max-height:250px;"></image>';
+				htmlContent += '<a href="#" class="btn btn-primary btn-xs margin-bottom-20 basicPicture-delete" data-toggle="tooltip" title="Delete" style="position:absolute; left:25px; top:10px;"><i class="fa fa-trash"></i></a>';
+				$('#container-basicPictureURL').html(htmlContent);
+				$('#input-hidden-basicPictureURL').val(imageURL);
+				$('#container-basicPictureURL').show();
+				initDeletePicture();
+			}
+			
+			var uploadFile = function(image, uploadURL) {
+				var data = new FormData();
+				data.append('file', image);
+				var xhr = new XMLHttpRequest();
+				xhr.open('POST', uploadURL, true);
+				xhr.onreadystatechange = function() {
+				  if (xhr.readyState === 4) {
+				    var response = JSON.parse(xhr.responseText);
+				    if (response) {
+				      	showImage(response);
+				    } else {
+				      	var reader = new FileReader();
+				      	reader.onload = function(e) {
+				        	callback(e.target.result);
+				      	};
+				      	reader.readAsDataURL(image);
+				    }
+				  }
 				}
-			});
+				xhr.send(data);
+			};
 			
 			$('#advisory-detail-btn-save').click(function(e){
 				e.preventDefault();
