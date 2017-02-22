@@ -2796,4 +2796,8 @@ a.submit:hover { text-decoration: none; }
 .mobile-device .navbar-nav.side-nav.collapsed { width: 40px; }
 .mobile-device .navbar-nav.side-nav.collapsed.open { width: 100%; }
 
+img.w-max-100{
+	max-width: 100%;
+}
+
 /*# sourceMappingURL=minimal.css.map */

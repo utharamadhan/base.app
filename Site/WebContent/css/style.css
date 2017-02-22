@@ -4685,8 +4685,24 @@ ul.contact_info li a:hover {
 	width: 100%;
 	padding: 0px;	
 	border-bottom: 1px solid #dce4ea;
+	padding-top: 20px;
 }
-
+.rnd_themes_detail{
+	margin-top: -397px;
+}
+.rnd_themes_title_wrapper{
+	background: rgba(0,0,0,0.7);
+    padding: 20px 30px;
+}
+.rnd_themes_title_wrapper h2{	
+	color: white;
+    font-size: 30px;
+    line-height: 1.5;
+}
+.rnd_themes_body_wrapper{
+	background: white;
+    padding: 30px;	
+}
 .header_advisory{
 	padding: 0px;
 }
@@ -4731,13 +4747,13 @@ ul.contact_info li a:hover {
 }
 .rnd_banner .rnd_wrapper_cnt_banner{
 	position: absolute;
-    opacity: 0.9;
+    opacity: 0.95;
     text-align: center;
     width: 100%;
 }
 .rnd_banner .rnd_wrapper_cnt_banner .rnd_top_title{
 	background-color: #004fb6;
-    margin-top: 15%;
+    margin-top: 10%;
     padding: 20px;
     border-bottom: 5px solid #02316f;
     border-radius: 5px;
@@ -4748,7 +4764,7 @@ ul.contact_info li a:hover {
 }
 .rnd_wrapper_cnt_banner .rnd_title_top_menu{
 	margin-top: 3%;
-    background-color: #f4202f;
+    background-color: #000000;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
 }
@@ -4763,10 +4779,13 @@ ul.contact_info li a:hover {
     text-align: left;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
+    border-left: 25px solid #02316f;
+    padding-left: 0px;
 }
 .rnd_wrapper_cnt_banner .rnd_top_menu ul li{
 	padding: 8px;
 	border-bottom:1px solid #63a7ff;
+	padding: 8px 15px;
 }
 .rnd_wrapper_cnt_banner .rnd_top_menu ul li:hover{
 	background-color:#02316f;

@@ -48,6 +48,12 @@ public class ResearchTheme extends BaseEntity implements Serializable {
 	@Column(name="DESCRIPTION")
 	private String description;
 	
+	@Column(name="BG_IMAGE_URL")
+	private String bgImageUrl;
+	
+	@Column(name="EXCERPT")
+	private String excerpt;
+	
 	@Column(name="STATUS")
 	private Integer status;
 	
@@ -79,6 +85,22 @@ public class ResearchTheme extends BaseEntity implements Serializable {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	
+	public String getBgImageUrl() {
+		return bgImageUrl;
+	}
+
+	public void setBgImageUrl(String bgImageUrl) {
+		this.bgImageUrl = bgImageUrl;
+	}
+
+	public String getExcerpt() {
+		return excerpt;
+	}
+
+	public void setExcerpt(String excerpt) {
+		this.excerpt = excerpt;
 	}
 
 	public Integer getStatus() {
