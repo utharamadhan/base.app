@@ -15,21 +15,38 @@
 				</div>
 			</div>
 		</div>
-		<div class="advisory_section">
-			<div class="advisory_banner">
-				<div class="parallax-window" data-parallax="scroll" th:attr="data-image-src=@{/images/background-research.jpg}" ></div>
-				<div class="info_banner_stories">
-					<h2 class="title_info_stories">Advisory Stories</h2>
-					<p class="desc_info_stories">
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed dictum lectus. Donec lacus ante, tristique non nulla in, gravida pharetra velit. Fusce vestibulum, massa at vulputate tempor, nibh turpis suscipit ipsum, eget tempor orci eros sit amet mi.
-					</p>
+		<div class="rnd_section">
+			<div class="rnd_banner">
+				<div class="parallax-window" data-parallax="scroll" th:attr="data-image-src=@{/images/background-research.jpg}" >
+					<div class="rnd_wrapper_cnt_banner">
+						<div class="container">
+							<div class="row">
+								<div class="col-md-4 rnd_top_title">
+									<h2 class="rnd_title">World Class<br/>Research &#38; Development</h2>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-4 rnd_title_top_menu">
+									<h3 class="rnd_title">Our Research Themes</h3>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-4 rnd_top_menu">
+									<ul>
+										<li th:each="rt, i : ${researchThemes}">
+											<a th:href="@{/page/research-development/themes/}+${rt.pkResearchTheme}" th:text="${rt.title}"></a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 			
-			<!-- Start advisory article -->
-			<div class="advisory_article">
+			<div class="rnd_article">
 				<div class="container">
-					<div class="article_container row">
+					<div class="rnd_container row">
 						<div class="col-md-12"> 
 							<div class="row"> 
 								<h2 class="title_article">The most pressing challenges our local and global communities face are deeply complex and can only be overcome by the combined efforts of diverse disciplines.</h2>
@@ -42,16 +59,23 @@
 				</div>
 			</div>
 			
-			<!-- Start Advisor Data -->
-			<div class="stories_content_next">
-				<div class="parallax-window" data-parallax="scroll" th:attr="data-image-src=@{/images/background-research-themes.jpg}" ></div>
-				<div class="desc_stories_content_next">
-					<p class="desc_stories_content_next_parap">
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed dictum lectus. Donec lacus ante, tristique non nulla in, gravida pharetra velit. Fusce vestibulum, massa at vulputate tempor, nibh turpis suscipit ipsum, eget tempor orci eros sit amet mi. Donec vehicula erat ornare efficitur pretium. Nam tempus augue in erat malesuada, a scelerisque purus dictum. Aliquam ut diam risus. In sed felis pretium, dictum nisi hendrerit, faucibus lacus. Fusce dapibus, sapien suscipit tempor rutrum, tortor risus aliquet erat, eget posuere purus magna et diam. Duis at posuere orci, vel facilisis massa. Ut aliquet, sapien vel congue vehicula, ligula erat sodales eros, vel semper ligula quam sit amet ligula. Integer libero velit, porta vel interdum id, condimentum cursus lorem.
-					</p>
+			<div class="rnd_excerpt_themes">
+				<div class="parallax-window" data-parallax="scroll" th:attr="data-image-src=@{/images/background-research-themes.jpg}" >
+					<div class="rnd_excerpt_container container">
+						<div class="row">
+							<div class="col-md-4" th:each="rt, i : ${researchThemes}">
+								<div class="rnd_excerpt_wrapper">
+									<h3><a th:href="@{/page/research-development/themes/}+${rt.pkResearchTheme}" th:text="${rt.title}"></a></h3>
+									<div class="rnd_excerpt_content">
+										Our Research Themes draw together our rich multi-disciplinary expertise to develop solutions to real-world problems of global relevance, within a local context. They provide an interdisciplinary setting for individuals.
+									</div>	
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
-		</div><!--end post section-->
+		</div>
 		
 		<script type="text/javascript" th:inline="javascript">
 		/*<![CDATA[*/
