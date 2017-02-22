@@ -1,15 +1,14 @@
 package id.base.app.valueobject.advisory;
 
 import java.io.Serializable;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -30,16 +29,13 @@ public class AdvisoryMenu extends BaseEntity implements Serializable {
 	public static final String PK_ADVISORY_MENU 		= "pkAdvisoryMenu";
 	public static final String CODE 					= "code";
 	public static final String NAME 					= "name";
+	public static final String ORDER_NO 				= "orderNo";
 	public static final String VALID 					= "valid";
 	
 	public static AdvisoryMenu getInstance() {
 		return new AdvisoryMenu();
 	}
 	
-	public static AdvisoryMenu getInstance(Long pkCourse) {
-		AdvisoryMenu c = getInstance();
-		return c;
-	}
 	
 	@Id
 	@SequenceGenerator(name="ADVISORY_PK_ADVISORY_MENU_SEQ", sequenceName="ADVISORY_PK_ADVISORY_MENU_SEQ", allocationSize=1)
@@ -52,6 +48,19 @@ public class AdvisoryMenu extends BaseEntity implements Serializable {
 	
 	@Column(name="NAME")
 	private String name;
+	
+	@Column(name="ORDER_NO")
+	private Integer orderNo;
+	
+	@Column(name="MENU_TYPE")
+	private Integer type;
+	
+	@Column(name="LINK")
+	private String link;
+	
+	@ManyToOne
+	@JoinColumn(name="FK_POST")
+	private AdvisoryPost post;
 	
 	@Column(name="VALID")
 	private Integer valid;
@@ -79,6 +88,38 @@ public class AdvisoryMenu extends BaseEntity implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public Integer getType() {
+		return type;
+	}
+
+	public void setType(Integer type) {
+		this.type = type;
+	}
+
+	public String getLink() {
+		return link;
+	}
+
+	public void setLink(String link) {
+		this.link = link;
+	}
+	
+	public Integer getOrderNo() {
+		return orderNo;
+	}
+
+	public void setOrderNo(Integer orderNo) {
+		this.orderNo = orderNo;
+	}
+
+	public AdvisoryPost getPost() {
+		return post;
+	}
+
+	public void setPost(AdvisoryPost post) {
+		this.post = post;
 	}
 
 	public Integer getValid() {

@@ -391,4 +391,9 @@ public class SystemConstant  {
 		public static final Integer PASCA = 5;
 		public static final Integer SUMMARY = 6;
 	}
+	
+	public static final class AdvisoryMenuType{
+		public static final Integer POST = 1;
+		public static final Integer LINk = 2;
+	}
 }
