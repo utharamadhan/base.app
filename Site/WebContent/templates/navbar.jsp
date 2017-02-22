@@ -129,36 +129,7 @@
 								  </ul>
 								</li>
 								<li class="dropdown">
-								  <a href="/#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Program <span class="caret"></span></a>
-								  <ul class="dropdown-menu mega-dropdown-menu row publications-mega-menu">
-									<li class="col-sm-4">
-										<ul>
-											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/page/ebook">Buku Elektronik</a></li>
-											<c:forEach items="${ebooksLatest}" var="ebookLatest" varStatus="loop">
-											<li><a href="${ctx}/page/program/${ebookLatest.pkDigitalBook}">${ebookLatest.title}</a></li>
-											</c:forEach>
-											<li><br/><div class="button-orange" onclick="javascript:window.location.href='${ctx}/page/program/list'">Lainnya...</div></li>
-										</ul>
-									</li>
-									<li class="col-sm-4">
-										<ul>
-											<li class="dropdown-header"><a href="#">Berita</a></li>
-											<c:forEach items="${newsLatest}" var="news" varStatus="loop">
-											<li><a href="${ctx}/page/news/detail/${news.pkNews}">${news.title}</a></li>
-											</c:forEach>
-											<li><br/><div class="button-orange" onclick="javascript:window.location.href='${ctx}/page/news'">Lainnya...</div></li>
-										</ul>
-									</li>
-									<li class="col-sm-4">
-										<ul>
-											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/page/ebook">Kegiatan</a></li>
-											<c:forEach items="${eventLatest}" var="eventLatest" varStatus="loop">
-											<li><a href="${ctx}/page/program/${ebookLatest.pkDigitalBook}">${ebookLatest.title}</a></li>
-											</c:forEach>
-											<li><br/><div class="button-orange" onclick="javascript:window.location.href='${ctx}/page/events/upcoming'">Lainnya...</div></li>
-										</ul>
-									</li>
-								  </ul>
+								  <a href="<%=request.getContextPath()%>/page/learning" role="button" aria-haspopup="true" aria-expanded="false">Program</a>
 								</li>
 								<li><a href="<%=request.getContextPath()%>/page/contact">Kontak Kami</a></li>
 								<li class="btn-signup" style="display:none"><a href="#" data-toggle="modal" data-target="#sign-in-modal">Sign In</a></li>
