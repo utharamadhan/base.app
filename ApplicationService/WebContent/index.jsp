@@ -2,7 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<title>Padiku.id Application Service</title>
+<title>BTN HFC Application Service</title>
 <style type="text/css">
 </style>
 </head>
@@ -15,7 +15,7 @@
 		<h3>
 			ApplicationService up and running
 			
-			Developed by padiku team. Version 1
+			Developed by baseApp team. Version 1
 		</h3>
 	</div>
 </body>

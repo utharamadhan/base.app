@@ -23,7 +23,6 @@
 		<div class="template_part">
 		</div>
 		<!-- jQuery -->
-	    <script type="text/javascript" async="" src="<%=request.getContextPath()%>/js/themes.iamabdus.com.js"></script>
 	    <script async="" charset="utf-8" src="<%=request.getContextPath()%>/images/saved_resource" type="text/javascript"></script>
 		<script type="text/javascript" async="" src="<%=request.getContextPath()%>/js/log.js"></script>
 		<script async="" src="<%=request.getContextPath()%>/js/analytics.js"></script>
@@ -37,7 +36,7 @@
 		 <script src="<%=request.getContextPath()%>/js/jquery.magnific-popup.js" type="text/javascript" charset="utf-8"></script>
 		 <script src="<%=request.getContextPath()%>/js/socialCircle.js" type="text/javascript" charset="utf-8"></script> <!-- Behaviour Share Button -->
 		 <script type="text/javascript" src="<%=request.getContextPath()%>/js/optionswitcher.js"></script><!-- custom js -->
-		 <script src="<%=request.getContextPath()%>/plugin/vendor/quill/quill-1.1.7.js"></script>
+		 <%-- <script src="<%=request.getContextPath()%>/plugin/vendor/quill/quill-1.1.7.js"></script> --%>
 		 <script src="<%=request.getContextPath()%>/js/parallax.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="<%=request.getContextPath()%>/js/custom.js"></script><!-- custom js -->
 		<script src="<%=request.getContextPath()%>/js/mrdy-plugin.js"></script><!-- mrdy plugin js -->
