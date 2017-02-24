@@ -23,9 +23,9 @@
 		<div class="template_part">
 		</div>
 		<!-- jQuery -->
-	    <script async="" charset="utf-8" src="<%=request.getContextPath()%>/images/saved_resource" type="text/javascript"></script>
+	    <%-- <script async="" charset="utf-8" src="<%=request.getContextPath()%>/images/saved_resource" type="text/javascript"></script>
 		<script type="text/javascript" async="" src="<%=request.getContextPath()%>/js/log.js"></script>
-		<script async="" src="<%=request.getContextPath()%>/js/analytics.js"></script>
+		<script async="" src="<%=request.getContextPath()%>/js/analytics.js"></script> --%>
 		<script src="<%=request.getContextPath()%>/js/moment.min.js"></script><!-- jQuery master -->
 	    <script src="<%=request.getContextPath()%>/js/jquery.min.js"></script><!-- jQuery master -->
 	    <script src="<%=request.getContextPath()%>/plugin/vendor/owl-carousel/owl.carousel.min.js"></script>
@@ -35,7 +35,7 @@
 	     <script src="<%=request.getContextPath()%>/js/jquery.selectbox-0.1.3.min.js"></script><!-- select box -->
 		 <script src="<%=request.getContextPath()%>/js/jquery.magnific-popup.js" type="text/javascript" charset="utf-8"></script>
 		 <script src="<%=request.getContextPath()%>/js/socialCircle.js" type="text/javascript" charset="utf-8"></script> <!-- Behaviour Share Button -->
-		 <script type="text/javascript" src="<%=request.getContextPath()%>/js/optionswitcher.js"></script><!-- custom js -->
+		 <%-- <script type="text/javascript" src="<%=request.getContextPath()%>/js/optionswitcher.js"></script><!-- custom js --> --%>
 		 <%-- <script src="<%=request.getContextPath()%>/plugin/vendor/quill/quill-1.1.7.js"></script> --%>
 		 <script src="<%=request.getContextPath()%>/js/parallax.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="<%=request.getContextPath()%>/js/custom.js"></script><!-- custom js -->
