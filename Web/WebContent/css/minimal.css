@@ -149,94 +149,51 @@ ul.chat-nav.side-nav > li .form-control:focus { background-color: white; }
 /***********************************/
 /* backgrounds */
 .bg-transparent-black-05 { background-color: rgba(0, 0, 0, 0.05) !important; color: white; }
-
 .bg-transparent-black-1 { background-color: rgba(0, 0, 0, 0.1) !important; color: white; }
-
 .bg-transparent-black-15 { background-color: rgba(0, 0, 0, 0.15) !important; color: white; }
-
 .bg-transparent-black-2 { background-color: rgba(0, 0, 0, 0.2) !important; color: white; }
-
 .bg-transparent-black-3 { background-color: rgba(0, 0, 0, 0.3) !important; color: white; }
-
 .bg-transparent-black-4 { background-color: rgba(0, 0, 0, 0.4) !important; color: white; }
-
 .bg-transparent-black-5 { background-color: rgba(0, 0, 0, 0.5) !important; color: white; }
-
 .bg-transparent-black-6 { background-color: rgba(0, 0, 0, 0.6) !important; color: white; }
-
 .bg-transparent-black-7 { background-color: rgba(0, 0, 0, 0.7) !important; color: white; }
-
 .bg-transparent-black-8 { background-color: rgba(0, 0, 0, 0.8) !important; color: white; }
-
 .bg-transparent-white-05 { background-color: rgba(255, 255, 255, 0.05) !important; color: white; }
-
 .bg-transparent-white-1 { background-color: rgba(255, 255, 255, 0.1) !important; color: white; }
-
 .bg-transparent-white-15 { background-color: rgba(255, 255, 255, 0.15) !important; color: white; }
-
 .bg-transparent-white-2 { background-color: rgba(255, 255, 255, 0.2) !important; color: white; }
-
 .bg-transparent-white-3 { background-color: rgba(255, 255, 255, 0.3) !important; color: white; }
-
 .bg-transparent-white-4 { background-color: rgba(255, 255, 255, 0.4) !important; }
-
 .bg-transparent-white-5 { background-color: rgba(255, 255, 255, 0.5) !important; }
-
 .bg-transparent-white-6 { background-color: rgba(255, 255, 255, 0.6) !important; }
-
 .bg-transparent-white-7 { background-color: rgba(255, 255, 255, 0.7) !important; }
-
 .bg-transparent-white-8 { background-color: rgba(255, 255, 255, 0.8) !important; }
-
 .bg-red { background-color: #ff4a43 !important; }
-
 .bg-green { background-color: #a2d200 !important; }
-
 .bg-cyan { background-color: #22beef !important; }
-
 .bg-orange { background-color: #ffc100 !important; }
-
 .bg-amethyst { background-color: #cd97eb !important; }
-
 .bg-greensea { background-color: #16a085 !important; }
-
 .bg-drank { background-color: #A40778 !important; }
-
 .bg-dutch { background-color: #1693A5 !important; }
-
 .bg-hotpink { background-color: #FF0066 !important; }
-
 .bg-blue { background-color: #418bca !important; }
-
 .bg-slategray { background-color: #3f4e62 !important; }
-
 .bg-redbrown { background-color: #d9544f !important; }
 
 /* colors */
 .color-red { color: #ff4a43 !important; }
-
 .color-green { color: #a2d200 !important; }
-
 .color-cyan { color: #22beef !important; }
-
 .color-orange { color: #ffc100 !important; }
-
 .color-amethyst { color: #cd97eb !important; }
-
 .color-greensea { color: #16a085 !important; }
-
 .color-drank { color: #A40778 !important; }
-
 .color-dutch { color: #1693A5 !important; }
-
 .color-hotpink { color: #FF0066 !important; }
-
 .color-blue { color: #418bca !important; }
-
 .color-slategray { color: #3f4e62 !important; }
-
 .color-redbrown { color: #d9544f !important; }
-
 .color-transparent-black { color: rgba(0, 0, 0, 0.4) !important; }
 
 /**************************************/
@@ -2124,27 +2081,16 @@ blockquote.filled.slategray { border-color: #3f4e62; }
 blockquote.filled.redbrown { border-color: #d9544f; }
 
 .filled.red { background: #ff4a43; }
-
 .filled.cyan { background: #22beef; }
-
 .filled.orange { background: #ffc100; }
-
 .filled.green { background: #a2d200; }
-
 .filled.amethyst { background: #cd97eb; }
-
 .filled.greensea { background: #16a085; }
-
 .filled.drank { background: #A40778; }
-
 .filled.dutch { background: #1693A5; }
-
 .filled.hotpink { background: #FF0066; }
-
 .filled.blue { background: #418bca; }
-
 .filled.slategray { background: #3f4e62; }
-
 .filled.redbrown { background: #d9544f; }
 
 address.filled { background: #f8f8f8; padding: 10px; font-weight: 300; -webkit-border-radius: 4px; -moz-border-radius: 4px; -ms-border-radius: 4px; -o-border-radius: 4px; border-radius: 4px; color: #717171; }
@@ -2731,60 +2677,34 @@ a.submit:hover { text-decoration: none; }
 /************* MISC *************/
 /********************************/
 #ascrail2000, #ascrail2000-hr { left: 0 !important; }
-
 .blockUI.blockOverlay { -webkit-border-radius: 4px; -moz-border-radius: 4px; -ms-border-radius: 4px; -o-border-radius: 4px; border-radius: 4px; }
-
 .jumbotron { -webkit-border-radius: 4px; -moz-border-radius: 4px; -ms-border-radius: 4px; -o-border-radius: 4px; border-radius: 4px; }
-
 .bottommargin { margin-bottom: 10px; }
-
 .big-medium { font-size: 36px; font-weight: 500; }
-
 .medium-light { font-size: 22px; font-weight: 300; }
-
 .medium-thin { font-size: 22px; font-weight: 100; }
-
 .nomargin { margin: 0 !important; }
-
 .w100p { width: 100% !important; }
-
 .w35 { width: 35px !important; }
-
 .w80 { width: 80px !important; }
-
 .font-slab { font-family: "Roboto Slab", serif; }
-
 .margin-bottom-20 { margin-bottom: 20px; }
-
 .margin-top-15 { margin-top: 15px; }
-
 .margin-15 { margin: 15px; }
-
 .padding-top-0 { padding-top: 0 !important; }
-
 .inline-block { display: inline-block; }
-
 .checkbox.inline { display: inline-block; margin: 0; padding: 0; height: 0; min-height: 0; position: relative; left: 5px; top: -17px; }
-
 .rounded-corners { -webkit-border-radius: 4px !important; -moz-border-radius: 4px !important; -ms-border-radius: 4px !important; -o-border-radius: 4px !important; border-radius: 4px !important; }
 .rounded-corners .jvectormap-container { -webkit-border-radius: 4px !important; -moz-border-radius: 4px !important; -ms-border-radius: 4px !important; -o-border-radius: 4px !important; border-radius: 4px !important; }
-
 .rounded-top-corners { -webkit-border-radius: 4px 4px 0 0 !important; -moz-border-radius: 4px 4px 0 0 !important; -ms-border-radius: 4px 4px 0 0 !important; -o-border-radius: 4px 4px 0 0 !important; border-radius: 4px 4px 0 0 !important; }
 .rounded-top-corners .jvectormap-container { -webkit-border-radius: 4px 4px 0 0 !important; -moz-border-radius: 4px 4px 0 0 !important; -ms-border-radius: 4px 4px 0 0 !important; -o-border-radius: 4px 4px 0 0 !important; border-radius: 4px 4px 0 0 !important; }
-
 .rounded-bottom-corners { -webkit-border-radius: 0 0 4px 4px !important; -moz-border-radius: 0 0 4px 4px !important; -ms-border-radius: 0 0 4px 4px !important; -o-border-radius: 0 0 4px 4px !important; border-radius: 0 0 4px 4px !important; }
 .rounded-bottom-corners .jvectormap-container { -webkit-border-radius: 0 0 4px 4px !important; -moz-border-radius: 0 0 4px 4px !important; -ms-border-radius: 0 0 4px 4px !important; -o-border-radius: 0 0 4px 4px !important; border-radius: 0 0 4px 4px !important; }
-
 .rounded-left-corners { -webkit-border-radius: 4px 0 0 4px !important; -moz-border-radius: 4px 0 0 4px !important; -ms-border-radius: 4px 0 0 4px !important; -o-border-radius: 4px 0 0 4px !important; border-radius: 4px 0 0 4px !important; }
-
 .rounded-right-corners { -webkit-border-radius: 0 4px 4px 0 !important; -moz-border-radius: 0 4px 4px 0 !important; -ms-border-radius: 0 4px 4px 0 !important; -o-border-radius: 0 4px 4px 0 !important; border-radius: 0 4px 4px 0 !important; }
-
 .rounded-top-left-corner { -webkit-border-radius: 4px 0 0 0 !important; -moz-border-radius: 4px 0 0 0 !important; -ms-border-radius: 4px 0 0 0 !important; -o-border-radius: 4px 0 0 0 !important; border-radius: 4px 0 0 0 !important; }
-
 .rounded-top-right-corner { -webkit-border-radius: 0 4px 0 0 !important; -moz-border-radius: 0 4px 0 0 !important; -ms-border-radius: 0 4px 0 0 !important; -o-border-radius: 0 4px 0 0 !important; border-radius: 0 4px 0 0 !important; }
-
 .rounded-bottom-left-corner { -webkit-border-radius: 0 0 0 4px !important; -moz-border-radius: 0 0 0 4px !important; -ms-border-radius: 0 0 0 4px !important; -o-border-radius: 0 0 0 4px !important; border-radius: 0 0 0 4px !important; }
-
 .rounded-bottom-right-corner { -webkit-border-radius: 0 0 4px 0 !important; -moz-border-radius: 0 0 4px 0 !important; -ms-border-radius: 0 0 4px 0 !important; -o-border-radius: 0 0 4px 0 !important; border-radius: 0 0 4px 0 !important; }
 
 .as-table { display: table; width: 100%; }
