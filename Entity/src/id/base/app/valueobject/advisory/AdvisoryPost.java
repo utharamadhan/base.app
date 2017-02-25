@@ -47,6 +47,18 @@ public class AdvisoryPost extends BaseEntity implements Serializable {
 	@Column(name="CONTENT")
 	private String content;
 	
+	@Column(name="HEAD_CONTENT")
+	private String headContent;
+	
+	@Column(name="BACKGROUND1")
+	private String background1;
+	
+	@Column(name="BACKGROUND2")
+	private String background2;
+	
+	@Column(name="BOTTOM_CONTENT")
+	private String bottomContent;
+	
 	@Column(name="VALID")
 	private Integer valid;
 	
@@ -72,6 +84,38 @@ public class AdvisoryPost extends BaseEntity implements Serializable {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+	
+	public String getHeadContent() {
+		return headContent;
+	}
+
+	public void setHeadContent(String headContent) {
+		this.headContent = headContent;
+	}
+
+	public String getBackground1() {
+		return background1;
+	}
+
+	public void setBackground1(String background1) {
+		this.background1 = background1;
+	}
+
+	public String getBackground2() {
+		return background2;
+	}
+
+	public void setBackground2(String background2) {
+		this.background2 = background2;
+	}
+
+	public String getBottomContent() {
+		return bottomContent;
+	}
+
+	public void setBottomContent(String bottomContent) {
+		this.bottomContent = bottomContent;
 	}
 
 	public Integer getValid() {

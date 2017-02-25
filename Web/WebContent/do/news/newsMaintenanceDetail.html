@@ -120,7 +120,7 @@
 	    $(function(){
 	    	var uploadURL = /*[[@{/do/fileManager/upload/}]]*/ #;
 	    	initDatePicker("datepicker", "dd/mm/yyyy");
-	    	initTextEditor('#tinyMCE-area', '#tinyMCE-parent', uploadURL);
+	    	initTextEditorWithoutP('#tinyMCE-area', '#tinyMCE-parent', uploadURL);
 	    	initDeletePicture();
 	    	
 			var backToList = function(){

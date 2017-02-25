@@ -109,7 +109,7 @@
 	<script th:inline="javascript">
 	/*<![CDATA[*/
 	    var uploadURL = /*[[@{/do/fileManager/upload/}]]*/ #;
-        initTextEditor('#tinyMCE-area', '#tinyMCE-parent', uploadURL);      
+	    initTextEditorWithoutP('#tinyMCE-area', '#tinyMCE-parent', uploadURL);      
         
         var loadRoles = function(){
 			var roles = /*[[${roles}]]*/'';

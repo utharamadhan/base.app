@@ -37,10 +37,64 @@
 							</div>
 						</div>
 						<div class="form-group">
+							<label class="col-sm-2 control-label" th:text="'Head Background'">Head Background</label>
+							<div class="col-sm-9 form-input-container">
+								<th:block th:if="${detail.background1 != null}">
+									<input type="hidden" id="input-hidden-basicPictureURL1" th:field="*{background1}"/>
+									<input type="file" class="form-control" id="input-file-basicPictureURL1" style="display:none;"/>
+									<div id="container-basicPictureURL1">
+										<img th:src="${detail.background1}" class="gcDetail-basicPicture"/>
+										<a href="#" class="btn btn-primary btn-xs margin-bottom-20 basicPicture-delete1" data-toggle="tooltip" title="Delete"><i class="fa fa-trash"></i></a>
+									</div>
+								</th:block>
+								<th:block th:if="${detail.background1 == null}">
+									<input type="hidden" id="input-hidden-basicPictureURL1" name="background1"/>
+									<input type="file" class="form-control" id="input-file-basicPictureURL1"/>
+									<div id="container-basicPictureURL1" style='display:none;'>
+									</div>
+								</th:block>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" th:text="'Head Content'">Head Content</label>
+							<input id="tinyMCE-hidden1" name="headContent" type="hidden"/>
+							<div id="tinyMCE-parent1" class="col-sm-9 tinyMCE-parent">					
+								<textarea id="tinyMCE-area1" class="tinyMCE-area" th:text="*{headContent}">
+								</textarea>
+							</div>
+						</div>
+						<div class="form-group">
 							<label class="col-sm-2 control-label" th:text="'Content'">Content</label>
 							<input id="tinyMCE-hidden" name="content" type="hidden"/>
-							<div id="tinyMCE-parent" class="col-sm-9">					
-								<textarea id="tinyMCE-area" th:text="*{content}">
+							<div id="tinyMCE-parent" class="col-sm-9 tinyMCE-parent">					
+								<textarea id="tinyMCE-area" class="tinyMCE-area" th:text="*{content}">
+								</textarea>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" th:text="'Bottom Background'">Bottom Background</label>
+							<div class="col-sm-9 form-input-container">
+								<th:block th:if="${detail.background2 != null}">
+									<input type="hidden" id="input-hidden-basicPictureURL2" th:field="*{background2}"/>
+									<input type="file" class="form-control" id="input-file-basicPictureURL2" style="display:none;"/>
+									<div id="container-basicPictureURL2">
+										<img th:src="${detail.background2}" class="gcDetail-basicPicture"/>
+										<a href="#" class="btn btn-primary btn-xs margin-bottom-20 basicPicture-delete" data-toggle="tooltip" title="Delete"><i class="fa fa-trash"></i></a>
+									</div>
+								</th:block>
+								<th:block th:if="${detail.background2 == null}">
+									<input type="hidden" id="input-hidden-basicPictureURL2" name="background2"/>
+									<input type="file" class="form-control" id="input-file-basicPictureURL2"/>
+									<div id="container-basicPictureURL2" style='display:none;'>
+									</div>
+								</th:block>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" th:text="'Bottom Content'">Bottom Content</label>
+							<input id="tinyMCE-hidden2" name="bottomContent" type="hidden"/>
+							<div id="tinyMCE-parent2" class="col-sm-9 tinyMCE-parent">					
+								<textarea id="tinyMCE-area2" class="tinyMCE-area" th:text="*{bottomContent}">
 								</textarea>
 							</div>
 						</div>
@@ -57,21 +111,32 @@
 	</div>
 	<script th:inline="javascript">
 	/*<![CDATA[*/
-	    function initDeletePicture() {
-			$('.basicPicture-delete').click(function(e){
+	    function initDeletePicture1() {
+			$('.basicPicture-delete1').click(function(e){
 				e.preventDefault();
-				$('#input-file-basicPictureURL').show();
-				$('#container-basicPictureURL').html("");
-				$('#input-hidden-basicPictureURL, #input-file-basicPictureURL').val("");
-				$('#container-basicPictureURL').hide();
+				$('#input-file-basicPictureURL1').show();
+				$('#container-basicPictureURL1').html("");
+				$('#input-hidden-basicPictureURL1, #input-file-basicPictureURL1').val("");
+				$('#container-basicPictureURL1').hide();
 			});
-		}       
+		}    
+
+	    function initDeletePicture2() {
+			$('.basicPicture-delete2').click(function(e){
+				e.preventDefault();
+				$('#input-file-basicPictureURL2').show();
+				$('#container-basicPictureURL2').html("");
+				$('#input-hidden-basicPictureURL2, #input-file-basicPictureURL2').val("");
+				$('#container-basicPictureURL2').hide();
+			});
+		}
 	           
 	    $(function(){
 	    	var uploadURL = /*[[@{/do/fileManager/upload/}]]*/ #;
-	    	initTextEditor('#tinyMCE-area', '#tinyMCE-parent', uploadURL);
+	    	initTextEditorWithoutP('.tinyMCE-area', '.tinyMCE-parent', uploadURL);
 	    	
-	    	initDeletePicture();
+	    	initDeletePicture1();
+	    	initDeletePicture2();
 	    	
 			var backToList = function(){
 				returnToList('advisory-detail-container', 'advisory-list-container', true);
@@ -79,6 +144,9 @@
 			
 			var submitForm = function(){
 				cleanErrorParsley();
+				$('#tinyMCE-hidden').val(tinymce.get('tinyMCE-area').getContent());
+				$('#tinyMCE-hidden1').val(tinymce.get('tinyMCE-area1').getContent());
+				$('#tinyMCE-hidden2').val(tinymce.get('tinyMCE-area2').getContent());
 				var sURL = /*[[@{/do/advisory/post/saveAdvisoryPost/}]]*/ #;
 				$.post(sURL, $("#advisory-detail-form").serialize(), function(data) {
 					if(data.errorList!=null){
@@ -89,17 +157,27 @@
 				});
 			};
 			
-			var showImage = function(imageURL) {
-				$('#input-file-basicPictureURL').hide();
+			var showImage1 = function(imageURL) {
+				$('#input-file-basicPictureURL1').hide();
 				var htmlContent = '<image src="'+imageURL+'" style="max-height:250px;"></image>';
-				htmlContent += '<a href="#" class="btn btn-primary btn-xs margin-bottom-20 basicPicture-delete" data-toggle="tooltip" title="Delete" style="position:absolute; left:25px; top:10px;"><i class="fa fa-trash"></i></a>';
-				$('#container-basicPictureURL').html(htmlContent);
-				$('#input-hidden-basicPictureURL').val(imageURL);
-				$('#container-basicPictureURL').show();
-				initDeletePicture();
+				htmlContent += '<a href="#" class="btn btn-primary btn-xs margin-bottom-20 basicPicture-delete1" data-toggle="tooltip" title="Delete" style="position:absolute; left:25px; top:10px;"><i class="fa fa-trash"></i></a>';
+				$('#container-basicPictureURL1').html(htmlContent);
+				$('#input-hidden-basicPictureURL1').val(imageURL);
+				$('#container-basicPictureURL1').show();
+				initDeletePicture1();
 			}
 			
-			var uploadFile = function(image, uploadURL) {
+			var showImage2 = function(imageURL) {
+				$('#input-file-basicPictureURL2').hide();
+				var htmlContent = '<image src="'+imageURL+'" style="max-height:250px;"></image>';
+				htmlContent += '<a href="#" class="btn btn-primary btn-xs margin-bottom-20 basicPicture-delete2" data-toggle="tooltip" title="Delete" style="position:absolute; left:25px; top:10px;"><i class="fa fa-trash"></i></a>';
+				$('#container-basicPictureURL2').html(htmlContent);
+				$('#input-hidden-basicPictureURL2').val(imageURL);
+				$('#container-basicPictureURL2').show();
+				initDeletePicture2();
+			}
+			
+			var uploadFile1 = function(image, uploadURL) {
 				var data = new FormData();
 				data.append('file', image);
 				var xhr = new XMLHttpRequest();
@@ -108,7 +186,7 @@
 				  if (xhr.readyState === 4) {
 				    var response = JSON.parse(xhr.responseText);
 				    if (response) {
-				      	showImage(response);
+				      	showImage1(response);
 				    } else {
 				      	var reader = new FileReader();
 				      	reader.onload = function(e) {
@@ -120,6 +198,42 @@
 				}
 				xhr.send(data);
 			};
+			
+			var thisObj1 = '';
+			$('#input-file-basicPictureURL1').unbind('change').on('change', function(){
+				var sURL = /*[[@{/do/fileManager/uploadFeaturedImage/}]]*/ #;
+				var thisObj1 = $('#input-file-basicPictureURL1')[0];
+				uploadFile1(thisObj1.files[0], sURL);
+			});
+			
+			var uploadFile2 = function(image, uploadURL) {
+				var data = new FormData();
+				data.append('file', image);
+				var xhr = new XMLHttpRequest();
+				xhr.open('POST', uploadURL, true);
+				xhr.onreadystatechange = function() {
+				  if (xhr.readyState === 4) {
+				    var response = JSON.parse(xhr.responseText);
+				    if (response) {
+				      	showImage2(response);
+				    } else {
+				      	var reader = new FileReader();
+				      	reader.onload = function(e) {
+				        	callback(e.target.result);
+				      	};
+				      	reader.readAsDataURL(image);
+				    }
+				  }
+				}
+				xhr.send(data);
+			};
+			
+			var thisObj2 = '';
+			$('#input-file-basicPictureURL2').unbind('change').on('change', function(){
+				var sURL = /*[[@{/do/fileManager/uploadFeaturedImage/}]]*/ #;
+				var thisObj2 = $('#input-file-basicPictureURL2')[0];
+				uploadFile2(thisObj2.files[0], sURL);
+			});
 			
 			$('#advisory-detail-btn-save').click(function(e){
 				e.preventDefault();

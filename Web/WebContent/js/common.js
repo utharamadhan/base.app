@@ -1064,6 +1064,44 @@ function initTextEditor(editorArea, editorParent, uploadURL) {
   	});
 }
 
+function initTextEditorWithoutP(editorArea, editorParent, uploadURL) {
+	$(editorArea).each(function(){		
+		var hiddenInput = document.createElement("input");
+			hiddenInput.className = "hidden-file-browser";
+			hiddenInput.type = "file";
+			hiddenInput.name = "image";
+			hiddenInput.style.display = "none";
+		$(this).parent().append(hiddenInput);
+	});
+	
+	$('.hidden-file-browser').change(function(){
+		var thisObj = $(this)[0];
+		var targetId = $(this).attr('target-id');
+		uploadFileTextEditor(thisObj.files[0], uploadURL, targetId);
+	});
+	
+	tinymce.init({
+		forced_root_block : "", 
+	    force_br_newlines : true,
+	    force_p_newlines : false,
+    	selector: editorArea,
+    	plugins: [
+    	    'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+    	    'searchreplace wordcount visualblocks visualchars code fullscreen',
+    	    'insertdatetime media nonbreaking save table contextmenu directionality',
+    	    'emoticons template paste textcolor colorpicker textpattern imagetools codesample toc'
+    	],
+    	toolbar1: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+    	toolbar2: 'imageprint preview media | forecolor backcolor emoticons | codesample',
+    	file_browser_callback : function(field_name, url, type, win) {
+			var hiddenInput = $("#"+tinyMCE.activeEditor.id).parent().find('.hidden-file-browser');
+    		hiddenInput.attr("target-id", field_name);
+			hiddenInput.click();
+        },
+        height:"200"
+  	});
+}
+
 function bootBoxSuccessSave(customMessage, customCallback) {
 	bootbox.alert({
         title: "Success",

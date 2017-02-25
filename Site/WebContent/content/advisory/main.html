@@ -27,7 +27,7 @@
 				<h1 class="advisory_logo"></h1>
 				<div class="container">
 					<div class="row">
-						<nav class="clearfix">
+						<nav class="clearfix" th:if="${#lists.size(menus) &lt; 1}">
 							<span class="set-1">
 								<span class="content_float_right">
 									<a th:href="@{/page/advisory/sub/stories}" title="Advisory Story" class="menu_choice_left content_float_left">Advisory Story</a>
@@ -41,22 +41,32 @@
 								</span>
 							</span>
 						</nav>
-						<!-- <nav class="clearfix" th:if="${#lists.size(menus) &gt; 0}">
+						<nav class="clearfix" th:if="${#lists.size(menus) &gt; 0}">
 							<span class="set-1">
 								<span class="content_float_right">
 									<span th:each="menu, i : ${menus}" th:if="${i.index &lt; leftMenu}">
-										<a th:href="@{${menu.link}}" th:title="${menu.name}" class="menu_choice_left content_float_left" th:text="${menu.name}">Advisory Story</a>
+										<th:block th:if="${menu.link !=null and menu.link!=''}">
+											<a th:href="@{${menu.link}}" th:title="${menu.name}" class="menu_choice_left content_float_left" th:text="${menu.name}">Advisory Story</a>
+										</th:block>
+										<th:block th:if="${menu.post !=null and menu.post.pkAdvisoryPost!=null}">
+											<a th:href="@{${'/page/advisory/sub/post/' + menu.pkAdvisoryMenu}}" th:title="${menu.name}" class="menu_choice_left content_float_left" th:text="${menu.name}">Advisory Story</a>
+										</th:block>
 									</span>
 								</span>
 							</span>
 							<span class="set-2">
 								<span class="content_float_left">
 									<span th:each="menu, i : ${menus}" th:if="${i.index &lt; rightMenu + leftMenu and i.count &gt; leftMenu}">
-										<a th:href="@{${menu.link}}" th:title="${menu.name}" class="menu_choice_left content_float_left" th:text="${menu.name}">Advisory Story</a>
+										<th:block th:if="${menu.link !=null and menu.link!=''}">
+											<a th:href="@{${menu.link}}" th:title="${menu.name}" class="menu_choice_left content_float_left" th:text="${menu.name}">Advisory Story</a>
+										</th:block>
+										<th:block th:if="${menu.post !=null and menu.post.pkAdvisoryPost!=null}">
+											<a th:href="@{${menu.link}}" th:title="${menu.name}" class="menu_choice_left content_float_left" th:text="${menu.name}">Advisory Story</a>
+										</th:block>
 									</span>
 								</span>
 							</span>
-						</nav> -->
+						</nav>
 					</div>
 				</div>
 			</div>
@@ -111,7 +121,7 @@
 									<h3 class="big-text yellow-text-color advisor_name" th:text="${advisor.party.name}">George Martin</h3>
 									<div class="specialist_part"><label th:text="${advisor.party.title}">Global and Asia Pacific, Americas (APA) Advisory leader</label></div>
 									<br/>
-									<p class="small-text" th:text="${advisor.party.profileDescription}">
+									<p class="small-text" th:utext="${advisor.party.profileDescription}">
 										George is one of the co-founders and takes care of growth, product development and partnerships. She is analytical, driven and adapts easily to new conditions, while trying to keep everyone on track.
                                     </p>
 								</div>

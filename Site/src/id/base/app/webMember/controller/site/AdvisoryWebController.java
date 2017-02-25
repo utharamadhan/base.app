@@ -41,6 +41,7 @@ import id.base.app.util.dao.SearchOrder.Sort;
 import id.base.app.valueobject.AppUser;
 import id.base.app.valueobject.advisory.Advisory;
 import id.base.app.valueobject.advisory.AdvisoryMenu;
+import id.base.app.valueobject.advisory.AdvisoryPost;
 import id.base.app.valueobject.advisory.Article;
 import id.base.app.valueobject.advisory.Category;
 
@@ -73,6 +74,10 @@ public class AdvisoryWebController {
 	
 	protected RestCaller<Advisory> getRestCallerAdvisory() {
 		return new RestCaller<Advisory>(RestConstant.REST_SERVICE, RestServiceConstant.ADVISORY_SERVICE);
+	}
+	
+	protected RestCaller<AdvisoryPost> getRestCallerPost() {
+		return new RestCaller<AdvisoryPost>(RestConstant.REST_SERVICE, RestServiceConstant.ADVISORY_POST_SERVICE);
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)
@@ -154,6 +159,18 @@ public class AdvisoryWebController {
 			@RequestParam(value="filter", defaultValue="", required=false) String filterJson
 		){
 		return "/advisory/stories";
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/sub/post/{id}")
+	public String post(ModelMap model, HttpServletRequest request, HttpServletResponse response,
+			@RequestParam(value="startNo",defaultValue="1") int startNo, 
+			@RequestParam(value="offset",defaultValue="6") int offset,
+			@RequestParam(value="filter", defaultValue="", required=false) String filterJson,
+			@PathVariable(value="id") Long pkAdvisoryPost
+		){
+		AdvisoryPost detail = getRestCallerPost().findById(pkAdvisoryPost);
+		model.addAttribute("detail", detail);
+		return "/advisory/post";
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/sub/advisor")

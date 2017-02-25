@@ -69,7 +69,7 @@
 	/*<![CDATA[*/
 	    $(function(){
 	    	var fileManagerURL = /*[[@{/do/fileManager/upload/}]]*/ #;
-	    	initTextEditor('#textEditor-content-area', '#textEditor-content-parent', fileManagerURL);
+	    	initTextEditorWithoutP('#textEditor-content-area', '#textEditor-content-parent', fileManagerURL);
 	    	
 			var backToList = function(){
 				removeTextEditor("textEditor-content-area", "textEditor-content-parent");
