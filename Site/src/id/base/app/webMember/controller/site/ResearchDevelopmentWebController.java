@@ -41,7 +41,7 @@ public class ResearchDevelopmentWebController {
 		return new RestCaller<Research>(RestConstant.REST_SERVICE, RestServiceConstant.RESEARCH_SERVICE);
 	}
 	
-	protected RestCaller<ResearchTheme> getRestCallerTopic() {
+	protected RestCaller<ResearchTheme> getRestCallerThemes() {
 		return new RestCaller<ResearchTheme>(RestConstant.REST_SERVICE, RestServiceConstant.RESEARCH_THEME_SERVICE);
 	}
 	
@@ -49,6 +49,14 @@ public class ResearchDevelopmentWebController {
 	public String view(ModelMap model, HttpServletRequest request, HttpServletResponse response){
 		model.addAttribute("researchThemes", getResearchThemesTitle());
 		return "/research-development/main";
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/themes/{id}")
+	public String themes(ModelMap model, HttpServletRequest request, HttpServletResponse response, @PathVariable(value="id") Long id){
+		ResearchTheme detail = getRestCallerThemes().findById(id);
+		model.addAttribute("detail", detail);
+		model.addAttribute("researchThemes", getResearchThemesTitle());
+		return "/research-development/main-themes";
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/list")
@@ -59,7 +67,7 @@ public class ResearchDevelopmentWebController {
 		List<SearchFilter> filter = new ArrayList<SearchFilter>();
 		List<SearchOrder> order = new ArrayList<SearchOrder>();
 		PagingWrapper<Research> researches = getRestCaller().findAllByFilter(startNo, offset, filter, order);
-		List<ResearchTheme> topics = getRestCallerTopic().findAll(null, null);
+		List<ResearchTheme> topics = getRestCallerThemes().findAll(null, null);
 		model.addAttribute("researches", researches);
 		model.addAttribute("topics", topics);
 		return "/research-development/list";

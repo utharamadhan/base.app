@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta name="author" content="Mardy Jonathan"/>
+<meta name="author"/>
 <title></title>
 </head>
 <body>
@@ -66,9 +66,7 @@
 							<div class="col-md-4" th:each="rt, i : ${researchThemes}">
 								<div class="rnd_excerpt_wrapper">
 									<h3><a th:href="@{/page/research-development/themes/}+${rt.pkResearchTheme}" th:text="${rt.title}"></a></h3>
-									<div class="rnd_excerpt_content">
-										Our Research Themes draw together our rich multi-disciplinary expertise to develop solutions to real-world problems of global relevance, within a local context. They provide an interdisciplinary setting for individuals.
-									</div>	
+									<div class="rnd_excerpt_content" th:text="${rt.excerpt}"></div>	
 								</div>
 							</div>
 						</div>

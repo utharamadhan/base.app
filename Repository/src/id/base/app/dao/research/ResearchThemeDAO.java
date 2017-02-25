@@ -59,7 +59,8 @@ public class ResearchThemeDAO extends AbstractHibernateDAO<ResearchTheme, Long> 
 		Criteria crit = getSession().createCriteria(domainClass);
 			crit.setProjection(Projections.projectionList().
 					add(Projections.property("pkResearchTheme")).
-					add(Projections.property("title")));
+					add(Projections.property("title")).
+					add(Projections.property("excerpt")));
 			crit.setResultTransformer(new ResultTransformer() {
 				@Override
 				public Object transformTuple(Object[] tuple, String[] aliases) {
@@ -67,6 +68,7 @@ public class ResearchThemeDAO extends AbstractHibernateDAO<ResearchTheme, Long> 
 					try {
 						BeanUtils.copyProperty(rt, "pkResearchTheme", tuple[0]);
 						BeanUtils.copyProperty(rt, "title", tuple[1]);
+						BeanUtils.copyProperty(rt, "excerpt", tuple[2]);
 					} catch (Exception e) {
 						LOGGER.error(e.getMessage(), e);
 					}

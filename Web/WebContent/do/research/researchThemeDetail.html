@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:ifs="http://padiku.id">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:ifs="http://btn.co.id">
 <head>
 <meta charset="ISO-8859-1"/>
 <title>Research Theme Detail</title>
@@ -37,6 +37,33 @@
 							</div>
 						</div>
 						<div class="form-group">
+							<label class="col-sm-2 control-label" th:text="'Background Image'">Background Image</label>
+							<div class="col-sm-9 form-input-container">
+								<th:block th:if="${detail.bgImageUrl != null}">
+									<input type="hidden" id="input-hidden-bgImageUrl" th:field="*{bgImageUrl}"/>
+									<input type="file" class="form-control" id="input-file-bgImageUrl" style="display:none;"/>
+									<div id="container-bgImageUrl">
+										<img th:src="${detail.bgImageUrl}" class="w-max-100" />
+										<a href="#" class="btn btn-primary btn-xs margin-bottom-20 bgImageUrl-delete" data-toggle="tooltip" title="Delete" style="position:absolute; left:25px; top:10px;"><i class="fa fa-trash"></i></a>
+									</div>
+								</th:block>
+								<th:block th:if="${detail.bgImageUrl == null}">
+									<input type="hidden" id="input-hidden-bgImageUrl" name="bgImageUrl"/>
+									<input type="file" class="form-control" id="input-file-bgImageUrl"/>
+									<div id="container-bgImageUrl" style='display:none;'>
+									</div>
+								</th:block>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-12">							
+								<label class="col-sm-2 control-label" th:text="'Short Description'">Short Description</label>
+								<div class="col-sm-9 form-input-container">
+									<textarea class="form-control" name="excerpt" th:text="*{excerpt}"></textarea>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
 							<div class="col-sm-12">							
 								<label class="col-sm-2 control-label" th:text="'Description'">Description</label>
 								<input id="textEditor-description-hidden" name="description" type="hidden"/>
@@ -67,8 +94,20 @@
 	</div>
 	<script th:inline="javascript">
 	/*<![CDATA[*/
+	    function initDeletePicture() {
+			$('.bgImageUrl-delete').click(function(e){
+				e.preventDefault();
+				$('#input-file-bgImageUrl').show();
+				$('#container-bgImageUrl').html("");
+				$('#input-hidden-bgImageUrl, #input-file-bgImageUrl').val("");
+				$('#container-bgImageUrl').hide();
+			});
+		}
+	
 	    $(function(){
 	    	var fileManagerURL = /*[[@{/do/fileManager/upload/}]]*/ #;
+	    	initDeletePicture();
+	    	
 	    	initTextEditor('#textEditor-description-area', '#textEditor-descr-parent', fileManagerURL);
 	    	
 			var backToList = function(){
@@ -87,6 +126,50 @@
 					}
 				});
 			};
+			
+			var showImage = function(imageURL) {
+				$('#input-file-bgImageUrl').hide();
+				var htmlContent = '<image src="'+imageURL+'" style="max-height:250px;"></image>';
+				htmlContent += '<a href="#" class="btn btn-primary btn-xs margin-bottom-20 bgImageUrl-delete" data-toggle="tooltip" title="Delete" style="position:absolute; left:25px; top:10px;"><i class="fa fa-trash"></i></a>';
+				$('#container-bgImageUrl').html(htmlContent);
+				$('#input-hidden-bgImageUrl').val(imageURL);
+				$('#container-bgImageUrl').show();
+				initDeletePicture();
+			};
+			
+			var uploadFile = function(image, uploadURL, isImage) {
+				var data = new FormData();
+				data.append('file', image);
+				var xhr = new XMLHttpRequest();
+				xhr.open('POST', uploadURL, true);
+				xhr.onreadystatechange = function() {
+				  if (xhr.readyState === 4) {
+				    var response = JSON.parse(xhr.responseText);
+				    if (isImage == true) {
+				    	if (response) {
+					      	showImage(response);
+					    } else {
+					      	var reader = new FileReader();
+					      	reader.onload = function(e) {
+					        	callback(e.target.result);
+					      	};
+					      	reader.readAsDataURL(image);
+					    }	
+				    } else {
+				    	if (response) {
+				    		showFile(response);
+				    	}
+				    }
+				  }
+				}
+				xhr.send(data);
+			};
+			
+			$('#input-file-bgImageUrl').change(function(){
+				var sURL = /*[[@{/do/fileManager/uploadFeaturedImage/}]]*/ #;
+				var thisObj = $('#input-file-bgImageUrl')[0];
+				uploadFile(thisObj.files[0], sURL, true);
+			});
 			
 			$('#researchTheme-detail-btn-save').click(function(e){
 				e.preventDefault();

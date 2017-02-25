@@ -36,8 +36,8 @@
 	    <link rel="stylesheet" href="<%=request.getContextPath()%>/plugin/vendor/rickshaw/css/rickshaw.min.css">
 	    <link rel="stylesheet" href="<%=request.getContextPath()%>/plugin/vendor/morris/css/morris.css">
 	    <link rel="stylesheet" href="<%=request.getContextPath()%>/plugin/vendor/tabdrop/css/tabdrop.css">
-	    <link rel="stylesheet" href="<%=request.getContextPath()%>/plugin/vendor/summernote/css/summernote.css">
-	    <link rel="stylesheet" href="<%=request.getContextPath()%>/plugin/vendor/summernote/css/summernote-bs3.css">
+	    <%-- <link rel="stylesheet" href="<%=request.getContextPath()%>/plugin/vendor/summernote/css/summernote.css">
+	    <link rel="stylesheet" href="<%=request.getContextPath()%>/plugin/vendor/summernote/css/summernote-bs3.css"> --%>
 	    <link rel="stylesheet" href="<%=request.getContextPath()%>/plugin/vendor/chosen/css/chosen.min.css">
 	    <link rel="stylesheet" href="<%=request.getContextPath()%>/plugin/vendor/chosen/css/chosen-bootstrap.css">
 	    <link rel="stylesheet" href='<%=request.getContextPath()%>/plugin/vendor/datatables/css/dataTables.bootstrap.css'>
@@ -45,11 +45,10 @@
 	    <link rel="stylesheet" href="<%=request.getContextPath()%>/plugin/vendor/typeahead/css/typeahead.js-bootstrap.css"/>
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/plugin/vendor/fuelux/css/wizzard.min.css"/>
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/plugin/vendor/bs-wizard/bs-wizard-min.css" type="text/css" media="all">
-		<link rel="stylesheet" href="<%=request.getContextPath()%>/plugin/vendor/fancytree/style/ui.fancytree.css" type="text/css" media="all">
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/plugin/vendor/dailyfeed/dailyfeed.css" type="text/css" media="all">
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/css/minimal.css">
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css">
-		<link rel="stylesheet" href="<%=request.getContextPath()%>/plugin/vendor/quill/quill-1.1.7.css">
+		<%-- <link rel="stylesheet" href="<%=request.getContextPath()%>/plugin/vendor/quill/quill-1.1.7.css"> --%>
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/css/vendor/timepicker/jquery.ui.timepicker.css">
 	
 	    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -217,11 +216,11 @@
     <script type="text/javascript" src="<%=request.getContextPath()%>/plugin/vendor/videobackground/jquery.videobackground.js"></script>
     <script type="text/javascript" src="<%=request.getContextPath()%>/plugin/vendor/blockui/jquery.blockUI.js"></script>
 
-    <script src="<%=request.getContextPath()%>/plugin/vendor/flot/jquery.flot.min.js"></script>
+    <%-- <script src="<%=request.getContextPath()%>/plugin/vendor/flot/jquery.flot.min.js"></script>
     <script src="<%=request.getContextPath()%>/plugin/vendor/flot/jquery.flot.time.min.js"></script>
     <script src="<%=request.getContextPath()%>/plugin/vendor/flot/jquery.flot.selection.min.js"></script>
     <script src="<%=request.getContextPath()%>/plugin/vendor/flot/jquery.flot.animator.min.js"></script>
-    <script src="<%=request.getContextPath()%>/plugin/vendor/flot/jquery.flot.orderBars.js"></script>
+    <script src="<%=request.getContextPath()%>/plugin/vendor/flot/jquery.flot.orderBars.js"></script> --%>
     <script src="<%=request.getContextPath()%>/plugin/vendor/easypiechart/jquery.easypiechart.min.js"></script>
 
     <script src="<%=request.getContextPath()%>/plugin/vendor/rickshaw/raphael-min.js"></script> 
@@ -232,12 +231,12 @@
 
     <script src="<%=request.getContextPath()%>/plugin/vendor/tabdrop/bootstrap-tabdrop.min.js"></script>
  	
-    <script src="<%=request.getContextPath()%>/plugin/vendor/summernote/summernote.min.js"></script>
+    <%-- <script src="<%=request.getContextPath()%>/plugin/vendor/summernote/summernote.min.js"></script> --%>
 
     <script src="<%=request.getContextPath()%>/plugin/vendor/chosen/chosen.jquery.min.js"></script>
     
     <script src="<%=request.getContextPath()%>/plugin/vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="<%=request.getContextPath()%>/plugin/vendor/quill/quill-1.1.7.js"></script>
+    <%-- <script src="<%=request.getContextPath()%>/plugin/vendor/quill/quill-1.1.7.js"></script> --%>
     <script src="<%=request.getContextPath()%>/plugin/vendor/tinyMCE/tinymce.min.js"></script>
 	
 	<script src="<%=request.getContextPath()%>/js/bloodhound.min.js"></script>
@@ -246,12 +245,6 @@
     
     <script src="<%=request.getContextPath()%>/plugin/vendor/bs-wizard/bs-wizard.js"></script>
     
-    <script src="<%=request.getContextPath()%>/plugin/vendor/fancytree/jquery.fancytree.js"></script>
-    <script src="<%=request.getContextPath()%>/plugin/vendor/fancytree/jquery.fancytree.dnd.js"></script>
-    <script src="<%=request.getContextPath()%>/plugin/vendor/fancytree/jquery.fancytree.edit.js"></script>
-    <script src="<%=request.getContextPath()%>/plugin/vendor/fancytree/jquery.fancytree.glyph.js"></script>
-    <script src="<%=request.getContextPath()%>/plugin/vendor/fancytree/jquery.fancytree.table.js"></script>
-    <script src="<%=request.getContextPath()%>/plugin/vendor/fancytree/jquery.fancytree.wide.js"></script>
     <script src="<%=request.getContextPath()%>/plugin/vendor/bootbox/bootbox.min.js"></script>
     <script src="<%=request.getContextPath()%>/plugin/vendor/sockJs/sockjs-0.3.4.js"></script>
     <script src="<%=request.getContextPath()%>/plugin/vendor/sockJs/stomp.js"></script>
