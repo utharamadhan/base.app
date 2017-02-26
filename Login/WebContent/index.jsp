@@ -12,23 +12,24 @@
       display: flex;
       min-height: 100vh;
       flex-direction: column;
+      background:#000000 url('<%=request.getContextPath()%>/images/backgrounds/background-admin.jpg') no-repeat center center fixed;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
     }
-
     main {
       flex: 1 0 auto;
     }
-
-    body {
-      background: #fff;
+    .title-login{
+    	color:white!important;
     }
-
     .input-field input[type=date]:focus + label,
     .input-field input[type=text]:focus + label,
     .input-field input[type=email]:focus + label,
     .input-field input[type=password]:focus + label {
       color: #e91e63;
     }
-
     .input-field input[type=date]:focus,
     .input-field input[type=text]:focus,
     .input-field input[type=email]:focus,
@@ -40,12 +41,13 @@
 </head>
 
 <body>
+  <div class="background-image"></div>
   <div class="section"></div>
   <main>
     <center>
       <div class="section"></div>
 
-      <h5 class="indigo-text">Please, login into your account</h5>
+      <h5 class="title-login">Please, login into your account</h5>
       <div class="section"></div>
 
       <div class="container">
