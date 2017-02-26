@@ -60,7 +60,7 @@
 		}
 		.help-form-body select{
 			padding:10px 20px;
-			border-radius: 4px;
+			border-radius: 25px;
 			border: solid 1px #fcdb00;
 			width:100%;
 		}
@@ -392,6 +392,7 @@
 			</div>
 		</div>
 		<script>
+		setNavbarActive('beranda');
 		$(document).ready(function(){
 			$("#testimonial-slider").owlCarousel({
 				items:1,

@@ -138,6 +138,7 @@
 		
 		<script type="text/javascript" th:inline="javascript">
 		/*<![CDATA[*/
+		setNavbarActive('kontak-kami');
 		$(function(){
 			$("#sendEmail").unbind('click').click(function(){
 				var sURL = /*[[@{/page/contact/sendEmail}]]*/ #;

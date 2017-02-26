@@ -14,6 +14,8 @@
 <html>
 <!--<![endif]-->
     <jsp:include page="/templates/header.jsp"></jsp:include>
+    <script src="<%=request.getContextPath()%>/js/jquery.min.js"></script><!-- jQuery master -->
+    <script src="<%=request.getContextPath()%>/js/common-site.js"></script><!-- jQuery master -->
 	<body>
 		<div class="main_wrapper">
 			<jsp:include page="/templates/navbar.jsp"></jsp:include>
@@ -27,7 +29,6 @@
 		<script type="text/javascript" async="" src="<%=request.getContextPath()%>/js/log.js"></script>
 		<script async="" src="<%=request.getContextPath()%>/js/analytics.js"></script> --%>
 		<script src="<%=request.getContextPath()%>/js/moment.min.js"></script><!-- jQuery master -->
-	    <script src="<%=request.getContextPath()%>/js/jquery.min.js"></script><!-- jQuery master -->
 	    <script src="<%=request.getContextPath()%>/plugin/vendor/owl-carousel/owl.carousel.min.js"></script>
 	    <script src="<%=request.getContextPath()%>/js/fullcalendar.min.js"></script><!-- jQuery master -->
 	    <script src="<%=request.getContextPath()%>/js/bootstrap.min.js"></script><!-- bootstrap -->

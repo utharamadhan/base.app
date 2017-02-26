@@ -61,9 +61,9 @@
 								</ul> --%>
 							  
 							  <ul class="nav navbar-nav navbar-right">
-								<li class=""><a href="<%=request.getContextPath()%>/">Beranda</a></li>
-								<li class="dropdown mega-dropdown">
-								  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tentang Kami <span class="caret"></span></a>
+								<li id="beranda" class=""><a class="parent-menu" href="<%=request.getContextPath()%>/">Beranda</a></li>
+								<li id="tentang-kami" class="dropdown mega-dropdown">
+								  <a href="#" class="parent-menu dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tentang Kami <span class="caret"></span></a>
 								  <ul class="dropdown-menu mega-dropdown-menu row about-us-mega-menu">
 									<li class="col-sm-4">
 										<ul>
@@ -96,8 +96,8 @@
 									</li>
 								  </ul>
 								</li>
-								<li class="dropdown">
-								  <a href="/#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Publikasi <span class="caret"></span></a>
+								<li id="publikasi" class="dropdown">
+								  <a href="/#" class="parent-menu dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Publikasi <span class="caret"></span></a>
 								  <ul class="dropdown-menu mega-dropdown-menu row publications-mega-menu">
 									<li class="col-sm-4">
 										<ul>
@@ -128,10 +128,10 @@
 									</li>
 								  </ul>
 								</li>
-								<li class="dropdown">
-								  <a href="<%=request.getContextPath()%>/page/learning" role="button" aria-haspopup="true" aria-expanded="false">Program</a>
+								<li id="program" class="dropdown">
+								  <a class="parent-menu" href="<%=request.getContextPath()%>/page/learning" role="button" aria-haspopup="true" aria-expanded="false">Program</a>
 								</li>
-								<li><a href="<%=request.getContextPath()%>/page/contact">Kontak Kami</a></li>
+								<li id="kontak-kami" ><a class="parent-menu" href="<%=request.getContextPath()%>/page/contact">Kontak Kami</a></li>
 								<li class="btn-signup" style="display:none"><a href="#" data-toggle="modal" data-target="#sign-in-modal">Sign In</a></li>
 							  </ul>
 							</div><!-- /.navbar-collapse -->

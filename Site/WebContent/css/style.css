@@ -1352,6 +1352,14 @@ ul.channel-links li{
     padding-top: 25px!important;
     padding-bottom: 25px!important;
 }
+.navbar-nav li.navbar-active{
+	background-color:#004fb6;
+	color:white;
+	border-radius:4px;	
+}
+.navbar-nav li.navbar-active a.parent-menu{
+	color:white!important;
+}
 .navbar-brand .lang{
 	padding:20px 0px;
 }
