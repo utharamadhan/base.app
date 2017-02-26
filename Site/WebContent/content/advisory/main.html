@@ -22,7 +22,7 @@
 		<div class="advisory_head_back">
 			&nbsp;
 		</div>
-		<div class="advisory_section">
+		<div class="main_advisory_section">
 			<div class="header_advisory">
 				<h1 class="advisory_logo"></h1>
 				<div class="container">
@@ -49,7 +49,7 @@
 											<a th:href="@{${menu.link}}" th:title="${menu.name}" class="menu_choice_left content_float_left" th:text="${menu.name}">Advisory Story</a>
 										</th:block>
 										<th:block th:if="${menu.post !=null and menu.post.pkAdvisoryPost!=null}">
-											<a th:href="@{${'/page/advisory/sub/post/' + menu.pkAdvisoryMenu}}" th:title="${menu.name}" class="menu_choice_left content_float_left" th:text="${menu.name}">Advisory Story</a>
+											<a th:href="@{${'/page/advisory/sub/post/' + menu.post.pkAdvisoryPost}}" th:title="${menu.name}" class="menu_choice_left content_float_left" th:text="${menu.name}">Advisory Story</a>
 										</th:block>
 									</span>
 								</span>
