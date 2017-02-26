@@ -5,30 +5,35 @@
 	<title>HFC - Admin Login</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/ico" href="<%=request.getContextPath()%>/images/favicon.ico" />
-  	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/materialize.min.css">
   <style>
     body {
       display: flex;
       min-height: 100vh;
       flex-direction: column;
+      background:#000000 url('<%=request.getContextPath()%>/images/backgrounds/background-admin.jpg') no-repeat center center fixed;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
     }
-
+    .toast{
+    	background-color:white!important;
+    	color:black!important;
+    	font-weight:700;
+    }
     main {
       flex: 1 0 auto;
     }
-
-    body {
-      background: #fff;
+    .title-login{
+    	color:white!important;
     }
-
     .input-field input[type=date]:focus + label,
     .input-field input[type=text]:focus + label,
     .input-field input[type=email]:focus + label,
     .input-field input[type=password]:focus + label {
       color: #e91e63;
     }
-
     .input-field input[type=date]:focus,
     .input-field input[type=text]:focus,
     .input-field input[type=email]:focus,
@@ -40,12 +45,13 @@
 </head>
 
 <body>
+  <div class="background-image"></div>
   <div class="section"></div>
   <main>
     <center>
       <div class="section"></div>
 
-      <h5 class="indigo-text">Please, login into your account</h5>
+      <h5 class="title-login">Please, login into your account</h5>
       <div class="section"></div>
 
       <div class="container">
@@ -90,8 +96,8 @@
     <div class="section"></div>
   </main>
 
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+  <script type="text/javascript" src="<%=request.getContextPath()%>/script/jquery.min.js"></script>
+  <script type="text/javascript" src="<%=request.getContextPath()%>/script/materialize.min.js"></script>
   <script type="text/javascript">
     	$(function(){
 	    	<%
@@ -134,10 +140,10 @@
     		
     		var checkUserName = function(user, password){
     			if(user==''){
-    				alert('Please insert user name');
+    				Materialize.toast('Please insert user name', 2000);
     				return false;
     			}else if(password=''){
-    				alert('Please insert your password');
+    				Materialize.toast('Please insert your password', 2000);
     				return false;
     			}
     			return true;

@@ -67,15 +67,14 @@
 		.intro-3-pilars{
 			text-align: center;
 			font-size: 18px;
-			margin-bottom: 20px;
-			color: #004fb6;
-			background-color: rgba(255,255,255,0.9);
+			color: white;
+    		background-color: rgba(0,0,0,0.4);
 			line-height: 1.8;
 			padding: 20px 0px;
-			border-bottom-left-radius: 10px;
-			border-bottom-right-radius: 10px;
 			font-weight: 700;
-			border-bottom: 2px solid #f4202f;
+		}
+		.intro-3-pilars h3{
+			color: white;
 		}
 		.testimonial{
 			text-align: center;
@@ -132,6 +131,9 @@
 			height: 3px;
 			background: #004fb6;
 		}
+		.no-pad{
+			padding:0px!important;
+		}
 		@media only screen and (max-width: 479px){
 			.testimonial{ padding: 80px 15px 5px; }
 			.testimonial::before{ top: 10px; }
@@ -145,7 +147,10 @@
 			text-align:center;
 		}
 		.grid-wrapper{
-			margin:30px 7%;
+			margin:30px 3%;
+		}
+		.grid-wrapper img{
+			width:100%;
 		}
 		.row-grid{
 			width:100%;
@@ -184,11 +189,11 @@
 			text-transform: uppercase;
 		}
 		.aboutUsArea{
-			padding:50px 0px 10px 0px;
+			padding:50px 0px;
 		}
 		.testimonialArea{
 			padding:40px 0px;
-			background-color:#efefef;
+			background-color:#f5f3f3;
 		}
 		.contactArea{
 			background-image: url('<%=request.getContextPath()%>/images/background-contact.jpg');
@@ -248,7 +253,7 @@
  		<div class="aboutUsArea">
 			<div class="container">
 				<div class="title-center">
-					<h2 class="text-primary">Siapakah Kami?</h2>
+					<h3 class="text-primary">Siapakah Kami?</h3>
 				</div>
 				<div class="grid-wrapper">
 					<div class="row-grid">
@@ -283,37 +288,30 @@
 		  <div class="container">
 		  <div class="row clearfix">
 			  <div class="col-xs-12 intro-3-pilars">
-				<h2 class="text-primary">3 Pilar yang akan membawa anda menjadi MASTER di bidang PROPERTY.</h2>
+				<h3>3 Pilar yang akan membawa anda menjadi MASTER di bidang PROPERTY.</h3>
 				</div>
 			</div>
 			<div class="row clearfix">
-			  <div class="col-xs-12">
-			  </div><!-- col-sm-3 col-xs-12 -->
-			</div><!-- row clearfix -->
-			<div class="row clearfix">
-			  <div class="col-xs-12">
 				<div class="about_inner">
-					<div class="col-md-4">
+					<div class="col-md-4 no-pad">
 							<div class="aboutImage">
 							  <img src="<%=request.getContextPath()%>/images/learning_.jpg" alt="" class="img-responsive" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/learning'">
 							  <a href="<%=request.getContextPath()%>/page/learning" class="captionLink">Learning <span></span></a>
 							</div><!-- aboutImage -->
 					</div>
-					<div class="col-md-4">
+					<div class="col-md-4 no-pad">
 							<div class="aboutImage">
 							  <img src="<%=request.getContextPath()%>/images/advisory_.jpg" alt="" class="img-responsive" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/advisory'">
 							  <a href="<%=request.getContextPath()%>/page/advisory" class="captionLink">Advisory <span></span></a>
 							</div><!-- aboutImage -->
 					</div>
-					<div class="col-md-4">
+					<div class="col-md-4 no-pad">
 							<div class="aboutImage">
 							  <img src="<%=request.getContextPath()%>/images/rnd_.jpg" alt="" class="img-responsive" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/research-development'">
 							  <a href="<%=request.getContextPath()%>/page/research-development" class="captionLink">Research & Development <span></span></a>
 							</div><!-- aboutImage -->
 					</div>
 				</div>
-			  </div><!-- col-sm-3 col-xs-12 -->
-			  
 			</div><!-- row clearfix -->
 		  </div><!-- container -->
 		</div><!-- aboutArea -->
@@ -322,7 +320,7 @@
 		  <div class="container">
 			<div class="row">
 				<div class="title-center">
-					<h2 class="text-primary">Apa kata mereka tentang Housing Finance Center?</h2>
+					<h3 class="text-primary">Apa kata mereka tentang Housing Finance Center?</h3>
 				</div>
 			</div>
 			<div class="row">

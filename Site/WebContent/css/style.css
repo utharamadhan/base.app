@@ -471,7 +471,7 @@ h4.modal-title{
     height: auto;
 	padding: 0px 0 60px 0;
     background: #ecf3f7;
-	background-image: url("../images/background-hfc.png");
+	background-image: url("../images/background-3-pilars.jpg");
 	background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
@@ -523,52 +523,35 @@ h4.modal-title{
     position: relative;
     max-height: 170px;
 }
-.aboutImage img:hover {
-  -webkit-filter: grayscale(0%);
-  -webkit-transition: .5s ease-in-out;
-  -moz-filter: grayscale(0%);
-  -moz-transition: .5s ease-in-out;
-  -o-filter: grayscale(0%);
-  -o-transition: .5s ease-in-out;
-  filter: grayscale(0%);
-} 
-
 .aboutImage img {
-  -webkit-filter: grayscale(100%);
-  -webkit-transition: .5s ease-in-out;
-  -moz-filter: grayscale(100%); 
-  -moz-transition: .5s ease-in-out;
-  -o-filter: grayscale(100%); 
-  -o-transition: .5s ease-in-out;
-  filter: grayscale(100%);
   cursor:pointer;
-  border-radius:5px;
+  width:100%;
 }
 
 .videoLeft iframe {
     width: 100%;
 }
 .captionLink{
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-}
-.captionLink,
-.captionLink:hover {
     width: 100%;
     height: 48px;
     display: block;
     color: #fff;
     line-height: 48px;
     text-indent: 28px;
-    background-color: #0056a1;
+    background-color: rgba(0, 86, 161, 0.5)!important;
     position: absolute;
     left: 0;
     bottom: 0;
     font-family: 'Open Sans', sans-serif;
     font-weight: 550;
-    font-size: 18px;
+    font-size: 20px;
     color: #fff;
 	top:0;
+}
+.captionLink:hover{
+	background-color: rgba(0, 86, 161, 0.8)!important;
+	color: #fff;
+	font-size: 20px;
 }
 .captionLink:focus {
     color: #fff;
