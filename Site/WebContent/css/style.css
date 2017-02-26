@@ -4687,6 +4687,13 @@ ul.contact_info li a:hover {
 	border-bottom: 1px solid #dce4ea;
 	padding-top: 20px;
 }
+
+.main_advisory_section{
+	width: 100%;
+	padding: 0px;	
+	border-bottom: 1px solid #dce4ea;
+}
+
 .rnd_themes_detail{
 	margin-top: -397px;
 }
