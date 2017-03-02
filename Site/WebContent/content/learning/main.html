@@ -46,6 +46,7 @@
 		
 		<script type="text/javascript" th:inline="javascript">
 		/*<![CDATA[*/
+		setNavbarActive('program');
 		$('.show_detail').unbind('click').click(function(){
 			var param = $(this).parents('.loop').find('input[name="identity"]').val();
 			var link = /*[[@{/page/learning/detail/}]]*/ '';
