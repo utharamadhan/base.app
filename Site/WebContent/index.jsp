@@ -64,6 +64,10 @@
 			border: solid 1px #fcdb00;
 			width:100%;
 		}
+		.row-intro-3-pilars{
+		    margin-left: 0px;
+    		margin-right: 0px;
+    	}
 		.intro-3-pilars{
 			text-align: center;
 			font-size: 18px;
@@ -72,6 +76,7 @@
 			line-height: 1.8;
 			padding: 20px 0px;
 			font-weight: 700;
+			margin-bottom:25px;
 		}
 		.intro-3-pilars h3{
 			color: white;
@@ -130,9 +135,6 @@
 			width: 20px;
 			height: 3px;
 			background: #004fb6;
-		}
-		.no-pad{
-			padding:0px!important;
 		}
 		@media only screen and (max-width: 479px){
 			.testimonial{ padding: 80px 15px 5px; }
@@ -250,6 +252,38 @@
 				</div>
 			</div>
 		</div><!--end banner-->
+		<div class="aboutArea">
+		  <div class="container">
+		  <div class="row clearfix row-intro-3-pilars">
+			  <div class="col-xs-12 intro-3-pilars">
+				<h3>3 Pilar yang akan membawa anda menjadi MASTER di bidang PROPERTY.</h3>
+				</div>
+			</div>
+			<div class="row clearfix">
+				<div class="about_inner">
+					<div class="col-md-4">
+							<div class="aboutImage">
+							  <img src="<%=request.getContextPath()%>/images/learning_.jpg" alt="" class="img-responsive" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/learning'">
+							  <a href="<%=request.getContextPath()%>/page/learning" class="captionLink">Learning <span></span></a>
+							</div><!-- aboutImage -->
+					</div>
+					<div class="col-md-4">
+							<div class="aboutImage">
+							  <img src="<%=request.getContextPath()%>/images/advisory_.jpg" alt="" class="img-responsive" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/advisory'">
+							  <a href="<%=request.getContextPath()%>/page/advisory" class="captionLink">Advisory <span></span></a>
+							</div><!-- aboutImage -->
+					</div>
+					<div class="col-md-4">
+							<div class="aboutImage">
+							  <img src="<%=request.getContextPath()%>/images/rnd_.jpg" alt="" class="img-responsive" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/research-development'">
+							  <a href="<%=request.getContextPath()%>/page/research-development" class="captionLink">Research & Development <span></span></a>
+							</div><!-- aboutImage -->
+					</div>
+				</div>
+			</div><!-- row clearfix -->
+		  </div><!-- container -->
+		</div><!-- aboutArea -->
+		<div style="clear:both"></div>
  		<div class="aboutUsArea">
 			<div class="container">
 				<div class="title-center">
@@ -283,38 +317,6 @@
 				</div>
 			</div>
 		</div>
-		<div style="clear:both"></div>
-		<div class="aboutArea">
-		  <div class="container">
-		  <div class="row clearfix">
-			  <div class="col-xs-12 intro-3-pilars">
-				<h3>3 Pilar yang akan membawa anda menjadi MASTER di bidang PROPERTY.</h3>
-				</div>
-			</div>
-			<div class="row clearfix">
-				<div class="about_inner">
-					<div class="col-md-4 no-pad">
-							<div class="aboutImage">
-							  <img src="<%=request.getContextPath()%>/images/learning_.jpg" alt="" class="img-responsive" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/learning'">
-							  <a href="<%=request.getContextPath()%>/page/learning" class="captionLink">Learning <span></span></a>
-							</div><!-- aboutImage -->
-					</div>
-					<div class="col-md-4 no-pad">
-							<div class="aboutImage">
-							  <img src="<%=request.getContextPath()%>/images/advisory_.jpg" alt="" class="img-responsive" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/advisory'">
-							  <a href="<%=request.getContextPath()%>/page/advisory" class="captionLink">Advisory <span></span></a>
-							</div><!-- aboutImage -->
-					</div>
-					<div class="col-md-4 no-pad">
-							<div class="aboutImage">
-							  <img src="<%=request.getContextPath()%>/images/rnd_.jpg" alt="" class="img-responsive" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/research-development'">
-							  <a href="<%=request.getContextPath()%>/page/research-development" class="captionLink">Research & Development <span></span></a>
-							</div><!-- aboutImage -->
-					</div>
-				</div>
-			</div><!-- row clearfix -->
-		  </div><!-- container -->
-		</div><!-- aboutArea -->
 		<div style="clear:both"></div>
 		<div class="testimonialArea">
 		  <div class="container">
