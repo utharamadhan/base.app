@@ -228,6 +228,45 @@
 		    padding: 10px 25px;
 			border-radius: 25px;
 		}
+		.arrowBottomWrapper{
+			position:absolute;
+			left: 0; 
+  			right: 0; 
+  			margin-left: auto; 
+  			margin-right: auto; 
+		    width: 70px;
+		}
+		.arrowBottom{
+			width: 70px;
+		    height: 70px;
+		    margin-top: -190px;
+		    cursor: pointer;
+		    border: 5px solid rgba(234, 243, 255, 0.8);
+		    border-radius: 50px;
+		    font-size: 40px;
+		    text-align: center;
+		    padding-top: 9px;
+		    clear: both;
+		    color: rgba(0, 79, 182, 1);
+		    background-color: rgba(167, 205, 255, 0.3);
+		    transition: all 0.2s ease;
+		    -webkit-animation: arrowmove 1s infinite; /* Safari 4.0 - 8.0 */
+    		animation: arrowmove 1s infinite;
+    	}
+    	.arrowBottom:hover{
+    		background-color: rgba(167, 205, 255, 0.8);
+    	}
+    	/* Safari 4.0 - 8.0 */
+		@-webkit-keyframes arrowmove {
+		    0%   {margin-top: -190px;}
+		    100% {margin-top: -150px;}
+		}
+		
+		/* Standard syntax */
+		@keyframes arrowmove {
+		    0%   {margin-top: -190px;}
+		    100% {margin-top: -150px;}
+		}
 	</style>
 		<div class="banner carousel slide" id="recommended-item-carousel" data-ride="carousel">
 			<div class="banner-wrapper">
@@ -251,8 +290,11 @@
 					</div>
 				</div>
 			</div>
+			<div class="arrowBottomWrapper">
+				<div class="arrowBottom"><i class="fa fa-chevron-down" aria-hidden="true"></i></div>
+			</div>
 		</div><!--end banner-->
-		<div class="aboutArea">
+		<div id="aboutArea" class="aboutArea">
 		  <div class="container">
 		  <div class="row clearfix row-intro-3-pilars">
 			  <div class="col-xs-12 intro-3-pilars">
@@ -414,7 +456,10 @@
 				}else if($(this).val()!=""){
 					location.href = "page/contact?type="+$(this).val();
 				}
-			})
+			});
+			$('.arrowBottom').click(function(){
+				scrollToBottom('aboutArea', 72);
+			});
 		});
 	</script>
  </body>
