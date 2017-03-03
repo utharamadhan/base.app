@@ -63,7 +63,7 @@
 								<tbody class="list_data">
 								  <tr id="template" class="course-list-content data_result" th:each="course, i : ${courses.result}">
 									<td class="course-thumb">
-										<img th:src="${course.basicPictureURL}"/>
+										<img th:src="${course.encodedPicture}"/>
 									</td>
 									<td style="width: 50%;">
 										<h3 class="course-title">
@@ -234,7 +234,7 @@
 			var load_content = '';
 			for(var i=0;i<datas.length;i++){
 				var cloning = $('.template_part .data_result').eq(0).clone();
-				cloning.find('.course-thumb').find('img').attr('src',datas[i].basicPictureURL);
+				cloning.find('.course-thumb').find('img').attr('src',datas[i].encodedPicture);
 				cloning.find('.course_name').html(datas[i].name);
 				cloning.find('.identity').html(datas[i].pkCourse);
 				cloning.find('.title').html(datas[i].name);

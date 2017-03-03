@@ -1,11 +1,15 @@
 package id.base.app.valueobject.course;
 
-import id.base.app.valueobject.BaseEntity;
-
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,9 +19,16 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.apache.commons.io.IOUtils;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+import id.base.app.SystemConstant;
+import id.base.app.encryptor.EncodeDecode;
+import id.base.app.valueobject.BaseEntity;
 
 @Entity
 @Table(name = "GROUP_COURSE")
@@ -51,6 +62,9 @@ public class GroupCourse extends BaseEntity implements Serializable {
 	
 	@Column(name="BASIC_PICTURE_URL")
 	private String basicPictureURL;
+	
+	@Transient
+	public String encodedPicture;
 	
 	@Column(name="SHORT_DESCRIPTION")
 	private String shortDescription;
@@ -127,6 +141,15 @@ public class GroupCourse extends BaseEntity implements Serializable {
 		if(null != gcBasicInformationList) {			
 			this.gcBasicInformationList.addAll(gcBasicInformationList);
 		}
+	}
+	public String getEncodedPicture() throws Exception {
+		if(getBasicPictureURL()!=null && !"".equals(getBasicPictureURL())){
+			encodedPicture = EncodeDecode.getBase64FromLink(getBasicPictureURL());
+		}
+		return encodedPicture;
+	}
+	public void setEncodedPicture(String encodedPicture) {
+		this.encodedPicture = encodedPicture;
 	}
 
 }

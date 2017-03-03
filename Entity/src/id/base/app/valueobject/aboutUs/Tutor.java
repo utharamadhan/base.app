@@ -1,7 +1,5 @@
 package id.base.app.valueobject.aboutUs;
 
-import id.base.app.valueobject.BaseEntity;
-
 import java.io.Serializable;
 
 import javax.persistence.Column;
@@ -11,6 +9,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import id.base.app.encryptor.EncodeDecode;
+import id.base.app.valueobject.BaseEntity;
 
 @Entity
 @Table(name = "TUTOR")
@@ -44,6 +46,9 @@ public class Tutor extends BaseEntity implements Serializable {
 	
 	@Column(name="BASIC_PICTURE_URL")
 	private String basicPictureURL;
+	
+	@Transient
+	public String encodedPicture;
 	
 	@Column(name="STATUS")
 	private Integer status;
@@ -82,5 +87,16 @@ public class Tutor extends BaseEntity implements Serializable {
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
+	public String getEncodedPicture() throws Exception {
+		if(getBasicPictureURL()!=null && !"".equals(getBasicPictureURL())){
+			encodedPicture = EncodeDecode.getBase64FromLink(getBasicPictureURL());
+		}
+		return encodedPicture;
+	}
+	public void setEncodedPicture(String encodedPicture) {
+		this.encodedPicture = encodedPicture;
+	}
+	
+	
 	
 }

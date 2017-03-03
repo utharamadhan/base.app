@@ -91,7 +91,7 @@
 	                    </div>
 						<div class="row article_container">
 							<div class="col-md-3 list_category_article" th:each="category, i : ${categories}" th:if="${i.index &lt; 8}"> 
-								<img th:src="${category.basicPictureURL}" />
+								<img th:src="${category.encodedPicture}" />
 								<div class="box_cat_title">
 									<input type="hidden" name="" class="pkCategory" th:value="${category.pkCategory}"/>
 									<h4 class="box_cat_title_label" th:text="${category.name}">Make a Concept House</h4>
@@ -116,7 +116,7 @@
 						<div class="row advisor_list"> 
 							<div class="col-md-3 align_center" th:each="advisor, i : ${advisors}" th:if="${i.index &lt; 8}"> 
 								<input type="hidden" name="pkAppUser" class="id_advisor" th:value="${advisor.pkAppUser}"/>
-								<img class="img-circle" th:src="${advisor.party.basicPictureURL}"/>
+								<img class="img-circle" th:src="${advisor.party.encodedPicture}"/>
 								<div class="advisor_description">
 									<h3 class="big-text yellow-text-color advisor_name" th:text="${advisor.party.name}">George Martin</h3>
 									<div class="specialist_part"><label th:text="${advisor.party.title}">Global and Asia Pacific, Americas (APA) Advisory leader</label></div>

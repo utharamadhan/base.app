@@ -1,8 +1,5 @@
 package id.base.app.valueobject.research;
 
-import id.base.app.SystemConstant;
-import id.base.app.valueobject.BaseEntity;
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -19,6 +16,10 @@ import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+import id.base.app.SystemConstant;
+import id.base.app.encryptor.EncodeDecode;
+import id.base.app.valueobject.BaseEntity;
 
 @Entity
 @Table(name = "RESEARCH_THEME")
@@ -62,6 +63,9 @@ public class ResearchTheme extends BaseEntity implements Serializable {
 	
 	@Transient
 	private String statusDescr;
+	
+	@Transient
+	public String encodedPicture;
 
 	public Long getPkResearchTheme() {
 		return pkResearchTheme;
@@ -121,5 +125,15 @@ public class ResearchTheme extends BaseEntity implements Serializable {
 
 	public String getStatusDescr() {
 		return SystemConstant.ValidFlag.validFlagMap.get(status);
+	}
+	
+	public String getEncodedPicture() throws Exception {
+		if(getBgImageUrl()!=null && !"".equals(getBgImageUrl())){
+			encodedPicture = EncodeDecode.getBase64FromLink(getBgImageUrl());
+		}
+		return encodedPicture;
+	}
+	public void setEncodedPicture(String encodedPicture) {
+		this.encodedPicture = encodedPicture;
 	}
 }

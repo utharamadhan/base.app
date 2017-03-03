@@ -24,6 +24,8 @@ public class SystemConstant  {
 	
 	public static final String GLOBAL_PATH = "/project/baseApp/";
 	
+	public static final String B64_PREFIX = "data:image/%s;base64,";
+	
 	/***  Field Definition Constant***/
 	public final static String FIELD_DEFINITION_REFRENCE = "Reference";
 

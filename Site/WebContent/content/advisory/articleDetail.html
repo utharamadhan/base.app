@@ -17,7 +17,7 @@
 		</div>
 		<div class="advisory_section">
 			<div class="advisory_banner">
-				<div class="parallax-window" data-parallax="scroll" th:attr="data-image-src=${article.basicPictureURL}" ></div>
+				<div class="parallax-window" data-parallax="scroll" th:attr="data-image-src=${article.encodedPicture}" ></div>
 			</div>
 			
 			<!-- Start advisory article -->
@@ -46,7 +46,7 @@
 						<div class="row advisor_list" th:each="advisor, i : ${createdAdvisors}"> 
 							<div class="col-md-3 align_center"> 
 								<input type="hidden" name="pkAppUser" class="id_advisor" th:value="${advisor.pkAppUser}"/>
-								<img class="img-circle" th:src="${advisor.party.basicPictureURL}"/>
+								<img class="img-circle" th:src="${advisor.party.encodedPicture}"/>
 								<div class="advisor_description">
 									<h3 class="big-text yellow-text-color advisor_name" th:text="${advisor.party.name}">George Martin</h3>
 									<div class="specialist_part"><label th:text="${advisor.party.title}">Global and Asia Pacific, Americas (APA) Advisory leader</label></div>

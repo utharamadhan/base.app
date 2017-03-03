@@ -17,6 +17,7 @@ import javax.persistence.Transient;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import id.base.app.ILookupConstant;
+import id.base.app.encryptor.EncodeDecode;
 import id.base.app.valueobject.BaseEntity;
 import id.base.app.valueobject.Lookup;
 
@@ -70,6 +71,9 @@ public class Event extends BaseEntity implements Serializable {
 	
 	@Transient
 	private String statusStr;
+	
+	@Transient
+	public String encodedPicture;
 
 	public Long getPkEvent() {
 		return pkEvent;
@@ -128,5 +132,14 @@ public class Event extends BaseEntity implements Serializable {
 	}
 	public String getStatusStr() {
 		return ILookupConstant.ArticleStatus.ARTICLE_STATUS_MAP.get(status);
+	}
+	public String getEncodedPicture() throws Exception {
+		if(getCoverImageURL()!=null && !"".equals(getCoverImageURL())){
+			encodedPicture = EncodeDecode.getBase64FromLink(getCoverImageURL());
+		}
+		return encodedPicture;
+	}
+	public void setEncodedPicture(String encodedPicture) {
+		this.encodedPicture = encodedPicture;
 	}
 }

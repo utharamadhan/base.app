@@ -24,7 +24,7 @@
 					<div id="template" class="col-md-2 data_result" th:each="book, i : ${books.result}">
 						<div class="post">
 								<div class="post_thumb">
-									<img th:src="${book.coverImageURL}" alt="" class="show_detail my_link"/>
+									<img th:src="${book.encodedPicture}" alt="" class="show_detail my_link"/>
 								</div><!--end post thumb-->
 								<h1><a href="#"><label th:text="${book.title}" class="post_title show_detail my_link">Title eBook 1</label></a></h1>
 								<!-- <div class="post_bottom">
@@ -75,7 +75,7 @@
 			var load_content = '';
 			for(var i=0;i<datas.length;i++){
 				var cloning = $('.template_part .data_result').eq(0).clone();
-				cloning.find('.post_thumb img').attr('src',datas[i].coverImageURL);
+				cloning.find('.post_thumb img').attr('src',datas[i].encodedPicture);
 				cloning.find('.post_title').html(datas[i].title);
 				cloning.wrap('<div></div>');
 				if(!load){

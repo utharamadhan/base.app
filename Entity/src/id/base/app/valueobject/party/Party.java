@@ -1,10 +1,5 @@
 package id.base.app.valueobject.party;
 
-import id.base.app.SystemConstant;
-import id.base.app.valueobject.BaseEntity;
-import id.base.app.valueobject.CreateEntity;
-import id.base.app.valueobject.UpdateEntity;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -30,6 +25,12 @@ import javax.validation.constraints.Null;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+import id.base.app.SystemConstant;
+import id.base.app.encryptor.EncodeDecode;
+import id.base.app.valueobject.BaseEntity;
+import id.base.app.valueobject.CreateEntity;
+import id.base.app.valueobject.UpdateEntity;
 
 @Entity
 @Table(name="PARTY")
@@ -109,6 +110,9 @@ public class Party extends BaseEntity implements Serializable{
 	
 	@Column(name="BASIC_PICTURE_URL")
 	private String basicPictureURL;
+	
+	@Transient
+	public String encodedPicture;
 	
 	@OneToMany(mappedBy="party", cascade=CascadeType.ALL)
 	@Column
@@ -229,5 +233,22 @@ public class Party extends BaseEntity implements Serializable{
 	}
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+
+	public String getEncodedPicture() throws Exception {
+		if(getBasicPictureURL()!=null && !"".equals(getBasicPictureURL())){
+			encodedPicture = EncodeDecode.getBase64FromLink(getBasicPictureURL());
+		}
+		return encodedPicture;
+	}
+
+	public void setEncodedPicture(String encodedPicture) {
+		this.encodedPicture = encodedPicture;
+	}
+	
+	
+	public static void main(String[] args) {
+		final String data  = "Mardy %s";
+		System.out.println(String.format(data, "Ganteng"));
 	}
 }

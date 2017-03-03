@@ -47,7 +47,7 @@
 					<div class="article_container row list_data">
 						<div id="template" class="col-md-3 data_result" th:each="article, i : ${articles.result}"> 
 							<div class="box_article_wrapper">
-								<div class="article_box_image"><img th:src="${article.basicPictureURL}" /></div> 
+								<div class="article_box_image"><img th:src="${article.encodedPicture}" /></div> 
 								<div class="article_box_content">
 									<input type="hidden" name="pkArticle" th:value="${article.pkArticle}" class="id_article" />
 									<h2 class="title_article" th:text="${article.name}">Concept House</h2>
@@ -101,7 +101,7 @@
 			for(var i=0;i<datas.length;i++){
 				var cloning = $('.template_part .data_result').eq(0).clone();
 				cloning.find('.id_article').val(datas[i].pkArticle);
-				cloning.find('.article_box_image').attr('src',datas[i].basicPictureURL);
+				cloning.find('.article_box_image').attr('src',datas[i].encodedPicture);
 				cloning.find('.title_article').html(datas[i].name);
 				cloning.find('.subtitle_article label').html(datas[i].category.name);
 				cloning.find('.created_by').html(datas[i].createdAdvisor);

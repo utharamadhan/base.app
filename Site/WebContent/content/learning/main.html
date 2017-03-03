@@ -22,7 +22,7 @@
 					<div class="col-md-4 loop" th:each="group, i : ${groups}">
 						<div class="card-box">
 							<div class="card-image">
-								<img th:src="${group.basicPictureURL}" alt="" />
+								<img th:src="${group.encodedPicture}" alt="" />
 							</div>
 							<h2 class="card-title"><a th:href="@{/page/learning/detail/}+${group.pkGroupCourse}" th:text="${group.title}"></a></h2>
 							<hr/>

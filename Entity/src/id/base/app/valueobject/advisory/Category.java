@@ -9,10 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.voodoodyne.jackson.jsog.JSOGGenerator;
-
+import id.base.app.encryptor.EncodeDecode;
 import id.base.app.valueobject.BaseEntity;
 
 @Entity
@@ -55,6 +54,9 @@ public class Category extends BaseEntity implements Serializable {
 	
 	@Column(name="BASIC_PICTURE_URL")
 	private String basicPictureURL;
+	
+	@Transient
+	public String encodedPicture;
 	
 	@Column(name="VALID")
 	private Integer valid;
@@ -105,6 +107,17 @@ public class Category extends BaseEntity implements Serializable {
 
 	public void setValid(Integer valid) {
 		this.valid = valid;
+	}
+
+	public String getEncodedPicture() throws Exception {
+		if(getBasicPictureURL()!=null && !"".equals(getBasicPictureURL())){
+			encodedPicture = EncodeDecode.getBase64FromLink(getBasicPictureURL());
+		}
+		return encodedPicture;
+	}
+
+	public void setEncodedPicture(String encodedPicture) {
+		this.encodedPicture = encodedPicture;
 	}
 		
 	

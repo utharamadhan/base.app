@@ -22,7 +22,7 @@
 						<div class="row advisor_list"> 
 							<div class="col-md-3 align_center"> 
 								<input type="hidden" name="pkAppUser" class="id_advisor" th:value="${advisor.pkAppUser}"/>
-								<img class="img-circle" th:src="${advisor.party.basicPictureURL}"/>
+								<img class="img-circle" th:src="${advisor.party.encodedPicture}"/>
 								<div class="advisor_description">
 									<h3 class="big-text yellow-text-color advisor_name" th:text="${advisor.party.name}">George Martin</h3>
 									<div class="specialist_part"><label th:text="${advisor.party.title}">Global and Asia Pacific, Americas (APA) Advisory leader</label></div>
@@ -46,7 +46,7 @@
 					<div class="article_container row">
 						<div class="col-md-3" th:each="article, i : ${articles}"> 
 							<div class="box_article_wrapper">
-								<div class="article_box_image"><img th:src="${article.basicPictureURL}" /></div> 
+								<div class="article_box_image"><img th:src="${article.encodedPicture}" /></div> 
 								<div class="article_box_content">
 									<input type="hidden" name="pkArticle" th:value="${article.pkArticle}" class="id_article" />
 									<h2 class="title_article" th:text="${article.name}">Concept House</h2>

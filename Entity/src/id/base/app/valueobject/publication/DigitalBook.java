@@ -1,8 +1,5 @@
 package id.base.app.valueobject.publication;
 
-import id.base.app.ILookupConstant;
-import id.base.app.valueobject.BaseEntity;
-
 import java.io.Serializable;
 
 import javax.persistence.Column;
@@ -13,6 +10,10 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import id.base.app.ILookupConstant;
+import id.base.app.encryptor.EncodeDecode;
+import id.base.app.valueobject.BaseEntity;
 
 @Entity
 @Table(name = "DIGITAL_BOOK")
@@ -56,6 +57,9 @@ public class DigitalBook extends BaseEntity implements Serializable {
 	
 	@Transient
 	private String statusStr;
+	
+	@Transient
+	public String encodedPicture;
 
 	public Long getPkDigitalBook() {
 		return pkDigitalBook;
@@ -101,4 +105,14 @@ public class DigitalBook extends BaseEntity implements Serializable {
 	public String getStatusStr() {
 		return ILookupConstant.ArticleStatus.ARTICLE_STATUS_MAP.get(status);
 	}
+	public String getEncodedPicture() throws Exception {
+		if(getCoverImageURL()!=null && !"".equals(getCoverImageURL())){
+			encodedPicture = EncodeDecode.getBase64FromLink(getCoverImageURL());
+		}
+		return encodedPicture;
+	}
+	public void setEncodedPicture(String encodedPicture) {
+		this.encodedPicture = encodedPicture;
+	}
 }
+

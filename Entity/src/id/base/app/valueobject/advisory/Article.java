@@ -20,6 +20,7 @@ import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import id.base.app.encryptor.EncodeDecode;
 import id.base.app.valueobject.AppUser;
 import id.base.app.valueobject.BaseEntity;
 
@@ -59,6 +60,9 @@ public class Article extends BaseEntity implements Serializable {
 	
 	@Column(name="BASIC_PICTURE_URL")
 	private String basicPictureURL;
+	
+	@Transient
+	public String encodedPicture;
 	
 	@ManyToOne
 	@JoinColumn(name="FK_CATEGORY")
@@ -151,6 +155,15 @@ public class Article extends BaseEntity implements Serializable {
 	}
 	public void setCreatedAdvisor(String createdAdvisor) {
 		this.createdAdvisor = createdAdvisor;
+	}
+	public String getEncodedPicture() throws Exception {
+		if(getBasicPictureURL()!=null && !"".equals(getBasicPictureURL())){
+			encodedPicture = EncodeDecode.getBase64FromLink(getBasicPictureURL());
+		}
+		return encodedPicture;
+	}
+	public void setEncodedPicture(String encodedPicture) {
+		this.encodedPicture = encodedPicture;
 	}
 	
 }

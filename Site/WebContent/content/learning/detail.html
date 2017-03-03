@@ -20,7 +20,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-xs-12 col-sm-4">
-						<img th:src="${detail.basicPictureURL}" alt="" />
+						<img th:src="${detail.encodedPicture}" alt="" />
 						<hr/>
 						<table class="table table-bordered table-striped">
 							<tr th:each="info, i : ${detail.gcBasicInformationList}">

@@ -1,10 +1,5 @@
 package id.base.app.valueobject.news;
 
-import id.base.app.ILookupConstant;
-import id.base.app.util.StringFunction;
-import id.base.app.valueobject.BaseEntity;
-import id.base.app.valueobject.Lookup;
-
 import java.io.Serializable;
 import java.util.Date;
 
@@ -21,6 +16,12 @@ import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+import id.base.app.ILookupConstant;
+import id.base.app.encryptor.EncodeDecode;
+import id.base.app.util.StringFunction;
+import id.base.app.valueobject.BaseEntity;
+import id.base.app.valueobject.Lookup;
 
 @Entity
 @Table(name = "NEWS")
@@ -73,6 +74,9 @@ public class News extends BaseEntity implements Serializable {
 	
 	@Transient
 	private String shortContent;
+	
+	@Transient
+	public String encodedPicture;
 
 	public Long getPkNews() {
 		return pkNews;
@@ -149,5 +153,14 @@ public class News extends BaseEntity implements Serializable {
 		this.shortContent = shortContent;
 	}
 	
+	public String getEncodedPicture() throws Exception {
+		if(getImageURL()!=null && !"".equals(getImageURL())){
+			encodedPicture = EncodeDecode.getBase64FromLink(getImageURL());
+		}
+		return encodedPicture;
+	}
+	public void setEncodedPicture(String encodedPicture) {
+		this.encodedPicture = encodedPicture;
+	}
 	
 }

@@ -23,6 +23,7 @@ import javax.persistence.Transient;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
+import id.base.app.encryptor.EncodeDecode;
 import id.base.app.valueobject.BaseEntity;
 import id.base.app.valueobject.Lookup;
 
@@ -77,6 +78,9 @@ public class Course extends BaseEntity implements Serializable {
 	
 	@Column(name="BASIC_PICTURE_URL")
 	private String basicPictureURL;
+	
+	@Transient
+	public String encodedPicture;
 	
 	@Column(name="FULL_DESCRIPTION")
 	private String fullDescription;
@@ -220,6 +224,17 @@ public class Course extends BaseEntity implements Serializable {
 
 	public void setListTags(List<String> listTags) {
 		this.listTags = listTags;
+	}
+
+	public String getEncodedPicture() throws Exception {
+		if(getBasicPictureURL()!=null && !"".equals(getBasicPictureURL())){
+			encodedPicture = EncodeDecode.getBase64FromLink(getBasicPictureURL());
+		}
+		return encodedPicture;
+	}
+
+	public void setEncodedPicture(String encodedPicture) {
+		this.encodedPicture = encodedPicture;
 	}
 	
 }
