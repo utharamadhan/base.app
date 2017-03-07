@@ -86,7 +86,8 @@ public final class EncodeDecode {
 		     
 		  } catch (Exception e) {
 		      e.printStackTrace();
-		      throw e;
+		      //throw e;
+		      return null;
 		  }
 		 
 		}

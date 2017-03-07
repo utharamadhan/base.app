@@ -8,78 +8,66 @@
 		}
 		.banner-wrapper{
 			background-image:url('<%=request.getContextPath()%>/images/background-hfc.jpg');
-			background-size: auto 100%;
+			background-size: 100% 100%;
 			background-repeat: no-repeat;
 			background-position: left top;
-			height: 768px;
+			height: 330px;
 		}
 		.banner-wrapper .container{
-			padding: 175px 20px 95px;
+			padding: 35px 20px 95px;
 		}
 		.banner-wrapper .form-wrapper {
-			max-width: 420px;
+			max-width: 750px;
 			text-align:center;
+			margin-left:auto;
+			margin-right:auto;
+		}
+		.banner-wrapper .form-wrapper .banner-header{
+			padding-bottom: 25px;
+		    background-color: rgba(255,255,255,0.7);
+		    border-radius: 25px;
+		    padding-top: 25px;
 		}
 		.banner-header .top-header{
 			font-size:34px;
 			color:#004fb6;
-			background-color: rgba(255,255,255,0.8);
 		}
 		.banner-header .sub-header{
 			margin-top:10px;
 			color:#004fb6;
-			background-color: rgba(255,255,255,0.8);
 		}
 		.help-form-header{
-			margin-top:30px;
 			padding: 15px 20px;
-			background: #004fb6;
-			color: #fff;
-			width: 100%;
-			font-size: 18px;
-			display: -webkit-box;
-			display: -ms-flexbox;
-			display: flex;
-			-webkit-box-align: center;
-			-ms-flex-align: center;
-			align-items: center;
-			-webkit-transition: opacity 150ms linear;
-			transition: opacity 150ms linear;
-			border-top-left-radius: 4px;
-			border-top-right-radius: 4px;			
+		    background: #004fb6;
+		    color: #fff;
+		    font-size: 18px;
+		    display: -webkit-box;
+		    display: -ms-flexbox;
+		    -webkit-box-align: center;
+		    -ms-flex-align: center;
+		    align-items: center;
+		    -webkit-transition: opacity 150ms linear;
+		    transition: opacity 150ms linear;
+		    float: left;
+		    width: 50%;
+		    border-bottom-left-radius: 25px;
+		    border-top-left-radius: 25px;			
 		}
 		.help-form-body{
-			font-size: 18px;
-			padding: 20px;
-			background: #fcdb00;
-			position: relative;
-			margin: 0;
-			max-width: 100%;
-			border-top-left-radius: 0;
-			border-top-right-radius: 0;
+		    font-size: 18px;
+		    padding: 5px;
+		    background: #fcdb00;
+		    margin: 0px;
+		    border-top-right-radius: 25px;
+		    border-bottom-right-radius: 25px;
+		    width: 50%;
+		    float: right;
 		}
 		.help-form-body select{
 			padding:10px 20px;
 			border-radius: 25px;
 			border: solid 1px #fcdb00;
 			width:100%;
-		}
-		.row-intro-3-pilars{
-		    margin-left: 0px;
-    		margin-right: 0px;
-    	}
-		.intro-3-pilars{
-			text-align: center;
-			font-size: 18px;
-			color: white;
-    		background-color: rgba(0,0,0,0.4);
-			line-height: 1.8;
-			padding: 20px 0px;
-			font-weight: 700;
-			margin-bottom:25px;
-		}
-		.intro-3-pilars h3{
-			color: white;
 		}
 		.testimonial{
 			text-align: center;
@@ -159,7 +147,7 @@
 		}
 		.grid{
 			width:50%;
-			height:276px;
+			height:279px;
 			float:left;
 		}
 		.grid-content{
@@ -174,6 +162,9 @@
 		.grid-blue{
 			background-color: #004fb6;
 			color: #fefefe;
+		}
+		.grid-white{
+			background-color:#ffffff;
 		}
 		.grid-white .main-title{
 			color:#004fb6;
@@ -192,6 +183,7 @@
 		}
 		.aboutUsArea{
 			padding:50px 0px;
+			background-color:#f7f7f7;
 		}
 		.testimonialArea{
 			padding:40px 0px;
@@ -241,11 +233,10 @@
 		    height: 70px;
 		    margin-top: -190px;
 		    cursor: pointer;
-		    border: 5px solid rgba(234, 243, 255, 0.8);
 		    border-radius: 50px;
 		    font-size: 40px;
 		    text-align: center;
-		    padding-top: 9px;
+		    padding-top: 15px;
 		    clear: both;
 		    color: rgba(0, 79, 182, 1);
 		    background-color: rgba(167, 205, 255, 0.3);
@@ -258,49 +249,18 @@
     	}
     	/* Safari 4.0 - 8.0 */
 		@-webkit-keyframes arrowmove {
-		    0%   {margin-top: -190px;}
-		    100% {margin-top: -150px;}
+		    0%   {margin-top: -100px;}
+		    100% {margin-top: -50px;}
 		}
 		
 		/* Standard syntax */
 		@keyframes arrowmove {
-		    0%   {margin-top: -190px;}
-		    100% {margin-top: -150px;}
+		    0%   {margin-top: -100px;}
+		    100% {margin-top: -50px;}
 		}
 	</style>
-		<div class="banner carousel slide" id="recommended-item-carousel" data-ride="carousel">
-			<div class="banner-wrapper">
-				<div class="container">
-					<div class="form-wrapper">
-						<div class="banner-header">
-							<h2 class="top-header">Being Expert in Property</h2>
-							<h2 class="sub-header">Now available in your hand</h2>
-						</div>
-						<div class="help-form-header">
-							Apa yang bisa kami bantu?
-						</div>
-						<div class="help-form-body">
-							<select id="help-select">
-								<option>-- Pilih Bantuan --</option>
-								<option value="CC">Hubungi Call Center</option>
-								<option value="PR">Ingin Mendaftar Program</option>
-								<option value="CO">Ingin Berkonsultasi</option>
-							</select>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="arrowBottomWrapper">
-				<div class="arrowBottom"><i class="fa fa-chevron-down" aria-hidden="true"></i></div>
-			</div>
-		</div><!--end banner-->
 		<div id="aboutArea" class="aboutArea">
 		  <div class="container">
-		  <div class="row clearfix row-intro-3-pilars">
-			  <div class="col-xs-12 intro-3-pilars">
-				<h3>3 Pilar yang akan membawa anda menjadi MASTER di bidang PROPERTY.</h3>
-				</div>
-			</div>
 			<div class="row clearfix">
 				<div class="about_inner">
 					<div class="col-md-4">
@@ -326,7 +286,35 @@
 		  </div><!-- container -->
 		</div><!-- aboutArea -->
 		<div style="clear:both"></div>
- 		<div class="aboutUsArea">
+		<div class="banner carousel slide" id="recommended-item-carousel" data-ride="carousel">
+			<div class="banner-wrapper">
+				<div class="container">
+					<div class="form-wrapper">
+						<div class="banner-header">
+							<h2 class="top-header">Being Expert in Property</h2>
+							<h2 class="sub-header">Now available in your hand</h2>
+						</div>
+						<div style="clear:both"></div>
+						<div class="help-form-header">
+							Apa yang bisa kami bantu?
+						</div>
+						<div class="help-form-body">
+							<select id="help-select">
+								<option>-- Pilih Bantuan --</option>
+								<option value="CC">Hubungi Call Center</option>
+								<option value="PR">Ingin Mendaftar Program</option>
+								<option value="CO">Ingin Berkonsultasi</option>
+							</select>
+						</div>						
+					</div>
+				</div>
+			</div>
+			<div class="arrowBottomWrapper">
+				<div class="arrowBottom"><i class="fa fa-chevron-down" aria-hidden="true"></i></div>
+			</div>
+		</div><!--end banner-->
+		<div style="clear:both"></div>
+ 		<div id="aboutUsArea" class="aboutUsArea">
 			<div class="container">
 				<div class="title-center">
 					<h3 class="text-primary">Siapakah Kami?</h3>
@@ -458,7 +446,7 @@
 				}
 			});
 			$('.arrowBottom').click(function(){
-				scrollToBottom('aboutArea', 72);
+				scrollToBottom('aboutUsArea', 72);
 			});
 		});
 	</script>
