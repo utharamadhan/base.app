@@ -18,9 +18,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.TypeMismatchException;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -130,11 +132,21 @@ public class AdvisoryWebController {
 		return "/advisory/list";
 	}
 	
-	@RequestMapping(method=RequestMethod.GET, value="/detail/{id}")
-	public String detail(ModelMap model, HttpServletRequest request, HttpServletResponse response, @PathVariable(value="id") Long id){
+	@RequestMapping(method=RequestMethod.GET, value="/detail/{id}/{title}")
+	public String detail(ModelMap model, HttpServletRequest request, HttpServletResponse response, @PathVariable(value="id") Long id,
+			@PathVariable(value="title") String title){
 		Advisory detail = getRestCaller().findById(id);
-		model.addAttribute("detail", detail);
-		return "/advisory/detail";
+		if(detail!=null){
+			if(detail.getName()!=null){
+				String dataTitle = detail.getName().replace(" ", "-");
+				if(dataTitle.equals(title)){
+					model.addAttribute("detail", detail);
+					return "/advisory/detail";
+				}
+			}
+		}
+		LOGGER.error("ERROR DATA NOT VALID");
+		return "redirect:/page/notfound";
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/list/load")
@@ -161,16 +173,23 @@ public class AdvisoryWebController {
 		return "/advisory/stories";
 	}
 	
-	@RequestMapping(method=RequestMethod.GET, value="/sub/post/{id}")
+	@RequestMapping(method=RequestMethod.GET, value="/sub/post/{id}/{title}")
 	public String post(ModelMap model, HttpServletRequest request, HttpServletResponse response,
-			@RequestParam(value="startNo",defaultValue="1") int startNo, 
-			@RequestParam(value="offset",defaultValue="6") int offset,
-			@RequestParam(value="filter", defaultValue="", required=false) String filterJson,
-			@PathVariable(value="id") Long pkAdvisoryPost
+			@PathVariable(value="id") Long pkAdvisoryPost,
+			@PathVariable(value="title") String title
 		){
 		AdvisoryPost detail = getRestCallerPost().findById(pkAdvisoryPost);
-		model.addAttribute("detail", detail);
-		return "/advisory/post";
+		if(detail!=null){
+			if(detail.getName()!=null){
+				String dataTitle = detail.getName().replace(" ", "-");
+				if(dataTitle.equals(title)){
+					model.addAttribute("detail", detail);
+					return "/advisory/post";
+				}
+			}
+		}
+		LOGGER.error("ERROR DATA NOT VALID");
+		return "redirect:/page/notfound";
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/sub/advisor")
@@ -214,19 +233,29 @@ public class AdvisoryWebController {
 		return resultMap;
 	}
 	
-	@RequestMapping(method=RequestMethod.GET, value="/sub/advisor/detail/{id}")
+	@RequestMapping(method=RequestMethod.GET, value="/sub/advisor/detail/{id}/{name}")
 	public String detailAdvisor(ModelMap model, HttpServletRequest request, HttpServletResponse response,
 			@PathVariable(value="id") Long pkAppUser,
-			@RequestParam(value="filter", defaultValue="", required=false) String filterJson
+			@RequestParam(value="filter", defaultValue="", required=false) String filterJson,
+			@PathVariable(value="name") String name
 		){
 		AppUser advisor = getRestCallerUser().findById(pkAppUser);
-		model.addAttribute("advisor", advisor);
-		List<SearchFilter> filter = new ArrayList<SearchFilter>();
-		filter.add(new SearchFilter(Article.ADVISOR_PK, Operator.EQUALS, pkAppUser, Long.class));
-		List<SearchOrder> order = new ArrayList<SearchOrder>();
-		List<Article> articles = getRestCallerArticle().findAll(filter, order);
-		model.addAttribute("articles", articles);
-		return "/advisory/advisorDetail";
+		if(advisor!=null){
+			if(advisor.getParty()!=null && advisor.getParty().getName()!=null){
+				String dataTitle = advisor.getParty().getName().replace(" ", "-");
+				if(dataTitle.equals(name)){
+					model.addAttribute("advisor", advisor);
+					List<SearchFilter> filter = new ArrayList<SearchFilter>();
+					filter.add(new SearchFilter(Article.ADVISOR_PK, Operator.EQUALS, pkAppUser, Long.class));
+					List<SearchOrder> order = new ArrayList<SearchOrder>();
+					List<Article> articles = getRestCallerArticle().findAll(filter, order);
+					model.addAttribute("articles", articles);
+					return "/advisory/advisorDetail";
+				}
+			}
+		}
+		LOGGER.error("ERROR DATA NOT VALID");
+		return "redirect:/page/notfound";
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/sub/article")
@@ -280,31 +309,41 @@ public class AdvisoryWebController {
 		return resultMap;
 	}
 	
-	@RequestMapping(method=RequestMethod.GET, value="/sub/article/detail/{id}")
+	@RequestMapping(method=RequestMethod.GET, value="/sub/article/detail/{id}/{title}")
 	public String detailArticle(ModelMap model, HttpServletRequest request, HttpServletResponse response,
 			@PathVariable(value="id") Long pkArticle,
-			@RequestParam(value="filter", defaultValue="", required=false) String filterJson
+			@RequestParam(value="filter", defaultValue="", required=false) String filterJson,
+			@PathVariable(value="title") String title
 		){
 		Article article = new Article();
 		article = getRestCallerArticle().findById(pkArticle);
-		model.addAttribute("article", article);
-		List<SearchFilter> filter = new ArrayList<SearchFilter>();
-		filter.add(new SearchFilter(AppUser.STATUS, Operator.EQUALS, SystemConstant.ValidFlag.VALID));
-		filter.add(new SearchFilter(AppUser.ARTICLE_PK, Operator.EQUALS, pkArticle, Long.class));
-		List<SearchOrder> order = new ArrayList<SearchOrder>();
-		model.addAttribute("createdAdvisors", getRestCallerUser().findAll(filter, order));
-		
-		//get question
-		List<SearchFilter> filterAdvisory = new ArrayList<SearchFilter>();
-		filterAdvisory.add(new SearchFilter(Advisory.ARTICLE_PK, Operator.EQUALS, pkArticle, Long.class));
-		if(article!=null && article.getCategory()!=null && article.getCategory().getPkCategory()!=null){
-			Long pkCategory = article.getCategory().getPkCategory();
-			filterAdvisory.add(new SearchFilter(Advisory.CATEGORY_PK, Operator.EQUALS, pkCategory, Long.class));
+		if(article!=null){
+			if(article.getName()!=null){
+				String dataTitle = article.getName().replace(" ", "-");
+				if(dataTitle.equals(title)){
+					model.addAttribute("article", article);
+					List<SearchFilter> filter = new ArrayList<SearchFilter>();
+					filter.add(new SearchFilter(AppUser.STATUS, Operator.EQUALS, SystemConstant.ValidFlag.VALID));
+					filter.add(new SearchFilter(AppUser.ARTICLE_PK, Operator.EQUALS, pkArticle, Long.class));
+					List<SearchOrder> order = new ArrayList<SearchOrder>();
+					model.addAttribute("createdAdvisors", getRestCallerUser().findAll(filter, order));
+					
+					//get question
+					List<SearchFilter> filterAdvisory = new ArrayList<SearchFilter>();
+					filterAdvisory.add(new SearchFilter(Advisory.ARTICLE_PK, Operator.EQUALS, pkArticle, Long.class));
+					if(article!=null && article.getCategory()!=null && article.getCategory().getPkCategory()!=null){
+						Long pkCategory = article.getCategory().getPkCategory();
+						filterAdvisory.add(new SearchFilter(Advisory.CATEGORY_PK, Operator.EQUALS, pkCategory, Long.class));
+					}
+					List<SearchOrder> orderAdvisory = new ArrayList<SearchOrder>();
+					List<Advisory> advisories = getRestCallerAdvisory().findAll(filterAdvisory, orderAdvisory);
+					model.addAttribute("advisories", advisories);
+					return "/advisory/articleDetail";
+				}
+			}
 		}
-		List<SearchOrder> orderAdvisory = new ArrayList<SearchOrder>();
-		List<Advisory> advisories = getRestCallerAdvisory().findAll(filterAdvisory, orderAdvisory);
-		model.addAttribute("advisories", advisories);
-		return "/advisory/articleDetail";
+		LOGGER.error("ERROR DATA NOT VALID");
+		return "redirect:/page/notfound";
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/sub/consulting")
@@ -337,21 +376,31 @@ public class AdvisoryWebController {
 		return "/advisory/consulting";
 	}
 	
-	@RequestMapping(method=RequestMethod.GET, value="/sub/category/detail/{id}")
+	@RequestMapping(method=RequestMethod.GET, value="/sub/category/detail/{id}/{title}")
 	public String detailCategory(ModelMap model, HttpServletRequest request, HttpServletResponse response,
 			@PathVariable(value="id") Long pkCategory,
-			@RequestParam(value="filter", defaultValue="", required=false) String filterJson
+			@RequestParam(value="filter", defaultValue="", required=false) String filterJson,
+			@PathVariable(value="title") String title
 		){
 		Category category = getRestCallerCategory().findById(pkCategory);
-		model.addAttribute("category", category);
-		
-		//get question
-		List<SearchFilter> filterAdvisory = new ArrayList<SearchFilter>();
-		filterAdvisory.add(new SearchFilter(Advisory.CATEGORY_PK, Operator.EQUALS, pkCategory, Long.class));
-		List<SearchOrder> orderAdvisory = new ArrayList<SearchOrder>();
-		List<Advisory> advisories = getRestCallerAdvisory().findAll(filterAdvisory, orderAdvisory);
-		model.addAttribute("advisories", advisories);
-		return "/advisory/categoryDetail";
+		if(category!=null){
+			if(category.getName()!=null){
+				String dataTitle = category.getName().replace(" ", "-");
+				if(dataTitle.equals(title)){
+					model.addAttribute("category", category);
+					
+					//get question
+					List<SearchFilter> filterAdvisory = new ArrayList<SearchFilter>();
+					filterAdvisory.add(new SearchFilter(Advisory.CATEGORY_PK, Operator.EQUALS, pkCategory, Long.class));
+					List<SearchOrder> orderAdvisory = new ArrayList<SearchOrder>();
+					List<Advisory> advisories = getRestCallerAdvisory().findAll(filterAdvisory, orderAdvisory);
+					model.addAttribute("advisories", advisories);
+					return "/advisory/categoryDetail";
+				}
+			}
+		}
+		LOGGER.error("ERROR DATA NOT VALID");
+		return "redirect:/page/notfound";
 	}
 	
 	@RequestMapping(method=RequestMethod.POST, value="/askQuesstion")
@@ -467,6 +516,12 @@ public class AdvisoryWebController {
 			}
 			model.addAttribute("chooseArticle",data);
 		}
+	}
+	
+	@ExceptionHandler(TypeMismatchException.class)
+	public String handleTypeMismatchException(TypeMismatchException ex) {
+		LOGGER.error("ERROR PATH VARIABLE NOT VALID");
+		return "redirect:/page/notfound";
 	}
 	
 }

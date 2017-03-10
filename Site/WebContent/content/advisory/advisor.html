@@ -169,13 +169,17 @@
 			
 			$('.advisor_name').unbind('click').click(function(){
 				var idVal = $(this).parent().parent().find('.id_advisor').val();
+				var advisorName = $(this).parent().parent().find('.advisor_name').html();
+				advisorName = replaceall(advisorName, '' , '-');
 				var url = /*[[@{/page/advisory/sub/advisor/detail/}]]*/
-				url += idVal;
+				url += idVal + '/' +advisorName;
 				window.location.href = url;
 			});
 			
 			$('.link_see_article').unbind('click').click(function(){
 				var idAdvisor = $(this).parents('#template').find('.id_advisor').val();
+				var advisorName = $(this).parents('#template').find('.advisor_name').html();
+				advisorName = replaceall(advisorName, '' , '-');
 				var url = /*[[@{/page/advisory/sub/article}]]*/
 				url+= "?chooseAdvisor="+ idAdvisor;
 				window.location.href = url;

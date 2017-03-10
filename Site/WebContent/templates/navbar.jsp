@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <c:set var="rq" value="${pageContext.request }" scope="request" />
 <c:set var="ctx" value="${rq.contextPath }" scope="request" />
 <div class="header fixed-top">
@@ -68,7 +69,7 @@
 									<li class="col-sm-4">
 										<ul>
 											<c:forEach items="${posts}" var="post" varStatus="loop">
-											<li class="dropdown-header"><a href="${ctx}/page/post/${post.pkCommonPost}">${post.title}</a></li>
+											<li class="dropdown-header"><a href="${ctx}/page/post/${post.pkCommonPost}/${fn:replace(post.title,' ','-')}">${post.title}</a></li>
 											<li class="divider"></li>
 											</c:forEach>
 											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/page/lecturer">Tim Pengajar</a></li>
@@ -80,7 +81,7 @@
 										<ul>
 											<li class="dropdown-header"><a href="#">Our Engagement</a></li>
 											<c:forEach items="${engages}" var="engage" varStatus="loop">
-											<li><a href="${ctx}/page/engagement/${engage.pkEngagement}">${engage.title}</a></li>
+											<li><a href="${ctx}/page/engagement/${engage.pkEngagement}/${fn:replace(engage.title,' ','-')}">${engage.title}</a></li>
 											</c:forEach>
 											<li><br/><div class="button-orange" onclick="javascript:window.location.href='${ctx}/page/engagement/list'">Lainnya...</div></li>
 										</ul>
@@ -89,7 +90,7 @@
 										<ul>
 											<li class="dropdown-header"><a href="#">Program HFC 2016</a></li>
 											<c:forEach items="${programs}" var="program" varStatus="loop">
-											<li><a href="${ctx}/page/program/${program.pkProgramPost}">${program.title}</a></li>
+											<li><a href="${ctx}/page/program/${program.pkProgramPost}/${fn:replace(program.title,' ','-')}">${program.title}</a></li>
 											</c:forEach>
 											<li><br/><div class="button-orange" onclick="javascript:window.location.href='${ctx}/page/program/list'">Lainnya...</div></li>
 										</ul>
@@ -103,7 +104,7 @@
 										<ul>
 											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/page/ebook">Buku Elektronik</a></li>
 											<c:forEach items="${ebooksLatest}" var="ebookLatest" varStatus="loop">
-											<li><a href="${ctx}/page/ebook/detail/${ebookLatest.pkDigitalBook}">${ebookLatest.title}</a></li>
+											<li><a href="${ctx}/page/ebook/detail/${ebookLatest.pkDigitalBook}/${fn:replace(ebookLatest.title,' ','-')}">${ebookLatest.title}</a></li>
 											</c:forEach>
 											<li><br/><div class="button-orange" onclick="javascript:window.location.href='${ctx}/page/ebook'">Lainnya...</div></li>
 										</ul>
@@ -112,7 +113,7 @@
 										<ul>
 											<li class="dropdown-header"><a href="#">Berita</a></li>
 											<c:forEach items="${newsLatest}" var="news" varStatus="loop">
-											<li><a href="${ctx}/page/news/detail/${news.pkNews}">${news.title}</a></li>
+											<li><a href="${ctx}/page/news/detail/${news.pkNews}/${fn:replace(news.title,' ','-')}">${news.title}</a></li>
 											</c:forEach>
 											<li><br/><div class="button-orange" onclick="javascript:window.location.href='${ctx}/page/news'">Lainnya...</div></li>
 										</ul>
@@ -121,7 +122,7 @@
 										<ul>
 											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/page/ebook">Kegiatan</a></li>
 											<c:forEach items="${eventLatest}" var="event" varStatus="loop">
-											<li><a href="${ctx}/page/events/detail/${event.pkEvent}">${event.title}</a></li>
+											<li><a href="${ctx}/page/events/detail/${event.pkEvent}/${fn:replace(event.title,' ','-')}">${event.title}</a></li>
 											</c:forEach>
 											<li><br/><div class="button-orange" onclick="javascript:window.location.href='${ctx}/page/events/upcoming'">Lainnya...</div></li>
 										</ul>

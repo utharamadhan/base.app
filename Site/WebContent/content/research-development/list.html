@@ -61,7 +61,7 @@
 										<td>
 											<ul>
 												<li class="active resName">
-													<a th:href="@{/page/research-development/detail/}+${res.pkResearch}" th:text="${res.title}"></a>
+													<a th:href="@{/page/research-development/detail/}+${res.pkResearch}+'/'+${#strings.replace(res.title, ' ', '-')}" th:text="${res.title}"></a>
 												</li>
 												<li class="resSubtitle">
 													<a href="#" th:text="${res.subtitle}"></a>
@@ -186,7 +186,7 @@
 			var detailLink = /*[[@{/page/research-development/detail/}]]*/;
 			for(var i=0;i<datas.length;i++){
 				var cloning = $('.template_part .data_result').eq(0).clone();
-				cloning.find('.resName').find('a').attr('href',detailLink+datas[i].pkResearch);
+				cloning.find('.resName').find('a').attr('href',detailLink+datas[i].pkResearch+'/'+replaceall(datas[i].title,' ','-'));
 				cloning.find('.resName').html(datas[i].name);
 				cloning.find('.resSubtitle').html(datas[i].subtitle);
 				cloning.find('.resTopic').html(datas[i].researchTopic.name);

@@ -122,7 +122,7 @@
 				var idGroup = $('input[name="identityGroup"]').val();
 				title = replaceall(title, " ", "-");
 				var link = /*[[@{/page/learning/programDetail/}]]*/ '';
-				link = link + titleGroup + "/" + idGroup + "/" + title + "/" + param;
+				link = link + idGroup + "/" + titleGroup + "/" + param + "/" + title;
 				window.location.href = link;
 			});
 			
@@ -187,7 +187,7 @@
 			var title = /*[[${title}]]*/;
 			title = replaceall(title, " ", "-");
 			var sURL = /*[[@{/page/learning/program/}]]*/
-			sURL = sURL + title + "/" + id + "/load";
+			sURL = sURL + id + "/" + title + "/load";
 			var param = $('.param').val();
 			var nextPage = paramNextPage ? paramNextPage : elem.find('a').html();
 			var oldPage = $('.active').find('a').html();
@@ -202,17 +202,23 @@
 	            data: {filter : param, startNo : nextStartNo, offset : offset, category : catValue, searchParam : searchParam, areaParam : areaParam},
 	            dataType: 'json',
 	            success: function (data) {
-	            	$('.load_reload_wrapper').remove();
-	            	$('.mrdy_btn').disableBtn({enabled:true});
-	            	processData(data.courses.result, false);	
-	            	$('.'+nextPage).addClass('active');
-	            	$('.'+nextPage).removeClass('change_page');
-	            	$('.'+oldPage).removeClass('active');
-	            	$('.'+oldPage).addClass('change_page');
-	            	$('.change_page').unbind('click').click(function(){
-	    				changePage($(this));
-	    			});
-	            	checkPagination();
+	            	if(data){
+		            	if(!data.errors){
+			            	$('.load_reload_wrapper').remove();
+			            	$('.mrdy_btn').disableBtn({enabled:true});
+			            	processData(data.courses.result, false);	
+			            	$('.'+nextPage).addClass('active');
+			            	$('.'+nextPage).removeClass('change_page');
+			            	$('.'+oldPage).removeClass('active');
+			            	$('.'+oldPage).addClass('change_page');
+			            	$('.change_page').unbind('click').click(function(){
+			    				changePage($(this));
+			    			});
+			            	checkPagination();
+		            	}else if(data.errors){
+		            		alert(data.errors);
+		            	}
+	            	}
 	            },
 	            beforeSend: function($jqXHR, $textStatus){
 	            	$('.list_data').html('<tr class="load_reload_wrapper"><td colspan="5"><div class="col-md-12 loading_reload" style="display: block; margin-left: auto; margin-right: auto;text-align: center;"><img src="'+img_url+'" /></div></td></tr>');

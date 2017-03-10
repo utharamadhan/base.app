@@ -15,17 +15,12 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Scope(value="request")
 @Controller
-@RequestMapping(value="/landingPage")
-public class LandingPageController {
+@RequestMapping(value="/notfound")
+public class NotFoundController {
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public String landingPagePost(@RequestParam(value="token", required=false) String token, HttpServletRequest request, HttpServletResponse response) {
-		return "redirect:/page/login";
-	}
-	
-	@RequestMapping(method=RequestMethod.GET, value="/blank")
-	public String blank(){
-		return "/blank";
+	public String landingPagePost(HttpServletRequest request, HttpServletResponse response) {
+		return "/notfound";
 	}
 	
 }

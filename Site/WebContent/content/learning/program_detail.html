@@ -11,7 +11,7 @@
 					<ul>
 					<li><a th:href="@{/}">Home</a></li>
 					<li><a th:href="@{/page/learning}">Learning</a></li>
-					<li><a th:href="@{/page/learning/program/}+${titleGroup}+'/'+${idGroup}">Foundation Property Developer</a></li>
+					<li><a th:href="@{/page/learning/program/}+${idGroup}+'/'+${#strings.replace(titleGroup, ' ', '-')}">Foundation Property Developer</a></li>
 					<li><a href="#">Building the Frame for Business Growth</a></li>
 					</ul>
 				</div>

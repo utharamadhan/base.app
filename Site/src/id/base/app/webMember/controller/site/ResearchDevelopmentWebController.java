@@ -51,12 +51,22 @@ public class ResearchDevelopmentWebController {
 		return "/research-development/main";
 	}
 	
-	@RequestMapping(method=RequestMethod.GET, value="/themes/{id}")
-	public String themes(ModelMap model, HttpServletRequest request, HttpServletResponse response, @PathVariable(value="id") Long id){
+	@RequestMapping(method=RequestMethod.GET, value="/themes/{id}/{title}")
+	public String themes(ModelMap model, HttpServletRequest request, HttpServletResponse response, @PathVariable(value="id") Long id,
+			@PathVariable(value="title") String title){
 		ResearchTheme detail = getRestCallerThemes().findById(id);
-		model.addAttribute("detail", detail);
-		model.addAttribute("researchThemes", getResearchThemesTitle());
-		return "/research-development/main-themes";
+		if(detail!=null){
+			if(detail.getTitle()!=null){
+				String dataTitle = detail.getTitle().replace(" ", "-");
+				if(dataTitle.equals(title)){
+					model.addAttribute("detail", detail);
+					model.addAttribute("researchThemes", getResearchThemesTitle());
+					return "/research-development/main-themes";
+				}
+			}
+		}
+		LOGGER.error("ERROR DATA NOT VALID");
+		return "redirect:/page/notfound";
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/list")
@@ -73,11 +83,21 @@ public class ResearchDevelopmentWebController {
 		return "/research-development/list";
 	}
 	
-	@RequestMapping(method=RequestMethod.GET, value="/detail/{id}")
-	public String detail(ModelMap model, HttpServletRequest request, HttpServletResponse response, @PathVariable(value="id") Long id){
+	@RequestMapping(method=RequestMethod.GET, value="/detail/{id}/{title}")
+	public String detail(ModelMap model, HttpServletRequest request, HttpServletResponse response, @PathVariable(value="id") Long id,
+			@PathVariable(value="title") String title){
 		Research detail = getRestCaller().findById(id);
-		model.addAttribute("detail", detail);
-		return "/research-development/detail";
+		if(detail!=null){
+			if(detail.getTitle()!=null){
+				String dataTitle = detail.getTitle().replace(" ", "-");
+				if(dataTitle.equals(title)){
+					model.addAttribute("detail", detail);
+					return "/research-development/detail";
+				}
+			}
+		}
+		LOGGER.error("ERROR DATA NOT VALID");
+		return "redirect:/page/notfound";
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/list/load")

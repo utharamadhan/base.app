@@ -87,8 +87,10 @@
 			$('.title_article, .read_more').unbind('click').click(function(e){
 				e.preventDefault();
 				var val = $(this).parents('.article_box_content').find('.id_article').val();
+				var title = $(this).parents('.article_box_content').find('.title_article').val();
+				title = replaceall(title, ' ', '-');
 				var url = /*[[@{/page/advisory/sub/article/detail/}]]*/
-				url += val;
+				url += val + '/' + title;
 				window.location.href = url;
 			});
 		});

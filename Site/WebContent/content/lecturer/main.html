@@ -38,7 +38,7 @@
 								<div class="post_thumb">
 									<img th:src="${tutor.encodedPicture}" alt="" />
 								</div><!-- end post thumb -->
-								<h1><a  th:href="@{/page/lecturer/}+${tutor.pkTutor}"><label th:text="${tutor.name}" class="post_title">Roy</label></a></h1>
+								<h1><a  th:href="@{/page/lecturer/}+${tutor.pkTutor}+'/'+${#strings.replace(tutor.name, ' ', '-')}"><label th:text="${tutor.name}" class="post_title">Roy</label></a></h1>
 							</div><!-- end post -->
 					</div>	
 				</div>

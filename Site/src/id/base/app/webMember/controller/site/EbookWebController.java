@@ -26,9 +26,11 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.TypeMismatchException;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -88,14 +90,24 @@ public class EbookWebController {
 		return resultMap;
 	}
 	
-	@RequestMapping(method=RequestMethod.GET, value="/detail/{id}")
+	@RequestMapping(method=RequestMethod.GET, value="/detail/{id}/{title}")
 	public String detail(ModelMap model, HttpServletRequest request, HttpServletResponse response,
-			@PathVariable(value="id") Long id
+			@PathVariable(value="id") Long id,
+			@PathVariable(value="title") String title
 	){
 		DigitalBook detail = DigitalBook.getInstance();
 		detail = getRestCaller().findById(id);
-		model.addAttribute("detail", detail);
-		return "/ebook/detail";
+		if(detail!=null){
+			if(detail.getTitle()!=null){
+				String dataTitle = detail.getTitle().replace(" ", "-");
+				if(dataTitle.equals(title)){
+					model.addAttribute("detail", detail);
+					return "/ebook/detail";
+				}
+			}
+		}
+		LOGGER.error("ERROR DATA NOT VALID");
+		return "redirect:/page/notfound";
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/downloadFile/{id}")
@@ -136,4 +148,10 @@ public class EbookWebController {
 		
 		return resultMap;
 	}	
+	
+	@ExceptionHandler(TypeMismatchException.class)
+	public String handleTypeMismatchException(TypeMismatchException ex) {
+		LOGGER.error("ERROR PATH VARIABLE NOT VALID");
+		return "redirect:/page/notfound";
+	}
 }

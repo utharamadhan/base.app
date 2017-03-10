@@ -11,7 +11,7 @@
 					<ul>
 					<li><a th:href="@{/}">Home</a></li>
 					<li><a th:href="@{/page/research-development}">Research &#38; Development</a></li>
-					<li><a th:href="@{/page/research-development/themes/${detail.pkResearchTheme}}" th:text="${detail.title}"></a></li>
+					<li><a th:href="@{/page/research-development/themes/${detail.pkResearchTheme}}+'/'+${#strings.replace(detail.title, ' ', '-')}" th:text="${detail.title}"></a></li>
 					</ul>
 				</div>
 			</div>
@@ -35,7 +35,7 @@
 								<div class="col-md-4 rnd_top_menu">
 									<ul>
 										<li th:each="rt, i : ${researchThemes}">
-											<a th:href="@{/page/research-development/themes/}+${rt.pkResearchTheme}" th:text="${rt.title}"></a>
+											<a th:href="@{/page/research-development/themes/}+${rt.pkResearchTheme}+'/'+${#strings.replace(rt.title, ' ', '-')}" th:text="${rt.title}"></a>
 										</li>
 									</ul>
 								</div>

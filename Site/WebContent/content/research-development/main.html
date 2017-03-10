@@ -34,7 +34,7 @@
 								<div class="col-md-4 rnd_top_menu">
 									<ul>
 										<li th:each="rt, i : ${researchThemes}">
-											<a th:href="@{/page/research-development/themes/}+${rt.pkResearchTheme}" th:text="${rt.title}"></a>
+											<a th:href="@{/page/research-development/themes/}+${rt.pkResearchTheme}+'/'+${#strings.replace(rt.title, ' ', '-')}" th:text="${rt.title}"></a>
 										</li>
 									</ul>
 								</div>
@@ -65,7 +65,7 @@
 						<div class="row">
 							<div class="col-md-4" th:each="rt, i : ${researchThemes}">
 								<div class="rnd_excerpt_wrapper">
-									<h3><a th:href="@{/page/research-development/themes/}+${rt.pkResearchTheme}" th:text="${rt.title}"></a></h3>
+									<h3><a th:href="@{/page/research-development/themes/}+${rt.pkResearchTheme}+'/'+${#strings.replace(rt.title, ' ', '-')}" th:text="${rt.title}"></a></h3>
 									<div class="rnd_excerpt_content" th:text="${rt.excerpt}"></div>	
 								</div>
 							</div>

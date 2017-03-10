@@ -12,9 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.TypeMismatchException;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -49,13 +51,23 @@ public class LecturerWebController {
 		return new RestCaller<Tutor>(RestConstant.REST_SERVICE, RestServiceConstant.TUTOR_SERVICE);
 	}
 	
-	@RequestMapping(method=RequestMethod.GET, value="/{id}")
+	@RequestMapping(method=RequestMethod.GET, value="/{id}/{name}")
 	public String view(ModelMap model, HttpServletRequest request, HttpServletResponse response,
-			@PathVariable(value="id") Long id){
+			@PathVariable(value="id") Long id,
+			@PathVariable(value="title") String title){
 		Tutor detail = Tutor.getInstance();
 		detail = getRestCaller().findById(id);
-		model.addAttribute("detail", detail);
-		return "/lecturer/detail";
+		if(detail!=null){
+			if(detail.getName()!=null){
+				String dataTitle = detail.getName().replace(" ", "-");
+				if(dataTitle.equals(title)){
+					model.addAttribute("detail", detail);
+					return "/lecturer/detail";
+				}
+			}
+		}
+		LOGGER.error("ERROR DATA NOT VALID");
+		return "redirect:/page/notfound";
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)
@@ -90,6 +102,12 @@ public class LecturerWebController {
 		PagingWrapper<Tutor> tutors = getRestCaller().findAllByFilter(startNo, offset, filter, order);
 		resultMap.put("tutors", tutors);
 		return resultMap;
+	}
+	
+	@ExceptionHandler(TypeMismatchException.class)
+	public String handleTypeMismatchException(TypeMismatchException ex) {
+		LOGGER.error("ERROR PATH VARIABLE NOT VALID");
+		return "redirect:/page/notfound";
 	}
 	
 }

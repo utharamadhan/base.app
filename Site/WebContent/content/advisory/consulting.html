@@ -56,7 +56,7 @@
 													<span class="glyphicon glyphicon-play position_right" aria-hidden="true"></span>
 												</div>
 											</div>
-											<div class="info_wrapper"><span class="glyphicon glyphicon-info-sign position_right_info" aria-hidden="true" th:attr="data=${category.pkCategory}"></span></div>
+											<div class="info_wrapper"><span class="glyphicon glyphicon-info-sign position_right_info" aria-hidden="true" th:attr="data=${category.pkCategory},name=${category.name}"></span></div>
 										</div>
 									</div>
 									<div class="col-md-6"> 
@@ -67,7 +67,7 @@
 													<input type="hidden" class="idCategory" th:value="${category.pkCategory}" />
 													<span class="glyphicon glyphicon-play position_right" aria-hidden="true"></span>
 												</div>
-												<div class="info_wrapper"><span class="glyphicon glyphicon-info-sign position_right_info" aria-hidden="true" th:attr="data=${category.pkCategory}"></span></div>
+												<div class="info_wrapper"><span class="glyphicon glyphicon-info-sign position_right_info" aria-hidden="true" th:attr="data=${category.pkCategory},name=${category.name}"></span></div>
 											</div>
 										</div>
 									</div> 
@@ -429,7 +429,9 @@
 			$('.position_right_info').unbind('click').click(function(){
 				var url = /*[[@{/page/advisory/sub/category/detail/}]]*/
 				var idx = $(this).attr('data');
-				url += idx;
+				var name = $(this).attr('name');
+				name = replaceall(name,' ','-');
+				url += idx + '/' +name;
 				window.location.href = url;
 			});
 			

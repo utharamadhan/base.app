@@ -166,8 +166,10 @@
 			
 			$('.show_detail').unbind('click').click(function(){
 				var param = $(this).parents('.post').find('input[name="identity"]').val();
+				var title = $(this).parents('.post').find('.post_title').html();
+				title = title.replace(/ /g, "-");
 				var link = /*[[@{/page/ebook/detail/}]]*/ '';
-				link = link + param;
+				link = link + param+"/"+title;
 				window.location.href = link;
 			});
 		});

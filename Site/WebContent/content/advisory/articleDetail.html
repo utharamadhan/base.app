@@ -111,8 +111,10 @@
 			
 			$('.advisor_name').unbind('click').click(function(){
 				var idVal = $(this).parent().parent().find('.id_advisor').val();
+				var name = $(this).parent().parent().find('.advisor_name').html();
+				name = replaceall(name, ' ' , '-');
 				var url = /*[[@{/page/advisory/sub/advisor/detail/}]]*/
-				url += idVal;
+				url += idVal + '/' + name;
 				window.location.href = url;
 			});
 		});

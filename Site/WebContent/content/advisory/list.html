@@ -95,7 +95,7 @@
 										<td>
 											<ul>
 												<li class="active advisorQuestion">
-													<a th:href="@{/page/advisory/detail/}+${advisory.pkAdvisory}" th:text="${advisory.question}"></a>
+													<a th:href="@{/page/advisory/detail/}+${advisory.pkAdvisory}+'/'+${#strings.replace(advisory.question, ' ', '-')}" th:text="${advisory.question}"></a>
 												</li>
 												<li>
 													<a href="#" >Sub Judul pertanyaan</a>
