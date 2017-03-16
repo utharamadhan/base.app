@@ -14,7 +14,7 @@ import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.valueobject.AppUser;
-import id.base.app.valueobject.news.News;
+import id.base.app.valueobject.publication.News;
 import id.base.app.webMember.DataTableCriterias;
 import id.base.app.webMember.controller.BaseController;
 import id.base.app.webMember.rest.LookupRestCaller;

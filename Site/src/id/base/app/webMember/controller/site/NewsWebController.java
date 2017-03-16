@@ -9,7 +9,7 @@ import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.util.dao.SearchOrder.Sort;
-import id.base.app.valueobject.news.News;
+import id.base.app.valueobject.publication.News;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package id.base.app.dao.news;
+package id.base.app.dao.publication;
 
 import id.base.app.AbstractHibernateDAO;
 import id.base.app.ILookupConstant;
@@ -6,7 +6,7 @@ import id.base.app.exception.SystemException;
 import id.base.app.paging.PagingWrapper;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
-import id.base.app.valueobject.news.News;
+import id.base.app.valueobject.publication.News;
 
 import java.util.ArrayList;
 import java.util.List;

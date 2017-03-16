@@ -1,4 +1,4 @@
-package id.base.app.controller.news;
+package id.base.app.controller.publication;
 
 import id.base.app.SystemConstant;
 import id.base.app.controller.SuperController;
@@ -8,7 +8,7 @@ import id.base.app.rest.RestConstant;
 import id.base.app.service.MaintenanceService;
 import id.base.app.service.news.INewsService;
 import id.base.app.util.StringFunction;
-import id.base.app.valueobject.news.News;
+import id.base.app.valueobject.publication.News;
 
 import java.nio.file.Files;
 import java.nio.file.Path;

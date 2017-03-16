@@ -1,4 +1,4 @@
-package id.base.app.controller.event;
+package id.base.app.controller.publication;
 
 import id.base.app.SystemConstant;
 import id.base.app.controller.SuperController;
@@ -12,7 +12,7 @@ import id.base.app.util.StringFunction;
 import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
-import id.base.app.valueobject.event.Event;
+import id.base.app.valueobject.publication.Event;
 
 import java.nio.file.Files;
 import java.nio.file.Path;

@@ -16,8 +16,6 @@ import id.base.app.util.StringFunction;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.valueobject.AppUser;
-import id.base.app.valueobject.BaseEntity;
-import id.base.app.valueobject.course.Course;
 import id.base.app.valueobject.party.Party;
 import id.base.app.valueobject.party.PartyContact;
 
@@ -29,7 +27,6 @@ import java.util.Locale;
 
 import javax.ws.rs.QueryParam;
 
-import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -43,7 +40,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.util.BeanUtil;
 
 @RestController
 @RequestMapping(RestConstant.RM_USER)
@@ -262,8 +258,9 @@ public class UserController extends SuperController<AppUser>{
 			if(appUser.getAppRoles() != null && anObject.getAppRoles() != null) {
 					appUser.setAppRoles(anObject.getAppRoles());
 			}
+
+			appUser.setIsNewPassword(Boolean.FALSE);
 		}
-		appUser.setIsNewPassword(Boolean.FALSE);
 		return validate(appUser);
 	}
 	

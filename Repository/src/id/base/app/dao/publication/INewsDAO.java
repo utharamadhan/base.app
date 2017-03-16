@@ -1,8 +1,8 @@
-package id.base.app.dao.news;
+package id.base.app.dao.publication;
 
 import id.base.app.IBaseDAO;
 import id.base.app.exception.SystemException;
-import id.base.app.valueobject.news.News;
+import id.base.app.valueobject.publication.News;
 
 import java.util.List;
 

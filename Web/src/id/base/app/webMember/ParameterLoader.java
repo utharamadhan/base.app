@@ -42,12 +42,12 @@ import id.base.app.valueobject.contact.Contact;
 import id.base.app.valueobject.course.Course;
 import id.base.app.valueobject.course.GroupCourse;
 import id.base.app.valueobject.course.Tag;
-import id.base.app.valueobject.event.Event;
-import id.base.app.valueobject.news.News;
 import id.base.app.valueobject.notification.Notification;
 import id.base.app.valueobject.party.Party;
 import id.base.app.valueobject.party.Student;
 import id.base.app.valueobject.publication.DigitalBook;
+import id.base.app.valueobject.publication.Event;
+import id.base.app.valueobject.publication.News;
 import id.base.app.valueobject.research.Research;
 import id.base.app.valueobject.research.ResearchTheme;
 

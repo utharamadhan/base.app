@@ -1,10 +1,10 @@
-package id.base.app.dao.event;
+package id.base.app.dao.publication;
 
 import id.base.app.IBaseDAO;
 import id.base.app.exception.SystemException;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
-import id.base.app.valueobject.event.Event;
+import id.base.app.valueobject.publication.Event;
 
 import java.util.List;
 

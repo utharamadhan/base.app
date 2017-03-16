@@ -1,4 +1,4 @@
-package id.base.app.dao.event;
+package id.base.app.dao.publication;
 
 import id.base.app.AbstractHibernateDAO;
 import id.base.app.ILookupConstant;
@@ -10,7 +10,7 @@ import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.util.dao.SearchOrder.Sort;
-import id.base.app.valueobject.event.Event;
+import id.base.app.valueobject.publication.Event;
 
 import java.util.ArrayList;
 import java.util.Date;

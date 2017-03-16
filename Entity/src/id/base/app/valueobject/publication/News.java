@@ -1,4 +1,4 @@
-package id.base.app.valueobject.news;
+package id.base.app.valueobject.publication;
 
 import java.io.Serializable;
 import java.util.Date;
