@@ -1,7 +1,5 @@
-package id.base.app.webMember.controller.publication;
+package id.base.app.webMember.controller.testimonial;
 
-import id.base.app.ILookupConstant;
-import id.base.app.ILookupGroupConstant;
 import id.base.app.SystemConstant;
 import id.base.app.exception.ErrorHolder;
 import id.base.app.paging.PagingWrapper;
@@ -13,10 +11,9 @@ import id.base.app.util.StringFunction;
 import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
-import id.base.app.valueobject.publication.News;
+import id.base.app.valueobject.testimonial.Testimonial;
 import id.base.app.webMember.DataTableCriterias;
 import id.base.app.webMember.controller.BaseController;
-import id.base.app.webMember.rest.LookupRestCaller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,78 +33,73 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Scope(value="request")
 @Controller
-@RequestMapping("/news/newsMaintenance")
-public class NewsWebController extends BaseController<News> {
+@RequestMapping("/testimonial")
+public class TestimonialWebController extends BaseController<Testimonial> {
 
-	private final String PATH_LIST = "/publication/newsList";
-	private final String PATH_DETAIL = "/publication/newsDetail";
+	private final String PATH_LIST = "/testimonial/testimonialList";
+	private final String PATH_DETAIL = "/testimonial/testimonialDetail";
 	
 	@Override
-	protected RestCaller<News> getRestCaller() {
-		return new RestCaller<News>(RestConstant.REST_SERVICE, RestServiceConstant.NEWS_SERVICE);
+	protected RestCaller<Testimonial> getRestCaller() {
+		return new RestCaller<Testimonial>(RestConstant.REST_SERVICE, RestServiceConstant.TESTIMONIAL_SERVICE);
 	}
 
 	@Override
-	protected List<SearchFilter> convertForFilter(Map<String, String> paramWrapper) {
+	protected List<SearchFilter> convertForFilter(
+			Map<String, String> paramWrapper) {
 		return null;
 	}
-	
-	private void setDefaultFilter(HttpServletRequest request, List<SearchFilter> filters) {
-		filters.add(new SearchFilter(News.STATUS, Operator.NOT_EQUAL, ILookupConstant.ArticleStatus.DELETE, Integer.class));
-	}
 
 	@Override
-	protected List<SearchFilter> convertForFilter(HttpServletRequest request, Map<String, String> paramWrapper, DataTableCriterias columns) {
+	protected List<SearchFilter> convertForFilter(HttpServletRequest request,
+			Map<String, String> paramWrapper, DataTableCriterias columns) {
 		List<SearchFilter> filters = new ArrayList<>();
-		setDefaultFilter(request, filters);
 		if(StringFunction.isNotEmpty(columns.getSearch().get(DataTableCriterias.SearchCriterias.value))){
-			filters.add(new SearchFilter(News.TITLE, Operator.LIKE, columns.getSearch().get(DataTableCriterias.SearchCriterias.value)));
+			filters.add(new SearchFilter(Testimonial.NAME, Operator.LIKE, columns.getSearch().get(DataTableCriterias.SearchCriterias.value)));
 		}
 		return filters;
 	}
-
+	
 	@Override
 	protected List<SearchOrder> getSearchOrder() {
 		if(orders != null) {
 			orders.clear();
 		}
-		orders.add(new SearchOrder(News.PK_NEWS, SearchOrder.Sort.DESC));
+		orders.add(new SearchOrder(Testimonial.PK_TESTIMONIAL, SearchOrder.Sort.DESC));
 		return orders;
+	}
+
+	@Override
+	protected String getListPath() {
+		return PATH_LIST;
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="showList")
 	public String showList(ModelMap model, HttpServletRequest request){
-		model.addAttribute("pagingWrapper", new PagingWrapper<News>());
+		model.addAttribute("pagingWrapper", new PagingWrapper<Testimonial>());
 		return getListPath();
-	}
-	
-	public void setDefaultData(ModelMap model) {
-		LookupRestCaller lrc = new LookupRestCaller();
-		model.addAttribute("statusOptions", lrc.findByLookupGroup(ILookupGroupConstant.ARTICLE_STATUS));
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="showAdd")
 	public String showAdd(ModelMap model, HttpServletRequest request){
-		setDefaultData(model);
-		model.addAttribute("detail", News.getInstance());
+		model.addAttribute("detail", Testimonial.getInstance());
 		return PATH_DETAIL;
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="showEdit")
 	public String showEdit(@RequestParam(value="maintenancePK") final Long maintenancePK, @RequestParam Map<String, String> paramWrapper, ModelMap model, HttpServletRequest request){
-		setDefaultData(model);
-		News detail = getRestCaller().findById(maintenancePK);
+		Testimonial detail = getRestCaller().findById(maintenancePK);
 		model.addAttribute("detail", detail);
 		return PATH_DETAIL;
 	}
 	
-	@RequestMapping(method=RequestMethod.POST, value="saveNews")
+	@RequestMapping(method=RequestMethod.POST, value="saveTestimonial")
 	@ResponseBody
-	public Map<String, Object> saveNews(final News anObject, final BindingResult bindingResult, final ModelMap model, HttpServletRequest request) {
+	public Map<String, Object> saveTestimonial(final Testimonial anObject, final BindingResult bindingResult, final ModelMap model, HttpServletRequest request) {
 		Map<String, Object> resultMap = new HashMap<>();
 		List<ErrorHolder> errors = new ArrayList<>();
 		try{
-			errors = new SpecificRestCaller<News>(RestConstant.REST_SERVICE, RestServiceConstant.NEWS_SERVICE).performPut("/update", anObject);
+			errors = new SpecificRestCaller<Testimonial>(RestConstant.REST_SERVICE, RestServiceConstant.TESTIMONIAL_SERVICE).performPut("/update", anObject);
 			if(errors != null && errors.size() > 0){
 				resultMap.put(SystemConstant.ERROR_LIST, errors);
 			}
@@ -116,10 +108,4 @@ public class NewsWebController extends BaseController<News> {
 		}
 		return resultMap;
 	}
-
-	@Override
-	protected String getListPath() {
-		return PATH_LIST;
-	}
-
 }

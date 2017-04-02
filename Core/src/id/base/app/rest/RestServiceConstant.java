@@ -31,9 +31,6 @@ public class RestServiceConstant {
 	
 	public static final String STUDENT_SERVICE = "studentService";
 	
-	//forecast weather
-	public static final String FORECAST_CALL_SERVICE = "forecastCallService";
-	
 	//about us
 	public static final String COMMON_POST_SERVICE = "commonPostService";
 	public static final String ENGAGEMENT_SERVICE = "engagementService";
@@ -73,4 +70,6 @@ public class RestServiceConstant {
 	public static final String NOTIFICATION_SERVICE = "notificationService";
 	public static final String FORGOT_PASSWORD_SERVICE = "forgotPasswordService";
 	
+	//testimonial
+	public static final String TESTIMONIAL_SERVICE = "testimonialService";
 }

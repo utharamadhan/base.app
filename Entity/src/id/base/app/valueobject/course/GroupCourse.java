@@ -1,15 +1,12 @@
 package id.base.app.valueobject.course;
 
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import id.base.app.encryptor.EncodeDecode;
+import id.base.app.valueobject.BaseEntity;
+
 import java.io.Serializable;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.imageio.ImageIO;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,14 +18,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.apache.commons.io.IOUtils;
-
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-
-import id.base.app.SystemConstant;
-import id.base.app.encryptor.EncodeDecode;
-import id.base.app.valueobject.BaseEntity;
 
 @Entity
 @Table(name = "GROUP_COURSE")

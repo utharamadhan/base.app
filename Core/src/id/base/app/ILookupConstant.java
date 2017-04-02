@@ -64,7 +64,6 @@ public interface ILookupConstant {
 		static {
 			URL_MAP.put(CONTACT_US, CONTACT_US_URL);
 		}
-		
 	}
     
 	public static final class PartyContact {

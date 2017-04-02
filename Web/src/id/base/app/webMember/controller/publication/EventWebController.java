@@ -39,8 +39,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/event/eventMaintenance")
 public class EventWebController extends BaseController<Event> {
 
-	private final String PATH_LIST = "/event/eventMaintenanceList";
-	private final String PATH_DETAIL = "/event/eventMaintenanceDetail";
+	private final String PATH_LIST = "/publication/eventList";
+	private final String PATH_DETAIL = "/publication/eventDetail";
 	
 	@Override
 	protected RestCaller<Event> getRestCaller() {
