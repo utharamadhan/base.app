@@ -33,7 +33,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Scope(value="request")
 @Controller
-@RequestMapping("/testimonial")
+@RequestMapping("/master/testimonial")
 public class TestimonialWebController extends BaseController<Testimonial> {
 
 	private final String PATH_LIST = "/testimonial/testimonialList";

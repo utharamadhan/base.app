@@ -32,6 +32,7 @@
 		                          <tr>
 		                            <th>User Name</th>
 									<th>Email</th>
+									<th>Status</th>
 									<th>E/D</th>
 		                          </tr>
 		                        </thead>
@@ -85,6 +86,7 @@
 		    setMenuActive('userMaintenance');
 		    var colDefs = [{ name : "userName" }, 
 	    	               { name : "email" },
+	    	               { name : "statusStr"},
 	    	               { type : "edit" , param : [ "pkAppUser" ] }
 	    	               ];
 		    var sURL = /*[[@{/do/administrator/user/list?}]]*/ #;

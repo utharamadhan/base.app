@@ -1,5 +1,9 @@
 package id.base.app.valueobject;
 
+import id.base.app.ILookupConstant;
+import id.base.app.valueobject.advisory.Article;
+import id.base.app.valueobject.party.Party;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -22,9 +26,6 @@ import javax.persistence.Transient;
 
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
-
-import id.base.app.valueobject.advisory.Article;
-import id.base.app.valueobject.party.Party;
 
 @Entity
 @Table(name = "APP_USER")
@@ -103,6 +104,9 @@ public class AppUser extends BaseEntity implements Serializable {
     
     @Column(name="STATUS")
     private Integer status;
+    
+    @Transient
+	private String statusStr;
     
     @Column(name="LOGIN_FAILED")
     private Integer loginFailed ;
@@ -223,6 +227,14 @@ public class AppUser extends BaseEntity implements Serializable {
 		this.status = status;
 	}
 	
+	public String getStatusStr() {
+		return ILookupConstant.UserStatus.statusMaps.get(status);
+	}
+
+	public void setStatusStr(String statusStr) {
+		this.statusStr = statusStr;
+	}
+
 	public Integer getLoginFailed() {
 		return loginFailed;
 	}

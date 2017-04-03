@@ -1,5 +1,6 @@
 package id.base.app.webMember.controller.administrator;
 
+import id.base.app.ILookupGroupConstant;
 import id.base.app.SystemConstant;
 import id.base.app.exception.ErrorHolder;
 import id.base.app.paging.PagingWrapper;
@@ -16,6 +17,7 @@ import id.base.app.valueobject.AppRole;
 import id.base.app.valueobject.AppUser;
 import id.base.app.webMember.DataTableCriterias;
 import id.base.app.webMember.controller.BaseController;
+import id.base.app.webMember.rest.LookupRestCaller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -84,6 +86,8 @@ public class UserWebController extends BaseController<AppUser> {
 	}
 	
 	public void setDefaultData(ModelMap model) {
+		LookupRestCaller lrc = new LookupRestCaller();
+		model.addAttribute("statusOptions", lrc.findByLookupGroup(ILookupGroupConstant.USER_STATUS));
 		model.addAttribute("roleOptions", getAllRoleOptions());
 	}
 	

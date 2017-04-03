@@ -1,7 +1,7 @@
 package id.base.app.dao.user;
 
 import id.base.app.AbstractHibernateDAO;
-import id.base.app.SystemConstant;
+import id.base.app.ILookupConstant;
 import id.base.app.exception.ErrorHolder;
 import id.base.app.exception.SystemException;
 import id.base.app.paging.PagingWrapper;
@@ -121,16 +121,13 @@ public class UserDAO extends AbstractHibernateDAO<AppUser, Long> implements IUse
 						.createCriteria(AppUser.class)
 						.createAlias("authorizedMerchants",
 								"authorizedMerchant")
-					     .add(Restrictions.eq(AppUser.STATUS, SystemConstant.UserStatus.ACTIVE))
+					     .add(Restrictions.eq(AppUser.STATUS, ILookupConstant.UserStatus.ACTIVE))
 						.add(Restrictions.eq("authorizedMerchant.merchantPK",
 								merchant)).list();
 	}
 	
 	public AppUser findAuthorizedMerchantByUserId(Long id) throws SystemException {
 		AppUser appUser = super.findByPK(id);
-		/*for (Merchant merchant : appUser.getAuthorizedMerchants()) {
-			 merchant.getName();
-		}*/
 		return appUser;
 	}
 
@@ -171,7 +168,7 @@ public class UserDAO extends AbstractHibernateDAO<AppUser, Long> implements IUse
 						.createCriteria(AppUser.class)
 						.createAlias("appRoles",
 								"appRole")
-					     .add(Restrictions.eq(AppUser.STATUS, SystemConstant.UserStatus.ACTIVE))
+					     .add(Restrictions.eq(AppUser.STATUS, ILookupConstant.UserStatus.ACTIVE))
 					     .add(Restrictions.eq(AppUser.USER_TYPE, userType))
 						.add(Restrictions.eq("appRole.pkAppRole",
 								userRolePK)).list();

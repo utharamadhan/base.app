@@ -145,7 +145,6 @@ public class UserController extends SuperController<AppUser>{
 		}catch(Exception e){
 			
 		}
-		//userService.delete(pkDelete);
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/activateUserByActivationCode/{activationCode}")

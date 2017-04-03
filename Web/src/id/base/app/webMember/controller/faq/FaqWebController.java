@@ -35,7 +35,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Scope(value="request")
 @Controller
-@RequestMapping("/faq")
+@RequestMapping("/master/faq")
 public class FaqWebController extends BaseController<Faq> {
 
 	private final String PATH_LIST = "/faq/faqList";

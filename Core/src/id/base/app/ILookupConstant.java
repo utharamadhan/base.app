@@ -11,6 +11,26 @@ import java.util.Map;
 
 public interface ILookupConstant {
 
+	public static final class UserStatus {
+		public static final Integer NEW = 0;
+		public static final Integer ACTIVE = 1;
+		public static final Integer INACTIVE = 2;
+		public static final Integer LOCK = 3;
+		
+		public static final String NEW_STR = "New";
+		public static final String ACTIVE_STR = "Active";
+		public static final String INACTIVE_STR	= "Inactive";
+		public static final String LOCK_STR	= "Lock";
+		
+		public static final HashMap<Integer, String> statusMaps = new HashMap<Integer, String>();
+		static{
+			statusMaps.put(NEW, NEW_STR);
+			statusMaps.put(ACTIVE, ACTIVE_STR);
+			statusMaps.put(INACTIVE, INACTIVE_STR);
+			statusMaps.put(LOCK, LOCK_STR);
+		}
+	}
+	
 	public static final class ArticleStatus {
 		public static final Integer DELETE 	= 0;
 		public static final Integer DRAFT 	= 1;

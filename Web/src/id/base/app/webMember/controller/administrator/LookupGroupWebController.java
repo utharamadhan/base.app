@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Scope(value="request")
 @Controller
-@RequestMapping("/referenceGroup")
+@RequestMapping("/administrator/referenceGroup")
 public class LookupGroupWebController extends BaseController<LookupGroup> {
 
 	private final String PATH_LIST = "/administration/lookupGroupList";

@@ -271,19 +271,6 @@ public class SystemConstant  {
 		
 	}
 	
-	public static final class UserStatus {
-		public static final String ACTIVE_STR = "Active";
-		public static final String INACTIVE_STR	= "Inactive";
-		
-		public static int ACTIVE = 1;
-		public static int INACTIVE = 2;
-		public static HashMap<Integer, String> statusMaps = new HashMap<Integer, String>();
-		static{
-			statusMaps.put(ACTIVE, ACTIVE_STR);
-			statusMaps.put(INACTIVE, INACTIVE_STR);
-		}
-	}
-	
 	public static final class ValidFlag {
 		public static Integer INVALID 			= 0;
 		public static Integer VALID 			= 1;
