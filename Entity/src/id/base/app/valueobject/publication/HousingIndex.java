@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -27,6 +28,7 @@ public class HousingIndex extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = -2410352630957149832L;
 	
 	public static final String PK_HOUSING_INDEX = "pkHousingIndex";
+	public static final String TITLE = "title";
 	public static final String PROVINCE = "province";
 	public static final String VALUE = "value";
 	
@@ -48,6 +50,9 @@ public class HousingIndex extends BaseEntity implements Serializable {
 	
 	@Column(name="STATUS")
     private Integer status;
+	
+	@Transient
+	private String statusStr;
 	
 	@OneToMany(cascade=CascadeType.ALL, orphanRemoval=true, mappedBy="housingIndex")
 	private List<HousingIndexProvince> housingIndexProvincesList = new ArrayList<>(); 
@@ -82,6 +87,14 @@ public class HousingIndex extends BaseEntity implements Serializable {
 
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+	
+	public String getStatusStr() {
+		return statusStr;
+	}
+
+	public void setStatusStr(String statusStr) {
+		this.statusStr = statusStr;
 	}
 
 	public List<HousingIndexProvince> getHousingIndexProvincesList() {

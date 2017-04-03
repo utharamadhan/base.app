@@ -70,6 +70,7 @@ public class RestServiceConstant {
 	public static final String NOTIFICATION_SERVICE = "notificationService";
 	public static final String FORGOT_PASSWORD_SERVICE = "forgotPasswordService";
 	
-	//testimonial
 	public static final String TESTIMONIAL_SERVICE = "testimonialService";
+	
+	public static final String HOUSING_INDEX_SERVICE = "housingIndexService";
 }

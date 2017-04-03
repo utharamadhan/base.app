@@ -2,30 +2,21 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:ifs="http://btn.co.id">
 <head>
 <meta charset="ISO-8859-1"/>
-<title>News Maintenance Detail</title>
+<title>Housing Index Detail</title>
 </head>
 <style>
-.newsDetail-image {
-	max-height : 250px;
-}
-
-.image-delete {
-	position:absolute;
-	left:25px;
-	top:10px;
-}
 </style>
 <body>
 	<div class="pageheader">
 		<div class="row col-md-8">
-			<h4><i class="fa fa-tachometer"></i> News Editor / News Maintenance List / News Maintenance Detail
+			<h4><i class="fa fa-tachometer"></i> Publication / Housing Index List / Housing Index Detail
 			<span></span></h4>
 		</div>
 	</div>
 	<div class="row col-md-12">
 	<section class="tile transparent">
 			<div class="tile-body rounded-corners">
-				<form action="#" id="news-detail-form" class="form-horizontal" method="POST" novalidate="novalidate" th:object="${detail}">
+				<form action="#" id="housingIndex-detail-form" class="form-horizontal" method="POST" novalidate="novalidate" th:object="${detail}">
 					<div class="stockTypeStyle">
 						<div class="form-group">
 							<div class="col-md-12">
@@ -40,7 +31,7 @@
 							</div>									
 							&nbsp;
 						</div>
-						<input id="news-detail-maintenancePk" type="hidden" th:field="*{pkNews}"/>
+						<input id="housingIndex-detail-maintenancePk" type="hidden" th:field="*{pkHousingIndex}"/>
 						<div class="form-group">
 							<label class="col-sm-2 control-label" th:text="'Title'">Title</label>
 							<div class="col-sm-9 form-input-container">
@@ -48,36 +39,22 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-2 control-label" th:text="'Featured Image'">Featured Image</label>
+							<label class="col-sm-2 control-label" th:text="'File'">File</label>
 							<div class="col-sm-9 form-input-container">
-								<th:block th:if="${detail.imageURL != null}">
-									<input type="hidden" id="input-hidden-imageURL" th:field="*{imageURL}"/>
-									<input type="file" class="form-control" id="input-file-imageURL" style="display:none;"/>
-									<div id="container-imageURL">
-										<img th:src="${detail.imageURL}" class="newsDetail-image"/>
-										<a href="#" class="btn btn-primary btn-xs margin-bottom-20 image-delete" data-toggle="tooltip" title="Delete"><i class="fa fa-trash"></i></a>
+								<th:block th:if="${detail.fileURL != null}">
+									<input type="hidden" id="input-hidden-fileURL" th:field="*{fileURL}"/>
+									<input type="file" class="form-control" id="input-file-fileURL" style="display:none;"/>
+									<div id="container-fileURL">
+										<label th:text="'Uploaded File'"></label>
+										<a href="#" class="btn btn-primary btn-xs margin-bottom-20 file-delete" data-toggle="tooltip" title="Delete"><i class="fa fa-trash"></i></a>
 									</div>
 								</th:block>
-								<th:block th:if="${detail.imageURL == null}">
-									<input type="hidden" id="input-hidden-imageURL" name="imageURL"/>
-									<input type="file" class="form-control" id="input-file-imageURL"/>
-									<div id="container-imageURL" style='display:none;'>
+								<th:block th:if="${detail.fileURL == null}">
+									<input type="hidden" id="input-hidden-fileURL" name="fileURL"/>
+									<input type="file" class="form-control" id="input-file-fileURL"/>
+									<div id="container-fileURL" style='display:none;'>
 									</div>
 								</th:block>
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="col-sm-2 control-label" th:text="'Content'">Content</label>
-							<input id="tinyMCE-hidden" name="content" type="hidden"/>
-							<div id="tinyMCE-parent" class="col-sm-9">					
-								<textarea id="tinyMCE-area" th:text="*{content}">
-								</textarea>
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="col-sm-2 control-label" th:text="'Excerpt'">Excerpt</label>
-							<div class="col-sm-9">							
-								<textarea th:field="*{excerpt}" class="form-control"></textarea>
 							</div>
 						</div>
 						<div class="form-group">
@@ -88,16 +65,10 @@
                            		</select>
                            	</div>
 						</div>
-						<div class="form-group">
-                          	<label class="col-sm-2 control-label">Publishing Date</label>
-                          	<div class="col-sm-9">
-                            	<input type='text' class="datepicker input-date form-control" th:name="publishDate" th:value="${detail.publishDate!=null?#dates.format(detail.publishDate, T(id.base.app.SystemConstant).SYSTEM_DATE_MASK_2):''}" />
-                           </div>
-                       	</div>
 						<div class="form-group form-footer">				
 							<div class="col-sm-offset-3 col-sm-9">
-								<a href="#" id="news-detail-btn-cancel" class="btn btn-default" type="reset" data-toggle="tooltip" title="">Batal</a>
-								<button id="news-detail-btn-save" class="btn btn-primary" type="submit" data-toggle="tooltip" title="">Simpan</button>
+								<a href="#" id="housingIndex-detail-btn-cancel" class="btn btn-default" type="reset" data-toggle="tooltip" title="">Batal</a>
+								<button id="housingIndex-detail-btn-save" class="btn btn-primary" type="submit" data-toggle="tooltip" title="">Simpan</button>
 							</div>
 						</div>
 					</div>
@@ -107,51 +78,49 @@
 	</div>
 	<script th:inline="javascript">
 	/*<![CDATA[*/
-	    function initDeletePicture() {
-			$('.image-delete').click(function(e){
+	    function initDeleteFile() {
+			$('.file-delete').click(function(e){
 				e.preventDefault();
-				$('#input-file-imageURL').show();
-				$('#container-imageURL').html("");
-				$('#input-hidden-imageURL, #input-file-imageURL').val("");
-				$('#container-imageURL').hide();
+				$('#input-file-fileURL').show();
+				$('#container-fileURL').html("");
+				$('#input-hidden-fileURL, #input-file-fileURL').val("");
+				$('#container-fileURL').hide();
 			});
 		}
-	
-	    $(function(){
-	    	var uploadURL = /*[[@{/do/fileManager/upload/}]]*/ #;
-	    	initDatePicker("datepicker", "dd/mm/yyyy");
-	    	initTextEditorWithoutP('#tinyMCE-area', '#tinyMCE-parent', uploadURL);
-	    	initDeletePicture();
+		
+		$(function(){
+			var fileManagerURL = /*[[@{/do/fileManager/upload/}]]*/ #; 
+			
+	    	initDeleteFile();
 	    	
 			var backToList = function(){
-				removeTextEditor("tinyMCE-area", "tinyMCE-parent");
-				returnToList('news-detail-container', 'news-list-container', true);
+				returnToList('housingIndex-detail-container', 'housingIndex-list-container', true);
 			};
 	    	
 			var submitForm = function(){
 				cleanErrorParsley();
-				$('#tinyMCE-hidden').val(tinymce.get('tinyMCE-area').getContent());
-				var sURL = /*[[@{/do/news/newsMaintenance/saveNews/}]]*/ #;
-				$.post(sURL, $("#news-detail-form").serialize(), function(data) {
+				var sURL = /*[[@{/do/publication/housingIndex/saveHousingIndex/}]]*/ #;
+				$('#textEditor-description-hidden').val(tinymce.get('textEditor-description-area').getContent());
+				$.post(sURL, $("#housingIndex-detail-form").serialize(), function(data) {
 					if(data.errorList!=null){
-						
+						displayErrorParsley(data.errorList);
 					}else{
-						bootBoxSuccessSave('News Successfully Saved', backToList);
+						bootBoxSuccessSave('Housing Index Successfully Saved', backToList);
 					}
 				});
 			};
 			
-			var showImage = function(imageURL) {
-				$('#input-file-imageURL').hide();
-				var htmlContent = '<image src="'+imageURL+'" style="max-height:250px;"></image>';
-				htmlContent += '<a href="#" class="btn btn-primary btn-xs margin-bottom-20 image-delete" data-toggle="tooltip" title="Delete" style="position:absolute; left:25px; top:10px;"><i class="fa fa-trash"></i></a>';
-				$('#container-imageURL').html(htmlContent);
-				$('#input-hidden-imageURL').val(imageURL);
-				$('#container-imageURL').show();
-				initDeletePicture();
+			var showFile = function(fileURL) {
+				$('#input-file-fileURL').hide();
+				var htmlContent = '<label style="margin-right:10px;">Uploaded File</label>';
+				htmlContent += '<a href="#" class="btn btn-primary btn-xs margin-bottom-20 file-delete" data-toggle="tooltip" title="Delete"><i class="fa fa-trash"></i></a>';
+				$('#container-fileURL').html(htmlContent);
+				$('#input-hidden-fileURL').val(fileURL);
+				$('#container-fileURL').show();
+				initDeleteFile();			
 			}
 			
-			var uploadFile = function(image, uploadURL) {
+			var uploadFile = function(image, uploadURL, isImage) {
 				var data = new FormData();
 				data.append('file', image);
 				var xhr = new XMLHttpRequest();
@@ -159,36 +128,41 @@
 				xhr.onreadystatechange = function() {
 				  if (xhr.readyState === 4) {
 				    var response = JSON.parse(xhr.responseText);
-				    if (response) {
-				      	showImage(response);
+				    if (isImage == true) {
+				    	if (response) {
+					      	showImage(response);
+					    } else {
+					      	var reader = new FileReader();
+					      	reader.onload = function(e) {
+					        	callback(e.target.result);
+					      	};
+					      	reader.readAsDataURL(image);
+					    }	
 				    } else {
-				      	var reader = new FileReader();
-				      	reader.onload = function(e) {
-				        	callback(e.target.result);
-				      	};
-				      	reader.readAsDataURL(image);
+				    	if (response) {
+				    		showFile(response);
+				    	}
 				    }
 				  }
 				}
 				xhr.send(data);
 			};
 			
-			$('#news-detail-btn-save').click(function(e){
+			$('#input-file-fileURL').change(function(){
+				var sURL = /*[[@{/do/fileManager/uploadEBookFile/}]]*/ #;
+				var thisObj = $('#input-file-fileURL')[0];
+				uploadFile(thisObj.files[0], sURL, false);
+			});
+			
+			$('#housingIndex-detail-btn-save').click(function(e){
 				e.preventDefault();
 				submitForm();
 			});
 			
-			$('#news-detail-btn-cancel').click(function(e){
+			$('#housingIndex-detail-btn-cancel').click(function(e){
 				e.preventDefault();
 				backToList();
 			});
-			
-			$('#input-file-imageURL').change(function(){
-				var sURL = /*[[@{/do/fileManager/uploadFeaturedImage/}]]*/ #;
-				var thisObj = $('#input-file-imageURL')[0];
-				uploadFile(thisObj.files[0], sURL);
-			});
-			
 	    });
 	/*]]>*/
 	</script>
