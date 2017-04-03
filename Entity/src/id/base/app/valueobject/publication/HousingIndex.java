@@ -1,5 +1,6 @@
 package id.base.app.valueobject.publication;
 
+import id.base.app.ILookupConstant;
 import id.base.app.valueobject.BaseEntity;
 
 import java.io.Serializable;
@@ -9,6 +10,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,6 +18,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -54,7 +59,8 @@ public class HousingIndex extends BaseEntity implements Serializable {
 	@Transient
 	private String statusStr;
 	
-	@OneToMany(cascade=CascadeType.ALL, orphanRemoval=true, mappedBy="housingIndex")
+	@OneToMany(cascade=CascadeType.ALL, orphanRemoval=true, mappedBy="housingIndex", fetch=FetchType.EAGER)
+	@Fetch(value = FetchMode.SUBSELECT)
 	private List<HousingIndexProvince> housingIndexProvincesList = new ArrayList<>(); 
 
 	public Long getPkHousingIndex() {
@@ -90,7 +96,7 @@ public class HousingIndex extends BaseEntity implements Serializable {
 	}
 	
 	public String getStatusStr() {
-		return statusStr;
+		return ILookupConstant.ArticleStatus.ARTICLE_STATUS_MAP.get(status);
 	}
 
 	public void setStatusStr(String statusStr) {
@@ -103,7 +109,10 @@ public class HousingIndex extends BaseEntity implements Serializable {
 
 	public void setHousingIndexProvincesList(
 			List<HousingIndexProvince> housingIndexProvincesList) {
-		this.housingIndexProvincesList = housingIndexProvincesList;
+		this.housingIndexProvincesList.clear();
+		if(null != housingIndexProvincesList){
+			this.housingIndexProvincesList.addAll(housingIndexProvincesList);
+		}
 	}
 
 }

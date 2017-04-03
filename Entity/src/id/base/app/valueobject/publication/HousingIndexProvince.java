@@ -36,9 +36,12 @@ public class HousingIndexProvince implements Serializable{
 	@JoinColumn(name="FK_HOUSING_INDEX")
 	private HousingIndex housingIndex;
 	
-	@OneToOne
+	@OneToOne(cascade={CascadeType.DETACH})
 	@JoinColumn(name = "FK_LOOKUP_PROVINCE")
 	private Lookup provinceLookup;
+	
+	@Column(name="INDEX_VALUE")
+	private String indexValue;
 
 	public Long getPkHousingIndexProvince() {
 		return pkHousingIndexProvince;
@@ -63,4 +66,13 @@ public class HousingIndexProvince implements Serializable{
 	public void setProvinceLookup(Lookup provinceLookup) {
 		this.provinceLookup = provinceLookup;
 	}
+
+	public String getIndexValue() {
+		return indexValue;
+	}
+
+	public void setIndexValue(String indexValue) {
+		this.indexValue = indexValue;
+	}
+
 }
