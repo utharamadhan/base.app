@@ -31,44 +31,27 @@
 							</div>									
 							&nbsp;
 						</div>
-						<input id="faq-detail-maintenancePk" type="hidden" th:field="*{pkfaq}"/>
+						<input id="faq-detail-maintenancePk" type="hidden" th:field="*{pkFaq}"/>
 						<div class="form-group">
-							<label class="col-sm-2 control-label" th:text="'Title'">Title</label>
+							<label class="col-sm-2 control-label" th:text="'Category'">Category</label>
 							<div class="col-sm-9 form-input-container">
-								<input type="text" class="form-control" placeholder="Title" name="srch-term" id="input-text-title" th:field="*{title}"/>
+								<select class="chosen-select form-control" th:field="*{faqCategoryLookup.pkLookup}">
+									<option th:each="opt : ${categoryOptions}" th:value="${opt.pkLookup}" th:text="${opt.name}">Name</option>
+                           		</select>
+                           	</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" th:text="'Question'">Question</label>
+							<div class="col-sm-9 form-input-container">
+								<input type="text" class="form-control" placeholder="Question" name="srch-term" id="input-text-title" th:field="*{question}"/>
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-2 control-label" th:text="'Featured Image'">Featured Image</label>
-							<div class="col-sm-9 form-input-container">
-								<th:block th:if="${detail.imageURL != null}">
-									<input type="hidden" id="input-hidden-imageURL" th:field="*{imageURL}"/>
-									<input type="file" class="form-control" id="input-file-imageURL" style="display:none;"/>
-									<div id="container-imageURL">
-										<img th:src="${detail.imageURL}" class="faqDetail-image"/>
-										<a href="#" class="btn btn-primary btn-xs margin-bottom-20 image-delete" data-toggle="tooltip" title="Delete"><i class="fa fa-trash"></i></a>
-									</div>
-								</th:block>
-								<th:block th:if="${detail.imageURL == null}">
-									<input type="hidden" id="input-hidden-imageURL" name="imageURL"/>
-									<input type="file" class="form-control" id="input-file-imageURL"/>
-									<div id="container-imageURL" style='display:none;'>
-									</div>
-								</th:block>
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="col-sm-2 control-label" th:text="'Content'">Content</label>
-							<input id="tinyMCE-hidden" name="content" type="hidden"/>
+							<label class="col-sm-2 control-label" th:text="'Answer'">Answer</label>
+							<input id="tinyMCE-hidden" name="answer" type="hidden"/>
 							<div id="tinyMCE-parent" class="col-sm-9">					
-								<textarea id="tinyMCE-area" th:text="*{content}">
+								<textarea id="tinyMCE-area" th:text="*{answer}">
 								</textarea>
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="col-sm-2 control-label" th:text="'Excerpt'">Excerpt</label>
-							<div class="col-sm-9">							
-								<textarea th:field="*{excerpt}" class="form-control"></textarea>
 							</div>
 						</div>
 						<div class="form-group">
@@ -79,12 +62,6 @@
                            		</select>
                            	</div>
 						</div>
-						<div class="form-group">
-                          	<label class="col-sm-2 control-label">Publishing Date</label>
-                          	<div class="col-sm-9">
-                            	<input type='text' class="datepicker input-date form-control" th:name="publishDate" th:value="${detail.publishDate!=null?#dates.format(detail.publishDate, T(id.base.app.SystemConstant).SYSTEM_DATE_MASK_2):''}" />
-                           </div>
-                       	</div>
 						<div class="form-group form-footer">				
 							<div class="col-sm-offset-3 col-sm-9">
 								<a href="#" id="faq-detail-btn-cancel" class="btn btn-default" type="reset" data-toggle="tooltip" title="">Batal</a>
@@ -97,22 +74,11 @@
 	</section>
 	</div>
 	<script th:inline="javascript">
-	/*<![CDATA[*/
-	    function initDeletePicture() {
-			$('.image-delete').click(function(e){
-				e.preventDefault();
-				$('#input-file-imageURL').show();
-				$('#container-imageURL').html("");
-				$('#input-hidden-imageURL, #input-file-imageURL').val("");
-				$('#container-imageURL').hide();
-			});
-		}
-	
+	/*<![CDATA[*/	
 	    $(function(){
 	    	var uploadURL = /*[[@{/do/fileManager/upload/}]]*/ #;
 	    	initDatePicker("datepicker", "dd/mm/yyyy");
 	    	initTextEditorWithoutP('#tinyMCE-area', '#tinyMCE-parent', uploadURL);
-	    	initDeletePicture();
 	    	
 			var backToList = function(){
 				removeTextEditor("tinyMCE-area", "tinyMCE-parent");
@@ -122,7 +88,7 @@
 			var submitForm = function(){
 				cleanErrorParsley();
 				$('#tinyMCE-hidden').val(tinymce.get('tinyMCE-area').getContent());
-				var sURL = /*[[@{/do/faq/faqMaintenance/savefaq/}]]*/ #;
+				var sURL = /*[[@{/do/master/faq/saveFaq/}]]*/ #;
 				$.post(sURL, $("#faq-detail-form").serialize(), function(data) {
 					if(data.errorList!=null){
 						
@@ -130,38 +96,6 @@
 						bootBoxSuccessSave('faq Successfully Saved', backToList);
 					}
 				});
-			};
-			
-			var showImage = function(imageURL) {
-				$('#input-file-imageURL').hide();
-				var htmlContent = '<image src="'+imageURL+'" style="max-height:250px;"></image>';
-				htmlContent += '<a href="#" class="btn btn-primary btn-xs margin-bottom-20 image-delete" data-toggle="tooltip" title="Delete" style="position:absolute; left:25px; top:10px;"><i class="fa fa-trash"></i></a>';
-				$('#container-imageURL').html(htmlContent);
-				$('#input-hidden-imageURL').val(imageURL);
-				$('#container-imageURL').show();
-				initDeletePicture();
-			}
-			
-			var uploadFile = function(image, uploadURL) {
-				var data = new FormData();
-				data.append('file', image);
-				var xhr = new XMLHttpRequest();
-				xhr.open('POST', uploadURL, true);
-				xhr.onreadystatechange = function() {
-				  if (xhr.readyState === 4) {
-				    var response = JSON.parse(xhr.responseText);
-				    if (response) {
-				      	showImage(response);
-				    } else {
-				      	var reader = new FileReader();
-				      	reader.onload = function(e) {
-				        	callback(e.target.result);
-				      	};
-				      	reader.readAsDataURL(image);
-				    }
-				  }
-				}
-				xhr.send(data);
 			};
 			
 			$('#faq-detail-btn-save').click(function(e){
@@ -172,12 +106,6 @@
 			$('#faq-detail-btn-cancel').click(function(e){
 				e.preventDefault();
 				backToList();
-			});
-			
-			$('#input-file-imageURL').change(function(){
-				var sURL = /*[[@{/do/fileManager/uploadFeaturedImage/}]]*/ #;
-				var thisObj = $('#input-file-imageURL')[0];
-				uploadFile(thisObj.files[0], sURL);
 			});
 			
 	    });

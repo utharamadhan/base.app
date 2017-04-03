@@ -2,6 +2,7 @@ package id.base.app.valueobject;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "FAQ")
@@ -28,9 +30,9 @@ public class Faq extends BaseEntity implements Serializable {
 	@Column(name = "PK_FAQ", unique = true ,nullable = false)
 	private Long pkFaq;
 	
-	@OneToOne
+	@OneToOne(cascade=CascadeType.DETACH)
 	@JoinColumn(name="FK_LOOKUP_FAQ_CATEGORY")
-	private Lookup faqCategoryLookup;	
+	private Lookup faqCategoryLookup;
 	
 	@Column(name="QUESTION")
     private String question;
@@ -41,9 +43,12 @@ public class Faq extends BaseEntity implements Serializable {
 	@Column(name="STATUS")
     private Integer status;
 	
+	@Transient
+	private String statusStr;
+	
 	public static final String PK_FAQ = "pkFaq" ;
-	public static final String QUESTION = "name" ;
-	public static final String ANSWER = "content" ;
+	public static final String QUESTION = "question" ;
+	public static final String ANSWER = "answer" ;
 	public static final String STATUS = "status" ;
 	
 	public Long getPkFaq() {
@@ -75,5 +80,11 @@ public class Faq extends BaseEntity implements Serializable {
 	}
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+	public String getStatusStr() {
+		return statusStr;
+	}
+	public void setStatusStr(String statusStr) {
+		this.statusStr = statusStr;
 	}
 }

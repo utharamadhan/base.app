@@ -91,26 +91,6 @@ public interface ILookupConstant {
 		public static final String OFFICE_PHONE_NUMBER = "OP";
 	}
 	
-    public static final class PartyRole {
-		public static final String SUPPLIER		= "SP";
-		public static final String TRANSPORTER 	= "TR";
-		public static final String CUSTOMER		= "CS";
-		public static final String PRODUSEN		= "PD";
-		
-		public static final String SUPPLIER_STR		= "Pemasok";
-		public static final String TRANSPORTER_STR 	= "Pengangkut";
-		public static final String CUSTOMER_STR		= "Pelanggan";
-		public static final String PRODUSEN_STR		= "Produsen";
-		
-		public static final Map<String, String> partyRoleMap = new HashMap<>();
-		static{
-			partyRoleMap.put(SUPPLIER,  SUPPLIER_STR);
-			partyRoleMap.put(TRANSPORTER, TRANSPORTER_STR);
-			partyRoleMap.put(CUSTOMER,  CUSTOMER_STR);
-			partyRoleMap.put(PRODUSEN,  PRODUSEN_STR);
-		}
-	}
-    
     public static final class CategoryHelp {
 		public static final String CALL_CENTER = "CC";
 		public static final String PROGRAM = "PR";

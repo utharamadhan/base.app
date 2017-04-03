@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:ifs="http://btn.co.id">
 <head>
 <meta charset="ISO-8859-1"/>
-<title>FAQ Maintenance</title>
+<title>FAQ</title>
 </head>
 <style>
 .dataTables_scrollBody {
@@ -49,19 +49,19 @@
 <script th:inline="javascript">
 	/*<![CDATA[*/
 		function showAdd() {
-	    	var sURL = /*[[@{/do/faq/showAdd?skipdecorator=}]]*/ #;
+	    	var sURL = /*[[@{/do/master/faq/showAdd?skipdecorator=}]]*/ #;
 	    	showScreen('faq-list-container', 'faq-detail-container', sURL);
 		}
 		
 		function showDetail(maintenancePK) {
-			var sURL = /*[[@{/do/faq/showEdit?maintenancePK=}]]*/ #;
+			var sURL = /*[[@{/do/master/faq/showEdit?maintenancePK=}]]*/ #;
 			showScreen('faq-list-container', 'faq-detail-container', sURL + maintenancePK + "&skipdecorator=");
 		}
 		
 		function deleteItem(maintenancePK) {
 			var callbackDelete = function(result) {
 				if (result) {
-					var sURL = /*[[@{/do/faq/delete?}]]*/ #;
+					var sURL = /*[[@{/do/master/faq/delete?}]]*/ #;
 					var serializedData = "maintenancePKs=" + maintenancePK;
 					$.post(sURL, serializedData,function(data){
 						if(data.errorList!=null){
@@ -76,7 +76,7 @@
 		}
 		
 		function deletefaq() {
-			var sURL = /*[[@{/do/faq/deletefaq?skipDecorator}]]*/ #;
+			var sURL = /*[[@{/do/master/faq/deletefaq?skipDecorator}]]*/ #;
 			$.post(sURL, $('.faq-list-check-delete').serialize(), function(data){
 				if(data.errorList!=null){
 					
@@ -92,7 +92,7 @@
 	    	               { name : "question" },
 	    	               { type : "deleteAndEdit" , param : [ "pkFaq" ] }
 	    	               ];
-		    var sURL = /*[[@{/do/faq/list?}]]*/ #;
+		    var sURL = /*[[@{/do/master/faq/list?}]]*/ #;
 		    buildDataTable(/*[[@{/}]]*/, sURL, 'faq-list-table', 450, colDefs, null, null);
 	    });
 	    

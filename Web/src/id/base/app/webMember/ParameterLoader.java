@@ -10,6 +10,7 @@ import id.base.app.valueobject.AppFunction;
 import id.base.app.valueobject.AppParameter;
 import id.base.app.valueobject.AppRole;
 import id.base.app.valueobject.AppUser;
+import id.base.app.valueobject.Faq;
 import id.base.app.valueobject.LogAuditTrail;
 import id.base.app.valueobject.Lookup;
 import id.base.app.valueobject.LookupAddress;
@@ -255,6 +256,10 @@ public class ParameterLoader extends ContextLoader implements ServletContextList
 		//testimonial
 		RestCaller.BASE_URL.put(RestServiceConstant.TESTIMONIAL_SERVICE, RestConstant.RM_TESTIMONIAL);
 		RestCaller.BASE_CLASS.put(RestServiceConstant.TESTIMONIAL_SERVICE, Testimonial.class);
+		
+		//testimonial
+		RestCaller.BASE_URL.put(RestServiceConstant.FAQ_SERVICE, RestConstant.RM_FAQ);
+		RestCaller.BASE_CLASS.put(RestServiceConstant.FAQ_SERVICE, Faq.class);
 		
 	}
 }

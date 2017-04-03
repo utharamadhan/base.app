@@ -85,6 +85,7 @@ public class FaqWebController extends BaseController<Faq> {
 	public void setDefaultData(ModelMap model) {
 		LookupRestCaller lrc = new LookupRestCaller();
 		model.addAttribute("categoryOptions", lrc.findByLookupGroup(ILookupGroupConstant.FAQ_CATEGORY));
+		model.addAttribute("statusOptions", lrc.findByLookupGroup(ILookupGroupConstant.ARTICLE_STATUS));
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="showAdd")
