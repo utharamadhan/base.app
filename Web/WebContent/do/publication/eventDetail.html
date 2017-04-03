@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:ifs="http://btn.co.id">
 <head>
 <meta charset="ISO-8859-1"/>
-<title>Event Maintenance Detail</title>
+<title>Event Detail</title>
 </head>
 <style>
 .gcDetail-basicPicture {
@@ -18,7 +18,7 @@
 <body>
 	<div class="pageheader">
 		<div class="row col-md-8">
-			<h4><i class="fa fa-tachometer"></i> Event Editor / Event Maintenance List / Event Maintenance Detail
+			<h4><i class="fa fa-tachometer"></i> Publication / Event List / Event Detail
 			<span></span></h4>
 		</div>
 	</div>
@@ -162,7 +162,7 @@
 	    	
 			var submitForm = function(){
 				cleanErrorParsley();
-				var sURL = /*[[@{/do/event/eventMaintenance/saveEvent/}]]*/ #;
+				var sURL = /*[[@{/do/publication/event/saveEvent/}]]*/ #;
 				$('#tinyMCE-hidden').val(tinymce.get('tinyMCE-area').getContent());
 				$.post(sURL, $("#event-detail-form").serialize(), function(data) {
 					if(data.errorList!=null){

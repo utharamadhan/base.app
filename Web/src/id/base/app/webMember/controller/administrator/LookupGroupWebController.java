@@ -4,7 +4,6 @@ import id.base.app.paging.PagingWrapper;
 import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
 import id.base.app.rest.RestServiceConstant;
-import id.base.app.rest.SpecificRestCaller;
 import id.base.app.util.StringFunction;
 import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
@@ -30,11 +29,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Scope(value="request")
 @Controller
-@RequestMapping("/lookupGroup")
+@RequestMapping("/referenceGroup")
 public class LookupGroupWebController extends BaseController<LookupGroup> {
 
 	private final String PATH_LIST = "/administration/lookupGroupList";
-	private final String PATH_DETAIL = "/administration/lookupDetail";
 	
 	@Override
 	protected RestCaller<LookupGroup> getRestCaller() {

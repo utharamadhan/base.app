@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:ifs="http://btn.co.id">
 <head>
 <meta charset="ISO-8859-1"/>
-<title>News Maintenance Detail</title>
+<title>News Detail</title>
 </head>
 <style>
 .newsDetail-image {
@@ -18,7 +18,7 @@
 <body>
 	<div class="pageheader">
 		<div class="row col-md-8">
-			<h4><i class="fa fa-tachometer"></i> News Editor / News Maintenance List / News Maintenance Detail
+			<h4><i class="fa fa-tachometer"></i> Publication / News List / News Detail
 			<span></span></h4>
 		</div>
 	</div>
@@ -131,7 +131,7 @@
 			var submitForm = function(){
 				cleanErrorParsley();
 				$('#tinyMCE-hidden').val(tinymce.get('tinyMCE-area').getContent());
-				var sURL = /*[[@{/do/news/newsMaintenance/saveNews/}]]*/ #;
+				var sURL = /*[[@{/do/publication/news/saveNews/}]]*/ #;
 				$.post(sURL, $("#news-detail-form").serialize(), function(data) {
 					if(data.errorList!=null){
 						

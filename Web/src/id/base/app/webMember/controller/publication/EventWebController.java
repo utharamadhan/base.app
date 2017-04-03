@@ -36,7 +36,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Scope(value="request")
 @Controller
-@RequestMapping("/event/eventMaintenance")
+@RequestMapping("/publication/event")
 public class EventWebController extends BaseController<Event> {
 
 	private final String PATH_LIST = "/publication/eventList";

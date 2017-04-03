@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:ifs="http://btn.co.id">
 <head>
 <meta charset="ISO-8859-1"/>
-<title>Event Maintenance</title>
+<title>Event</title>
 </head>
 <style>
 .dataTables_scrollBody {
@@ -15,7 +15,7 @@
 	<div id="event-detail-container"></div>
 	<div id="event-list-container">
 	<div class="pageheader">
-		<h4><i class="fa fa-shopping-basket"></i> Event Editor / Event Maintenance List
+		<h4><i class="fa fa-shopping-basket"></i> Publication / Event List
 		<span></span></h4>
 	</div>
 	<div class="col-md-4 tile-body no-vpadding" style="margin:10px;">
@@ -49,19 +49,19 @@
 <script th:inline="javascript">
 	/*<![CDATA[*/
 		function showAdd() {
-	    	var sURL = /*[[@{/do/event/eventMaintenance/showAdd?skipdecorator=}]]*/ #;
+	    	var sURL = /*[[@{/do/publication/event/showAdd?skipdecorator=}]]*/ #;
 	    	showScreen('event-list-container', 'event-detail-container', sURL);
 		}
 		
 		function showDetail(maintenancePK) {
-			var sURL = /*[[@{/do/event/eventMaintenance/showEdit?maintenancePK=}]]*/ #;
+			var sURL = /*[[@{/do/publication/event/showEdit?maintenancePK=}]]*/ #;
 			showScreen('event-list-container', 'event-detail-container', sURL + maintenancePK + "&skipdecorator=");
 		}
 		
 		function deleteItem(maintenancePK) {
 			var callbackDelete = function(result) {
 				if (result) {
-					var sURL = /*[[@{/do/event/eventMaintenance/delete?}]]*/ #;
+					var sURL = /*[[@{/do/publication/event/delete?}]]*/ #;
 					var serializedData = "maintenancePKs=" + maintenancePK;
 					$.post(sURL, serializedData,function(data){
 						if(data.errorList!=null){
@@ -76,7 +76,7 @@
 		}
 		
 		function deleteEvent() {
-			var sURL = /*[[@{/do/event/eventMaintenance/deleteEvent?skipDecorator}]]*/ #;
+			var sURL = /*[[@{/do/publication/event/deleteEvent?skipDecorator}]]*/ #;
 			$.post(sURL, $('.event-list-check-delete').serialize(), function(data){
 				if(data.errorList!=null){
 					
@@ -92,7 +92,7 @@
 	    	               { name : "statusStr" },
 	    	               { type : "deleteAndEdit" , param : [ "pkEvent" ] }
 	    	               ];
-		    var sURL = /*[[@{/do/event/eventMaintenance/list?}]]*/ #;
+		    var sURL = /*[[@{/do/publication/event/list?}]]*/ #;
 		    buildDataTable(/*[[@{/}]]*/, sURL, 'event-list-table', 450, colDefs, null, null);
 	    });
 	    

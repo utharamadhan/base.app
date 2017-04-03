@@ -36,7 +36,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Scope(value="request")
 @Controller
-@RequestMapping("/news/newsMaintenance")
+@RequestMapping("/publication/news")
 public class NewsWebController extends BaseController<News> {
 
 	private final String PATH_LIST = "/publication/newsList";

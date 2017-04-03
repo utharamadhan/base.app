@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:ifs="http://btn.co.id">
 <head>
 <meta charset="ISO-8859-1"/>
-<title>News Maintenance</title>
+<title>News</title>
 </head>
 <style>
 .dataTables_scrollBody {
@@ -15,7 +15,7 @@
 	<div id="news-detail-container"></div>
 	<div id="news-list-container">
 	<div class="pageheader">
-		<h4><i class="fa fa-shopping-basket"></i> News Editor / News Maintenance List
+		<h4><i class="fa fa-shopping-basket"></i> Publication / News List
 		<span></span></h4>
 	</div>
 	<div class="col-md-4 tile-body no-vpadding" style="margin:10px;">
@@ -49,19 +49,19 @@
 <script th:inline="javascript">
 	/*<![CDATA[*/
 		function showAdd() {
-	    	var sURL = /*[[@{/do/news/newsMaintenance/showAdd?skipdecorator=}]]*/ #;
+	    	var sURL = /*[[@{/do/publication/news/showAdd?skipdecorator=}]]*/ #;
 	    	showScreen('news-list-container', 'news-detail-container', sURL);
 		}
 		
 		function showDetail(maintenancePK) {
-			var sURL = /*[[@{/do/news/newsMaintenance/showEdit?maintenancePK=}]]*/ #;
+			var sURL = /*[[@{/do/publication/news/showEdit?maintenancePK=}]]*/ #;
 			showScreen('news-list-container', 'news-detail-container', sURL + maintenancePK + "&skipdecorator=");
 		}
 		
 		function deleteItem(maintenancePK) {
 			var callbackDelete = function(result) {
 				if (result) {
-					var sURL = /*[[@{/do/news/newsMaintenance/delete?}]]*/ #;
+					var sURL = /*[[@{/do/publication/news/delete?}]]*/ #;
 					var serializedData = "maintenancePKs=" + maintenancePK;
 					$.post(sURL, serializedData,function(data){
 						if(data.errorList!=null){
@@ -76,7 +76,7 @@
 		}
 		
 		function deleteNews() {
-			var sURL = /*[[@{/do/news/newsMaintenance/deleteNews?skipDecorator}]]*/ #;
+			var sURL = /*[[@{/do/publication/news/deleteNews?skipDecorator}]]*/ #;
 			$.post(sURL, $('.news-list-check-delete').serialize(), function(data){
 				if(data.errorList!=null){
 					
@@ -92,7 +92,7 @@
 	    	               { name : "statusStr" },
 	    	               { type : "deleteAndEdit" , param : [ "pkNews" ] }
 	    	               ];
-		    var sURL = /*[[@{/do/news/newsMaintenance/list?}]]*/ #;
+		    var sURL = /*[[@{/do/publication/news/list?}]]*/ #;
 		    buildDataTable(/*[[@{/}]]*/, sURL, 'news-list-table', 450, colDefs, null, null);
 	    });
 	    

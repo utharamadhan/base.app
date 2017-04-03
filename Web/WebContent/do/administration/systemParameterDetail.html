@@ -2,12 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:ifs="http://btn.co.id">
 <head>
 <meta charset="ISO-8859-1"/>
-<title>System Parameter Detail</title>
+<title>Business Setting Detail</title>
 </head>
 <body>
 	<div class="pageheader">
 		<div class="row col-md-8">
-			<h4><i class="fa fa-tachometer"></i> Administration / System Parameter List / Add New System Parameter
+			<h4><i class="fa fa-tachometer"></i> Administration / Business Setting List / Add New Business Setting
 			<span></span></h4>
 		</div>
 	</div>
@@ -76,7 +76,7 @@
 	    	
 			var submitForm = function(){
 				cleanErrorParsley();
-				var sURL = /*[[@{/do/systemParameter/saveSystemParameter/}]]*/ #;
+				var sURL = /*[[@{/do/administrator/businessSetting/saveSystemParameter/}]]*/ #;
 				$.post(sURL, $("#systemParameter-detail-form").serialize(), function(data) {
 					if(data.errorList!=null){
 						displayErrorParsley(data.errorList);

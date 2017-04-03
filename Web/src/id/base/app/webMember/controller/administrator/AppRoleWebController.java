@@ -36,11 +36,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Scope(value="request")
 @Controller
-@RequestMapping("/appRoleMaintenance")
-public class AppRoleMaintenanceWebController extends BaseController<AppRole> {
+@RequestMapping("/administrator/appRole")
+public class AppRoleWebController extends BaseController<AppRole> {
 
-	private final String PATH_LIST = "/administration/appRoleMaintenanceList";
-	private final String PATH_DETAIL = "/administration/appRoleMaintenanceDetail";
+	private final String PATH_LIST = "/administration/appRoleList";
+	private final String PATH_DETAIL = "/administration/appRoleDetail";
 	
 	@Override
 	protected RestCaller<AppRole> getRestCaller() {

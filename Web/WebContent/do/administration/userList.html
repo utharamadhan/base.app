@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:ifs="http://btn.co.id">
 <head>
 <meta charset="ISO-8859-1"/>
-<title>User Maintenance</title>
+<title>User</title>
 </head>
 <style>
 .dataTables_scrollBody {
@@ -15,7 +15,7 @@
 	<div id="userMaintenance-detail-container"></div>
 	<div id="userMaintenance-list-container">
 	<div class="pageheader">
-		<h4><i class="fa fa-shopping-basket"></i> Administration / User Maintenance List
+		<h4><i class="fa fa-shopping-basket"></i> Administration / User List
 		<span></span></h4>
 	</div>
 	<div class="col-md-4 tile-body no-vpadding" style="margin:10px;">
@@ -49,17 +49,17 @@
 <script th:inline="javascript">
 	/*<![CDATA[*/
 		function showAdd() {
-	    	var sURL = /*[[@{/do/userMaintenance/showAdd?skipdecorator=}]]*/ #;
+	    	var sURL = /*[[@{/do/administrator/user/showAdd?skipdecorator=}]]*/ #;
 	    	showScreen('userMaintenance-list-container', 'userMaintenance-detail-container', sURL);
 		}
 		
 		function showDetail(maintenancePK) {
-			var sURL = /*[[@{/do/userMaintenance/showEdit?maintenancePK=}]]*/ #;
+			var sURL = /*[[@{/do/administrator/user/showEdit?maintenancePK=}]]*/ #;
 			showScreen('userMaintenance-list-container', 'userMaintenance-detail-container', sURL + maintenancePK + "&skipdecorator=");
 		}
 		
 		function deleteItem(maintenancePK) {
-			var sURL = /*[[@{/do/userMaintenance/delete?}]]*/ #;
+			var sURL = /*[[@{/do/administrator/user/delete?}]]*/ #;
 			var serializedData = "maintenancePKs=" + maintenancePK;
 			$.post(sURL, serializedData,function(data){
 				if(data.errorList!=null){
@@ -71,7 +71,7 @@
 		} 
 		
 		function deleteUserMaintenance() {
-			var sURL = /*[[@{/do/userMaintenance/deleteUserMaintenance?skipDecorator}]]*/ #;
+			var sURL = /*[[@{/do/administrator/user/deleteUserMaintenance?skipDecorator}]]*/ #;
 			$.post(sURL, $('.userMaintenance-list-check-delete').serialize(), function(data){
 				if(data.errorList!=null){
 					
@@ -87,7 +87,7 @@
 	    	               { name : "email" },
 	    	               { type : "edit" , param : [ "pkAppUser" ] }
 	    	               ];
-		    var sURL = /*[[@{/do/userMaintenance/list?}]]*/ #;
+		    var sURL = /*[[@{/do/administrator/user/list?}]]*/ #;
 		    buildDataTable(/*[[@{/}]]*/, sURL, 'userMaintenance-list-table', 450, colDefs, null, null);
 	    });
 	    

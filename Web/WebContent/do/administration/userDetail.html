@@ -2,12 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:ifs="http://btn.co.id">
 <head>
 <meta charset="ISO-8859-1"/>
-<title>User Maintenance Detail</title>
+<title>User Detail</title>
 </head>
 <body>
 	<div class="pageheader">
 		<div class="row col-md-8">
-			<h4><i class="fa fa-tachometer"></i> Administration / User Maintenance List / Add New User Maintenance
+			<h4><i class="fa fa-tachometer"></i> Administration / User List / Add New User
 			<span></span></h4>
 		</div>
 	</div>
@@ -142,7 +142,7 @@
 			var submitForm = function(){
 				cleanErrorParsley();
 				$('#tinyMCE-hidden').val(tinymce.get('tinyMCE-area').getContent());
-				var sURL = /*[[@{/do/userMaintenance/saveUser/}]]*/ #;
+				var sURL = /*[[@{/do/administrator/user/saveUser/}]]*/ #;
 				$.post(sURL, $("#userMaintenance-detail-form").serialize(), function(data) {
 					if(data.errorList!=null){
 						displayErrorParsley(data.errorList);

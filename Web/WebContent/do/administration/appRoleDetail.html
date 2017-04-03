@@ -75,7 +75,7 @@
 	    	
 			var submitForm = function(){
 				cleanErrorParsley();
-				var sURL = /*[[@{/do/appRoleMaintenance/saveAppRole/}]]*/ #;
+				var sURL = /*[[@{/do/administrator/appRole/saveAppRole/}]]*/ #;
 				$.post(sURL, $("#appRole-detail-form").serialize(), function(data) {
 					if(data.errorList!=null){
 						displayErrorParsley(data.errorList);
@@ -86,7 +86,7 @@
 			};
 			
 			var openDialogAccessibility = function() {
-				var sURL = /*[[@{/do/appRoleMaintenance/showAccessibility}]]*/ #;
+				var sURL = /*[[@{/do/administrator/appRole/showAccessibility}]]*/ #;
 				sURL += "?pkAppRole=" + $("#appRole-detail-maintenancePk").val() + "&skipDecorator";
 				$.get(sURL, function(result){
 					$("#appRole-accessibilityModal .modal-dialog").html(result);

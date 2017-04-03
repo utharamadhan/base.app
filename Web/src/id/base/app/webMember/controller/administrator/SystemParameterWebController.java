@@ -32,7 +32,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Scope(value="request")
 @Controller
-@RequestMapping("/systemParameter")
+@RequestMapping("/administrator/businessSetting")
 public class SystemParameterWebController extends BaseController<AppParameter> {
 
 	private final String PATH_LIST = "/administration/systemParameterList";
