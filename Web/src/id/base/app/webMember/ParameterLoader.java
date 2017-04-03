@@ -38,6 +38,7 @@ import id.base.app.valueobject.publication.Event;
 import id.base.app.valueobject.publication.News;
 import id.base.app.valueobject.research.Research;
 import id.base.app.valueobject.research.ResearchTheme;
+import id.base.app.valueobject.testimonial.Testimonial;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -246,11 +247,14 @@ public class ParameterLoader extends ContextLoader implements ServletContextList
 		RestCaller.BASE_URL.put(RestServiceConstant.CONTACT_SERVICE, RestConstant.RM_CONTACT);
 		RestCaller.BASE_CLASS.put(RestServiceConstant.CONTACT_SERVICE, Contact.class);
 		
-		
 		RestCaller.BASE_URL.put(RestServiceConstant.NOTIFICATION_SERVICE, RestConstant.RM_NOTIFICATION);
 		RestCaller.BASE_CLASS.put(RestServiceConstant.NOTIFICATION_SERVICE, Notification.class);
 		RestCaller.BASE_URL.put(RestServiceConstant.FORGOT_PASSWORD_SERVICE, RestConstant.RM_FORGOT_PASSWORD);
 		RestCaller.BASE_CLASS.put(RestServiceConstant.FORGOT_PASSWORD_SERVICE,  String.class);
+		
+		//testimonial
+		RestCaller.BASE_URL.put(RestServiceConstant.TESTIMONIAL_SERVICE, RestConstant.RM_TESTIMONIAL);
+		RestCaller.BASE_CLASS.put(RestServiceConstant.TESTIMONIAL_SERVICE, Testimonial.class);
 		
 	}
 }

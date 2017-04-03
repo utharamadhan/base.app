@@ -1,5 +1,6 @@
 package id.base.app.valueobject.testimonial;
 
+import id.base.app.ILookupConstant;
 import id.base.app.valueobject.BaseEntity;
 
 import java.io.Serializable;
@@ -120,7 +121,7 @@ public class Testimonial extends BaseEntity implements Serializable {
 	}
 
 	public String getStatusStr() {
-		return statusStr;
+		return ILookupConstant.ArticleStatus.ARTICLE_STATUS_MAP.get(status);
 	}
 
 	public void setStatusStr(String statusStr) {

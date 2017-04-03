@@ -12,14 +12,14 @@
 </style>
 <body>
 <div id="content" class="col-md-12">
-	<div id="news-detail-container"></div>
-	<div id="news-list-container">
+	<div id="testimonial-detail-container"></div>
+	<div id="testimonial-list-container">
 	<div class="pageheader">
 		<h4><i class="fa fa-shopping-basket"></i> Master / Testimonial List
 		<span></span></h4>
 	</div>
 	<div class="col-md-4 tile-body no-vpadding" style="margin:10px;">
-		<a href="#" id="news-btn-add" class="btn btn-primary" style="margin-bottom:5px"><i class="fa fa-plus dropdown-plus"></i> &nbsp; Add</a>
+		<a href="#" id="testimonial-btn-add" class="btn btn-primary" style="margin-bottom:5px"><i class="fa fa-plus dropdown-plus"></i> &nbsp; Add</a>
 	</div>
 	<div class="main">
 		<div class="row">
@@ -27,7 +27,7 @@
 				<section class="tile transparent">
 					<div class="table-responsive">
 						<div class="tile-body rounded-corners">
-	                      	<table id="news-list-table" class="table table-datatable table-custom">
+	                      	<table id="testimonial-list-table" class="table table-datatable table-custom">
 		                        <thead>
 		                          <tr>
 		                            <th>Name</th>
@@ -36,7 +36,7 @@
 		                          </tr>
 		                        </thead>
 	                     	</table>
-	                     	<div style="padding-bottom: 3px; bottom: 0;" th:replace="pagingDiv::pager (${pagingWrapper}, ${#dates.createNow()}, 'news-list-table', 'contentArea')">
+	                     	<div style="padding-bottom: 3px; bottom: 0;" th:replace="pagingDiv::pager (${pagingWrapper}, ${#dates.createNow()}, 'testimonial-list-table', 'contentArea')">
 							</div>
                      	</div>
 					</div>
@@ -49,19 +49,19 @@
 <script th:inline="javascript">
 	/*<![CDATA[*/
 		function showAdd() {
-	    	var sURL = /*[[@{/do/news/newsMaintenance/showAdd?skipdecorator=}]]*/ #;
-	    	showScreen('news-list-container', 'news-detail-container', sURL);
+	    	var sURL = /*[[@{/do/master/testimonial/showAdd?skipdecorator=}]]*/ #;
+	    	showScreen('testimonial-list-container', 'testimonial-detail-container', sURL);
 		}
 		
 		function showDetail(maintenancePK) {
-			var sURL = /*[[@{/do/news/newsMaintenance/showEdit?maintenancePK=}]]*/ #;
-			showScreen('news-list-container', 'news-detail-container', sURL + maintenancePK + "&skipdecorator=");
+			var sURL = /*[[@{/do/master/testimonial/showEdit?maintenancePK=}]]*/ #;
+			showScreen('testimonial-list-container', 'testimonial-detail-container', sURL + maintenancePK + "&skipdecorator=");
 		}
 		
 		function deleteItem(maintenancePK) {
 			var callbackDelete = function(result) {
 				if (result) {
-					var sURL = /*[[@{/do/news/newsMaintenance/delete?}]]*/ #;
+					var sURL = /*[[@{/do/master/testimonial/delete?}]]*/ #;
 					var serializedData = "maintenancePKs=" + maintenancePK;
 					$.post(sURL, serializedData,function(data){
 						if(data.errorList!=null){
@@ -75,9 +75,9 @@
 			bootBoxConfirmation(callbackDelete);
 		}
 		
-		function deleteNews() {
-			var sURL = /*[[@{/do/news/newsMaintenance/deleteNews?skipDecorator}]]*/ #;
-			$.post(sURL, $('.news-list-check-delete').serialize(), function(data){
+		function deleteTestimonial() {
+			var sURL = /*[[@{/do/master/testimonial/deleteTestimonial?skipDecorator}]]*/ #;
+			$.post(sURL, $('.testimonial-list-check-delete').serialize(), function(data){
 				if(data.errorList!=null){
 					
 				}else{
@@ -87,21 +87,21 @@
 		}
 	
 	    $(function(){
-		    setMenuActive('news');
-		    var colDefs = [{ name : "title" }, 
-	    	               { name : "statusStr" },
-	    	               { type : "deleteAndEdit" , param : [ "pkNews" ] }
+		    setMenuActive('testimonial');
+		    var colDefs = [{ name : "name" }, 
+		                   { name : "statusStr"},
+	    	               { type : "deleteAndEdit" , param : [ "pkTestimonial" ] }
 	    	               ];
-		    var sURL = /*[[@{/do/news/newsMaintenance/list?}]]*/ #;
-		    buildDataTable(/*[[@{/}]]*/, sURL, 'news-list-table', 450, colDefs, null, null);
+		    var sURL = /*[[@{/do/master/testimonial/list?}]]*/ #;
+		    buildDataTable(/*[[@{/}]]*/, sURL, 'testimonial-list-table', 450, colDefs, null, null);
 	    });
 	    
-		$('#news-btn-add').click(function(){
+		$('#testimonial-btn-add').click(function(){
 			showAdd();
 		});
 		
-		$('#news-btn-delete').click(function(){
-			deleteNews();
+		$('#testimonial-btn-delete').click(function(){
+			deleteTestimonial();
 		});
 		
 	/*]]>*/

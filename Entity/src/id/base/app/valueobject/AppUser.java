@@ -228,7 +228,7 @@ public class AppUser extends BaseEntity implements Serializable {
 	}
 	
 	public String getStatusStr() {
-		return ILookupConstant.UserStatus.statusMaps.get(status);
+		return ILookupConstant.UserStatus.USER_STATUS_MAP.get(status);
 	}
 
 	public void setStatusStr(String statusStr) {

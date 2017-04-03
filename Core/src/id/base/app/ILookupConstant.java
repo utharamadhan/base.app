@@ -22,12 +22,12 @@ public interface ILookupConstant {
 		public static final String INACTIVE_STR	= "Inactive";
 		public static final String LOCK_STR	= "Lock";
 		
-		public static final HashMap<Integer, String> statusMaps = new HashMap<Integer, String>();
+		public static final HashMap<Integer, String> USER_STATUS_MAP = new HashMap<Integer, String>();
 		static{
-			statusMaps.put(NEW, NEW_STR);
-			statusMaps.put(ACTIVE, ACTIVE_STR);
-			statusMaps.put(INACTIVE, INACTIVE_STR);
-			statusMaps.put(LOCK, LOCK_STR);
+			USER_STATUS_MAP.put(NEW, NEW_STR);
+			USER_STATUS_MAP.put(ACTIVE, ACTIVE_STR);
+			USER_STATUS_MAP.put(INACTIVE, INACTIVE_STR);
+			USER_STATUS_MAP.put(LOCK, LOCK_STR);
 		}
 	}
 	

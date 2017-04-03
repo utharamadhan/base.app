@@ -2,10 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:ifs="http://btn.co.id">
 <head>
 <meta charset="ISO-8859-1"/>
-<title>News Maintenance Detail</title>
+<title>Testimonial Detail</title>
 </head>
 <style>
-.newsDetail-image {
+.testimonialDetail-image {
 	max-height : 250px;
 }
 
@@ -18,14 +18,14 @@
 <body>
 	<div class="pageheader">
 		<div class="row col-md-8">
-			<h4><i class="fa fa-tachometer"></i> News Editor / News Maintenance List / News Maintenance Detail
+			<h4><i class="fa fa-tachometer"></i> Master / Testimonial List / Testimonial Detail
 			<span></span></h4>
 		</div>
 	</div>
 	<div class="row col-md-12">
 	<section class="tile transparent">
 			<div class="tile-body rounded-corners">
-				<form action="#" id="news-detail-form" class="form-horizontal" method="POST" novalidate="novalidate" th:object="${detail}">
+				<form action="#" id="testimonial-detail-form" class="form-horizontal" method="POST" novalidate="novalidate" th:object="${detail}">
 					<div class="stockTypeStyle">
 						<div class="form-group">
 							<div class="col-md-12">
@@ -40,7 +40,13 @@
 							</div>									
 							&nbsp;
 						</div>
-						<input id="news-detail-maintenancePk" type="hidden" th:field="*{pkNews}"/>
+						<input id="testimonial-detail-maintenancePk" type="hidden" th:field="*{pkTestimonial}"/>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" th:text="'Name'">Name</label>
+							<div class="col-sm-9 form-input-container">
+								<input type="text" class="form-control" placeholder="Name" name="srch-term" id="input-text-title" th:field="*{name}"/>
+							</div>
+						</div>
 						<div class="form-group">
 							<label class="col-sm-2 control-label" th:text="'Title'">Title</label>
 							<div class="col-sm-9 form-input-container">
@@ -48,38 +54,38 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-2 control-label" th:text="'Featured Image'">Featured Image</label>
+							<label class="col-sm-2 control-label" th:text="'Photo'">Photo</label>
 							<div class="col-sm-9 form-input-container">
-								<th:block th:if="${detail.imageURL != null}">
-									<input type="hidden" id="input-hidden-imageURL" th:field="*{imageURL}"/>
-									<input type="file" class="form-control" id="input-file-imageURL" style="display:none;"/>
-									<div id="container-imageURL">
-										<img th:src="${detail.imageURL}" class="newsDetail-image"/>
+								<th:block th:if="${detail.photoURL != null}">
+									<input type="hidden" id="input-hidden-photoURL" th:field="*{photoURL}"/>
+									<input type="file" class="form-control" id="input-file-photoURL" style="display:none;"/>
+									<div id="container-photoURL">
+										<img th:src="${detail.photoURL}" class="testimonialDetail-image"/>
 										<a href="#" class="btn btn-primary btn-xs margin-bottom-20 image-delete" data-toggle="tooltip" title="Delete"><i class="fa fa-trash"></i></a>
 									</div>
 								</th:block>
-								<th:block th:if="${detail.imageURL == null}">
-									<input type="hidden" id="input-hidden-imageURL" name="imageURL"/>
-									<input type="file" class="form-control" id="input-file-imageURL"/>
-									<div id="container-imageURL" style='display:none;'>
+								<th:block th:if="${detail.photoURL == null}">
+									<input type="hidden" id="input-hidden-photoURL" name="photoURL"/>
+									<input type="file" class="form-control" id="input-file-photoURL"/>
+									<div id="container-photoURL" style='display:none;'>
 									</div>
 								</th:block>
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-2 control-label" th:text="'Content'">Content</label>
-							<input id="tinyMCE-hidden" name="content" type="hidden"/>
+							<label class="col-sm-2 control-label" th:text="'Description'">Description</label>
+							<input id="tinyMCE-hidden" name="description" type="hidden"/>
 							<div id="tinyMCE-parent" class="col-sm-9">					
-								<textarea id="tinyMCE-area" th:text="*{content}">
+								<textarea id="tinyMCE-area" th:text="*{description}">
 								</textarea>
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-2 control-label" th:text="'Excerpt'">Excerpt</label>
-							<div class="col-sm-9">							
-								<textarea th:field="*{excerpt}" class="form-control"></textarea>
-							</div>
-						</div>
+                          	<label class="col-sm-2 control-label">Testimonial Date</label>
+                          	<div class="col-sm-9">
+                            	<input type='text' class="datepicker input-date form-control" th:name="testimonialDate" th:value="${detail.testimonialDate!=null?#dates.format(detail.testimonialDate, T(id.base.app.SystemConstant).SYSTEM_DATE_MASK_2):''}" />
+                           </div>
+                       	</div>
 						<div class="form-group">
 							<label class="col-sm-2 control-label" th:text="'Status'">Status</label>
 							<div class="col-sm-9 form-input-container">
@@ -88,16 +94,10 @@
                            		</select>
                            	</div>
 						</div>
-						<div class="form-group">
-                          	<label class="col-sm-2 control-label">Publishing Date</label>
-                          	<div class="col-sm-9">
-                            	<input type='text' class="datepicker input-date form-control" th:name="publishDate" th:value="${detail.publishDate!=null?#dates.format(detail.publishDate, T(id.base.app.SystemConstant).SYSTEM_DATE_MASK_2):''}" />
-                           </div>
-                       	</div>
 						<div class="form-group form-footer">				
 							<div class="col-sm-offset-3 col-sm-9">
-								<a href="#" id="news-detail-btn-cancel" class="btn btn-default" type="reset" data-toggle="tooltip" title="">Batal</a>
-								<button id="news-detail-btn-save" class="btn btn-primary" type="submit" data-toggle="tooltip" title="">Simpan</button>
+								<a href="#" id="testimonial-detail-btn-cancel" class="btn btn-default" type="reset" data-toggle="tooltip" title="">Batal</a>
+								<button id="testimonial-detail-btn-save" class="btn btn-primary" type="submit" data-toggle="tooltip" title="">Simpan</button>
 							</div>
 						</div>
 					</div>
@@ -110,10 +110,10 @@
 	    function initDeletePicture() {
 			$('.image-delete').click(function(e){
 				e.preventDefault();
-				$('#input-file-imageURL').show();
-				$('#container-imageURL').html("");
-				$('#input-hidden-imageURL, #input-file-imageURL').val("");
-				$('#container-imageURL').hide();
+				$('#input-file-photoURL').show();
+				$('#container-photoURL').html("");
+				$('#input-hidden-photoURL, #input-file-photoURL').val("");
+				$('#container-photoURL').hide();
 			});
 		}
 	
@@ -125,29 +125,29 @@
 	    	
 			var backToList = function(){
 				removeTextEditor("tinyMCE-area", "tinyMCE-parent");
-				returnToList('news-detail-container', 'news-list-container', true);
+				returnToList('testimonial-detail-container', 'testimonial-list-container', true);
 			};
 	    	
 			var submitForm = function(){
 				cleanErrorParsley();
 				$('#tinyMCE-hidden').val(tinymce.get('tinyMCE-area').getContent());
-				var sURL = /*[[@{/do/news/newsMaintenance/saveNews/}]]*/ #;
-				$.post(sURL, $("#news-detail-form").serialize(), function(data) {
+				var sURL = /*[[@{/do/master/testimonial/saveTestimonial/}]]*/ #;
+				$.post(sURL, $("#testimonial-detail-form").serialize(), function(data) {
 					if(data.errorList!=null){
 						
 					}else{
-						bootBoxSuccessSave('News Successfully Saved', backToList);
+						bootBoxSuccessSave('Testimonial Successfully Saved', backToList);
 					}
 				});
 			};
 			
-			var showImage = function(imageURL) {
-				$('#input-file-imageURL').hide();
-				var htmlContent = '<image src="'+imageURL+'" style="max-height:250px;"></image>';
+			var showImage = function(photoURL) {
+				$('#input-file-photoURL').hide();
+				var htmlContent = '<image src="'+photoURL+'" style="max-height:250px;"></image>';
 				htmlContent += '<a href="#" class="btn btn-primary btn-xs margin-bottom-20 image-delete" data-toggle="tooltip" title="Delete" style="position:absolute; left:25px; top:10px;"><i class="fa fa-trash"></i></a>';
-				$('#container-imageURL').html(htmlContent);
-				$('#input-hidden-imageURL').val(imageURL);
-				$('#container-imageURL').show();
+				$('#container-photoURL').html(htmlContent);
+				$('#input-hidden-photoURL').val(photoURL);
+				$('#container-photoURL').show();
 				initDeletePicture();
 			}
 			
@@ -173,19 +173,19 @@
 				xhr.send(data);
 			};
 			
-			$('#news-detail-btn-save').click(function(e){
+			$('#testimonial-detail-btn-save').click(function(e){
 				e.preventDefault();
 				submitForm();
 			});
 			
-			$('#news-detail-btn-cancel').click(function(e){
+			$('#testimonial-detail-btn-cancel').click(function(e){
 				e.preventDefault();
 				backToList();
 			});
 			
-			$('#input-file-imageURL').change(function(){
+			$('#input-file-photoURL').change(function(){
 				var sURL = /*[[@{/do/fileManager/uploadFeaturedImage/}]]*/ #;
-				var thisObj = $('#input-file-imageURL')[0];
+				var thisObj = $('#input-file-photoURL')[0];
 				uploadFile(thisObj.files[0], sURL);
 			});
 			

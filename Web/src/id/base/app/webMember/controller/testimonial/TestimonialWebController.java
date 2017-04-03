@@ -1,5 +1,6 @@
 package id.base.app.webMember.controller.testimonial;
 
+import id.base.app.ILookupGroupConstant;
 import id.base.app.SystemConstant;
 import id.base.app.exception.ErrorHolder;
 import id.base.app.paging.PagingWrapper;
@@ -14,6 +15,7 @@ import id.base.app.util.dao.SearchOrder;
 import id.base.app.valueobject.testimonial.Testimonial;
 import id.base.app.webMember.DataTableCriterias;
 import id.base.app.webMember.controller.BaseController;
+import id.base.app.webMember.rest.LookupRestCaller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -80,14 +82,21 @@ public class TestimonialWebController extends BaseController<Testimonial> {
 		return getListPath();
 	}
 	
+	public void setDefaultData(ModelMap model) {
+		LookupRestCaller lrc = new LookupRestCaller();
+		model.addAttribute("statusOptions", lrc.findByLookupGroup(ILookupGroupConstant.ARTICLE_STATUS));
+	}
+	
 	@RequestMapping(method=RequestMethod.GET, value="showAdd")
 	public String showAdd(ModelMap model, HttpServletRequest request){
+		setDefaultData(model);
 		model.addAttribute("detail", Testimonial.getInstance());
 		return PATH_DETAIL;
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="showEdit")
 	public String showEdit(@RequestParam(value="maintenancePK") final Long maintenancePK, @RequestParam Map<String, String> paramWrapper, ModelMap model, HttpServletRequest request){
+		setDefaultData(model);
 		Testimonial detail = getRestCaller().findById(maintenancePK);
 		model.addAttribute("detail", detail);
 		return PATH_DETAIL;
