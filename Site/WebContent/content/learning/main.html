@@ -48,18 +48,22 @@
 		/*<![CDATA[*/
 		setNavbarActive('program');
 		$('.show_detail').unbind('click').click(function(){
-			var param = $(this).parents('.loop').find('input[name="identity"]').val();
+			var obj = $(this).parents('.loop');
+			var param = obj.find('input[name="identity"]').val();
+			var title = obj.find('input[name="title"]').val();
+			title = replaceall(title," ", "-");
 			var link = /*[[@{/page/learning/detail/}]]*/ '';
-			link = link + param;
+			link = link + param + "/" + title;
 			window.location.href = link;
 		});
 		
 		$('.show_program').unbind('click').click(function(){
-			var param = $(this).parents('.loop').find('input[name="identity"]').val();
-			var title = $(this).parents('.loop').find('input[name="title"]').val();
+			var obj = $(this).parents('.loop');
+			var param = obj.find('input[name="identity"]').val();
+			var title = obj.find('input[name="title"]').val();
 			title = replaceall(title," ", "-");
 			var link = /*[[@{/page/learning/program/}]]*/ '';
-			link = link + title + "/" + param;
+			link = link + param + "/" + title;
 			window.location.href = link;
 		});
 		/*]]>*/

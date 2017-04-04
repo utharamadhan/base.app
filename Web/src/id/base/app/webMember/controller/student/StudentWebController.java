@@ -59,7 +59,6 @@ public class StudentWebController extends BaseController<Student> {
 	}
 	
 	private void setDefaultFilter(HttpServletRequest request, List<SearchFilter> filters) {
-		filters.add(new SearchFilter(Student.STATUS, Operator.EQUALS, SystemConstant.ValidFlag.VALID));
 	}
 
 	@Override

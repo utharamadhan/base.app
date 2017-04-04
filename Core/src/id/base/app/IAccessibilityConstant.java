@@ -68,7 +68,10 @@ public class IAccessibilityConstant {
 	public static int INT_CONTACT_US = 1200;
 		public static int INT_CU_MAINTENANCE = 1210;
 		public static int INT_CU_USER_CONTACT = 1220;
-	
+		
+	public static int INT_REPORT = 1300;
+		public static int INT_REPORT_RND = 1310;
+		public static int INT_REPORT_STUDENT = 1320;
 	
 	public static List<Long> MENU_LIST = new ArrayList<>();
 	static {
@@ -85,6 +88,7 @@ public class IAccessibilityConstant {
 		MENU_LIST.add(Long.valueOf(IAccessibilityConstant.INT_ADVISORY));
 		MENU_LIST.add(Long.valueOf(IAccessibilityConstant.INT_STUDENT_DATABASE));
 		MENU_LIST.add(Long.valueOf(IAccessibilityConstant.INT_CONTACT_US));
+		MENU_LIST.add(Long.valueOf(IAccessibilityConstant.INT_REPORT));
 	}
 	
 	public static void synchronizeFunction(String functionName, int functionNumber){

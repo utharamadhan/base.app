@@ -5,7 +5,6 @@ import id.base.app.SystemConstant;
 import id.base.app.exception.ErrorHolder;
 import id.base.app.exception.SystemException;
 import id.base.app.paging.PagingWrapper;
-import id.base.app.rest.PathInterfaceRestCaller;
 import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
 import id.base.app.rest.RestServiceConstant;
