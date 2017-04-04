@@ -1,11 +1,11 @@
 package id.base.app.service.news;
 
-import id.base.app.dao.news.INewsDAO;
+import id.base.app.dao.publication.INewsDAO;
 import id.base.app.exception.SystemException;
 import id.base.app.paging.PagingWrapper;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
-import id.base.app.valueobject.news.News;
+import id.base.app.valueobject.publication.News;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -2,12 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:ifs="http://btn.co.id">
 <head>
 <meta charset="ISO-8859-1"/>
-<title>Lookup Detail</title>
+<title>Reference Detail</title>
 </head>
 <body>
 	<div class="pageheader">
 		<div class="row col-md-8">
-			<h4><i class="fa fa-tachometer"></i> Administration / Lookup Group List / Edit Lookup
+			<h4><i class="fa fa-tachometer"></i> Administration / Reference Group List / Reference List / Edit Reference
 			<span></span></h4>
 		</div>
 	</div>
@@ -74,7 +74,7 @@
 	    	
 			var submitForm = function(){
 				cleanErrorParsley();
-				var sURL = /*[[@{/do/lookup/saveLookup/}]]*/ #;
+				var sURL = /*[[@{/do/administrator/reference/saveLookup/}]]*/ #;
 				$.post(sURL, $("#lookup-detail-form").serialize(), function(data) {
 					if(data.errorList!=null){
 						displayErrorParsley(data.errorList);

@@ -1,5 +1,6 @@
 package id.base.app.service.authentication;
 
+import id.base.app.ILookupConstant;
 import id.base.app.LoginSession;
 import id.base.app.SystemConstant;
 import id.base.app.SystemParameter;
@@ -49,7 +50,7 @@ public class DatabaseAuthenticationService extends BaseAuthentication {
 		}
 	}
 	private void validateActiveStatus(AppUser appUser) {
-		if(appUser.getStatus() == SystemConstant.UserStatus.INACTIVE) {
+		if(appUser.getStatus() == ILookupConstant.UserStatus.INACTIVE) {
 			throw new SystemException(new ErrorHolder("error.user.inactive"));
 		}
 	}

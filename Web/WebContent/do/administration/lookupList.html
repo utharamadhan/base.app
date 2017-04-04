@@ -2,11 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:ifs="http://btn.co.id">
 <head>
 <meta charset="ISO-8859-1"/>
-<title>Lookup</title>
+<title>Reference</title>
 </head>
 <body>
 <div class="pageheader">
-	<h4><i class="fa fa-shopping-basket"></i> Administration / Lookup Group List / Lookup List
+	<h4><i class="fa fa-shopping-basket"></i> Administration / Reference Group List / Reference List
 	<span></span></h4>
 </div>
 <div class="main">
@@ -36,17 +36,17 @@
 <script th:inline="javascript">
 	/*<![CDATA[*/
 		function showAdd() {
-	    	var sURL = /*[[@{/do/lookup/showAdd?skipdecorator=}]]*/ #;
+	    	var sURL = /*[[@{/do/administrator/reference/showAdd?skipdecorator=}]]*/ #;
 	    	showScreen('lookup-list-container', 'lookup-detail-container', sURL);
 		}
 		
 		function showDetail(maintenancePK) {
-			var sURL = /*[[@{/do/lookup/showEdit?maintenancePK=}]]*/ #;
+			var sURL = /*[[@{/do/administrator/reference/showEdit?maintenancePK=}]]*/ #;
 			showScreen('lookup-list-container', 'lookup-detail-container', sURL + maintenancePK + "&skipdecorator=");
 		}
 		
 		function deleteItem(maintenancePK) {
-			var sURL = /*[[@{/do/lookup/delete?}]]*/ #;
+			var sURL = /*[[@{/do/administrator/reference/delete?}]]*/ #;
 			var serializedData = "maintenancePKs=" + maintenancePK;
 			$.post(sURL, serializedData,function(data){
 				if(data.errorList!=null){
@@ -58,7 +58,7 @@
 		} 
 		
 		function deleteLookup() {
-			var sURL = /*[[@{/do/lookup/deleteLookup?skipDecorator}]]*/ #;
+			var sURL = /*[[@{/do/administrator/reference/deleteLookup?skipDecorator}]]*/ #;
 			$.post(sURL, $('.lookup-list-check-delete').serialize(), function(data){
 				if(data.errorList!=null){
 					
@@ -76,7 +76,7 @@
 	    	               { name : "descr" },
 	    	               { type : "deleteAndEdit" , param : [ "pkLookup" ] }
 	    	               ];
-		    var sURL = /*[[@{/do/lookup/list?lookupGroup=}]]*/ #;
+		    var sURL = /*[[@{/do/administrator/reference/list?lookupGroup=}]]*/ #;
 		    buildDataTable(/*[[@{/}]]*/, sURL+lookupGroup+"&", 'lookup-list-table', 450, colDefs, null, null);
 	    });
 	    

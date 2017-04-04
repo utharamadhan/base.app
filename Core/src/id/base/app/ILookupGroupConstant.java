@@ -5,6 +5,7 @@ import java.util.List;
 
 public class ILookupGroupConstant {
 
+	public static final String USER_STATUS				= "USER_STATUS";
 	public static final String ARTICLE_STATUS			= "ARTICLE_STATUS";
 	public static final String CONTACT_TYPE				= "CONTACT_TYPE";
 	public static final String COURSE_BASIC_INFO_FIELD 	= "COURSE_BASIC_INFO_FIELD";
@@ -18,9 +19,12 @@ public class ILookupGroupConstant {
 	public static final String TAG_COURSE				= "TAG_COURSE";
 	public static final String CONTACT_TEMA				= "CONTACT_TEMA";
 	public static final String CATEGORY_HELP			= "CATEGORY_HELP";
+	public static final String FAQ_CATEGORY				= "FAQ_CATEGORY";
+	public static final String PROVINCE					= "PROVINCE";
 	
 	public static List<String> LOOKUP_GROUP_LIST = new ArrayList<>();
 	static {
+		LOOKUP_GROUP_LIST.add(USER_STATUS);
 		LOOKUP_GROUP_LIST.add(ARTICLE_STATUS);
 		LOOKUP_GROUP_LIST.add(CONTACT_TYPE);
 		LOOKUP_GROUP_LIST.add(COURSE_BASIC_INFO_FIELD);

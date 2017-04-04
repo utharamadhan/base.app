@@ -2,7 +2,7 @@ package id.base.app.service.news;
 
 import id.base.app.exception.SystemException;
 import id.base.app.service.MaintenanceService;
-import id.base.app.valueobject.news.News;
+import id.base.app.valueobject.publication.News;
 
 import java.util.List;
 

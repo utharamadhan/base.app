@@ -13,8 +13,7 @@ import id.base.app.util.StringFunction;
 import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
-import id.base.app.valueobject.AppUser;
-import id.base.app.valueobject.news.News;
+import id.base.app.valueobject.publication.News;
 import id.base.app.webMember.DataTableCriterias;
 import id.base.app.webMember.controller.BaseController;
 import id.base.app.webMember.rest.LookupRestCaller;
@@ -37,11 +36,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Scope(value="request")
 @Controller
-@RequestMapping("/news/newsMaintenance")
+@RequestMapping("/publication/news")
 public class NewsWebController extends BaseController<News> {
 
-	private final String PATH_LIST = "/news/newsMaintenanceList";
-	private final String PATH_DETAIL = "/news/newsMaintenanceDetail";
+	private final String PATH_LIST = "/publication/newsList";
+	private final String PATH_DETAIL = "/publication/newsDetail";
 	
 	@Override
 	protected RestCaller<News> getRestCaller() {
@@ -78,7 +77,7 @@ public class NewsWebController extends BaseController<News> {
 	
 	@RequestMapping(method=RequestMethod.GET, value="showList")
 	public String showList(ModelMap model, HttpServletRequest request){
-		model.addAttribute("pagingWrapper", new PagingWrapper<AppUser>());
+		model.addAttribute("pagingWrapper", new PagingWrapper<News>());
 		return getListPath();
 	}
 	

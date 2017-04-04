@@ -1,11 +1,11 @@
 package id.base.app.service.event;
 
-import id.base.app.dao.event.IEventDAO;
+import id.base.app.dao.publication.IEventDAO;
 import id.base.app.exception.SystemException;
 import id.base.app.paging.PagingWrapper;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
-import id.base.app.valueobject.event.Event;
+import id.base.app.valueobject.publication.Event;
 
 import java.util.ArrayList;
 import java.util.List;

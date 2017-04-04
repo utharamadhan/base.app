@@ -14,7 +14,7 @@ import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.valueobject.AppUser;
-import id.base.app.valueobject.event.Event;
+import id.base.app.valueobject.publication.Event;
 import id.base.app.webMember.DataTableCriterias;
 import id.base.app.webMember.controller.BaseController;
 import id.base.app.webMember.rest.LookupRestCaller;
@@ -36,11 +36,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Scope(value="request")
 @Controller
-@RequestMapping("/event/eventMaintenance")
+@RequestMapping("/publication/event")
 public class EventWebController extends BaseController<Event> {
 
-	private final String PATH_LIST = "/event/eventMaintenanceList";
-	private final String PATH_DETAIL = "/event/eventMaintenanceDetail";
+	private final String PATH_LIST = "/publication/eventList";
+	private final String PATH_DETAIL = "/publication/eventDetail";
 	
 	@Override
 	protected RestCaller<Event> getRestCaller() {

@@ -11,8 +11,8 @@ import id.base.app.util.DateTimeFunction;
 import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
-import id.base.app.valueobject.event.Event;
-import id.base.app.valueobject.event.EventJson;
+import id.base.app.valueobject.publication.Event;
+import id.base.app.valueobject.publication.EventJson;
 
 import java.util.ArrayList;
 import java.util.HashMap;

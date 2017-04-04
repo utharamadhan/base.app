@@ -1,17 +1,5 @@
 package id.base.app.webMember;
 
-import javax.servlet.ServletContext;
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
-
-import org.jasypt.digest.config.SimpleDigesterConfig;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
-import org.springframework.web.context.ContextLoader;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
-
 import id.base.app.LoginSession;
 import id.base.app.SystemParameter;
 import id.base.app.config.BeanUtilsConfigurer;
@@ -22,6 +10,7 @@ import id.base.app.valueobject.AppFunction;
 import id.base.app.valueobject.AppParameter;
 import id.base.app.valueobject.AppRole;
 import id.base.app.valueobject.AppUser;
+import id.base.app.valueobject.Faq;
 import id.base.app.valueobject.LogAuditTrail;
 import id.base.app.valueobject.Lookup;
 import id.base.app.valueobject.LookupAddress;
@@ -42,14 +31,28 @@ import id.base.app.valueobject.contact.Contact;
 import id.base.app.valueobject.course.Course;
 import id.base.app.valueobject.course.GroupCourse;
 import id.base.app.valueobject.course.Tag;
-import id.base.app.valueobject.event.Event;
-import id.base.app.valueobject.news.News;
 import id.base.app.valueobject.notification.Notification;
 import id.base.app.valueobject.party.Party;
 import id.base.app.valueobject.party.Student;
 import id.base.app.valueobject.publication.DigitalBook;
+import id.base.app.valueobject.publication.Event;
+import id.base.app.valueobject.publication.HousingIndex;
+import id.base.app.valueobject.publication.News;
 import id.base.app.valueobject.research.Research;
 import id.base.app.valueobject.research.ResearchTheme;
+import id.base.app.valueobject.testimonial.Testimonial;
+
+import javax.servlet.ServletContext;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+
+import org.jasypt.digest.config.SimpleDigesterConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.web.context.ContextLoader;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 
 public class ParameterLoader extends ContextLoader implements ServletContextListener  {
@@ -246,11 +249,22 @@ public class ParameterLoader extends ContextLoader implements ServletContextList
 		RestCaller.BASE_URL.put(RestServiceConstant.CONTACT_SERVICE, RestConstant.RM_CONTACT);
 		RestCaller.BASE_CLASS.put(RestServiceConstant.CONTACT_SERVICE, Contact.class);
 		
-		
 		RestCaller.BASE_URL.put(RestServiceConstant.NOTIFICATION_SERVICE, RestConstant.RM_NOTIFICATION);
 		RestCaller.BASE_CLASS.put(RestServiceConstant.NOTIFICATION_SERVICE, Notification.class);
 		RestCaller.BASE_URL.put(RestServiceConstant.FORGOT_PASSWORD_SERVICE, RestConstant.RM_FORGOT_PASSWORD);
 		RestCaller.BASE_CLASS.put(RestServiceConstant.FORGOT_PASSWORD_SERVICE,  String.class);
+		
+		//testimonial
+		RestCaller.BASE_URL.put(RestServiceConstant.TESTIMONIAL_SERVICE, RestConstant.RM_TESTIMONIAL);
+		RestCaller.BASE_CLASS.put(RestServiceConstant.TESTIMONIAL_SERVICE, Testimonial.class);
+		
+		//FAQ
+		RestCaller.BASE_URL.put(RestServiceConstant.FAQ_SERVICE, RestConstant.RM_FAQ);
+		RestCaller.BASE_CLASS.put(RestServiceConstant.FAQ_SERVICE, Faq.class);
+		
+		//Housing Index
+		RestCaller.BASE_URL.put(RestServiceConstant.HOUSING_INDEX_SERVICE, RestConstant.RM_HOUSING_INDEX);
+		RestCaller.BASE_CLASS.put(RestServiceConstant.HOUSING_INDEX_SERVICE, HousingIndex.class);
 		
 	}
 }

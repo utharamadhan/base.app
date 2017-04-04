@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:ifs="http://btn.co.id">
+<head>
+<meta charset="ISO-8859-1"/>
+<title>App Role Detail</title>
+</head>
+<body>
+	<div class="pageheader">
+		<div class="row col-md-8">
+			<h4><i class="fa fa-tachometer"></i> Administration / App Role List / Add New App Role
+			<span></span></h4>
+		</div>
+	</div>
+	<div class="row col-md-12">
+	<section class="tile transparent">
+			<div class="tile-body rounded-corners">
+			<div id="appRole-btn-accessibility-div" class="col-md-4 tile-body no-vpadding" style="margin:10px;display:none;">
+				<a href="#" id="appRole-btn-accessibility" class="btn btn-primary" style="margin-bottom:5px"><i class="fa fa-folder-open"></i> &nbsp; Accessibility</a>
+			</div>
+			<form action="#" id="appRole-detail-form" class="form-horizontal" method="POST" novalidate="novalidate" th:object="${detail}">
+				<div class="stockTypeStyle">
+					<div class="form-group">
+						<div class="col-md-10">
+							<div id="errorFragmentList">
+								<th:block th:if="${message}">
+									<div class='alert alert-success'>
+										<a href='#' class='close' data-dismiss='alert' aria-label='close' title='close'>&#10006;</a>			
+										<label th:text="${message}"></label>
+									</div>
+								</th:block>
+							</div>
+						</div>									
+						&nbsp;
+					</div>
+					<input id="appRole-detail-maintenancePk" type="hidden" th:field="*{pkAppRole}"/>
+					<div class="form-group">
+						<label class="col-sm-1 control-label" th:text="'Code'">Code</label>
+						<div class="col-sm-6 form-input-container">
+							<input type="text" class="form-control" placeholder="Code" name="srch-term" id="input-text-code" th:field="*{code}"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-1 control-label" th:text="'Name'">Name</label>
+						<div class="col-sm-6 form-input-container">
+							<input type="text" class="form-control" placeholder="Name" name="srch-term" id="input-text-name" th:field="*{name}"/>
+						</div>
+					</div>
+					<hr/>
+					<div class="form-group form-footer">				
+						<div class="col-sm-offset-4 col-sm-8">
+							<a href="#" id="appRole-detail-btn-cancel" class="btn btn-default" type="reset" data-toggle="tooltip" title="">Batal</a>
+							<button id="appRole-detail-btn-save" class="btn btn-primary" type="submit" data-toggle="tooltip" title="">Simpan</button>
+						</div>
+					</div>
+				</div>
+			</form>
+			</div>
+	</section>
+	</div>
+	<div id="appRole-accessibilityModal" class="modal fade" role="dialog">
+  		<div class="modal-dialog">
+  		</div>
+	</div>
+	<script th:inline="javascript">
+	/*<![CDATA[*/
+	
+	    $(function(){
+	    	var maintenancePK = /*[[${detail.pkAppRole}]]*/ #;
+	    	if(maintenancePK) {
+	    		$("#appRole-btn-accessibility-div").show();
+	    	}
+			var backToList = function(){
+				returnToList('appRoleMaintenance-detail-container', 'appRoleMaintenance-list-container', true);
+			};
+	    	
+			var submitForm = function(){
+				cleanErrorParsley();
+				var sURL = /*[[@{/do/administrator/appRole/saveAppRole/}]]*/ #;
+				$.post(sURL, $("#appRole-detail-form").serialize(), function(data) {
+					if(data.errorList!=null){
+						displayErrorParsley(data.errorList);
+					}else{
+						bootBoxSuccessSave('Role Successfully Saved', backToList);
+					}
+				});
+			};
+			
+			var openDialogAccessibility = function() {
+				var sURL = /*[[@{/do/administrator/appRole/showAccessibility}]]*/ #;
+				sURL += "?pkAppRole=" + $("#appRole-detail-maintenancePk").val() + "&skipDecorator";
+				$.get(sURL, function(result){
+					$("#appRole-accessibilityModal .modal-dialog").html(result);
+					$("#appRole-accessibilityModal").modal("show");	
+				})
+			};
+			
+			$('#appRole-detail-btn-save').click(function(e){
+				e.preventDefault();
+				submitForm();
+			});
+			
+			$('#appRole-detail-btn-cancel').click(function(e){
+				e.preventDefault();
+				backToList();
+			});
+			
+			$('#appRole-btn-accessibility').click(function(e){
+				e.preventDefault();
+				openDialogAccessibility();
+			});
+	    });
+	/*]]>*/
+	</script>
+</body>
+</html>

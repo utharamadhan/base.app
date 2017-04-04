@@ -33,7 +33,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Scope(value="request")
 @Controller
-@RequestMapping("/lookup")
+@RequestMapping("/administrator/reference")
 public class LookupWebController extends BaseController<Lookup> {
 
 	private final String PATH_LIST = "/administration/lookupList";

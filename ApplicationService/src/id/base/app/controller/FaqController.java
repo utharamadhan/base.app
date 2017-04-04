@@ -6,6 +6,7 @@ import id.base.app.rest.RestConstant;
 import id.base.app.service.MaintenanceService;
 import id.base.app.service.faq.IFaqService;
 import id.base.app.valueobject.Faq;
+import id.base.app.valueobject.testimonial.Testimonial;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,4 +42,8 @@ public class FaqController extends SuperController<Faq>{
 		return anObject;
 	}
 	
+	@Override
+	public Faq preUpdate(Faq anObject) throws SystemException{
+		return validate(anObject);
+	}
 }

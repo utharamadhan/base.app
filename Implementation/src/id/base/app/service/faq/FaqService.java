@@ -39,7 +39,9 @@ public class FaqService implements IFaqService {
 	public List<Faq> findAll(List<SearchFilter> filter,List<SearchOrder> order) throws SystemException {return null;}
 	
 	@Override
-	public void delete(Long[] objectPKs) throws SystemException {}
+	public void delete(Long[] objectPKs) throws SystemException {
+		faqDAO.delete(objectPKs);
+	}
 
 	@Override
 	public List<Faq> findObjects(Long[] objectPKs) throws SystemException {return null;}

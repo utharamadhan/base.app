@@ -12,9 +12,9 @@ import id.base.app.valueobject.aboutUs.CommonPost;
 import id.base.app.valueobject.aboutUs.Engagement;
 import id.base.app.valueobject.aboutUs.ProgramPost;
 import id.base.app.valueobject.course.Tag;
-import id.base.app.valueobject.event.Event;
-import id.base.app.valueobject.news.News;
 import id.base.app.valueobject.publication.DigitalBook;
+import id.base.app.valueobject.publication.Event;
+import id.base.app.valueobject.publication.News;
 
 import java.io.IOException;
 import java.util.ArrayList;
