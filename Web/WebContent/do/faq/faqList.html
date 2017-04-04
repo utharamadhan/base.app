@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:ifs="http://btn.co.id">
+<head>
+<meta charset="ISO-8859-1"/>
+<title>FAQ</title>
+</head>
+<style>
+.dataTables_scrollBody {
+	height : auto !important;
+	min-height : 120px;
+}
+</style>
+<body>
+<div id="content" class="col-md-12">
+	<div id="faq-detail-container"></div>
+	<div id="faq-list-container">
+	<div class="pageheader">
+		<h4><i class="fa fa-shopping-basket"></i> FAQ / FAQ List
+		<span></span></h4>
+	</div>
+	<div class="col-md-4 tile-body no-vpadding" style="margin:10px;">
+		<a href="#" id="faq-btn-add" class="btn btn-primary" style="margin-bottom:5px"><i class="fa fa-plus dropdown-plus"></i> &nbsp; Add</a>
+	</div>
+	<div class="main">
+		<div class="row">
+			<div class="col-md-12">	
+				<section class="tile transparent">
+					<div class="table-responsive">
+						<div class="tile-body rounded-corners">
+	                      	<table id="faq-list-table" class="table table-datatable table-custom">
+		                        <thead>
+		                          <tr>
+		                            <th>Category</th>
+									<th>Question</th>	
+									<th>E/D</th>
+		                          </tr>
+		                        </thead>
+	                     	</table>
+	                     	<div style="padding-bottom: 3px; bottom: 0;" th:replace="pagingDiv::pager (${pagingWrapper}, ${#dates.createNow()}, 'faq-list-table', 'contentArea')">
+							</div>
+                     	</div>
+					</div>
+				</section>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script th:inline="javascript">
+	/*<![CDATA[*/
+		function showAdd() {
+	    	var sURL = /*[[@{/do/master/faq/showAdd?skipdecorator=}]]*/ #;
+	    	showScreen('faq-list-container', 'faq-detail-container', sURL);
+		}
+		
+		function showDetail(maintenancePK) {
+			var sURL = /*[[@{/do/master/faq/showEdit?maintenancePK=}]]*/ #;
+			showScreen('faq-list-container', 'faq-detail-container', sURL + maintenancePK + "&skipdecorator=");
+		}
+		
+		function deleteItem(maintenancePK) {
+			var callbackDelete = function(result) {
+				if (result) {
+					var sURL = /*[[@{/do/master/faq/delete?}]]*/ #;
+					var serializedData = "maintenancePKs=" + maintenancePK;
+					$.post(sURL, serializedData,function(data){
+						if(data.errorList!=null){
+							//show error message
+						}else{
+							search();
+						}
+					});
+				}
+			}
+			bootBoxConfirmation(callbackDelete);
+		}
+		
+		function deletefaq() {
+			var sURL = /*[[@{/do/master/faq/deletefaq?skipDecorator}]]*/ #;
+			$.post(sURL, $('.faq-list-check-delete').serialize(), function(data){
+				if(data.errorList!=null){
+					
+				}else{
+					location.reload(true);
+				}
+			});
+		}
+	
+	    $(function(){
+		    setMenuActive('faq');
+		    var colDefs = [{ name : "faqCategoryLookup.name" }, 
+	    	               { name : "question" },
+	    	               { type : "deleteAndEdit" , param : [ "pkFaq" ] }
+	    	               ];
+		    var sURL = /*[[@{/do/master/faq/list?}]]*/ #;
+		    buildDataTable(/*[[@{/}]]*/, sURL, 'faq-list-table', 450, colDefs, null, null);
+	    });
+	    
+		$('#faq-btn-add').click(function(){
+			showAdd();
+		});
+		
+		$('#faq-btn-delete').click(function(){
+			deletefaq();
+		});
+		
+	/*]]>*/
+</script>
+</body>
+</html>

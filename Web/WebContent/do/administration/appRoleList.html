@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:ifs="http://btn.co.id">
+<head>
+<meta charset="ISO-8859-1"/>
+<title>App Role</title>
+</head>
+<style>
+.dataTables_scrollBody {
+	height : auto !important;
+	min-height : 120px;
+}
+</style>
+<body>
+<div id="content" class="col-md-12">
+	<div id="appRoleMaintenance-detail-container"></div>
+	<div id="appRoleMaintenance-list-container">
+	<div class="pageheader">
+		<h4><i class="fa fa-shopping-basket"></i> Administration / App Role List
+		<span></span></h4>
+	</div>
+	<div class="col-md-4 tile-body no-vpadding" style="margin:10px;">
+		<a href="#" id="appRoleMaintenance-btn-add" class="btn btn-primary" style="margin-bottom:5px"><i class="fa fa-plus dropdown-plus"></i> &nbsp; Add</a>
+	</div>
+	<div class="main">
+		<div class="row">
+			<div class="col-md-12">	
+				<section class="tile transparent">
+					<div class="table-responsive">
+						<div class="tile-body rounded-corners">
+	                      	<table id="appRoleMaintenance-list-table" class="table table-datatable table-custom">
+		                        <thead>
+		                          <tr>
+		                            <th>Code</th>
+									<th>Name</th>
+									<th>E/D</th>
+		                          </tr>
+		                        </thead>
+	                     	</table>
+	                     	<div style="padding-bottom: 3px; bottom: 0;" th:replace="pagingDiv::pager (${pagingWrapper}, ${#dates.createNow()}, 'appRoleMaintenance-list-table', 'contentArea')">
+							</div>
+                     	</div>
+					</div>
+				</section>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script th:inline="javascript">
+	/*<![CDATA[*/
+		function showAdd() {
+	    	var sURL = /*[[@{/do/administrator/appRole/showAdd?skipdecorator=}]]*/ #;
+	    	showScreen('appRoleMaintenance-list-container', 'appRoleMaintenance-detail-container', sURL);
+		}
+		
+		function showDetail(maintenancePK) {
+			var sURL = /*[[@{/do/administrator/appRole/showEdit?maintenancePK=}]]*/ #;
+			showScreen('appRoleMaintenance-list-container', 'appRoleMaintenance-detail-container', sURL + maintenancePK + "&skipdecorator=");
+		}
+		
+		function deleteItem(maintenancePK) {
+			var callbackDelete = function(result) {
+				if (result) {
+					var sURL = /*[[@{/do/administrator/appRole/delete?}]]*/ #;
+					var serializedData = "maintenancePKs=" + maintenancePK;
+					$.post(sURL, serializedData,function(data){
+						if(data.errorList!=null){
+							//show error message
+						}else{
+							search();
+						}
+					});
+				}
+			}
+			bootBoxConfirmation(callbackDelete);
+		}
+		
+		function deleteAppRoleMaintenance() {
+			var sURL = /*[[@{/do/administrator/appRole/delete?skipDecorator}]]*/ #;
+			$.post(sURL, $('.appRoleMaintenance-list-check-delete').serialize(), function(data){
+				if(data.errorList!=null){
+					
+				}else{
+					location.reload(true);
+				}
+			});
+		}
+	
+	    $(function(){
+		    setMenuActive('appRoleMaintenance');
+		    var colDefs = [{ name : "code" }, 
+	    	               { name : "name" },
+	    	               { type : "deleteAndEdit" , param : [ "pkAppRole" ] }
+	    	               ];
+		    var sURL = /*[[@{/do/administrator/appRole/list?}]]*/ #;
+		    buildDataTable(/*[[@{/}]]*/, sURL, 'appRoleMaintenance-list-table', 450, colDefs, null, null);
+	    });
+	    
+		$('#appRoleMaintenance-btn-add').click(function(){
+			showAdd();
+		});
+		
+		$('#appRoleMaintenance-btn-delete').click(function(){
+			deleteAppRoleMaintenance();
+		});
+		
+	/*]]>*/
+</script>
+</body>
+</html>

@@ -1,6 +1,7 @@
 package id.base.app.webMember.controller;
 
 import id.base.app.IAuditTrailConstant;
+import id.base.app.ILookupConstant;
 import id.base.app.LoginSession;
 import id.base.app.SystemConstant;
 import id.base.app.exception.SystemException;
@@ -129,7 +130,7 @@ public class LoginController {
 					return new RedirectView(SystemConstant.LOGIN_URL + "?error=wrongAccount",true, false);
 				}
 			
-				if (user.getStatus() == SystemConstant.UserStatus.INACTIVE) {
+				if (user.getStatus() == ILookupConstant.UserStatus.INACTIVE) {
 					return new RedirectView("/do/landingPage/blank",true, false);
 				}
 

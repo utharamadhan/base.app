@@ -11,6 +11,26 @@ import java.util.Map;
 
 public interface ILookupConstant {
 
+	public static final class UserStatus {
+		public static final Integer NEW = 0;
+		public static final Integer ACTIVE = 1;
+		public static final Integer INACTIVE = 2;
+		public static final Integer LOCK = 3;
+		
+		public static final String NEW_STR = "New";
+		public static final String ACTIVE_STR = "Active";
+		public static final String INACTIVE_STR	= "Inactive";
+		public static final String LOCK_STR	= "Lock";
+		
+		public static final HashMap<Integer, String> USER_STATUS_MAP = new HashMap<Integer, String>();
+		static{
+			USER_STATUS_MAP.put(NEW, NEW_STR);
+			USER_STATUS_MAP.put(ACTIVE, ACTIVE_STR);
+			USER_STATUS_MAP.put(INACTIVE, INACTIVE_STR);
+			USER_STATUS_MAP.put(LOCK, LOCK_STR);
+		}
+	}
+	
 	public static final class ArticleStatus {
 		public static final Integer DELETE 	= 0;
 		public static final Integer DRAFT 	= 1;
@@ -64,7 +84,6 @@ public interface ILookupConstant {
 		static {
 			URL_MAP.put(CONTACT_US, CONTACT_US_URL);
 		}
-		
 	}
     
 	public static final class PartyContact {
@@ -72,26 +91,6 @@ public interface ILookupConstant {
 		public static final String OFFICE_PHONE_NUMBER = "OP";
 	}
 	
-    public static final class PartyRole {
-		public static final String SUPPLIER		= "SP";
-		public static final String TRANSPORTER 	= "TR";
-		public static final String CUSTOMER		= "CS";
-		public static final String PRODUSEN		= "PD";
-		
-		public static final String SUPPLIER_STR		= "Pemasok";
-		public static final String TRANSPORTER_STR 	= "Pengangkut";
-		public static final String CUSTOMER_STR		= "Pelanggan";
-		public static final String PRODUSEN_STR		= "Produsen";
-		
-		public static final Map<String, String> partyRoleMap = new HashMap<>();
-		static{
-			partyRoleMap.put(SUPPLIER,  SUPPLIER_STR);
-			partyRoleMap.put(TRANSPORTER, TRANSPORTER_STR);
-			partyRoleMap.put(CUSTOMER,  CUSTOMER_STR);
-			partyRoleMap.put(PRODUSEN,  PRODUSEN_STR);
-		}
-	}
-    
     public static final class CategoryHelp {
 		public static final String CALL_CENTER = "CC";
 		public static final String PROGRAM = "PR";

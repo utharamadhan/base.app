@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:ifs="http://btn.co.id">
 <head>
 <meta charset="ISO-8859-1"/>
-<title>System Parameter</title>
+<title>Reference Group</title>
 </head>
 <style>
 .dataTables_scrollBody {
@@ -28,7 +28,7 @@
 	                      	<table id="lookupGroup-list-table" class="table table-datatable table-custom">
 		                        <thead>
 		                          <tr>
-		                            <th>Lookup Group</th>
+		                            <th>Reference Group</th>
 		                            <th>Description</th>
 									<th>E/D</th>
 		                          </tr>
@@ -47,17 +47,17 @@
 <script th:inline="javascript">
 	/*<![CDATA[*/
 		function showAdd() {
-	    	var sURL = /*[[@{/do/lookupGroup/showAdd?skipdecorator=}]]*/ #;
+	    	var sURL = /*[[@{/do/administrator/referenceGroup/showAdd?skipdecorator=}]]*/ #;
 	    	showScreen('lookupGroup-list-container', 'lookupGroup-detail-container', sURL);
 		}
 		
 		function showDetail(lookupGroup) {
-			var sURL = /*[[@{/do/lookup/showList?lookupGroup=}]]*/ #;
+			var sURL = /*[[@{/do/administrator/reference/showList?lookupGroup=}]]*/ #;
 			showScreen('lookupGroup-list-container', 'lookup-list-container', sURL + lookupGroup + "&skipdecorator=");
 		}
 		
 		function deleteItem(maintenancePK) {
-			var sURL = /*[[@{/do/lookupGroup/delete?}]]*/ #;
+			var sURL = /*[[@{/do/administrator/referenceGroup/delete?}]]*/ #;
 			var serializedData = "maintenancePKs=" + maintenancePK;
 			$.post(sURL, serializedData,function(data){
 				if(data.errorList!=null){
@@ -69,7 +69,7 @@
 		} 
 		
 		function deleteLookupGroup() {
-			var sURL = /*[[@{/do/lookupGroup/deleteLookupGroup?skipDecorator}]]*/ #;
+			var sURL = /*[[@{/do/administrator/referenceGroup/deleteLookupGroup?skipDecorator}]]*/ #;
 			$.post(sURL, $('.lookupGroup-list-check-delete').serialize(), function(data){
 				if(data.errorList!=null){
 					
@@ -85,7 +85,7 @@
 	    	               { name : "description" }, 
 	    	               { type : "edit" , param : [ "name" ] }
 	    	               ];
-		    var sURL = /*[[@{/do/lookupGroup/list?}]]*/ #;
+		    var sURL = /*[[@{/do/administrator/referenceGroup/list?}]]*/ #;
 		    buildDataTable(/*[[@{/}]]*/, sURL, 'lookupGroup-list-table', 450, colDefs, null, null);
 	    });
 	    

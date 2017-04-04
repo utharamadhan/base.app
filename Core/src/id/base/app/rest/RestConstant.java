@@ -15,6 +15,7 @@ public class RestConstant {
 	
 	public static final String RM_WEB_SOCKET = "/webSocketController";
 	public static final String RM_NOTIFICATION = "/notification";
+	public static final String RM_FORGOT_PASSWORD = "/forgotPassword";
 	
 	public static final String RM_DASHBOARD = "/dashboard";
 	
@@ -92,8 +93,10 @@ public class RestConstant {
 	public static final String RM_ADVISORY_CATEGORY = "/advisory/category";
 	public static final String RM_ADVISORY_ARTICLE = "/advisory/article";
 
-	//forecast call
-	public static final String RM_FORECAST_CALL = "/forecastCall";
-	public static final String RM_FORGOT_PASSWORD = "/forgotPassword";
+	//testimonial
+	public static final String RM_TESTIMONIAL = "/testimonial";
 	
+	//housing index
+	public static final String RM_HOUSING_INDEX = "/housingIndex";
+
 }

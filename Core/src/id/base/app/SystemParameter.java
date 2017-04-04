@@ -59,11 +59,6 @@ public class SystemParameter {
 	public static String SHORT_MESSAGE_SERVICE_USER_KEY = "zmgqvn";
 	public static String SHORT_MESSAGE_SERVICE_PASS_KEY = "Padiku123";
 
-	public static String FORECAST_API_URL = "https://api.forecast.io/forecast/{apiKey}/{coordinate}";
-	public static String FORECAST_API_KEY = "c9b0d03ad555b2f836f7da53cdc76c72";
-	
-	public static Integer FORECAST_PURGING_LIMIT = 2;
-	
 	public static boolean STRICT_EMAIL_ADDRESS = true;
 
 	public static String TEMPLATE_DIRECTORY = "/opt/template/";

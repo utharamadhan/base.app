@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:ifs="http://btn.co.id">
 <head>
 <meta charset="ISO-8859-1"/>
-<title>System Parameter</title>
+<title>Business Setting</title>
 </head>
 <style>
 .dataTables_scrollBody {
@@ -29,7 +29,7 @@
 		                          <tr>
 		                            <th>Name</th>
 									<th>Description</th>
-									<th>Data Type</th>
+									<th nowrap="nowrap">Data Type</th>
 									<th>Value</th>
 									<th>E/D</th>
 		                          </tr>
@@ -48,17 +48,17 @@
 <script th:inline="javascript">
 	/*<![CDATA[*/
 		function showAdd() {
-	    	var sURL = /*[[@{/do/systemParameter/showAdd?skipdecorator=}]]*/ #;
+	    	var sURL = /*[[@{/do/administrator/businessSetting/showAdd?skipdecorator=}]]*/ #;
 	    	showScreen('systemParameter-list-container', 'systemParameter-detail-container', sURL);
 		}
 		
 		function showDetail(maintenancePK) {
-			var sURL = /*[[@{/do/systemParameter/showEdit?maintenancePK=}]]*/ #;
+			var sURL = /*[[@{/do/administrator/businessSetting/showEdit?maintenancePK=}]]*/ #;
 			showScreen('systemParameter-list-container', 'systemParameter-detail-container', sURL + maintenancePK + "&skipdecorator=");
 		}
 		
 		function deleteItem(maintenancePK) {
-			var sURL = /*[[@{/do/systemParameter/delete?}]]*/ #;
+			var sURL = /*[[@{/do/administrator/businessSetting/delete?}]]*/ #;
 			var serializedData = "maintenancePKs=" + maintenancePK;
 			$.post(sURL, serializedData,function(data){
 				if(data.errorList!=null){
@@ -70,7 +70,7 @@
 		} 
 		
 		function deleteSystemParameter() {
-			var sURL = /*[[@{/do/systemParameter/deleteSystemParameter?skipDecorator}]]*/ #;
+			var sURL = /*[[@{/do/administrator/businessSetting/deleteSystemParameter?skipDecorator}]]*/ #;
 			$.post(sURL, $('.systemParameter-list-check-delete').serialize(), function(data){
 				if(data.errorList!=null){
 					
@@ -88,7 +88,7 @@
 	    	               { name : "value" },
 	    	               { type : "edit" , param : [ "pkAppParameter" ] }
 	    	               ];
-		    var sURL = /*[[@{/do/systemParameter/list?}]]*/ #;
+		    var sURL = /*[[@{/do/administrator/businessSetting/list?}]]*/ #;
 		    buildDataTable(/*[[@{/}]]*/, sURL, 'systemParameter-list-table', 450, colDefs, null, null);
 	    });
 	    
