@@ -1,3 +1,6 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="rq" value="${pageContext.request }" scope="request" />
+<c:set var="ctx" value="${rq.contextPath }" scope="request" />
 <html>
  <head>
  </head>
@@ -7,11 +10,7 @@
 			margin-top:0px;
 		}
 		.banner-wrapper{
-			background-image:url('<%=request.getContextPath()%>/images/background-hfc.jpg');
-			background-size: 100% 100%;
-			background-repeat: no-repeat;
-			background-position: left top;
-			height: 330px;
+			height: 275px;
 		}
 		.banner-wrapper .container{
 			padding: 35px 20px 95px;
@@ -37,7 +36,7 @@
 			color:#004fb6;
 		}
 		.help-form-header{
-			padding: 15px 20px;
+			padding: 17px 20px;
 		    background: #004fb6;
 		    color: #fff;
 		    font-size: 18px;
@@ -50,18 +49,55 @@
 		    transition: opacity 150ms linear;
 		    float: left;
 		    width: 50%;
-		    border-bottom-left-radius: 25px;
-		    border-top-left-radius: 25px;			
+	        position: relative;
+    		right: 50px;	
+		}
+		.help-form-header:after,
+		.help-form-header:before{
+			content: "";
+			width: 0;
+		  position: absolute;
+		  border-top: 29px solid transparent;
+		  border-bottom: 29px solid transparent;
+		}
+		.help-form-header:after{
+			right: 100%;
+			border-right: 28.87px solid #004fb6;
+			top: 0px;
+		}
+		.help-form-header:before{
+			left: 100%;
+			border-left: 28.87px solid #004fb6;
+			top: 0px;
 		}
 		.help-form-body{
 		    font-size: 18px;
 		    padding: 5px;
 		    background: #fcdb00;
 		    margin: 0px;
-		    border-top-right-radius: 25px;
-		    border-bottom-right-radius: 25px;
 		    width: 50%;
 		    float: right;
+		    position: relative;
+    		left: 75px;
+		}
+		.help-form-body:after,
+		.help-form-body:before{
+			content: "";
+			width: 0;
+		  position: absolute;
+		  border-top: 29px solid transparent;
+		  border-bottom: 29px solid transparent;
+		}
+		
+		.help-form-body:after{
+			right: 100%;
+			border-right: 28.87px solid #fcdb00;
+			top: 0px;
+		}
+		.help-form-body:before{
+			left: 100%;
+			border-left: 28.87px solid #fcdb00;
+			top: 0px;
 		}
 		.help-form-body select{
 			padding:10px 20px;
@@ -164,7 +200,7 @@
 			color: #fefefe;
 		}
 		.grid-white{
-			background-color:#ffffff;
+			background-color:#fcdb00;
 		}
 		.grid-white .main-title{
 			color:#004fb6;
@@ -174,6 +210,25 @@
 		}
 		.grid-align-right .grid-content p{
 			text-align:right!important;
+		}
+		.video_tujuan_program{
+			position: relative;
+			right: 25px;
+		}
+		.detail_tujuan_program{
+			position: relative;
+			left: 25px;
+		}
+		
+		.content_kerja_sama{
+			position: relative;
+			right: 25px;
+			top: 25px;
+		}
+		.detail_kerja_sama{
+			position: relative;
+			left: 25px;
+			top: 25px;
 		}
 		.text-secondary{
 			color:#fcdb00
@@ -187,7 +242,7 @@
 		}
 		.testimonialArea{
 			padding:40px 0px;
-			background-color:#f5f3f3;
+			background-color:#ced0d6;
 		}
 		.contactArea{
 			background-image: url('<%=request.getContextPath()%>/images/background-contact.jpg');
@@ -213,6 +268,13 @@
 			color: #004fb6;
 			background-color: #fcdb00;
 			border-color: #fcdb00;
+			text-transform: uppercase;
+			font-weight:700;
+		}
+		.btn-third{
+			color: #fcdb00;
+			background-color: #004fb6;
+			border-color: #004fb6;
 			text-transform: uppercase;
 			font-weight:700;
 		}
@@ -264,22 +326,34 @@
 			<div class="row clearfix">
 				<div class="about_inner">
 					<div class="col-md-4">
-							<div class="aboutImage">
-							  <img src="<%=request.getContextPath()%>/images/learning_.jpg" alt="" class="img-responsive" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/learning'">
-							  <a href="<%=request.getContextPath()%>/page/learning" class="captionLink">Learning <span></span></a>
-							</div><!-- aboutImage -->
+						<div class="mini_hexagon4 hexa_position4"></div>
+						<img src="<%=request.getContextPath()%>/images/hexagon_learning_big.png" alt="" class="img-responsive hexagon_learning" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/learning'">
 					</div>
 					<div class="col-md-4">
-							<div class="aboutImage">
-							  <img src="<%=request.getContextPath()%>/images/advisory_.jpg" alt="" class="img-responsive" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/advisory'">
-							  <a href="<%=request.getContextPath()%>/page/advisory" class="captionLink">Advisory <span></span></a>
-							</div><!-- aboutImage -->
+						<div class="mini_hexagon1 hexa_position1"></div>
+						<div class="mini_hexagon2 hexa_position2"></div>
+						<div class="mini_hexagon3 hexa_position3"></div>
+						<img src="<%=request.getContextPath()%>/images/hexagon_advisory_big.png" alt="" class="img-responsive hexagon_advisory" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/advisory'">
 					</div>
 					<div class="col-md-4">
-							<div class="aboutImage">
-							  <img src="<%=request.getContextPath()%>/images/rnd_.jpg" alt="" class="img-responsive" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/research-development'">
-							  <a href="<%=request.getContextPath()%>/page/research-development" class="captionLink">Research & Development <span></span></a>
-							</div><!-- aboutImage -->
+						<div class="mini_hexagon5 hexa_position5"></div>
+						<img src="<%=request.getContextPath()%>/images/hexagon_research_big.png" alt="" class="img-responsive hexagon_research" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/research-development'">
+						<div class="housing_index">
+							<div class="breakingNews bn-red" id="bn1">
+						    	<div class="bn-title" style="width: auto;"><h2 style="display: inline-block;">Index</h2><span></span></div>
+						        <ul style="left: 208px;">
+						        	<li><a href="http://tevratgundogdu.com/works/breakingnewsticker/index.html#"><span>Albert Einstein</span> - Lorem Ipsum is simply dummy text of the printing and typesetting industry</a></li>
+						            <li><a href="http://tevratgundogdu.com/works/breakingnewsticker/index.html#"><span>Nelson Mandela</span> - Lorem Ipsum has been the industry's standard dummy text ever since the</a></li>
+						            <li><a href="http://tevratgundogdu.com/works/breakingnewsticker/index.html#"><span>Mohandas Karamçand Gandi</span> - There are many variations of passages of Lorem Ipsum available</a></li>
+						            <li><a href="http://tevratgundogdu.com/works/breakingnewsticker/index.html#"><span>Atatürk</span> - Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia</a></li>
+						            <li><a href="http://tevratgundogdu.com/works/breakingnewsticker/index.html#"><span>Napolyon</span> - The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested</a></li>
+						        </ul>
+						        <div class="bn-navi">
+						        	<span></span>
+						            <span></span>
+						        </div>
+						    </div>
+						</div>
 					</div>
 				</div>
 			</div><!-- row clearfix -->
@@ -309,9 +383,6 @@
 					</div>
 				</div>
 			</div>
-			<div class="arrowBottomWrapper">
-				<div class="arrowBottom"><i class="fa fa-chevron-down" aria-hidden="true"></i></div>
-			</div>
 		</div><!--end banner-->
 		<div style="clear:both"></div>
  		<div id="aboutUsArea" class="aboutUsArea">
@@ -321,10 +392,10 @@
 				</div>
 				<div class="grid-wrapper">
 					<div class="row-grid">
-						<div class="grid">
+						<div class="grid video_tujuan_program">
 							<iframe width="100%" height="100%" src="https://www.youtube.com/embed/felFVPmAu5s" frameborder="0" allowfullscreen></iframe>
 						</div>
-						<div class="grid grid-blue">
+						<div class="grid grid-blue detail_tujuan_program">
 							<div class="grid-content">
 								<h2 class="main-title text-secondary to-uppercase">Tujuan Program</h2>
 								<p>Memberikan pelayanan unggul, inovatif dan terintegrasi dalam riset, edukasi dan konsultasi terkait pembiayaan perumahan bagi klien</p>
@@ -333,14 +404,14 @@
 						</div>
 					</div>
 					<div class="row-grid">
-						<div class="grid grid-white grid-align-right">
+						<div class="grid grid-white grid-align-right content_kerja_sama">
 							<div class="grid-content">
 								<h2 class="main-title text-secondary to-uppercase">Kerjasama</h2>
 								<p>Untuk memberikan kualitas materi yang terbaik bagi anda, kami telah menjalin kerjasama dengan beberapa pihak</p>
-								<a href="page/engagement/list" class="btn btn-secondary btn-medium">selengkapnya</a>
+								<a href="page/engagement/list" class="btn btn-third btn-medium">selengkapnya</a>
 							</div>
 						</div>
-						<div class="grid">
+						<div class="grid detail_kerja_sama">
 							<img src="<%=request.getContextPath()%>/images/handshaking.jpg"/>
 						</div>
 					</div>
@@ -358,45 +429,87 @@
 			<div class="row">
 				<div class="col-md-offset-1 col-md-10">
 					<div id="testimonial-slider" class="owl-carousel">
-						<div class="testimonial">
-							<div class="pic">
-								<img src="<%=request.getContextPath()%>/images/img-1.jpg" alt="">
+						<div class="custom_testimony">
+							<div class="sub_hexagon1 sub_hexagon1_post" style="display: inline-block;">
+								<div style="position: absolute;width:100%;">
+									<h2 style="color: #004fb6; position:relative; text-align: center; display: block; padding-bottom: 20px;">Williamson</h2>
+									<h4 style="color: #1f85e5; position:relative; text-align: center; display: block; padding-bottom: 20px;">CEO</h4>
+									<p style="color: #b5c4ec; position:relative; text-align: center; display: block;">PT. Property Makmur Sentosa</p>
+								</div>	
 							</div>
-							<p class="description">
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut eu dolor eget ante pretium commodo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean purus sem, aliquam eget lorem at, efficitur mattis risus. Morbi efficitur molestie cursus. Etiam eget sodales lorem. Proin volutpat lectus at pulvinar consectetur. Aliquam erat volutpat. Sed.
-							</p>
-							<h3 class="testimonial-title">
-								Williamson
-								<small class="position">CEO - PT. Property Makmur Sentosa</small>
-							</h3>
+							<div class="main_hexagon1" style="background-image: url(<%=request.getContextPath()%>/images/img-1.jpg);display: inline-block;">
+							  <div class="main_hexagon1_hexTop"></div>
+							  <div class="main_hexagon1_hexBottom"></div>
+							</div>
+							<div class="sub_hexagon2 sub_hexagon2_post" style="display: inline-block;">
+								<div style="position: absolute;">
+									<label style="padding-left: 2px; padding-right: 2px; font-size: 12px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut eu dolor eget ante pretium commodo. Cum sociis natoque penatibus ...</labe>
+								</div>
+							</div>
 						</div>
 		 
-						<div class="testimonial">
-							<div class="pic">
-								<img src="<%=request.getContextPath()%>/images/img-2.jpg" alt="">
+						<div class="custom_testimony">
+							<div class="sub_hexagon1 sub_hexagon1_post" style="display: inline-block;">
+								<div style="position: absolute;width:100%;">
+									<h2 style="color: #004fb6; position:relative; text-align: center; display: block; padding-bottom: 20px;">Kristiana</h2>
+									<h4 style="color: #1f85e5; position:relative; text-align: center; display: block; padding-bottom: 20px;">Owner</h4>
+									<p style="color: #b5c4ec; position:relative; text-align: center; display: block;">Home Bright</p>
+								</div>
 							</div>
-							<p class="description">
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut eu dolor eget ante pretium commodo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean purus sem, aliquam eget lorem at, efficitur mattis risus. Morbi efficitur molestie cursus. Etiam eget sodales lorem. Proin volutpat lectus at pulvinar consectetur. Aliquam erat volutpat. Sed.
-							</p>
-							<h3 class="testimonial-title">
-								Kristiana
-								<small class="position">Owner - Home Bright</small>
-							</h3>
+							<div class="main_hexagon1" style="background-image: url(<%=request.getContextPath()%>/images/img-2.jpg);display: inline-block;">
+							  <div class="main_hexagon1_hexTop"></div>
+							  <div class="main_hexagon1_hexBottom"></div>
+							</div>
+							<div class="sub_hexagon2 sub_hexagon2_post" style="display: inline-block;">
+								<div style="position: absolute;">
+									<label style="padding-left: 2px; padding-right: 2px; font-size: 12px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut eu dolor eget ante pretium commodo. Cum sociis natoque penatibus ...</labe>
+								</div>
+							</div>
 						</div>
-						<div class="testimonial">
-							<div class="pic">
-								<img src="<%=request.getContextPath()%>/images/img-3.jpg" alt="">
+						<div class="custom_testimony">
+							<div class="sub_hexagon1 sub_hexagon1_post" style="display: inline-block;">
+								<div style="position: absolute;width:100%;">
+									<h2 style="color: #004fb6; position:relative; text-align: center; display: block; padding-bottom: 20px;">Steve Thomas</h2>
+									<h4 style="color: #1f85e5; position:relative; text-align: center; display: block; padding-bottom: 20px;">COO</h4>
+									<p style="color: #b5c4ec; position:relative; text-align: center; display: block;">Factory Property</p>
+								</div>
 							</div>
-							<p class="description">
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut eu dolor eget ante pretium commodo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean purus sem, aliquam eget lorem at, efficitur mattis risus. Morbi efficitur molestie cursus. Etiam eget sodales lorem. Proin volutpat lectus at pulvinar consectetur. Aliquam erat volutpat. Sed.
-							</p>
-							<h3 class="testimonial-title">
-								Steve Thomas
-								<small class="position">COO - Factory Property</small>
-							</h3>
+							<div class="main_hexagon1" style="background-image: url(<%=request.getContextPath()%>/images/img-3.jpg);display: inline-block;">
+							  <div class="main_hexagon1_hexTop"></div>
+							  <div class="main_hexagon1_hexBottom"></div>
+							</div>
+							<div class="sub_hexagon2 sub_hexagon2_post" style="display: inline-block;">
+								<div style="position: absolute;">
+									<label style="padding-left: 2px; padding-right: 2px; font-size: 12px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut eu dolor eget ante pretium commodo. Cum sociis natoque penatibus ...</labe>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
+			</div>
+		  </div>
+		</div>
+		<div class="newsArea">
+		  <div class="container">
+			<div class="row">
+				<c:forEach items="${newsLatest}" var="news" varStatus="loop" begin="1" end="4" step="1">
+				<div class="col-md-3">
+					<div class="news_hexa1" style="background-image: url(${news.encodedPicture});">
+					  <div class="news_hexa1_hexTop"></div>
+					  <div class="news_hexa1_hexBottom"></div>
+					</div>
+					<div class="news_title${loop.index} news_title_post">
+						<div style="position: absolute;width: 100%; text-align: center;">
+							${news.title}
+						</div>
+					</div>
+				</div>
+				</c:forEach>
+			</div>
+			<div class="row">
+				<div class="col-md-4"></div>
+				<div class="col-md-4 btn_see_more_hexa_wrapper"><div class="btn_see_more_hexa" onclick="javascript:window.location.href='${ctx}/page/news'">See More</div></div>
+				<div class="col-md-4"></div>
 			</div>
 		  </div>
 		</div>
@@ -447,6 +560,14 @@
 			});
 			$('.arrowBottom').click(function(){
 				scrollToBottom('aboutUsArea', 72);
+			});
+			
+			$("#bn1").breakingNews({
+				effect		:"slide-h",
+				autoplay	:true,
+				timer		:3000,
+				color		:"red",
+				border		:true
 			});
 		});
 	</script>
