@@ -39,6 +39,7 @@
 		 <%-- <script type="text/javascript" src="<%=request.getContextPath()%>/js/optionswitcher.js"></script><!-- custom js --> --%>
 		 <%-- <script src="<%=request.getContextPath()%>/plugin/vendor/quill/quill-1.1.7.js"></script> --%>
 		 <script src="<%=request.getContextPath()%>/js/parallax.min.js" type="text/javascript" charset="utf-8"></script>
+		 <script src="<%=request.getContextPath()%>/js/running-text/breakingNews.js.download"></script><!-- mrdy plugin js -->
 		<script src="<%=request.getContextPath()%>/js/custom.js"></script><!-- custom js -->
 		<script src="<%=request.getContextPath()%>/js/mrdy-plugin.js"></script><!-- mrdy plugin js -->
 	</body>

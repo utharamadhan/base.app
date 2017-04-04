@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css"><!-- custom -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/css/default.css" id="option_color"><!-- custom -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/css/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/running-text/css" type="text/css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/running-text/breakingNews.css" type="text/css">
     <%-- <link rel="stylesheet" href="<%=request.getContextPath()%>/plugin/vendor/quill/quill-1.1.7.css"> --%>
     <link rel="stylesheet" href="<%=request.getContextPath()%>/plugin/vendor/owl-carousel/css/owl.carousel.min.css">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/plugin/vendor/owl-carousel/css/owl.theme.min.css">
