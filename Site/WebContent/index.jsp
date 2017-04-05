@@ -565,11 +565,11 @@
 							<div class="breakingNews bn-red" id="bn1">
 						    	<div class="bn-title" style="width: auto;"><h2 style="display: inline-block;">Index</h2><span></span></div>
 						        <ul style="left: 208px;">
-						        	<li><a href="http://tevratgundogdu.com/works/breakingnewsticker/index.html#"><span>Albert Einstein</span> - Lorem Ipsum is simply dummy text of the printing and typesetting industry</a></li>
-						            <li><a href="http://tevratgundogdu.com/works/breakingnewsticker/index.html#"><span>Nelson Mandela</span> - Lorem Ipsum has been the industry's standard dummy text ever since the</a></li>
-						            <li><a href="http://tevratgundogdu.com/works/breakingnewsticker/index.html#"><span>Mohandas Karamçand Gandi</span> - There are many variations of passages of Lorem Ipsum available</a></li>
-						            <li><a href="http://tevratgundogdu.com/works/breakingnewsticker/index.html#"><span>Atatürk</span> - Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia</a></li>
-						            <li><a href="http://tevratgundogdu.com/works/breakingnewsticker/index.html#"><span>Napolyon</span> - The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested</a></li>
+						        	<li><a href="#"><span>DKI Jakarta</span> - 123</a></li>
+						            <li><a href="#"><span>Jawa Barat</span> - 8212</a></li>
+						            <li><a href="#"><span>Jawa Timur</span> - 2323</a></li>
+						            <li><a href="#"><span>Jawa Tengah</span> - 4432</a></li>
+						            <li><a href="#"><span>Sumatera Utara</span> - 5445</a></li>
 						        </ul>
 						        <div class="bn-navi">
 						        	<span></span>
