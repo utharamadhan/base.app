@@ -75,6 +75,7 @@ public class ShortLifeSessionFilter2 implements Filter{
 			FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) resp;
+		
 		//post
 		RestCaller<CommonPost> restCall = new RestCaller<CommonPost>(RestConstant.REST_SERVICE, RestServiceConstant.COMMON_POST_SERVICE);
 		List<SearchFilter> filter = new ArrayList<SearchFilter>();
@@ -149,7 +150,7 @@ public class ShortLifeSessionFilter2 implements Filter{
 			@Override
 			public Map<String, Object> getParameters() {
 				Map<String,Object> map = new HashMap<String, Object>();
-				map.put("number", 5);
+				map.put("number", 7);
 				return map;
 			}
 		});
@@ -172,12 +173,6 @@ public class ShortLifeSessionFilter2 implements Filter{
 			}
 		});
 		request.setAttribute("eventLatest", events);
-		
-		/*//course tag
-		List<SearchFilter> filterTag = new ArrayList<SearchFilter>();
-		filterTag.add(new SearchFilter(Tag.VALID, Operator.EQUALS, SystemConstant.ValidFlag.VALID));
-		List<SearchOrder> orderTag = new ArrayList<SearchOrder>();
-		request.setAttribute("tags_course", getRestTagCaller().findAll(filterTag, orderTag));*/
 		
 		chain.doFilter(request, response);
 	}

@@ -180,6 +180,8 @@
 		}
 		.row-grid{
 			width:100%;
+			clear:both;
+			position:relative;
 		}
 		.grid{
 			width:50%;
@@ -212,23 +214,37 @@
 			text-align:right!important;
 		}
 		.video_tujuan_program{
-			position: relative;
-			right: 15px;
+			position: absolute;
+		    -webkit-clip-path: polygon(90% 0, 100% 50%, 90% 100%, 0 100%, 0 0);
+		    clip-path: polygon(90% 0, 100% 50%, 90% 100%, 0 100%, 0 0);
+		    float: left;
+		    width: 53%;
 		}
 		.detail_tujuan_program{
 			position: relative;
-			left: 15px;
+		    -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 10.3% 50%);
+		    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 10.3% 50%);
+		    float: right;
+		    width: 51%;
+		    padding-left: 3%;
 		}
 		
 		.content_kerja_sama{
-			position: relative;
-			right: 15px;
-			top: 25px;
+			position: absolute;
+		    top: 11px;
+		    -webkit-clip-path: polygon(100% 0, 90% 50%, 100% 100%, 0 100%, 0 0);
+		    clip-path: polygon(100% 0, 90% 50%, 100% 100%, 0 100%, 0 0);
+		    float: left;
+		    width: 47.3%;
+		    padding-right: 3%;
 		}
 		.detail_kerja_sama{
 			position: relative;
-			left: 15px;
-			top: 25px;
+		    top: 11px;
+		    -webkit-clip-path: polygon(10% 0, 100% 0, 100% 100%, 10% 100%, 0 50%);
+		    clip-path: polygon(8.5% 0, 100% 0, 100% 100%, 8.5% 100%, 0 50%);
+		    float: right;
+		    width: 56.1%;
 		}
 		.text-secondary{
 			color:#fcdb00

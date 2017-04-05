@@ -112,7 +112,7 @@
 									<li class="col-sm-4">
 										<ul>
 											<li class="dropdown-header"><a href="#">Berita</a></li>
-											<c:forEach items="${newsLatest}" var="news" varStatus="loop">
+											<c:forEach items="${newsLatest}" begin="0" end="4" var="news" varStatus="loop">
 											<li><a href="${ctx}/page/news/detail/${news.pkNews}/${fn:replace(news.title,' ','-')}">${news.title}</a></li>
 											</c:forEach>
 											<li><br/><div class="button-orange" onclick="javascript:window.location.href='${ctx}/page/news'">Lainnya...</div></li>
