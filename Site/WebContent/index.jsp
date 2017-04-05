@@ -100,7 +100,7 @@
 			top: 0px;
 		}
 		.help-form-body select{
-			padding:10px 20px;
+			padding:12px 20px;
 			border-radius: 25px;
 			border: solid 1px #fcdb00;
 			width:100%;
@@ -213,21 +213,21 @@
 		}
 		.video_tujuan_program{
 			position: relative;
-			right: 25px;
+			right: 15px;
 		}
 		.detail_tujuan_program{
 			position: relative;
-			left: 25px;
+			left: 15px;
 		}
 		
 		.content_kerja_sama{
 			position: relative;
-			right: 25px;
+			right: 15px;
 			top: 25px;
 		}
 		.detail_kerja_sama{
 			position: relative;
-			left: 25px;
+			left: 15px;
 			top: 25px;
 		}
 		.text-secondary{
@@ -237,12 +237,12 @@
 			text-transform: uppercase;
 		}
 		.aboutUsArea{
-			padding:50px 0px;
+			padding:50px 0px 90px 0px;
 			background-color:#f7f7f7;
 		}
 		.testimonialArea{
 			padding:40px 0px;
-			background-color:#ced0d6;
+			background-image: url('<%=request.getContextPath()%>/images/background-testimonial.jpg');
 		}
 		.contactArea{
 			background-image: url('<%=request.getContextPath()%>/images/background-contact.jpg');
@@ -319,6 +319,229 @@
 		@keyframes arrowmove {
 		    0%   {margin-top: -100px;}
 		    100% {margin-top: -50px;}
+		}
+		
+		/* News Hexagonal */
+		#categories{
+		  overflow:hidden;
+		  width:95%;
+		  margin:0 auto;
+		}
+		.clr:after{
+		  content:"";
+		  display:block;
+		  clear:both;
+		}
+		#categories li{
+		  position:relative;
+		  list-style-type:none;
+		  float:left;
+		  overflow:hidden;
+		  visibility:hidden;
+		  transform: rotate(-60deg) skewY(30deg);
+		}
+		#categories li *{
+		  position:absolute;
+		  visibility:visible;
+		}
+		#categories li > div{
+		  width:100%;
+		  height:100%;
+		  text-align:center;
+		  color:#fff;
+		  overflow:hidden;
+		  transform: skewY(-30deg) rotate(60deg);  
+			backface-visibility:hidden;
+		  
+		}
+		
+		/* HEX CONTENT */
+		#categories li img{
+		  left:-100%; right:-100%;
+		  width: auto; height:100%;
+		  margin:0 auto;   
+		  max-width: inherit;
+		}
+		
+		#categories div h1, #categories div p{
+		  width:100%;
+		  padding:0 5%;
+		  background-color: rgba(252, 219, 0, 1);
+		  transition: top .2s ease-out, bottom .2s ease-out, .2s padding .2s ease-out;
+		}
+		#categories li h1{
+		  bottom:110%;
+		  font-weight:600;
+		  font-size:14px;
+		  padding-top:100%;
+		  padding-bottom:100%;
+		  color:#004fb6;
+		}
+		#categories li h1:after{
+			content:'';
+		  display:block;
+		  position:absolute;
+		  bottom:-1px; left:45%;
+		  width:10%;
+		  text-align:center;
+		  z-index:1;
+		  border-bottom:2px solid #fff;
+		}
+		#categories li p{
+			padding-top:50%;
+			top:110%;
+			padding-bottom:50%;
+		}
+		
+		
+		/* HOVER EFFECT  */
+		
+		#categories li div:hover h1 {
+		  bottom:50%;
+		  padding-bottom:10%;
+		}
+		
+		#categories li div:hover p{
+		  top:50%;
+		  padding-top:10%;
+		}
+		@media (min-width:1201px) {
+		  #categories li{
+		    width:19.2%; /* = (100-4) / 5 */
+		    padding-bottom: 22.17%; /* =  width /0.866 */
+		  }
+		  #categories li:nth-child(9n+6), #categories li:nth-child(9n+7), #categories li:nth-child(9n+8), #categories li:nth-child(9n+9) {
+		    margin-top: -4.7%;
+		    margin-bottom: -4.2%;
+		    transform: translateX(50%) rotate(-60deg) skewY(30deg);
+		  }
+		  #categories li:nth-child(9n+6):last-child, #categories li:nth-child(9n+7):last-child, #categories li:nth-child(9n+8):last-child, #categories li:nth-child(9n+9):last-child{
+		    margin-bottom:0;
+		  }
+		  #categories li:nth-child(9n+6){
+		    margin-left:0.5%;
+		    clear:left;
+		  }
+		   #categories li:nth-child(9n+10){
+		    clear:left;
+		  }
+		  #categories li:nth-child(9n+2), #categories li:nth-child(9n+ 7)  {
+		    margin-left:1%;
+		    margin-right:1%;
+		  }
+		  #categories li:nth-child(9n+3), #categories li:nth-child(9n+4), #categories li:nth-child(9n+8)
+		  {
+		    margin-right:1%;
+		  }
+		}
+		
+		@media (max-width: 1200px) and (min-width:901px) {
+		  #categories li{
+		    width:24.25%; /* = (100-3) / 4 */
+		    padding-bottom: 28.002%; /* =  width /0.866 */
+		  }
+		  #categories li:nth-child(7n+5), #categories li:nth-child(7n+6), #categories li:nth-child(7n+7) {
+		    margin-top: -6.1%;
+		    margin-bottom: -6.1%;
+		    transform: translateX(50%) rotate(-60deg) skewY(30deg);
+		  }
+		  #categories li:nth-child(7n+5):last-child, #categories li:nth-child(7n+6):last-child, #categories li:nth-child(7n+7):last-child{
+		    margin-bottom:0;
+		  }
+		  #categories li:nth-child(7n+2), #categories li:nth-child(7n+6)  {
+		    margin-left:1%;
+		    margin-right:1%;
+		  }
+		  #categories li:nth-child(7n+3){
+		    margin-right:1%;
+		  }
+		  #categories li:nth-child(7n+8){
+		    clear:left;
+		  }
+		  #categories li:nth-child(7n+5){
+		    clear:left;
+		    margin-left:0.5%;
+		  }
+		}
+		
+		
+		@media (max-width: 900px) and (min-width:601px) {
+		  #categories li{
+		    width:32.666%; /* = (100-2) / 3 */
+		    padding-bottom: 37.721%; /* =  width /0.866 */
+		  }
+		  #categories li:nth-child(5n+4), #categories li:nth-child(5n+5) {
+		    margin-top: -8.622%;
+		    margin-bottom: -8.622%;
+		    transform: translateX(50%) rotate(-60deg) skewY(30deg);
+		  }
+		  #categories li:nth-child(5n+4):last-child, #categories li:nth-child(5n+5):last-child{
+		    margin-bottom:0;
+		  }
+		  #categories li:nth-child(5n+4){
+		    margin-right:1%;
+		    margin-left:0.5%;
+		  }
+		  #categories li:nth-child(5n+2) {
+		    margin-left:1%;
+		    margin-right:1%;
+		  }
+		  #categories li:nth-child(5n+6) {
+		    clear:left;
+		  }
+		  
+		}
+		@media (max-width: 600px) {
+		  #categories li{
+		    width:49.5%; /* = (100-1) / 2 */
+		    padding-bottom: 57.16%; /* =  width /0.866 */
+		  }
+		  #categories li:nth-child(3n+3){
+		    margin-top: -13.392%;
+		    margin-bottom: -13.392%;
+		    transform: translateX(50%) rotate(-60deg) skewY(30deg);
+		  }
+		  #categories li:nth-child(3n+3):last-child{
+		    margin-bottom:0;
+		  }
+		  #categories li:nth-child(3n+3){
+		    margin-left:0.5%;
+		  }
+		  #categories li:nth-child(3n+2) {
+		    margin-left:1%;
+		  }
+		  #categories li:nth-child(3n+4) {
+		    clear:left;
+		  }
+		}
+		#fork{
+		  position:fixed;
+		  bottom:0;
+		  right:0;
+		  color:#000;
+		  text-decoration:none;
+		  border:1px solid #000;
+		  padding:.5em .7em;
+		  margin:1%;
+		  transition: color .5s;
+		  overflow:hidden;
+		}
+		#fork:before {
+		  content: '';
+		  position: absolute;
+		  top: 0; left: 0;
+		  width: 130%; height: 100%;
+		  background: #000;
+		  z-index: -1;
+		  transform-origin:0 0 ;
+		  transform:translateX(-100%) skewX(-45deg);
+		  transition: transform .5s;
+		}
+		#fork:hover {
+		  color: #fff;
+		}
+		#fork:hover:before {
+		  transform: translateX(0) skewX(-45deg);
 		}
 	</style>
 		<div id="aboutArea" class="aboutArea">
@@ -419,6 +642,34 @@
 			</div>
 		</div>
 		<div style="clear:both"></div>
+		<div class="newsArea">
+			<ul id="categories" class="clr">
+			  <li>
+			    <div>
+			      <img src="<%=request.getContextPath()%>/images/intro-news.jpg" alt="" />
+			      <h1>Berita Terbaru</h1>
+			      <p>Dapatkan informasi dan berita terbaru dari HFC.</p>
+			    </div>
+			  </li>
+			  <c:forEach items="${newsLatest}" var="news" varStatus="loop" begin="0" end="7" step="1">
+			  	<li>
+				    <div>
+				      <img src="${news.encodedPicture}" alt="" />
+				      <h1>${news.title}</h1>
+				      <p><a href="page/engagement/list" class="btn btn-third btn-medium" style="width:90%">selengkapnya</a></p>
+				    </div>
+				  </li>
+			  </c:forEach>
+			  <li>
+			    <div>
+			      <img src="<%=request.getContextPath()%>/images/view-news.jpg" alt="" />
+			      <h1>Selengkapnya</h1>
+			      <p></p>
+			    </div>
+			  </li>
+			</ul>
+		</div>
+		<div style="clear:both"></div>
 		<div class="testimonialArea">
 		  <div class="container">
 			<div class="row">
@@ -432,7 +683,7 @@
 						<div class="custom_testimony">
 							<div class="sub_hexagon1 sub_hexagon1_post" style="display: inline-block;">
 								<div style="position: absolute;width:100%;">
-									<h2 style="color: #004fb6; position:relative; text-align: center; display: block; padding-bottom: 20px;">Williamson</h2>
+									<h2 style="color: #ffffff; position:relative; text-align: center; display: block; padding-bottom: 20px;">Williamson</h2>
 									<h4 style="color: #1f85e5; position:relative; text-align: center; display: block; padding-bottom: 20px;">CEO</h4>
 									<p style="color: #b5c4ec; position:relative; text-align: center; display: block;">PT. Property Makmur Sentosa</p>
 								</div>	
@@ -451,7 +702,7 @@
 						<div class="custom_testimony">
 							<div class="sub_hexagon1 sub_hexagon1_post" style="display: inline-block;">
 								<div style="position: absolute;width:100%;">
-									<h2 style="color: #004fb6; position:relative; text-align: center; display: block; padding-bottom: 20px;">Kristiana</h2>
+									<h2 style="color: #ffffff; position:relative; text-align: center; display: block; padding-bottom: 20px;">Kristiana</h2>
 									<h4 style="color: #1f85e5; position:relative; text-align: center; display: block; padding-bottom: 20px;">Owner</h4>
 									<p style="color: #b5c4ec; position:relative; text-align: center; display: block;">Home Bright</p>
 								</div>
@@ -469,7 +720,7 @@
 						<div class="custom_testimony">
 							<div class="sub_hexagon1 sub_hexagon1_post" style="display: inline-block;">
 								<div style="position: absolute;width:100%;">
-									<h2 style="color: #004fb6; position:relative; text-align: center; display: block; padding-bottom: 20px;">Steve Thomas</h2>
+									<h2 style="color: #ffffff; position:relative; text-align: center; display: block; padding-bottom: 20px;">Steve Thomas</h2>
 									<h4 style="color: #1f85e5; position:relative; text-align: center; display: block; padding-bottom: 20px;">COO</h4>
 									<p style="color: #b5c4ec; position:relative; text-align: center; display: block;">Factory Property</p>
 								</div>
@@ -486,30 +737,6 @@
 						</div>
 					</div>
 				</div>
-			</div>
-		  </div>
-		</div>
-		<div class="newsArea">
-		  <div class="container">
-			<div class="row">
-				<c:forEach items="${newsLatest}" var="news" varStatus="loop" begin="1" end="4" step="1">
-				<div class="col-md-3">
-					<div class="news_hexa1" style="background-image: url(${news.encodedPicture});">
-					  <div class="news_hexa1_hexTop"></div>
-					  <div class="news_hexa1_hexBottom"></div>
-					</div>
-					<div class="news_title${loop.index} news_title_post">
-						<div style="position: absolute;width: 100%; text-align: center;">
-							${news.title}
-						</div>
-					</div>
-				</div>
-				</c:forEach>
-			</div>
-			<div class="row">
-				<div class="col-md-4"></div>
-				<div class="col-md-4 btn_see_more_hexa_wrapper"><div class="btn_see_more_hexa" onclick="javascript:window.location.href='${ctx}/page/news'">See More</div></div>
-				<div class="col-md-4"></div>
 			</div>
 		  </div>
 		</div>

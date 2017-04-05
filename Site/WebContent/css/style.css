@@ -5490,7 +5490,7 @@ ul.contact_info li a:hover {
 	position: absolute;
 	top: -130px;
 	left: 165px;
-	z-index: 99999;
+	z-index: 999;
 }
 
 .hexagon_learning:hover{
@@ -5835,11 +5835,10 @@ ul.contact_info li a:hover {
 }
 
 .sub_hexagon2 {
-  position: relative;
-  width: 200px; 
-  height: 115.47px;
-  background-color: #956479;
-  margin: 125px 0;
+  width: 320px;
+  height: 145.47px;
+  background-color: white;
+  margin: 109px 0;
 }
 
 .sub_hexagon2:before,
@@ -5847,19 +5846,19 @@ ul.contact_info li a:hover {
   content: "";
   position: absolute;
   width: 0;
-  border-left: 100px solid transparent;
-  border-right: 100px solid transparent;
+  border-left: 160px solid transparent;
+  border-right: 160px solid transparent;
 }
 
 .sub_hexagon2:before {
   bottom: 100%;
-  border-bottom: 57.74px solid #956479;
+  border-bottom: 57.74px solid white;
 }
 
 .sub_hexagon2:after {
   top: 100%;
   width: 0;
-  border-top: 57.74px solid #956479;
+  border-top: 57.74px solid white;
 }
 
 .sub_hexagon2_post{
@@ -5877,9 +5876,9 @@ ul.contact_info li a:hover {
 .newsArea {
     width: 100%;
     height: auto;
-	padding: 50px 0 42px 0;
+	padding: 45px 0;
     background: #ecf3f7;
-	background-image: url("../images/background_news.png");
+	background-image: url("../images/background_news.jpg");
 	background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
