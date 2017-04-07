@@ -579,14 +579,8 @@
 						<img src="<%=request.getContextPath()%>/images/hexagon_research_big.png" alt="" class="img-responsive hexagon_research" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/research-development'">
 						<div class="housing_index">
 							<div class="breakingNews bn-red" id="bn1">
-						    	<div class="bn-title" style="width: auto;"><h2 style="display: inline-block;">Index</h2><span></span></div>
-						        <ul style="left: 208px;">
-						        	<li><a href="#"><span>DKI Jakarta</span> - 123</a></li>
-						            <li><a href="#"><span>Jawa Barat</span> - 8212</a></li>
-						            <li><a href="#"><span>Jawa Timur</span> - 2323</a></li>
-						            <li><a href="#"><span>Jawa Tengah</span> - 4432</a></li>
-						            <li><a href="#"><span>Sumatera Utara</span> - 5445</a></li>
-						        </ul>
+						    	<div class="bn-title" style="width: auto;"><h2 style="display: inline-block;">BTN Housing Index</h2><span></span></div>
+						        <ul style="left: 208px;" id="btnHIContent"></ul>
 						        <div class="bn-navi">
 						        	<span></span>
 						            <span></span>
@@ -805,12 +799,20 @@
 				scrollToBottom('aboutUsArea', 72);
 			});
 			
-			$("#bn1").breakingNews({
-				effect		:"slide-h",
-				autoplay	:true,
-				timer		:3000,
-				color		:"red",
-				border		:true
+			$.get( "/Site/page/homeContent/getDataForHome", function( data ) {
+				var hi = data.housingIndexList;
+				var html = "";
+				for(var i=0;i<hi.length;i++){
+					html += "<li><a href="+hi[i].linkUrl+" target='_blank'><span>"+hi[i].title+"</span></a></li>";	
+				}
+				$('#btnHIContent').html(html);
+				$("#bn1").breakingNews({
+					effect		:"slide-h",
+					autoplay	:true,
+					timer		:3000,
+					color		:"red",
+					border		:true
+				});
 			});
 		});
 	</script>

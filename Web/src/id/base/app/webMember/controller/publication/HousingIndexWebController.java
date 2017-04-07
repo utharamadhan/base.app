@@ -13,9 +13,7 @@ import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.valueobject.Faq;
-import id.base.app.valueobject.Lookup;
 import id.base.app.valueobject.publication.HousingIndex;
-import id.base.app.valueobject.publication.HousingIndexProvince;
 import id.base.app.webMember.DataTableCriterias;
 import id.base.app.webMember.controller.BaseController;
 import id.base.app.webMember.rest.LookupRestCaller;
@@ -86,27 +84,6 @@ public class HousingIndexWebController extends BaseController<HousingIndex> {
 	
 	public void setDefaultData(ModelMap model, HousingIndex obj) {
 		LookupRestCaller lrc = new LookupRestCaller();
-		List<Lookup> provinceList = lrc.findByLookupGroup(ILookupGroupConstant.PROVINCE);
-		List<HousingIndexProvince> hipList = new ArrayList<>();
-		if(obj.getHousingIndexProvincesList().isEmpty()){
-			for (Lookup p : provinceList) {
-				HousingIndexProvince hip = new HousingIndexProvince();
-				hip.setProvinceLookup(p);
-				hipList.add(hip);
-			}
-		}else{
-			HashMap<Long, String> map = new HashMap<>();
-			for (HousingIndexProvince hip : obj.getHousingIndexProvincesList()) {
-				map.put(hip.getProvinceLookup().getPkLookup(), hip.getIndexValue());
-			}
-			for (Lookup p : provinceList) {
-				HousingIndexProvince hip = new HousingIndexProvince();
-				hip.setProvinceLookup(p);
-				hip.setIndexValue(map.get(p.getPkLookup()));
-				hipList.add(hip);
-			}
-		}
-		obj.setHousingIndexProvincesList(hipList);
 		model.addAttribute("statusOptions", lrc.findByLookupGroup(ILookupGroupConstant.ARTICLE_STATUS));
 	}
 	
@@ -126,20 +103,6 @@ public class HousingIndexWebController extends BaseController<HousingIndex> {
 		return PATH_DETAIL;
 	}
 	
-	private void preUpdate(HousingIndex obj, Map<String, Object> inputMap){
-		List<HousingIndexProvince> hipList = new ArrayList<>();
-		for(int i=0;i<Integer.valueOf(inputMap.get("hip-size").toString());i++){
-			HousingIndexProvince hip = new HousingIndexProvince();
-			Lookup province = new Lookup();
-			province.setPkLookup(Long.valueOf(inputMap.get("hipPk["+i+"]").toString()));
-			hip.setProvinceLookup(province);
-			hip.setIndexValue(inputMap.get("hipValue["+i+"]").toString());
-			hip.setHousingIndex(obj);
-			hipList.add(hip);
-		}
-		obj.setHousingIndexProvincesList(hipList);
-	}
-	
 	@RequestMapping(method=RequestMethod.POST, value="saveHousingIndex")
 	@ResponseBody
 	public Map<String, Object> saveHousingIndex(final HousingIndex anObject, final BindingResult bindingResult, final ModelMap model, HttpServletRequest request, 
@@ -147,7 +110,6 @@ public class HousingIndexWebController extends BaseController<HousingIndex> {
 		Map<String, Object> resultMap = new HashMap<>();
 		List<ErrorHolder> errors = new ArrayList<>();
 		try{
-			preUpdate(anObject, inputMap);
 			errors = new SpecificRestCaller<HousingIndex>(RestConstant.REST_SERVICE, RestServiceConstant.HOUSING_INDEX_SERVICE).performPut("/update", anObject);
 			if(errors != null && errors.size() > 0){
 				resultMap.put(SystemConstant.ERROR_LIST, errors);

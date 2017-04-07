@@ -31,6 +31,7 @@
 		                        <thead>
 		                          <tr>
 		                            <th>Title</th>
+		                            <th>Link URL</th>
 									<th>Status</th>	
 									<th>E/D</th>
 		                          </tr>
@@ -88,7 +89,8 @@
 	
 	    $(function(){
 		    setMenuActive('housingIndex');
-		    var colDefs = [{ name : "title" }, 
+		    var colDefs = [{ name : "title" },
+		                   { name : "linkUrl" },
 	    	               { name : "statusStr" },
 	    	               { type : "deleteAndEdit" , param : [ "pkHousingIndex" ] }
 	    	               ];

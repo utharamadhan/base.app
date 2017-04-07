@@ -46,6 +46,7 @@ import id.base.app.valueobject.course.Tag;
 import id.base.app.valueobject.party.Party;
 import id.base.app.valueobject.publication.DigitalBook;
 import id.base.app.valueobject.publication.Event;
+import id.base.app.valueobject.publication.HousingIndex;
 import id.base.app.valueobject.publication.News;
 import id.base.app.valueobject.research.Research;
 import id.base.app.valueobject.research.ResearchTheme;
@@ -243,6 +244,10 @@ public class ParameterLoader extends ContextLoader implements ServletContextList
 		// contact
 		RestCaller.BASE_URL.put(RestServiceConstant.CONTACT_SERVICE, RestConstant.RM_CONTACT);
 		RestCaller.BASE_CLASS.put(RestServiceConstant.CONTACT_SERVICE, Contact.class);
+		
+		//Housing Index
+		RestCaller.BASE_URL.put(RestServiceConstant.HOUSING_INDEX_SERVICE, RestConstant.RM_HOUSING_INDEX);
+		RestCaller.BASE_CLASS.put(RestServiceConstant.HOUSING_INDEX_SERVICE, HousingIndex.class);
 		
 	}
 }
