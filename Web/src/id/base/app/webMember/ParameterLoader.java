@@ -38,6 +38,8 @@ import id.base.app.valueobject.publication.DigitalBook;
 import id.base.app.valueobject.publication.Event;
 import id.base.app.valueobject.publication.HousingIndex;
 import id.base.app.valueobject.publication.News;
+import id.base.app.valueobject.report.VWResearchDevelopmentReport;
+import id.base.app.valueobject.report.VWStudentReport;
 import id.base.app.valueobject.research.Research;
 import id.base.app.valueobject.research.ResearchTheme;
 import id.base.app.valueobject.testimonial.Testimonial;
@@ -265,6 +267,12 @@ public class ParameterLoader extends ContextLoader implements ServletContextList
 		//Housing Index
 		RestCaller.BASE_URL.put(RestServiceConstant.HOUSING_INDEX_SERVICE, RestConstant.RM_HOUSING_INDEX);
 		RestCaller.BASE_CLASS.put(RestServiceConstant.HOUSING_INDEX_SERVICE, HousingIndex.class);
+		
+		//Report
+		RestCaller.BASE_URL.put(RestServiceConstant.STUDENT_REPORT_SERVICE, RestConstant.RM_STUDENT_REPORT);
+		RestCaller.BASE_CLASS.put(RestServiceConstant.STUDENT_REPORT_SERVICE, VWStudentReport.class);
+		RestCaller.BASE_URL.put(RestServiceConstant.RESEARCH_DEVELOPMENT_REPORT_SERVICE, RestConstant.RM_RESEARCH_DEVELOPMENT_REPORT);
+		RestCaller.BASE_CLASS.put(RestServiceConstant.RESEARCH_DEVELOPMENT_REPORT_SERVICE, VWResearchDevelopmentReport.class);
 		
 	}
 }
