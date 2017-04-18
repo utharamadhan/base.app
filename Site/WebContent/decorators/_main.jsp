@@ -1,8 +1,8 @@
 <%@ taglib uri="/WEB-INF/sitemesh-decorator.tld" prefix="decorator" %>
 <%@ taglib uri="/WEB-INF/sitemesh-page.tld" prefix="page" %>
-<%@page import="id.base.app.webMember.SessionConstants"%>
+<%@page import="id.base.app.site.SessionConstants"%>
 <%@page import="id.base.app.SystemConstant"%>
-<%@page import="id.base.app.webMember.SessionConstants"%>
+<%@page import="id.base.app.site.SessionConstants"%>
 <%@page import="id.base.app.valueobject.AppFunction"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.LinkedList"%>

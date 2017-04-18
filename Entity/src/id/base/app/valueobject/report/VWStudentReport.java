@@ -41,8 +41,8 @@ public class VWStudentReport implements Serializable {
 	@Column(name="GENDER")
 	private String gender;
 	
-	@Column(name="TELP_NO")
-	private String telpNo;
+	@Column(name="PHONE_NUMBER")
+	private String phoneNumber;
 	
 	@Column(name="EMAIL")
 	private String email;
@@ -69,7 +69,7 @@ public class VWStudentReport implements Serializable {
 	private String latestEducationSchool;
 	
 	@Column(name="LATEST_EDUCATION_DATES_ATTENDED")
-	private String latestEducationDatesAttended;
+	private Date latestEducationDatesAttended;
 	
 	@Column(name="LATEST_EDUCATION_DEGREE")
 	private String latestEducationDegree;
@@ -132,12 +132,12 @@ public class VWStudentReport implements Serializable {
 		this.gender = gender;
 	}
 
-	public String getTelpNo() {
-		return telpNo;
+	public String getPhoneNumber() {
+		return phoneNumber;
 	}
 
-	public void setTelpNo(String telpNo) {
-		this.telpNo = telpNo;
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 
 	public String getEmail() {
@@ -204,11 +204,11 @@ public class VWStudentReport implements Serializable {
 		this.latestEducationSchool = latestEducationSchool;
 	}
 
-	public String getLatestEducationDatesAttended() {
+	public Date getLatestEducationDatesAttended() {
 		return latestEducationDatesAttended;
 	}
 
-	public void setLatestEducationDatesAttended(String latestEducationDatesAttended) {
+	public void setLatestEducationDatesAttended(Date latestEducationDatesAttended) {
 		this.latestEducationDatesAttended = latestEducationDatesAttended;
 	}
 

@@ -5,7 +5,7 @@ import java.security.NoSuchAlgorithmException;
 
 /**
  * Encyrptor with MD5 approach
- * @author padiku
+ * @author baseapp
  */
 public class MD5Encryptor implements PasswordEncryptor {
 

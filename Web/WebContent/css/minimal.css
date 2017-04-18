@@ -1055,19 +1055,18 @@ html.mm-opened #wrap > .row #content { position: fixed; left: 0; padding-right: 
 
 body { font-family: "Roboto", "Arial", sans-serif; font-size: 16px; font-weight: 400; -webkit-font-smoothing: antialiased; }
 body.modal-open { overflow: auto; margin-right: 0; }
-body.bg-1 { background: url(../images/backgrounds/1.jpg) no-repeat center center fixed;   -webkit-background-size: cover;  -moz-background-size: cover;  -o-background-size: cover;  background-size: cover;}
-body.bg-2 { background-image: url(../images/noise.png), url(../images/backgrounds/2.jpg); background-repeat: repeat, no-repeat; background-position: left top; background-size: auto, cover; }
-body.bg-3 { background-image: url(../images/noise.png), url(../images/backgrounds/3.jpg); background-repeat: repeat, no-repeat; background-position: left top; background-size: auto, cover; }
-body.bg-4 { background-image: url(../images/noise.png), url(../images/backgrounds/4.jpg); background-repeat: repeat, no-repeat; background-position: left top; background-size: auto, cover; }
-body.bg-5 { background-image: url(../images/noise.png), url(../images/backgrounds/5.jpg); background-repeat: repeat, no-repeat; background-position: left top; background-size: auto, cover; }
-body.bg-6 { background-image: url(../images/noise.png), url(../images/backgrounds/6.jpg); background-repeat: repeat, no-repeat; background-position: left top; background-size: auto, cover; }
+body.bg-1 { 
+    background: rgba(209,209,209,1);
+    background: -moz-linear-gradient(left, rgba(209,209,209,1) 0%, rgba(223,224,215,1) 51%, rgba(209,209,209,1) 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(209,209,209,1)), color-stop(51%, rgba(223,224,215,1)), color-stop(100%, rgba(209,209,209,1)));
+    background: -webkit-linear-gradient(left, rgba(209,209,209,1) 0%, rgba(223,224,215,1) 51%, rgba(209,209,209,1) 100%);
+    background: -o-linear-gradient(left, rgba(209,209,209,1) 0%, rgba(223,224,215,1) 51%, rgba(209,209,209,1) 100%);
+    background: -ms-linear-gradient(left, rgba(209,209,209,1) 0%, rgba(223,224,215,1) 51%, rgba(209,209,209,1) 100%);
+    background: url(../images/backgrounds/back-hexa.png) repeat, linear-gradient(to right, #d1d1d1 0%, rgba(223,224,215,1) 51%, rgba(209,209,209,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d1d1d1', endColorstr='#d1d1d1', GradientType=1 );	
+}
 body.no-bg { background: none; }
 body.solid-bg-1 { background-color: #1693A5; background-image: url(../images/noise.png); background-repeat: repeat; background-position: left top; background-size: auto; }
-body.solid-bg-2 { background-color: #FBB829; background-image: url(../images/noise.png); background-repeat: repeat; background-position: left top; background-size: auto; }
-body.solid-bg-3 { background-color: #556270; background-image: url(../images/noise.png); background-repeat: repeat; background-position: left top; background-size: auto; }
-body.solid-bg-4 { background-color: #2A8FBD; background-image: url(../images/noise.png); background-repeat: repeat; background-position: left top; background-size: auto; }
-body.solid-bg-5 { background-color: #D8D8C0; background-image: url(../images/noise.png); background-repeat: repeat; background-position: left top; background-size: auto; }
-body.solid-bg-6 { background-color: #7F94B0; background-image: url(../images/noise.png); background-repeat: repeat; background-position: left top; background-size: auto; }
 body .navbar-default { border: 0; }
 body .navbar-default.navbar-fixed-top, body .navbar-default.navbar-fixed-bottom { -webkit-transform: none; -moz-transform: none; -ms-transform: none; -o-transform: none; transform: none; }
 body .mask { background-color: rgba(0, 0, 0, 0.8); width: 100%; height: 100%; position: fixed; z-index: 100000; top: -45px; padding-bottom: 45px; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; }
@@ -1583,7 +1582,7 @@ select.form-control.input-lg + .chosen-container .chosen-choices .search-field i
 .tile.color.redbrown { background-color: #d9544f; }
 .tile.color.grey { background-color: #8b8b8b; }
 .tile.color.transparent-black { background-color: rgba(0, 0, 0, 0.3); }
-.tile.color.transparent-black.textured { background: rgba(0, 0, 0, 0.3) url(../images/dot_pattern.png) repeat; }
+.tile.color.transparent-black.textured { background: rgba(0, 91, 158, 0.8) url(../images/dot_pattern.png) repeat}
 .tile.color.transparent-white { background-color: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.1); }
 .tile.color.white { background-color: white; color: #717171; }
 
@@ -1708,9 +1707,9 @@ select.form-control.input-lg + .chosen-container .chosen-choices .search-field i
 .pageheader h2 { display: inline-block; color: rgba(255, 255, 255, 0.8); font-size: 32px; font-weight: 300; font-family: "Roboto", "Arial", sans-serif; }
 .pageheader h2 span { font-size: 18px; color: rgba(255, 255, 255, 0.6); font-weight: 300; font-style: italic; }
 .pageheader h2 i { padding: 0; border-radius: 50%; color: rgba(255, 255, 255, 0.5); font-size: 28px; display: inline-block; vertical-align: middle; height: 50px; width: 50px; text-align: center; border: 2px solid rgba(255, 255, 255, 0.5); line-height: 44px; }
-.pageheader h4 { display: inline-block; color: rgba(255, 255, 255, 0.8); font-size: 18px; font-weight: 300; font-family: "Roboto", "Arial", sans-serif; }
-.pageheader h4 span { font-size: 14px; color: rgba(255, 255, 255, 0.6); font-weight: 300; font-style: italic; }
-.pageheader h4 i:not(.help) { padding: 0; border-radius: 50%; color: rgba(255, 255, 255, 0.5); font-size: 18px; display: inline-block; vertical-align: middle; height: 35px; width: 35px; text-align: center; border: 2px solid rgba(255, 255, 255, 0.5); line-height: 28px; }
+.pageheader h4 { display: inline-block; color: rgba(0, 98, 167, 0.8); font-size: 18px; font-weight: 300; font-family: "Roboto", "Arial", sans-serif; }
+.pageheader h4 span { font-size: 14px; color: rgba(0, 98, 167, 0.6); font-weight: 300; font-style: italic; }
+.pageheader h4 i:not(.help) { padding: 0; border-radius: 50%; color: rgba(0, 98, 167, 0.5); font-size: 18px; display: inline-block; vertical-align: middle; height: 35px; width: 35px; text-align: center; border: 2px solid rgba(0, 98, 167, 0.5); line-height: 28px; }
 .pageheader h4 i.help { color: rgba(0, 0, 0, 0.7);vertical-align:top;font-size:18px;}
 .pageheader .breadcrumbs { display: inline-block; vertical-align: top; position: absolute; right: 0; top: 0; }
 .pageheader .breadcrumbs ol.breadcrumb { background-color: transparent; margin-bottom: 0; }

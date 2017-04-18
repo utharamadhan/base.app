@@ -20,7 +20,7 @@ import org.slf4j.LoggerFactory;
 public class SystemConstant  {
 	static Logger logger = LoggerFactory.getLogger(SystemConstant.class);
 	
-	public static final String SALT = "...-padiku-...";
+	public static final String SALT = "...-baseapp-...";
 	
 	public static final String GLOBAL_PATH = "/project/baseApp/";
 	
@@ -62,9 +62,6 @@ public class SystemConstant  {
     public static final String SYSTEM_REPORT_MONTH="MMMMMMMMMM";
     public static final String SYSTEM_DATE_HOUR_MINUTE_NO_DELIMITER = "yyyyMMddHHmm";
     public static final String SYSTEM_DATE_TIME_NO_DELIMITER = "yyyyMMddhhmmss";
-    
-    
-    public static final String PADIKU_DECIMAL_FORMAT = "#,##0.########";
     
     public static final String WEB_SERVICE_DATETIME = "yyyy-MM-dd HH:mm:ss.SSS";
     public static final String WEB_SERVICE_DATE = "yyyy-MM-dd";
@@ -208,7 +205,7 @@ public class SystemConstant  {
 		LOGIN_URL = url;
 	}
 	
-	public static String ADMIN_URL = "http://app.padiku.id/WebAdmin";
+	public static String ADMIN_URL = "http://hfc.com/WebAdmin";
 	public static void setGoToUrl(String adminUrl){
 		ADMIN_URL = adminUrl;
 	}
@@ -220,10 +217,10 @@ public class SystemConstant  {
 	
 	public static String UNIQUE_TOKEN = "sSs";
 	
-	public static String SHARED_FOLDER_LOCATION 		= "/padiku";
-	public static String BILLING_REPORT_DIR 			= "D:/padiku/billing/";
-	public static String AUDIT_TRAIL_EXPORT_DIR 		= "D:/padiku/auditTrail/";
-	public static String FILE_DIRECTORY_TEMP 			= "D:/padiku";
+	public static String SHARED_FOLDER_LOCATION 		= "/baseapp";
+	public static String BILLING_REPORT_DIR 			= "D:/baseapp/billing/";
+	public static String AUDIT_TRAIL_EXPORT_DIR 		= "D:/baseapp/auditTrail/";
+	public static String FILE_DIRECTORY_TEMP 			= "D:/baseapp";
     public static String RESULT_DIRECTORY				= "/Result";
     public static String REMOTE_DIRECTORY 				= "/uploadFile/";
     public static String LOCAL_TEMP_DIR_EXPORT 			= FILE_DIRECTORY_TEMP + "/tempExport/";

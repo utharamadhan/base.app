@@ -8,14 +8,18 @@
   	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/materialize.min.css">
   <style>
     body {
-      display: flex;
-      min-height: 100vh;
-      flex-direction: column;
-      background:#000000 url('<%=request.getContextPath()%>/images/backgrounds/background-admin.jpg') no-repeat center center fixed;
-      -webkit-background-size: cover;
-      -moz-background-size: cover;
-      -o-background-size: cover;
-      background-size: cover;
+      	background: rgba(0,91,158,1);
+		background: -moz-linear-gradient(left, rgba(0,91,158,1) 0%, rgba(207,209,198,1) 51%, rgba(176,173,180,1) 100%);
+		background: -webkit-gradient(left top, right top, color-stop(0%, rgba(0,91,158,1)), color-stop(51%, rgba(207,209,198,1)), color-stop(100%, rgba(176,173,180,1)));
+		background: -webkit-linear-gradient(left, rgba(0,91,158,1) 0%, rgba(207,209,198,1) 51%, rgba(176,173,180,1) 100%);
+		background: -o-linear-gradient(left, rgba(0,91,158,1) 0%, rgba(207,209,198,1) 51%, rgba(176,173,180,1) 100%);
+		background: -ms-linear-gradient(left, rgba(0,91,158,1) 0%, rgba(207,209,198,1) 51%, rgba(176,173,180,1) 100%);
+		background: url('<%=request.getContextPath()%>/images/background/back-hexa.png'),linear-gradient(to right, rgba(0,91,158,1) 0%, rgba(207,209,198,1) 51%, rgba(176,173,180,1) 100%);
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#005b9e', endColorstr='#b0adb4', GradientType=1 );
+    }
+    .login-wrapper{
+        background-color: white;
+        display: inline-block; padding: 32px 48px 0px 48px; border: 1px solid #EEE;border-bottom: 5px solid #FFDE00;
     }
     .toast{
     	background-color:white!important;
@@ -55,7 +59,7 @@
       <div class="section"></div>
 
       <div class="container">
-        <div class="z-depth-1 grey lighten-4 row" style="display: inline-block; padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
+        <div class="z-depth-1 row login-wrapper">
 
           <form class="col s12" method="post">
             <div class='row'>

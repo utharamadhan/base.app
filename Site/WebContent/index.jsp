@@ -48,9 +48,9 @@
 		    -webkit-transition: opacity 150ms linear;
 		    transition: opacity 150ms linear;
 		    float: left;
-		    width: 50%;
-	        position: relative;
-    		right: 50px;	
+		    width: 47%;
+		    position: relative;
+		    right: 50px;
 		}
 		.help-form-header:after,
 		.help-form-header:before{
@@ -62,23 +62,23 @@
 		}
 		.help-form-header:after{
 			right: 100%;
-			border-right: 28.87px solid #004fb6;
-			top: 0px;
+    		border-right: 46.8px solid #004fb6;
+    		top: 0px;
 		}
 		.help-form-header:before{
 			left: 100%;
-			border-left: 28.87px solid #004fb6;
-			top: 0px;
+    		border-left: 46.8px solid #004fb6;
+    		top: 0px;
 		}
 		.help-form-body{
 		    font-size: 18px;
 		    padding: 5px;
 		    background: #fcdb00;
 		    margin: 0px;
-		    width: 50%;
+		    width: 47%;
 		    float: right;
 		    position: relative;
-    		left: 75px;
+		    left: 51px;
 		}
 		.help-form-body:after,
 		.help-form-body:before{
@@ -91,13 +91,13 @@
 		
 		.help-form-body:after{
 			right: 100%;
-			border-right: 28.87px solid #fcdb00;
-			top: 0px;
+    		border-right: 46.8px solid #fcdb00;
+    		top: 0px;
 		}
 		.help-form-body:before{
 			left: 100%;
-			border-left: 28.87px solid #fcdb00;
-			top: 0px;
+    		border-left: 46.8px solid #fcdb00;
+    		top: 0px;
 		}
 		.help-form-body select{
 			padding:12px 20px;
@@ -213,38 +213,58 @@
 		.grid-align-right .grid-content p{
 			text-align:right!important;
 		}
+		
+		.triangle_top{
+		    -webkit-clip-path: polygon(50% 33%, 22% 100%, 78% 100%);
+    		clip-path: polygon(50% 33%, 22% 100%, 78% 100%);
+    		width: 100%;
+    		position: absolute;
+    		margin-top: -290px;
+    		float: right;
+    		background-color:#004fb6;
+		}
+		.triangle_bottom{
+			-webkit-clip-path: polygon(50% 20%, 40% 0, 60% 0);
+		    clip-path: polygon(50% 60%, 20.5% 0, 76% 0);
+		    width: 100%;
+		    position: absolute;
+		    float: right;
+		    background-color: #004fb6;
+		    margin-top: 22px;
+		}
 		.video_tujuan_program{
 			position: absolute;
-		    -webkit-clip-path: polygon(90% 0, 100% 50%, 90% 100%, 0 100%, 0 0);
-		    clip-path: polygon(90% 0, 100% 50%, 90% 100%, 0 100%, 0 0);
 		    float: left;
 		    width: 53%;
+		    -webkit-clip-path: polygon(40% 0, 90% 0, 100% 50%, 90% 100%, 0 100%, 0 50%);
+		    clip-path: polygon(40% 0, 90% 0, 100% 50%, 90% 100%, 0 100%, 0 50%);
 		}
 		.detail_tujuan_program{
 			position: relative;
-		    -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 10.3% 50%);
-		    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 10.3% 50%);
 		    float: right;
 		    width: 51%;
-		    padding-left: 3%;
+		    padding-left: 4%;
+		    padding-right: 7%;
+		    -webkit-clip-path: polygon(60% 0, 100% 50%, 100% 100%, 0 100%, 10.3% 50%, 0 0);
+		    clip-path: polygon(60% 0, 100% 50%, 100% 100%, 0 100%, 10.3% 50%, 0 0);
 		}
 		
 		.content_kerja_sama{
 			position: absolute;
 		    top: 11px;
-		    -webkit-clip-path: polygon(100% 0, 90% 50%, 100% 100%, 0 100%, 0 0);
-		    clip-path: polygon(100% 0, 90% 50%, 100% 100%, 0 100%, 0 0);
 		    float: left;
 		    width: 47.3%;
-		    padding-right: 3%;
+		    padding-right: 4%;
+		    -webkit-clip-path: polygon(100% 0, 90% 50%, 100% 100%, 40% 100%, 0 50%, 0 0);
+		    clip-path: polygon(100% 0, 90% 50%, 100% 100%, 40% 100%, 0 50%, 0 0);
 		}
 		.detail_kerja_sama{
 			position: relative;
 		    top: 11px;
-		    -webkit-clip-path: polygon(10% 0, 100% 0, 100% 100%, 10% 100%, 0 50%);
-		    clip-path: polygon(8.5% 0, 100% 0, 100% 100%, 8.5% 100%, 0 50%);
 		    float: right;
 		    width: 56.1%;
+		    -webkit-clip-path: polygon(8.5% 0, 100% 0, 100% 50%, 60% 100%, 8.5% 100%, 0 50%);
+		    clip-path: polygon(8.5% 0, 100% 0, 100% 50%, 60% 100%, 8.5% 100%, 0 50%);
 		}
 		.text-secondary{
 			color:#fcdb00
@@ -253,8 +273,9 @@
 			text-transform: uppercase;
 		}
 		.aboutUsArea{
-			padding:50px 0px 90px 0px;
+			padding:90px 0px 90px 0px;
 			background-color:#f7f7f7;
+			background: url('<%=request.getContextPath()%>/images/background-about.png');
 		}
 		.testimonialArea{
 			padding:40px 0px;
@@ -625,6 +646,9 @@
 				</div>
 				<div class="grid-wrapper">
 					<div class="row-grid">
+						<div class="grid triangle_top"></div>
+					</div>
+					<div class="row-grid">
 						<div class="grid video_tujuan_program">
 							<iframe width="100%" height="100%" src="https://www.youtube.com/embed/felFVPmAu5s" frameborder="0" allowfullscreen></iframe>
 						</div>
@@ -648,20 +672,16 @@
 							<img src="<%=request.getContextPath()%>/images/handshaking.jpg"/>
 						</div>
 					</div>
+					<div class="row-grid">
+						<div class="grid triangle_bottom"></div>
+					</div>
 				</div>
 			</div>
 		</div>
 		<div style="clear:both"></div>
 		<div class="newsArea">
 			<ul id="categories" class="clr">
-			  <li>
-			    <div>
-			      <img src="<%=request.getContextPath()%>/images/intro-news.jpg" alt="" />
-			      <h1>Berita Terbaru</h1>
-			      <p>Dapatkan informasi dan berita terbaru dari HFC.</p>
-			    </div>
-			  </li>
-			  <c:forEach items="${newsLatest}" var="news" varStatus="loop" begin="0" end="7" step="1">
+			  <c:forEach items="${newsLatest}" var="news" varStatus="loop" begin="0" end="9" step="1">
 			  	<li>
 				    <div>
 				      <img src="${news.encodedPicture}" alt="" />
@@ -670,13 +690,6 @@
 				    </div>
 				  </li>
 			  </c:forEach>
-			  <li>
-			    <div>
-			      <img src="<%=request.getContextPath()%>/images/view-news.jpg" alt="" />
-			      <h1>Selengkapnya</h1>
-			      <p></p>
-			    </div>
-			  </li>
 			</ul>
 		</div>
 		<div style="clear:both"></div>

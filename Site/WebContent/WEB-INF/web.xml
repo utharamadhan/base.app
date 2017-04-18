@@ -5,7 +5,7 @@
   <filter>
     <display-name>ShortLifeSessionFilter2</display-name>
     <filter-name>shortLifeSessionFilter2</filter-name>
-    <filter-class>id.base.app.webMember.ShortLifeSessionFilter2</filter-class>
+    <filter-class>id.base.app.site.ShortLifeSessionFilter2</filter-class>
   </filter>
   <filter>
     <filter-name>sitemesh</filter-name>
@@ -14,7 +14,7 @@
   <filter>
     <display-name>AjaxDetectorFilter</display-name>
     <filter-name>AjaxDetectorFilter</filter-name>
-    <filter-class>id.base.app.webMember.AjaxDetectorFilter</filter-class>
+    <filter-class>id.base.app.site.AjaxDetectorFilter</filter-class>
   </filter>
   <filter>
     <filter-name>UrlRewriteFilter</filter-name>

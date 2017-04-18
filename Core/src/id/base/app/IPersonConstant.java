@@ -6,7 +6,7 @@ package id.base.app;
 
 
 /**
- * @author padiku
+ * @author baseapp
  *
  */
 public interface IPersonConstant {

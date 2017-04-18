@@ -3065,8 +3065,9 @@ ul.contact_info li a:hover {
     padding: 8px 0;
     text-decoration: none;
     margin-left: 12px;
-    width: 112px;
+    width: 125px;
     border-top: 4px solid #939598;
+    font-size:12px;
 }
 #footernav a.nav1 {
 	margin-left: 0px;
@@ -3397,6 +3398,8 @@ ul.contact_info li a:hover {
 }
 .card-box .card-image img{
 	max-width:100%;
+	-webkit-clip-path: polygon(50% 0%, 100% 20%, 100% 80%, 50% 100%, 0 80%, 0 20%);
+	clip-path: polygon(50% 0%, 100% 20%, 100% 80%, 50% 100%, 0 80%, 0 20%);
 }
 .card-box .card-title{
 	text-align:center;	
@@ -5488,7 +5491,7 @@ ul.contact_info li a:hover {
 
 .hexagon_learning{
 	position: absolute;
-	top: -130px;
+	top: -78px;
 	left: 165px;
 	z-index: 999;
 }

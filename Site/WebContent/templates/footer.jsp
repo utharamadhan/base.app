@@ -6,13 +6,16 @@
 			<div id="footer">
 		        <ul id="footernav">
 		            <li>
-		                <a class="nav1" href="#" target="_self">Privacy</a>
+		                <a href="#" target="_self">Syarat dan Ketentuan</a>
 		            </li>
 		            <li>
-		                <a href="#" target="_self">Legal</a>
+		                <a href="#" target="_self">FAQ</a>
 		            </li>
 		            <li>
 		                <a href="#" target="_self">Site map</a>
+		            </li>
+		            <li>
+		                <a href="/Site/page/contact" target="_self">Memberi Masukan</a>
 		            </li>
 		            <li>
 		                <a href="/Site/page/contact" target="_self">Kontak Kami</a>

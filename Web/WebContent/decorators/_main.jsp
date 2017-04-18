@@ -1,8 +1,8 @@
 <%@ taglib uri="/WEB-INF/sitemesh-decorator.tld" prefix="decorator" %>
 <%@ taglib uri="/WEB-INF/sitemesh-page.tld" prefix="page" %>
-<%@page import="id.base.app.webMember.SessionConstants"%>
+<%@page import="id.base.app.web.SessionConstants"%>
 <%@page import="id.base.app.SystemConstant"%>
-<%@page import="id.base.app.webMember.SessionConstants"%>
+<%@page import="id.base.app.web.SessionConstants"%>
 <%@page import="id.base.app.valueobject.AppFunction"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.LinkedList"%>
@@ -36,8 +36,6 @@
 	    <link rel="stylesheet" href="<%=request.getContextPath()%>/plugin/vendor/rickshaw/css/rickshaw.min.css">
 	    <link rel="stylesheet" href="<%=request.getContextPath()%>/plugin/vendor/morris/css/morris.css">
 	    <link rel="stylesheet" href="<%=request.getContextPath()%>/plugin/vendor/tabdrop/css/tabdrop.css">
-	    <%-- <link rel="stylesheet" href="<%=request.getContextPath()%>/plugin/vendor/summernote/css/summernote.css">
-	    <link rel="stylesheet" href="<%=request.getContextPath()%>/plugin/vendor/summernote/css/summernote-bs3.css"> --%>
 	    <link rel="stylesheet" href="<%=request.getContextPath()%>/plugin/vendor/chosen/css/chosen.min.css">
 	    <link rel="stylesheet" href="<%=request.getContextPath()%>/plugin/vendor/chosen/css/chosen-bootstrap.css">
 	    <link rel="stylesheet" href='<%=request.getContextPath()%>/plugin/vendor/datatables/css/dataTables.bootstrap.css'>
@@ -48,7 +46,6 @@
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/plugin/vendor/dailyfeed/dailyfeed.css" type="text/css" media="all">
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/css/minimal.css">
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css">
-		<%-- <link rel="stylesheet" href="<%=request.getContextPath()%>/plugin/vendor/quill/quill-1.1.7.css"> --%>
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/css/vendor/timepicker/jquery.ui.timepicker.css">
 	
 	    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -71,10 +68,8 @@
        		
        		$(document).ajaxStart(function() {
        			startAJAXLoader();
-       			
        		}).ajaxStop(function() {
        			stopAJAXLoader();
-       			
        		}).ajaxError(function(e, jqxhr, settings, exception) {
        			var ajaxExpired = jqxhr.getResponseHeader('ajax-expired');
        			if(!ajaxExpired || (ajaxExpired && ajaxExpired != 'true')) {
@@ -231,12 +226,9 @@
 
     <script src="<%=request.getContextPath()%>/plugin/vendor/tabdrop/bootstrap-tabdrop.min.js"></script>
  	
-    <%-- <script src="<%=request.getContextPath()%>/plugin/vendor/summernote/summernote.min.js"></script> --%>
-
     <script src="<%=request.getContextPath()%>/plugin/vendor/chosen/chosen.jquery.min.js"></script>
     
     <script src="<%=request.getContextPath()%>/plugin/vendor/datatables/jquery.dataTables.min.js"></script>
-    <%-- <script src="<%=request.getContextPath()%>/plugin/vendor/quill/quill-1.1.7.js"></script> --%>
     <script src="<%=request.getContextPath()%>/plugin/vendor/tinyMCE/tinymce.min.js"></script>
 	
 	<script src="<%=request.getContextPath()%>/js/bloodhound.min.js"></script>
@@ -266,20 +258,6 @@
 	    	});
 	    });
     </script>
-    
-    <!--Start of Tawk.to Script-->
-	<!-- script type="text/javascript">
-	var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-	(function(){
-	var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-	s1.async=true;
-	s1.src='https://embed.tawk.to/573dfd4cc59e45d972c2fa1e/default';
-	s1.charset='UTF-8';
-	s1.setAttribute('crossorigin','*');
-	s0.parentNode.insertBefore(s1,s0);
-	})();
-	</script-->
-	<!--End of Tawk.to Script-->
 	</body>
 <!-- END BODY -->
 </html>

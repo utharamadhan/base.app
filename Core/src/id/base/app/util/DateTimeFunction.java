@@ -31,7 +31,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 /**
  * Date/Time function utility
- * @author padiku
+ * @author baseapp
  *
  */
 public class DateTimeFunction {

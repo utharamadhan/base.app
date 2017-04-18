@@ -11,7 +11,7 @@ import id.base.app.SystemParameter;
 /**
  * Paging funtion utility class
  * 
- * @author padiku
+ * @author baseapp
  */
 public class PagingUtil {
     public static int getStartRowFromPage(int page) {

@@ -181,19 +181,19 @@ public class UserMaintenanceService implements MaintenanceService<AppUser>, IUse
 	private String resolveContent(AppUser appUser) {
 		String activationLink = SystemConstant.ADMIN_URL + "/do/registration/activation/" + appUser.getActivationCode();
 		return "Hallo, "+appUser.getParty().getName()+"<br/><br/>"+
-				"Selamat bergabung didalam program PADIKU. Program PADIKU ini menyediakan aplikasi bisnis bagi pelaku usaha penggilingan padi di Indonesia. Untuk memulai aktivasi akun anda, silahkan klik <a href='" + activationLink + "' target='_blank'>disini</a>.<br/><br/>"+
+				"Selamat bergabung didalam program BASEAPP. Program BASEAPP ini menyediakan aplikasi bisnis bagi pelaku usaha penggilingan padi di Indonesia. Untuk memulai aktivasi akun anda, silahkan klik <a href='" + activationLink + "' target='_blank'>disini</a>.<br/><br/>"+
 				"Jika link diatas tidak bekerja, silahkan copy/paste link berikut di browser anda:<br/>"+
 				activationLink+"<br/><br/>"+
 				"Jika anda mengalami kesulitan dalam aktivasi ataupun penggunaan aplikasi ini, silahkan menghubungi kami<br/>"+ 
-				"email: support@padiku.id<br/>"+
+				"email: support@baseapp.id<br/>"+
 				"handphone: 0811167969<br/><br/>"+
 				"Selamat menggunakan!<br/><br/>"+
 				"Salam Hangat<br/>"+
-				"Team PADIKU";
+				"Team BASEAPP";
 	}
 	
 	private String resolveSMSContent(String name, String activationCode) {
-		return "Hallo, " + name + ". Selamat bergabung di PADIKU.ID. Kode aktivasi pendaftaran anda " + activationCode + ".";
+		return "Hallo, " + name + ". Selamat bergabung di BASEAPP.ID. Kode aktivasi pendaftaran anda " + activationCode + ".";
 	}
 	
 	private String generateActivationCode(String input) {
