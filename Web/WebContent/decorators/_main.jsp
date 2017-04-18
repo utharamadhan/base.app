@@ -134,7 +134,7 @@
 			          			if(AppFunction.isMenuHasChild(menu.getPkAppFunction(), menus)) {
 			          				%>
                  					<li id="<%=menu.getName()%>" class="dropdown">
-										<a href="<%=request.getContextPath() + menu.getAccessPage()%>" class="dropdown-toggle" data-toggle="dropdown">
+										<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 											<i class="fa fa-bar-chart"></i> <%=menu.getName()%>
 										</a>
 										<ul class="dropdown-menu">
@@ -206,7 +206,7 @@
     <script src="<%=request.getContextPath()%>/plugin/vendor/bootstrap/bootstrap-dropdown-multilevel.js"></script>
     <script type="text/javascript" src="<%=request.getContextPath()%>/plugin/vendor/mmenu/js/jquery.mmenu.min.js"></script>
     <script type="text/javascript" src="<%=request.getContextPath()%>/plugin/vendor/sparkline/jquery.sparkline.min.js"></script>
-    <script type="text/javascript" src="<%=request.getContextPath()%>/plugin/vendor/nicescroll/jquery.nicescroll.min.js"></script>
+    <%-- <script type="text/javascript" src="<%=request.getContextPath()%>/plugin/vendor/nicescroll/jquery.nicescroll.min.js"></script> --%>
     <script type="text/javascript" src="<%=request.getContextPath()%>/plugin/vendor/animate-numbers/jquery.animateNumbers.js"></script>
     <script type="text/javascript" src="<%=request.getContextPath()%>/plugin/vendor/videobackground/jquery.videobackground.js"></script>
     <script type="text/javascript" src="<%=request.getContextPath()%>/plugin/vendor/blockui/jquery.blockUI.js"></script>

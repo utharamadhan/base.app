@@ -26,7 +26,7 @@
 		</div>
 		<section id="notification-five-list"></section>
 	</li>
-	<li class="dropdown divided user" id="current-user" style="min-width: 100px">
+	<li class="dropdown divided user" id="current-user" style="min-width: 163px">
 		<a class="dropdown-toggle options" data-toggle="dropdown" href="#" style="float: right"> 
 			<span class="fa-stack fa-lg"> 
 				<i class="fa fa-circle fa-stack-2x"></i> <i class="fa fa-key fa-stack-1x fa-inverse"></i>
