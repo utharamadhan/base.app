@@ -229,7 +229,7 @@
 		    width: 100%;
 		    position: absolute;
 		    float: right;
-		    background-color: #004fb6;
+		    background-color: #fcdb00;
 		    margin-top: 22px;
 		}
 		.video_tujuan_program{
