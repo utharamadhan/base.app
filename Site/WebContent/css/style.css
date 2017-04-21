@@ -650,6 +650,16 @@ h4.modal-title{
 .menuLink>li {
     list-style: none;
 }
+.menuLink>li>a {
+    line-height: 30px;
+    color: #000;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    text-transform: uppercase;
+}
+.menuLink>li>a:hover {
+    opacity: .8;
+}
 .menuFooter {
     width: 100%;
     float: left;
@@ -664,15 +674,13 @@ h4.modal-title{
     background: linear-gradient(to bottom, rgba(246,244,244,1) 0%, rgba(240,240,240,1) 47%, rgba(230,227,227,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6f4f4', endColorstr='#e6e3e3', GradientType=0 );
 }
-.menuLink>li>a {
-    line-height: 30px;
-    color: #000;
-    font-family: 'Open Sans', sans-serif;
-    font-weight: 400;
-    text-transform: uppercase;
+.menuFooter h4{
+	color: #004fb6;
+    margin: 0px 0px 15px 0px;
+    font-size: 22px;
 }
-.menuLink>li>a:hover {
-    opacity: .8;
+.menuFooter .info-hfc {
+	font-size: 12px;
 }
 .borderLeft {
     border-left: 1px solid #dce4ea;

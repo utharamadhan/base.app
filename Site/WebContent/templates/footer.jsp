@@ -4,11 +4,13 @@
 		<div class="menuFooter">
 		  <div class="container">
 		  	<div class="row">
-		  		<div class="col-md-3">
+		  		<div class="col-md-1">
 		  			<div class="logo-footer">
-		  				<img src="/Site/images/logo-btn.png" alt="" class="img-responsive logo-btn">
+		  				<img src="/Site/images/logo-hfc.png" alt="" class="img-responsive logo-btn">
 		  			</div>
-		  			<div>
+		  		</div>
+		  		<div class="col-md-2">
+		  			<div class="info-hfc">
 		  				<span class="address">Menara Bank BTN, Jl. Gajah Mada No.1, Jakarta 10130</span><br/>
 		  				<span class="telp">Telp. : (021) 6336789</span><br/>
 		  				<span class="fax">Fax. : (021) 6336719</span><br/>
