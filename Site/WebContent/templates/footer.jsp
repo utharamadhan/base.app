@@ -27,7 +27,9 @@
 		  		<div class="col-md-3">
 		  			<h4>Partner Link</h4>
 		  			<ul>
-		  				<li>Tim Advisor</li>
+			  			<c:forEach items="${footerLinkUrl}" var="flu" varStatus="loop">
+							<li><a href="${flu.url}">${flu.title}</a></li>
+						</c:forEach>
 		  			</ul>
 		  		</div>
 		  		<div class="col-md-3">

@@ -1,10 +1,13 @@
 package id.base.app.site;
 
+import id.base.app.ILookupConstant;
+import id.base.app.SystemConstant;
 import id.base.app.rest.QueryParamInterfaceRestCaller;
 import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
 import id.base.app.rest.RestServiceConstant;
 import id.base.app.rest.SpecificRestCaller;
+import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.util.dao.SearchOrder.Sort;
@@ -14,6 +17,7 @@ import id.base.app.valueobject.aboutUs.ProgramPost;
 import id.base.app.valueobject.course.Tag;
 import id.base.app.valueobject.publication.DigitalBook;
 import id.base.app.valueobject.publication.Event;
+import id.base.app.valueobject.publication.LinkUrl;
 import id.base.app.valueobject.publication.News;
 
 import java.io.IOException;
@@ -79,6 +83,7 @@ public class ShortLifeSessionFilter2 implements Filter{
 		//post
 		RestCaller<CommonPost> restCall = new RestCaller<CommonPost>(RestConstant.REST_SERVICE, RestServiceConstant.COMMON_POST_SERVICE);
 		List<SearchFilter> filter = new ArrayList<SearchFilter>();
+		filter.add(new SearchFilter(CommonPost.STATUS, Operator.EQUALS, ILookupConstant.ArticleStatus.PUBLISH, Integer.class));
 		List<SearchOrder> order = new ArrayList<SearchOrder>();
 		order.add(new SearchOrder(CommonPost.PK_COMMON_POST, Sort.ASC));
 		List<CommonPost> posts = restCall.findAll(filter, order); 
@@ -173,6 +178,16 @@ public class ShortLifeSessionFilter2 implements Filter{
 			}
 		});
 		request.setAttribute("eventLatest", events);
+		
+		//Footer Link URL
+		RestCaller<LinkUrl> restCallFLU = new RestCaller<LinkUrl>(RestConstant.REST_SERVICE, RestServiceConstant.LINK_URL_SERVICE);
+		List<SearchFilter> filterFLU = new ArrayList<SearchFilter>();
+		filterFLU.add(new SearchFilter(LinkUrl.TYPE, Operator.EQUALS, SystemConstant.LinkUrlType.FOOTER, String.class));
+		filterFLU.add(new SearchFilter(LinkUrl.STATUS, Operator.EQUALS, ILookupConstant.ArticleStatus.PUBLISH, Integer.class));
+		List<SearchOrder> orderFLU = new ArrayList<SearchOrder>();
+		orderFLU.add(new SearchOrder(LinkUrl.ORDER_NO, Sort.ASC));
+		List<LinkUrl> postsFLU = restCallFLU.findAll(filterFLU, orderFLU); 
+		request.setAttribute("footerLinkUrl", postsFLU);
 		
 		chain.doFilter(request, response);
 	}
