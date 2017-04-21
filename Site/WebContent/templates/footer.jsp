@@ -32,6 +32,12 @@
 		  		</div>
 		  		<div class="col-md-3">
 		  			<h4>Ikuti Kami</h4>
+		  			<div class="socialFollow">
+			  			<a href="#"><i class="fa fa-twitter"></i></a>
+						<a href="#"><i class="fa fa-facebook"></i></a>
+						<a href="#"><i class="fa fa-google-plus"></i></a>
+						<a href="#"><i class="fa fa-youtube-play"></i></a>
+					</div>
 		  		</div>
 		  	</div>
 		  </div><!-- container -->

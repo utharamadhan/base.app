@@ -498,8 +498,10 @@ h4.modal-title{
     display: block;
 }
 .footer {
-    background: #f4fafd;
+    background: #004fb6;
     padding: 20px 0;
+    float: left;
+    border-top: 5px solid #FFDE00;
 }
 .about_inner {
     width: 100%;
@@ -649,11 +651,18 @@ h4.modal-title{
     list-style: none;
 }
 .menuFooter {
-    background-color: #fff;
     width: 100%;
     float: left;
     height: auto;
-    padding: 5px 0px;
+    padding: 25px 0px;
+    background: rgba(246,244,244,1);
+    background: -moz-linear-gradient(top, rgba(246,244,244,1) 0%, rgba(240,240,240,1) 47%, rgba(230,227,227,1) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(246,244,244,1)), color-stop(47%, rgba(240,240,240,1)), color-stop(100%, rgba(230,227,227,1)));
+    background: -webkit-linear-gradient(top, rgba(246,244,244,1) 0%, rgba(240,240,240,1) 47%, rgba(230,227,227,1) 100%);
+    background: -o-linear-gradient(top, rgba(246,244,244,1) 0%, rgba(240,240,240,1) 47%, rgba(230,227,227,1) 100%);
+    background: -ms-linear-gradient(top, rgba(246,244,244,1) 0%, rgba(240,240,240,1) 47%, rgba(230,227,227,1) 100%);
+    background: linear-gradient(to bottom, rgba(246,244,244,1) 0%, rgba(240,240,240,1) 47%, rgba(230,227,227,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6f4f4', endColorstr='#e6e3e3', GradientType=0 );
 }
 .menuLink>li>a {
     line-height: 30px;
@@ -1236,15 +1245,9 @@ h4.modal-title{
     border: none;
     padding: 0;
 }
-.footer {
-    padding: 20px 0;
-    float: left;
-    width: 100%;
-	color:black;
-}
 .copyRight {
     margin-bottom: 0!important;
-    color:black;
+    color:white;
     font-size: 12px;
 }
 .list-inline.footerMenu {
@@ -3023,19 +3026,6 @@ ul.contact_info li a:hover {
 }
 .block_quate.custom {
     margin-top: 0;
-}
-.socMedFooter{
-    background-color: #004fb6;
-	color: white;
-	text-align:center;
-}
-.socialFollow{
-	padding: 18px 0px;
-}
-.socialFollow .labelSocialFollow{
-	font-size: 24px;
-    font-style: italic;
-    margin-right: 10px;
 }
 .socialFollow .fa {
     background: #fcdb00 none repeat scroll 0 0;
