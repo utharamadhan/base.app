@@ -382,4 +382,9 @@ public class SystemConstant  {
 		public static final Integer POST = 1;
 		public static final Integer LINk = 2;
 	}
+	
+	public static final class LinkUrlType{
+		public static final String HOUSING_INDEX = "HI";
+		public static final String FOOTER = "FT";
+	}
 }

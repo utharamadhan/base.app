@@ -32,6 +32,7 @@
 		                          <tr>
 		                            <th>Title</th>
 									<th>Short Description</th>
+									<th>Order No</th>
 									<th>E/D</th>
 		                          </tr>
 		                        </thead>
@@ -85,6 +86,7 @@
 		    setMenuActive('groupCourse');
 		    var colDefs = [{ name : "title" }, 
 	    	               { name : "shortDescription" },
+	    	               { name : "orderNo" },
 	    	               { type : "deleteAndEdit" , param : [ "pkGroupCourse" ] }
 	    	               ];
 		    var sURL = /*[[@{/do/course/groupCourse/list?}]]*/ #;

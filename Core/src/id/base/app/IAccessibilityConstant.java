@@ -31,6 +31,7 @@ public class IAccessibilityConstant {
 		public static int INT_FED_SLIDESHOW = 420;
 		public static int INT_FED_BACKGROUND_IMAGE = 430;
 		public static int INT_FED_HOME_SETTING = 440;
+		public static int INT_FED_FOOTER_LINK_URL = 450;
 
 	public static int INT_ABOUT_US = 500;
 		public static int INT_AU_COMMON_POST = 510;

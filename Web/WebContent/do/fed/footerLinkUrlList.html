@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:ifs="http://btn.co.id">
 <head>
 <meta charset="ISO-8859-1"/>
-<title>Housing Index</title>
+<title>Footer Link URL</title>
 </head>
 <style>
 .dataTables_scrollBody {
@@ -12,14 +12,14 @@
 </style>
 <body>
 <div id="content" class="col-md-12">
-	<div id="housingIndex-detail-container"></div>
-	<div id="housingIndex-list-container">
+	<div id="footerLinkUrl-detail-container"></div>
+	<div id="footerLinkUrl-list-container">
 	<div class="pageheader">
-		<h4><i class="fa fa-shopping-basket"></i> Publication / Housing Index List
+		<h4><i class="fa fa-shopping-basket"></i> Front End Display / Footer Link URL List
 		<span></span></h4>
 	</div>
 	<div class="col-md-4 tile-body no-vpadding" style="margin:10px;">
-		<a href="#" id="housingIndex-btn-add" class="btn btn-primary" style="margin-bottom:5px"><i class="fa fa-plus dropdown-plus"></i> &nbsp; Add</a>
+		<a href="#" id="footerLinkUrl-btn-add" class="btn btn-primary" style="margin-bottom:5px"><i class="fa fa-plus dropdown-plus"></i> &nbsp; Add</a>
 	</div>
 	<div class="main">
 		<div class="row">
@@ -27,7 +27,7 @@
 				<section class="tile transparent">
 					<div class="table-responsive">
 						<div class="tile-body rounded-corners">
-	                      	<table id="housingIndex-list-table" class="table table-datatable table-custom">
+	                      	<table id="footerLinkUrl-list-table" class="table table-datatable table-custom">
 		                        <thead>
 		                          <tr>
 		                            <th>Title</th>
@@ -38,7 +38,7 @@
 		                          </tr>
 		                        </thead>
 	                     	</table>
-	                     	<div style="padding-bottom: 3px; bottom: 0;" th:replace="pagingDiv::pager (${pagingWrapper}, ${#dates.createNow()}, 'housingIndex-list-table', 'contentArea')">
+	                     	<div style="padding-bottom: 3px; bottom: 0;" th:replace="pagingDiv::pager (${pagingWrapper}, ${#dates.createNow()}, 'footerLinkUrl-list-table', 'contentArea')">
 							</div>
                      	</div>
 					</div>
@@ -51,19 +51,19 @@
 <script th:inline="javascript">
 	/*<![CDATA[*/
 		function showAdd() {
-	    	var sURL = /*[[@{/do/publication/housingIndex/showAdd?skipdecorator=}]]*/ #;
-	    	showScreen('housingIndex-list-container', 'housingIndex-detail-container', sURL);
+	    	var sURL = /*[[@{/do/fed/footerLinkUrl/showAdd?skipdecorator=}]]*/ #;
+	    	showScreen('footerLinkUrl-list-container', 'footerLinkUrl-detail-container', sURL);
 		}
 		
 		function showDetail(maintenancePK) {
-			var sURL = /*[[@{/do/publication/housingIndex/showEdit?maintenancePK=}]]*/ #;
-			showScreen('housingIndex-list-container', 'housingIndex-detail-container', sURL + maintenancePK + "&skipdecorator=");
+			var sURL = /*[[@{/do/fed/footerLinkUrl/showEdit?maintenancePK=}]]*/ #;
+			showScreen('footerLinkUrl-list-container', 'footerLinkUrl-detail-container', sURL + maintenancePK + "&skipdecorator=");
 		}
 		
 		function deleteItem(maintenancePK) {
 			var callbackDelete = function(result) {
 				if (result) {
-					var sURL = /*[[@{/do/publication/housingIndex/delete?}]]*/ #;
+					var sURL = /*[[@{/do/fed/footerLinkUrl/delete?}]]*/ #;
 					var serializedData = "maintenancePKs=" + maintenancePK;
 					$.post(sURL, serializedData,function(data){
 						if(data.errorList!=null){
@@ -77,9 +77,9 @@
 			bootBoxConfirmation(callbackDelete);
 		}
 		
-		function deleteHousingIndex() {
-			var sURL = /*[[@{/do/publication/housingIndex/deleteHousingIndex?skipDecorator}]]*/ #;
-			$.post(sURL, $('.housingIndex-list-check-delete').serialize(), function(data){
+		function deleteFooterLinkUrl() {
+			var sURL = /*[[@{/do/fed/footerLinkUrl/deleteFooterLinkUrl?skipDecorator}]]*/ #;
+			$.post(sURL, $('.footerLinkUrl-list-check-delete').serialize(), function(data){
 				if(data.errorList!=null){
 					
 				}else{
@@ -89,23 +89,23 @@
 		}
 	
 	    $(function(){
-		    setMenuActive('housingIndex');
+		    setMenuActive('footerLinkUrl');
 		    var colDefs = [{ name : "title" },
 		                   { name : "url" },
 		                   { name : "orderNo" },
 	    	               { name : "statusStr" },
 	    	               { type : "deleteAndEdit" , param : [ "pkLinkUrl" ] }
 	    	               ];
-		    var sURL = /*[[@{/do/publication/housingIndex/list?}]]*/ #;
-		    buildDataTable(/*[[@{/}]]*/, sURL, 'housingIndex-list-table', 450, colDefs, null, null);
+		    var sURL = /*[[@{/do/fed/footerLinkUrl/list?}]]*/ #;
+		    buildDataTable(/*[[@{/}]]*/, sURL, 'footerLinkUrl-list-table', 450, colDefs, null, null);
 	    });
 	    
-		$('#housingIndex-btn-add').click(function(){
+		$('#footerLinkUrl-btn-add').click(function(){
 			showAdd();
 		});
 		
-		$('#housingIndex-btn-delete').click(function(){
-			deleteHousingIndex();
+		$('#footerLinkUrl-btn-delete').click(function(){
+			deleteFooterLinkUrl();
 		});
 		
 	/*]]>*/

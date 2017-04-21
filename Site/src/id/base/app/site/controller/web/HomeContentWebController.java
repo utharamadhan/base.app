@@ -7,7 +7,8 @@ import id.base.app.rest.RestServiceConstant;
 import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
-import id.base.app.valueobject.publication.HousingIndex;
+import id.base.app.valueobject.course.Course;
+import id.base.app.valueobject.publication.LinkUrl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,11 +33,12 @@ public class HomeContentWebController {
 		return map;
 	}
 	
-	private List<HousingIndex> getHousingIndexList(){
-		RestCaller<HousingIndex> rc = new RestCaller<HousingIndex>(RestConstant.REST_SERVICE, RestServiceConstant.HOUSING_INDEX_SERVICE);
+	private List<LinkUrl> getHousingIndexList(){
+		RestCaller<LinkUrl> rc = new RestCaller<LinkUrl>(RestConstant.REST_SERVICE, RestServiceConstant.LINK_URL_SERVICE);
 		List<SearchFilter> filters = new ArrayList<SearchFilter>();
 		List<SearchOrder> orders = new ArrayList<SearchOrder>();
-		filters.add(new SearchFilter(HousingIndex.STATUS, Operator.EQUALS, ILookupConstant.ArticleStatus.PUBLISH, Integer.class));
+		filters.add(new SearchFilter(LinkUrl.STATUS, Operator.EQUALS, ILookupConstant.ArticleStatus.PUBLISH, Integer.class));
+		orders.add(new SearchOrder(LinkUrl.ORDER_NO, SearchOrder.Sort.ASC));
 		return rc.findAll(filters, orders);
 	}
 }

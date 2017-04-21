@@ -72,7 +72,7 @@ public class RestServiceConstant {
 	
 	public static final String TESTIMONIAL_SERVICE = "testimonialService";
 	
-	public static final String HOUSING_INDEX_SERVICE = "housingIndexService";
+	public static final String LINK_URL_SERVICE = "linkUrlService";
 	
 	//Report
 	public static final String STUDENT_REPORT_SERVICE = "studentReportService";

@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Scope(value="request")
 @Controller
 @RequestMapping("/fed/slideshow")
-public class FrontEndSlideshowWebController {
+public class SlideshowWebController {
 
 }

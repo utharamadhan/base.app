@@ -38,10 +38,10 @@
 .bn-small>.bn-navi>span{height:30px;}
 
 /*color styles -----------------------------*/
-.bn-red{border-color:#f44a56;}
-.bn-red>.bn-title{background:#f44a56;}
-.bn-red>.bn-title>span{border-left-color:#f44a56;}
-.bn-red>ul>li>a:hover,.bn-red>ul>li>a>span{color:#f44a56;}
+.bn-red{border-color:#ef1d26;}
+.bn-red>.bn-title{background:#ef1d26;}
+.bn-red>.bn-title>span{border-left-color:#ef1d26;}
+.bn-red>ul>li>a:hover,.bn-red>ul>li>a>span{color:#ef1d26;}
 
 .bn-green{border-color:#27ae60;}
 .bn-green>.bn-title{background:#27ae60;}

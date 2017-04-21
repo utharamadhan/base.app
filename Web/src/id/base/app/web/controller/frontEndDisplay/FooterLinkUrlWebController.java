@@ -1,4 +1,4 @@
-package id.base.app.web.controller.publication;
+package id.base.app.web.controller.frontEndDisplay;
 
 import id.base.app.ILookupGroupConstant;
 import id.base.app.SystemConstant;
@@ -36,11 +36,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Scope(value="request")
 @Controller
-@RequestMapping("/publication/housingIndex")
-public class HousingIndexWebController extends BaseController<LinkUrl> {
+@RequestMapping("/fed/footerLinkUrl")
+public class FooterLinkUrlWebController extends BaseController<LinkUrl> {
 
-	private final String PATH_LIST = "/publication/housingIndexList";
-	private final String PATH_DETAIL = "/publication/housingIndexDetail";
+	private final String PATH_LIST = "/fed/footerLinkUrlList";
+	private final String PATH_DETAIL = "/fed/footerLinkUrlDetail";
 	
 	@Override
 	protected RestCaller<LinkUrl> getRestCaller() {
@@ -56,7 +56,7 @@ public class HousingIndexWebController extends BaseController<LinkUrl> {
 	protected List<SearchFilter> convertForFilter(HttpServletRequest request,
 			Map<String, String> paramWrapper, DataTableCriterias columns) {
 		List<SearchFilter> filters = new ArrayList<>();
-		filters.add(new SearchFilter(LinkUrl.TYPE, Operator.EQUALS, SystemConstant.LinkUrlType.HOUSING_INDEX, String.class));
+		filters.add(new SearchFilter(LinkUrl.TYPE, Operator.EQUALS, SystemConstant.LinkUrlType.FOOTER, String.class));
 		if(StringFunction.isNotEmpty(columns.getSearch().get(DataTableCriterias.SearchCriterias.value))){
 			filters.add(new SearchFilter(LinkUrl.TITLE, Operator.LIKE, columns.getSearch().get(DataTableCriterias.SearchCriterias.value)));
 		}
@@ -104,14 +104,14 @@ public class HousingIndexWebController extends BaseController<LinkUrl> {
 		return PATH_DETAIL;
 	}
 	
-	@RequestMapping(method=RequestMethod.POST, value="saveHousingIndex")
+	@RequestMapping(method=RequestMethod.POST, value="saveFooterLinkUrl")
 	@ResponseBody
-	public Map<String, Object> saveHousingIndex(final LinkUrl anObject, final BindingResult bindingResult, final ModelMap model, HttpServletRequest request, 
+	public Map<String, Object> saveFooterLinkUrl(final LinkUrl anObject, final BindingResult bindingResult, final ModelMap model, HttpServletRequest request, 
 			@RequestParam final Map<String, Object> inputMap) {
 		Map<String, Object> resultMap = new HashMap<>();
 		List<ErrorHolder> errors = new ArrayList<>();
 		try{
-			anObject.setType(SystemConstant.LinkUrlType.HOUSING_INDEX);
+			anObject.setType(SystemConstant.LinkUrlType.FOOTER);
 			errors = new SpecificRestCaller<LinkUrl>(RestConstant.REST_SERVICE, RestServiceConstant.LINK_URL_SERVICE).performPut("/update", anObject);
 			if(errors != null && errors.size() > 0){
 				resultMap.put(SystemConstant.ERROR_LIST, errors);

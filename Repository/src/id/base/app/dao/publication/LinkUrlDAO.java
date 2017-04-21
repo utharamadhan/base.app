@@ -5,7 +5,7 @@ import id.base.app.exception.SystemException;
 import id.base.app.paging.PagingWrapper;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
-import id.base.app.valueobject.publication.HousingIndex;
+import id.base.app.valueobject.publication.LinkUrl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,16 +13,16 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class HousingIndexDAO extends AbstractHibernateDAO<HousingIndex, Long> implements IHousingIndexDAO {
+public class LinkUrlDAO extends AbstractHibernateDAO<LinkUrl, Long> implements ILinkUrlDAO {
 
 	@Override
-	public HousingIndex findById(Long id) throws SystemException {
+	public LinkUrl findById(Long id) throws SystemException {
 		return super.findByPK(id);
 	}
 
 	@Override
-	public void saveOrUpdate(HousingIndex anObject) throws SystemException {
-		if (anObject.getPkHousingIndex()==null) {
+	public void saveOrUpdate(LinkUrl anObject) throws SystemException {
+		if (anObject.getPkLinkUrl()==null) {
 			super.create(anObject);
 		} else {
 		    super.update(anObject);
@@ -31,9 +31,9 @@ public class HousingIndexDAO extends AbstractHibernateDAO<HousingIndex, Long> im
 
 	@Override
 	public void delete(Long[] objectPKs) throws SystemException {
-		List<HousingIndex> objectList = new ArrayList<>();
+		List<LinkUrl> objectList = new ArrayList<>();
 		for(int i=0;i<objectPKs.length;i++){
-			HousingIndex object = new HousingIndex();
+			LinkUrl object = new LinkUrl();
 			object = findById(objectPKs[i]);
 			objectList.add(object);
 		}
@@ -41,12 +41,12 @@ public class HousingIndexDAO extends AbstractHibernateDAO<HousingIndex, Long> im
 	}
 
 	@Override
-	public List<HousingIndex> findObjects(Long[] objectPKs) throws SystemException {
+	public List<LinkUrl> findObjects(Long[] objectPKs) throws SystemException {
 		return null;
 	}
 
 	@Override
-	public PagingWrapper<HousingIndex> findAllByFilter(int startNo, int offset, List<SearchFilter> filter, List<SearchOrder> order) throws SystemException {
+	public PagingWrapper<LinkUrl> findAllByFilter(int startNo, int offset, List<SearchFilter> filter, List<SearchOrder> order) throws SystemException {
 		return super.findAllWithPagingWrapper(startNo, offset, filter, order, null);
 	}
 }

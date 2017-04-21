@@ -816,7 +816,7 @@
 				var hi = data.housingIndexList;
 				var html = "";
 				for(var i=0;i<hi.length;i++){
-					html += "<li><a href="+hi[i].linkUrl+" target='_blank'><span>"+hi[i].title+"</span></a></li>";	
+					html += "<li><a href="+hi[i].url+" target='_blank'><span>"+hi[i].title+"</span></a></li>";	
 				}
 				$('#btnHIContent').html(html);
 				$("#bn1").breakingNews({
