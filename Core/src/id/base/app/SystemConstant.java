@@ -387,4 +387,8 @@ public class SystemConstant  {
 		public static final String HOUSING_INDEX = "HI";
 		public static final String FOOTER = "FT";
 	}
+	
+	public static final class LookupUsage{
+		public static final String CONTACT = "CONTACT";
+	}
 }

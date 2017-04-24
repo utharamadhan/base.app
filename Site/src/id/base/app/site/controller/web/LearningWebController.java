@@ -139,7 +139,7 @@ public class LearningWebController {
 		return "redirect:/page/notfound";
 	}
 	
-	@RequestMapping(method=RequestMethod.GET, value="/programDetail/{idGroup}/{titleGroup}/{id}/{title}")
+	@RequestMapping(method=RequestMethod.GET, value="/program/detail/{idGroup}/{titleGroup}/{id}/{title}")
 	public String programDetail(ModelMap model, HttpServletRequest request, HttpServletResponse response,
 			@PathVariable(value="titleGroup") String titleGroup,
 			@PathVariable(value="idGroup") Long idGroup,
@@ -157,7 +157,7 @@ public class LearningWebController {
 						model.addAttribute("titleGroup", titleGroup);
 						model.addAttribute("idGroup", idGroup);
 						model.addAttribute("detail", detail);
-						return "/learning/program_detail";
+						return "/learning/programDetail";
 					}
 				}
 			}

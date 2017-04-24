@@ -37,6 +37,7 @@ import id.base.app.valueobject.publication.LinkUrl;
 import id.base.app.valueobject.publication.News;
 import id.base.app.valueobject.research.Research;
 import id.base.app.valueobject.research.ResearchTheme;
+import id.base.app.valueobject.testimonial.Testimonial;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -246,6 +247,9 @@ public class ParameterLoader extends ContextLoader implements ServletContextList
 		
 		RestCaller.BASE_URL.put(RestServiceConstant.LINK_URL_SERVICE, RestConstant.RM_LINK_URL);
 		RestCaller.BASE_CLASS.put(RestServiceConstant.LINK_URL_SERVICE, LinkUrl.class);
+		
+		RestCaller.BASE_URL.put(RestServiceConstant.TESTIMONIAL_SERVICE, RestConstant.RM_TESTIMONIAL);
+		RestCaller.BASE_CLASS.put(RestServiceConstant.TESTIMONIAL_SERVICE, Testimonial.class);
 		
 	}
 }

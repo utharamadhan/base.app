@@ -719,8 +719,7 @@
 							<div class="sub_hexagon1 sub_hexagon1_post" style="display: inline-block;">
 								<div style="position: absolute;width:100%;">
 									<h2 style="color: #ffffff; position:relative; text-align: center; display: block; padding-bottom: 20px;">Williamson</h2>
-									<h4 style="color: #1f85e5; position:relative; text-align: center; display: block; padding-bottom: 20px;">CEO</h4>
-									<p style="color: #b5c4ec; position:relative; text-align: center; display: block;">PT. Property Makmur Sentosa</p>
+									<h4 style="color: #1f85e5; position:relative; text-align: center; display: block; padding-bottom: 20px;">CEO - PT. Property Makmur Sentosa</h4>
 								</div>	
 							</div>
 							<div class="main_hexagon1" style="background-image: url(<%=request.getContextPath()%>/images/img-1.jpg);display: inline-block;">
@@ -790,23 +789,11 @@
 		<script>
 		setNavbarActive('beranda');
 		$(document).ready(function(){
-			$("#testimonial-slider").owlCarousel({
-				items:1,
-				itemsDesktop:[1000,1],
-				itemsDesktopSmall:[979,1],
-				itemsTablet:[768,1],
-				pagination:true,
-				navigation:false,
-				navigationText:["",""],
-				slideSpeed:1000,
-				singleItem:true,
-				autoPlay:true
-			});
 			$('#help-select').change(function(){
 				if($(this).val()=="CO"){
 					location.href = "page/advisory/sub/consulting";
 				}else if($(this).val()!=""){
-					location.href = "page/contact?type="+$(this).val();
+					location.href = "page/contact/"+$(this).val();
 				}
 			});
 			$('.arrowBottom').click(function(){
@@ -826,6 +813,19 @@
 					timer		:3000,
 					color		:"red",
 					border		:true
+				});
+				var t = data.testimonialList;
+				$("#testimonial-slider").owlCarousel({
+					items:1,
+					itemsDesktop:[1000,1],
+					itemsDesktopSmall:[979,1],
+					itemsTablet:[768,1],
+					pagination:true,
+					navigation:false,
+					navigationText:["",""],
+					slideSpeed:1000,
+					singleItem:true,
+					autoPlay:true
 				});
 			});
 		});

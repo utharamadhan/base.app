@@ -2,27 +2,96 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1"/>
-<meta name="author" content="Mardy Jonathan"/>
-<title></title>
+<title>Housing Finance Center - Kontak Kami</title>
 </head>
 <body>
 		<div class="contact_map">
-			<img th:src="@{/images/menara-btn.PNG}" style="width:100%"/>
-		</div><!--end contact map-->
+			<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d29099.81884449163!2d106.81181274663182!3d-6.171296089925116!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f5d793976c5b%3A0x14833098bae6bb75!2sMenara+Btn%2C+Jl.+Gajah+Mada%2C+North+Petojo%2C+Gambir%2C+Central+Jakarta+City%2C+Jakarta+10130!5e0!3m2!1sen!2sid!4v1492999007087" width="100%" height="300" frameborder="0" style="border:0"></iframe>
+		</div>
 		
 		<div class="custom_content custom">
 			<div class="container large">
-				
 				<div class="row">
-					<div class="col-xs-12 col-sm-8 col-md-8 custom_right">
-						<div class="single_content_left">
-							<h3>Contact Us</h3>
-							
+					<div class="col-md-4 no-pad-right">
+						<div class="list_block back-gradient-transparent-menu no-border-right">
+							<ul class="menu_left">
+								<th:block th:each="cat, i : ${category}">
+									<th:block th:if="${type!=null}"> 
+										<th:block th:if="${cat.code==type}">
+											<li th:attr="id=${cat.code}" class="menu_left_active" th:classappend="${cat.code}">
+												<span th:text="${cat.descr}"></span>
+											</li>
+										</th:block>
+										<th:block th:if="${cat.code!=type}">
+											<li th:attr="id=${cat.code}" th:class="${cat.code}">
+												<span th:text="${cat.descr}"></span>
+											</li>
+										</th:block>
+									</th:block>
+									<th:block th:if="${type==null}">
+										<th:block th:if="${cat.code=='CC'}">
+											<li th:attr="id=${cat.code}" class="menu_left_active" th:classappend="${cat.code}">
+												<span th:text="${cat.descr}"></span>
+											</li>
+										</th:block>
+										<th:block th:if="${cat.code!='CC'}">
+											<li th:attr="id=${cat.code}" th:class="${cat.code}">
+												<span th:text="${cat.descr}"></span>
+											</li>
+										</th:block>
+									</th:block>
+								</th:block>
+							</ul>
+						</div>
+						<div class="sidebar pad-right">
+							<div class="list_block sidebar_item custom">
+								<h4>Kantor Pusat</h4>
+								<ul class="contact_info custom">
+									<li>
+										<div class="row">
+											<div class="col-md-1"><i class="fa fa-home"></i></div>
+											<div class="col-md-11">Menara Bank BTN, Jl. Gajah Mada No.1, Jakarta 10130</div>
+										</div>
+									</li>
+									<li>
+										<div class="row">
+											<div class="col-md-1"><i class="fa fa-phone"></i></div>
+											<div class="col-md-11">(021) 6336789</div>
+										</div>
+									</li>
+									<li>
+										<div class="row">
+											<div class="col-md-1"><i class="fa fa-fax"></i></div>
+											<div class="col-md-11">(021) 6336719</div>
+										</div>
+									</li>
+									<li>
+										<div class="row">
+											<div class="col-md-1"><i class="fa fa-envelope"></i></div>
+											<div class="col-md-11"><a href="mailto:tpl@kompas.com">btncontactcenter@btn.co.id</a></div>
+										</div>
+									</li>
+								</ul>
+							</div>
+							<div class="list_block">
+								<h4>Jam Kerja</h4>
+								<ul class="contact_info">
+									<li><strong>Senin-Jumat:</strong> 8am to 8pm</li>
+									<li><strong>Sabtu:</strong> 9am to 3pm</li>
+									<li><strong>Minggu:</strong> Tutup</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-8 back-gradient-transparent form-top-blue">
+						<div class="single_content_right">
+							<h3>Kontak Kami</h3>
+							<p>Kontak kami untuk mendapatkan jawaban dari pertanyaan anda.</p>
 							<div class="contact_form">
 									
 								<form method="post" action="#" id="email_form">
-									<div class="row learning" th:if="${T(id.base.app.ILookupConstant.CategoryHelp).PROGRAM == type}">
-										<div class="col-xs-12 col-sm-7">
+									<div class="row PR-content contact-content" style="display:none">
+										<div class="col-xs-12">
 											<div class="form-group">
 												<label>Learning <span class="error">*</span></label>
 												<select class="form-control" name="learning">
@@ -30,111 +99,77 @@
 												</select>
 											</div>
 										</div>
-									</div><!--end row-->
-								
-									<div class="row tema" th:if="${T(id.base.app.ILookupConstant.CategoryHelp).CONSULT == type}">
-										<div class="col-xs-12 col-sm-7">
-											<div class="form-group">
-												<label>Tema <span class="error">*</span></label>
-												<select class="form-control" name="tema">
-													<option th:each="tema, i : ${temas}" th:text="${tema.name}" th:value="${tema.pkLookup}"></option>
-												</select>
-											</div>
-										</div>
-									</div><!--end row-->
+									</div>
 								
 									<div class="row">
-										<div class="col-xs-12 col-sm-7">
+										<div class="col-xs-12">
 											<div class="form-group">
 												<label>Nama <span class="error">*</span></label>
 												<input type="text" class="form-control" name="name" />
 											</div>
 										</div>
-									</div><!--end row-->
+									</div>
 									
 									<div class="row">
-										<div class="col-xs-12 col-sm-7">
-											<div class="form-group">
-												<label>No. Telp  <span class="error">*</span></label>
-												<input type="text" class="form-control" name="telp" />
+										<div class="col-xs-12">
+											<div class="row">
+												<div class="col-xs-6">
+													<div class="form-group">
+														<label>No. Telp  <span class="error">*</span></label>
+														<input type="text" class="form-control" name="telp" />
+													</div>
+												</div>
+												<div class="col-xs-6">
+													<div class="form-group">
+														<label>Email <span class="error">*</span></label>
+														<input type="text" class="form-control" name="email" />
+													</div>
+												</div>
 											</div>
 										</div>
-									</div><!--end row-->
+									</div>
+									
 									
 									<div class="row">
-										<div class="col-xs-12 col-sm-7">
-											<div class="form-group">
-												<label>Email <span class="error">*</span></label>
-												<input type="text" class="form-control" name="email" />
-											</div>
-										</div>
-									</div><!--end row-->
-									
-									<div class="row">
-										<div class="col-xs-12 col-sm-7">
+										<div class="col-xs-12">
 											<div class="form-group">
 												<label>Alamat <span class="error">*</span></label>
 												<input type="text" class="form-control" name="address" />
 											</div>
 										</div>
-									</div><!--end row-->
+									</div>
 									
 									<div class="row">
-										<div class="col-xs-12 col-sm-7">
+										<div class="col-xs-12">
 											<div class="form-group">
 												<label>Instansi <span class="error">*</span></label>
 												<input type="text" class="form-control" name="instansi" />
 											</div>
 										</div>
-									</div><!--end row-->
+									</div>
 									
 									<div class="row">
-										<div class="col-xs-12 col-sm-11">
+										<div class="col-xs-12">
 											<div class="form-group">
 												<label>Message <span class="error">*</span></label>
 												<textarea class="form-control" cols="10" rows="9" name="message"></textarea>
 											</div>
 										</div>
-									</div><!--end row-->
-									<input type="hidden" name="type" th:value="${type}"/>
-									<input type="button" value="Send" class="commonBtn mrdy_btn" id="sendEmail" />
+									</div>
+									
+									<div class="row">
+										<div class="col-xs-12">
+											<input type="hidden" name="type" th:value="${type}"/>
+											<input type="button" value="Send" class="button-blue submit_btn" id="sendEmail" />
+										</div>
+									</div>
 								</form>
 							</div>  
-							
-							
-						</div><!--end single content left-->
-						
-						
-						
+						</div>
 					</div>
-					
-					<div class="col-xs-12 col-sm-4 col-md-4 custom_left">
-						<div class="sidebar">
-							<div class="list_block sidebar_item custom">
-								<h5>Kantor Pusat</h5>
-								<ul class="contact_info custom">
-									<li><i class="fa fa-home"></i> Menara Bank BTN, Jl. Gajah Mada No.1, Jakarta 10130</li>
-									<li><i class="fa fa-phone"></i>(021) 6336789, Fax. (021) 6336719</li>
-									<li><i class="fa fa-envelope"></i> <a href="mailto:tpl@kompas.com">btncontactcenter@btn.co.id</a></li>
-								</ul>
-							</div>
-							<div class="list_block">
-								<h3>Working Hours</h3>
-								<ul class="contact_info">
-									<li><strong>Senin-Jumat:</strong> 8am to 8pm</li>
-									<li><strong>Sabtu:</strong> 9am to 3pm</li>
-									<li><strong>Minggu:</strong> Tutup</li>
-								</ul>
-								
-							</div><!--end sidebar item-->
-							
-						</div><!--end sidebar-->
-					</div>
-					
-				</div><!--end row-->
-				
+				</div>
 			</div>
-		</div><!--end custom content-->
+		</div>
 		
 		<script type="text/javascript" th:inline="javascript">
 		/*<![CDATA[*/
@@ -143,6 +178,18 @@
 			$("#sendEmail").unbind('click').click(function(){
 				var sURL = /*[[@{/page/contact/sendEmail}]]*/ #;
 				sendEmail(sURL);
+			});
+			var runFirst = function(){
+				$('.contact-content').hide();
+				$('.'+[[${type}]]+"-content").show();	
+			}
+			runFirst();
+			
+			$('.menu_left li').click(function(){
+				$('.menu_left li.menu_left_active').removeClass('menu_left_active');
+				$(this).addClass('menu_left_active');
+				$('.contact-content').hide();
+				$('.'+$(this).attr('id')+"-content").show();
 			});
 		})      
 		
@@ -161,16 +208,16 @@
 			    		alert(data.message);
 			    	}
 			    },beforeSend: function($jqXHR, $textStatus){
-					$('.mrdy_btn').disableBtn({enabled:false});
+					$('.submit_btn').disableBtn({enabled:false});
 					$('.mrdy_overlay').html('<div class="col-md-12 loading_reload" style="display: block; margin-left: auto; margin-right: auto;text-align: center;top: 40%;"><img src="'+img_url+'" /></div>');
 				},
 				error: function ($jqXHR, $textStatus, $errorThrown) {
 					$('.loading_reload').remove();
-					$('.mrdy_btn').disableBtn({enabled:true});
+					$('.submit_btn').disableBtn({enabled:true});
 				},
 				complete: function($jqXHR, $textStatus){
 					$('.loading_reload').remove();
-					$('.mrdy_btn').disableBtn({enabled:true});
+					$('.submit_btn').disableBtn({enabled:true});
 				} 
 			});
 		}
