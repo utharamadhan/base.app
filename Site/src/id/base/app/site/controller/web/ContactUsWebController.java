@@ -39,6 +39,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.mail.MailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -68,19 +69,7 @@ public class ContactUsWebController {
 		return new RestCaller<Course>(RestConstant.REST_SERVICE, RestServiceConstant.COURSE_SERVICE);
 	}
 	
-	@RequestMapping(method=RequestMethod.GET)
-	public String view(ModelMap model, HttpServletRequest request, HttpServletResponse response, @RequestParam Map<String,String> params){
-		
-		model.addAttribute("type", params.get("type"));
-		
-		List<Course> courses = getRestCallerCourse().findAll(new ArrayList<SearchFilter>(), new ArrayList<SearchOrder>());
-		model.addAttribute("courses", courses);
-		
-		List<SearchFilter> filterThemas = new ArrayList<SearchFilter>();
-		List<SearchOrder> orderThemas = new ArrayList<SearchOrder>();
-		filterThemas.add(new SearchFilter(Lookup.LOOKUP_GROUP_STRING, Operator.EQUALS, ILookupGroupConstant.CONTACT_TEMA));
-		model.addAttribute("temas", getRestCallerLookup().findAll(filterThemas, orderThemas));
-		
+	protected void setDefaultData(ModelMap model){
 		List<SearchFilter> filterCH = new ArrayList<SearchFilter>();
 		List<SearchOrder> orderCH = new ArrayList<SearchOrder>();
 		filterCH.add(new SearchFilter(Lookup.LOOKUP_GROUP_STRING, Operator.EQUALS, ILookupGroupConstant.CATEGORY_HELP));
@@ -88,6 +77,21 @@ public class ContactUsWebController {
 		orderCH.add(new SearchOrder(Lookup.ORDER_NO_STRING, Sort.ASC));
 		model.addAttribute("category", getRestCallerLookup().findAll(filterCH, orderCH));
 		
+		List<Course> courses = getRestCallerCourse().findAll(new ArrayList<SearchFilter>(), new ArrayList<SearchOrder>());
+		model.addAttribute("courses", courses);
+	}
+	
+	
+	@RequestMapping(method=RequestMethod.GET, value="/{type}")
+	public String view(ModelMap model, HttpServletRequest request, HttpServletResponse response, @PathVariable(value="type") String type){
+		setDefaultData(model);
+		model.addAttribute("type", type);
+		return "/contact/main";
+	}
+	
+	@RequestMapping(method=RequestMethod.GET)
+	public String view(ModelMap model, HttpServletRequest request, HttpServletResponse response){
+		setDefaultData(model);
 		return "/contact/main";
 	}
 	

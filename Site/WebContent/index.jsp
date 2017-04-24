@@ -781,7 +781,7 @@
 				if($(this).val()=="CO"){
 					location.href = "page/advisory/sub/consulting";
 				}else if($(this).val()!=""){
-					location.href = "page/contact?type="+$(this).val();
+					location.href = "page/contact/"+$(this).val();
 				}
 			});
 			$('.arrowBottom').click(function(){

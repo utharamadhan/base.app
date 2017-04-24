@@ -15,9 +15,32 @@
 					<div class="col-md-4 no-pad-right">
 						<div class="list_block back-gradient-transparent-menu no-border-right">
 							<ul class="menu_left">
-								<li th:each="cat, i : ${category}">
-									<span th:text="${cat.descr}"></span>
-								</li>
+								<th:block th:each="cat, i : ${category}">
+									<th:block th:if="${type!=null}"> 
+										<th:block th:if="${cat.code==type}">
+											<li th:attr="id=${cat.code}" class="menu_left_active" th:classappend="${cat.code}">
+												<span th:text="${cat.descr}"></span>
+											</li>
+										</th:block>
+										<th:block th:if="${cat.code!=type}">
+											<li th:attr="id=${cat.code}" th:class="${cat.code}">
+												<span th:text="${cat.descr}"></span>
+											</li>
+										</th:block>
+									</th:block>
+									<th:block th:if="${type==null}">
+										<th:block th:if="${cat.code=='CC'}">
+											<li th:attr="id=${cat.code}" class="menu_left_active" th:classappend="${cat.code}">
+												<span th:text="${cat.descr}"></span>
+											</li>
+										</th:block>
+										<th:block th:if="${cat.code!='CC'}">
+											<li th:attr="id=${cat.code}" th:class="${cat.code}">
+												<span th:text="${cat.descr}"></span>
+											</li>
+										</th:block>
+									</th:block>
+								</th:block>
 							</ul>
 						</div>
 						<div class="sidebar pad-right">
@@ -67,23 +90,12 @@
 							<div class="contact_form">
 									
 								<form method="post" action="#" id="email_form">
-									<div class="row learning" th:if="${T(id.base.app.ILookupConstant.CategoryHelp).PROGRAM == type}">
+									<div class="row PR-content contact-content" style="display:none">
 										<div class="col-xs-12">
 											<div class="form-group">
 												<label>Learning <span class="error">*</span></label>
 												<select class="form-control" name="learning">
 													<option th:each="course, i : ${courses}" th:text="${course.name}" th:value="${course.pkCourse}"></option>
-												</select>
-											</div>
-										</div>
-									</div>
-								
-									<div class="row tema" th:if="${T(id.base.app.ILookupConstant.CategoryHelp).CONSULT == type}">
-										<div class="col-xs-12 col-sm-7">
-											<div class="form-group">
-												<label>Tema <span class="error">*</span></label>
-												<select class="form-control" name="tema">
-													<option th:each="tema, i : ${temas}" th:text="${tema.name}" th:value="${tema.pkLookup}"></option>
 												</select>
 											</div>
 										</div>
@@ -166,6 +178,18 @@
 			$("#sendEmail").unbind('click').click(function(){
 				var sURL = /*[[@{/page/contact/sendEmail}]]*/ #;
 				sendEmail(sURL);
+			});
+			var runFirst = function(){
+				$('.contact-content').hide();
+				$('.'+[[${type}]]+"-content").show();	
+			}
+			runFirst();
+			
+			$('.menu_left li').click(function(){
+				$('.menu_left li.menu_left_active').removeClass('menu_left_active');
+				$(this).addClass('menu_left_active');
+				$('.contact-content').hide();
+				$('.'+$(this).attr('id')+"-content").show();
 			});
 		})      
 		

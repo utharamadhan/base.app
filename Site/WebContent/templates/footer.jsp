@@ -21,7 +21,7 @@
 		  			<h4>Tentang Website</h4>
 		  			<ul>
 		  				<li>Syarat & Ketentuan</li>
-		  				<li>FAQ</li>
+		  				<li><a href=""/>FAQ</li>
 		  				<li>Peta Situs</li>
 		  				<li>Memberi Masukan</li>
 		  			</ul>
@@ -44,14 +44,14 @@
 					</div>
 		  		</div>
 		  	</div>
-		  </div><!-- container -->
-		</div><!-- menuFooter -->
+		  </div>
+		</div>
 		<div class="footer">
 		  <div class="container">
 			<div class="row clearfix">
 			  <div class="col-sm-5 col-xs-12">
 				<p class="copyRight">© 2017 Copyright Housing Finance Center</p>
-			  </div><!-- col-sm-6 col-xs-12 -->
-			</div><!-- row clearfix -->
-		  </div><!-- container -->
-		</div><!-- footer -->
+			  </div>
+			</div>
+		  </div>
+		</div>

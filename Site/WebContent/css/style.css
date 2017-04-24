@@ -1355,7 +1355,7 @@ ul.channel-links li{
     padding-top: 25px!important;
     padding-bottom: 25px!important;
 }
-.navbar-nav li.navbar-active{
+.navbar-nav li.navbar-active, .menu_left li.menu_left_active{
 	background-color:#004fb6;
 	color:white;
 	border-radius:4px;
@@ -2965,7 +2965,14 @@ p>a:hover {
 }
 ul.menu_left li{
 	width:100%;
-	padding: 10px 20px;
+	padding:10px 20px;
+	cursor:pointer;
+}
+ul.menu_left li:hover{
+	background-color:#004fb6;
+    transition:all 0.5s ease;
+    color: white;
+    border-radius: 4px;
 }
 ul.contact_info {
     width: 100%;
