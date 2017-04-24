@@ -1,15 +1,13 @@
-package id.base.app.security.filter;
+package id.base.app.web;
+
+import id.base.app.JSONConstant;
+import id.base.app.util.GeneralFunctions;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.text.ParsePosition;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Properties;
-import java.util.Random;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -63,21 +61,14 @@ public class TokenAuthenticationFilter implements Filter{
 			Cookie cookie = null;
 			boolean doChain = false;
 			if(request.getRequestURI().equals(urlLandingPage) || request.getRequestURI().equals(urlActivationLogin)){
-				//landingPage
-				//get token
-				String token = request.getParameter("token");
+				String token = request.getParameter(JSONConstant.KEY_TOKEN);
 				if(token!=null){
-				//token exist
-					//buang token
-					//redirect ke request sama tanpa token
-					String[] splittedToken = token.split("\\|");
-					cookie = new Cookie("token",token.replace("|", "%"));
-					cookie.setMaxAge(getExpiry(splittedToken));
+					cookie = new Cookie(JSONConstant.KEY_TOKEN, token);
+					cookie.setMaxAge(GeneralFunctions.getExpiryFromToken(token));
 					cookie.setPath(request.getContextPath());
 					response.addCookie(cookie);
 					response.sendRedirect(urlLandingPage);
-				}else{	
-				//token not exist
+				}else{
 					doChain = true;
 				}
 			} else if(request.getRequestURI().equals(urlRegistration) 
@@ -87,32 +78,22 @@ public class TokenAuthenticationFilter implements Filter{
 								|| request.getRequestURI().equals(urlActivationSubmit)
 									|| request.getRequestURI().contains(WEB_SOCKET)
 										|| request.getRequestURI().contains(FORGOT_PASSWORD)) {
-				//not doChain
 				chain.doFilter(request, response);
 			} else {
-				//not landingPage
 				doChain = true;
 			}
 			
 			if(doChain){
-				//get cookie
 				Cookie cookieValue = getCookie(request.getCookies(), request);
-				if(cookieValue!=null){						
-				//cookie exist
-					//chain filter
+				if(cookieValue!=null){	
 					Cookie newCookie = cookieValue;
-					String newValue = cookieValue.getValue();
-					newValue = newValue.substring(0, newValue.lastIndexOf("%")+1);
-					newValue = newValue + getRandomString();
-					newCookie.setValue(newValue);
+					newCookie.setValue(cookieValue.getValue());
 					newCookie.setMaxAge((60*Integer.valueOf(REGEN_EXPIRE)));
 					newCookie.setPath(request.getContextPath());
 					response.addCookie(newCookie);
 					chain.doFilter(request, response);
 				}else{
-				//cookie not exist
-					//redirect expired token
-					cookie = new Cookie("token","");
+					cookie = new Cookie(JSONConstant.KEY_TOKEN, "");
 					cookie.setMaxAge(0);
 					cookie.setPath(request.getContextPath());
 					response.addCookie(cookie);
@@ -127,47 +108,12 @@ public class TokenAuthenticationFilter implements Filter{
 		}
 	}
 	
-	private String getRandomString(){
-		Random rand = new Random();
-		return "sadasdaijwiajdiwdakdmaskdmasdksaa"+(Math.abs(rand.nextInt()%10));
-	}
-	
-	private int getDiff(int defValue, Calendar now, Calendar then){
-		long milliseconds1 = now.getTimeInMillis();
-	    long milliseconds2 = then.getTimeInMillis();
-	    long diff = milliseconds2 - milliseconds1;
-	    long diffSeconds = diff / 1000;
-	    if(defValue<(int)diffSeconds){
-	    	defValue = (int) diffSeconds;
-	    }
-	    return defValue;
-	}
-
-	private int getExpiry(String[] splittedToken) {
-		int expire = 60*15;
-		if(splittedToken.length>2 && splittedToken[2]!=null){
-			String yyyyMMddHHmm = splittedToken[2];
-			Calendar tcal = Calendar.getInstance();
-			Date d = null;
-		    if (yyyyMMddHHmm != null && yyyyMMddHHmm.length()>0) {
-		        ParsePosition pos = new ParsePosition(0);
-		        d = (new SimpleDateFormat("yyyyMMddHHmm")).parse(yyyyMMddHHmm, pos);
-		        tcal.setTime(d);
-		    }
-			Calendar cal = Calendar.getInstance();
-			if(d!=null){
-				expire = getDiff(expire,cal,tcal);
-			}
-		}
-		return expire;
-	}
-
 	private Cookie getCookie(Cookie[] cookies, HttpServletRequest request) {
 		Cookie cookie = null;
 		if(cookies!=null){
 			for (Cookie cook : cookies) {
-				if(cook.getName().equals("token")){
-					cookie = new Cookie("token",cook.getValue().replace("|", "%"));
+				if(cook.getName().equals(JSONConstant.KEY_TOKEN)){
+					cookie = new Cookie(JSONConstant.KEY_TOKEN, cook.getValue().replace("|", "%"));
 					cookie.setPath(request.getContextPath());
 					cookie.setMaxAge(-1);
 					break;
@@ -193,7 +139,6 @@ public class TokenAuthenticationFilter implements Filter{
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

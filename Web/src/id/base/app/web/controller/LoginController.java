@@ -2,6 +2,7 @@ package id.base.app.web.controller;
 
 import id.base.app.IAuditTrailConstant;
 import id.base.app.ILookupConstant;
+import id.base.app.JSONConstant;
 import id.base.app.LoginSession;
 import id.base.app.SystemConstant;
 import id.base.app.exception.SystemException;
@@ -11,6 +12,7 @@ import id.base.app.rest.RestConstant;
 import id.base.app.rest.RestServiceConstant;
 import id.base.app.rest.SpecificRestCaller;
 import id.base.app.util.DateTimeFunction;
+import id.base.app.util.GeneralFunctions;
 import id.base.app.util.StringFunction;
 import id.base.app.valueobject.AppFunction;
 import id.base.app.valueobject.AppRole;
@@ -84,24 +86,18 @@ public class LoginController {
 			String cookieValue = null;
 			if(cookies!=null){
 				for (Cookie cookie : cookies) {
-					if(SystemConstant.WEB_TRANS_COOKIE_NAME.equals(cookie.getName())){
+					if(JSONConstant.KEY_TOKEN.equals(cookie.getName())){
 						cookieValue = cookie.getValue();
 						break;
 					}
 				}
 			}
 			if (cookieValue != null) {
-				String[] splittedToken = cookieValue.split(SystemConstant.COOKIE_SEPARATOR);
-				
-				
-				username = splittedToken[1];
-				final String paramName = splittedToken[1];
-				final String paramPassword = splittedToken[3];
-				String activationCode = null;
-				if(splittedToken.length > 5){
-					activationCode = new String(splittedToken[4]);
-				}
-				final String activationCodeFinal = activationCode;
+				Map<String, String> tokenMap = GeneralFunctions.getTokenMap(cookieValue);
+				username = tokenMap.get("username");
+				final String paramName = username;
+				final String paramPassword = tokenMap.get("password");
+				final String activationCodeFinal = null;
 				try{
 					user = userService.executeGet(new PathInterfaceRestCaller() {
 						

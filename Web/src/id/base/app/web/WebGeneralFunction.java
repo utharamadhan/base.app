@@ -192,7 +192,7 @@ public class WebGeneralFunction {
 		}
     }
     
-    public static void createLogin(HttpServletRequest request, String cookieValue){
+    public static void createLogin(HttpServletRequest request, Map<String, String> tokenMap){
     	SpecificRestCaller<AppUser> userService = new SpecificRestCaller<AppUser>(RestConstant.REST_SERVICE, RestServiceConstant.USER_SERVICE);
 		
 		SpecificRestCaller<LoginSession> authenticationService = new SpecificRestCaller<LoginSession>(RestConstant.REST_SERVICE, RestServiceConstant.AUTHENTICATION);
@@ -202,8 +202,7 @@ public class WebGeneralFunction {
 		try {
 
 			AppUser user = null;
-			String[] splittedToken = cookieValue.split("%");
-			final String paramName = splittedToken[1];
+			final String paramName = tokenMap.get("username");
 			try{
 				user = userService.executeGet(new QueryParamInterfaceRestCaller() {
 					@Override
@@ -253,9 +252,7 @@ public class WebGeneralFunction {
 				roles.add(role.getPkAppRole());
 			}
 			loginSession.setUserRoles(roles);
-			// for group name, use the 1st roles found
-			/*loginSession.setGroupName(user.getAppRoles().get(0).getName());*/
-			loginSession.setSessionId(cookieValue.replace(SystemConstant.COOKIE_SEPARATOR, SystemConstant.TOKEN_SEPARATOR));
+			loginSession.setSessionId(new ObjectMapper().writeValueAsString(tokenMap));
 			RuntimeUserLogin runtimeUserLogin = new RuntimeUserLogin();
 			runtimeUserLogin.setName(loginSession.getName());
 			runtimeUserLogin.setLoginTime(DateTimeFunction.getCurrentDate());
@@ -263,7 +260,7 @@ public class WebGeneralFunction {
 			runtimeUserLogin.setUserId(loginSession.getPkAppUser());
 			runtimeUserLogin.setUserName(loginSession.getUserName());
 			runtimeUserLogin.setEmail(loginSession.getEmail());
-			runtimeUserLogin.setAccessInfo(cookieValue.replace(SystemConstant.COOKIE_SEPARATOR, SystemConstant.TOKEN_SEPARATOR));
+			runtimeUserLogin.setAccessInfo(new ObjectMapper().writeValueAsString(tokenMap));
 			runtimeUserLogin.setUserType(loginSession.getUserType());
 			runtimeUserLogin.setSessionType(SystemConstant.USER_TYPE_INTERNAL);
 
@@ -272,7 +269,6 @@ public class WebGeneralFunction {
 			
 			// initialize app functions for accessibility
 			final List<AppFunction> menus = new LinkedList<AppFunction>();
-			
 			Map<String, Object> cookieMenus = new LinkedHashMap<>();
 			
 			List<AppFunction> permissions = appFunctionService.findAppFunctionByPermissionList(user.getAppRoles());
@@ -291,11 +287,6 @@ public class WebGeneralFunction {
 				if(SystemConstant.USER_TYPE_INTERNAL == appFunction.getUserType().intValue() ){
 					menus.add(appFunction);
 					cookieMenus.put(appFunction.getName(), new Object[]{appFunction.getAccessPage(), appFunction.getFkAppFunctionParent(), appFunction.getPkAppFunction()});
-				}else{
-					/*if(IAccessibilityConstant.FUNC_INT_POLICY_ADMINISTRATION == appFunction.getPkAppFunction().intValue()){
-						menus.add(appFunction);
-						cookieMenus.put(appFunction.getName(), appFunction.getAccessPage());
-					}*/
 				}
 			}
 			

@@ -1,11 +1,15 @@
 package id.base.app.web;
 
+import id.base.app.JSONConstant;
 import id.base.app.SystemConstant;
+import id.base.app.util.GeneralFunctions;
 import id.base.app.valueobject.RuntimeUserLogin;
 import id.base.app.web.rest.LoginRestCaller;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.Filter;
@@ -69,30 +73,30 @@ public class ShortLifeSessionFilter2 implements Filter{
 			String cookieValue = null;
 			if(cookies!=null){
 				for (Cookie cookie : cookies) {
-					if(SystemConstant.WEB_TRANS_COOKIE_NAME.equals(cookie.getName())){
+					if(JSONConstant.KEY_TOKEN.equals(cookie.getName())){
 						cookieValue = cookie.getValue();
 						break;
 					}
 				}
 			}
 			boolean cookieValid = true;
-			String[] splittedToken = null;
+			Map<String, String> tokenMap = new HashMap<>();
 			if(cookieValue!=null){
-				splittedToken = cookieValue.split("%");
-				if(splittedToken.length<5){
+				tokenMap = GeneralFunctions.getTokenMap(cookieValue);
+				if(!validateToken(tokenMap)){
 					cookieValid = false;
 				}
 			}
 			
 			if(cookieValid){
-				RuntimeUserLogin login = new LoginRestCaller().findByUserName(splittedToken[1]);
+				RuntimeUserLogin login = new LoginRestCaller().findByUserName(tokenMap.get("username"));
 				if(login!=null){
 					try {
 						if(SystemConstant.USER_TYPE_INTERNAL==login.getSessionType().intValue()){
 							WebGeneralFunction.buildLoginSession(login,request);
 						}else{
 							try{
-								WebGeneralFunction.createLogin(request, cookieValue);
+								WebGeneralFunction.createLogin(request, tokenMap);
 							}catch(Exception e){
 								redirect = request.getContextPath()+"/do/landingPage/blank";
 							}
@@ -102,7 +106,7 @@ public class ShortLifeSessionFilter2 implements Filter{
 					}
 				}else{
 					try{
-						WebGeneralFunction.createLogin(request, cookieValue);
+						WebGeneralFunction.createLogin(request, tokenMap);
 					}catch(Exception e){
 						redirect = SystemConstant.LOGIN_URL + "?error=wrongAccount";
 					}
@@ -127,6 +131,10 @@ public class ShortLifeSessionFilter2 implements Filter{
 				request.getSession(false).removeAttribute(SessionConstants.USER_OBJECT_KEY);
 			}
 		}
+	}
+	
+	private Boolean validateToken(Map<String, String> tokenMap) {
+		return Boolean.TRUE;
 	}
 
 	@Override
