@@ -31,6 +31,8 @@
 		                        <thead>
 		                          <tr>
 		                            <th>Name</th>
+		                            <th>Title</th>
+		                            <th>Testimonial Date</th>	
 									<th>Status</th>	
 									<th>E/D</th>
 		                          </tr>
@@ -88,7 +90,9 @@
 	
 	    $(function(){
 		    setMenuActive('testimonial');
-		    var colDefs = [{ name : "name" }, 
+		    var colDefs = [{ name : "name" },
+		                   { name : "title"},
+		                   { name : "testimonialDate", type:"date"},
 		                   { name : "statusStr"},
 	    	               { type : "deleteAndEdit" , param : [ "pkTestimonial" ] }
 	    	               ];
