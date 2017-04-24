@@ -580,6 +580,15 @@
 		#fork:hover:before {
 		  transform: translateX(0) skewX(-45deg);
 		}
+		.hexagon_clipath{
+			-webkit-clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+			clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+			width: 280px;
+			height: 300px;
+		}
+		.hexagon_bg{
+			background-size: 100% 100%;
+		}
 	</style>
 		<div id="aboutArea" class="aboutArea">
 		  <div class="container">
@@ -587,17 +596,20 @@
 				<div class="about_inner">
 					<div class="col-md-4">
 						<div class="mini_hexagon4 hexa_position4"></div>
-						<img src="<%=request.getContextPath()%>/images/hexagon_learning_big.png" alt="" class="img-responsive hexagon_learning" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/learning'">
+						<div class="hexagon_learning hexagon_clipath hexagon_bg" style="background-image: url(<%=request.getContextPath()%>/images/learning_.jpg)" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/learning'"></div>
+						<img src="<%=request.getContextPath()%>/images/learning_text.png" class="learning_text" />
 					</div>
 					<div class="col-md-4">
 						<div class="mini_hexagon1 hexa_position1"></div>
 						<div class="mini_hexagon2 hexa_position2"></div>
 						<div class="mini_hexagon3 hexa_position3"></div>
-						<img src="<%=request.getContextPath()%>/images/hexagon_advisory_big.png" alt="" class="img-responsive hexagon_advisory" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/advisory'">
+						<div class="hexagon_advisory hexagon_clipath hexagon_bg" style="background-image: url(<%=request.getContextPath()%>/images/advisory_.jpg)" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/advisory'"></div>
+						<img src="<%=request.getContextPath()%>/images/advisory_text.png" class="advisory_text" />
 					</div>
 					<div class="col-md-4">
 						<div class="mini_hexagon5 hexa_position5"></div>
-						<img src="<%=request.getContextPath()%>/images/hexagon_research_big.png" alt="" class="img-responsive hexagon_research" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/research-development'">
+						<div class="hexagon_research hexagon_clipath hexagon_bg" style="background-image: url(<%=request.getContextPath()%>/images/rnd_.jpg)" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/research-development'"></div>
+						<img src="<%=request.getContextPath()%>/images/rnd_text.png" class="rnd_text" />
 						<div class="housing_index">
 							<div class="breakingNews bn-red" id="bn1">
 						    	<div class="bn-title" style="width: auto;"><h2 style="display: inline-block;">BTN Housing Index</h2><span></span></div>

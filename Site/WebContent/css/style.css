@@ -5467,8 +5467,8 @@ ul.contact_info li a:hover {
 
 .hexagon_learning{
 	position: absolute;
-	top: -78px;
-	left: 165px;
+	top: -70px;
+	left: 275px;
 	z-index: 999;
 }
 
@@ -5581,8 +5581,8 @@ ul.contact_info li a:hover {
 
 .hexagon_advisory{
 	position: absolute;
-    top: 185px;
-    left: -38px;
+    top: 188px;
+    left: 76px;
     z-index: 2;
 }
 
@@ -5592,7 +5592,7 @@ ul.contact_info li a:hover {
 
 .hexagon_research{
 	position: absolute;
-    top: -20px;
+    top: -45px;
     left: -125px;
     z-index: 2;
 }
@@ -5665,8 +5665,8 @@ ul.contact_info li a:hover {
 
 .hexa_position5{
 	position: absolute;
-	top: 190px;
-	left: 80px;
+	top: 178px;
+	left: 102px;
 }
 
 .housing_index{
@@ -6119,3 +6119,22 @@ ul.contact_info li a:hover {
 			border-left: 28.87px solid #faea33;
 			top: 0px;
 		}		
+		
+.learning_text{
+	position: absolute;
+    left: 100px;
+    top: -70px;
+}		
+		
+.advisory_text{
+	position: absolute;
+    top: 230px;
+    right: 247px;
+}	
+
+.rnd_text{
+	position: absolute;
+    left: 100px;
+    top: -15px;
+}		
+		
