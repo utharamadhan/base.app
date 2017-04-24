@@ -27,7 +27,7 @@
 		  			</ul>
 		  		</div>
 		  		<div class="col-md-3">
-		  			<h4>Partner Link</h4>
+		  			<h4>Situs Lain</h4>
 		  			<ul>
 			  			<c:forEach items="${footerLinkUrl}" var="flu" varStatus="loop">
 							<li><a href="${flu.url}">${flu.title}</a></li>

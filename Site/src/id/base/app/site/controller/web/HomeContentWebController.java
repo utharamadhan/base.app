@@ -7,8 +7,8 @@ import id.base.app.rest.RestServiceConstant;
 import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
-import id.base.app.valueobject.course.Course;
 import id.base.app.valueobject.publication.LinkUrl;
+import id.base.app.valueobject.testimonial.Testimonial;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,6 +29,7 @@ public class HomeContentWebController {
 	@ResponseBody
 	public HashMap<String, Object> getDataForHome(){
 		HashMap<String, Object> map = new HashMap<>();
+		map.put("testimonialList", getTestimonialList());
 		map.put("housingIndexList", getHousingIndexList());
 		return map;
 	}
@@ -39,6 +40,15 @@ public class HomeContentWebController {
 		List<SearchOrder> orders = new ArrayList<SearchOrder>();
 		filters.add(new SearchFilter(LinkUrl.STATUS, Operator.EQUALS, ILookupConstant.ArticleStatus.PUBLISH, Integer.class));
 		orders.add(new SearchOrder(LinkUrl.ORDER_NO, SearchOrder.Sort.ASC));
+		return rc.findAll(filters, orders);
+	}
+	
+	private List<Testimonial> getTestimonialList(){
+		RestCaller<Testimonial> rc = new RestCaller<Testimonial>(RestConstant.REST_SERVICE, RestServiceConstant.TESTIMONIAL_SERVICE);
+		List<SearchFilter> filters = new ArrayList<SearchFilter>();
+		List<SearchOrder> orders = new ArrayList<SearchOrder>();
+		filters.add(new SearchFilter(Testimonial.STATUS, Operator.EQUALS, ILookupConstant.ArticleStatus.PUBLISH, Integer.class));
+		orders.add(new SearchOrder(Testimonial.TESTIMONIAL_DATE, SearchOrder.Sort.DESC));
 		return rc.findAll(filters, orders);
 	}
 }

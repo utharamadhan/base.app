@@ -211,3 +211,6 @@
 
 -- 2017-Apr-21
 \i DDL/LINK_URL.sql;
+
+-- 2017-Apr-24
+\i DML/LOOKUP_20170424.sql;

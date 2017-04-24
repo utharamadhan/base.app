@@ -2,6 +2,7 @@ package id.base.app.site.controller.web;
 
 import id.base.app.ILookupConstant;
 import id.base.app.ILookupGroupConstant;
+import id.base.app.SystemConstant;
 import id.base.app.mail.MailManager;
 import id.base.app.properties.ApplicationProperties;
 import id.base.app.rest.RestCaller;
@@ -10,6 +11,7 @@ import id.base.app.rest.RestServiceConstant;
 import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
+import id.base.app.util.dao.SearchOrder.Sort;
 import id.base.app.valueobject.Lookup;
 import id.base.app.valueobject.contact.Contact;
 import id.base.app.valueobject.course.Course;
@@ -68,24 +70,24 @@ public class ContactUsWebController {
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public String view(ModelMap model, HttpServletRequest request, HttpServletResponse response, @RequestParam Map<String,String> params){
-		if(params!=null && params.get("type")!=null){
-			String type = params.get("type");
-			model.addAttribute("type", type);
-			if(ILookupConstant.CategoryHelp.PROGRAM.equals(type)){
-				List<SearchFilter> filter = new ArrayList<SearchFilter>();
-				List<SearchOrder> order = new ArrayList<SearchOrder>();
-				List<Course> courses = getRestCallerCourse().findAll(filter, order);
-				model.addAttribute("courses", courses);
-			}
-			
-			if(ILookupConstant.CategoryHelp.CONSULT.equals(type)){
-				List<SearchFilter> filter = new ArrayList<SearchFilter>();
-				List<SearchOrder> order = new ArrayList<SearchOrder>();
-				filter.add(new SearchFilter(Lookup.LOOKUP_GROUP_STRING, Operator.EQUALS, ILookupGroupConstant.CONTACT_TEMA));
-				List<Lookup> temas = getRestCallerLookup().findAll(filter, order);
-				model.addAttribute("temas", temas);
-			}
-		}
+		
+		model.addAttribute("type", params.get("type"));
+		
+		List<Course> courses = getRestCallerCourse().findAll(new ArrayList<SearchFilter>(), new ArrayList<SearchOrder>());
+		model.addAttribute("courses", courses);
+		
+		List<SearchFilter> filterThemas = new ArrayList<SearchFilter>();
+		List<SearchOrder> orderThemas = new ArrayList<SearchOrder>();
+		filterThemas.add(new SearchFilter(Lookup.LOOKUP_GROUP_STRING, Operator.EQUALS, ILookupGroupConstant.CONTACT_TEMA));
+		model.addAttribute("temas", getRestCallerLookup().findAll(filterThemas, orderThemas));
+		
+		List<SearchFilter> filterCH = new ArrayList<SearchFilter>();
+		List<SearchOrder> orderCH = new ArrayList<SearchOrder>();
+		filterCH.add(new SearchFilter(Lookup.LOOKUP_GROUP_STRING, Operator.EQUALS, ILookupGroupConstant.CATEGORY_HELP));
+		filterCH.add(new SearchFilter(Lookup.USAGE, Operator.LIKE, SystemConstant.LookupUsage.CONTACT));
+		orderCH.add(new SearchOrder(Lookup.ORDER_NO_STRING, Sort.ASC));
+		model.addAttribute("category", getRestCallerLookup().findAll(filterCH, orderCH));
+		
 		return "/contact/main";
 	}
 	
