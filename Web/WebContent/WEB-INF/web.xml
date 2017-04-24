@@ -4,7 +4,7 @@
   <distributable/>
   <filter>
     <filter-name>BaseApp Token Filter</filter-name>
-    <filter-class>id.base.app.security.filter.TokenAuthenticationFilter</filter-class>
+    <filter-class>id.base.app.web.TokenAuthenticationFilter</filter-class>
     <init-param>
       <param-name>enable</param-name>
       <param-value>true</param-value>

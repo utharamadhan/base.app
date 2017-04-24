@@ -1,5 +1,7 @@
 package id.base.app.web.controller;
 
+import id.base.app.JSONConstant;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -19,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class LandingPageController {
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public String landingPagePost(@RequestParam(value="token", required=false) String token, HttpServletRequest request, HttpServletResponse response) {
+	public String landingPagePost(@RequestParam(value=JSONConstant.KEY_TOKEN, required=false) String token, HttpServletRequest request, HttpServletResponse response) {
 		return "redirect:/do/login";
 	}
 	

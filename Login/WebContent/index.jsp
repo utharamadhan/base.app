@@ -102,10 +102,12 @@
 
   <script type="text/javascript" src="<%=request.getContextPath()%>/script/jquery.min.js"></script>
   <script type="text/javascript" src="<%=request.getContextPath()%>/script/materialize.min.js"></script>
+  <script type="text/javascript" src="<%=request.getContextPath()%>/script/26UC1OMEIT.js"></script>
   <script type="text/javascript">
     	$(function(){
+    		var d = '<%=request.getServerName()%>';
+    		var dp = '<%=request.getServerPort()%>';
 	    	<%
-	          	System.out.println(request.getParameter("error"));
 	          	if(request.getParameter("error") != null) {
 	          		if(request.getParameter("error").equals("wrongAccount")) {
 	          			%> 
@@ -120,89 +122,17 @@
           			}
 	          	}
 	        %>
-    		
-    		
-    		//BEGIN: change this to your server environment
-    		var protocol = 'http';
-    		var domain = '<%=request.getServerName()%>';
-    		var defaultPort = '<%=request.getServerPort()%>'; 
-    		var webAdminContext = '/WebAdmin';
-    		var webTransContext = '/Web';
-    		var minutes = 20; //don't set more than 60
-    		//END: change this to your server environment
-    		
-    		var uniqueToken = 'sSs';
-    		
-    		Date.prototype.yyyymmdd = function() {
-    		   var yyyy = this.getFullYear().toString();
-    		   var mm = (this.getMonth()+1).toString(); // getMonth() is zero-based
-    		   var dd  = this.getDate().toString();
-    		   var hr = this.getHours().toString();
-    		   var min = this.getMinutes().toString();
-    		   return yyyy + (mm[1]?mm:"0"+mm[0]) + (dd[1]?dd:"0"+dd[0]) + (hr[1]?hr:"0"+hr[0]) + (min[1]?min:"0"+min[0]); // padding
-    		  };
-    		
-    		var checkUserName = function(user, password){
-    			if(user==''){
-    				Materialize.toast('Please insert user name', 2000);
-    				return false;
-    			}else if(password=''){
-    				Materialize.toast('Please insert your password', 2000);
-    				return false;
-    			}
-    			return true;
-    		}
-    		
-    		var forgotPassword = function() {
-    			var rand = Math.random().toString(36).substring(7);
-    			var url = protocol+"://"+domain+":"+defaultPort+webTransContext+"/do/forgotPassword";
-    			var html = "<form id='"+rand+"' style='display:none' method='post' action='"+url+"'><input type='submit'></form>";
-				$('#div-post').html(html);
-				$('#'+rand).submit();
-				$('#div-post').html('');
-    		}
-    		
-    		var loginPost = function(num){
-    			var user = document.getElementById('username').value;
-    			var password = document.getElementById('password').value;
-    			if(checkUserName(user, password)){
-    				var currToken = uniqueToken;
-    				var currPort = defaultPort;
-    				var host = domain;
-    				var ptcl = protocol;
-    				var restServiceURL = '/do/landingPage';
-    				var token = '900|'+user+'|'+getExpiry()+'|'+password+'|sadasdaijwiajdiwdakdmaskdmasdksaa'+currToken;
-    				var url = ptcl+"://"+host+":"+currPort;
-    				if(num==1){	
-    					url = url + webAdminContext + restServiceURL;
-    				}else if(num==2){
-    					url = url + webTransContext + restServiceURL;
-    				}
-    				
-    				var rand = Math.random().toString(36).substring(7);
-    				var html = "<form id='"+rand+"' style='display:none' method='post' action='"+url+"'><input type='hidden' name='token' value='"+token+"'/><input type='submit'></form>";
-    				$('#div-post').html(html);
-    				$('#'+rand).submit();
-    				$('#div-post').html('');
-    			}
-    		}
-    		
-    		$('.btn-login').click(function(e){
-    			e.preventDefault();
-    			loginPost(2);
-    		});
-    		
-    		$('#forgotPassword').click(function(e){
-    			e.preventDefault();
-    			forgotPassword();
-    		});
-    		
-    		var getExpiry = function(){
-    			var date = new Date();
-    			var expiry = new Date(date.getTime() + minutes*60000);
-    			return expiry.yyyymmdd();
-    		}
-    	})
+	        
+	        $('.btn-login').click(function(e){
+	        	e.preventDefault();
+	        	loginPost(2, document.getElementById('username').value, document.getElementById('password').value, dp, d);
+	        });
+	        
+	        $('#forgotPassword').click(function(e){
+	        	e.preventDefault();
+	        	forgotPassword(dp, d);
+	        });
+    	});
 	</script>
 </body>
 </html>
