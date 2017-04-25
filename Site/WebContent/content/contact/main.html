@@ -159,6 +159,22 @@
 									
 									<div class="row">
 										<div class="col-xs-12">
+											<div class="form-group">
+												<img th:src="@{/jcaptcha}" class="captchaImage"/>
+											</div>
+										</div>
+									</div>	
+									
+									<div class="row">
+										<div class="col-xs-12">
+											<div class="form-group">
+												<input type='text' name='j_captcha_response' value='' />
+											</div>
+										</div>
+									</div>	
+									
+									<div class="row">
+										<div class="col-xs-12">
 											<input type="hidden" name="type" th:value="${type}"/>
 											<input type="button" value="Send" class="button-blue submit_btn" id="sendEmail" />
 										</div>
@@ -206,6 +222,8 @@
 			    		location.reload();
 			    	}else{
 			    		alert(data.message);
+			    		var generateCaptcha = /*[[@{/jcaptcha}]]*/;
+			    		$('.captchaImage').attr('src',generateCaptcha);
 			    	}
 			    },beforeSend: function($jqXHR, $textStatus){
 					$('.submit_btn').disableBtn({enabled:false});
