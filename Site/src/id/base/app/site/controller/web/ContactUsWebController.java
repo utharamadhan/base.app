@@ -1,21 +1,5 @@
 package id.base.app.site.controller.web;
 
-import id.base.app.ILookupConstant;
-import id.base.app.ILookupGroupConstant;
-import id.base.app.SystemConstant;
-import id.base.app.mail.MailManager;
-import id.base.app.properties.ApplicationProperties;
-import id.base.app.rest.RestCaller;
-import id.base.app.rest.RestConstant;
-import id.base.app.rest.RestServiceConstant;
-import id.base.app.util.dao.Operator;
-import id.base.app.util.dao.SearchFilter;
-import id.base.app.util.dao.SearchOrder;
-import id.base.app.util.dao.SearchOrder.Sort;
-import id.base.app.valueobject.Lookup;
-import id.base.app.valueobject.contact.Contact;
-import id.base.app.valueobject.course.Course;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -44,6 +28,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.octo.captcha.service.CaptchaServiceException;
+
+import id.base.app.ILookupConstant;
+import id.base.app.ILookupGroupConstant;
+import id.base.app.SystemConstant;
+import id.base.app.mail.MailManager;
+import id.base.app.properties.ApplicationProperties;
+import id.base.app.rest.RestCaller;
+import id.base.app.rest.RestConstant;
+import id.base.app.rest.RestServiceConstant;
+import id.base.app.site.captcha.CaptchaServiceSingleton;
+import id.base.app.util.dao.Operator;
+import id.base.app.util.dao.SearchFilter;
+import id.base.app.util.dao.SearchOrder;
+import id.base.app.util.dao.SearchOrder.Sort;
+import id.base.app.valueobject.Lookup;
+import id.base.app.valueobject.contact.Contact;
+import id.base.app.valueobject.course.Course;
 
 @Scope(value="request")
 @RequestMapping(value="/contact")
@@ -119,11 +122,12 @@ public class ContactUsWebController {
 		String contactTelp = params.get("telp");
 		String contactAddress = params.get("address");
 		String contactInstansi = params.get("instansi");
-		String type = params.get("type");
+		String captcha = params.get("j_captcha_response");
+		String type = "".equals(params.get("type")) ? ILookupConstant.CategoryHelp.CALL_CENTER : params.get("type");
 		String learning = null;
 		String tema = null;
 		
-		if(contactName == null || contactEmail == null || contactMessage == null){
+		if((contactName == null || "".equals(contactName)) || (contactEmail == null || "".equals(contactEmail)) || (contactMessage == null || "".equals(contactMessage)) || (captcha == null || "".equals(captcha))){
 			resultMap.put("success", false);
 	         resultMap.put("message", "Your email failed to processed, There was an empty field!");
 	         return resultMap;
@@ -145,92 +149,114 @@ public class ContactUsWebController {
 			}
 		}
 		
-		List<SearchFilter> filter = new ArrayList<SearchFilter>();
-		List<SearchOrder> order = new ArrayList<SearchOrder>();
-		filter.add(new SearchFilter(Lookup.CODE, Operator.EQUALS, type));
-		List<Lookup> lookup = getRestCallerLookup().findAll(filter, order);
-		
-		Contact contact = Contact.getInstance();
-		contact.setName(contactName);
-		contact.setEmail(contactEmail);
-		contact.setMessage(contactMessage);
-		contact.setTelp(contactTelp);
-		contact.setAddress(contactAddress);
-		contact.setInstansi(contactInstansi);
-		contact.setHelpLookup(lookup.get(0));
-		
-		if(ILookupConstant.CategoryHelp.PROGRAM.equals(type)){
-			if(learning != null){
-				Course course = getRestCallerCourse().findById(new Long(learning));
-				contact.setCourse(course);
-			}
-		}
-		
-		if(ILookupConstant.CategoryHelp.CONSULT.equals(type)){
-			if(tema != null){
-				Lookup contactTema = getRestCallerLookup().findById(new Long(tema));
-				contact.setTemaLookup(contactTema);
-			}
-		}
-		
-		getRestCaller().saveOrUpdate(contact);
-		
-		
-		String from = "mardy@infoflow.co.id";
-		String subject = "Contact Email";
-		StringBuffer to = new StringBuffer();
-		to.append(contactEmail);
-		
-		Properties props = new Properties();
-		props.put("mail.smtp.auth", "true");
-		props.put("mail.smtp.starttls.enable", "true");
-		props.put("mail.smtp.host", host);
-		props.put("mail.smtp.port", port);
-		props.put("mail.smtp.from", from);
+		Boolean isResponseCorrect =Boolean.FALSE;
+        //remenber that we need an id to validate!
+        String captchaId = "324730C84E3478647CF92135124FAD0A";
+        // Call the Service method
+         try {
+             isResponseCorrect = CaptchaServiceSingleton.getInstance().validateResponseForID(captchaId,
+            		 captcha);
+         } catch (CaptchaServiceException e) {
+              //should not happen, may be thrown if the id is not valid
+         	resultMap.put("success", false);
+	         	resultMap.put("message", "Your email failed to processed");
+         }
+         
+	     if(isResponseCorrect){
+	    	 List<SearchFilter> filter = new ArrayList<SearchFilter>();
+	 		List<SearchOrder> order = new ArrayList<SearchOrder>();
+	 		filter.add(new SearchFilter(Lookup.CODE, Operator.EQUALS, type));
+	 		List<Lookup> lookup = getRestCallerLookup().findAll(filter, order);
+	 		
+	 		Contact contact = Contact.getInstance();
+	 		contact.setName(contactName);
+	 		contact.setEmail(contactEmail);
+	 		contact.setMessage(contactMessage);
+	 		contact.setTelp(contactTelp);
+	 		contact.setAddress(contactAddress);
+	 		contact.setInstansi(contactInstansi);
+	 		if(!lookup.isEmpty()){
+	 			contact.setHelpLookup(lookup.get(0));
+	 		}
+	 		
+	 		if(ILookupConstant.CategoryHelp.PROGRAM.equals(type)){
+	 			if(learning != null){
+	 				Course course = getRestCallerCourse().findById(new Long(learning));
+	 				contact.setCourse(course);
+	 			}
+	 		}
+	 		
+	 		if(ILookupConstant.CategoryHelp.CONSULT.equals(type)){
+	 			if(tema != null){
+	 				Lookup contactTema = getRestCallerLookup().findById(new Long(tema));
+	 				contact.setTemaLookup(contactTema);
+	 			}
+	 		}
+	 		
+	 		getRestCaller().saveOrUpdate(contact);
+	 		
+	 		
+	 		String from = "mardyemailaja@gmail.com";
+	 		String subject = "Contact Email";
+	 		StringBuffer to = new StringBuffer();
+	 		to.append(contactEmail);
+	 		
+	 		Properties props = new Properties();
+	 		props.put("mail.smtp.auth", "true");
+	 		props.put("mail.smtp.starttls.enable", "true");
+	 		props.put("mail.smtp.host", host);
+	 		props.put("mail.smtp.port", port);
+	 		props.put("mail.smtp.from", from);
 
-		Session session = Session.getInstance(props,
-		  new javax.mail.Authenticator() {
-			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication(username, password);
-			}
-		  });
-	
-		try{
-			 Message message = new MimeMessage(session);
-	         message.setFrom(new InternetAddress(from));
-	         message.setRecipients(Message.RecipientType.TO,
-	             InternetAddress.parse(to.toString()));
-	         message.setSubject(subject);
-	         
-	         String text = "Thank you for contacting us. We will immediately contact you, Thank you!";
-	
-	         message.setText(text);
-	
-	         
-	         Transport.send(message);
-	         
-	         // Send to ourselves
-	         Message messageSelf = new MimeMessage(session);
-	         messageSelf.setFrom(new InternetAddress(from));
-	         messageSelf.setRecipients(Message.RecipientType.TO,
-	             InternetAddress.parse(from));
-	         messageSelf.setSubject(subject);
-	         
-	         String textSelf = contactMessage;
-	
-	         messageSelf.setText(textSelf);
-	
-	         
-	         Transport.send(messageSelf);
-	         
-	         
-	         resultMap.put("success", true);
-	         resultMap.put("message", "Your email successfully been processed");
-		}catch(MessagingException e) {
-			resultMap.put("success", false);
-	         resultMap.put("message", "Your email failed to processed");
-	         return resultMap;
-		}
+	 		Session session = Session.getInstance(props,
+	 		  new javax.mail.Authenticator() {
+	 			protected PasswordAuthentication getPasswordAuthentication() {
+	 				return new PasswordAuthentication(username, password);
+	 			}
+	 		  });
+	 	
+	 		try{
+	 			 Message message = new MimeMessage(session);
+	 	         message.setFrom(new InternetAddress(from));
+	 	         message.setRecipients(Message.RecipientType.TO,
+	 	             InternetAddress.parse(to.toString()));
+	 	         message.setSubject(subject);
+	 	         
+	 	         String text = "Thank you for contacting us. We will immediately contact you, Thank you!";
+	 	
+	 	         message.setText(text);
+	 	
+	 	         
+	 	         Transport.send(message);
+	 	         
+	 	         // Send to ourselves
+	 	         Message messageSelf = new MimeMessage(session);
+	 	         messageSelf.setFrom(new InternetAddress(from));
+	 	         messageSelf.setRecipients(Message.RecipientType.TO,
+	 	             InternetAddress.parse(from));
+	 	         messageSelf.setSubject(subject);
+	 	         
+	 	         String textSelf = contactMessage;
+	 	
+	 	         messageSelf.setText(textSelf);
+	 	
+	 	         
+	 	         Transport.send(messageSelf);
+	 	         
+	 	         
+	 	         resultMap.put("success", true);
+	 	         resultMap.put("message", "Your email successfully been processed");
+	 		}catch(MessagingException e) {
+	 			resultMap.put("success", false);
+	 	         resultMap.put("message", "Your email failed to processed");
+	 	         return resultMap;
+	 		}
+	     }else{
+	    	 resultMap.put("success", false);
+ 	         resultMap.put("message", "Your email failed to processed");
+	     }
+		
+		
 		
 		return resultMap;
 	}

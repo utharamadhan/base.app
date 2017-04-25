@@ -203,8 +203,25 @@
 													</div>
 												</div>
 											</div><!--end row-->
-											<input type="button" value="SUBMIT" class="commonBtn mrdy_btn" id="submitQuestion" />
-											<button type="button" class="btn btn-default cancel_ask btn_custom_cancel mrdy_btn">CANCEL</button>
+											
+											<div class="row">
+												<div class="col-xs-12">
+													<div class="form-group">
+														<img th:src="@{/jcaptcha}" class="captchaImage"/>
+													</div>
+												</div>
+											</div>	
+											
+											<div class="row">
+												<div class="col-xs-12">
+													<div class="form-group">
+														<input type='text' name='j_captcha_response' value='' />
+													</div>
+												</div>
+											</div>
+											
+											<input type="button" value="SUBMIT" class="commonBtn mrdy_btn btn btn-primary" id="submitQuestion" />
+											<button type="button" class="btn btn-default cancel_ask mrdy_btn" style="margin-left: 10px;">CANCEL</button>
 										</form>
 									</div>  
 									

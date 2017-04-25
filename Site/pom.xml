@@ -281,7 +281,11 @@
 		    <artifactId>urlrewritefilter</artifactId>
 		    <version>4.0.3</version>
 		</dependency>
-		
+		<dependency>
+		    <groupId>com.octo.captcha</groupId>
+		    <artifactId>jcaptcha</artifactId>
+		    <version>1.0-all</version>
+		</dependency>
 	</dependencies>
 	<parent>
 		<groupId>id.base.app</groupId>
