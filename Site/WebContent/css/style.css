@@ -3450,6 +3450,10 @@ ul.contact_info li a:hover {
 }
 .contact-wrapper{
 	background-image: url(/Site/images/background_contact.jpg);
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 @media only screen and (max-width: 479px) {
     .img-responsive {
