@@ -1002,6 +1002,13 @@ h4.modal-title{
     bottom: 0;
     margin-top: 80px;
 }
+.top_post_section {
+    width: 100%;
+    float: left;
+    height: auto;
+    padding: 30px;
+    border-bottom: 1px solid #dce4ea;
+}
 .post_section {
     width: 100%;
     float: left;
@@ -3038,12 +3045,8 @@ ul.contact_info li a:hover {
     line-height: 45px;
     text-align: center;
     width: 45px;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    border-radius: 50%;
-    -webkit-opacity: 1;
-    -moz-opacity: 1;
-    opacity: 1;
+    -webkit-clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
 }
 .socialFollow .fa:hover {
     opacity: 0.8;
@@ -3374,6 +3377,9 @@ ul.contact_info li a:hover {
 .card-box{
 	border:1px solid #ececec;
 	background:#f6f6f6;
+	box-shadow: 0 1px 4px rgba(0,0,0,.23);
+	-webkit-clip-path: polygon(50% 0, 100% 14%, 100% 100%, 0 100%, 0 14%);
+    clip-path: polygon(50% 0, 100% 14%, 100% 100%, 0 100%, 0 14%);
 }
 .card-box .card-image img{
 	max-width:100%;
@@ -3454,6 +3460,11 @@ ul.contact_info li a:hover {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+}
+.hexa-top-right{
+	background-image:url('/Site/images/background_detail.png');
+	background-repeat: no-repeat; 
+	background-position: right top;
 }
 @media only screen and (max-width: 479px) {
     .img-responsive {

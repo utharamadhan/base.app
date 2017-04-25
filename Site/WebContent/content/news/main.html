@@ -6,9 +6,9 @@
 <title></title>
 </head>
 <body>
-		<div class="post_section">
+		<div class="post_section hexa-top-right">
 			<div class="container">
-				<form style="background:#eeeeee;padding:10px 0px;">
+				<form class="back-gradient-transparent" style="padding:10px 0px;">
 				<div class="row">
 					<div class="col-md-4"></div>
 					<div class="col-md-4">
@@ -21,13 +21,14 @@
 				</form>
 				<br/>
 				<div class="row list_data">
-					<div id="template" class="col-md-4 data_result" th:each="data , i : ${news.result}">
-						<div class="post">
+					<th:block th:each="data , i : ${news.result}">
+						<div id="template" class="col-md-4 data_result">
+							<div class="post">
 								<div class="post_thumb">
 									<img th:src="${data.encodedPicture}" alt="" class="show_detail my_link"/>
-								</div><!--end post thumb-->
+								</div>
 								
-								<h1><a href="#"><label th:text="${data.title}" class="title_news show_detail my_link"></label></a></h1>
+								<h2><a href="#"><label th:text="${data.title}" class="title_news show_detail my_link"></label></a></h2>
 								
 								<div class="post_desc">
 									<p class="to-be-rendered content_news" th:utext="${data.shortContent}"></p>
@@ -54,7 +55,11 @@
 								</div> --><!--end post bottom-->
 								<input type="hidden" name="identity" th:value="${data.pkNews}"/>
 							</div><!--end post-->
-					</div>					
+						</div>					
+						<th:block th:if="${i.count % 3 == 0}">
+							<div class="clear"></div>
+						</th:block>
+					</th:block>
 				</div>
 				<div class="row load_pagination" style="display: none;">
 					<div class="col-md-12">
