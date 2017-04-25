@@ -2441,9 +2441,10 @@ ul.channel-links li{
     float: left;
     height: auto;
     border: 1px solid #dce4ea;
-    padding: 15px 12px 25px;
+    padding: 12px;
     border-top: 3px solid #49c32c;
     margin: 0 0 20px;
+    background-color:rgba(255,255,255,0.8);
 }
 .full_banner {
     width: 100%;
@@ -2947,7 +2948,8 @@ p>a:hover {
 .contact_map {
     width: 100%;
     float: left;
-    height: auto;
+    height:303px;
+    border-bottom:3px solid #FFDE00;
 }
 .contact_form {
     width: 100%;
@@ -3015,9 +3017,12 @@ ul.contact_info li a:hover {
 .list_block.custom h4 {
     font-weight: 400;
     font-family: "Open Sans", sans-serif;
-    margin: 10px 0 20px;
+    padding: 10px;
     float: left;
     width: 100%;
+    background-color: #feed01;
+    color: #004fb6;
+    margin-bottom: 10px;
 }
 .single_banner_inner img {
     width: 100%;
@@ -3442,6 +3447,9 @@ ul.contact_info li a:hover {
 }
 .no-border-right{
 	border-right:0px solid white;
+}
+.contact-wrapper{
+	background-image: url(/Site/images/background_contact.jpg);
 }
 @media only screen and (max-width: 479px) {
     .img-responsive {
