@@ -17,17 +17,19 @@
 				</div>
 			</div>
 		</div>
-		<div class="content_top">
+		<div class="content_top hexa-top-right">
 			<div class="container">
 				<div class="row">
-					<div class="col-xs-12 col-sm-12 content_left">
-						<div>
-							<img th:src="${detail.encodedPicture}" style="float: left; vertical-align: top;margin: 5px 15px 15px 15px;"/>
-							<h1 th:utext="${detail.title}"></h1>
-							<label th:text="${'Posted : ' + #dates.format(detail.publishDate, 'EEEE dd-MMMM-yyyy')}" style="font-weight: 500;position: relative;top: -15px;font-size: 13px;"></label>
-							<span th:utext="${detail.content}">
-							</span>
-						</div><!--end content left-->
+					<div class="col-md-8">
+						<h1 th:utext="${detail.title}"></h1>
+						<div class="bottom-left-yellow"></div>
+						<div class="bottom-right-blue"></div>
+						<div class="clear"></div>
+						<div class="content_wrapper" th:utext="${detail.content}"></div>
+					</div>
+					<div class="col-md-4">
+						<img class="image_main" th:src="${detail.encodedPicture}"/>
+						<label class="date-wrapper"><i class="fa fa-calendar date-icon" aria-hidden="true"></i> <span class="date" th:text="${detail.publishDate!=null?#dates.format(detail.publishDate, T(id.base.app.SystemConstant).SYSTEM_DATE_MONTH_DETAIL):''}"></span></label>
 					</div>
 					<!-- Start Sharing Action -->
 					<!-- <div class="post_bottom" style="text-align: center;display: inline-block;position: relative;margin-left: -11%;margin-right: auto;left: 50%;margin-top: 40px !important;">

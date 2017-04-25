@@ -1,6 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="rq" value="${pageContext.request }" scope="request" />
 <c:set var="ctx" value="${rq.contextPath }" scope="request" />
+		<div class="bottom-left-yellow"></div>
+		<div class="bottom-right-blue"></div>
 		<div class="menuFooter">
 		  <div class="container">
 		  	<div class="row">

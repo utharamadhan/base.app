@@ -12,10 +12,10 @@
 				<div class="row">
 					<div class="col-md-4"></div>
 					<div class="col-md-4">
-						<input type="text" class="form-control param" placeholder="Enter Keyword..."/>
+						<input type="text" class="form-control param" placeholder="Masukan Kata Kunci..."/>
 					</div>
 					<div class="col-md-4">
-						<button type="button" class="btn btn-danger mrdy_btn search">Search News</button>
+						<button type="button" class="btn btn-danger mrdy_btn search">Cari Berita</button>
 					</div>
 				</div>
 				</form>
@@ -26,14 +26,17 @@
 							<div class="post">
 								<div class="post_thumb">
 									<img th:src="${data.encodedPicture}" alt="" class="show_detail my_link"/>
+									<div class="overlay">
+									    <div class="text show_detail my_link"><i class="fa fa-align-left"></i> Baca</div>
+									</div>
 								</div>
 								
 								<h2><a href="#"><label th:text="${data.title}" class="title_news show_detail my_link"></label></a></h2>
-								
-								<div class="post_desc">
-									<p class="to-be-rendered content_news" th:utext="${data.shortContent}"></p>
-								</div><!--end post desc-->
-								
+								<div class="row">
+									<div class="col-md-6 col-md-offset-6 date-wrapper"><i class="fa fa-calendar date-icon" aria-hidden="true"></i><span class="date" th:text="${data.publishDate!=null?#dates.format(data.publishDate, T(id.base.app.SystemConstant).SYSTEM_DATE_MONTH_DETAIL):''}"></span></div>
+								</div>
+								<div class="bottom-left-yellow"></div>
+								<div class="bottom-right-blue"></div>
 								<!-- <div class="post_bottom">
 									<ul>
 										<li class="share">
@@ -98,9 +101,14 @@
 		function processData(datas, load){
 			var load_content = '';
 			for(var i=0;i<datas.length;i++){
+				if(i%3==0){
+					load_content = load_content + "<div class='clear'></div>";
+				}
 				var cloning = $('.template_part .data_result').eq(0).clone();
+				cloning.find('.post_thumb img').attr('src',datas[i].encodedPicture);
 				cloning.find('.title_news').html(datas[i].title);
 				cloning.find('.content_news').html(datas[i].content);
+				cloning.find('input[name="identity"]').val(datas[i].pkNews);
 				cloning.wrap('<div></div>');
 				if(!load){
 					$('.list_data').append(cloning.parent().html());
@@ -188,7 +196,7 @@
 		        });				
 			});
 			
-			$('.show_detail').unbind('click').click(function(){
+			$(document).on('click','.show_detail',function(){
 				var param = $(this).parents('.post').find('input[name="identity"]').val();
 				var title = $(this).parents('.post').find('.title_news').html();
 				title = title.replace(/ /g, "-");
