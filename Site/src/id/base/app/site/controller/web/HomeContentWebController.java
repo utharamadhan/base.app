@@ -1,12 +1,15 @@
 package id.base.app.site.controller.web;
 
 import id.base.app.ILookupConstant;
+import id.base.app.ILookupGroupConstant;
 import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
 import id.base.app.rest.RestServiceConstant;
+import id.base.app.site.rest.LookupRestCaller;
 import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
+import id.base.app.valueobject.Lookup;
 import id.base.app.valueobject.publication.LinkUrl;
 import id.base.app.valueobject.testimonial.Testimonial;
 
@@ -29,9 +32,15 @@ public class HomeContentWebController {
 	@ResponseBody
 	public HashMap<String, Object> getDataForHome(){
 		HashMap<String, Object> map = new HashMap<>();
+		map.put("categoryHelpList", getCategoryHelpList());
 		map.put("testimonialList", getTestimonialList());
 		map.put("housingIndexList", getHousingIndexList());
 		return map;
+	}
+	
+	private List<Lookup> getCategoryHelpList(){
+		LookupRestCaller lrc = new LookupRestCaller();
+		return lrc.findByLookupGroup(ILookupGroupConstant.CATEGORY_HELP);
 	}
 	
 	private List<LinkUrl> getHousingIndexList(){

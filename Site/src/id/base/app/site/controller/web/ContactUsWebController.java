@@ -85,7 +85,16 @@ public class ContactUsWebController {
 	@RequestMapping(method=RequestMethod.GET, value="/{type}")
 	public String view(ModelMap model, HttpServletRequest request, HttpServletResponse response, @PathVariable(value="type") String type){
 		setDefaultData(model);
-		model.addAttribute("type", type);
+		
+		List<SearchFilter> filter = new ArrayList<SearchFilter>();
+		List<SearchOrder> order = new ArrayList<SearchOrder>();
+		filter.add(new SearchFilter(Lookup.LOOKUP_GROUP_STRING, Operator.EQUALS, ILookupGroupConstant.CATEGORY_HELP));
+		filter.add(new SearchFilter(Lookup.USAGE, Operator.LIKE, SystemConstant.LookupUsage.CONTACT));
+		filter.add(new SearchFilter(Lookup.NAME, Operator.EQUALS, type));
+		List<Lookup> typeCodeList = getRestCallerLookup().findAll(filter, order);
+		if(!typeCodeList.isEmpty()){
+			model.addAttribute("type", typeCodeList.get(0).getCode());
+		}
 		return "/contact/main";
 	}
 	

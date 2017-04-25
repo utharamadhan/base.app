@@ -627,12 +627,7 @@
 							Apa yang bisa kami bantu?
 						</div>
 						<div class="help-form-body">
-							<select id="help-select">
-								<option>-- Pilih Bantuan --</option>
-								<option value="CC">Hubungi Call Center</option>
-								<option value="PR">Ingin Mendaftar Program</option>
-								<option value="CO">Ingin Berkonsultasi</option>
-							</select>
+							<select id="help-select"></select>
 						</div>						
 					</div>
 				</div>
@@ -789,6 +784,13 @@
 			});
 			
 			$.get( "/Site/page/homeContent/getDataForHome", function( data ) {
+				var h = data.categoryHelpList;
+				var htmlHelp = "<option>-- Pilih Bantuan --</option>";
+				for(var i=0;i<h.length;i++){
+					htmlHelp += "<option code='"+h[i].code+"' value='"+h[i].name+"'>"+h[i].descr+"</option>";
+				}
+				$('#help-select').html(htmlHelp);
+				
 				var hi = data.housingIndexList;
 				var html = "";
 				for(var i=0;i<hi.length;i++){

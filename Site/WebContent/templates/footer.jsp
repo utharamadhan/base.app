@@ -21,9 +21,9 @@
 		  			<h4>Tentang Website</h4>
 		  			<ul>
 		  				<li>Syarat & Ketentuan</li>
-		  				<li><a href=""/>FAQ</li>
+		  				<li><a href="<%=request.getContextPath()%>/page/faq">FAQ</a></li>
 		  				<li>Peta Situs</li>
-		  				<li>Memberi Masukan</li>
+		  				<li><a href="<%=request.getContextPath()%>/page/contact/MM">Memberi Masukan</a></li>
 		  			</ul>
 		  		</div>
 		  		<div class="col-md-3">

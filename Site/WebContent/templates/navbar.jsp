@@ -22,7 +22,7 @@
 							</div>
 							<!-- Collect the nav links, forms, and other content for toggling -->
 							<div class="collapse navbar-collapse" id="bs-navbar-collapse-1">
-							  <div class="navbar-brand navbar-right border-left-yellow" style="display:none">
+							  <!-- div class="navbar-brand navbar-right border-left-yellow" style="display:none">
 								<div class="lang"> 
 									<span class="en">
 										<img src="<%=request.getContextPath()%>/images/en.png"/>
@@ -31,7 +31,7 @@
 										<img src="<%=request.getContextPath()%>/images/id.png"/>
 									</span>
 								</div>
-							  </div>
+							  </div -->
 							  
 								<%-- <div class="avatar-top-wrapper" data-toggle="dropdown">
 									<img class="avatar border-white" src="<%=request.getContextPath()%>/images/faces/face-2.jpg" alt="Richard">
