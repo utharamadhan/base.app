@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.octo.captcha.service.CaptchaServiceException;
+import com.google.code.kaptcha.Constants;
 
 import id.base.app.ILookupConstant;
 import id.base.app.ILookupGroupConstant;
@@ -39,7 +39,6 @@ import id.base.app.properties.ApplicationProperties;
 import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
 import id.base.app.rest.RestServiceConstant;
-import id.base.app.site.captcha.CaptchaServiceSingleton;
 import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
@@ -150,17 +149,11 @@ public class ContactUsWebController {
 		}
 		
 		Boolean isResponseCorrect =Boolean.FALSE;
-        //remenber that we need an id to validate!
-        String captchaId = "324730C84E3478647CF92135124FAD0A";
-        // Call the Service method
-         try {
-             isResponseCorrect = CaptchaServiceSingleton.getInstance().validateResponseForID(captchaId,
-            		 captcha);
-         } catch (CaptchaServiceException e) {
-              //should not happen, may be thrown if the id is not valid
-         	resultMap.put("success", false);
-	         	resultMap.put("message", "Your email failed to processed");
-         }
+		String trueKaptcha = (String) request.getSession().getAttribute(Constants.KAPTCHA_SESSION_KEY);
+		
+		if(captcha.equalsIgnoreCase(trueKaptcha)){
+			isResponseCorrect = Boolean.TRUE;
+		}
          
 	     if(isResponseCorrect){
 	    	 List<SearchFilter> filter = new ArrayList<SearchFilter>();
