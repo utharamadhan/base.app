@@ -79,11 +79,11 @@
 									</li>
 									<li class="col-sm-4">
 										<ul>
-											<li class="dropdown-header"><a href="#">Our Engagement</a></li>
+											<li class="dropdown-header"><a href="#">Kerjasama</a></li>
 											<c:forEach items="${engages}" var="engage" varStatus="loop">
 											<li><a href="${ctx}/page/engagement/${engage.pkEngagement}/${fn:replace(engage.title,' ','-')}">${engage.title}</a></li>
 											</c:forEach>
-											<li><br/><div class="button-blue" onclick="javascript:window.location.href='${ctx}/page/engagement/list'">Lainnya...</div></li>
+											<li><br/><div class="button-blue" onclick="javascript:window.location.href='${ctx}/page/engagement'">Lainnya...</div></li>
 										</ul>
 									</li>
 									<li class="col-sm-4">
@@ -92,7 +92,7 @@
 											<c:forEach items="${programs}" var="program" varStatus="loop">
 											<li><a href="${ctx}/page/program/${program.pkProgramPost}/${fn:replace(program.title,' ','-')}">${program.title}</a></li>
 											</c:forEach>
-											<li><br/><div class="button-blue" onclick="javascript:window.location.href='${ctx}/page/program/list'">Lainnya...</div></li>
+											<li><br/><div class="button-blue" onclick="javascript:window.location.href='${ctx}/page/program'">Lainnya...</div></li>
 										</ul>
 									</li>
 								  </ul>

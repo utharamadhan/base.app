@@ -36,11 +36,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Scope(value="request")
 @Controller
-@RequestMapping("/aboutUs/programPost")
-public class ProgramPostWebController extends BaseController<ProgramPost> {
+@RequestMapping("/activity/program")
+public class ProgramWebController extends BaseController<ProgramPost> {
 
-	private final String PATH_LIST = "/aboutUs/programPostList";
-	private final String PATH_DETAIL = "/aboutUs/programPostDetail";
+	private final String PATH_LIST = "/activity/programList";
+	private final String PATH_DETAIL = "/activity/programDetail";
 	
 	@Override
 	protected RestCaller<ProgramPost> getRestCaller() {
@@ -101,9 +101,9 @@ public class ProgramPostWebController extends BaseController<ProgramPost> {
 		return PATH_DETAIL;
 	}
 	
-	@RequestMapping(method=RequestMethod.POST, value="saveProgramPost")
+	@RequestMapping(method=RequestMethod.POST, value="saveProgram")
 	@ResponseBody
-	public Map<String, Object> saveCommonPost(final ProgramPost anObject, HttpServletRequest request) {
+	public Map<String, Object> saveProgram(final ProgramPost anObject, HttpServletRequest request) {
 		Map<String, Object> resultMap = new HashMap<>();
 		List<ErrorHolder> errors = new ArrayList<>();
 		try{

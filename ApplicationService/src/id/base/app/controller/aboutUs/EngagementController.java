@@ -9,8 +9,10 @@ import id.base.app.service.MaintenanceService;
 import id.base.app.service.aboutUs.IEngagementService;
 import id.base.app.util.StringFunction;
 import id.base.app.valueobject.aboutUs.Engagement;
-import id.base.app.valueobject.publication.DigitalBook;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -53,6 +55,28 @@ public class EngagementController extends SuperController<Engagement>{
 	@Override
 	public Engagement preUpdate(Engagement anObject) throws SystemException{
 		return validate(anObject);
+	}
+	
+	@Override
+	public void postUpdate(Object oldObject, Engagement newObject) {
+		try {
+			if(oldObject != null && oldObject instanceof Engagement && newObject != null && StringFunction.isNotEmpty(newObject.getImageURL())) {
+				if (!((Engagement)oldObject).getImageURL().equalsIgnoreCase(newObject.getImageURL())) {
+					String oldURL = ((Engagement)oldObject).getImageURL();
+					String fileSystemURL = SystemConstant.FILE_STORAGE + oldURL.substring(SystemConstant.IMAGE_SHARING_URL.length(), oldURL.length());
+					Path path = Paths.get(fileSystemURL);
+					Files.deleteIfExists(path);
+				}
+			}	
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage(), e);
+		}
+	}
+	
+	@Override
+	public Engagement getOldObject(Engagement object) throws SystemException {
+		Engagement oldObject = new Engagement();
+		return object.getPkEngagement() != null ? cloneObject(oldObject, findById(object.getPkEngagement())) : null;
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/findLatest")

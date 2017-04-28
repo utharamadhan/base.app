@@ -1,0 +1,3 @@
+UPDATE APP_FUNCTION SET ACCESS_PAGE = '/do/activity/engagement/showList' WHERE PK_APP_FUNCTION = 610;
+UPDATE APP_FUNCTION SET ACCESS_PAGE = '/do/activity/programPost/showList' WHERE PK_APP_FUNCTION = 620;
+COMMIT;

@@ -6,7 +6,6 @@ import id.base.app.paging.PagingWrapper;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.valueobject.aboutUs.Engagement;
-import id.base.app.valueobject.publication.DigitalBook;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -36,11 +36,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Scope(value="request")
 @Controller
-@RequestMapping("/aboutUs/engagement")
+@RequestMapping("/activity/engagement")
 public class EngagementWebController extends BaseController<Engagement> {
 
-	private final String PATH_LIST = "/aboutUs/engagementList";
-	private final String PATH_DETAIL = "/aboutUs/engagementDetail";
+	private final String PATH_LIST = "/activity/engagementList";
+	private final String PATH_DETAIL = "/activity/engagementDetail";
 	
 	@Override
 	protected RestCaller<Engagement> getRestCaller() {

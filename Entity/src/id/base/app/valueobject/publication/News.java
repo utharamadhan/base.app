@@ -1,5 +1,10 @@
 package id.base.app.valueobject.publication;
 
+import id.base.app.ILookupConstant;
+import id.base.app.encryptor.EncodeDecode;
+import id.base.app.util.StringFunction;
+import id.base.app.valueobject.BaseEntity;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -8,8 +13,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -17,19 +20,11 @@ import javax.persistence.Transient;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-import id.base.app.ILookupConstant;
-import id.base.app.encryptor.EncodeDecode;
-import id.base.app.util.StringFunction;
-import id.base.app.valueobject.BaseEntity;
-import id.base.app.valueobject.Lookup;
-
 @Entity
 @Table(name = "NEWS")
 @JsonIdentityInfo(generator=ObjectIdGenerators.UUIDGenerator.class, property="newsJid", scope=News.class)
 public class News extends BaseEntity implements Serializable {
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = -5088650121565273985L;
 	
 	public static final String PK_NEWS = "pkNews";
@@ -49,10 +44,6 @@ public class News extends BaseEntity implements Serializable {
 	
 	@Column(name="TITLE")
 	private String title;
-	
-	@OneToOne
-	@JoinColumn(name="FK_LOOKUP_NEWS_STATUS")
-	private Lookup newsStatusLookup;	
 	
 	@Column(name="PUBLISH_DATE")
 	private Date publishDate;
@@ -90,13 +81,6 @@ public class News extends BaseEntity implements Serializable {
 	}
 	public void setTitle(String title) {
 		this.title = title;
-	}
-	
-	public Lookup getNewsStatusLookup() {
-		return newsStatusLookup;
-	}
-	public void setNewsStatusLookup(Lookup newsStatusLookup) {
-		this.newsStatusLookup = newsStatusLookup;
 	}
 	
 	public Date getPublishDate() {

@@ -1026,7 +1026,7 @@ h4.modal-title{
     padding-right: 30px;
     border-right: 1px solid #dce4ea;
 }
-.post {
+.post{
     width: 100%;
     float: left;
     height: auto;
@@ -1034,29 +1034,41 @@ h4.modal-title{
     border: 1px solid #ececec;
     background: rgba(246, 246, 246, 0.9);
     box-shadow: 0 1px 4px rgba(0,0,0,.23);
-    -webkit-clip-path: polygon(50% 0, 100% 15%, 100% 100%, 0 100%, 0 15%);
+}
+.post-polygon1{
+	-webkit-clip-path: polygon(50% 0, 100% 15%, 100% 100%, 0 100%, 0 15%);
     clip-path: polygon(50% 0, 100% 15%, 100% 100%, 0 100%, 0 15%);
 }
-.post_thumb {
+.post-polygon2{
+    -webkit-clip-path: polygon(24% 0%, 100% 0, 100% 100%, 26% 100%, 0% 78%, 0% 25%);
+    clip-path: polygon(24% 0%, 100% 0, 100% 100%, 26% 100%, 0% 78%, 0% 25%);
+}
+.post .post_thumb {
     width: 100%;
     float: left;
     height: auto;
     margin: 0 0 13px;
     position: relative;
 }
-.post_thumb>img {
+.post-polygon1 .post_thumb{
+	margin: 0 0 13px;
+}
+.post-polygon2 .post_thumb{
+	margin: 0px;
+}
+.post .post_thumb_wrapper, .post .post_thumb>img {
     width: 100%;
     float: left;
     -webkit-clip-path: polygon(50% 0%, 100% 20%, 100% 80%, 50% 100%, 0 80%, 0 20%);
     clip-path: polygon(50% 0%, 100% 20%, 100% 80%, 50% 100%, 0 80%, 0 20%);
 }
-img.show_detail {
+.post img.show_detail {
   display: block;
   width: 100%;
   height: auto;
 }
 
-.post_thumb .overlay {
+.post .post_thumb .overlay {
   position: absolute;
   bottom: 100%;
   left: 0;
@@ -1070,12 +1082,12 @@ img.show_detail {
   clip-path: polygon(50% 0%, 100% 20%, 100% 80%, 50% 100%, 0 80%, 0 20%);
 }
 
-.post_thumb:hover .overlay {
+.post .post_thumb:hover .overlay {
   bottom: 0;
   height: 100%;
 }
 
-.post_thumb .overlay .text {
+.post .post_thumb .overlay .text {
   white-space: nowrap; 
   color: white;
   font-size: 20px;
@@ -1090,8 +1102,11 @@ img.show_detail {
 	font-size: 15px;
     line-height: 1.5;
 }
-.post h2 a label{
+.post-polygon1 h2 a label{
 	padding:5px 20px;	
+}
+.post-polygon2 h2 a label{
+	padding: 20px 20px 20px 0px;	
 }
 .post .date-wrapper{
 	color: #bdbdbd;

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1"/>
+<meta name="author" content="Mardy Jonathan"/>
+<title></title>
+</head>
+<body>
+		<div class="breadcrumb-wrapper">
+			<div class="breadcrumb">
+				<div class="container">
+					<ul>
+					<li><a th:href="@{/}">Home</a></li>
+					<li><a th:href="@{/page/engagement/list}">Engagement List</a></li>
+					<li><a href="#">Engagement Detail</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="content_top">
+			<div class="container">
+				<h1 th:utext="${detail.title}"></h1>
+				<div th:utext="${detail.content}"></div>
+			</div>
+		</div>
+		
+		<script type="text/javascript" th:inline="javascript">
+		/*<![CDATA[*/
+		setNavbarActive('tentang-kami');
+		/*]]>*/
+		</script>
+</body>
+</html>

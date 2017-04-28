@@ -35,6 +35,9 @@ public class NewsController extends SuperController<News>{
 	@Override
 	public News validate(News anObject) throws SystemException {
 		List<ErrorHolder> errorList = new ArrayList<>();
+		if(StringFunction.isEmpty(anObject.getTitle())) {
+			errorList.add(new ErrorHolder(News.TITLE, messageSource.getMessage("error.mandatory", new String[]{"title"}, Locale.ENGLISH)));
+		}
 		if(StringFunction.isEmpty(anObject.getContent())) {
 			errorList.add(new ErrorHolder(News.CONTENT, messageSource.getMessage("error.mandatory", new String[]{"content"}, Locale.ENGLISH)));
 		}

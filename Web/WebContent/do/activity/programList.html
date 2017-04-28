@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:ifs="http://btn.co.id">
 <head>
 <meta charset="ISO-8859-1"/>
-<title>Program Post Maintenance</title>
+<title>Program</title>
 </head>
 <style>
 .dataTables_scrollBody {
@@ -15,7 +15,7 @@
 	<div id="programPost-detail-container"></div>
 	<div id="programPost-list-container">
 	<div class="pageheader">
-		<h4><i class="fa fa-shopping-basket"></i> About Us Editor / Program Post List
+		<h4><i class="fa fa-shopping-basket"></i> Actvity / Program List
 		<span></span></h4>
 	</div>
 	<div class="col-md-4 tile-body no-vpadding" style="margin:10px;">
@@ -49,19 +49,19 @@
 <script th:inline="javascript">
 	/*<![CDATA[*/
 		function showAdd() {
-	    	var sURL = /*[[@{/do/aboutUs/programPost/showAdd?skipdecorator=}]]*/ #;
+	    	var sURL = /*[[@{/do/activity/program/showAdd?skipdecorator=}]]*/ #;
 	    	showScreen('programPost-list-container', 'programPost-detail-container', sURL);
 		}
 		
 		function showDetail(maintenancePK) {
-			var sURL = /*[[@{/do/aboutUs/programPost/showEdit?maintenancePK=}]]*/ #;
+			var sURL = /*[[@{/do/activity/program/showEdit?maintenancePK=}]]*/ #;
 			showScreen('programPost-list-container', 'programPost-detail-container', sURL + maintenancePK + "&skipdecorator=");
 		}
 		
 		function deleteItem(maintenancePK) {
 			var callbackDelete = function(result) {
 				if (result) {
-					var sURL = /*[[@{/do/aboutUs/programPost/delete?}]]*/ #;
+					var sURL = /*[[@{/do/activity/program/delete?}]]*/ #;
 					var serializedData = "maintenancePKs=" + maintenancePK;
 					$.post(sURL, serializedData,function(data){
 						if(data.errorList!=null){
@@ -76,7 +76,7 @@
 		}
 		
 		function deleteProgramPost() {
-			var sURL = /*[[@{/do/aboutUs/programPost/deleteProgramPost?skipDecorator}]]*/ #;
+			var sURL = /*[[@{/do/activity/program/deleteProgram?skipDecorator}]]*/ #;
 			$.post(sURL, $('.programPost-list-check-delete').serialize(), function(data){
 				if(data.errorList!=null){
 					
@@ -92,7 +92,7 @@
 		                   { name : "statusStr" },
 	    	               { type : "deleteAndEdit" , param : [ "pkProgramPost" ] }
 	    	               ];
-		    var sURL = /*[[@{/do/aboutUs/programPost/list?}]]*/ #;
+		    var sURL = /*[[@{/do/activity/program/list?}]]*/ #;
 		    buildDataTable(/*[[@{/}]]*/, sURL, 'programPost-list-table', 450, colDefs, null, null);
 	    });
 	    
