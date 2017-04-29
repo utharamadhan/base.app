@@ -57,8 +57,8 @@ public class ProgramWebController {
 		}
 		List<SearchOrder> order = new ArrayList<SearchOrder>();
 		order.add(new SearchOrder(ProgramPost.PK_PROGRAM_POST, Sort.DESC));
-		PagingWrapper<ProgramPost> posts = getRestCaller().findAllByFilter(startNo, offset, filter, order);
-		model.addAttribute("posts", posts);
+		PagingWrapper<ProgramPost> program = getRestCaller().findAllByFilter(startNo, offset, filter, order);
+		model.addAttribute("program", program);
 		return "/program/main";
 	}
 	
@@ -77,8 +77,8 @@ public class ProgramWebController {
 		}
 		List<SearchOrder> order = new ArrayList<SearchOrder>();
 		order.add(new SearchOrder(ProgramPost.PK_PROGRAM_POST, Sort.DESC));
-		PagingWrapper<ProgramPost> posts = getRestCaller().findAllByFilter(startNo, offset, filter, order);
-		resultMap.put("posts", posts);
+		PagingWrapper<ProgramPost> program = getRestCaller().findAllByFilter(startNo, offset, filter, order);
+		resultMap.put("program", program);
 		return resultMap;
 	}
 	

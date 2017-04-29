@@ -12,14 +12,14 @@
 </style>
 <body>
 <div id="content" class="col-md-12">
-	<div id="programPost-detail-container"></div>
-	<div id="programPost-list-container">
+	<div id="program-detail-container"></div>
+	<div id="program-list-container">
 	<div class="pageheader">
 		<h4><i class="fa fa-shopping-basket"></i> Actvity / Program List
 		<span></span></h4>
 	</div>
 	<div class="col-md-4 tile-body no-vpadding" style="margin:10px;">
-		<a href="#" id="programPost-btn-add" class="btn btn-primary" style="margin-bottom:5px"><i class="fa fa-plus dropdown-plus"></i> &nbsp; Add</a>
+		<a href="#" id="program-btn-add" class="btn btn-primary" style="margin-bottom:5px"><i class="fa fa-plus dropdown-plus"></i> &nbsp; Add</a>
 	</div>
 	<div class="main">
 		<div class="row">
@@ -27,7 +27,7 @@
 				<section class="tile transparent">
 					<div class="table-responsive">
 						<div class="tile-body rounded-corners">
-	                      	<table id="programPost-list-table" class="table table-datatable table-custom">
+	                      	<table id="program-list-table" class="table table-datatable table-custom">
 		                        <thead>
 		                          <tr>
 									<th>Name</th>
@@ -36,7 +36,7 @@
 		                          </tr>
 		                        </thead>
 	                     	</table>
-	                     	<div style="padding-bottom: 3px; bottom: 0;" th:replace="pagingDiv::pager (${pagingWrapper}, ${#dates.createNow()}, 'programPost-list-table', 'contentArea')">
+	                     	<div style="padding-bottom: 3px; bottom: 0;" th:replace="pagingDiv::pager (${pagingWrapper}, ${#dates.createNow()}, 'program-list-table', 'contentArea')">
 							</div>
                      	</div>
 					</div>
@@ -50,12 +50,12 @@
 	/*<![CDATA[*/
 		function showAdd() {
 	    	var sURL = /*[[@{/do/activity/program/showAdd?skipdecorator=}]]*/ #;
-	    	showScreen('programPost-list-container', 'programPost-detail-container', sURL);
+	    	showScreen('program-list-container', 'program-detail-container', sURL);
 		}
 		
 		function showDetail(maintenancePK) {
 			var sURL = /*[[@{/do/activity/program/showEdit?maintenancePK=}]]*/ #;
-			showScreen('programPost-list-container', 'programPost-detail-container', sURL + maintenancePK + "&skipdecorator=");
+			showScreen('program-list-container', 'program-detail-container', sURL + maintenancePK + "&skipdecorator=");
 		}
 		
 		function deleteItem(maintenancePK) {
@@ -77,7 +77,7 @@
 		
 		function deleteProgramPost() {
 			var sURL = /*[[@{/do/activity/program/deleteProgram?skipDecorator}]]*/ #;
-			$.post(sURL, $('.programPost-list-check-delete').serialize(), function(data){
+			$.post(sURL, $('.program-list-check-delete').serialize(), function(data){
 				if(data.errorList!=null){
 					
 				}else{
@@ -93,14 +93,14 @@
 	    	               { type : "deleteAndEdit" , param : [ "pkProgramPost" ] }
 	    	               ];
 		    var sURL = /*[[@{/do/activity/program/list?}]]*/ #;
-		    buildDataTable(/*[[@{/}]]*/, sURL, 'programPost-list-table', 450, colDefs, null, null);
+		    buildDataTable(/*[[@{/}]]*/, sURL, 'program-list-table', 450, colDefs, null, null);
 	    });
 	    
-		$('#programPost-btn-add').click(function(){
+		$('#program-btn-add').click(function(){
 			showAdd();
 		});
 		
-		$('#programPost-btn-delete').click(function(){
+		$('#program-btn-delete').click(function(){
 			deleteProgramPost();
 		});
 		
