@@ -232,7 +232,6 @@ h4.modal-title{
     text-transform: capitalize;
     padding: 9px 0;
     display: block;
-    border-bottom: 1px solid #e2e3e4;
 }
 .dropdown-menu>li.active>a {
     background: none;
@@ -250,7 +249,7 @@ h4.modal-title{
     box-shadow: none;
     -webkit-box-shadow: none;
 	background-image:url("../images/background-submenu.jpg");
-	opacity: .97;
+	opacity: .98;
 }
 .mega-dropdown-menu > li > ul {
   padding: 0;
@@ -1035,6 +1034,11 @@ h4.modal-title{
     background: rgba(246, 246, 246, 0.9);
     box-shadow: 0 1px 4px rgba(0,0,0,.23);
 }
+.post-small-polygon1{
+	-webkit-clip-path: polygon(50% 0, 100% 17%, 100% 100%, 0 100%, 0 17%);
+    clip-path: polygon(50% 0, 100% 17%, 100% 100%, 0 100%, 0 17%);
+    margin-bottom: 20px!important;
+}
 .post-polygon1{
 	-webkit-clip-path: polygon(50% 0, 100% 15%, 100% 100%, 0 100%, 0 15%);
     clip-path: polygon(50% 0, 100% 15%, 100% 100%, 0 100%, 0 15%);
@@ -1102,11 +1106,14 @@ h4.modal-title{
 	font-size: 15px;
     line-height: 1.5;
 }
+.post-small-polygon1 h2 a label{
+	padding: 10px;	
+}
 .post-polygon1 h2 a label{
 	padding:5px 20px;	
 }
 .post-polygon2 h2 a label{
-	padding: 20px 20px 20px 0px;	
+	padding: 26px 20px 0px 0px;	
 }
 .post .date-wrapper{
 	color: #bdbdbd;
@@ -2571,7 +2578,7 @@ ul.channel-links li{
 .fc-toolbar {
     border-left: 2px solid #dce4ea;
     margin: 0;
-    padding: 40px 34px;
+    padding: 25px 34px;
 }
 .fc td,
 .fc th {
@@ -3147,9 +3154,7 @@ ul.contact_info li a:hover {
 }
 .ebook_section .post .post_thumb{
 	margin: 0px;
-}
-.ebook_section .post .post_thumb>img{
-	max-height:240px;
+	max-height:215px;
 	overflow:hidden;
 }
 .button-group{
@@ -3493,7 +3498,7 @@ ul.contact_info li a:hover {
 .btn{
 	-webkit-clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
     clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-    height: 42px;
+    height: 48px;
 }
 .button-blue{
 	background-color: #005b9e;
