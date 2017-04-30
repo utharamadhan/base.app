@@ -5,15 +5,15 @@
 package id.base.app.util;
 
 import id.base.app.SystemConstant;
-import id.base.app.exception.ErrorHolder;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.text.DecimalFormat;
+import java.text.Normalizer;
+import java.text.Normalizer.Form;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -505,4 +505,27 @@ public class StringFunction extends DateTimeFunction {
 		} catch (Exception e) {}
 		return Boolean.FALSE;
 	}
+	
+	public static String toPrettyURL(String string) {
+	    return Normalizer.normalize(string.toLowerCase(), Form.NFD)
+	        .replaceAll("\\p{InCombiningDiacriticalMarks}+", "")
+	        .replaceAll("[^\\p{Alnum}]+", "-");
+	}
+	
+	public static String generatePermalink(List<String> permalinkDBList, String permalink){
+		if(!permalinkDBList.isEmpty()){
+			for(int i = 0;;i++){
+				String idx = "";
+				if(i>0){
+					idx = String.valueOf(i);
+				}
+				if(!permalinkDBList.contains(permalink+idx)){
+					permalink = permalink+idx;
+					break;
+				}
+			}
+		}
+		return permalink;
+	}
+	
 }

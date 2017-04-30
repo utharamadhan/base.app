@@ -31,6 +31,7 @@ public class Event extends BaseEntity implements Serializable {
 	
 	public static final String PK_EVENT = "pkEvent";
 	public static final String TITLE	 	= "title";
+	public static final String PERMALINK 	= "permalink";
 	public static final String DESCRIPTION 	= "description";
 	public static final String STATUS 	= "status";
 	public static final String EVENT_DATE = "eventDate";
@@ -48,6 +49,9 @@ public class Event extends BaseEntity implements Serializable {
 	@JsonProperty(value="title")
 	@Column(name="TITLE")
 	private String title;
+	
+	@Column(name="PERMALINK")
+	private String permalink;
 	
 	@OneToOne
 	@JoinColumn(name="FK_LOOKUP_EVENT_STATUS")
@@ -88,7 +92,13 @@ public class Event extends BaseEntity implements Serializable {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-
+	
+	public String getPermalink() {
+		return permalink;
+	}
+	public void setPermalink(String permalink) {
+		this.permalink = permalink;
+	}
 	public Lookup getEventStatusLookup() {
 		return eventStatusLookup;
 	}

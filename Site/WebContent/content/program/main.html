@@ -2,7 +2,6 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1"/>
-<title>Housing Finance Center - Program</title>
 </head>
 <body>
 		<div class="breadcrumb-wrapper">
@@ -51,7 +50,7 @@
 								</div>
 								<div class="bottom-left-yellow"></div>
 								<div class="bottom-right-blue"></div>
-								<input type="hidden" name="identity" th:value="${data.pkProgramPost}"/>
+								<input type="hidden" name="identity" th:value="${data.permalink}"/>
 							</div>
 						</div>					
 						<th:block th:if="${i.count % 2 == 0}">
@@ -72,13 +71,13 @@
 						<div class="col-md-4">
 							<ul class="pagination_section">
 								<li style="width:100%;text-align:center"><a href="#" class="load_more mrdy_btn">Older Program</a></li>
-							</ul><!--end pagination section-->		
+							</ul>		
 							<input type="hidden" th:value="${program.startRecordIndex}" class="startNo"/>
 							<input type="hidden" th:value="${program.recordsPerPage}" class="offset"/>
 						</div>
 						<div class="col-md-4"></div>
-					</div><!--end post left section-->
-				</div><!--end post_left-->	
+					</div>
+				</div>	
 			</div>
 		</div>
 		
@@ -102,7 +101,7 @@
 				var cloning = $('.template_part .data_result').eq(0).clone();
 				cloning.find('.post_thumb img').attr('src',datas[i].encodedPicture);
 				cloning.find('.title_program').html(datas[i].title);
-				cloning.find('input[name="identity"]').val(datas[i].pkProgramPost);
+				cloning.find('input[name="identity"]').val(datas[i].permalink);
 				cloning.wrap('<div></div>');
 				if(!load){
 					$('.list_data').append(cloning.parent().html());
@@ -191,12 +190,8 @@
 			});
 			
 			$(document).on('click','.show_detail',function(){
-				var param = $(this).parents('.post').find('input[name="identity"]').val();
-				var title = $(this).parents('.post').find('.title_program').html();
-				title = title.replace(/ /g, "-");
-				var link = /*[[@{/page/program/detail/}]]*/ '';
-				link = link + param+"/"+title;
-				window.location.href = link;
+				var link = /*[[@{/page/program/}]]*/ '';
+				window.location.href = link + $(this).parents('.post').find('input[name="identity"]').val();
 			});
 		});
 		/*]]>*/

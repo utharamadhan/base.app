@@ -61,4 +61,14 @@ public class NewsService implements INewsService {
 	public List<News> findLatestNews(int number) throws SystemException {
 		return newsDAO.findLatestNews(number);
 	}
+	
+	@Override
+	public List<String> getSamePermalink(Long pk, String permalink) throws SystemException {
+		return newsDAO.getSamePermalink(pk, permalink);
+	}
+	
+	@Override
+	public News findByPermalink(String permalink) throws SystemException {
+		return newsDAO.findByPermalink(permalink);
+	}
 }

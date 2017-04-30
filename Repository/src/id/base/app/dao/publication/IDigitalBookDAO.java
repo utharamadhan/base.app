@@ -9,5 +9,10 @@ import id.base.app.valueobject.publication.DigitalBook;
 
 public interface IDigitalBookDAO extends IBaseDAO<DigitalBook> {
 
-	 public List<DigitalBook> findLatestEbook(int number) throws SystemException; 
+	public List<DigitalBook> findLatestEbook(int number) throws SystemException;
+
+	public List<String> getSamePermalink(Long pk, String permalink)
+			throws SystemException;
+
+	public DigitalBook findByPermalink(String permalink) throws SystemException; 
 }

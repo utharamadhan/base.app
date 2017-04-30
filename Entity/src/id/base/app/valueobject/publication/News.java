@@ -29,7 +29,10 @@ public class News extends BaseEntity implements Serializable {
 	
 	public static final String PK_NEWS = "pkNews";
 	public static final String TITLE 	= "title";
+	public static final String PERMALINK = "permalink";
 	public static final String CONTENT 	= "content";
+	public static final String PUBLISH_DATE	= "publishDate";
+	public static final String IMAGE_URL	= "imageURL";
 	public static final String STATUS 	= "status";
 	
 	public static News getInstance() {
@@ -44,6 +47,9 @@ public class News extends BaseEntity implements Serializable {
 	
 	@Column(name="TITLE")
 	private String title;
+	
+	@Column(name="PERMALINK")
+	private String permalink;
 	
 	@Column(name="PUBLISH_DATE")
 	private Date publishDate;
@@ -83,6 +89,12 @@ public class News extends BaseEntity implements Serializable {
 		this.title = title;
 	}
 	
+	public String getPermalink() {
+		return permalink;
+	}
+	public void setPermalink(String permalink) {
+		this.permalink = permalink;
+	}
 	public Date getPublishDate() {
 		return publishDate;
 	}

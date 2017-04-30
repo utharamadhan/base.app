@@ -18,6 +18,7 @@ import java.util.List;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.hibernate.Criteria;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
@@ -92,7 +93,7 @@ public class EventDAO extends AbstractHibernateDAO<Event, Long> implements IEven
 		crit.addOrder(Order.desc(Event.EVENT_DATE));
 		crit.setMaxResults(number);
 		crit.setProjection(Projections.projectionList().
-				add(Projections.property(Event.PK_EVENT)).
+				add(Projections.property(Event.PERMALINK)).
 				add(Projections.property(Event.TITLE)).
 				add(Projections.property(Event.EVENT_DATE)));
 		crit.setResultTransformer(new ResultTransformer() {
@@ -100,7 +101,7 @@ public class EventDAO extends AbstractHibernateDAO<Event, Long> implements IEven
 			public Object transformTuple(Object[] tuple, String[] aliases) {
 				Event obj = new Event();
 				try {
-					BeanUtils.copyProperty(obj, Event.PK_EVENT, tuple[0]);
+					BeanUtils.copyProperty(obj, Event.PERMALINK, tuple[0]);
 					BeanUtils.copyProperty(obj, Event.TITLE, tuple[1]);
 					BeanUtils.copyProperty(obj, Event.EVENT_DATE, tuple[2]);
 				} catch (Exception e) {
@@ -115,5 +116,41 @@ public class EventDAO extends AbstractHibernateDAO<Event, Long> implements IEven
 			}
 		});
 		return crit.list();
+	}
+	
+	@Override
+	public List<String> getSamePermalink(Long pk, String permalink) throws SystemException {
+		Criteria crit = getSession().createCriteria(Event.class);
+		crit.add(Restrictions.like(Event.PERMALINK, permalink, MatchMode.START));
+		if(pk!=null){
+			crit.add(Restrictions.ne(Event.PK_EVENT, pk));
+		}
+		crit.setProjection(Projections.projectionList().add(Projections.property("permalink")));
+		crit.setResultTransformer(new ResultTransformer() {
+			@Override
+			public Object transformTuple(Object[] tuple, String[] aliases) {
+				String r = null;
+				try{
+					r = tuple[0].toString();
+				}catch(Exception e){
+					LOGGER.error(e.getMessage(), e);
+				}
+				return r;
+			}
+			
+			@Override
+			public List<?> transformList(List collection) {
+				return collection;
+			}
+		});
+		return crit.list();
+	}
+	
+	@Override
+	public Event findByPermalink(String permalink) throws SystemException {
+		Criteria criteria = getSession().createCriteria(Event.class);
+		criteria.add(Restrictions.eq(Event.PERMALINK, permalink));
+		criteria.add(Restrictions.eq(Event.STATUS, ILookupConstant.ArticleStatus.PUBLISH));
+		return (Event) criteria.uniqueResult();
 	}
 }

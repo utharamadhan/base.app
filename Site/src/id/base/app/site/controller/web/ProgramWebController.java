@@ -2,9 +2,11 @@ package id.base.app.site.controller.web;
 
 import id.base.app.ILookupConstant;
 import id.base.app.paging.PagingWrapper;
+import id.base.app.rest.PathInterfaceRestCaller;
 import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
 import id.base.app.rest.RestServiceConstant;
+import id.base.app.rest.SpecificRestCaller;
 import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
@@ -82,20 +84,36 @@ public class ProgramWebController {
 		return resultMap;
 	}
 	
-	@RequestMapping(method=RequestMethod.GET, value="/detail/{id}/{title}")
-	public String view(ModelMap model, HttpServletRequest request, HttpServletResponse response,
-			@PathVariable(value="id") Long id,
-			@PathVariable(value="title") String title){
-		ProgramPost detail = ProgramPost.getInstance();
-		detail = getRestCaller().findById(id);
-		if(detail!=null){
-			if(detail.getTitle()!=null){
-				String dataTitle = detail.getTitle().replace(" ", "-");
-				if(dataTitle.equals(title)){
-					model.addAttribute("detail", detail);
-					return "/program/detail";
+	private ProgramPost findByPermalink(final String permalink){
+		ProgramPost detail = new ProgramPost();
+		try{
+			detail = new SpecificRestCaller<ProgramPost>(RestConstant.REST_SERVICE, RestConstant.RM_PROGRAM_POST, ProgramPost.class).executeGet(new PathInterfaceRestCaller() {	
+				@Override
+				public String getPath() {
+					return "/findByPermalink/{permalink}";
 				}
-			}
+				
+				@Override
+				public Map<String, Object> getParameters() {
+					Map<String,Object> map = new HashMap<String, Object>();
+					map.put("permalink", permalink);
+					return map;
+				}
+			});
+			
+		}catch(Exception e){
+			detail = null;
+		}
+		return detail;
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/{permalink}")
+	public String detail(ModelMap model, HttpServletRequest request, HttpServletResponse response,
+			@PathVariable(value="permalink") String permalink){
+		ProgramPost detail = findByPermalink(permalink);
+		if(detail!=null){
+			model.addAttribute("detail", detail);
+			return "/program/detail";
 		}
 		LOGGER.error("ERROR DATA NOT VALID");
 		return "redirect:/page/notfound";

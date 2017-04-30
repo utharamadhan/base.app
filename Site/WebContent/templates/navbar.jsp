@@ -81,7 +81,7 @@
 										<ul>
 											<li class="dropdown-header"><a href="#">Kerjasama</a></li>
 											<c:forEach items="${engages}" var="engage" varStatus="loop">
-											<li><a href="${ctx}/page/engagement/detail/${engage.pkEngagement}/${fn:replace(engage.title,' ','-')}">${engage.title}</a></li>
+											<li><a href="${ctx}/page/engagement/${engage.permalink}">${engage.title}</a></li>
 											</c:forEach>
 											<li><br/><div class="button-blue" onclick="javascript:window.location.href='${ctx}/page/engagement'">Lainnya...</div></li>
 										</ul>
@@ -90,7 +90,7 @@
 										<ul>
 											<li class="dropdown-header"><a href="#">Program HFC 2016</a></li>
 											<c:forEach items="${programs}" var="program" varStatus="loop">
-											<li><a href="${ctx}/page/program/detail/${program.pkProgramPost}/${fn:replace(program.title,' ','-')}">${program.title}</a></li>
+											<li><a href="${ctx}/page/program/${program.permalink}">${program.title}</a></li>
 											</c:forEach>
 											<li><br/><div class="button-blue" onclick="javascript:window.location.href='${ctx}/page/program'">Lainnya...</div></li>
 										</ul>
@@ -113,7 +113,7 @@
 										<ul>
 											<li class="dropdown-header"><a href="#">Berita</a></li>
 											<c:forEach items="${newsLatest}" begin="0" end="4" var="news" varStatus="loop">
-											<li><a href="${ctx}/page/news/detail/${news.pkNews}/${fn:replace(news.title,' ','-')}">${news.title}</a></li>
+											<li><a href="${ctx}/page/news/${news.permalink}">${news.title}</a></li>
 											</c:forEach>
 											<li><br/><div class="button-blue" onclick="javascript:window.location.href='${ctx}/page/news'">Lainnya...</div></li>
 										</ul>

@@ -225,3 +225,6 @@
 
 -- 2017-Apr-29
 \i DML/APP_FUNCTION_20170429.sql;
+
+-- 2017-Apr-30
+\i DDL/NEWS_20170430.sql;

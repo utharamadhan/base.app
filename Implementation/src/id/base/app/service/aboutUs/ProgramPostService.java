@@ -61,5 +61,15 @@ public class ProgramPostService implements IProgramPostService {
 	public List<ProgramPost> findLatest(int number) throws SystemException {
 		return programPostDAO.findLatest(number);
 	}
+	
+	@Override
+	public List<String> getSamePermalink(Long pk, String permalink) throws SystemException {
+		return programPostDAO.getSamePermalink(pk, permalink);
+	}
+	
+	@Override
+	public ProgramPost findByPermalink(String permalink) throws SystemException {
+		return programPostDAO.findByPermalink(permalink);
+	}
 
 }

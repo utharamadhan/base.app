@@ -25,6 +25,7 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -44,6 +45,14 @@ public class EventController extends SuperController<Event>{
 	@Override
 	public Event validate(Event anObject) throws SystemException {
 		List<ErrorHolder> errorList = new ArrayList<>();
+		if(StringFunction.isEmpty(anObject.getTitle())) {
+			errorList.add(new ErrorHolder(Event.TITLE, messageSource.getMessage("error.mandatory", new String[]{"title"}, Locale.ENGLISH)));
+		}else{
+			String permalink = StringFunction.toPrettyURL(anObject.getTitle());
+			List<String> permalinkDBList = eventService.getSamePermalink(anObject.getPkEvent(), permalink);
+			permalink = StringFunction.generatePermalink(permalinkDBList, permalink);
+			anObject.setPermalink(permalink);
+		}
 		if(StringFunction.isEmpty(anObject.getDescription())) {
 			errorList.add(new ErrorHolder(Event.DESCRIPTION, messageSource.getMessage("error.mandatory", new String[]{"description"}, Locale.ENGLISH)));
 		}
@@ -138,6 +147,12 @@ public class EventController extends SuperController<Event>{
 			e.printStackTrace();
 			throw new SystemException(new ErrorHolder("error finding your data"));
 		}
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/findByPermalink/{permalink}")
+	@ResponseBody
+	public Event findByPermalink(@PathVariable(value="permalink") String permalink) throws SystemException {
+		return eventService.findByPermalink(permalink);
 	}
 	
 }

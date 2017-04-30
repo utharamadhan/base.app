@@ -2,6 +2,7 @@ package id.base.app.site.controller.web;
 
 import id.base.app.ILookupConstant;
 import id.base.app.SystemConstant;
+import id.base.app.rest.PathInterfaceRestCaller;
 import id.base.app.rest.QueryParamInterfaceRestCaller;
 import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
@@ -40,11 +41,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 
 @Scope(value="request")
-@RequestMapping(value="/events")
+@RequestMapping(value="/event")
 @Controller
-public class EventsWebController {
+public class EventWebController {
 	
-	static Logger LOGGER = LoggerFactory.getLogger(EventsWebController.class);
+	static Logger LOGGER = LoggerFactory.getLogger(EventWebController.class);
 	
 	protected ObjectMapper mapper = new ObjectMapper();
 	
@@ -54,7 +55,7 @@ public class EventsWebController {
 	
 	@RequestMapping(method=RequestMethod.GET, value="/upcoming")
 	public String upcoming(HttpServletRequest request, HttpServletResponse response){
-		return "/events/upcoming/main";
+		return "/event/upcoming/main";
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/archived")
@@ -81,7 +82,7 @@ public class EventsWebController {
 			}
 		});
 		model.addAttribute("events", events);
-		return "/events/archived/list";
+		return "/event/archived/list";
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/loadEvents")
@@ -117,7 +118,7 @@ public class EventsWebController {
 			EventJson json = new EventJson();
 			json.setTitle(e.getTitle());
 			json.setEventDate(DateTimeFunction.date2String(e.getEventDate(), SystemConstant.WEB_SERVICE_DATE));
-			String url = request.getContextPath() + "/page/events/detail/" + e.getPkEvent() + "/" +e.getTitle().replace(" ", "-") + "?f=upcoming";
+			String url = request.getContextPath() + "/page/event/" + e.getPermalink() + "?f=upcoming";
 			json.setUrl(url);
 			jsons.add(json);
 		}
@@ -125,24 +126,39 @@ public class EventsWebController {
 		return jsonData;
 	}
 	
-	@RequestMapping(method=RequestMethod.GET, value="/detail/{id}/{title}")
-	public String detail(ModelMap model, HttpServletRequest request, HttpServletResponse response,
-			@PathVariable(value="id") Long id, @RequestParam Map<String,String> params,
-			@PathVariable(value="title") String title
-	){
-		Event detail = Event.getInstance();
-		detail = getRestCaller().findById(id);
-		if(detail!=null){
-			if(detail.getTitle()!=null){
-				String dataTitle = detail.getTitle().replace(" ", "-");
-				if(dataTitle.equals(title)){
-					model.addAttribute("detail", detail);
-					model.addAttribute("f", params.get("f"));
-					return "/events/detail";
+	private Event findByPermalink(final String permalink){
+		Event detail = new Event();
+		try{
+			detail = new SpecificRestCaller<Event>(RestConstant.REST_SERVICE, RestConstant.RM_EVENT, Event.class).executeGet(new PathInterfaceRestCaller() {	
+				@Override
+				public String getPath() {
+					return "/findByPermalink/{permalink}";
 				}
-			}
+				
+				@Override
+				public Map<String, Object> getParameters() {
+					Map<String,Object> map = new HashMap<String, Object>();
+					map.put("permalink", permalink);
+					return map;
+				}
+			});
+			
+		}catch(Exception e){
+			detail = null;
 		}
-		LOGGER.error("ERROR DATA NOT VALID");
+		return detail;
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/{permalink}")
+	public String detail(ModelMap model, HttpServletRequest request, HttpServletResponse response,
+			@PathVariable(value="permalink") String permalink, @RequestParam Map<String,String> params){
+		Event detail = findByPermalink(permalink);
+		if(detail!=null){
+			model.addAttribute("detail", detail);
+			model.addAttribute("f", params.get("f"));
+			return "/event/detail";
+		}
+		LOGGER.error("ERROR DATA NOT FOUND");
 		return "redirect:/page/notfound";
 	}
 	

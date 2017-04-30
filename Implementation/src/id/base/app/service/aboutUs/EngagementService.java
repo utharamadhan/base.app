@@ -61,5 +61,15 @@ public class EngagementService implements IEngagementService {
 	public List<Engagement> findLatest(int number) throws SystemException {
 		return engagementDAO.findLatest(number);
 	}
+	
+	@Override
+	public List<String> getSamePermalink(Long pk, String permalink) throws SystemException {
+		return engagementDAO.getSamePermalink(pk, permalink);
+	}
+	
+	@Override
+	public Engagement findByPermalink(String permalink) throws SystemException {
+		return engagementDAO.findByPermalink(permalink);
+	}
 
 }

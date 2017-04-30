@@ -25,6 +25,7 @@ public class DigitalBook extends BaseEntity implements Serializable {
 	
 	public static final String PK_DIGITAL_BOOK = "pkDigitalBook";
 	public static final String TITLE = "title";
+	public static final String PERMALINK 	= "permalink";
 	public static final String COVER_IMAGE_URL = "coverImageURL";
 	public static final String FILE_URL = "fileURL";
 	public static final String DESCRIPTION = "description";
@@ -42,6 +43,9 @@ public class DigitalBook extends BaseEntity implements Serializable {
 	
 	@Column(name="TITLE")
 	private String title;
+	
+	@Column(name="PERMALINK")
+	private String permalink;
 	
 	@Column(name="COVER_IMAGE_URL")
 	private String coverImageURL;
@@ -75,6 +79,12 @@ public class DigitalBook extends BaseEntity implements Serializable {
 		this.title = title;
 	}
 	
+	public String getPermalink() {
+		return permalink;
+	}
+	public void setPermalink(String permalink) {
+		this.permalink = permalink;
+	}
 	public String getCoverImageURL() {
 		return coverImageURL;
 	}
