@@ -1,11 +1,8 @@
 .margin-top{
 	margin-top:0px;
 }
-.banner-wrapper{
-	height: 275px;
-}
 .banner-wrapper .container{
-	padding: 35px 20px 95px;
+	padding: 35px 20px 45px;
 }
 .banner-wrapper .form-wrapper {
 	max-width: 750px;
@@ -14,10 +11,8 @@
 	margin-right:auto;
 }
 .banner-wrapper .form-wrapper .banner-header{
-	padding-bottom: 25px;
-    background-color: rgba(255,255,255,0.7);
-    border-radius: 25px;
-    padding-top: 25px;
+	padding-bottom: 5px;
+    padding-top: 5px;
 }
 .banner-header .top-header{
 	font-size:34px;
@@ -144,7 +139,7 @@
 	text-align:center;
 }
 .grid-wrapper{
-	margin:30px 3%;
+	margin:30px 7%;
 }
 .grid-wrapper img{
 	width:100%;
@@ -156,7 +151,7 @@
 }
 .grid{
 	width:50%;
-	height:279px;
+	height:270px;
 	float:left;
 }
 .grid-content{
@@ -169,14 +164,18 @@
 	text-align: initial!important;
 }
 .grid-blue{
-	background-color: #004fb6;
+	background-color: rgba(0, 79, 182, 0.95);
 	color: #fefefe;
 }
-.grid-white{
-	background-color:#fcdb00;
+.grid-yellow{
+	background-color:rgba(252, 219, 0, 0.95);
 }
-.grid-white .main-title{
+.grid-yellow .main-title{
 	color:#004fb6;
+}
+.grid-red{
+	background-color: rgba(239, 29, 38, 0.95);
+	color: #fefefe;
 }
 .grid-align-right .grid-content{
 	text-align:right;
@@ -187,12 +186,12 @@
 
 .triangle_top{
     -webkit-clip-path: polygon(50% 33%, 22% 100%, 78% 100%);
-  		clip-path: polygon(50% 33%, 22% 100%, 78% 100%);
-  		width: 100%;
-  		position: absolute;
-  		margin-top: -290px;
-  		float: right;
-  		background-color:#004fb6;
+	clip-path: polygon(50% 33%, 22% 100%, 78% 100%);
+	width: 100%;
+	position: absolute;
+	margin-top: -280px;
+	float: right;
+	background-color: rgba(0, 79, 182, 0.95);
 }
 .triangle_bottom{
 	-webkit-clip-path: polygon(50% 20%, 40% 0, 60% 0);
@@ -200,7 +199,7 @@
     width: 100%;
     position: absolute;
     float: right;
-    background-color: #fcdb00;
+    background-color:rgba(252, 219, 0, 0.95);
     margin-top: 22px;
 }
 .video_tujuan_program{
@@ -210,7 +209,7 @@
     -webkit-clip-path: polygon(40% 0, 90% 0, 100% 50%, 90% 100%, 0 100%, 0 50%);
     clip-path: polygon(40% 0, 90% 0, 100% 50%, 90% 100%, 0 100%, 0 50%);
 }
-.detail_tujuan_program{
+.content_tujuan_program{
 	position: relative;
     float: right;
     width: 51%;
@@ -229,11 +228,13 @@
     -webkit-clip-path: polygon(100% 0, 90% 50%, 100% 100%, 40% 100%, 0 50%, 0 0);
     clip-path: polygon(100% 0, 90% 50%, 100% 100%, 40% 100%, 0 50%, 0 0);
 }
-.detail_kerja_sama{
+.content_program_hfc{
 	position: relative;
     top: 11px;
     float: right;
     width: 56.1%;
+    padding-left: 3%;
+    padding-right: 3%;
     -webkit-clip-path: polygon(8.5% 0, 100% 0, 100% 50%, 60% 100%, 8.5% 100%, 0 50%);
     clip-path: polygon(8.5% 0, 100% 0, 100% 50%, 60% 100%, 8.5% 100%, 0 50%);
 }
@@ -243,10 +244,13 @@
 .to-uppercase {
 	text-transform: uppercase;
 }
+.mainHomeArea{	
+	background-size: auto 100%;
+	background-repeat: no-repeat;
+	background-image: url('/Site/images/background-home.png');
+}
 .aboutUsArea{
-	padding:90px 0px 90px 0px;
-	background-color:#f7f7f7;
-	background: url('/Site/images/background-about.png');
+	padding:145px 0px 90px 0px;
 }
 .testimonialArea{
 	padding:40px 0px;

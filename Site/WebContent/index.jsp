@@ -46,13 +46,14 @@
 		  </div><!-- container -->
 		</div><!-- aboutArea -->
 		<div style="clear:both"></div>
+		<div class="mainHomeArea">
 		<div class="banner carousel slide" id="recommended-item-carousel" data-ride="carousel">
-			<div class="banner-wrapper">
+			<div class="banner-wrapper back-gradient-transparent">
 				<div class="container">
 					<div class="form-wrapper">
 						<div class="banner-header">
-							<h2 class="top-header">Being Expert in Property</h2>
-							<h2 class="sub-header">Now available in your hand</h2>
+							<h2 class="top-header">Menjadi Ahli di Bidang Properti</h2>
+							<h2 class="sub-header">hanya dengan 4 langkah di bawah ini</h2>
 						</div>
 						<div style="clear:both"></div>
 						<div class="help-form-header">
@@ -65,8 +66,8 @@
 				</div>
 			</div>
 		</div><!--end banner-->
-		<div style="clear:both"></div>
- 		<div id="aboutUsArea" class="aboutUsArea">
+			<div style="clear:both"></div>
+	 		<div id="aboutUsArea" class="aboutUsArea">
 			<div class="container">
 				<div class="title-center">
 					<h3 class="text-primary">Siapakah Kami?</h3>
@@ -79,24 +80,28 @@
 						<div class="grid video_tujuan_program">
 							<iframe width="100%" height="100%" src="https://www.youtube.com/embed/felFVPmAu5s" frameborder="0" allowfullscreen></iframe>
 						</div>
-						<div class="grid grid-blue detail_tujuan_program">
+						<div class="grid grid-blue content_tujuan_program">
 							<div class="grid-content">
-								<h2 class="main-title text-secondary to-uppercase">Tujuan Program</h2>
+								<h2 class="main-title text-secondary to-uppercase">Tujuan</h2>
 								<p>Memberikan pelayanan unggul, inovatif dan terintegrasi dalam riset, edukasi dan konsultasi terkait pembiayaan perumahan bagi klien</p>
 								<a href="page/post/1" class="btn btn-secondary btn-medium">selengkapnya</a>
 							</div>
 						</div>
 					</div>
 					<div class="row-grid">
-						<div class="grid grid-white grid-align-right content_kerja_sama">
+						<div class="grid grid-yellow grid-align-right content_kerja_sama">
 							<div class="grid-content">
 								<h2 class="main-title text-secondary to-uppercase">Kerjasama</h2>
 								<p>Untuk memberikan kualitas materi yang terbaik bagi anda, kami telah menjalin kerjasama dengan beberapa pihak</p>
 								<a href="page/engagement/list" class="btn btn-third btn-medium">selengkapnya</a>
 							</div>
 						</div>
-						<div class="grid detail_kerja_sama">
-							<img src="<%=request.getContextPath()%>/images/handshaking.jpg"/>
+						<div class="grid grid-red content_program_hfc">
+							<div class="grid-content">
+								<h2 class="main-title text-secondary to-uppercase">Program</h2>
+								<p>Memberikan pelayanan unggul, inovatif dan terintegrasi dalam riset, edukasi dan konsultasi terkait pembiayaan perumahan bagi klien</p>
+								<a href="page/post/1" class="btn btn-secondary btn-medium">selengkapnya</a>
+							</div>
 						</div>
 					</div>
 					<div class="row-grid">
@@ -104,6 +109,7 @@
 					</div>
 				</div>
 			</div>
+		</div>
 		</div>
 		<div style="clear:both"></div>
 		<div class="newsArea">

@@ -347,7 +347,6 @@ h4.modal-title{
     float: left;
     height: auto;
     position: relative;
-    background: white;
 }
 .banner .slides {
     position: relative;
@@ -5730,7 +5729,7 @@ ul.contact_info li a:hover {
 
 .hexagon_advisory{
 	position: absolute;
-    top: 188px;
+    top: 170px;
     left: 76px;
     z-index: 2;
 }
