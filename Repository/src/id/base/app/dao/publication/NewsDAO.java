@@ -67,6 +67,7 @@ public class NewsDAO extends AbstractHibernateDAO<News, Long> implements INewsDA
 		crit.setProjection(Projections.projectionList().
 				add(Projections.property(News.PERMALINK)).
 				add(Projections.property(News.PUBLISH_DATE)).
+				add(Projections.property(News.IMAGE_URL)).
 				add(Projections.property(News.TITLE)));
 		crit.setResultTransformer(new ResultTransformer() {
 			@Override
@@ -75,7 +76,8 @@ public class NewsDAO extends AbstractHibernateDAO<News, Long> implements INewsDA
 				try {
 					BeanUtils.copyProperty(obj, News.PERMALINK, tuple[0]);
 					BeanUtils.copyProperty(obj, News.PUBLISH_DATE, tuple[1]);
-					BeanUtils.copyProperty(obj, News.TITLE, tuple[2]);
+					BeanUtils.copyProperty(obj, News.IMAGE_URL, tuple[2]);
+					BeanUtils.copyProperty(obj, News.TITLE, tuple[3]);
 				} catch (Exception e) {
 					LOGGER.error(e.getMessage(), e);
 				}

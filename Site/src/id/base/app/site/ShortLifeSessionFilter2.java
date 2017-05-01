@@ -155,7 +155,7 @@ public class ShortLifeSessionFilter2 implements Filter{
 			@Override
 			public Map<String, Object> getParameters() {
 				Map<String,Object> map = new HashMap<String, Object>();
-				map.put("number", 7);
+				map.put("number", 9);
 				return map;
 			}
 		});

@@ -476,7 +476,7 @@ h4.modal-title{
     width: 100%;
     float: left;
     height: auto;
-	padding: 150px 0 42px 0;
+	padding: 150px 0 0 0;
     background: #ecf3f7;
 	background-image: url("../images/background_header.jpg");
 	background-attachment: fixed;
@@ -3553,7 +3553,7 @@ ul.contact_info li a:hover {
 .no-border-right{
 	border-right:0px solid white;
 }
-.contact-wrapper{
+.contact-us-wrapper{
 	background-image: url(/Site/images/background_contact.jpg);
     background-attachment: fixed;
     background-position: center;
@@ -5820,7 +5820,7 @@ ul.contact_info li a:hover {
 
 .housing_index{
 	position: relative;
-    top: 375px;
+    top: 335px;
     right: 855px;
     width: 490px;
 }
