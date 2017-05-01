@@ -2,6 +2,9 @@ package id.base.app.web;
 
 import id.base.app.JSONConstant;
 import id.base.app.SystemConstant;
+import id.base.app.rest.PathInterfaceRestCaller;
+import id.base.app.rest.RestConstant;
+import id.base.app.rest.SpecificRestCaller;
 import id.base.app.util.GeneralFunctions;
 import id.base.app.valueobject.RuntimeUserLogin;
 import id.base.app.web.rest.LoginRestCaller;
@@ -49,6 +52,7 @@ public class ShortLifeSessionFilter2 implements Filter{
 	private static final String URL_ACTIVATION = "/do/registration/activation";
 	private static final String WEB_SOCKET_CONTROLLER = "webSocketController";
 	private static final String FORGOT_PASSWORD = "/forgotPassword";
+	private static final String LOGIN = "/do/login";
 	
 	@Override
 	public void destroy() {
@@ -68,7 +72,7 @@ public class ShortLifeSessionFilter2 implements Filter{
 					|| requestURIminusCtxPath.contains(WEB_SOCKET_CONTROLLER)
 						|| requestURIminusCtxPath.contains(FORGOT_PASSWORD)){
 			chain.doFilter(request, response);
-		}else{
+		} else {
 			Cookie[] cookies = request.getCookies();
 			String cookieValue = null;
 			if(cookies!=null){
@@ -83,20 +87,28 @@ public class ShortLifeSessionFilter2 implements Filter{
 			Map<String, String> tokenMap = new HashMap<>();
 			if(cookieValue!=null){
 				tokenMap = GeneralFunctions.getTokenMap(cookieValue);
-				if(!validateToken(tokenMap)){
+				if(!validateToken(requestURIminusCtxPath, tokenMap)){
 					cookieValid = false;
 				}
 			}
 			
 			if(cookieValid){
 				RuntimeUserLogin login = new LoginRestCaller().findByUserName(tokenMap.get("username"));
+				if(requestURIminusCtxPath.equals(LOGIN) && login != null) {
+					WebGeneralFunction.deleteLogin(login);
+					login = null;
+				}
 				if(login!=null){
 					try {
 						if(SystemConstant.USER_TYPE_INTERNAL==login.getSessionType().intValue()){
 							WebGeneralFunction.buildLoginSession(login,request);
+							tokenMap.put(JSONConstant.KEY_LOGIN_SECURITY, login.getToken());
+							response.addCookie(GeneralFunctions.buildCookie(request.getContextPath(), tokenMap));
 						}else{
 							try{
-								WebGeneralFunction.createLogin(request, tokenMap);
+								WebGeneralFunction.createLogin(request, tokenMap, login.getToken());
+								tokenMap.put(JSONConstant.KEY_LOGIN_SECURITY, login.getToken());
+								response.addCookie(GeneralFunctions.buildCookie(request.getContextPath(), tokenMap));
 							}catch(Exception e){
 								redirect = request.getContextPath()+"/do/landingPage/blank";
 							}
@@ -106,7 +118,9 @@ public class ShortLifeSessionFilter2 implements Filter{
 					}
 				}else{
 					try{
-						WebGeneralFunction.createLogin(request, tokenMap);
+						String token = WebGeneralFunction.createLogin(request, tokenMap, null);
+						tokenMap.put(JSONConstant.KEY_LOGIN_SECURITY, token);
+						response.addCookie(GeneralFunctions.buildCookie(request.getContextPath(), tokenMap));
 					}catch(Exception e){
 						redirect = SystemConstant.LOGIN_URL + "?error=wrongAccount";
 					}
@@ -133,8 +147,29 @@ public class ShortLifeSessionFilter2 implements Filter{
 		}
 	}
 	
-	private Boolean validateToken(Map<String, String> tokenMap) {
-		return Boolean.TRUE;
+	private Boolean validateToken(String requestURI, final Map<String, String> tokenMap) {
+		if(requestURI.equals(LOGIN)) {
+			return Boolean.TRUE;	
+		}
+		try {
+			return new SpecificRestCaller<Boolean>(RestConstant.REST_SERVICE, RestConstant.RM_AUTHENTICATION, Boolean.class).executeGet(new PathInterfaceRestCaller() {
+				@Override
+				public String getPath() {
+					return "/isTokenValid/{userId}/{token}";
+				}
+				
+				@Override
+				public Map<String, Object> getParameters() {
+					Map<String, Object> map = new HashMap<>();
+						map.put("userId", tokenMap.get("username"));
+						map.put("token", tokenMap.get(JSONConstant.KEY_LOGIN_SECURITY));
+					return map;
+				}
+			});
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return Boolean.FALSE;
 	}
 
 	@Override

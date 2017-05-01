@@ -5,15 +5,15 @@
 package id.base.app.util;
 
 import id.base.app.SystemConstant;
-import id.base.app.exception.ErrorHolder;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.security.MessageDigest;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -505,4 +505,18 @@ public class StringFunction extends DateTimeFunction {
 		} catch (Exception e) {}
 		return Boolean.FALSE;
 	}
+	
+	public static String generateRandomString(String salt) {
+		StringBuilder sb = new StringBuilder();
+		try {
+			String str1 = DateTimeFunction.date2String(Calendar.getInstance().getTime(), SystemConstant.SYSTEM_DATE_TIME_NO_DELIMITER) + salt;
+			MessageDigest md = MessageDigest.getInstance("MD5");
+		    byte[] array = md.digest(str1.getBytes("UTF-8"));
+		    for (byte b : array) {
+		        sb.append(String.format("%02X", b));
+		    }
+		} catch (Exception e) {}
+		return sb.toString();
+	}
+	
 }

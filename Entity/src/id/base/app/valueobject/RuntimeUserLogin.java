@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "RUNTIME_USER_LOGIN")
@@ -41,6 +42,10 @@ public class RuntimeUserLogin implements Serializable {
 	private String companyList;
 	@Column(name = "COMPANY_SELECTED")
 	private Long companySelected;
+	@Column(name = "TOKEN")
+	private String token;
+	@Transient
+	private Boolean isGenerateToken;
 	
 	/** default constructor */
 	public RuntimeUserLogin() {
@@ -133,4 +138,24 @@ public class RuntimeUserLogin implements Serializable {
 	public void setCompanySelected(Long companySelected) {
 		this.companySelected = companySelected;
 	}
+
+	public String getToken() {
+		return token;
+	}
+	public void setToken(String token) {
+		this.token = token;
+	}
+
+	@Transient
+	public Boolean getIsGenerateToken() {
+		if(isGenerateToken == null) {
+			return Boolean.FALSE;
+		}
+		return isGenerateToken;
+	}
+	@Transient
+	public void setIsGenerateToken(Boolean isGenerateToken) {
+		this.isGenerateToken = isGenerateToken;
+	}
+
 }

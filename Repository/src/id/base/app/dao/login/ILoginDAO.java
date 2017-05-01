@@ -30,4 +30,9 @@ public interface ILoginDAO {
 	public RuntimeUserLogin findByAccessInfoId(String accessInfoId) throws SystemException;
 
 	public abstract RuntimeUserLogin findByUserName(String userName) throws SystemException;
+	
+	public Boolean isTokenValid(String userName, String token) throws SystemException;
+	
+	public String getTokenByUserId(Long userId) throws SystemException;
+	
 }

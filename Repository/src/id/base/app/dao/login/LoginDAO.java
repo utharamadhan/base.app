@@ -11,8 +11,11 @@ import id.base.app.valueobject.RuntimeUserLogin;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.transform.ResultTransformer;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -79,5 +82,37 @@ public class LoginDAO extends AbstractHibernateDAO<RuntimeUserLogin,Long> implem
 				Restrictions.eq(RuntimeUserLogin.USER_NAME, userName))
 				.uniqueResult();
 		return userLogin;
+	}
+
+	@Override
+	public Boolean isTokenValid(String userName, String token) throws SystemException {
+		Criteria crit = getSession().createCriteria(domainClass);
+			crit.add(Restrictions.eq("userName", userName));
+			crit.add(Restrictions.eq("token", token));
+			crit.setProjection(Projections.rowCount());
+		Long rowCount = (Long) crit.uniqueResult();
+		return rowCount != null && rowCount > 0 ? Boolean.TRUE : Boolean.FALSE;
+	}
+
+	@Override
+	public String getTokenByUserId(Long userId) throws SystemException {
+		try {			
+			Criteria crit = getSession().createCriteria(domainClass);
+			crit.add(Restrictions.eq("userId", userId));
+			crit.setProjection(Projections.projectionList().add(Projections.property("token")));
+			crit.setResultTransformer(new ResultTransformer() {
+				@Override
+				public Object transformTuple(Object[] tuple, String[] aliases) {
+					return tuple[0].toString();
+				}
+				
+				@Override
+				public List transformList(List collection) {
+					return collection;
+				}
+			});
+			return crit.uniqueResult().toString();
+		} catch (Exception e) {}
+		return null;
 	}
 }

@@ -1,11 +1,13 @@
 package id.base.app.service.login;
 
+import id.base.app.SystemConstant;
 import id.base.app.dao.login.ILoginDAO;
 import id.base.app.dao.parameter.IAppParameterDAO;
 import id.base.app.dao.user.IUserDAO;
 import id.base.app.exception.SystemException;
 import id.base.app.paging.PagingWrapper;
 import id.base.app.service.MaintenanceService;
+import id.base.app.util.StringFunction;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.valueobject.AppUser;
@@ -53,18 +55,31 @@ public class LoginService implements LoginDirectoryService ,
 
 	
 
-	public void register(RuntimeUserLogin runtimeUser) throws SystemException {
-		loginDAO.saveOrUpdate(runtimeUser);
+	public String register(RuntimeUserLogin runtimeUser) throws SystemException {
+		loginDAO.saveOrUpdate(setToken(runtimeUser));
 		AppUser appUser = userDAO.findAppUserById(runtimeUser.getUserId());
 		appUser.setLastLoginDate(runtimeUser.getLoginTime());
 		appUser.setLastLoginAccess(runtimeUser.getRemoteAddress());
 		userDAO.saveOrUpdate(appUser);
+		return runtimeUser.getToken();
+	}
+	
+	private RuntimeUserLogin setToken(RuntimeUserLogin runtimeUser) {
+		try {
+			if (runtimeUser.getIsGenerateToken() && StringFunction.isEmpty(runtimeUser.getToken())) {
+				runtimeUser.setToken(StringFunction.generateRandomString(SystemConstant.SALT));
+			} else {
+				runtimeUser.setToken(loginDAO.getTokenByUserId(runtimeUser.getUserId()));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return runtimeUser;
 	}
 
 	public void unregister(Long runtimeUserId) throws SystemException {
 		loginDAO.delete(new Long[]{runtimeUserId});
-		AppUser appUser = userDAO.findAppUserById(runtimeUserId);
-		/*appUser.setLastLogOutDate(userDAO.getCurrentSystemDate());*/
+		AppUser appUser = userDAO.findAppUserById(runtimeUserId);		
 		userDAO.saveOrUpdate(appUser);
 	}
 
@@ -129,5 +144,10 @@ public class LoginService implements LoginDirectoryService ,
 		}
 		
 		return rul;
+	}
+
+	@Override
+	public Boolean isTokenValid(String userName, String token) throws SystemException {
+		return loginDAO.isTokenValid(userName, token);
 	}
 }
