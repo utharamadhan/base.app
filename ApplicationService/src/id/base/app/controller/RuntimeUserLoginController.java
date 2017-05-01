@@ -37,8 +37,9 @@ public class RuntimeUserLoginController extends SuperController<RuntimeUserLogin
 
 	@RequestMapping(method=RequestMethod.POST, value="/register")
 	@ResponseStatus( HttpStatus.OK )
-	public void register(@RequestBody RuntimeUserLogin userLogin) throws SystemException{
-		loginService.register(userLogin);
+	@ResponseBody
+	public String register(@RequestBody RuntimeUserLogin userLogin) throws SystemException{
+		return loginService.register(userLogin);
 	}
 	
 	@RequestMapping(method=RequestMethod.POST, value="/unregister")

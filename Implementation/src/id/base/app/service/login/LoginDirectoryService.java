@@ -5,7 +5,7 @@ import id.base.app.valueobject.RuntimeUserLogin;
 
 public interface LoginDirectoryService {
 	
-	public void register(RuntimeUserLogin userLogin) throws SystemException ;
+	public String register(RuntimeUserLogin userLogin) throws SystemException ;
 	public void unregister(Long userPK) throws SystemException ;
 	public RuntimeUserLogin findById(Long id) throws SystemException;
 	public void unregisterAll() throws SystemException;
@@ -13,5 +13,6 @@ public interface LoginDirectoryService {
 			throws SystemException;
 	public RuntimeUserLogin findByAccessInfoId(String accessInfoId) throws SystemException;
 	public abstract RuntimeUserLogin findByUserName(String userName) throws SystemException;
+	public Boolean isTokenValid(String userName, String token) throws SystemException;
 
 }

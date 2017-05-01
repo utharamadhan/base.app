@@ -192,7 +192,13 @@ public class WebGeneralFunction {
 		}
     }
     
-    public static void createLogin(HttpServletRequest request, Map<String, String> tokenMap){
+    //delete login
+    public static void deleteLogin(RuntimeUserLogin loginSession) {
+    	new LoginRestCaller().unregister(loginSession.getUserId());
+    }
+    
+    //return token
+    public static String createLogin(HttpServletRequest request, Map<String, String> tokenMap, String token){
     	SpecificRestCaller<AppUser> userService = new SpecificRestCaller<AppUser>(RestConstant.REST_SERVICE, RestServiceConstant.USER_SERVICE);
 		
 		SpecificRestCaller<LoginSession> authenticationService = new SpecificRestCaller<LoginSession>(RestConstant.REST_SERVICE, RestServiceConstant.AUTHENTICATION);
@@ -263,6 +269,8 @@ public class WebGeneralFunction {
 			runtimeUserLogin.setAccessInfo(new ObjectMapper().writeValueAsString(tokenMap));
 			runtimeUserLogin.setUserType(loginSession.getUserType());
 			runtimeUserLogin.setSessionType(SystemConstant.USER_TYPE_INTERNAL);
+			runtimeUserLogin.setToken(token);
+			runtimeUserLogin.setIsGenerateToken(Boolean.TRUE);
 
 
 			AppFunctionRestCaller appFunctionService = new AppFunctionRestCaller();
@@ -315,9 +323,10 @@ public class WebGeneralFunction {
 			String stringCookie = mapper.writeValueAsString(accessInfos);
 			runtimeUserLogin.setAccessInfo(stringCookie);
 			
-			loginDirectoryService.register(runtimeUserLogin);
+			token = loginDirectoryService.register(runtimeUserLogin);
 			request.getSession().setAttribute(SessionConstants.USER_OBJECT_KEY, loginSession);
 			request.getSession(false).setAttribute("menus", menus);
+			return token;
 		}catch (SystemException | JsonProcessingException e) {
 			throw new SystemException(new ErrorHolder("Error Creating Login Session"));
 		}

@@ -10,6 +10,8 @@ import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
 
+import javax.servlet.http.Cookie;
+
 import org.apache.commons.codec.binary.Base64;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -56,6 +58,22 @@ public class GeneralFunctions {
 			return new String(Base64.decodeBase64(decoded1.getBytes()));
 		} catch (Exception e) {}
 		return null;
+	}
+	
+	public static String encodeFromMap(Map<String, String> cookieMap) {
+		try {
+			String encoded = Base64.encodeBase64String(new ObjectMapper().writeValueAsString(cookieMap).getBytes());
+				encoded = Base64.encodeBase64String((encoded+JSONConstant.RANDOM_TOKEN).getBytes());
+			return encoded;
+		} catch (Exception e) {}
+		return null;
+	}
+	
+	public static Cookie buildCookie(String context, Map<String, String> tokenMap) {
+		Cookie cookie = new Cookie(JSONConstant.KEY_TOKEN, GeneralFunctions.encodeFromMap(tokenMap));
+			cookie.setMaxAge(GeneralFunctions.getExpiryFromToken(tokenMap.get("expiredTime")));
+			cookie.setPath(context);
+		return cookie;
 	}
 
 	public static int getExpiryFromToken(String token) {

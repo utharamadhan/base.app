@@ -24,8 +24,8 @@ public class LoginRestCaller{
 		super();
 	}
 	
-	public void register(RuntimeUserLogin userLogin) throws SystemException {
-		new SpecificRestCaller<RuntimeUserLogin>(RestConstant.REST_SERVICE, RestServiceConstant.LOGIN_SERVICE).executePost("/register", userLogin);
+	public String register(RuntimeUserLogin userLogin) throws SystemException {
+		return (String) new SpecificRestCaller<RuntimeUserLogin>(RestConstant.REST_SERVICE, RestServiceConstant.LOGIN_SERVICE).performPostReturn("/register", userLogin, String.class);
 	}
 	
 	public void unregister(Long userPK) throws SystemException {

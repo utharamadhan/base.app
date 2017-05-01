@@ -7,6 +7,7 @@ import id.base.app.exception.ErrorHolder;
 import id.base.app.exception.SystemException;
 import id.base.app.rest.RestConstant;
 import id.base.app.service.AuthenticationService;
+import id.base.app.service.login.LoginDirectoryService;
 import id.base.app.util.DateTimeFunction;
 import id.base.app.valueobject.AppUser;
 import id.base.app.valueobject.party.Party;
@@ -31,7 +32,9 @@ public class AuthenticationController {
 	
 	@Autowired
 	AuthenticationService<LoginSession> authenticationService;
-	
+	@Autowired
+	private LoginDirectoryService loginService;
+
 	private static final Map<String,String> AUTH_MAPPING = new HashMap<String, String>();
 	static{
 		AUTH_MAPPING.put("u", "userName");
@@ -85,4 +88,11 @@ public class AuthenticationController {
 			return false;
 		}
 	}
+	
+	@RequestMapping(value="/isTokenValid/{userId}/{token}")
+	@ResponseBody
+	public Boolean isTokenValid(@PathVariable(value="userId") String userId, @PathVariable(value="token") String token) throws SystemException {
+		return loginService.isTokenValid(userId, token);
+	}
+	
 }
