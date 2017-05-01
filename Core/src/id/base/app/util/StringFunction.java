@@ -10,6 +10,8 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.security.MessageDigest;
 import java.text.DecimalFormat;
+import java.text.Normalizer;
+import java.text.Normalizer.Form;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -517,6 +519,29 @@ public class StringFunction extends DateTimeFunction {
 		    }
 		} catch (Exception e) {}
 		return sb.toString();
+	}
+	
+	
+	public static String toPrettyURL(String string) {
+	    return Normalizer.normalize(string.toLowerCase(), Form.NFD)
+	        .replaceAll("\\p{InCombiningDiacriticalMarks}+", "")
+	        .replaceAll("[^\\p{Alnum}]+", "-");
+	}
+	
+	public static String generatePermalink(List<String> permalinkDBList, String permalink){
+		if(!permalinkDBList.isEmpty()){
+			for(int i = 0;;i++){
+				String idx = "";
+				if(i>0){
+					idx = String.valueOf(i);
+				}
+				if(!permalinkDBList.contains(permalink+idx)){
+					permalink = permalink+idx;
+					break;
+				}
+			}
+		}
+		return permalink;
 	}
 	
 }

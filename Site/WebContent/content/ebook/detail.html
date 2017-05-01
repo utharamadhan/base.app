@@ -1,10 +1,7 @@
-
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1"/>
-<meta name="author" content="Mardy Jonathan"/>
-<title></title>
 </head>
 <body>
 		<div class="breadcrumb-wrapper">
@@ -12,28 +9,29 @@
 				<div class="container">
 					<ul>
 					<li><a th:href="@{/}">Home</a></li>
-					<li><a th:href="@{/page/ebook}">Ebook</a></li>
-					<li><a href="#">Detail Ebook</a></li>
+					<li><a th:href="@{/page/ebook}">Buku Elektronik</a></li>
+					<li><a href="#">Buku Elektronik Detail</a></li>
 					</ul>
 				</div>
 			</div>
 		</div>
-		<div class="content_top">
+		<div class="content_top hexa-top-right">
 			<div class="container">
 				<div class="row">
-					<div class="col-xs-12 col-sm-3">
-						<img th:src="${detail.encodedPicture}"/>
-					</div>
-					<div class="col-xs-12 col-sm-9">
+					<div class="col-md-8">
 						<div class="content_left">
-							<h1>Description</h1>
-							<div th:utext="${detail.description}">
-							</div>
-						</div><!--end content left-->
-						<div class="content_left">
-							<div><button type="button" class="btn btn-primary btn-lg" id="download">Download<span class="glyphicon glyphicon-download" style="padding-left: 5px;"></span></button></div>
-							<input type="hidden" name="identity" th:value="${detail.pkDigitalBook}"/>
+							<h1 th:utext="${detail.title}"></h1>
+							<div class="bottom-left-yellow"></div>
+							<div class="bottom-right-blue"></div>
+							<div class="clear"></div>
+							<div class="content_wrapper" th:utext="${detail.description}"></div>
 						</div>
+					</div>
+					<div class="col-md-4">
+						<img class="image_main" th:src="${detail.encodedPicture}"/>
+						<br/><br/>
+						<div><button type="button" class="btn btn-primary btn-lg" id="download">Download<span class="glyphicon glyphicon-download" style="padding-left: 5px;"></span></button></div>
+						<input type="hidden" name="identity" th:value="${detail.pkDigitalBook}"/>
 					</div>
 				</div>
 				<hr/>

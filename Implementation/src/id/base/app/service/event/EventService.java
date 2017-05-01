@@ -71,5 +71,15 @@ public class EventService implements IEventService {
 	public List<Event> findLatestEventUpcoming(int number) throws SystemException {
 		return eventDAO.findLatestEventUpcoming(number);
 	}
+	
+	@Override
+	public List<String> getSamePermalink(Long pk, String permalink) throws SystemException {
+		return eventDAO.getSamePermalink(pk, permalink);
+	}
+	
+	@Override
+	public Event findByPermalink(String permalink) throws SystemException {
+		return eventDAO.findByPermalink(permalink);
+	}
 
 }

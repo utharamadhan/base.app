@@ -13,6 +13,7 @@ import java.util.List;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.hibernate.Criteria;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
@@ -64,14 +65,14 @@ public class ProgramPostDAO extends AbstractHibernateDAO<ProgramPost, Long> impl
 		crit.addOrder(Order.desc(ProgramPost.PK_PROGRAM_POST));
 		crit.setMaxResults(number);
 		crit.setProjection(Projections.projectionList().
-				add(Projections.property(ProgramPost.PK_PROGRAM_POST)).
+				add(Projections.property(ProgramPost.PERMALINK)).
 				add(Projections.property(ProgramPost.TITLE)));
 		crit.setResultTransformer(new ResultTransformer() {
 			@Override
 			public Object transformTuple(Object[] tuple, String[] aliases) {
 				ProgramPost obj = new ProgramPost();
 				try {
-					BeanUtils.copyProperty(obj, ProgramPost.PK_PROGRAM_POST, tuple[0]);
+					BeanUtils.copyProperty(obj, ProgramPost.PERMALINK, tuple[0]);
 					BeanUtils.copyProperty(obj, ProgramPost.TITLE, tuple[1]);
 				} catch (Exception e) {
 					LOGGER.error(e.getMessage(), e);
@@ -85,5 +86,41 @@ public class ProgramPostDAO extends AbstractHibernateDAO<ProgramPost, Long> impl
 			}
 		});
 		return crit.list();
+	}
+	
+	@Override
+	public List<String> getSamePermalink(Long pk, String permalink) throws SystemException {
+		Criteria crit = getSession().createCriteria(ProgramPost.class);
+		crit.add(Restrictions.like(ProgramPost.PERMALINK, permalink, MatchMode.START));
+		if(pk!=null){
+			crit.add(Restrictions.ne(ProgramPost.PK_PROGRAM_POST, pk));
+		}
+		crit.setProjection(Projections.projectionList().add(Projections.property("permalink")));
+		crit.setResultTransformer(new ResultTransformer() {
+			@Override
+			public Object transformTuple(Object[] tuple, String[] aliases) {
+				String r = null;
+				try{
+					r = tuple[0].toString();
+				}catch(Exception e){
+					LOGGER.error(e.getMessage(), e);
+				}
+				return r;
+			}
+			
+			@Override
+			public List<?> transformList(List collection) {
+				return collection;
+			}
+		});
+		return crit.list();
+	}
+	
+	@Override
+	public ProgramPost findByPermalink(String permalink) throws SystemException {
+		Criteria criteria = getSession().createCriteria(ProgramPost.class);
+		criteria.add(Restrictions.eq(ProgramPost.PERMALINK, permalink));
+		criteria.add(Restrictions.eq(ProgramPost.STATUS, ILookupConstant.ArticleStatus.PUBLISH));
+		return (ProgramPost) criteria.uniqueResult();
 	}
 }

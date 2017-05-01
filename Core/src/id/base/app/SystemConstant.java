@@ -20,6 +20,8 @@ import org.slf4j.LoggerFactory;
 public class SystemConstant  {
 	static Logger logger = LoggerFactory.getLogger(SystemConstant.class);
 	
+	public static final String SHARE_SESSION_INFO = "share-session-info";
+	
 	public static final String SALT = "...-baseapp-...";
 	
 	public static final String GLOBAL_PATH = "/project/baseApp/";

@@ -232,7 +232,6 @@ h4.modal-title{
     text-transform: capitalize;
     padding: 9px 0;
     display: block;
-    border-bottom: 1px solid #e2e3e4;
 }
 .dropdown-menu>li.active>a {
     background: none;
@@ -250,7 +249,7 @@ h4.modal-title{
     box-shadow: none;
     -webkit-box-shadow: none;
 	background-image:url("../images/background-submenu.jpg");
-	opacity: .97;
+	opacity: .98;
 }
 .mega-dropdown-menu > li > ul {
   padding: 0;
@@ -348,7 +347,6 @@ h4.modal-title{
     float: left;
     height: auto;
     position: relative;
-    background: white;
 }
 .banner .slides {
     position: relative;
@@ -477,7 +475,7 @@ h4.modal-title{
     width: 100%;
     float: left;
     height: auto;
-	padding: 150px 0 42px 0;
+	padding: 150px 0 0 0;
     background: #ecf3f7;
 	background-image: url("../images/background_header.jpg");
 	background-attachment: fixed;
@@ -665,14 +663,9 @@ h4.modal-title{
     float: left;
     height: auto;
     padding: 25px 0px;
-    background: rgba(246,244,244,1);
-    background: -moz-linear-gradient(top, rgba(246,244,244,1) 0%, rgba(240,240,240,1) 47%, rgba(230,227,227,1) 100%);
-    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(246,244,244,1)), color-stop(47%, rgba(240,240,240,1)), color-stop(100%, rgba(230,227,227,1)));
-    background: -webkit-linear-gradient(top, rgba(246,244,244,1) 0%, rgba(240,240,240,1) 47%, rgba(230,227,227,1) 100%);
-    background: -o-linear-gradient(top, rgba(246,244,244,1) 0%, rgba(240,240,240,1) 47%, rgba(230,227,227,1) 100%);
-    background: -ms-linear-gradient(top, rgba(246,244,244,1) 0%, rgba(240,240,240,1) 47%, rgba(230,227,227,1) 100%);
-    background: linear-gradient(to bottom, rgba(246,244,244,1) 0%, rgba(240,240,240,1) 47%, rgba(230,227,227,1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6f4f4', endColorstr='#e6e3e3', GradientType=0 );
+    background-image: url(/Site/images/background_footer.png), linear-gradient(to bottom, rgba(246,244,244,1) 0%, rgba(240,240,240,1) 47%, rgba(230,227,227,1) 100%);
+    background-repeat: no-repeat;
+    background-position: right top;
 }
 .menuFooter h4{
 	color: #004fb6;
@@ -724,6 +717,14 @@ h4.modal-title{
 }
 .content_top p {
     margin: 0 0 25px;
+}
+.content_wrapper{
+	margin-top:15px;
+}
+.image_main{
+	-webkit-box-shadow: 10px 10px 50px 0px rgba(0,0,0,0.75);
+	-moz-box-shadow: 10px 10px 50px 0px rgba(0,0,0,0.75);
+	box-shadow: 10px 10px 50px 0px rgba(0,0,0,0.75);
 }
 .content_left ul {
     float: left;
@@ -1002,6 +1003,13 @@ h4.modal-title{
     bottom: 0;
     margin-top: 80px;
 }
+.top_post_section {
+    width: 100%;
+    float: left;
+    height: auto;
+    padding: 30px;
+    border-bottom: 1px solid #dce4ea;
+}
 .post_section {
     width: 100%;
     float: left;
@@ -1016,22 +1024,108 @@ h4.modal-title{
     padding-right: 30px;
     border-right: 1px solid #dce4ea;
 }
-.post {
+.post{
     width: 100%;
     float: left;
     height: auto;
-    margin: 0 0 30px;
-    border-bottom: 1px solid #dce4ea;
+    margin: 0 0 20px;
+    border: 1px solid #ececec;
+    background: rgba(246, 246, 246, 0.9);
+    box-shadow: 0 1px 4px rgba(0,0,0,.23);
 }
-.post_thumb {
+.post-small-polygon1{
+	-webkit-clip-path: polygon(50% 0, 100% 17%, 100% 100%, 0 100%, 0 17%);
+    clip-path: polygon(50% 0, 100% 17%, 100% 100%, 0 100%, 0 17%);
+    margin-bottom: 20px!important;
+}
+.post-polygon1{
+	-webkit-clip-path: polygon(50% 0, 100% 15%, 100% 100%, 0 100%, 0 15%);
+    clip-path: polygon(50% 0, 100% 15%, 100% 100%, 0 100%, 0 15%);
+}
+.post-polygon2{
+    -webkit-clip-path: polygon(24% 0%, 100% 0, 100% 100%, 26% 100%, 0% 78%, 0% 25%);
+    clip-path: polygon(24% 0%, 100% 0, 100% 100%, 26% 100%, 0% 78%, 0% 25%);
+}
+.post .post_thumb {
     width: 100%;
     float: left;
     height: auto;
     margin: 0 0 13px;
+    position: relative;
 }
-.post_thumb>img {
+.post-polygon1 .post_thumb{
+	margin: 0 0 13px;
+}
+.post-polygon2 .post_thumb{
+	margin: 0px;
+}
+.post .post_thumb_wrapper, .post .post_thumb>img {
     width: 100%;
     float: left;
+    -webkit-clip-path: polygon(50% 0%, 100% 20%, 100% 80%, 50% 100%, 0 80%, 0 20%);
+    clip-path: polygon(50% 0%, 100% 20%, 100% 80%, 50% 100%, 0 80%, 0 20%);
+}
+.post img.show_detail {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.post .post_thumb .overlay {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 79, 182, 0.8);
+  overflow: hidden;
+  width: 100%;
+  height:0;
+  transition: .5s ease;
+  -webkit-clip-path: polygon(50% 0%, 100% 20%, 100% 80%, 50% 100%, 0 80%, 0 20%);
+  clip-path: polygon(50% 0%, 100% 20%, 100% 80%, 50% 100%, 0 80%, 0 20%);
+}
+
+.post .post_thumb:hover .overlay {
+  bottom: 0;
+  height: 100%;
+}
+
+.post .post_thumb .overlay .text {
+  white-space: nowrap; 
+  color: white;
+  font-size: 20px;
+  position: absolute;
+  overflow: hidden;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+}
+.post h2 a{
+	font-size: 15px;
+    line-height: 1.5;
+}
+.post-small-polygon1 h2 a label{
+	padding: 10px;	
+}
+.post-polygon1 h2 a label{
+	padding:5px 20px;	
+}
+.post-polygon2 h2 a label{
+	padding: 26px 20px 0px 0px;	
+}
+.post .date-wrapper{
+	color: #bdbdbd;
+	font-size: 12px;
+}
+.post .date-icon{
+	margin-right:10px;	
+}
+.bottom-left-yellow{
+	background-color:#FFDE00;width:50%;float:left;height:3px;
+}
+.bottom-right-blue{
+	background-color:#004fb6;width:50%;float:left;height:3px;
 }
 .meta {
     width: 100%;
@@ -1355,7 +1449,7 @@ ul.channel-links li{
     padding-top: 25px!important;
     padding-bottom: 25px!important;
 }
-.navbar-nav li.navbar-active{
+.navbar-nav li.navbar-active, .menu_left li.menu_left_active{
 	background-color:#004fb6;
 	color:white;
 	border-radius:4px;
@@ -2441,9 +2535,10 @@ ul.channel-links li{
     float: left;
     height: auto;
     border: 1px solid #dce4ea;
-    padding: 15px 12px 25px;
+    padding: 12px;
     border-top: 3px solid #49c32c;
     margin: 0 0 20px;
+    background-color:rgba(255,255,255,0.8);
 }
 .full_banner {
     width: 100%;
@@ -2482,7 +2577,7 @@ ul.channel-links li{
 .fc-toolbar {
     border-left: 2px solid #dce4ea;
     margin: 0;
-    padding: 40px 34px;
+    padding: 25px 34px;
 }
 .fc td,
 .fc th {
@@ -2947,7 +3042,8 @@ p>a:hover {
 .contact_map {
     width: 100%;
     float: left;
-    height: auto;
+    height:303px;
+    border-bottom:3px solid #FFDE00;
 }
 .contact_form {
     width: 100%;
@@ -2965,7 +3061,14 @@ p>a:hover {
 }
 ul.menu_left li{
 	width:100%;
-	padding: 10px 20px;
+	padding:10px 20px;
+	cursor:pointer;
+}
+ul.menu_left li:hover{
+	background-color:#004fb6;
+    transition:all 0.5s ease;
+    color: white;
+    border-radius: 4px;
 }
 ul.contact_info {
     width: 100%;
@@ -3008,9 +3111,12 @@ ul.contact_info li a:hover {
 .list_block.custom h4 {
     font-weight: 400;
     font-family: "Open Sans", sans-serif;
-    margin: 10px 0 20px;
+    padding: 10px;
     float: left;
     width: 100%;
+    background-color: #feed01;
+    color: #004fb6;
+    margin-bottom: 10px;
 }
 .single_banner_inner img {
     width: 100%;
@@ -3026,12 +3132,8 @@ ul.contact_info li a:hover {
     line-height: 45px;
     text-align: center;
     width: 45px;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    border-radius: 50%;
-    -webkit-opacity: 1;
-    -moz-opacity: 1;
-    opacity: 1;
+    -webkit-clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
 }
 .socialFollow .fa:hover {
     opacity: 0.8;
@@ -3051,9 +3153,7 @@ ul.contact_info li a:hover {
 }
 .ebook_section .post .post_thumb{
 	margin: 0px;
-}
-.ebook_section .post .post_thumb>img{
-	max-height:240px;
+	max-height:215px;
 	overflow:hidden;
 }
 .button-group{
@@ -3362,6 +3462,9 @@ ul.contact_info li a:hover {
 .card-box{
 	border:1px solid #ececec;
 	background:#f6f6f6;
+	box-shadow: 0 1px 4px rgba(0,0,0,.23);
+	-webkit-clip-path: polygon(50% 0, 100% 14%, 100% 100%, 0 100%, 0 14%);
+    clip-path: polygon(50% 0, 100% 14%, 100% 100%, 0 100%, 0 14%);
 }
 .card-box .card-image img{
 	max-width:100%;
@@ -3391,18 +3494,31 @@ ul.contact_info li a:hover {
 .advisory-category-search{
 	padding:10px 0px;
 }
+.btn{
+	-webkit-clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    height: 48px;
+}
 .button-blue{
-	background-color:#005b9e;
-	width:150px;
-	float:right;
-	text-align:center;
-	color:white;
-	padding:5px;
-	font-size:16px;
-	font-weight:600;
-	cursor:pointer;
-	box-shadow: 0 5px 15px rgba(0,0,0,.2);
-    border-radius: 25px;
+	background-color: #005b9e;
+    width: 150px;
+    float: right;
+    text-align: center;
+    color: white;
+    padding: 13px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0,0,0,.2);
+    -webkit-clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    height: 50px;
+    -moz-transition: all 0.3s;
+  	-webkit-transition: all 0.3s;
+  	transition: all 0.3s;
+}
+.button-blue:hover{
+	background-color: #004fb6;
 }
 .hr{
 	clear:both!important;
@@ -3435,6 +3551,18 @@ ul.contact_info li a:hover {
 }
 .no-border-right{
 	border-right:0px solid white;
+}
+.contact-us-wrapper{
+	background-image: url(/Site/images/background_contact.jpg);
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.hexa-top-right{
+	background-image:url('/Site/images/background_detail.png');
+	background-repeat: no-repeat; 
+	background-position: right top;
 }
 @media only screen and (max-width: 479px) {
     .img-responsive {
@@ -5487,8 +5615,8 @@ ul.contact_info li a:hover {
 
 .hexagon_learning{
 	position: absolute;
-	top: -78px;
-	left: 165px;
+	top: -70px;
+	left: 275px;
 	z-index: 999;
 }
 
@@ -5601,8 +5729,8 @@ ul.contact_info li a:hover {
 
 .hexagon_advisory{
 	position: absolute;
-    top: 185px;
-    left: -38px;
+    top: 170px;
+    left: 76px;
     z-index: 2;
 }
 
@@ -5612,7 +5740,7 @@ ul.contact_info li a:hover {
 
 .hexagon_research{
 	position: absolute;
-    top: -20px;
+    top: -45px;
     left: -125px;
     z-index: 2;
 }
@@ -5685,13 +5813,13 @@ ul.contact_info li a:hover {
 
 .hexa_position5{
 	position: absolute;
-	top: 190px;
-	left: 80px;
+	top: 178px;
+	left: 102px;
 }
 
 .housing_index{
 	position: relative;
-    top: 375px;
+    top: 335px;
     right: 855px;
     width: 490px;
 }
@@ -6139,3 +6267,22 @@ ul.contact_info li a:hover {
 			border-left: 28.87px solid #faea33;
 			top: 0px;
 		}		
+		
+.learning_text{
+	position: absolute;
+    left: 100px;
+    top: -70px;
+}		
+		
+.advisory_text{
+	position: absolute;
+    top: 230px;
+    right: 247px;
+}	
+
+.rnd_text{
+	position: absolute;
+    left: 100px;
+    top: -15px;
+}		
+		

@@ -9,15 +9,38 @@
 			<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d29099.81884449163!2d106.81181274663182!3d-6.171296089925116!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f5d793976c5b%3A0x14833098bae6bb75!2sMenara+Btn%2C+Jl.+Gajah+Mada%2C+North+Petojo%2C+Gambir%2C+Central+Jakarta+City%2C+Jakarta+10130!5e0!3m2!1sen!2sid!4v1492999007087" width="100%" height="300" frameborder="0" style="border:0"></iframe>
 		</div>
 		
-		<div class="custom_content custom">
+		<div class="custom_content custom contact-us-wrapper">
 			<div class="container large">
 				<div class="row">
 					<div class="col-md-4 no-pad-right">
 						<div class="list_block back-gradient-transparent-menu no-border-right">
 							<ul class="menu_left">
-								<li th:each="cat, i : ${category}">
-									<span th:text="${cat.descr}"></span>
-								</li>
+								<th:block th:each="cat, i : ${category}">
+									<th:block th:if="${type!=null}"> 
+										<th:block th:if="${cat.code==type}">
+											<li th:attr="id=${cat.code}" class="menu_left_active" th:classappend="${cat.code}">
+												<span th:text="${cat.descr}"></span>
+											</li>
+										</th:block>
+										<th:block th:if="${cat.code!=type}">
+											<li th:attr="id=${cat.code}" th:class="${cat.code}">
+												<span th:text="${cat.descr}"></span>
+											</li>
+										</th:block>
+									</th:block>
+									<th:block th:if="${type==null}">
+										<th:block th:if="${cat.code=='CC'}">
+											<li th:attr="id=${cat.code}" class="menu_left_active" th:classappend="${cat.code}">
+												<span th:text="${cat.descr}"></span>
+											</li>
+										</th:block>
+										<th:block th:if="${cat.code!='CC'}">
+											<li th:attr="id=${cat.code}" th:class="${cat.code}">
+												<span th:text="${cat.descr}"></span>
+											</li>
+										</th:block>
+									</th:block>
+								</th:block>
 							</ul>
 						</div>
 						<div class="sidebar pad-right">
@@ -45,12 +68,12 @@
 									<li>
 										<div class="row">
 											<div class="col-md-1"><i class="fa fa-envelope"></i></div>
-											<div class="col-md-11"><a href="mailto:tpl@kompas.com">btncontactcenter@btn.co.id</a></div>
+											<div class="col-md-11"><a href="mailto:bona.dvent@gmail.com">btncontactcenter@btn.co.id</a></div>
 										</div>
 									</li>
 								</ul>
 							</div>
-							<div class="list_block">
+							<div class="list_block sidebar_item custom">
 								<h4>Jam Kerja</h4>
 								<ul class="contact_info">
 									<li><strong>Senin-Jumat:</strong> 8am to 8pm</li>
@@ -67,23 +90,12 @@
 							<div class="contact_form">
 									
 								<form method="post" action="#" id="email_form">
-									<div class="row learning" th:if="${T(id.base.app.ILookupConstant.CategoryHelp).PROGRAM == type}">
+									<div class="row PR-content contact-content" style="display:none">
 										<div class="col-xs-12">
 											<div class="form-group">
 												<label>Learning <span class="error">*</span></label>
 												<select class="form-control" name="learning">
 													<option th:each="course, i : ${courses}" th:text="${course.name}" th:value="${course.pkCourse}"></option>
-												</select>
-											</div>
-										</div>
-									</div>
-								
-									<div class="row tema" th:if="${T(id.base.app.ILookupConstant.CategoryHelp).CONSULT == type}">
-										<div class="col-xs-12 col-sm-7">
-											<div class="form-group">
-												<label>Tema <span class="error">*</span></label>
-												<select class="form-control" name="tema">
-													<option th:each="tema, i : ${temas}" th:text="${tema.name}" th:value="${tema.pkLookup}"></option>
 												</select>
 											</div>
 										</div>
@@ -147,6 +159,22 @@
 									
 									<div class="row">
 										<div class="col-xs-12">
+											<div class="form-group">
+												<img th:src="@{/kaptcha}" class="captchaImage"/>
+											</div>
+										</div>
+									</div>	
+									
+									<div class="row">
+										<div class="col-xs-12">
+											<div class="form-group">
+												<input type='text' name='j_captcha_response' value='' />
+											</div>
+										</div>
+									</div>	
+									
+									<div class="row">
+										<div class="col-xs-12">
 											<input type="hidden" name="type" th:value="${type}"/>
 											<input type="button" value="Send" class="button-blue submit_btn" id="sendEmail" />
 										</div>
@@ -167,6 +195,18 @@
 				var sURL = /*[[@{/page/contact/sendEmail}]]*/ #;
 				sendEmail(sURL);
 			});
+			var runFirst = function(){
+				$('.contact-content').hide();
+				$('.'+[[${type}]]+"-content").show();	
+			}
+			runFirst();
+			
+			$('.menu_left li').click(function(){
+				$('.menu_left li.menu_left_active').removeClass('menu_left_active');
+				$(this).addClass('menu_left_active');
+				$('.contact-content').hide();
+				$('.'+$(this).attr('id')+"-content").show();
+			});
 		})      
 		
 		function sendEmail(sURL){
@@ -183,15 +223,23 @@
 			    	}else{
 			    		alert(data.message);
 			    	}
+			    	var generateCaptcha = /*[[@{/kaptcha}]]*/;
+		    		$('.captchaImage').attr('src',generateCaptcha);
 			    },beforeSend: function($jqXHR, $textStatus){
+			    	var generateCaptcha = /*[[@{/kaptcha}]]*/;
+		    		$('.captchaImage').attr('src',generateCaptcha);
 					$('.submit_btn').disableBtn({enabled:false});
 					$('.mrdy_overlay').html('<div class="col-md-12 loading_reload" style="display: block; margin-left: auto; margin-right: auto;text-align: center;top: 40%;"><img src="'+img_url+'" /></div>');
 				},
 				error: function ($jqXHR, $textStatus, $errorThrown) {
+					var generateCaptcha = /*[[@{/kaptcha}]]*/;
+		    		$('.captchaImage').attr('src',generateCaptcha);
 					$('.loading_reload').remove();
 					$('.submit_btn').disableBtn({enabled:true});
 				},
 				complete: function($jqXHR, $textStatus){
+					var generateCaptcha = /*[[@{/kaptcha}]]*/;
+		    		$('.captchaImage').attr('src',generateCaptcha);
 					$('.loading_reload').remove();
 					$('.submit_btn').disableBtn({enabled:true});
 				} 

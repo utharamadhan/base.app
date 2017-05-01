@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -40,6 +41,11 @@ public class DigitalBookController extends SuperController<DigitalBook>{
 		}
 		if(StringFunction.isEmpty(anObject.getTitle())) {
 			errorList.add(new ErrorHolder(DigitalBook.TITLE, messageSource.getMessage("error.mandatory", new String[]{"title"}, Locale.ENGLISH)));
+		}else{
+			String permalink = StringFunction.toPrettyURL(anObject.getTitle());
+			List<String> permalinkDBList = digitalBookService.getSamePermalink(anObject.getPkDigitalBook(), permalink);
+			permalink = StringFunction.generatePermalink(permalinkDBList, permalink);
+			anObject.setPermalink(permalink);
 		}
 		if(StringFunction.isEmpty(anObject.getCoverImageURL())) {
 			errorList.add(new ErrorHolder(DigitalBook.COVER_IMAGE_URL, messageSource.getMessage("error.mandatory", new String[]{"cover"}, Locale.ENGLISH)));
@@ -107,6 +113,12 @@ public class DigitalBookController extends SuperController<DigitalBook>{
 			e.printStackTrace();
 			throw new SystemException(new ErrorHolder("error finding your data"));
 		}
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/findByPermalink/{permalink}")
+	@ResponseBody
+	public DigitalBook findByPermalink(@PathVariable(value="permalink") String permalink) throws SystemException {
+		return digitalBookService.findByPermalink(permalink);
 	}
 	
 }

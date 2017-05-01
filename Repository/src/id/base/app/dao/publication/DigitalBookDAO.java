@@ -13,6 +13,7 @@ import java.util.List;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.hibernate.Criteria;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
@@ -64,14 +65,14 @@ public class DigitalBookDAO extends AbstractHibernateDAO<DigitalBook, Long> impl
 		crit.addOrder(Order.desc(DigitalBook.PK_DIGITAL_BOOK));
 		crit.setMaxResults(number);
 		crit.setProjection(Projections.projectionList().
-				add(Projections.property(DigitalBook.PK_DIGITAL_BOOK)).
+				add(Projections.property(DigitalBook.PERMALINK)).
 				add(Projections.property(DigitalBook.TITLE)));
 		crit.setResultTransformer(new ResultTransformer() {
 			@Override
 			public Object transformTuple(Object[] tuple, String[] aliases) {
 				DigitalBook obj = new DigitalBook();
 				try {
-					BeanUtils.copyProperty(obj, DigitalBook.PK_DIGITAL_BOOK, tuple[0]);
+					BeanUtils.copyProperty(obj, DigitalBook.PERMALINK, tuple[0]);
 					BeanUtils.copyProperty(obj, DigitalBook.TITLE, tuple[1]);
 				} catch (Exception e) {
 					LOGGER.error(e.getMessage(), e);
@@ -85,6 +86,42 @@ public class DigitalBookDAO extends AbstractHibernateDAO<DigitalBook, Long> impl
 			}
 		});
 		return crit.list();
+	}
+	
+	@Override
+	public List<String> getSamePermalink(Long pk, String permalink) throws SystemException {
+		Criteria crit = getSession().createCriteria(DigitalBook.class);
+		crit.add(Restrictions.like(DigitalBook.PERMALINK, permalink, MatchMode.START));
+		if(pk!=null){
+			crit.add(Restrictions.ne(DigitalBook.PK_DIGITAL_BOOK, pk));
+		}
+		crit.setProjection(Projections.projectionList().add(Projections.property("permalink")));
+		crit.setResultTransformer(new ResultTransformer() {
+			@Override
+			public Object transformTuple(Object[] tuple, String[] aliases) {
+				String r = null;
+				try{
+					r = tuple[0].toString();
+				}catch(Exception e){
+					LOGGER.error(e.getMessage(), e);
+				}
+				return r;
+			}
+			
+			@Override
+			public List<?> transformList(List collection) {
+				return collection;
+			}
+		});
+		return crit.list();
+	}
+	
+	@Override
+	public DigitalBook findByPermalink(String permalink) throws SystemException {
+		Criteria criteria = getSession().createCriteria(DigitalBook.class);
+		criteria.add(Restrictions.eq(DigitalBook.PERMALINK, permalink));
+		criteria.add(Restrictions.eq(DigitalBook.STATUS, ILookupConstant.ArticleStatus.PUBLISH));
+		return (DigitalBook) criteria.uniqueResult();
 	}
 
 }

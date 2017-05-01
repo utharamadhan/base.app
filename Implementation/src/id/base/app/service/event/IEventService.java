@@ -15,4 +15,8 @@ public interface IEventService extends MaintenanceService<Event> {
 	public List<Event> findUpcoming(List<SearchFilter> filter, List<SearchOrder> order) throws SystemException;
 
 	public List<Event> findLatestEventUpcoming(int number) throws SystemException;
+
+	public List<String> getSamePermalink(Long pk, String permalink) throws SystemException;
+
+	public Event findByPermalink(String permalink) throws SystemException;
 }

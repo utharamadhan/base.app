@@ -62,4 +62,13 @@ public class DigitalBookService implements IDigitalBookService {
 		return digitalBookDAO.findLatestEbook(number);
 	}
 
+	@Override
+	public List<String> getSamePermalink(Long pk, String permalink) throws SystemException {
+		return digitalBookDAO.getSamePermalink(pk, permalink);
+	}
+	
+	@Override
+	public DigitalBook findByPermalink(String permalink) throws SystemException {
+		return digitalBookDAO.findByPermalink(permalink);
+	}
 }

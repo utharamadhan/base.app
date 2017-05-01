@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:ifs="http://btn.co.id">
+<head>
+<meta charset="ISO-8859-1"/>
+<title>Engagement</title>
+</head>
+<style>
+.dataTables_scrollBody {
+	height : auto !important;
+	min-height : 120px;
+}
+</style>
+<body>
+<div id="content" class="col-md-12">
+	<div id="engagement-detail-container"></div>
+	<div id="engagement-list-container">
+	<div class="pageheader">
+		<h4><i class="fa fa-shopping-basket"></i> Activity / Engagement List
+		<span></span></h4>
+	</div>
+	<div class="col-md-4 tile-body no-vpadding" style="margin:10px;">
+		<a href="#" id="engagement-btn-add" class="btn btn-primary" style="margin-bottom:5px"><i class="fa fa-plus dropdown-plus"></i> &nbsp; Add</a>
+	</div>
+	<div class="main">
+		<div class="row">
+			<div class="col-md-12">	
+				<section class="tile transparent">
+					<div class="table-responsive">
+						<div class="tile-body rounded-corners">
+	                      	<table id="engagement-list-table" class="table table-datatable table-custom">
+		                        <thead>
+		                          <tr>
+									<th>Title</th>
+									<th>Status</th>
+									<th>E/D</th>
+		                          </tr>
+		                        </thead>
+	                     	</table>
+	                     	<div style="padding-bottom: 3px; bottom: 0;" th:replace="pagingDiv::pager (${pagingWrapper}, ${#dates.createNow()}, 'engagement-list-table', 'contentArea')">
+							</div>
+                     	</div>
+					</div>
+				</section>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script th:inline="javascript">
+	/*<![CDATA[*/
+		function showAdd() {
+	    	var sURL = /*[[@{/do/activity/engagement/showAdd?skipdecorator=}]]*/ #;
+	    	showScreen('engagement-list-container', 'engagement-detail-container', sURL);
+		}
+		
+		function showDetail(maintenancePK) {
+			var sURL = /*[[@{/do/activity/engagement/showEdit?maintenancePK=}]]*/ #;
+			showScreen('engagement-list-container', 'engagement-detail-container', sURL + maintenancePK + "&skipdecorator=");
+		}
+		
+		function deleteItem(maintenancePK) {
+			var callbackDelete = function(result) {
+				if (result) {
+					var sURL = /*[[@{/do/activity/engagement/delete?}]]*/ #;
+					var serializedData = "maintenancePKs=" + maintenancePK;
+					$.post(sURL, serializedData,function(data){
+						if(data.errorList!=null){
+							//show error message
+						}else{
+							search();
+						}
+					});
+				}
+			}
+			bootBoxConfirmation(callbackDelete);
+		}
+		
+		function deleteEngagement() {
+			var sURL = /*[[@{/do/activity/engagement/deleteEngagement?skipDecorator}]]*/ #;
+			$.post(sURL, $('.engagement-list-check-delete').serialize(), function(data){
+				if(data.errorList!=null){
+					
+				}else{
+					location.reload(true);
+				}
+			});
+		}
+	
+	    $(function(){
+		    setMenuActive('engagement');
+		    var colDefs = [{ name : "title" },
+		                   { name : "statusStr" },
+	    	               { type : "deleteAndEdit" , param : [ "pkEngagement" ] }
+	    	               ];
+		    var sURL = /*[[@{/do/activity/engagement/list?}]]*/ #;
+		    buildDataTable(/*[[@{/}]]*/, sURL, 'engagement-list-table', 450, colDefs, null, null);
+	    });
+	    
+		$('#engagement-btn-add').click(function(){
+			showAdd();
+		});
+		
+		$('#engagement-btn-delete').click(function(){
+			deleteEngagement();
+		});
+		
+	/*]]>*/
+</script>
+</body>
+</html>

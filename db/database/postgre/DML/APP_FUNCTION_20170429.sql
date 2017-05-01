@@ -1,0 +1,2 @@
+UPDATE APP_FUNCTION SET ACCESS_PAGE = '/do/activity/program/showList' WHERE PK_APP_FUNCTION = 620;
+COMMIT;

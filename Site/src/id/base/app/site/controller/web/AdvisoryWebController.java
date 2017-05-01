@@ -29,6 +29,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.code.kaptcha.Constants;
+
 import id.base.app.SystemConstant;
 import id.base.app.exception.ErrorHolder;
 import id.base.app.paging.PagingWrapper;
@@ -416,79 +418,93 @@ public class AdvisoryWebController {
 		String contactEmail = params.get("email");
 		String contactQuestion = params.get("question");
 		String contactTelp = params.get("telp");
+		String captcha = params.get("j_captcha_response");
 		Long category = params.get("category")!=null && !"".equals(params.get("category")) ? new Long(params.get("category")) : 0L;
 		Long article = params.get("research")!=null && !"".equals(params.get("research")) ? new Long(params.get("research")) : 0L;
 		Long advisor = params.get("advisor")!=null && !"".equals(params.get("advisor")) ? new Long(params.get("advisor")) : 0L;
 		
-		if(contactName == null || contactEmail == null || contactQuestion == null || "".equals(contactName) || "".equals(contactEmail) || "".equals(contactQuestion)){
+		if(contactName == null || contactEmail == null || contactQuestion == null || "".equals(contactName) || "".equals(contactEmail) || "".equals(contactQuestion) || (captcha == null || "".equals(captcha))){
 			resultMap.put("success", false);
 	         resultMap.put("message", "Your question failed to processed, There was an empty field!");
 	         return resultMap;
 		}
 		
-		//Save Advisory
-		Advisory advisory = Advisory.getInstance();
-		advisory.setName(contactName);
-		advisory.setEmail(contactEmail);
-		advisory.setTelp(contactTelp);
-		advisory.setQuestion(contactQuestion);
-		advisory.setStatus(SystemConstant.StatusAdvisory.NEW);
-		if(category.compareTo(0L)>0){
-			Category dataCategory = getRestCallerCategory().findById(category);
-			advisory.setCategory(dataCategory);
-		}
-		if(article.compareTo(0L)>0){
-			Article dataArticle = getRestCallerArticle().findById(article);
-			advisory.setArticle(dataArticle);
-		}
-		if(advisor.compareTo(0L)>0){
-			AppUser dataAppUser = getRestCallerUser().findById(advisor);
-			advisory.setTutor(dataAppUser);
-		}
-		List<ErrorHolder> errors = getRestCaller().create(advisory);
-		if(!errors.isEmpty()){
-			resultMap.put("success", false);
-	         resultMap.put("message", "Your question failed to processed, There was an empty field!");
-	         return resultMap;
-		}
+		Boolean isResponseCorrect =Boolean.FALSE;
+		String trueKaptcha = (String) request.getSession().getAttribute(Constants.KAPTCHA_SESSION_KEY);
 		
-		String from = "mardy@infoflow.co.id";
-		String subject = "Contact Email";
-		StringBuffer to = new StringBuffer();
-		to.append(contactEmail);
-		
-		Properties props = new Properties();
-		props.put("mail.smtp.auth", "true");
-		props.put("mail.smtp.starttls.enable", "true");
-		props.put("mail.smtp.host", host);
-		props.put("mail.smtp.port", port);
-		props.put("mail.smtp.from", from);
-
-		Session session = Session.getInstance(props,
-		  new javax.mail.Authenticator() {
-			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication(username, password);
+		if(captcha.equalsIgnoreCase(trueKaptcha)){
+			isResponseCorrect = Boolean.TRUE;
+		}
+         
+         if(isResponseCorrect){
+			//Save Advisory
+			Advisory advisory = Advisory.getInstance();
+			advisory.setName(contactName);
+			advisory.setEmail(contactEmail);
+			advisory.setTelp(contactTelp);
+			advisory.setQuestion(contactQuestion);
+			advisory.setStatus(SystemConstant.StatusAdvisory.NEW);
+			if(category.compareTo(0L)>0){
+				Category dataCategory = getRestCallerCategory().findById(category);
+				advisory.setCategory(dataCategory);
 			}
-		  });
+			if(article.compareTo(0L)>0){
+				Article dataArticle = getRestCallerArticle().findById(article);
+				advisory.setArticle(dataArticle);
+			}
+			if(advisor.compareTo(0L)>0){
+				AppUser dataAppUser = getRestCallerUser().findById(advisor);
+				advisory.setTutor(dataAppUser);
+			}
+			List<ErrorHolder> errors = getRestCaller().create(advisory);
+			if(!errors.isEmpty()){
+				resultMap.put("success", false);
+		         resultMap.put("message", "Your question failed to processed, There was an empty field!");
+		         return resultMap;
+			}
+			
+			String from = "mardyemailaja@gmail.com";
+			String subject = "Contact Email";
+			StringBuffer to = new StringBuffer();
+			to.append(contactEmail);
+			
+			Properties props = new Properties();
+			props.put("mail.smtp.auth", "true");
+			props.put("mail.smtp.starttls.enable", "true");
+			props.put("mail.smtp.host", host);
+			props.put("mail.smtp.port", port);
+			props.put("mail.smtp.from", from);
 	
-		try{
-			 Message message = new MimeMessage(session);
-	         message.setFrom(new InternetAddress(from));
-	         message.setRecipients(Message.RecipientType.TO,
-	             InternetAddress.parse(to.toString()));
-	         message.setSubject(subject);
-	         
-	         String text = "Thank you for contacting us. We will immediately contact you, Thank you!";
-	
-	         message.setText(text);
-	
-	         Transport.send(message);
-	         
-		}catch(MessagingException e) {
-			e.printStackTrace();
-		}
-		resultMap.put("success", true);
-        resultMap.put("message", "Your question successfully been processed");
+			Session session = Session.getInstance(props,
+			  new javax.mail.Authenticator() {
+				protected PasswordAuthentication getPasswordAuthentication() {
+					return new PasswordAuthentication(username, password);
+				}
+			  });
+		
+			try{
+				 Message message = new MimeMessage(session);
+		         message.setFrom(new InternetAddress(from));
+		         message.setRecipients(Message.RecipientType.TO,
+		             InternetAddress.parse(to.toString()));
+		         message.setSubject(subject);
+		         
+		         String text = "Thank you for contacting us. We will immediately contact you, Thank you!";
+		
+		         message.setText(text);
+		
+		         Transport.send(message);
+		         
+			}catch(MessagingException e) {
+				resultMap.put("success", false);
+	 	         resultMap.put("message", "Your email failed to processed");
+			}
+			resultMap.put("success", true);
+	        resultMap.put("message", "Your question successfully been processed");
+        }else{
+	    	 resultMap.put("success", false);
+ 	         resultMap.put("message", "Your email failed to processed");
+	     }
 		return resultMap;
 	}
 	

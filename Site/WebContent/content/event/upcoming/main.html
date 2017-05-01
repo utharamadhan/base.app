@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1"/>
+<meta name="author" content="Mardy Jonathan"/>
+<title></title>
+<style type="text/css">
+</style>
+</head>
+<body>
+		<div class="full_banner">
+			<img th:src="@{/images/banner.jpg}" alt="" />
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="single_caption">
+							<h1>Events Calendar</h1>
+						</div><!--end single caption-->
+					</div>
+				</div>
+			</div>
+		</div><!--end full banner-->  
+		
+		<div class="calendar_outer">
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="event_calendar">
+							<div id="calendar">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!--end calendar outer-->
+		
+		<script type="text/javascript" th:inline="javascript">
+		/*<![CDATA[*/
+		setNavbarActive('publikasi');
+		var sURL = /*[[@{/page/events/loadEvents}]]*/           
+		           
+		$(function(){
+			$('#calendar').fullCalendar({
+				header: {
+					left: 'prev,next today',
+					center: 'title'
+				},
+				editable: true,
+				navLinks: true, // can click day/week names to navigate views
+				eventLimit: true, // allow "more" link when too many events
+				events: {
+					url: sURL,
+					error: function() {
+						$('#script-warning').show();
+					}
+				},
+				loading: function(bool) {
+					$('#loading').toggle(bool);
+				}
+			});
+		});          
+		/*]]>*/
+		</script>
+</body>
+</html>

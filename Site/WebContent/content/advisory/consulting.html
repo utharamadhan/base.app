@@ -203,8 +203,25 @@
 													</div>
 												</div>
 											</div><!--end row-->
-											<input type="button" value="SUBMIT" class="commonBtn mrdy_btn" id="submitQuestion" />
-											<button type="button" class="btn btn-default cancel_ask btn_custom_cancel mrdy_btn">CANCEL</button>
+											
+											<div class="row">
+												<div class="col-xs-12">
+													<div class="form-group">
+														<img th:src="@{/kaptcha}" class="captchaImage"/>
+													</div>
+												</div>
+											</div>	
+											
+											<div class="row">
+												<div class="col-xs-12">
+													<div class="form-group">
+														<input type='text' name='j_captcha_response' value='' />
+													</div>
+												</div>
+											</div>
+											
+											<input type="button" value="SUBMIT" class="commonBtn mrdy_btn btn btn-primary" id="submitQuestion" />
+											<button type="button" class="btn btn-default cancel_ask mrdy_btn" style="margin-left: 10px;">CANCEL</button>
 										</form>
 									</div>  
 									
@@ -294,15 +311,23 @@
 			    	}else{
 			    		alert(data.message);
 			    	}
+			    	var generateCaptcha = /*[[@{/kaptcha}]]*/;
+		    		$('.captchaImage').attr('src',generateCaptcha);
 			    },beforeSend: function($jqXHR, $textStatus){
+			    	var generateCaptcha = /*[[@{/kaptcha}]]*/;
+		    		$('.captchaImage').attr('src',generateCaptcha);
 					$('.mrdy_btn').disableBtn({enabled:false});
 					$('.mrdy_overlay').html('<div class="col-md-12 loading_reload" style="display: block; margin-left: auto; margin-right: auto;text-align: center;top: 40%;"><img src="'+img_url+'" /></div>');
 				},
 				error: function ($jqXHR, $textStatus, $errorThrown) {
+					var generateCaptcha = /*[[@{/kaptcha}]]*/;
+		    		$('.captchaImage').attr('src',generateCaptcha);
 					$('.loading_reload').remove();
 					$('.mrdy_btn').disableBtn({enabled:true});
 				},
 				complete: function($jqXHR, $textStatus){
+					var generateCaptcha = /*[[@{/kaptcha}]]*/;
+		    		$('.captchaImage').attr('src',generateCaptcha);
 					$('.loading_reload').remove();
 					$('.mrdy_btn').disableBtn({enabled:true});
 				} 

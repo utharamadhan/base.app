@@ -2,40 +2,54 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1"/>
-<meta name="author" content="Mardy Jonathan"/>
-<title></title>
 </head>
 <body>
-		<div class="post_section ebook_section">
+		<div class="breadcrumb-wrapper">
+			<div class="breadcrumb">
+				<div class="container">
+					<ul>
+					<li><a th:href="@{/}">Beranda</a></li>
+					<li><a href="#">Buku Elektronik</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="post_section ebook_section hexa-top-right">
 			<div class="container">
-				<form style="background:#eeeeee;padding:10px 0px;">
+				<form class="back-gradient-transparent" style="padding:10px 0px;">
 				<div class="row">
 					<div class="col-md-4"></div>
 					<div class="col-md-4">
-						<input type="text" class="form-control param" placeholder="Enter Keyword..."/>
+						<input type="text" class="form-control param" placeholder="Masukan Kata Kunci..."/>
 					</div>
 					<div class="col-md-4">
-						<button type="button" class="btn btn-danger mrdy_btn search">Search eBook</button>
+						<button type="button" class="btn btn-danger mrdy_btn search">Cari Buku Elektronik</button>
 					</div>
 				</div>
 				</form>
 				<br/>
 				<div class="row list_data">
-					<div id="template" class="col-md-2 data_result" th:each="book, i : ${books.result}">
-						<div class="post">
-								<div class="post_thumb">
-									<img th:src="${book.encodedPicture}" alt="" class="show_detail my_link"/>
-								</div><!--end post thumb-->
-								<h1><a href="#"><label th:text="${book.title}" class="post_title show_detail my_link">Title eBook 1</label></a></h1>
-								<!-- <div class="post_bottom">
-									<ul>
-										<li class="share"><a href=""><img th:src="@{/images/share_icon.png}" alt="" /><span>12</span></a></li>
-										<li class="favorite"><a href=""><img th:src="@{/images/favorite_icon.png}" alt="" /><span>12</span></a></li>
-									</ul>
-								</div> --><!--end post bottom-->
-								<input type="hidden" name="identity" th:value="${book.pkDigitalBook}"/>
-							</div><!--end post-->
-					</div>					
+					<th:block th:each="book , i : ${books.result}">
+						<div id="template" class="col-md-2 data_result">
+							<div class="post post-small-polygon1">
+								<div class="post_thumb_wrapper">
+									<div class="post_thumb">
+										<img th:src="${book.encodedPicture}" alt="" class="show_detail my_link"/>
+										<div class="overlay">
+										    <div class="text show_detail my_link"><i class="fa fa-align-left"></i> Baca</div>
+										</div>
+									</div>
+								</div>
+								<h2><a href="#"><label th:text="${book.title}" class="post_title show_detail my_link"></label></a></h2>
+								<div class="bottom-left-yellow"></div>
+								<div class="bottom-right-blue"></div>
+								<input type="hidden" name="identity" th:value="${book.permalink}"/>
+							</div>
+						</div>
+						<th:block th:if="${i.count % 6 == 0}">
+							<div class="clear"></div>
+						</th:block>
+					</th:block>					
 				</div>
 				<div class="row load_pagination" style="display: none;">
 					<div class="col-md-12">
@@ -62,7 +76,7 @@
 		
 		<script type="text/javascript" th:inline="javascript">
 		/*<![CDATA[*/
-		setNavbarActive('publikasi');		           
+		setNavbarActive('publikasi');
         function showPaging(maxRecord, currentRecord){
 			if(maxRecord <= currentRecord || currentRecord == 0){
 				$('.pagination_part').hide();
@@ -74,9 +88,13 @@
 		function processData(datas, load){
 			var load_content = '';
 			for(var i=0;i<datas.length;i++){
+				if(i%6==0){
+					load_content = load_content + "<div class='clear'></div>";
+				}
 				var cloning = $('.template_part .data_result').eq(0).clone();
 				cloning.find('.post_thumb img').attr('src',datas[i].encodedPicture);
 				cloning.find('.post_title').html(datas[i].title);
+				cloning.find('input[name="identity"]').val(datas[i].permalink);
 				cloning.wrap('<div></div>');
 				if(!load){
 					$('.list_data').append(cloning.parent().html());
@@ -164,13 +182,9 @@
 		        });				
 			});
 			
-			$('.show_detail').unbind('click').click(function(){
-				var param = $(this).parents('.post').find('input[name="identity"]').val();
-				var title = $(this).parents('.post').find('.post_title').html();
-				title = title.replace(/ /g, "-");
-				var link = /*[[@{/page/ebook/detail/}]]*/ '';
-				link = link + param+"/"+title;
-				window.location.href = link;
+			$(document).on('click','.show_detail',function(){
+				var link = /*[[@{/page/ebook/}]]*/ '';
+				window.location.href = link + $(this).parents('.post').find('input[name="identity"]').val();
 			});
 		});
 		/*]]>*/

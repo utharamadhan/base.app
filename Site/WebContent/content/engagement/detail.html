@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1"/>
+</head>
+<body>
+		<div class="breadcrumb-wrapper">
+			<div class="breadcrumb">
+				<div class="container">
+					<ul>
+					<li><a th:href="@{/}">Home</a></li>
+					<li><a th:href="@{/page/engagement}">Engagement List</a></li>
+					<li><a href="#">Engagement Detail</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="content_top hexa-top-right">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-8">
+						<h1 th:utext="${detail.title}"></h1>
+						<div class="bottom-left-yellow"></div>
+						<div class="bottom-right-blue"></div>
+						<div class="clear"></div>
+						<div class="content_wrapper" th:utext="${detail.content}"></div>
+					</div>
+					<div class="col-md-4">
+						<img class="image_main" th:src="${detail.encodedPicture}"/>
+						<label class="date-wrapper"><i class="fa fa-calendar date-icon" aria-hidden="true"></i> <span class="date" th:text="${detail.publishDate!=null?#dates.format(detail.publishDate, T(id.base.app.SystemConstant).SYSTEM_DATE_MONTH_DETAIL):''}"></span></label>
+					</div>
+				</div>
+				<hr/>
+			</div><!--end content top-->
+		</div>
+		
+		<script type="text/javascript" th:inline="javascript">
+		/*<![CDATA[*/
+		setNavbarActive('tentang-kami');
+		/*]]>*/
+		</script>
+</body>
+</html>

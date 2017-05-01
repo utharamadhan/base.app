@@ -11,6 +11,8 @@ import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
+import com.google.code.kaptcha.servlet.KaptchaServlet;
+
 public class SpringWebAppInitializer implements WebApplicationInitializer{
 	@Override
 	public void onStartup(ServletContext container) throws ServletException {
@@ -25,5 +27,9 @@ public class SpringWebAppInitializer implements WebApplicationInitializer{
 				"SpringDispatcher", new DispatcherServlet(appContext));
 		dispatcher.setLoadOnStartup(3);
 		dispatcher.addMapping("/page/*");
+		
+		ServletRegistration.Dynamic kaptcha = container.addServlet("KaptchaServlet", new KaptchaServlet());
+		kaptcha.setLoadOnStartup(4);
+		kaptcha.addMapping("/kaptcha");
 	}
 }

@@ -2,9 +2,11 @@ package id.base.app.site.controller.web;
 
 import id.base.app.ILookupConstant;
 import id.base.app.paging.PagingWrapper;
+import id.base.app.rest.PathInterfaceRestCaller;
 import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
 import id.base.app.rest.RestServiceConstant;
+import id.base.app.rest.SpecificRestCaller;
 import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
@@ -37,16 +39,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 @Scope(value="request")
 @RequestMapping(value="/ebook")
 @Controller
 public class EbookWebController {
 	
 	static Logger LOGGER = LoggerFactory.getLogger(EbookWebController.class);
-	
-	protected ObjectMapper mapper = new ObjectMapper();
 	
 	protected RestCaller<DigitalBook> getRestCaller() {
 		return new RestCaller<DigitalBook>(RestConstant.REST_SERVICE, RestServiceConstant.DIGITAL_BOOK_SERVICE);
@@ -90,23 +88,38 @@ public class EbookWebController {
 		return resultMap;
 	}
 	
-	@RequestMapping(method=RequestMethod.GET, value="/detail/{id}/{title}")
-	public String detail(ModelMap model, HttpServletRequest request, HttpServletResponse response,
-			@PathVariable(value="id") Long id,
-			@PathVariable(value="title") String title
-	){
-		DigitalBook detail = DigitalBook.getInstance();
-		detail = getRestCaller().findById(id);
-		if(detail!=null){
-			if(detail.getTitle()!=null){
-				String dataTitle = detail.getTitle().replace(" ", "-");
-				if(dataTitle.equals(title)){
-					model.addAttribute("detail", detail);
-					return "/ebook/detail";
+	private DigitalBook findByPermalink(final String permalink){
+		DigitalBook detail = new DigitalBook();
+		try{
+			detail = new SpecificRestCaller<DigitalBook>(RestConstant.REST_SERVICE, RestConstant.RM_DIGITAL_BOOK, DigitalBook.class).executeGet(new PathInterfaceRestCaller() {	
+				@Override
+				public String getPath() {
+					return "/findByPermalink/{permalink}";
 				}
-			}
+				
+				@Override
+				public Map<String, Object> getParameters() {
+					Map<String,Object> map = new HashMap<String, Object>();
+					map.put("permalink", permalink);
+					return map;
+				}
+			});
+			
+		}catch(Exception e){
+			detail = null;
 		}
-		LOGGER.error("ERROR DATA NOT VALID");
+		return detail;
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/{permalink}")
+	public String detail(ModelMap model, HttpServletRequest request, HttpServletResponse response,
+			@PathVariable(value="permalink") String permalink){
+		DigitalBook detail = findByPermalink(permalink);
+		if(detail!=null){
+			model.addAttribute("detail", detail);
+			return "/ebook/detail";
+		}
+		LOGGER.error("ERROR DATA NOT FOUND");
 		return "redirect:/page/notfound";
 	}
 	

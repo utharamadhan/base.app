@@ -6,7 +6,6 @@ import id.base.app.paging.PagingWrapper;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.valueobject.aboutUs.Engagement;
-import id.base.app.valueobject.publication.DigitalBook;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +60,16 @@ public class EngagementService implements IEngagementService {
 	@Override
 	public List<Engagement> findLatest(int number) throws SystemException {
 		return engagementDAO.findLatest(number);
+	}
+	
+	@Override
+	public List<String> getSamePermalink(Long pk, String permalink) throws SystemException {
+		return engagementDAO.getSamePermalink(pk, permalink);
+	}
+	
+	@Override
+	public Engagement findByPermalink(String permalink) throws SystemException {
+		return engagementDAO.findByPermalink(permalink);
 	}
 
 }
