@@ -22,9 +22,9 @@
 		  		<div class="col-md-3">
 		  			<h4>Tentang Website</h4>
 		  			<ul>
-		  				<li>Syarat & Ketentuan</li>
+		  				<li><a href="#">Syarat & Ketentuan</a></li>
 		  				<li><a href="<%=request.getContextPath()%>/page/faq">FAQ</a></li>
-		  				<li>Peta Situs</li>
+		  				<li><a href="#">Peta Situs</a></li>
 		  				<li><a href="<%=request.getContextPath()%>/page/contact/MM">Memberi Masukan</a></li>
 		  			</ul>
 		  		</div>

@@ -115,6 +115,9 @@
 					<div class="title-center">
 						<h2>Siapakah Kami?</h2>
 					</div>
+					<div class="separator-container">
+                        <div class="separator line-separator">&#x25A0;</div>
+                    </div>
 					<div class="grid-wrapper">
 						<div class="row-grid">
 							<div class="grid triangle_top"></div>
@@ -158,6 +161,9 @@
 				<div class="title-center">
 					<h2>Berita Terkini</h2>
 				</div>
+				<div class="separator-container">
+                    <div class="separator line-separator">&#x25A0;</div>
+                </div>
 				<ul id="categories" class="clr">
 				  <c:forEach items="${newsLatest}" var="news" varStatus="loop" begin="0" end="9" step="1">
 				  	<li>
@@ -178,6 +184,9 @@
 				<div class="title-center">
 					<h3 class="text-primary">Apa kata mereka tentang Housing Finance Center?</h3>
 				</div>
+				<div class="separator-container">
+                    <div class="separator line-separator">&#x25A0;</div>
+                </div>
 			</div>
 			<div class="row">
 				<div class="col-md-offset-1 col-md-10">

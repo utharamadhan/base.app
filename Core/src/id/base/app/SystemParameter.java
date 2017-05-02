@@ -109,11 +109,11 @@ public class SystemParameter {
     
 	public static String LOCALE = "in_ID";
 	
-	public static synchronized void updateSystemEnvironment(String name, String value) {
-    	ReflectionFunction.setProperties(SystemParameter.class, name, value);
-    }
-
 	public static String REST_SERVICE = "http://localhost:8181/ApplicationService";
 	
 	public static int ENCRYPT_ITERATION_NUMBER = 1;
+	
+	public static synchronized void updateSystemEnvironment(String name, String value) {
+    	ReflectionFunction.setProperties(SystemParameter.class, name, value);
+    }
 }

@@ -84,19 +84,27 @@
 				<div class="container">
 					<div class="advisory_article_container">
 						<div class="advisor-title add-animation animate row">
-	                        <h2>I Want To</h2>
+	                        <h2>Kategori</h2>
 	                        <div class="separator-container">
 	                            <div class="separator line-separator">&#x25A0;</div>
 	                        </div>
 	                    </div>
-						<div class="row article_container">
-							<div class="col-md-3 list_category_article" th:each="category, i : ${categories}" th:if="${i.index &lt; 8}"> 
-								<img th:src="${category.encodedPicture}" />
-								<div class="box_cat_title">
-									<input type="hidden" name="" class="pkCategory" th:value="${category.pkCategory}"/>
-									<h4 class="box_cat_title_label" th:text="${category.name}">Make a Concept House</h4>
+						<div class="row article_container list_data">
+							<th:block th:each="category, i : ${categories}" th:if="${i.index &lt; 8}">
+							<div class="col-md-3 list_category_article data_result">
+								<div class="post post-polygon1">
+									<div class="post_thumb"> 
+										<img th:src="${category.encodedPicture}" />
+										<div class="overlay">
+										    <div class="text"><a th:href="@{/page/advisory/sub/article(chooseCategory=${category.pkCategory})}"><i class="fa fa-align-left"></i> Baca</a></div>
+										</div>
+									</div>
+									<h2 class="box_cat_title_label"><a th:href="@{/page/advisory/sub/article(chooseCategory=${category.pkCategory})}"><label th:text="${category.name}"></label></a></h2>
+									<div class="bottom-left-yellow"></div>
+									<div class="bottom-right-blue"></div>
 								</div>
 							</div>
+							</th:block>
 						</div>
 						<div class="bouton bouton-red"><a th:href="@{/page/advisory/sub/article}">View More</a></div>
 					</div>
@@ -108,7 +116,7 @@
 				<div class="container">
 					<div class="advisor_container">
 						<div class="advisor-title add-animation animate">
-	                        <h2>Meet our Advisor</h2>
+	                        <h2>Advisor Kami</h2>
 	                        <div class="separator-container">
 	                            <div class="separator line-separator">&#x25A0;</div>
 	                        </div>
@@ -141,13 +149,6 @@
 		$(function(){      
 			$('.consult_btn').unbind('click').click(function(){
 				var url = /*[[@{/page/advisory/sub/consulting}]]*/
-				window.location.href = url;
-			});
-			
-			$('.box_cat_title_label').unbind('click').click(function(){
-				var idCategory = $(this).parent().find('.pkCategory').val();
-				var url = /*[[@{/page/advisory/sub/article}]]*/
-				url += "?chooseCategory="+idCategory;
 				window.location.href = url;
 			});
 			
