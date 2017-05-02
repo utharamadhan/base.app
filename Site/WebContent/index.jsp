@@ -167,12 +167,12 @@
 				<ul id="categories" class="clr">
 				  <c:forEach items="${newsLatest}" var="news" varStatus="loop" begin="0" end="9" step="1">
 				  	<li>
-					    <div>
-					      <img src="${news.encodedPicture}" alt="" />
-					      <h1>${news.title}</h1>
-					      <p><a href="page/engagement/list" class="btn btn-third btn-medium" style="width:90%">selengkapnya</a></p>
-					    </div>
-					  </li>
+				    	<div>
+				      		<img src="${news.encodedPicture}" alt="" />
+				      		<h1>${news.title}</h1>
+				      		<p><a href="page/engagement/list" class="btn btn-third btn-medium" style="width:90%">selengkapnya</a></p>
+				    	</div>
+				  	</li>
 				  </c:forEach>
 				</ul>
 			</div>
@@ -191,60 +191,6 @@
 			<div class="row">
 				<div class="col-md-offset-1 col-md-10">
 					<div id="testimonial-slider" class="owl-carousel">
-						<div class="custom_testimony">
-							<div class="sub_hexagon1 sub_hexagon1_post" style="display: inline-block;">
-								<div style="position: absolute;width:100%;">
-									<h2 style="color: #ffffff; position:relative; text-align: center; display: block; padding-bottom: 20px;">Williamson</h2>
-									<h4 style="color: #1f85e5; position:relative; text-align: center; display: block; padding-bottom: 20px;">CEO - PT. Property Makmur Sentosa</h4>
-								</div>	
-							</div>
-							<div class="main_hexagon1" style="background-image: url(<%=request.getContextPath()%>/images/img-1.jpg);display: inline-block;">
-							  <div class="main_hexagon1_hexTop"></div>
-							  <div class="main_hexagon1_hexBottom"></div>
-							</div>
-							<div class="sub_hexagon2 sub_hexagon2_post" style="display: inline-block;">
-								<div style="position: absolute;">
-									<label style="padding-left: 2px; padding-right: 2px; font-size: 12px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut eu dolor eget ante pretium commodo. Cum sociis natoque penatibus ...</labe>
-								</div>
-							</div>
-						</div>
-		 
-						<div class="custom_testimony">
-							<div class="sub_hexagon1 sub_hexagon1_post" style="display: inline-block;">
-								<div style="position: absolute;width:100%;">
-									<h2 style="color: #ffffff; position:relative; text-align: center; display: block; padding-bottom: 20px;">Kristiana</h2>
-									<h4 style="color: #1f85e5; position:relative; text-align: center; display: block; padding-bottom: 20px;">Owner</h4>
-									<p style="color: #b5c4ec; position:relative; text-align: center; display: block;">Home Bright</p>
-								</div>
-							</div>
-							<div class="main_hexagon1" style="background-image: url(<%=request.getContextPath()%>/images/img-2.jpg);display: inline-block;">
-							  <div class="main_hexagon1_hexTop"></div>
-							  <div class="main_hexagon1_hexBottom"></div>
-							</div>
-							<div class="sub_hexagon2 sub_hexagon2_post" style="display: inline-block;">
-								<div style="position: absolute;">
-									<label style="padding-left: 2px; padding-right: 2px; font-size: 12px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut eu dolor eget ante pretium commodo. Cum sociis natoque penatibus ...</labe>
-								</div>
-							</div>
-						</div>
-						<div class="custom_testimony">
-							<div class="sub_hexagon1 sub_hexagon1_post" style="display: inline-block;">
-								<div style="position: absolute;width:100%;">
-									<h2 style="color: #ffffff; position:relative; text-align: center; display: block; padding-bottom: 20px;">Steve Thomas</h2>
-									<h4 style="color: #1f85e5; position:relative; text-align: center; display: block; padding-bottom: 20px;">COO</h4>
-									<p style="color: #b5c4ec; position:relative; text-align: center; display: block;">Factory Property</p>
-								</div>
-							</div>
-							<div class="main_hexagon1" style="background-image: url(<%=request.getContextPath()%>/images/img-3.jpg);display: inline-block;">
-							  <div class="main_hexagon1_hexTop"></div>
-							  <div class="main_hexagon1_hexBottom"></div>
-							</div>
-							<div class="sub_hexagon2 sub_hexagon2_post" style="display: inline-block;">
-								<div style="position: absolute;">
-									<label style="padding-left: 2px; padding-right: 2px; font-size: 12px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut eu dolor eget ante pretium commodo. Cum sociis natoque penatibus ...</labe>
-								</div>
-							</div>
-						</div>
 					</div>
 				</div>
 			</div>
@@ -276,7 +222,7 @@
 				scrollToBottom('aboutUsArea', 72);
 			});
 			
-			$.get( "/Site/page/homeContent/getDataForHome", function( data ) {
+			$.get( "/Site/page/content/getDataForHome", function( data ) {
 				var h = data.categoryHelpList;
 				var htmlHelp = "<option>-- Pilih Bantuan --</option>";
 				for(var i=0;i<h.length;i++){
@@ -297,7 +243,42 @@
 					color		:"red",
 					border		:true
 				});
+				
+				var n = data.newsList;
+				html = "";
+				for(var i=0;i<n.length;i++){
+					html += "<li>";
+					html += "<div>";
+					html += "<img src='"+n[i].encodedPicture+"' alt='' />";
+					html += "<h1>"+n[i].title+"</h1>";
+					html += "<p><a href='/Site/page/engagement/list' class='btn btn-third btn-medium' style='width:90%'>selengkapnya</a></p>";
+					html += "</div>";
+					html += "</li>";	
+				}
+				$('#categories').html(html);
+				
 				var t = data.testimonialList;
+				html = "";
+				for(var i=0;i<t.length;i++){
+					html += '<div class="custom_testimony">';
+					html += '<div class="sub_hexagon1 sub_hexagon1_post" style="display: inline-block;">';
+					html += '<div style="position: absolute;width:100%;">';
+					html += '<h2 style="color: #ffffff; position:relative; text-align: center; display: block; padding-bottom: 20px;">'+t[i].name+'</h2>';
+					html += '<h4 style="color: #1f85e5; position:relative; text-align: center; display: block; padding-bottom: 20px;">'+t[i].title+'</h4>';
+					html += '</div>';
+					html += '</div>';
+					html += '<div class="main_hexagon1" style="background-image: url('+t[i].photoURL.replace(/\\/g,"/")+');display: inline-block;">';
+					html += '<div class="main_hexagon1_hexTop"></div>';
+					html += '<div class="main_hexagon1_hexBottom"></div>';
+					html += '</div>';
+					html += '<div class="sub_hexagon2 sub_hexagon2_post" style="display: inline-block;">';
+					html += '<div style="position: absolute;">';
+					html += '<label style="padding-left: 12px; padding-right: 12px; font-size: 12px;">'+t[i].description+'</labe>';
+					html += '</div>';
+					html += '</div>';
+					html += '</div>';
+				}
+				$('#testimonial-slider').html(html);
 				$("#testimonial-slider").owlCarousel({
 					items:1,
 					itemsDesktop:[1000,1],

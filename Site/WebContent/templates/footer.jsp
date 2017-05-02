@@ -30,7 +30,7 @@
 		  		</div>
 		  		<div class="col-md-3">
 		  			<h4>Situs Lain</h4>
-		  			<ul>
+		  			<ul id="link-url-content">
 			  			<c:forEach items="${footerLinkUrl}" var="flu" varStatus="loop">
 							<li><a href="${flu.url}">${flu.title}</a></li>
 						</c:forEach>
@@ -57,3 +57,58 @@
 			</div>
 		  </div>
 		</div>
+		<script>
+		$(document).ready(function(){
+			$.get( "/Site/page/content/getData", function( data ) {
+				var cp = data.commonPostList;
+				html = "";
+				for(var i=0;i<cp.length;i++){
+					html += "<li class='dropdown-header'><a href='/Site/page/post/"+cp[i].pkCommonPost+"/"+(cp[i].title).replace(/\s+/g, '-')+"'>"+cp[i].title+"</a></li>";
+					html += "<li class='divider'></li>";	
+				}
+				$('#common-post-content').html(html);
+				
+				var e = data.engagementList;
+				html = "";
+				for(var i=0;i<e.length;i++){
+					html += "<li><a href='/Site/page/engagement/"+e[i].permalink+"'>"+e[i].title+"</a></li>";
+				}
+				$('#engagement-content').html(html);
+				
+				var p = data.programList;
+				html = "";
+				for(var i=0;i<p.length;i++){
+					html += "<li><a href='/Site/page/program/"+p[i].permalink+"'>"+p[i].title+"</a></li>";
+				}
+				$('#program-content').html(html);
+				
+				var db = data.digitalBookList;
+				html = "";
+				for(var i=0;i<db.length;i++){
+					html += "<li><a href='/Site/page/ebook/"+db[i].permalink+"'>"+db[i].title+"</a></li>";
+				}
+				$('#digital-book-content').html(html);
+				
+				var n = data.newsList;
+				html = "";
+				for(var i=0;i<n.length;i++){
+					html += "<li><a href='/Site/page/news/"+n[i].permalink+"'>"+n[i].title+"</a></li>";
+				}
+				$('#news-content').html(html);
+				
+				var e = data.eventList;
+				html = "";
+				for(var i=0;i<e.length;i++){
+					html += "<li><a href='/Site/page/event/"+e[i].permalink+"'>"+e[i].title+"</a></li>";
+				}
+				$('#event-content').html(html);
+				
+				var lu = data.linkUrlList;
+				html = "";
+				for(var i=0;i<lu.length;i++){
+					html += "<li><a href='"+lu[i].url+"'>"+lu[i].title+"</a></li>";
+				}
+				$('#link-url-content').html(html);
+			});
+		});
+		</script>

@@ -1,16 +1,16 @@
 package id.base.app.site.controller.web;
 
-import id.base.app.ILookupConstant;
+import id.base.app.rest.PathInterfaceRestCaller;
 import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
 import id.base.app.rest.RestServiceConstant;
-import id.base.app.util.dao.Operator;
-import id.base.app.util.dao.SearchFilter;
-import id.base.app.util.dao.SearchOrder;
+import id.base.app.rest.SpecificRestCaller;
 import id.base.app.valueobject.Faq;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,11 +36,24 @@ public class FaqWebController {
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public String view(ModelMap model, HttpServletRequest request, HttpServletResponse response){
-		List<SearchFilter> filter = new ArrayList<SearchFilter>();
-		filter.add(new SearchFilter(Faq.STATUS, Operator.EQUALS, ILookupConstant.ArticleStatus.PUBLISH));
-		List<SearchOrder> order = new ArrayList<SearchOrder>();
-		order.add(new SearchOrder(Faq.PK_FAQ, SearchOrder.Sort.ASC));
-		model.addAttribute("faq", getRestCaller().findAll(filter, order));
+		model.addAttribute("faq", findFaqListForView());
 		return "/faq/main";
+	}
+	
+	private List<Faq> findFaqListForView(){
+		List<Faq> faqList = new ArrayList<>();
+		faqList = (List<Faq>) new SpecificRestCaller(RestConstant.REST_SERVICE, RestServiceConstant.FAQ_SERVICE).executeGetList(new PathInterfaceRestCaller() {
+			@Override
+			public String getPath() {
+				return "/findFaqListForView";
+			}
+
+			@Override
+			public Map<String, Object> getParameters() {
+				Map<String, Object> map = new HashMap<String, Object>();
+				return map;
+			}
+		});
+		return faqList;
 	}
 }

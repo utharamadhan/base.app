@@ -45,6 +45,11 @@ public class FaqService implements IFaqService {
 
 	@Override
 	public List<Faq> findObjects(Long[] objectPKs) throws SystemException {return null;}
+	
+	@Override
+	public List<Faq> findFaqListForView() throws SystemException{
+		return faqDAO.findFaqListForView();
+	}
 
 
 }

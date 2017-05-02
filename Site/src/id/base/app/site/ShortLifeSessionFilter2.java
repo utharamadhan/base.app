@@ -1,31 +1,12 @@
 package id.base.app.site;
 
-import id.base.app.ILookupConstant;
-import id.base.app.SystemConstant;
-import id.base.app.rest.QueryParamInterfaceRestCaller;
 import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
 import id.base.app.rest.RestServiceConstant;
-import id.base.app.rest.SpecificRestCaller;
-import id.base.app.util.dao.Operator;
-import id.base.app.util.dao.SearchFilter;
-import id.base.app.util.dao.SearchOrder;
-import id.base.app.util.dao.SearchOrder.Sort;
-import id.base.app.valueobject.aboutUs.CommonPost;
-import id.base.app.valueobject.aboutUs.Engagement;
-import id.base.app.valueobject.aboutUs.ProgramPost;
 import id.base.app.valueobject.course.Tag;
-import id.base.app.valueobject.publication.DigitalBook;
-import id.base.app.valueobject.publication.Event;
-import id.base.app.valueobject.publication.LinkUrl;
-import id.base.app.valueobject.publication.News;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.Filter;
@@ -79,116 +60,6 @@ public class ShortLifeSessionFilter2 implements Filter{
 			FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) resp;
-		
-		//post
-		RestCaller<CommonPost> restCall = new RestCaller<CommonPost>(RestConstant.REST_SERVICE, RestServiceConstant.COMMON_POST_SERVICE);
-		List<SearchFilter> filter = new ArrayList<SearchFilter>();
-		filter.add(new SearchFilter(CommonPost.STATUS, Operator.EQUALS, ILookupConstant.ArticleStatus.PUBLISH, Integer.class));
-		List<SearchOrder> order = new ArrayList<SearchOrder>();
-		order.add(new SearchOrder(CommonPost.PK_COMMON_POST, Sort.ASC));
-		List<CommonPost> posts = restCall.findAll(filter, order); 
-		request.setAttribute("posts", posts);
-		
-		//engagement
-		SpecificRestCaller<Engagement> rcEngagement = new SpecificRestCaller<Engagement>(RestConstant.REST_SERVICE, RestServiceConstant.ENGAGEMENT_SERVICE);
-		List<Engagement> engages = rcEngagement.executeGetList(new QueryParamInterfaceRestCaller() {
-			
-			@Override
-			public String getPath() {
-				return "/findLatest";
-			}
-			
-			@Override
-			public Map<String, Object> getParameters() {
-				Map<String,Object> map = new HashMap<String, Object>();
-				map.put("number", 5);
-				return map;
-			}
-		});
-		request.setAttribute("engages", engages);
-		
-		//program
-		SpecificRestCaller<ProgramPost> rcProgram = new SpecificRestCaller<ProgramPost>(RestConstant.REST_SERVICE, RestServiceConstant.PROGRAM_POST_SERVICE);
-		List<ProgramPost> programs = rcProgram.executeGetList(new QueryParamInterfaceRestCaller() {
-			
-			@Override
-			public String getPath() {
-				return "/findLatest";
-			}
-			
-			@Override
-			public Map<String, Object> getParameters() {
-				Map<String,Object> map = new HashMap<String, Object>();
-				map.put("number", 5);
-				return map;
-			}
-		});
-		request.setAttribute("programs", programs);
-		
-		//ebook
-		SpecificRestCaller<DigitalBook> rcEbook = new SpecificRestCaller<DigitalBook>(RestConstant.REST_SERVICE, RestServiceConstant.DIGITAL_BOOK_SERVICE);
-		List<DigitalBook> ebooks = rcEbook.executeGetList(new QueryParamInterfaceRestCaller() {
-			
-			@Override
-			public String getPath() {
-				return "/findLatestEbook";
-			}
-			
-			@Override
-			public Map<String, Object> getParameters() {
-				Map<String,Object> map = new HashMap<String, Object>();
-				map.put("number", 5);
-				return map;
-			}
-		});
-		request.setAttribute("ebooksLatest", ebooks);
-		
-		//news
-		SpecificRestCaller<News> rcNews = new SpecificRestCaller<News>(RestConstant.REST_SERVICE, RestServiceConstant.NEWS_SERVICE);
-		List<News> news = rcNews.executeGetList(new QueryParamInterfaceRestCaller() {
-			
-			@Override
-			public String getPath() {
-				return "/findLatestNews";
-			}
-			
-			@Override
-			public Map<String, Object> getParameters() {
-				Map<String,Object> map = new HashMap<String, Object>();
-				map.put("number", 9);
-				return map;
-			}
-		});
-		request.setAttribute("newsLatest", news);
-		
-		//event
-		SpecificRestCaller<Event> rcEvent = new SpecificRestCaller<Event>(RestConstant.REST_SERVICE, RestServiceConstant.EVENT_SERVICE);
-		List<Event> events = rcEvent.executeGetList(new QueryParamInterfaceRestCaller() {
-			
-			@Override
-			public String getPath() {
-				return "/findLatestEventUpcoming";
-			}
-			
-			@Override
-			public Map<String, Object> getParameters() {
-				Map<String,Object> map = new HashMap<String, Object>();
-				map.put("number", 5);
-				return map;
-			}
-		});
-		request.setAttribute("eventLatest", events);
-		
-		//Footer Link URL
-		RestCaller<LinkUrl> restCallFLU = new RestCaller<LinkUrl>(RestConstant.REST_SERVICE, RestServiceConstant.LINK_URL_SERVICE);
-		List<SearchFilter> filterFLU = new ArrayList<SearchFilter>();
-		filterFLU.add(new SearchFilter(LinkUrl.TYPE, Operator.EQUALS, SystemConstant.LinkUrlType.FOOTER, String.class));
-		filterFLU.add(new SearchFilter(LinkUrl.STATUS, Operator.EQUALS, ILookupConstant.ArticleStatus.PUBLISH, Integer.class));
-		List<SearchOrder> orderFLU = new ArrayList<SearchOrder>();
-		orderFLU.add(new SearchOrder(LinkUrl.ORDER_NO, Sort.ASC));
-		List<LinkUrl> postsFLU = restCallFLU.findAll(filterFLU, orderFLU); 
-		request.setAttribute("footerLinkUrl", postsFLU);
-		
 		chain.doFilter(request, response);
 	}
 
