@@ -69,8 +69,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#004fb6', end
 	clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
 }
 .help-form select{
-	padding: 7px 5px;
-    border-radius: 25px;
+	padding: 5px;
     border: solid 1px #fcdb00;
     margin: 10px 0px;
     width: 100%;

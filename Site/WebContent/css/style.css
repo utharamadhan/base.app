@@ -730,7 +730,6 @@ h4.modal-title{
 	box-shadow: 10px 10px 50px 0px rgba(0,0,0,0.75);
 }
 .content_left ul {
-    float: left;
     margin: 0;
     list-style-type: none;
 }

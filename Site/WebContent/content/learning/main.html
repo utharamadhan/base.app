@@ -41,7 +41,7 @@
 								<div class="card-image">
 									<img th:src="${group.encodedPicture}" alt="" />
 								</div>
-								<h2 class="card-title"><a th:href="@{/page/learning/detail/}+${group.pkGroupCourse}" th:text="${group.title}"></a></h2>
+								<h2 class="card-title"><a th:href="@{/page/learning/program/}+${group.pkGroupCourse}+'/'+${#strings.replace(group.title, ' ', '-')}" th:text="${group.title}"></a></h2>
 								<hr/>
 								<div class="card-button-wrapper">
 									<div class="col-md-6">

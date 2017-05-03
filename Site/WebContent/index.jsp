@@ -59,8 +59,8 @@
 					<div class="container">
 						<div class="form-wrapper">
 							<div class="banner-header">
-								<h2 class="top-header">Menjadi Ahli di Bidang Properti</h2>
-								<h2 class="sub-header">hanya dengan 4 langkah di bawah ini</h2>
+								<h2 class="top-header">SEMUA INFORMASI PEMBIAYAAN PERUMAHAN ADA DISINI</h2>
+								<h2 class="sub-header">Ikuti 4 Langkah Berikut Ini</h2>
 							</div>
 							<div style="clear:both"></div>
 							<div class="row step-expert">
@@ -68,7 +68,7 @@
 									<div class="step-expert-border"></div>
 									<div class="step-expert-icon-wrapper">
 										<div class="step-expert-content">
-											<span>Akses Housing Finance Center Website</span>
+											<span>Akses Housing Finance Center</span>
 										</div>
 									</div>
 								</div>
@@ -76,11 +76,19 @@
 									<div class="step-expert-border"></div>
 									<div class="step-expert-icon-wrapper">
 										<div class="step-expert-content">
-											<span>Pilih Layanan Kami :</span>
+											<span>Browser Publikasi</span>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="step-expert-border"></div>
+									<div class="step-expert-icon-wrapper">
+										<div class="step-expert-content">
+											<span>Pilih Program Kami :</span>
 											<ul>
 												<li><a href="${ctx}/page/learning">Learning</a></li>
-												<li><a href="${ctx}/page/research-development">Research & Development</a></li>
 												<li><a href="${ctx}/page/advisory">Advisory</a></li>
+												<li><a href="${ctx}/page/research-development">Research & Development</a></li>
 											</ul>
 										</div>
 									</div>
@@ -88,16 +96,8 @@
 								<div class="col-md-3">
 									<div class="step-expert-border"></div>
 									<div class="step-expert-icon-wrapper">
-										<div class="step-expert-content">
-											<span>Pelajari Materi Berkualitas Kami</span>
-										</div>
-									</div>
-								</div>
-								<div class="col-md-3">
-									<div class="step-expert-border"></div>
-									<div class="step-expert-icon-wrapper">
 										<div class="step-expert-content help-form">
-											<span>Butuh Bantuan?</span>
+											<span>Butuh Bantuan</span>
 											<select id="help-select"></select>
 										</div>
 									</div>
@@ -113,11 +113,8 @@
 		 		<div id="aboutUsArea" class="aboutUsArea">
 				<div class="container">
 					<div class="title-center">
-						<h2>Siapakah Kami?</h2>
+						<h2>SIAPAKAH KAMI</h2>
 					</div>
-					<div class="separator-container">
-                        <div class="separator line-separator">&#x25A0;</div>
-                    </div>
 					<div class="grid-wrapper">
 						<div class="row-grid">
 							<div class="grid triangle_top"></div>
@@ -159,11 +156,8 @@
 			<div class="clear"></div>
 			<div class="newsArea back-gradient-transparent">
 				<div class="title-center">
-					<h2>Berita Terkini</h2>
+					<h2>BERITA TERKINI</h2>
 				</div>
-				<div class="separator-container">
-                    <div class="separator line-separator">&#x25A0;</div>
-                </div>
 				<ul id="categories" class="clr">
 				  <c:forEach items="${newsLatest}" var="news" varStatus="loop" begin="0" end="9" step="1">
 				  	<li>
@@ -184,9 +178,6 @@
 				<div class="title-center">
 					<h3 class="text-primary">Apa kata mereka tentang Housing Finance Center?</h3>
 				</div>
-				<div class="separator-container">
-                    <div class="separator line-separator">&#x25A0;</div>
-                </div>
 			</div>
 			<div class="row">
 				<div class="col-md-offset-1 col-md-10">
