@@ -3472,7 +3472,7 @@ ul.contact_info li a:hover {
     clip-path: polygon(50% 0, 100% 14%, 100% 100%, 0 100%, 0 14%);
 }
 .card-box .card-image img{
-	max-width:100%;
+	width:100%;
 	-webkit-clip-path: polygon(50% 0%, 100% 20%, 100% 80%, 50% 100%, 0 80%, 0 20%);
 	clip-path: polygon(50% 0%, 100% 20%, 100% 80%, 50% 100%, 0 80%, 0 20%);
 }
@@ -3493,6 +3493,16 @@ ul.contact_info li a:hover {
 	margin-top: 10px;
     margin-bottom: 0px;
 }
+.card-not-active .card-image img{
+	opacity: 0.2;
+    filter: alpha(opacity=20)
+}
+.card-not-active{
+	background:rgba(246, 246, 246, 0.3)!important;
+}
+.card-not-active a{
+	color:rgba(0, 79, 182, 0.5);
+}	
 .clear{
 	clear:both;
 }
