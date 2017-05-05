@@ -102,7 +102,7 @@
 								  </ul>
 								</li>
 								<li id="program" class="dropdown">
-								  <a class="parent-menu" href="<%=request.getContextPath()%>/page/learning" role="button" aria-haspopup="true" aria-expanded="false">Program</a>
+								  <a class="parent-menu" href="<%=request.getContextPath()%>/page/mainProgram" role="button" aria-haspopup="true" aria-expanded="false">Program</a>
 								</li>
 								<li id="kontak-kami" ><a class="parent-menu" href="<%=request.getContextPath()%>/page/contact">Kontak Kami</a></li>
 								<li class="btn-signup" style="display:none"><a href="#" data-toggle="modal" data-target="#sign-in-modal">Sign In</a></li>
