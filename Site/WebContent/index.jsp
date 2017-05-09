@@ -63,6 +63,12 @@
 								<h2 class="sub-header">Ikuti 4 Langkah Berikut Ini</h2>
 							</div>
 							<div style="clear:both"></div>
+							<div class="row step-number">
+								<div class="col-md-3"><label>1</label></div>
+								<div class="col-md-3"><label>2</label></div>
+								<div class="col-md-3"><label>3</label></div>
+								<div class="col-md-3"><label>4</label></div>
+							</div>
 							<div class="row step-expert">
 								<div class="col-md-3">
 									<div class="step-expert-border"></div>
@@ -84,12 +90,7 @@
 									<div class="step-expert-border"></div>
 									<div class="step-expert-icon-wrapper">
 										<div class="step-expert-content">
-											<span>Pilih Program Kami :</span>
-											<ul>
-												<li><a href="${ctx}/page/learning">Learning</a></li>
-												<li><a href="${ctx}/page/advisory">Advisory</a></li>
-												<li><a href="${ctx}/page/research-development">Research & Development</a></li>
-											</ul>
+											<span>Pilih Program Kami</span>
 										</div>
 									</div>
 								</div>
@@ -97,8 +98,7 @@
 									<div class="step-expert-border"></div>
 									<div class="step-expert-icon-wrapper">
 										<div class="step-expert-content help-form">
-											<span>Butuh Bantuan</span>
-											<select id="help-select"></select>
+											<span>Butuh Bantuan? Hubungi Layanan Pelanggan</span>
 										</div>
 									</div>
 								</div>
@@ -112,43 +112,92 @@
 				<div class="clear"></div>
 		 		<div id="aboutUsArea" class="aboutUsArea">
 				<div class="container">
-					<div class="title-center">
-						<h2>SIAPAKAH KAMI</h2>
-					</div>
-					<div class="grid-wrapper">
-						<div class="row-grid">
-							<div class="grid triangle_top"></div>
-						</div>
-						<div class="row-grid">
-							<div class="grid video_tujuan_program">
-								<iframe width="100%" height="100%" src="https://www.youtube.com/embed/felFVPmAu5s" frameborder="0" allowfullscreen></iframe>
-							</div>
-							<div class="grid grid-blue content_tujuan_program">
-								<div class="grid-content">
-									<h2 class="main-title text-secondary to-uppercase">Tujuan</h2>
-									<p>Memberikan pelayanan unggul, inovatif dan terintegrasi dalam riset, edukasi dan konsultasi terkait pembiayaan perumahan bagi klien</p>
-									<a href="page/post/1" class="btn btn-secondary btn-medium">selengkapnya</a>
+					<div class="row">
+						<div class="col-md-10 col-md-offset-1">
+							<div class="row circle-top">
+								<div class="col-md-12">
+									<div class="title-center">
+										<h2 style="color: white;padding-top: 15%;">SIAPAKAH KAMI?</h2>
+									</div>
 								</div>
 							</div>
-						</div>
-						<div class="row-grid">
-							<div class="grid grid-yellow grid-align-right content_kerja_sama">
-								<div class="grid-content">
-									<h2 class="main-title text-secondary to-uppercase">Kerjasama</h2>
-									<p>Untuk memberikan kualitas materi yang terbaik bagi anda, kami telah menjalin kerjasama dengan beberapa pihak</p>
-									<a href="page/engagement/list" class="btn btn-third btn-medium">selengkapnya</a>
+							<div class="row" style="height:385px">
+								<div class="col-md-8 main-content-left"><iframe width="100%" height="100%" src="https://www.youtube.com/embed/felFVPmAu5s" frameborder="0" allowfullscreen></iframe></div>
+								<div class="col-md-4 main-content-right">
+									<div class="panel-group" id="accordion">
+								        <div class="panel panel-default">
+								            <div class="panel-heading">
+								                <h4 class="panel-title">
+								                    <a data-toggle="collapse" data-parent="#accordion" href="#cHFC">Housing Finance Center</a>
+								                </h4>
+								            </div>
+								            <div id="cHFC" class="panel-collapse collapse in">
+								                <div class="panel-body">
+								                    <p>Deskripsi Housing Finance Center <a href="#" target="_blank">Selengkapnya.</a></p>
+								                </div>
+								            </div>
+								        </div>
+								        <div class="panel panel-default">
+								            <div class="panel-heading">
+								                <h4 class="panel-title">
+								                    <a data-toggle="collapse" data-parent="#accordion" href="#cTujuan">Tujuan</a>
+								                </h4>
+								            </div>
+								            <div id="cTujuan" class="panel-collapse collapse">
+								                <div class="panel-body">
+								                    <p>Memberikan pelayanan unggul, inovatif dan terintegrasi dalam riset, edukasi dan konsultasi terkait pembiayaan perumahan bagi klien <a href="#" target="_blank">Selengkapnya.</a></p>
+								                </div>
+								            </div>
+								        </div>
+								        <div class="panel panel-default">
+								            <div class="panel-heading">
+								                <h4 class="panel-title">
+								                    <a data-toggle="collapse" data-parent="#accordion" href="#cProgram">Program</a>
+								                </h4>
+								            </div>
+								            <div id="cProgram" class="panel-collapse collapse">
+								                <div class="panel-body">
+								                    <p>Memberikan pelayanan unggul, inovatif dan terintegrasi dalam riset, edukasi dan konsultasi terkait pembiayaan perumahan bagi klien <a href="#" target="_blank">Selengkapnya.</a></p>
+								                </div>
+								            </div>
+								        </div>
+								        <div class="panel panel-default">
+								            <div class="panel-heading">
+								                <h4 class="panel-title">
+								                    <a data-toggle="collapse" data-parent="#accordion" href="#cKerjasama">Kerjasama</a>
+								                </h4>
+								            </div>
+								            <div id="cKerjasama" class="panel-collapse collapse">
+								                <div class="panel-body">
+								                    <p>Memberikan pelayanan unggul, inovatif dan terintegrasi dalam riset, edukasi dan konsultasi terkait pembiayaan perumahan bagi klien <a href="#" target="_blank">Selengkapnya.</a></p>
+								                </div>
+								            </div>
+								        </div>
+								    </div>
 								</div>
 							</div>
-							<div class="grid grid-red content_program_hfc">
-								<div class="grid-content">
-									<h2 class="main-title text-secondary to-uppercase">Program</h2>
-									<p>Memberikan pelayanan unggul, inovatif dan terintegrasi dalam riset, edukasi dan konsultasi terkait pembiayaan perumahan bagi klien</p>
-									<a href="page/post/1" class="btn btn-secondary btn-medium">selengkapnya</a>
+							<div class="row" style="position:relative">
+								<div class="circle-bottom1">
+									<div class="title-center">
+										<h2 style="color: white;padding-top: 7%;font-size: 24px;">Land & Environment</h2>
+									</div>
+								</div>
+								<div class="circle-bottom2">
+									<div class="title-center">
+										<h2 style="color: white;padding-top: 15%;font-size: 24px;">Capital</h2>
+									</div>
+								</div>
+								<div class="circle-bottom3">
+									<div class="title-center">
+										<h2 style="color: white;padding-top: 7%;font-size: 24px;">Legal</h2>
+									</div>
+								</div>
+								<div class="circle-bottom4">
+									<div class="title-center">
+										<h2 style="color: white;padding-top: 10%;font-size: 24px;">Skill</h2>
+									</div>
 								</div>
 							</div>
-						</div>
-						<div class="row-grid">
-							<div class="grid triangle_bottom"></div>
 						</div>
 					</div>
 				</div>
@@ -176,13 +225,20 @@
 		  <div class="container">
 			<div class="row">
 				<div class="title-center">
-					<h3 class="text-primary">Apa kata mereka tentang Housing Finance Center?</h3>
+					<h2>APA KATA MEREKA?</h2>
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-offset-1 col-md-10">
-					<div id="testimonial-slider" class="owl-carousel">
-					</div>
+				<div class="col-md-12">
+					<ul id="categories" class="clr">
+					  <c:forEach var="i" begin="1" end="9">
+					  	<li>
+					    	<div>
+					    		<img src="<%=request.getContextPath()%>/images/faces/${i}.jpg"/>
+					    	</div>
+					  	</li>
+					  </c:forEach>
+					</ul>
 				</div>
 			</div>
 		  </div>
@@ -202,25 +258,11 @@
 		<script>
 		setNavbarActive('beranda');
 		$(document).ready(function(){
-			$('#help-select').change(function(){
-				if($(this).val()=="CO"){
-					location.href = "page/advisory/sub/consulting";
-				}else if($(this).val()!=""){
-					location.href = "page/contact/"+$(this).val();
-				}
-			});
 			$('.arrowBottom').click(function(){
 				scrollToBottom('aboutUsArea', 72);
 			});
 			
 			$.get( "/Site/page/content/getDataForHome", function( data ) {
-				var h = data.categoryHelpList;
-				var htmlHelp = "<option>-- Pilih Bantuan --</option>";
-				for(var i=0;i<h.length;i++){
-					htmlHelp += "<option code='"+h[i].code+"' value='"+h[i].name+"'>"+h[i].descr+"</option>";
-				}
-				$('#help-select').html(htmlHelp);
-				
 				var hi = data.housingIndexList;
 				var html = "";
 				for(var i=0;i<hi.length;i++){

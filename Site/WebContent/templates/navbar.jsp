@@ -48,7 +48,7 @@
 											<li><a href="${ctx}/page/engagement/${engage.permalink}">${engage.title}</a></li>
 											</c:forEach>
 										</ul>
-										<br/><a href="${ctx}/page/engagement"><span class="button-blue">Lainnya...</span></a>
+										<br/><a href="${ctx}/page/engagement"><span class="button-blue">Selengkapnya...</span></a>
 									</li>
 									<li class="col-sm-4">
 										<ul>
@@ -59,7 +59,7 @@
 											<li><a href="${ctx}/page/program/${program.permalink}">${program.title}</a></li>
 											</c:forEach>
 										</ul>
-										<br/><a href="${ctx}/page/program"><span class="button-blue">Lainnya...</span></a>
+										<br/><a href="${ctx}/page/program"><span class="button-blue">Selengkapnya...</span></a>
 									</li>
 								  </ul>
 								</li>
@@ -75,7 +75,7 @@
 											<li><a href="${ctx}/page/ebook/${ebookLatest.permalink}">${ebookLatest.title}</a></li>
 											</c:forEach>
 										</ul>
-										<br/><a href="${ctx}/page/ebook"><span class="button-blue">Lainnya...</span></a>
+										<br/><a href="${ctx}/page/ebook"><span class="button-blue">Selengkapnya...</span></a>
 									</li>
 									<li class="col-sm-4">
 										<ul>
@@ -86,7 +86,7 @@
 											<li><a href="${ctx}/page/news/${news.permalink}">${news.title}</a></li>
 											</c:forEach>
 										</ul>
-										<br/><a href="${ctx}/page/news"><span class="button-blue">Lainnya...</span></a>
+										<br/><a href="${ctx}/page/news"><span class="button-blue">Selengkapnya...</span></a>
 									</li>
 									<li class="col-sm-4">
 										<ul>
@@ -97,12 +97,15 @@
 											<li><a href="${ctx}/page/event/${event.permalink}">${event.title}</a></li>
 											</c:forEach>
 										</ul>
-										<br/><a href="${ctx}/page/event/upcoming"><span class="button-blue">Lainnya...</span></a>
+										<br/><a href="${ctx}/page/event/upcoming"><span class="button-blue">Selengkapnya...</span></a>
 									</li>
 								  </ul>
 								</li>
 								<li id="program" class="dropdown">
 								  <a class="parent-menu" href="<%=request.getContextPath()%>/page/mainProgram" role="button" aria-haspopup="true" aria-expanded="false">Program</a>
+								</li>
+								<li id="program" class="dropdown">
+								  <a class="parent-menu" href="<%=request.getContextPath()%>/page/mainProgram" role="button" aria-haspopup="true" aria-expanded="false">Galeri</a>
 								</li>
 								<li id="kontak-kami" ><a class="parent-menu" href="<%=request.getContextPath()%>/page/contact">Kontak Kami</a></li>
 								<li class="btn-signup" style="display:none"><a href="#" data-toggle="modal" data-target="#sign-in-modal">Sign In</a></li>

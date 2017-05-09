@@ -3,7 +3,7 @@
 <c:set var="ctx" value="${rq.contextPath }" scope="request" />
 <html>
  <body>
- 	<link href="<%=request.getContextPath()%>/css/home2.css" rel="stylesheet" />
+ 	<link href="<%=request.getContextPath()%>/css/home.css" rel="stylesheet" />
 		<div id="aboutArea" class="aboutArea">
 		  <div class="container">
 			<div class="row clearfix">
@@ -112,48 +112,43 @@
 				<div class="clear"></div>
 		 		<div id="aboutUsArea" class="aboutUsArea">
 				<div class="container">
-					<div class="row">
-						<div class="col-md-10 col-md-offset-1">
-							<div class="row circle-top">
-								<div class="col-md-12">
-									<div class="title-center">
-										<h2 style="color: white;padding-top: 15%;">SIAPAKAH KAMI</h2>
-									</div>
+					<div class="title-center">
+						<h2>SIAPAKAH KAMI</h2>
+					</div>
+					<div class="grid-wrapper">
+						<div class="row-grid">
+							<div class="grid triangle_top"></div>
+						</div>
+						<div class="row-grid">
+							<div class="grid video_tujuan_program">
+								<iframe width="100%" height="100%" src="https://www.youtube.com/embed/felFVPmAu5s" frameborder="0" allowfullscreen></iframe>
+							</div>
+							<div class="grid grid-blue content_tujuan_program">
+								<div class="grid-content">
+									<h2 class="main-title text-secondary to-uppercase">Tujuan</h2>
+									<p>Memberikan pelayanan unggul, inovatif dan terintegrasi dalam riset, edukasi dan konsultasi terkait pembiayaan perumahan bagi klien</p>
+									<a href="page/post/1" class="btn btn-secondary btn-medium">selengkapnya</a>
 								</div>
 							</div>
-							<div class="row" style="height:385px">
-								<div class="col-md-8 main-content-left"><iframe width="100%" height="100%" src="https://www.youtube.com/embed/felFVPmAu5s" frameborder="0" allowfullscreen></iframe></div>
-								<div class="col-md-4 main-content-right">
-									<ul>
-										<li>Housing Finance Center</li>
-										<li>Tujuan</li>
-										<li>Program</li>
-										<li>Kerjasama</li>
-									</ul>
+						</div>
+						<div class="row-grid">
+							<div class="grid grid-yellow grid-align-right content_kerja_sama">
+								<div class="grid-content">
+									<h2 class="main-title text-secondary to-uppercase">Kerjasama</h2>
+									<p>Untuk memberikan kualitas materi yang terbaik bagi anda, kami telah menjalin kerjasama dengan beberapa pihak</p>
+									<a href="page/engagement/list" class="btn btn-third btn-medium">selengkapnya</a>
 								</div>
 							</div>
-							<div class="row" style="position:relative">
-								<div class="circle-bottom1">
-									<div class="title-center">
-										<h2 style="color: white;padding-top: 10%;font-size: 24px;">Land</h2>
-									</div>
-								</div>
-								<div class="circle-bottom2">
-									<div class="title-center">
-										<h2 style="color: white;padding-top: 15%;font-size: 24px;">Capital</h2>
-									</div>
-								</div>
-								<div class="circle-bottom3">
-									<div class="title-center">
-										<h2 style="color: white;padding-top: 10%;font-size: 24px;">Legal</h2>
-									</div>
-								</div>
-								<div class="circle-bottom4">
-									<div class="title-center">
-										<h2 style="color: white;padding-top: 10%;font-size: 24px;">Skill</h2>
-									</div>
+							<div class="grid grid-red content_program_hfc">
+								<div class="grid-content">
+									<h2 class="main-title text-secondary to-uppercase">Program</h2>
+									<p>Memberikan pelayanan unggul, inovatif dan terintegrasi dalam riset, edukasi dan konsultasi terkait pembiayaan perumahan bagi klien</p>
+									<a href="page/post/1" class="btn btn-secondary btn-medium">selengkapnya</a>
 								</div>
 							</div>
+						</div>
+						<div class="row-grid">
+							<div class="grid triangle_bottom"></div>
 						</div>
 					</div>
 				</div>
