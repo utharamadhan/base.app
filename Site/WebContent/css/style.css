@@ -5721,12 +5721,11 @@ ul.contact_info li a:hover {
   border-top: 86.60px solid #64C7CC;
 }
 
-
 .hexagon_learning{
 	position: absolute;
-	top: -70px;
-	left: 275px;
-	z-index: 999;
+    top: -68px;
+    left: 255px;
+    z-index: 999;
 }
 
 .hexagon_learning:hover{
@@ -5735,8 +5734,8 @@ ul.contact_info li a:hover {
 
 .hexagon_advisory{
 	position: absolute;
-    top: 143px;
-    left: 76px;
+    top: 148px;
+    left: 105px;
     z-index: 2;
 }
 
@@ -5746,8 +5745,8 @@ ul.contact_info li a:hover {
 
 .hexagon_research{
 	position: absolute;
-    top: -45px;
-    left: -125px;
+    top: -58px;
+    left: -68px;
     z-index: 2;
 }
 
@@ -5935,20 +5934,27 @@ ul.contact_info li a:hover {
 }
 
 .learning_text{
-	position: absolute;
-    left: 100px;
-    top: -70px;
+	font-size: 28px;
+    color: #99ff66;
+    position: absolute;
+    left: 50px;
+    top: 80px;
 }		
 		
 .advisory_text{
-	position: absolute;
-    top: 230px;
-    right: 247px;
+	font-size: 28px;
+    color: #ff0000;
+    position: absolute;
+    top: 278px;
+    left: -53px;
 }	
 
 .rnd_text{
-	position: absolute;
-    left: 100px;
-    top: -15px;
+	font-size: 28px;
+    color: #c0ba0a;
+    position: absolute;
+    left: 199px;
+    top: 45px;
+    text-align: center;
 }		
 		

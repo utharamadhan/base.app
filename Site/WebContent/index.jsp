@@ -6,25 +6,26 @@
  	<link href="<%=request.getContextPath()%>/css/home.css" rel="stylesheet" />
 		<div id="aboutArea" class="aboutArea">
 		  <div class="container">
+		  	<img src="<%=request.getContextPath()%>/images/hfc-pcb.png" class="back-pcb"/>
 			<div class="row clearfix">
 				<div class="about_inner">
 					<div class="col-md-4">
 						<div class="hexagon_learning hexagon_clipath hexagon_bg hexagon_learning" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/learning'">
 							<img src="<%=request.getContextPath()%>/images/learning_.jpg"/>
 						</div>
-						<img src="<%=request.getContextPath()%>/images/learning_text.png" class="learning_text" />
+						<label class="learning_text">Learning</label>
 					</div>
 					<div class="col-md-4">
 						<div class="hexagon_advisory hexagon_clipath hexagon_bg hexagon_advisory" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/advisory'">
 							<img src="<%=request.getContextPath()%>/images/advisory_.jpg"/>
 						</div>
-						<img src="<%=request.getContextPath()%>/images/advisory_text.png" class="advisory_text" />
+						<label class="advisory_text">Advisory</label>
 					</div>
 					<div class="col-md-4">
 						<div class="hexagon_research hexagon_clipath hexagon_bg hexagon_rnd" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/research-development'">
 							<img src="<%=request.getContextPath()%>/images/rnd_.jpg"/>
 						</div>
-						<img src="<%=request.getContextPath()%>/images/rnd_text.png" class="rnd_text" />
+						<label class="rnd_text">Research<br/>&#38;<br/>Development</label>
 						<div class="hexagon_hfc">
 							<img src="<%=request.getContextPath()%>/images/logo-hfc.png"/>
 						</div>
