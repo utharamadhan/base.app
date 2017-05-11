@@ -95,6 +95,7 @@ public class EventDAO extends AbstractHibernateDAO<Event, Long> implements IEven
 		crit.setProjection(Projections.projectionList().
 				add(Projections.property(Event.PERMALINK)).
 				add(Projections.property(Event.TITLE)).
+				add(Projections.property(Event.COVER_IMAGE_URL)).
 				add(Projections.property(Event.EVENT_DATE)));
 		crit.setResultTransformer(new ResultTransformer() {
 			@Override
@@ -103,7 +104,8 @@ public class EventDAO extends AbstractHibernateDAO<Event, Long> implements IEven
 				try {
 					BeanUtils.copyProperty(obj, Event.PERMALINK, tuple[0]);
 					BeanUtils.copyProperty(obj, Event.TITLE, tuple[1]);
-					BeanUtils.copyProperty(obj, Event.EVENT_DATE, tuple[2]);
+					BeanUtils.copyProperty(obj, Event.COVER_IMAGE_URL, tuple[2]);
+					BeanUtils.copyProperty(obj, Event.EVENT_DATE, tuple[3]);
 				} catch (Exception e) {
 					LOGGER.error(e.getMessage(), e);
 				}

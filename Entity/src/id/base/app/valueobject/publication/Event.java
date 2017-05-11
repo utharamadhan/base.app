@@ -35,6 +35,7 @@ public class Event extends BaseEntity implements Serializable {
 	public static final String DESCRIPTION 	= "description";
 	public static final String STATUS 	= "status";
 	public static final String EVENT_DATE = "eventDate";
+	public static final String COVER_IMAGE_URL = "coverImageURL";
 	
 	public static Event getInstance() {
 		return new Event();

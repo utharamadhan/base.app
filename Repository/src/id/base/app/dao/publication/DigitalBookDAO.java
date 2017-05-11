@@ -66,7 +66,8 @@ public class DigitalBookDAO extends AbstractHibernateDAO<DigitalBook, Long> impl
 		crit.setMaxResults(number);
 		crit.setProjection(Projections.projectionList().
 				add(Projections.property(DigitalBook.PERMALINK)).
-				add(Projections.property(DigitalBook.TITLE)));
+				add(Projections.property(DigitalBook.TITLE)).
+				add(Projections.property(DigitalBook.COVER_IMAGE_URL)));
 		crit.setResultTransformer(new ResultTransformer() {
 			@Override
 			public Object transformTuple(Object[] tuple, String[] aliases) {
@@ -74,6 +75,7 @@ public class DigitalBookDAO extends AbstractHibernateDAO<DigitalBook, Long> impl
 				try {
 					BeanUtils.copyProperty(obj, DigitalBook.PERMALINK, tuple[0]);
 					BeanUtils.copyProperty(obj, DigitalBook.TITLE, tuple[1]);
+					BeanUtils.copyProperty(obj, DigitalBook.COVER_IMAGE_URL, tuple[2]);
 				} catch (Exception e) {
 					LOGGER.error(e.getMessage(), e);
 				}

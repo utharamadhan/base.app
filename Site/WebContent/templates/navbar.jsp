@@ -30,18 +30,16 @@
 										<ul id="common-post-content">
 											<c:forEach items="${posts}" var="post" varStatus="loop">
 											<li class="dropdown-header"><a href="${ctx}/page/post/${post.pkCommonPost}/${fn:replace(post.title,' ','-')}">${post.title}</a></li>
-											<li class="divider"></li>
 											</c:forEach>
 										</ul>
 										<ul>
 											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/page/lecturer">Tim Pengajar</a></li>
-											<li class="divider"></li>
 											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/page/advisory/sub/advisor">Tim Advisor</a></li>
 										</ul>
 									</li>
 									<li class="col-sm-4">
 										<ul>
-											<li class="dropdown-header"><a href="#">Kerjasama</a></li>
+											<li class="dropdown-header"><a href="#">KERJASAMA</a></li>
 										</ul>
 										<ul id="engagement-content">
 											<c:forEach items="${engages}" var="engage" varStatus="loop">
@@ -52,7 +50,7 @@
 									</li>
 									<li class="col-sm-4">
 										<ul>
-											<li class="dropdown-header"><a href="#">Program HFC 2016</a></li>
+											<li class="dropdown-header"><a href="#">PROGRAM HFC</a></li>
 										</ul>
 										<ul id="program-content">
 											<c:forEach items="${programs}" var="program" varStatus="loop">
@@ -68,9 +66,9 @@
 								  <ul class="dropdown-menu mega-dropdown-menu row publications-mega-menu">
 									<li class="col-sm-4">
 										<ul>
-											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/page/ebook">Buku Elektronik</a></li>
+											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/page/ebook">BUKU ELEKTRONIK</a></li>
 										</ul>
-										<ul id="digital-book-content">
+										<ul id="digital-book-content" class="content">
 											<c:forEach items="${ebooksLatest}" var="ebookLatest" varStatus="loop">
 											<li><a href="${ctx}/page/ebook/${ebookLatest.permalink}">${ebookLatest.title}</a></li>
 											</c:forEach>
@@ -79,9 +77,9 @@
 									</li>
 									<li class="col-sm-4">
 										<ul>
-											<li class="dropdown-header"><a href="#">Berita</a></li>
+											<li class="dropdown-header"><a href="#">BERITA</a></li>
 										</ul>
-										<ul id="news-content">
+										<ul id="news-content" class="content">
 											<c:forEach items="${newsLatest}" begin="0" end="4" var="news" varStatus="loop">
 											<li><a href="${ctx}/page/news/${news.permalink}">${news.title}</a></li>
 											</c:forEach>
@@ -90,9 +88,9 @@
 									</li>
 									<li class="col-sm-4">
 										<ul>
-											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/page/ebook">Kegiatan</a></li>
+											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/page/ebook">KEGIATAN</a></li>
 										</ul>
-										<ul id="event-content">
+										<ul id="event-content" class="content">
 											<c:forEach items="${eventLatest}" var="event" varStatus="loop">
 											<li><a href="${ctx}/page/event/${event.permalink}">${event.title}</a></li>
 											</c:forEach>

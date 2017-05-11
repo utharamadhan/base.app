@@ -63,8 +63,7 @@
 				var cp = data.commonPostList;
 				html = "";
 				for(var i=0;i<cp.length;i++){
-					html += "<li class='dropdown-header'><a href='/Site/page/post/"+cp[i].pkCommonPost+"/"+(cp[i].title).replace(/\s+/g, '-')+"'>"+cp[i].title+"</a></li>";
-					html += "<li class='divider'></li>";	
+					html += "<li class='dropdown-header'><a href='/Site/page/post/"+cp[i].pkCommonPost+"/"+(cp[i].title).replace(/\s+/g, '-')+"'>"+cp[i].title+"</a></li>";	
 				}
 				$('#common-post-content').html(html);
 				
@@ -85,21 +84,21 @@
 				var db = data.digitalBookList;
 				html = "";
 				for(var i=0;i<db.length;i++){
-					html += "<li><a href='/Site/page/ebook/"+db[i].permalink+"'>"+db[i].title+"</a></li>";
+					html += "<li><div class='thumb-mini-img1'><img src='"+db[i].encodedPicture+"'/></div><div class='menu-label1'><a href='/Site/page/ebook/"+db[i].permalink+"'>"+db[i].title+"</a></div><div class='clear'></div></li>";
 				}
 				$('#digital-book-content').html(html);
 				
 				var n = data.newsList;
 				html = "";
 				for(var i=0;i<n.length;i++){
-					html += "<li><a href='/Site/page/news/"+n[i].permalink+"'>"+n[i].title+"</a></li>";
+					html += "<li><div class='thumb-mini-img2 thumb-home'><img src='"+n[i].encodedPicture+"'/></div><div class='menu-label2'><a href='/Site/page/news/"+n[i].permalink+"'>"+n[i].title+"</a></div><div class='clear'></div></li>";
 				}
 				$('#news-content').html(html);
 				
 				var e = data.eventList;
 				html = "";
 				for(var i=0;i<e.length;i++){
-					html += "<li><a href='/Site/page/event/"+e[i].permalink+"'>"+e[i].title+"</a></li>";
+					html += "<li><div class='thumb-mini-img2 thumb-hexagon'><img src='"+e[i].encodedPicture+"'/></div><div class='menu-label2'><a href='/Site/page/event/"+e[i].permalink+"'>"+e[i].title+"</a></div><div class='clear'></div></li>";
 				}
 				$('#event-content').html(html);
 				
