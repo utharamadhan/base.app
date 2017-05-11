@@ -249,14 +249,14 @@ h4.modal-title{
     width: 100%;
     box-shadow: none;
     -webkit-box-shadow: none;
-    background: rgba(255,251,222,0.95);
-	background: -moz-linear-gradient(left, rgba(255,251,222,0.95) 0%, rgba(255,246,191,0.95) 100%);
-	background: -webkit-gradient(left top, right top, color-stop(0%, rgba(255,251,222,0.95)), color-stop(100%, rgba(255,246,191,0.95)));
-	background: -webkit-linear-gradient(left, rgba(255,251,222,0.95) 0%, rgba(255,246,191,0.95) 100%);
-	background: -o-linear-gradient(left, rgba(255,251,222,0.95) 0%, rgba(255,246,191,0.95) 100%);
-	background: -ms-linear-gradient(left, rgba(255,251,222,0.95) 0%, rgba(255,246,191,0.95) 100%);
-	background: linear-gradient(to right, rgba(255,251,222,0.95) 0%, rgba(255,246,191,0.95) 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fffbde', endColorstr='#fff6bf', GradientType=1 );
+	background: rgba(255,253,237,0.95);
+	background: -moz-linear-gradient(left, rgba(255,253,237,0.95) 0%, rgba(255,250,222,0.95) 100%);
+	background: -webkit-gradient(left top, right top, color-stop(0%, rgba(255,253,237,0.95)), color-stop(100%, rgba(255,250,222,0.95)));
+	background: -webkit-linear-gradient(left, rgba(255,253,237,0.95) 0%, rgba(255,250,222,0.95) 100%);
+	background: -o-linear-gradient(left, rgba(255,253,237,0.95) 0%, rgba(255,250,222,0.95) 100%);
+	background: -ms-linear-gradient(left, rgba(255,253,237,0.95) 0%, rgba(255,250,222,0.95) 100%);
+	background: linear-gradient(to right, rgba(255,253,237,0.95) 0%, rgba(255,250,222,0.95) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fffded', endColorstr='#fffade', GradientType=1 );
 }
 .mega-dropdown-menu > li > ul {
   padding: 0;
