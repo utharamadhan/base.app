@@ -10,7 +10,7 @@
 			<div class="row clearfix">
 				<div class="about_inner">
 					<div class="col-md-4">
-						<div class="hexagon_learning hexagon_clipath hexagon_bg hexagon_learning" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/learning'">
+						<div class="hexagon_learning hexagon_clipath hexagon_bg hexagon_learning" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/mainProgram/learning'">
 							<img src="<%=request.getContextPath()%>/images/learning_.jpg"/>
 						</div>
 						<label class="learning_text">Learning</label>
