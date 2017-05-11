@@ -307,6 +307,11 @@ h4.modal-title{
 .mega-dropdown-menu .divider{
 	background-color:#ffffff;
 }
+.dropdown.open{
+	border-radius: 4px;
+	background-color: #FFDE00;
+	border-bottom:4px solid #004fb6;
+}
 .publication-year{
 	background-color:white;
 	width:150px;
@@ -3478,11 +3483,23 @@ ul.contact_info li a:hover {
     font-size: 20px;
 }
 .card-box{
-	border:1px solid #ececec;
+	border-top:1px solid #ececec;
+	border-right:1px solid #ececec;
+	border-left:1px solid #ececec;
 	background:#f6f6f6;
 	box-shadow: 0 1px 4px rgba(0,0,0,.23);
-	-webkit-clip-path: polygon(50% 0, 100% 14%, 100% 100%, 0 100%, 0 14%);
-    clip-path: polygon(50% 0, 100% 14%, 100% 100%, 0 100%, 0 14%);
+	-webkit-clip-path: polygon(50% 0, 100% 17%, 100% 100%, 0 100%, 0 17%);
+    clip-path: polygon(50% 0, 100% 17%, 100% 100%, 0 100%, 0 17%);
+    padding-bottom: 5px;
+}
+.green .card-box{
+	border-top:1px solid #2d7926;
+	border-right:1px solid #2d7926;
+	border-left:1px solid #2d7926;
+	background:#419639;
+}
+.green .card-active .card-title a{
+	color:#ffffff;
 }
 .card-box .card-image img{
 	width:100%;
@@ -3506,16 +3523,31 @@ ul.contact_info li a:hover {
 	margin-top: 10px;
     margin-bottom: 0px;
 }
+.card-box p{
+	margin:25px;
+}
 .card-not-active .card-image img{
 	opacity: 0.2;
     filter: alpha(opacity=20)
 }
 .card-not-active{
-	background:rgba(246, 246, 246, 0.3)!important;
+	border-top:0px solid white!important;
+	border-left:0px solid white!important;
+	border-right:0px solid white!important;
+	background:rgba(246, 246, 246, 0.1)!important;
 }
 .card-not-active a{
 	color:rgba(0, 79, 182, 0.5);
 }	
+.green .top-desc{
+	background-color: #419639;
+	color:#ffffff;
+    padding: 25px 35px;
+    border-bottom:1px solid #2d7926;
+	border-right:1px solid #2d7926;
+	border-left:1px solid #2d7926;
+	box-shadow:20px 40px 40px -18px rgba(0,0,0,0.75);
+}
 .clear{
 	clear:both;
 }
@@ -3566,6 +3598,16 @@ ul.contact_info li a:hover {
     background: -ms-linear-gradient(top, rgba(246,244,244,0.9) 0%, rgba(240,240,240,0.9) 47%, rgba(230,227,227,0.9) 100%);
     background: linear-gradient(to bottom, rgba(246,244,244,0.9) 0%, rgba(240,240,240,0.9) 47%, rgba(230,227,227,0.9) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6f4f4', endColorstr='#e6e3e3', GradientType=0 );
+}
+.green .back-gradient-transparent{
+	background: rgba(210,255,82,0.7);
+	background: -moz-linear-gradient(left, rgba(210,255,82,0.7) 0%, rgba(145,232,66,0.7) 100%);
+	background: -webkit-gradient(left top, right top, color-stop(0%, rgba(210,255,82,0.7)), color-stop(100%, rgba(145,232,66,0.7)));
+	background: -webkit-linear-gradient(left, rgba(210,255,82,0.7) 0%, rgba(145,232,66,0.7) 100%);
+	background: -o-linear-gradient(left, rgba(210,255,82,0.7) 0%, rgba(145,232,66,0.7) 100%);
+	background: -ms-linear-gradient(left, rgba(210,255,82,0.7) 0%, rgba(145,232,66,0.7) 100%);
+	background: linear-gradient(to right, rgba(210,255,82,0.7) 0%, rgba(145,232,66,0.7) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d2ff52', endColorstr='#91e842', GradientType=1 );
 }
 .back-gradient-transparent-menu{
 	background: rgba(246,244,244,0.9);
@@ -3627,6 +3669,9 @@ ul.contact_info li a:hover {
 .thumb-hexagon{
 	-webkit-clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
 	clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+}
+.back-hexa{
+	background-image:url(/Site/images/back-hexa.png);
 }
 @media only screen and (max-width: 479px) {
     .img-responsive {

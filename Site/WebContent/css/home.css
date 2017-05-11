@@ -325,7 +325,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#004fb6', end
 }
 .aboutUsArea{
 	padding:25px 0px 175px 0px;
-	background-image: url(/Site/images/back-hexa.png);
 }
 .aboutUsArea .title-center h2, .newsArea .title-center h2{
 	font-size:32px;

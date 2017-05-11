@@ -110,7 +110,7 @@
 				</div>
 			</div><!--end banner-->
 				<div class="clear"></div>
-		 		<div id="aboutUsArea" class="aboutUsArea">
+		 		<div id="aboutUsArea" class="aboutUsArea back-hexa">
 				<div class="container">
 					<div class="row">
 						<div class="col-md-10 col-md-offset-1">
