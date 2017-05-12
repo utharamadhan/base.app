@@ -27,7 +27,7 @@
 						</div>
 						<label class="rnd_text">Research<br/>&#38;<br/>Development</label>
 						<div class="hexagon_hfc">
-							<img src="<%=request.getContextPath()%>/images/logo-hfc.png"/>
+							<img src="<%=request.getContextPath()%>/images/icon-hfc.png"/>
 						</div>
 						<div class="hexagon_light_learning hll1"></div>
 						<div class="hexagon_light_learning hll2"></div>
