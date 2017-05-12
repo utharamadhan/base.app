@@ -195,7 +195,7 @@
 								</div>
 								<div class="circle-bottom4">
 									<div class="title-center">
-										<h2 style="color: white;padding-top: 10%;font-size: 24px;">Skill</h2>
+										<h2 style="color: white;padding-top: 10%;font-size: 24px;">Skills</h2>
 									</div>
 								</div>
 							</div>
@@ -232,7 +232,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<ul id="categories" class="clr">
-					  <c:forEach var="i" begin="1" end="9">
+					  <c:forEach var="i" begin="1" end="14">
 					  	<li>
 					    	<div>
 					    		<img src="<%=request.getContextPath()%>/images/faces/${i}.jpg"/>
