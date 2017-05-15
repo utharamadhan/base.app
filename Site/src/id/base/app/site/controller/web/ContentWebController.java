@@ -16,6 +16,7 @@ import id.base.app.valueobject.aboutUs.Engagement;
 import id.base.app.valueobject.aboutUs.ProgramPost;
 import id.base.app.valueobject.publication.DigitalBook;
 import id.base.app.valueobject.publication.Event;
+import id.base.app.valueobject.publication.HousingIndex;
 import id.base.app.valueobject.publication.LinkUrl;
 import id.base.app.valueobject.publication.News;
 import id.base.app.valueobject.testimonial.Testimonial;
@@ -60,12 +61,12 @@ public class ContentWebController {
 		return map;
 	}
 	
-	private List<LinkUrl> getHousingIndexList(){
-		RestCaller<LinkUrl> rc = new RestCaller<LinkUrl>(RestConstant.REST_SERVICE, RestServiceConstant.LINK_URL_SERVICE);
+	private List<HousingIndex> getHousingIndexList(){
+		RestCaller<HousingIndex> rc = new RestCaller<HousingIndex>(RestConstant.REST_SERVICE, RestServiceConstant.HOUSING_INDEX_SERVICE);
 		List<SearchFilter> filters = new ArrayList<SearchFilter>();
 		List<SearchOrder> orders = new ArrayList<SearchOrder>();
-		filters.add(new SearchFilter(LinkUrl.STATUS, Operator.EQUALS, ILookupConstant.ArticleStatus.PUBLISH, Integer.class));
-		orders.add(new SearchOrder(LinkUrl.ORDER_NO, SearchOrder.Sort.ASC));
+		filters.add(new SearchFilter(HousingIndex.STATUS, Operator.EQUALS, ILookupConstant.ArticleStatus.PUBLISH, Integer.class));
+		orders.add(new SearchOrder(HousingIndex.ORDER_NO, SearchOrder.Sort.ASC));
 		return rc.findAll(filters, orders);
 	}
 	

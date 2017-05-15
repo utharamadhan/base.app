@@ -22,9 +22,9 @@
 							</div>
 							<div class="collapse navbar-collapse" id="bs-navbar-collapse-1">
 							  <ul class="nav navbar-nav navbar-right">
-								<li id="beranda" class=""><a class="parent-menu" href="<%=request.getContextPath()%>/">Beranda</a></li>
+								<li id="beranda" class=""><a class="parent-menu" href="<%=request.getContextPath()%>/">BERANDA</a></li>
 								<li id="tentang-kami" class="dropdown mega-dropdown">
-								  <a href="#" class="parent-menu dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tentang Kami <span class="caret"></span></a>
+								  <a href="#" class="parent-menu dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">TENTANG KAMI <span class="caret"></span></a>
 								  <ul class="dropdown-menu mega-dropdown-menu row about-us-mega-menu">
 									<li class="col-sm-4">
 										<ul id="common-post-content">
@@ -33,8 +33,8 @@
 											</c:forEach>
 										</ul>
 										<ul>
-											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/page/lecturer">Tim Pengajar</a></li>
-											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/page/advisory/sub/advisor">Tim Advisor</a></li>
+											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/page/lecturer">TIM PENGAJAR</a></li>
+											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/page/advisory/sub/advisor">TIM ADVISOR</a></li>
 										</ul>
 									</li>
 									<li class="col-sm-4">
@@ -62,7 +62,7 @@
 								  </ul>
 								</li>
 								<li id="publikasi" class="dropdown">
-								  <a href="/#" class="parent-menu dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Publikasi <span class="caret"></span></a>
+								  <a href="/#" class="parent-menu dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">PUBLIKASI <span class="caret"></span></a>
 								  <ul class="dropdown-menu mega-dropdown-menu row publications-mega-menu">
 									<li class="col-sm-4">
 										<ul>
@@ -100,12 +100,12 @@
 								  </ul>
 								</li>
 								<li id="program" class="dropdown">
-								  <a class="parent-menu" href="<%=request.getContextPath()%>/page/mainProgram" role="button" aria-haspopup="true" aria-expanded="false">Program</a>
+								  <a class="parent-menu" href="<%=request.getContextPath()%>/page/mainProgram" role="button" aria-haspopup="true" aria-expanded="false">PROGRAM</a>
 								</li>
 								<li id="galeri" class="dropdown">
-								  <a class="parent-menu" href="<%=request.getContextPath()%>/page/galeri" role="button" aria-haspopup="true" aria-expanded="false">Galeri</a>
+								  <a class="parent-menu" href="<%=request.getContextPath()%>/page/galeri" role="button" aria-haspopup="true" aria-expanded="false">GALERI</a>
 								</li>
-								<li id="kontak-kami" ><a class="parent-menu" href="<%=request.getContextPath()%>/page/contact">Kontak Kami</a></li>
+								<li id="kontak-kami" ><a class="parent-menu" href="<%=request.getContextPath()%>/page/contact">KONTAK KAMI</a></li>
 								<li class="btn-signup" style="display:none"><a href="#" data-toggle="modal" data-target="#sign-in-modal">Sign In</a></li>
 							  </ul>
 							</div><!-- /.navbar-collapse -->

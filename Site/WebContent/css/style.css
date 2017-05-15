@@ -125,7 +125,7 @@ iframe {
     margin: 0px;
 }
 .header .navbar-default .navbar-nav>li>a {
-    font-size: 16px;
+    font-size: 14px;
     text-decoration: none;
     color: #000000;
     padding: 11px 14px!important;
@@ -5932,21 +5932,3 @@ ul.contact_info li a:hover {
 	left: 4px;
 	top: -15px;
 }
-		
-.advisory_text{
-	font-size: 28px;
-    color: #ff0000;
-    position: absolute;
-    top: 278px;
-    left: -53px;
-}	
-
-.rnd_text{
-	font-size: 28px;
-    color: #c0ba0a;
-    position: absolute;
-    left: 199px;
-    top: 45px;
-    text-align: center;
-}		
-		

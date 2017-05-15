@@ -39,7 +39,7 @@
 						<div class="hexagon_light_rnd hlr2"></div>
 						<div class="hexagon_light_rnd hlr3"></div>
 						<div class="housing_index">
-							<div class="breakingNews bn-red" id="bn1">
+							<div class="breakingNews bn-yellow" id="bn1">
 						    	<div class="bn-title" style="width: auto;"><h2 style="display: inline-block;">BTN Housing Index</h2><span></span></div>
 						        <ul style="left: 208px;" id="btnHIContent"></ul>
 						        <div class="bn-navi">
@@ -75,7 +75,7 @@
 									<div class="step-expert-border"></div>
 									<div class="step-expert-icon-wrapper">
 										<div class="step-expert-content">
-											<span>Akses Housing Finance Center</span>
+											<span>Akses Website Housing Finance Center</span>
 										</div>
 									</div>
 								</div>
@@ -83,7 +83,7 @@
 									<div class="step-expert-border"></div>
 									<div class="step-expert-icon-wrapper">
 										<div class="step-expert-content">
-											<span>Browser Publikasi</span>
+											<span>Browser<br/>Publikasi<br/>Kami</span>
 										</div>
 									</div>
 								</div>
@@ -91,7 +91,7 @@
 									<div class="step-expert-border"></div>
 									<div class="step-expert-icon-wrapper">
 										<div class="step-expert-content">
-											<span>Pilih Program Kami</span>
+											<span>Pilih<br/>Program<br/>Kami</span>
 										</div>
 									</div>
 								</div>
@@ -129,7 +129,7 @@
 								        <div class="panel panel-default">
 								            <div class="panel-heading">
 								                <h4 class="panel-title">
-								                    <a data-toggle="collapse" data-parent="#accordion" href="#cHFC">Housing Finance Center</a>
+								                    <a data-toggle="collapse" data-parent="#accordion" href="#cHFC">BTN HOUSING FINANCE CENTER</a>
 								                </h4>
 								            </div>
 								            <div id="cHFC" class="panel-collapse collapse in">
@@ -177,25 +177,25 @@
 								    </div>
 								</div>
 							</div>
-							<div class="row" style="position:relative">
+							<div class="row circle-bottom-wrapper">
 								<div class="circle-bottom1">
 									<div class="title-center">
-										<h2 style="color: white;padding-top: 7%;font-size: 24px;">Land & Environment</h2>
+										<h2>Land & Environment</h2>
 									</div>
 								</div>
 								<div class="circle-bottom2">
 									<div class="title-center">
-										<h2 style="color: white;padding-top: 15%;font-size: 24px;">Capital</h2>
+										<h2>Capital</h2>
 									</div>
 								</div>
 								<div class="circle-bottom3">
 									<div class="title-center">
-										<h2 style="color: white;padding-top: 7%;font-size: 24px;">Legal</h2>
+										<h2>Legal</h2>
 									</div>
 								</div>
 								<div class="circle-bottom4">
 									<div class="title-center">
-										<h2 style="color: white;padding-top: 10%;font-size: 24px;">Skills</h2>
+										<h2>Skills</h2>
 									</div>
 								</div>
 							</div>
@@ -267,14 +267,14 @@
 				var hi = data.housingIndexList;
 				var html = "";
 				for(var i=0;i<hi.length;i++){
-					html += "<li><a href="+hi[i].url+" target='_blank'><span>"+hi[i].title+"</span></a></li>";	
+					html += "<li><label>"+hi[i].title+" : </label>&nbsp;<span>"+hi[i].value+"</span></a></li>";	
 				}
 				$('#btnHIContent').html(html);
 				$("#bn1").breakingNews({
 					effect		:"slide-h",
 					autoplay	:true,
 					timer		:3000,
-					color		:"red",
+					color		:"yellow",
 					border		:true
 				});
 				
