@@ -13,6 +13,7 @@ import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.valueobject.Faq;
+import id.base.app.valueobject.publication.HousingIndex;
 import id.base.app.valueobject.publication.LinkUrl;
 import id.base.app.web.DataTableCriterias;
 import id.base.app.web.controller.BaseController;
@@ -37,14 +38,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Scope(value="request")
 @Controller
 @RequestMapping("/publication/housingIndex")
-public class HousingIndexWebController extends BaseController<LinkUrl> {
+public class HousingIndexWebController extends BaseController<HousingIndex> {
 
 	private final String PATH_LIST = "/publication/housingIndexList";
 	private final String PATH_DETAIL = "/publication/housingIndexDetail";
 	
 	@Override
-	protected RestCaller<LinkUrl> getRestCaller() {
-		return new RestCaller<LinkUrl>(RestConstant.REST_SERVICE, RestServiceConstant.LINK_URL_SERVICE);
+	protected RestCaller<HousingIndex> getRestCaller() {
+		return new RestCaller<HousingIndex>(RestConstant.REST_SERVICE, RestServiceConstant.HOUSING_INDEX_SERVICE);
 	}
 	@Override
 	protected List<SearchFilter> convertForFilter(
@@ -56,9 +57,8 @@ public class HousingIndexWebController extends BaseController<LinkUrl> {
 	protected List<SearchFilter> convertForFilter(HttpServletRequest request,
 			Map<String, String> paramWrapper, DataTableCriterias columns) {
 		List<SearchFilter> filters = new ArrayList<>();
-		filters.add(new SearchFilter(LinkUrl.TYPE, Operator.EQUALS, SystemConstant.LinkUrlType.HOUSING_INDEX, String.class));
 		if(StringFunction.isNotEmpty(columns.getSearch().get(DataTableCriterias.SearchCriterias.value))){
-			filters.add(new SearchFilter(LinkUrl.TITLE, Operator.LIKE, columns.getSearch().get(DataTableCriterias.SearchCriterias.value)));
+			filters.add(new SearchFilter(HousingIndex.TITLE, Operator.LIKE, columns.getSearch().get(DataTableCriterias.SearchCriterias.value)));
 		}
 		return filters;
 	}
@@ -83,14 +83,14 @@ public class HousingIndexWebController extends BaseController<LinkUrl> {
 		return getListPath();
 	}
 	
-	public void setDefaultData(ModelMap model, LinkUrl obj) {
+	public void setDefaultData(ModelMap model, HousingIndex obj) {
 		LookupRestCaller lrc = new LookupRestCaller();
 		model.addAttribute("statusOptions", lrc.findByLookupGroup(ILookupGroupConstant.ARTICLE_STATUS));
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="showAdd")
 	public String showAdd(ModelMap model, HttpServletRequest request){
-		LinkUrl obj = LinkUrl.getInstance();
+		HousingIndex obj = HousingIndex.getInstance();
 		setDefaultData(model, obj);
 		model.addAttribute("detail", obj);
 		return PATH_DETAIL;
@@ -98,7 +98,7 @@ public class HousingIndexWebController extends BaseController<LinkUrl> {
 	
 	@RequestMapping(method=RequestMethod.GET, value="showEdit")
 	public String showEdit(@RequestParam(value="maintenancePK") final Long maintenancePK, @RequestParam Map<String, String> paramWrapper, ModelMap model, HttpServletRequest request){
-		LinkUrl detail = getRestCaller().findById(maintenancePK);
+		HousingIndex detail = getRestCaller().findById(maintenancePK);
 		setDefaultData(model, detail);
 		model.addAttribute("detail", detail);
 		return PATH_DETAIL;
@@ -106,13 +106,12 @@ public class HousingIndexWebController extends BaseController<LinkUrl> {
 	
 	@RequestMapping(method=RequestMethod.POST, value="saveHousingIndex")
 	@ResponseBody
-	public Map<String, Object> saveHousingIndex(final LinkUrl anObject, final BindingResult bindingResult, final ModelMap model, HttpServletRequest request, 
+	public Map<String, Object> saveHousingIndex(final HousingIndex anObject, final BindingResult bindingResult, final ModelMap model, HttpServletRequest request, 
 			@RequestParam final Map<String, Object> inputMap) {
 		Map<String, Object> resultMap = new HashMap<>();
 		List<ErrorHolder> errors = new ArrayList<>();
 		try{
-			anObject.setType(SystemConstant.LinkUrlType.HOUSING_INDEX);
-			errors = new SpecificRestCaller<LinkUrl>(RestConstant.REST_SERVICE, RestServiceConstant.LINK_URL_SERVICE).performPut("/update", anObject);
+			errors = new SpecificRestCaller<HousingIndex>(RestConstant.REST_SERVICE, RestServiceConstant.HOUSING_INDEX_SERVICE).performPut("/update", anObject);
 			if(errors != null && errors.size() > 0){
 				resultMap.put(SystemConstant.ERROR_LIST, errors);
 			}

@@ -35,7 +35,7 @@
 							</div>									
 							&nbsp;
 						</div>
-						<input id="housingIndex-detail-maintenancePk" type="hidden" th:field="*{pkLinkUrl}"/>
+						<input id="housingIndex-detail-maintenancePk" type="hidden" th:field="*{pkHousingIndex}"/>
 						<div class="form-group">
 							<label class="col-sm-2 control-label" th:text="'Title'">Title</label>
 							<div class="col-sm-9 form-input-container">
@@ -43,9 +43,9 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-2 control-label" th:text="'Link URL'">Link URL</label>
+							<label class="col-sm-2 control-label" th:text="'Value'">Value</label>
 							<div class="col-sm-9 form-input-container">
-								<input type="text" class="form-control" placeholder="Link URL" name="srch-term" id="input-text-title" th:field="*{url}"/>
+								<input type="text" class="form-control" placeholder="Value" name="srch-term" id="input-text-title" th:field="*{value}"/>
 							</div>
 						</div>
 						<div class="form-group">

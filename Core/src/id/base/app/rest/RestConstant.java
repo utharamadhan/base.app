@@ -99,6 +99,8 @@ public class RestConstant {
 	//link URL
 	public static final String RM_LINK_URL = "/linkUrl";
 	
+	public static final String RM_HOUSING_INDEX = "/housingIndex";
+	
 	//report
 	public static final String RM_STUDENT_REPORT = "/studentReport";
 	public static final String RM_RESEARCH_DEVELOPMENT_REPORT = "/researchDevelopmentReport";

@@ -31,7 +31,7 @@
 		                        <thead>
 		                          <tr>
 		                            <th>Title</th>
-		                            <th>Link URL</th>
+		                            <th>Value</th>
 		                            <th>Order No</th>
 									<th>Status</th>	
 									<th>E/D</th>
@@ -91,10 +91,10 @@
 	    $(function(){
 		    setMenuActive('housingIndex');
 		    var colDefs = [{ name : "title" },
-		                   { name : "url" },
+		                   { name : "value" },
 		                   { name : "orderNo" },
 	    	               { name : "statusStr" },
-	    	               { type : "deleteAndEdit" , param : [ "pkLinkUrl" ] }
+	    	               { type : "deleteAndEdit" , param : [ "pkHousingIndex" ] }
 	    	               ];
 		    var sURL = /*[[@{/do/publication/housingIndex/list?}]]*/ #;
 		    buildDataTable(/*[[@{/}]]*/, sURL, 'housingIndex-list-table', 450, colDefs, null, null);

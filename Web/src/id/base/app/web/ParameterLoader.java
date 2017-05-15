@@ -36,6 +36,7 @@ import id.base.app.valueobject.party.Party;
 import id.base.app.valueobject.party.Student;
 import id.base.app.valueobject.publication.DigitalBook;
 import id.base.app.valueobject.publication.Event;
+import id.base.app.valueobject.publication.HousingIndex;
 import id.base.app.valueobject.publication.LinkUrl;
 import id.base.app.valueobject.publication.News;
 import id.base.app.valueobject.report.VWResearchDevelopmentReport;
@@ -267,6 +268,9 @@ public class ParameterLoader extends ContextLoader implements ServletContextList
 		//Link Url
 		RestCaller.BASE_URL.put(RestServiceConstant.LINK_URL_SERVICE, RestConstant.RM_LINK_URL);
 		RestCaller.BASE_CLASS.put(RestServiceConstant.LINK_URL_SERVICE, LinkUrl.class);
+		
+		RestCaller.BASE_URL.put(RestServiceConstant.HOUSING_INDEX_SERVICE, RestConstant.RM_HOUSING_INDEX);
+		RestCaller.BASE_CLASS.put(RestServiceConstant.HOUSING_INDEX_SERVICE, HousingIndex.class);
 		
 		//Report
 		RestCaller.BASE_URL.put(RestServiceConstant.STUDENT_REPORT_SERVICE, RestConstant.RM_STUDENT_REPORT);
