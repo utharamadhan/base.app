@@ -63,7 +63,7 @@
 				var cp = data.commonPostList;
 				html = "";
 				for(var i=0;i<cp.length;i++){
-					html += "<li class='dropdown-header'><a href='/Site/page/post/"+cp[i].pkCommonPost+"/"+(cp[i].title).replace(/\s+/g, '-')+"'>"+cp[i].title+"</a></li>";	
+					html += "<li class='dropdown-header'><a href='/Site/page/post/"+cp[i].pkCommonPost+"/"+(cp[i].title).replace(/\s+/g, '-')+"'>"+cp[i].title.toUpperCase()+"</a></li>";	
 				}
 				$('#common-post-content').html(html);
 				

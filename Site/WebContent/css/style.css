@@ -284,6 +284,7 @@ h4.modal-title{
   color: #0056a1;
   font-size: 16px;
   font-weight:bold;
+  text-transform: capitalize;
 }
 
 .mega-dropdown-menu > li ul > li > a:hover,
@@ -291,6 +292,7 @@ h4.modal-title{
   text-decoration: none;
   color: #444;
   background-color: #f5f5f5;
+  text-transform: capitalize;
 }
 .mega-dropdown-menu .dropdown-header {
   color: #0056a1;
@@ -1106,6 +1108,10 @@ h4.modal-title{
   transition: .5s ease;
   -webkit-clip-path: polygon(50% 0%, 100% 20%, 100% 80%, 50% 100%, 0 80%, 0 20%);
   clip-path: polygon(50% 0%, 100% 20%, 100% 80%, 50% 100%, 0 80%, 0 20%);
+}
+
+.green .post .post_thumb .overlay {
+  background-color: rgba(26, 181, 11, 0.8);
 }
 
 .post .post_thumb:hover .overlay {
