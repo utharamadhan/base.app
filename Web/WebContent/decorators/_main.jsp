@@ -47,6 +47,7 @@
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/css/minimal.css">
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css">
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/css/vendor/timepicker/jquery.ui.timepicker.css">
+		<link rel="stylesheet" href="<%=request.getContextPath()%>/css/light-bootstrap-dashboard.css">
 	
 	    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -199,7 +200,6 @@
     <script src="<%=request.getContextPath()%>/js/jquery/jquery-ui.min.js" type="text/javascript"></script>
     <script src="<%=request.getContextPath()%>/js/jquery/jquery.ui.timepicker.js" type="text/javascript"></script>
     <script src="<%=request.getContextPath()%>/js/modal-dialog.js" type="text/javascript"></script>
-	<script src="<%=request.getContextPath()%>/js/common.js" type="text/javascript" ></script>
 	
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="<%=request.getContextPath()%>/plugin/vendor/bootstrap/bootstrap.min.js"></script>
@@ -242,6 +242,9 @@
     <script src="<%=request.getContextPath()%>/plugin/vendor/sockJs/stomp.js"></script>
     <script src="<%=request.getContextPath()%>/plugin/vendor/bootstrap-notify/bootstrap-notify.min.js"></script>
     <script src="<%=request.getContextPath()%>/js/notifications-section.js"></script>
+    <script src="<%=request.getContextPath()%>/js/chartist.min.js"></script>
+    <script src="<%=request.getContextPath()%>/js/light-bootstrap-dashboard.js"></script>
+    <script src="<%=request.getContextPath()%>/js/common.js" type="text/javascript" ></script>
     <script>
 	    $(function(){
 	    	$('.numeric').autoNumeric('init', {aSep:'.', aDec:',', vMin: '-9999999999.99', vMax:'9999999999.99'});

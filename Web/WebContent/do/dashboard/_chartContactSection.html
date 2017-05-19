@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:ifs="http://base.id">
+<head></head>
+<body>
+<div id="chart_contact" class="panel" th:fragment="chartContactSection()">
+	<div class="panel-heading">
+		<h3 class="panel-title">
+			Contact Us <span class="pull-right label label-round label-warning" th:text="${unreadNotifications + ' Unread Notifications'}" style="display:none;"></span>
+		</h3>
+	</div>
+	<div class="panel-body">
+		<div style="width: 300px; margin-left: auto; margin-right: auto;">
+			<div id="chartPreferences" class="ct-chart ct-perfect-fourth"></div>
+		</div>
+		<div class="legend" style="margin-top: 10px;">
+             <div><i class="fa fa-circle text-info"></i> Belum Dibaca</div>
+             <div><i class="fa fa-circle text-danger"></i> Sudah Dibaca &amp; Belum Dibalas</div>
+             <div><i class="fa fa-circle text-warning"></i> Sudah Dibalas</div>
+         </div>
+	</div>
+</div>
+</body>
+</html>
