@@ -140,7 +140,7 @@ public class LoginService implements LoginDirectoryService ,
 			throws SystemException {
 		RuntimeUserLogin rul = loginDAO.findByUserName(userName);
 		//TODO find the blocked variable here
-		if(null != rul){	
+		if(null != rul){
 		}
 		
 		return rul;

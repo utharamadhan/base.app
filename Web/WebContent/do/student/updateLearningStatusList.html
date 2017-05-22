@@ -9,11 +9,103 @@
 </style>
 <body>
 <div id="content" class="col-md-12">
-	
+	<div id="student-detail-container"></div>
+	<div id="student-update-container">
+		<div class="col-md-12 tile-body no-vpadding" style="margin:10px;">
+			<span><a href="#" class="btn btn-primary btn_passed"><i class="fa fa-plus dropdown-plus"></i> &nbsp; Passed</a></span>
+			<span><a href="#" class="btn btn-primary btn_failed"><i class="fa fa-plus dropdown-plus"></i> &nbsp; Failed</a></span>
+			<span>
+				<select class="select_box_inline selectCourse" name="courseFilter">
+					<option value="0">-Please Select-</option>
+					<option th:each="course, i : ${courseOptions}" th:value="${course.pkCourse}" th:text="${course.name}">Make a Concept House</option>
+				</select>
+			</span>
+		</div>
+		<div class="main">
+			<div class="row">
+				<div class="col-md-12">	
+					<section class="tile transparent">
+						<div class="table-responsive">
+							<div class="tile-body rounded-corners">
+		                      	<table id="student-list-table" class="table table-datatable table-custom">
+			                        <thead>
+			                          <tr>
+			                          	<th style="width: 15px; text-align: center;" align="center"><input type="checkbox" class="check-all" id="selectAll-student-list-table"/> </th>
+			                            <th>Student Name</th>
+			                            <th>Link</th>
+			                          </tr>
+			                        </thead>
+		                     	</table>
+		                     	<div style="padding-bottom: 3px; bottom: 0;" th:replace="pagingDiv::pager (${pagingWrapper}, ${#dates.createNow()}, 'student-list-table', 'contentArea')">
+								</div>
+	                     	</div>
+						</div>
+					</section>
+					</div>
+				</div>
+			</div>
+	</div>	
 </div>
 <script th:inline="javascript">
 	/*<![CDATA[*/
+	function showDetail(maintenancePK) {
+		var sURL = /*[[@{/do/student/database/showEdit?maintenancePK=}]]*/ #;
+		showScreen('student-update-container', 'student-detail-container', sURL + maintenancePK + "&skipdecorator=");
+	}        
+	
+	var processLearning = function(itemPK, courseId, actionType) {
+		var sURL = /*[[@{/do/student/updateLearningStatus/processLearning}]]*/ #;
+		$.post(sURL, "itemPK="+itemPK+"&courseId="+courseId+"&actionType="+actionType, function(data) {
+			if(data.errorList != null) {
+				displayErrorParsley(data.errorList);
+			} else {
+				var customCallback = function(){
+					var value = $('.selectCourse').find('option:selected').attr('value');
+					loadData(value);
+				};
+				bootBoxSuccessSave("Record Successfully Processed", customCallback);
+			}
+		});
+	}
+	
+	function loadData(value){
+    	var sURLLoad = /*[[@{/do/student/updateLearningStatus/studentList?}]]*/ #;
+    	sURLLoad = sURLLoad + "course=" + value;
+    	$('#student-list-table').DataTable().ajax.url(sURLLoad).load();
+	}
+	           
+	$(function(){
+		setMenuActive('update-learning-status');
+	    var colDefs = [{ name : "pkStudent" , type: "checkbox"},
+	                   { name : "name"}, 
+    	               { name : "pkStudent", type: "link-default", onclick: "showDetail", param: ["pkStudent"] }
+    	               ];
+	    var sURL = /*[[@{/do/student/updateLearningStatus/studentList?}]]*/ #;
+	    buildDataTableWithoutFilter(/*[[@{/}]]*/, sURL + "emptyList=true", 'student-list-table', 450, colDefs, null, null);
 	    
+	    $('.selectCourse').unbind('change').change(function(){
+	    	var value = $(this).find('option:selected').attr('value');
+	    	loadData(value);
+	    });
+	    
+	    $('.btn_passed').unbind('click').click(function(){
+	    	$('#student-list-table').find('tbody').find('input[type="checkbox"]:checked').each(function(idx){
+	    		var dataId = $(this).attr('value');
+	    		var courseId = $('.selectCourse').find('option:selected').attr('value');
+	    		processLearning(dataId, courseId, 'passed');
+	    	});
+	    });
+	    
+		$('.btn_failed').unbind('click').click(function(){
+			$('#student-list-table').find('tbody').find('input[type="checkbox"]:checked').each(function(idx){
+	    		var dataId = $(this).attr('value');
+	    		var courseId = $('.selectCourse').find('option:selected').attr('value');
+	    		processLearning(dataId, courseId, 'failed');
+	    	});
+	    });
+	    
+	    
+	});    
 	/*]]>*/
 </script>
 </body>

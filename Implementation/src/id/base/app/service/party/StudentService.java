@@ -57,7 +57,7 @@ public class StudentService implements IStudentService {
 	@Override
 	@Deprecated
 	public PagingWrapper<Student> findAllByFilter(int startNo, int offset, List<SearchFilter> filter, List<SearchOrder> order) throws SystemException {
-		return null;
+		return studentDAO.findAllByFilter(startNo, offset, filter, order);
 	}
 	
 	@Override
@@ -68,7 +68,7 @@ public class StudentService implements IStudentService {
 	@Override
 	public List<Student> findAll(List<SearchFilter> filter,
 			List<SearchOrder> order) throws SystemException {
-		return null;
+		return studentDAO.findAll(filter, order);
 	}
 
 	@Override

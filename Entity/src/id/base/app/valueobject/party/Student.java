@@ -55,6 +55,8 @@ public class Student extends BaseEntity implements Serializable {
 	public static final String SCHOOL_ACTIVITIES_SOCIETIES = "schoolActivitiesSocieties";
 	public static final String SCHOOL_DESCRIPTION		= "schoolDescription";
 	public static final String STATUS					= "status";
+	public static final String PK_COURSE				= "studentCourses.course.pkCourse";
+	public static final String PK_STUDENT_COURSE		= "studentCourses.pkStudentCourse";
 	
 	public static Student getInstance() {
 		return new Student();

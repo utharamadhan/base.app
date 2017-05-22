@@ -245,7 +245,7 @@ public class AbstractHibernateDAO<T,Y extends Serializable> {
 			int totalAlias = field.split("\\.").length - 1;
 			String colAlias = null;
 			for(int j=0;j<totalAlias;j++){
-				colAlias = colAlias == null ?  field.split("\\.")[j] : colAlias + "." + field.split(".")[j];
+				colAlias = colAlias == null ?  field.split("\\.")[j] : colAlias + "." + field.split("\\.")[j];
 				if(!filterAlias.contains(colAlias)){
 					filterAlias.add(colAlias);
 					SearchAlias alias = new SearchAlias(colAlias, colAlias);
@@ -595,7 +595,7 @@ public class AbstractHibernateDAO<T,Y extends Serializable> {
 			int totalAlias = field.split("\\.").length - 1;
 			String colAlias = null;
 			for(int j=0;j<totalAlias;j++){
-				colAlias = colAlias == null ?  field.split("\\.")[j] : colAlias + "." + field.split(".")[j];
+				colAlias = colAlias == null ?  field.split("\\.")[j] : colAlias + "." + field.split("\\.")[j];
 				if(!filterAlias.contains(colAlias)){
 					filterAlias.add(colAlias);
 					SearchAlias alias = new SearchAlias(colAlias, colAlias);

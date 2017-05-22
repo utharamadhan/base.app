@@ -139,3 +139,19 @@ a:hover, a:focus{
   color: #fff;
   background-color: #337ab7;
 }
+
+.dt-center{
+	text-align: center;
+}
+.select_box_inline{
+	height: 35px;
+	width: 150px;
+	margin-left: 5px;
+}
+.normal-link{
+	color: #428bca !important;
+}
+.normal-link:hover{
+	color: #2a6496 !important;
+	cursor: pointer;
+}

@@ -553,6 +553,26 @@ function buildDataTableWithCustomFilter(base, url, id, height, colDefs, detailFu
             window[detailFunc](params);
         } );	
     }
+    if($('#selectAll-'+id)){
+    	$('#selectAll-'+id).on('click', function(){
+    		var rows = table.rows({ 'search': 'applied' }).nodes();
+    		$('input[type="checkbox"]', rows).not(':disabled').prop('checked', this.checked);
+    	});
+    	$('#'+id+' tbody').on('change', 'input[type="checkbox"]', function(){
+    		var totalCb = $('#'+id+' tbody input[type="checkbox"]').not(':disabled').length;
+    		var totalCk = $('#'+id+' tbody input[type="checkbox"]').not(':disabled').totalChecked();
+			if(totalCk==0){
+				$('#selectAll-'+id).prop('indeterminate',false);
+				$('#selectAll-'+id).prop('checked',false);
+			}else if(totalCk==totalCb){
+				$('#selectAll-'+id).prop('indeterminate',false);
+				$('#selectAll-'+id).prop('checked',true);
+			}else{
+				$('#selectAll-'+id).prop('indeterminate',true);
+				$('#selectAll-'+id).prop('checked',true);
+			}
+    	});
+    }
 }
 
 function buildDataTable(base, url, id, height, colDefs, detailFunc, detailParams, customAjaxOpts){
@@ -586,6 +606,26 @@ function buildDataTable(base, url, id, height, colDefs, detailFunc, detailParams
         	}
             window[detailFunc](params);
         } );	
+    }
+    if($('#selectAll-'+id)){
+    	$('#selectAll-'+id).on('click', function(){
+    		var rows = table.rows({ 'search': 'applied' }).nodes();
+    		$('input[type="checkbox"]', rows).not(':disabled').prop('checked', this.checked);
+    	});
+    	$('#'+id+' tbody').on('change', 'input[type="checkbox"]', function(){
+    		var totalCb = $('#'+id+' tbody input[type="checkbox"]').not(':disabled').length;
+    		var totalCk = $('#'+id+' tbody input[type="checkbox"]').not(':disabled').totalChecked();
+			if(totalCk==0){
+				$('#selectAll-'+id).prop('indeterminate',false);
+				$('#selectAll-'+id).prop('checked',false);
+			}else if(totalCk==totalCb){
+				$('#selectAll-'+id).prop('indeterminate',false);
+				$('#selectAll-'+id).prop('checked',true);
+			}else{
+				$('#selectAll-'+id).prop('indeterminate',true);
+				$('#selectAll-'+id).prop('checked',true);
+			}
+    	});
     }
 }
 
@@ -621,6 +661,26 @@ function buildDataTableWithoutFilter(base, url, id, height, colDefs, detailFunc,
         	}
             window[detailFunc](params);
         } );	
+    }
+    if($('#selectAll-'+id)){
+    	$('#selectAll-'+id).on('click', function(){
+    		var rows = table.rows({ 'search': 'applied' }).nodes();
+    		$('input[type="checkbox"]', rows).not(':disabled').prop('checked', this.checked);
+    	});
+    	$('#'+id+' tbody').on('change', 'input[type="checkbox"]', function(){
+    		var totalCb = $('#'+id+' tbody input[type="checkbox"]').not(':disabled').length;
+    		var totalCk = $('#'+id+' tbody input[type="checkbox"]').not(':disabled').totalChecked();
+			if(totalCk==0){
+				$('#selectAll-'+id).prop('indeterminate',false);
+				$('#selectAll-'+id).prop('checked',false);
+			}else if(totalCk==totalCb){
+				$('#selectAll-'+id).prop('indeterminate',false);
+				$('#selectAll-'+id).prop('checked',true);
+			}else{
+				$('#selectAll-'+id).prop('indeterminate',true);
+				$('#selectAll-'+id).prop('checked',true);
+			}
+    	});
     }
 }
 
@@ -740,6 +800,34 @@ function buildColumns(colDefs,list){
 				}
 				return '<a onclick="' + colDefsTemp.onclick + '(' + paramRender + ')">'+data+'</a>';
 			}
+		}else if(colDefs[i].type=='link-default'){
+			var colDefsTemp = colDefs[i];
+			tabCol.render = function(data, type, row, meta){
+				var paramRender = '';
+				console.log(colDefsTemp);
+				if(colDefsTemp.param){
+					for(var index = 0;index<colDefsTemp.param.length;index++){
+						if(index!=0){
+							paramRender += ',';
+						}
+						if(colDefsTemp.param[index].indexOf(".") > -1){
+							var resolverTemp = colDefsTemp;
+							var arrParam = colDefsTemp.param[index].split(".");
+							for(var arrIdx=0;arrIdx<arrParam.length;arrIdx++){
+								if(arrIdx==0){
+									resolverTemp = row[arrParam[arrIdx]];
+								}else{
+									resolverTemp = resolverTemp[arrParam[arrIdx]];
+								}
+							}
+							paramRender += '\'' + resolverTemp + '\'';
+						}else{							
+							paramRender += '\'' + row[colDefsTemp.param[index]] + '\'';
+						}
+					}	
+				}
+				return '<a onclick="' + colDefsTemp.onclick + '(' + paramRender + ')" class="normal-link">'+'See More'+'</a>';
+			}
 		}else if(colDefs[i].type=='linker'){
 			tabCol.render = function(data){
 				var clickable = data;
@@ -827,6 +915,26 @@ function buildColumns(colDefs,list){
 					return '<i class="fa fa-check-square-o"></i>';
 				}
 			}
+		}else if(colDefs[i].type=='checkbox'){
+			tabCol.render = function(data, type, row, meta){
+				var disabledCheckbox = false;
+				var colDefsTemp = colDefs[meta.col];
+				var idInput = colDefsTemp.paramId == undefined ? "" : colDefsTemp.paramId;
+				var renderedValue = '<input type="checkbox" class="minimal" name="select" id="'+idInput+'" value="'+data+'"/>';
+				
+				if(disabledCheckbox){
+						renderedValue = '<input type="checkbox" class="minimal" name="select" id="'+idInput+'" value="'+data+'" disabled="disabled"/>';
+				}
+				if(colDefsTemp.dataType && colDefsTemp.dataType=='boolean'){
+					if(data){
+						renderedValue = '<input type="checkbox" class="minimal" name="select" id="'+idInput+'" value="'+data+'" checked="checked"/>';
+					}
+				}
+				
+				return renderedValue;
+			}
+			tabCol.orderable = false;
+			tabCol.className="dt-center";
 		}
 		
 		tabCol.defaultContent = '';
@@ -1248,4 +1356,18 @@ demo = {
     },
     
     
-}
+};
+
+(function( $ ) {
+    $.fn.totalChecked = function() {
+        var total = 0;
+    	$(this).each(function(){ 
+    		var checked = $(this).prop('checked');
+			if (typeof checked !== typeof undefined && checked !== false) {
+				total = parseInt(total) + 1;
+			}
+    	});
+        
+        return total;
+    };
+})( jQuery );
