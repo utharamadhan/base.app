@@ -104,5 +104,8 @@ public class RestConstant {
 	//report
 	public static final String RM_STUDENT_REPORT = "/studentReport";
 	public static final String RM_RESEARCH_DEVELOPMENT_REPORT = "/researchDevelopmentReport";
+	
+	//Front End
+	public static final String RM_HOME_SETTING = "/homeSetting";
 
 }

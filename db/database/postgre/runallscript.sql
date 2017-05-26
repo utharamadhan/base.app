@@ -228,3 +228,6 @@
 
 -- 2017-Mei-15
 \i DDL/HOUSING_INDEX.sql;
+
+-- 2017-Mei-25
+\i DDL/HOME_SETTING.sql;
