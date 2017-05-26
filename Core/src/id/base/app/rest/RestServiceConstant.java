@@ -82,4 +82,5 @@ public class RestServiceConstant {
 	
 	//front end 
 	public static final String HOME_SETTING_SERVICE = "homeSettingService";
+	public static final String CONTACT_SETTING_SERVICE = "contactSettingService";
 }

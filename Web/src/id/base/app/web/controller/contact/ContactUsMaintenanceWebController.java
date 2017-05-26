@@ -1,12 +1,7 @@
 package id.base.app.web.controller.contact;
 
-import id.base.app.rest.RestCaller;
-import id.base.app.util.dao.SearchFilter;
-import id.base.app.util.dao.SearchOrder;
-import id.base.app.valueobject.contact.Contact;
-import id.base.app.web.DataTableCriterias;
-import id.base.app.web.controller.BaseController;
-
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,17 +12,31 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import id.base.app.SystemConstant;
+import id.base.app.exception.ErrorHolder;
+import id.base.app.rest.RestCaller;
+import id.base.app.rest.RestConstant;
+import id.base.app.rest.RestServiceConstant;
+import id.base.app.rest.SpecificRestCaller;
+import id.base.app.util.dao.SearchFilter;
+import id.base.app.util.dao.SearchOrder;
+import id.base.app.valueobject.contact.ContactSetting;
+import id.base.app.valueobject.frontend.HomeSetting;
+import id.base.app.web.DataTableCriterias;
+import id.base.app.web.controller.BaseController;
 
 @Scope(value="request")
 @Controller
 @RequestMapping("/contactUs/maintenance")
-public class ContactUsMaintenanceWebController extends BaseController<Contact> {
+public class ContactUsMaintenanceWebController extends BaseController<ContactSetting> {
 	
 	private final String PATH_DETAIL = "/contact/contactUsMaintenanceDetail";
 
 	@Override
-	protected RestCaller<Contact> getRestCaller() {
-		return null;
+	protected RestCaller<ContactSetting> getRestCaller() {
+		return new RestCaller<ContactSetting>(RestConstant.REST_SERVICE, RestServiceConstant.CONTACT_SETTING_SERVICE);
 	}
 
 	@Override
@@ -52,8 +61,30 @@ public class ContactUsMaintenanceWebController extends BaseController<Contact> {
 		return null;
 	}
 	
-	@RequestMapping(method=RequestMethod.GET, value="showDetail")
-	public String showDetail(ModelMap model, HttpServletRequest request){
+	@RequestMapping(method=RequestMethod.POST, value="saveContactSetting")
+	@ResponseBody
+	public Map<String, Object> saveContactSetting(final ContactSetting anObject, HttpServletRequest request) {
+		Map<String, Object> resultMap = new HashMap<>();
+		List<ErrorHolder> errors = new ArrayList<>();
+		try{
+			errors = new SpecificRestCaller<ContactSetting>(RestConstant.REST_SERVICE, RestServiceConstant.CONTACT_SETTING_SERVICE).performPut("/update", anObject);
+			if(errors != null && errors.size() > 0){
+				resultMap.put(SystemConstant.ERROR_LIST, errors);
+			}
+		}catch(Exception e){
+			LOGGER.error(e.getMessage(), e);
+		}
+		return resultMap;
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="showMain")
+	public String showMain(ModelMap model, HttpServletRequest request){
+		ContactSetting detail = ContactSetting.getInstance();
+		List<ContactSetting> list = getRestCaller().findAll(filters, orders);
+		if(!list.isEmpty()){
+			detail = list.get(0);
+		}
+		model.addAttribute("detail", detail);
 		return PATH_DETAIL;
 	}
 
