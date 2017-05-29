@@ -41,15 +41,15 @@
 						<div class="hexagon_hfc">
 							<img src="<%=request.getContextPath()%>/images/icon-hfc.png"/>
 						</div>
-						<div class="hexagon_light_learning hll1"><div class="hb-1"><div class="hb-2"></div></div></div>
-						<div class="hexagon_light_learning hll2"><div class="hb-1"><div class="hb-2"></div></div></div>
-						<div class="hexagon_light_learning hll3"><div class="hb-1"><div class="hb-2"></div></div></div>
-						<div class="hexagon_light_advisory hla1"><div class="hb-1"><div class="hb-2"></div></div></div>
-						<div class="hexagon_light_advisory hla2"><div class="hb-1"><div class="hb-2"></div></div></div>
-						<div class="hexagon_light_advisory hla3"><div class="hb-1"><div class="hb-2"></div></div></div>
-						<div class="hexagon_light_rnd hlr1"><div class="hb-1"><div class="hb-2"></div></div></div>
-						<div class="hexagon_light_rnd hlr2"><div class="hb-1"><div class="hb-2"></div></div></div>
-						<div class="hexagon_light_rnd hlr3"><div class="hb-1"><div class="hb-2"></div></div></div>
+						<div class="hexagon_light_learning hll1"><img src="<%=request.getContextPath()%>/images/hexa-white.png"/></div>
+						<div class="hexagon_light_learning hll2"><img src="<%=request.getContextPath()%>/images/hexa-white.png"/></div>
+						<div class="hexagon_light_learning hll3"><img src="<%=request.getContextPath()%>/images/hexa-white.png"/></div>
+						<div class="hexagon_light_advisory hla1"><img src="<%=request.getContextPath()%>/images/hexa-white.png"/></div>
+						<div class="hexagon_light_advisory hla2"><img src="<%=request.getContextPath()%>/images/hexa-white.png"/></div>
+						<div class="hexagon_light_advisory hla3"><img src="<%=request.getContextPath()%>/images/hexa-white.png"/></div>
+						<div class="hexagon_light_rnd hlr1"><img src="<%=request.getContextPath()%>/images/hexa-white.png"/></div>
+						<div class="hexagon_light_rnd hlr2"><img src="<%=request.getContextPath()%>/images/hexa-white.png"/></div>
+						<div class="hexagon_light_rnd hlr3"><img src="<%=request.getContextPath()%>/images/hexa-white.png"/></div>
 						<div class="housing_index">
 							<div class="breakingNews bn-yellow" id="bn1">
 						    	<div class="bn-title" style="width: auto;"><h2 style="display: inline-block;">BTN Housing Index</h2><span></span></div>
