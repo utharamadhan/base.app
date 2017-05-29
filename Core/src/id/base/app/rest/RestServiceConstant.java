@@ -31,8 +31,9 @@ public class RestServiceConstant {
 	
 	public static final String STUDENT_SERVICE = "studentService";
 	
+	public static final String PAGES_SERVICE = "pagesService";
+	
 	//about us
-	public static final String COMMON_POST_SERVICE = "commonPostService";
 	public static final String ENGAGEMENT_SERVICE = "engagementService";
 	public static final String PROGRAM_POST_SERVICE = "programPostService";
 	public static final String TUTOR_SERVICE = "tutorService";

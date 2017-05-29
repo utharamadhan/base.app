@@ -182,11 +182,6 @@ public class WebGeneralFunction {
 			loginSession.setCompanySelected(login.getCompanySelected());
 			request.getSession().setAttribute(SessionConstants.USER_OBJECT_KEY, loginSession);
 			request.getSession(false).setAttribute("menus", menus);
-			if(user.getInitialWizardStep() == null || !user.getInitialWizardStep().equals(SystemConstant.InitialWizard.DONE)) {
-				request.getSession(false).setAttribute(SessionConstants.INITIAL_WIZARD, Boolean.TRUE);
-			} else {
-				request.getSession(false).setAttribute(SessionConstants.INITIAL_WIZARD, Boolean.FALSE);
-			}
 		} catch (IOException e) {
 			throw e;
 		}

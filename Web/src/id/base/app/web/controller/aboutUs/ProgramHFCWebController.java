@@ -1,6 +1,7 @@
 package id.base.app.web.controller.aboutUs;
 
 import id.base.app.ILookupConstant;
+import id.base.app.ILookupGroupConstant;
 import id.base.app.SystemConstant;
 import id.base.app.exception.ErrorHolder;
 import id.base.app.paging.PagingWrapper;
@@ -12,9 +13,11 @@ import id.base.app.util.StringFunction;
 import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
-import id.base.app.valueobject.Pages;
+import id.base.app.valueobject.AppUser;
+import id.base.app.valueobject.aboutUs.ProgramPost;
 import id.base.app.web.DataTableCriterias;
 import id.base.app.web.controller.BaseController;
+import id.base.app.web.rest.LookupRestCaller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,15 +36,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Scope(value="request")
 @Controller
-@RequestMapping("/aboutUs/commonPost")
-public class CommonPostWebController extends BaseController<Pages> {
+@RequestMapping("/aboutUs/program")
+public class ProgramHFCWebController extends BaseController<ProgramPost> {
 
-	private final String PATH_LIST = "/aboutUs/commonPostList";
-	private final String PATH_DETAIL = "/aboutUs/commonPostDetail";
+	private final String PATH_LIST = "/aboutUs/programList";
+	private final String PATH_DETAIL = "/aboutUs/programDetail";
 	
 	@Override
-	protected RestCaller<Pages> getRestCaller() {
-		return new RestCaller<Pages>(RestConstant.REST_SERVICE, RestServiceConstant.PAGES_SERVICE);
+	protected RestCaller<ProgramPost> getRestCaller() {
+		return new RestCaller<ProgramPost>(RestConstant.REST_SERVICE, RestServiceConstant.PROGRAM_POST_SERVICE);
 	}
 
 	@Override
@@ -50,8 +53,7 @@ public class CommonPostWebController extends BaseController<Pages> {
 	}
 	
 	private void setDefaultFilter(HttpServletRequest request, List<SearchFilter> filters) {
-		filters.add(new SearchFilter(Pages.TYPE, Operator.EQUALS, SystemConstant.PagesType.ABOUT_US, String.class));
-		filters.add(new SearchFilter(Pages.STATUS, Operator.NOT_EQUAL, ILookupConstant.ArticleStatus.DELETE, Integer.class));
+		filters.add(new SearchFilter(ProgramPost.STATUS, Operator.NOT_EQUAL, ILookupConstant.ArticleStatus.DELETE, Integer.class));
 	}
 
 	@Override
@@ -59,7 +61,7 @@ public class CommonPostWebController extends BaseController<Pages> {
 		List<SearchFilter> filters = new ArrayList<>();
 		setDefaultFilter(request, filters);
 		if(StringFunction.isNotEmpty(columns.getSearch().get(DataTableCriterias.SearchCriterias.value))){
-			filters.add(new SearchFilter(Pages.TITLE, Operator.LIKE, columns.getSearch().get(DataTableCriterias.SearchCriterias.value)));
+			filters.add(new SearchFilter(ProgramPost.TITLE, Operator.LIKE, columns.getSearch().get(DataTableCriterias.SearchCriterias.value)));
 		}
 		return filters;
 	}
@@ -69,40 +71,43 @@ public class CommonPostWebController extends BaseController<Pages> {
 		if(orders != null) {
 			orders.clear();
 		}
-		orders.add(new SearchOrder(Pages.PK_PAGES, SearchOrder.Sort.DESC));
+		orders.add(new SearchOrder(ProgramPost.PK_PROGRAM_POST, SearchOrder.Sort.DESC));
 		return orders;
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="showList")
 	public String showList(ModelMap model, HttpServletRequest request){
-		model.addAttribute("pagingWrapper", new PagingWrapper<Pages>());
+		model.addAttribute("pagingWrapper", new PagingWrapper<AppUser>());
 		return getListPath();
 	}
 	
-	public void setDefaultData(ModelMap model) {}
+	public void setDefaultData(ModelMap model) {
+		LookupRestCaller lrc = new LookupRestCaller();
+		model.addAttribute("statusOptions", lrc.findByLookupGroup(ILookupGroupConstant.ARTICLE_STATUS));
+	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="showAdd")
 	public String showAdd(ModelMap model, HttpServletRequest request){
-		model.addAttribute("detail", Pages.getInstance());
+		setDefaultData(model);
+		model.addAttribute("detail", ProgramPost.getInstance());
 		return PATH_DETAIL;
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="showEdit")
 	public String showEdit(@RequestParam(value="maintenancePK") final Long maintenancePK, @RequestParam Map<String, String> paramWrapper, ModelMap model, HttpServletRequest request){
 		setDefaultData(model);
-		Pages detail = getRestCaller().findById(maintenancePK);
+		ProgramPost detail = getRestCaller().findById(maintenancePK);
 		model.addAttribute("detail", detail);
 		return PATH_DETAIL;
 	}
 	
-	@RequestMapping(method=RequestMethod.POST, value="saveCommonPost")
+	@RequestMapping(method=RequestMethod.POST, value="saveProgram")
 	@ResponseBody
-	public Map<String, Object> saveCommonPost(final Pages anObject, HttpServletRequest request) {
+	public Map<String, Object> saveProgram(final ProgramPost anObject, HttpServletRequest request) {
 		Map<String, Object> resultMap = new HashMap<>();
 		List<ErrorHolder> errors = new ArrayList<>();
-		anObject.setType(SystemConstant.PagesType.ABOUT_US);
 		try{
-			errors = new SpecificRestCaller<Pages>(RestConstant.REST_SERVICE, RestServiceConstant.PAGES_SERVICE).performPut("/update", anObject);
+			errors = new SpecificRestCaller<ProgramPost>(RestConstant.REST_SERVICE, RestServiceConstant.PROGRAM_POST_SERVICE).performPut("/update", anObject);
 			if(errors != null && errors.size() > 0){
 				resultMap.put(SystemConstant.ERROR_LIST, errors);
 			}

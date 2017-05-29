@@ -60,11 +60,12 @@ public class RestConstant {
 	//initial wizard master
 	public static final String RM_INITIAL_WIZARD = "/initialWizard";
 	
+	public static final String RM_PAGES = "/pages";
+	
 	//about us
-	public static final String RM_COMMON_POST = "/aboutUs/commonPost";
-	public static final String RM_ENGAGEMENT = "/aboutUs/engagement";
-	public static final String RM_PROGRAM_POST = "/aboutUs/programPost";
-	public static final String RM_TUTOR = "/aboutUs/tutor";
+	public static final String RM_ENGAGEMENT = "/engagement";
+	public static final String RM_PROGRAM_POST = "/programPost";
+	public static final String RM_TUTOR = "/tutor";
 	
 	//publication
 	public static final String RM_RESEARCH_REPORT = "/publication/researchReport";

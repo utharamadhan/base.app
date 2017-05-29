@@ -11,7 +11,7 @@ import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.util.dao.SearchOrder.Sort;
-import id.base.app.valueobject.aboutUs.CommonPost;
+import id.base.app.valueobject.Pages;
 import id.base.app.valueobject.aboutUs.Engagement;
 import id.base.app.valueobject.aboutUs.ProgramPost;
 import id.base.app.valueobject.publication.DigitalBook;
@@ -79,12 +79,13 @@ public class ContentWebController {
 		return rc.findAll(filters, orders);
 	}
 	
-	private List<CommonPost> getCommonPostList(){
-		RestCaller<CommonPost> restCall = new RestCaller<CommonPost>(RestConstant.REST_SERVICE, RestServiceConstant.COMMON_POST_SERVICE);
+	private List<Pages> getCommonPostList(){
+		RestCaller<Pages> restCall = new RestCaller<Pages>(RestConstant.REST_SERVICE, RestServiceConstant.PAGES_SERVICE);
 		List<SearchFilter> filter = new ArrayList<SearchFilter>();
-		filter.add(new SearchFilter(CommonPost.STATUS, Operator.EQUALS, SystemConstant.ValidFlag.VALID, Integer.class));
+		filter.add(new SearchFilter(Pages.STATUS, Operator.EQUALS, ILookupConstant.ArticleStatus.PUBLISH, Integer.class));
+		filter.add(new SearchFilter(Pages.TYPE, Operator.EQUALS, SystemConstant.PagesType.ABOUT_US, String.class));
 		List<SearchOrder> order = new ArrayList<SearchOrder>();
-		order.add(new SearchOrder(CommonPost.PK_COMMON_POST, Sort.ASC));
+		order.add(new SearchOrder(Pages.PK_PAGES, Sort.ASC));
 		return restCall.findAll(filter, order);
 	}
 			 

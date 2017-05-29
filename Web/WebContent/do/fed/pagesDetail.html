@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:ifs="http://btn.co.id">
+<head>
+<meta charset="ISO-8859-1"/>
+<title>Pages Detail</title>
+</head>
+<body>
+	<div class="pageheader">
+		<div class="row col-md-8">
+			<h4><i class="fa fa-tachometer"></i> Front End Display / Pages List / Pages Detail
+			<span></span></h4>
+		</div>
+	</div>
+	<div class="row col-md-12">
+	<section class="tile transparent">
+			<div class="tile-body rounded-corners">
+				<form action="#" id="pages-detail-form" class="form-horizontal" method="POST" novalidate="novalidate" th:object="${detail}">
+					<div class="stockTypeStyle">
+						<div class="form-group">
+							<div class="col-md-12">
+								<div id="errorFragmentList">
+									<th:block th:if="${message}">
+										<div class='alert alert-success'>
+											<a href='#' class='close' data-dismiss='alert' aria-label='close' title='close'>&#10006;</a>			
+											<label th:text="${message}"></label>
+										</div>
+									</th:block>
+								</div>
+							</div>									
+							&nbsp;
+						</div>
+						<input id="pages-detail-maintenancePk" type="hidden" th:field="*{pkPages}"/>
+						<div class="form-group">
+							<label class="col-sm-1 control-label" th:text="'Title'">Title</label>
+							<div class="col-sm-11 form-input-container">
+								<input type="text" class="form-control" placeholder="Title" name="srch-term" id="input-text-title" th:field="*{title}"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-1 control-label" th:text="'Order No'">Order No</label>
+							<div class="col-sm-11 form-input-container">
+								<input type="text" class="form-control" placeholder="Order No" name="srch-term" id="input-text-title" th:field="*{orderNo}"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-12">							
+								<label class="col-sm-1 control-label" th:text="'Content'">Content</label>
+								<input id="textEditor-content-hidden" name="content" type="hidden"/>
+								<div id="textEditor-content-parent" class="col-sm-11">					
+									<textarea id="textEditor-content-area" th:text="*{content}">
+									</textarea>
+								</div>
+							</div>
+						</div>
+						<div class="form-group form-footer">				
+							<div class="col-sm-offset-3 col-sm-9">
+								<a href="#" id="pages-detail-btn-cancel" class="btn btn-default" type="reset" data-toggle="tooltip" title="">Batal</a>
+								<button id="pages-detail-btn-save" class="btn btn-primary" type="submit" data-toggle="tooltip" title="">Simpan</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+	</section>
+	</div>
+	<script th:inline="javascript">
+	/*<![CDATA[*/
+	    $(function(){
+	    	var fileManagerURL = /*[[@{/do/fileManager/upload/}]]*/ #;
+	    	initTextEditor('#textEditor-content-area', '#textEditor-content-parent', fileManagerURL);
+	    	
+	    	var backToList = function(){
+	    		removeTextEditor("textEditor-content-area", "textEditor-content-parent");
+	    		returnToList('pages-detail-container', 'pages-list-container', true);
+			};
+			
+			var submitForm = function(){
+				cleanErrorParsley();
+				$('#textEditor-content-hidden').val(tinymce.get('textEditor-content-area').getContent());
+				var sURL = /*[[@{/do/master/pages/savePages/}]]*/ #;
+				$.post(sURL, $("#pages-detail-form").serialize(), function(data) {
+					if(data.errorList!=null){
+						displayErrorParsley(data.errorList);
+					}else{
+						backToList();
+					}
+				});
+			};
+			
+			$('#pages-detail-btn-save').click(function(e){
+				e.preventDefault();
+				submitForm();
+			});
+			
+			$('#pages-detail-btn-cancel').click(function(e){
+				e.preventDefault();
+				backToList();
+			});
+	    });
+	/*]]>*/
+	</script>
+</body>
+</html>

@@ -1,6 +1,5 @@
-package id.base.app.web.controller.aboutUs;
+package id.base.app.web.controller.master;
 
-import id.base.app.ILookupConstant;
 import id.base.app.SystemConstant;
 import id.base.app.exception.ErrorHolder;
 import id.base.app.paging.PagingWrapper;
@@ -12,6 +11,7 @@ import id.base.app.util.StringFunction;
 import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
+import id.base.app.valueobject.AppUser;
 import id.base.app.valueobject.Pages;
 import id.base.app.web.DataTableCriterias;
 import id.base.app.web.controller.BaseController;
@@ -33,11 +33,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Scope(value="request")
 @Controller
-@RequestMapping("/aboutUs/commonPost")
-public class CommonPostWebController extends BaseController<Pages> {
+@RequestMapping("/master/program")
+public class ProgramWebController extends BaseController<Pages> {
 
-	private final String PATH_LIST = "/aboutUs/commonPostList";
-	private final String PATH_DETAIL = "/aboutUs/commonPostDetail";
+	private final String PATH_LIST = "/master/programList";
+	private final String PATH_DETAIL = "/master/programDetail";
 	
 	@Override
 	protected RestCaller<Pages> getRestCaller() {
@@ -45,17 +45,22 @@ public class CommonPostWebController extends BaseController<Pages> {
 	}
 
 	@Override
-	protected List<SearchFilter> convertForFilter(Map<String, String> paramWrapper) {
+	protected List<SearchFilter> convertForFilter(
+			Map<String, String> paramWrapper) {
 		return null;
 	}
 	
 	private void setDefaultFilter(HttpServletRequest request, List<SearchFilter> filters) {
-		filters.add(new SearchFilter(Pages.TYPE, Operator.EQUALS, SystemConstant.PagesType.ABOUT_US, String.class));
-		filters.add(new SearchFilter(Pages.STATUS, Operator.NOT_EQUAL, ILookupConstant.ArticleStatus.DELETE, Integer.class));
+		List<String> programList = new ArrayList<>();
+		programList.add(SystemConstant.PagesType.PROGRAM_LEARNING);
+		programList.add(SystemConstant.PagesType.PROGRAM_ADVISORY);
+		programList.add(SystemConstant.PagesType.PROGRAM_RESEARCH_DEVELOPMENT);
+		filters.add(new SearchFilter(Pages.TYPE, Operator.IN, programList, String.class));
 	}
 
 	@Override
-	protected List<SearchFilter> convertForFilter(HttpServletRequest request, Map<String, String> paramWrapper, DataTableCriterias columns) {
+	protected List<SearchFilter> convertForFilter(HttpServletRequest request,
+			Map<String, String> paramWrapper, DataTableCriterias columns) {
 		List<SearchFilter> filters = new ArrayList<>();
 		setDefaultFilter(request, filters);
 		if(StringFunction.isNotEmpty(columns.getSearch().get(DataTableCriterias.SearchCriterias.value))){
@@ -69,38 +74,28 @@ public class CommonPostWebController extends BaseController<Pages> {
 		if(orders != null) {
 			orders.clear();
 		}
-		orders.add(new SearchOrder(Pages.PK_PAGES, SearchOrder.Sort.DESC));
+		orders.add(new SearchOrder(Pages.ORDER_NO, SearchOrder.Sort.ASC));
 		return orders;
 	}
-	
+
 	@RequestMapping(method=RequestMethod.GET, value="showList")
 	public String showList(ModelMap model, HttpServletRequest request){
-		model.addAttribute("pagingWrapper", new PagingWrapper<Pages>());
+		model.addAttribute("pagingWrapper", new PagingWrapper<AppUser>());
 		return getListPath();
-	}
-	
-	public void setDefaultData(ModelMap model) {}
-	
-	@RequestMapping(method=RequestMethod.GET, value="showAdd")
-	public String showAdd(ModelMap model, HttpServletRequest request){
-		model.addAttribute("detail", Pages.getInstance());
-		return PATH_DETAIL;
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="showEdit")
 	public String showEdit(@RequestParam(value="maintenancePK") final Long maintenancePK, @RequestParam Map<String, String> paramWrapper, ModelMap model, HttpServletRequest request){
-		setDefaultData(model);
 		Pages detail = getRestCaller().findById(maintenancePK);
 		model.addAttribute("detail", detail);
 		return PATH_DETAIL;
 	}
 	
-	@RequestMapping(method=RequestMethod.POST, value="saveCommonPost")
+	@RequestMapping(method=RequestMethod.POST, value="saveProgram")
 	@ResponseBody
-	public Map<String, Object> saveCommonPost(final Pages anObject, HttpServletRequest request) {
+	public Map<String, Object> saveProgram(final Pages anObject, HttpServletRequest request) {
 		Map<String, Object> resultMap = new HashMap<>();
 		List<ErrorHolder> errors = new ArrayList<>();
-		anObject.setType(SystemConstant.PagesType.ABOUT_US);
 		try{
 			errors = new SpecificRestCaller<Pages>(RestConstant.REST_SERVICE, RestServiceConstant.PAGES_SERVICE).performPut("/update", anObject);
 			if(errors != null && errors.size() > 0){
@@ -111,10 +106,9 @@ public class CommonPostWebController extends BaseController<Pages> {
 		}
 		return resultMap;
 	}
-
+	
 	@Override
 	protected String getListPath() {
 		return PATH_LIST;
 	}
-
 }

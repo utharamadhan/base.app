@@ -8,53 +8,40 @@
 }
 .aboutUsArea .circle-bottom-wrapper{
 	position:relative;
+    background-image: url(/Site/images/hexa-who-bottom.png);
+    height: 300px;
 }
 .aboutUsArea .circle-bottom-wrapper .title-center h2{
 	color: white;padding-top: 7%;font-size: 24px;
 }
 .circle-top{
 	height:230px;
-	-webkit-clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-	clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-	background:rgba(0, 79, 182, 0.9);
+	background-image:url('/Site/images/hexa-who-top.png');
 }
 .circle-bottom1{
 	height:150px;
 	width:50%;
-	-webkit-clip-path: polygon(50% 100%, 0 0, 100% 0);
-	clip-path: polygon(50% 100%, 0 0, 100% 0);
-	background:rgba(47, 129, 224, 0.9);
 	float:left;
 }
 .circle-bottom2{
 	height: 150px;
     width: 50%;
-    -webkit-clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-    background: rgba(255, 222, 0, 0.9);
     position: absolute;
     float: left;
     left: 25%;
-	float:left;
 }
 .aboutUsArea .circle-bottom-wrapper .circle-bottom2 .title-center h2{
 	padding-top:16%;
-	color:#004fb6;
+	color:#ffdd00;
 }
 .circle-bottom3{
 	height:150px;
 	width:50%;
-	-webkit-clip-path: polygon(50% 100%, 0 0, 100% 0);
-	clip-path: polygon(50% 100%, 0 0, 100% 0);
-	background:rgba(47, 129, 224, 0.9);
 	float:left;
 }
 .circle-bottom4{
 	height: 150px;
     width: 50%;
-    -webkit-clip-path: polygon(50% 100%, 0 0, 100% 0);
-    clip-path: polygon(50% 100%, 0 0, 100% 0);
-    background:rgba(47, 129, 224, 0.9);
     float: left;
     left: 25%;
     position: absolute;
@@ -115,48 +102,24 @@
 }
 .step-expert .step-expert-icon-wrapper{
 	height:150px;
-	margin-top: -150px;
-}
-.step-expert .step-expert-content{
-	height: 130px;
-    background: rgba(0,79,182,1);
-background: -moz-linear-gradient(left, rgba(0,79,182,1) 0%, rgba(5,61,122,1) 50%, rgba(0,79,182,1) 100%);
-background: -webkit-gradient(left top, right top, color-stop(0%, rgba(0,79,182,1)), color-stop(50%, rgba(5,61,122,1)), color-stop(100%, rgba(0,79,182,1)));
-background: -webkit-linear-gradient(left, rgba(0,79,182,1) 0%, rgba(5,61,122,1) 50%, rgba(0,79,182,1) 100%);
-background: -o-linear-gradient(left, rgba(0,79,182,1) 0%, rgba(5,61,122,1) 50%, rgba(0,79,182,1) 100%);
-background: -ms-linear-gradient(left, rgba(0,79,182,1) 0%, rgba(5,61,122,1) 50%, rgba(0,79,182,1) 100%);
-background: linear-gradient(to right, rgba(0,79,182,1) 0%, rgba(5,61,122,1) 50%, rgba(0,79,182,1) 100%);
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#004fb6', endColorstr='#004fb6', GradientType=1 );
-    -webkit-clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-    margin: 10px;
-    padding: 28px;
-    color: white;
-    font-size: 16px;
-}
-.step-expert .step-expert-content ul{
-    line-height: 18px;
-}
-.step-expert .step-expert-content ul a{
-	color:white;
-    font-weight: 400;
-    font-size: 12px;
-}
-.step-expert .step-expert-content ul a:hover{
-	color:#e9e9e9;
+	width:100%;
+	background-image: url('/Site/images/hexa-step.png');
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
 }
 .step-expert-line{
-	height: 10px;
+	width:97%;
+	height: 15px;
     background: #FFDE00;
-    margin: -90px;
+    margin: -83px;
     margin-left: 15px;
     margin-right: 15px;
+    float:left;
 }
-.step-expert-border{
-	height:150px;
-	background-color: #FFDE00;
-	-webkit-clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-	clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+.step-expert .step-expert-content{
+	color: white;
+    font-size: 16px;
+    padding: 38px 28px 28px 28px;
 }
 .step-number label{
 	font-size:18px;
@@ -340,7 +303,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#004fb6', end
 	background-image: url('/Site/images/background-home.png'), linear-gradient(to bottom, rgba(246,244,244,1) 0%, rgba(240,240,227,0.9) 47%, rgba(230,227,227,1) 100%);
 }
 .aboutUsArea{
-	padding:25px 0px 175px 0px;
+	padding:25px 0px;
 }
 .aboutUsArea .title-center h2, .newsArea .title-center h2{
 	font-size:32px;
@@ -648,24 +611,26 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#004fb6', end
 #fork:hover:before {
   transform: translateX(0) skewX(-45deg);
 }
-.hexagon_clipath{
-	-webkit-clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-	clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+.hb-1{
+	overflow: hidden;
+    transform: rotate(-60deg) skewY(30deg);
+}
+.hb-2{
+	overflow: hidden;
+    transform: skewY(-30deg) rotate(60deg);
+}
+.hexagon_bg_top{
 	width: 200px;
     height: 230px;
-}
-.hexagon_bg{
 	background-size: 100% 100%;
-    perspective: 500px;
-    transform-style: preserve-3d;
 }
-.hexagon_bg:hover {
+.hexagon_bg_top:hover {
     -webkit-animation-play-state: paused;
     animation-play-state: paused;
  }
-.hexagon_bg img{
-	height:100%;
-	width:auto;
+.hexagon_bg_top img{
+	height: 230px;
+    width: 200px;
 }
 .hexagon_learning{
 	animation: spinnerY 8s infinite linear;
@@ -678,7 +643,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#004fb6', end
 }
 @keyframes spinnerY {
     0% { transform: rotate3d(0, 1, 0, 0deg); }
-    50% { transform: rotate3d(0, 1, 0, 180deg); }
+    50% { transform: rotate3d(0, 1, 0, 90deg); }
     100% { transform: rotate3d(0, 1, 0, 360deg); }
 }
 .hexagon_hfc{
@@ -691,8 +656,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#004fb6', end
 }
 .hexagon_light_learning{
     position: absolute;
-    -webkit-clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
 }
 .hll1{
 	background: rgba(255,255,255,0.45);
@@ -710,9 +673,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#004fb6', end
     animation: moveLearning 4.9s infinite;
 }
 .hexagon_light_advisory{
-	position: absolute;
-    -webkit-clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);	
+	position: absolute;	
 }
 .hla1{
 	background: rgba(255,255,255,0.45);
@@ -731,8 +692,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#004fb6', end
 }
 .hexagon_light_rnd{
     position: absolute;
-    -webkit-clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
 }
 .hlr1{
 	background: rgba(255,255,255,0.45);
@@ -853,17 +812,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#004fb6', end
 
 .hexBottom:after {
   background-position: center bottom;
-}
-
-.hexagon:after {
-  content: "";
-  position: absolute;
-  top: 0.0000px;
-  left: 0;
-  width: 200.0000px;
-  height: 115.4701px;
-  z-index: 2;
-  background: inherit;
 }
 
 .news_title_post{
@@ -1013,4 +961,17 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#004fb6', end
   to {
     text-shadow: 0 0 5px #c0ba0a, 0 0 10px #c0ba0a, 0 0 15px #c0ba0a, 0 0 20px #eceb22, 0 0 35px #eceb22, 0 0 40px #eceb22, 0 0 50px #eceb22, 0 0 75px #eceb22;
   }
+}
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+     /* IE10+ CSS styles go here */
+     .hexagon_learning{
+     	left:247px;
+     }
+     .hexagon_research{
+     	left:-76px;
+     }
+     .hexagon_advisory{
+     	left:97px;
+     }
 }

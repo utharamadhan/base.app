@@ -1,5 +1,10 @@
 package id.base.app.site.controller.web;
 
+import id.base.app.rest.RestCaller;
+import id.base.app.rest.RestConstant;
+import id.base.app.rest.RestServiceConstant;
+import id.base.app.valueobject.Pages;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -14,11 +19,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import id.base.app.rest.RestCaller;
-import id.base.app.rest.RestConstant;
-import id.base.app.rest.RestServiceConstant;
-import id.base.app.valueobject.aboutUs.CommonPost;
-
 @Scope(value="request")
 @RequestMapping(value="/post")
 @Controller
@@ -26,8 +26,8 @@ public class PostWebController {
 	
 	static Logger LOGGER = LoggerFactory.getLogger(PostWebController.class);
 	
-	protected RestCaller<CommonPost> getRestCaller() {
-		return new RestCaller<CommonPost>(RestConstant.REST_SERVICE, RestServiceConstant.COMMON_POST_SERVICE);
+	protected RestCaller<Pages> getRestCaller() {
+		return new RestCaller<Pages>(RestConstant.REST_SERVICE, RestServiceConstant.PAGES_SERVICE);
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/{id}/{title}")
@@ -35,7 +35,7 @@ public class PostWebController {
 			@PathVariable(value="id") Long id,
 			@PathVariable(value="title") String title
 	){
-		CommonPost detail = CommonPost.getInstance();
+		Pages detail = Pages.getInstance();
 		detail = getRestCaller().findById(id);
 		if(detail!=null){
 			if(detail.getTitle()!=null){

@@ -1,5 +1,6 @@
 package id.base.app.web.controller.master;
 
+import id.base.app.ILookupConstant;
 import id.base.app.ILookupGroupConstant;
 import id.base.app.SystemConstant;
 import id.base.app.exception.ErrorHolder;
@@ -13,6 +14,7 @@ import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.valueobject.Faq;
+import id.base.app.valueobject.Pages;
 import id.base.app.web.DataTableCriterias;
 import id.base.app.web.controller.BaseController;
 import id.base.app.web.rest.LookupRestCaller;
@@ -38,8 +40,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/master/faq")
 public class FaqWebController extends BaseController<Faq> {
 
-	private final String PATH_LIST = "/faq/faqList";
-	private final String PATH_DETAIL = "/faq/faqDetail";
+	private final String PATH_LIST = "/master/faqList";
+	private final String PATH_DETAIL = "/master/faqDetail";
 	
 	@Override
 	protected RestCaller<Faq> getRestCaller() {
@@ -52,10 +54,15 @@ public class FaqWebController extends BaseController<Faq> {
 		return null;
 	}
 
+	private void setDefaultFilter(HttpServletRequest request, List<SearchFilter> filters) {
+		filters.add(new SearchFilter(Pages.STATUS, Operator.NOT_EQUAL, ILookupConstant.ArticleStatus.DELETE, Integer.class));
+	}
+	
 	@Override
 	protected List<SearchFilter> convertForFilter(HttpServletRequest request,
 			Map<String, String> paramWrapper, DataTableCriterias columns) {
 		List<SearchFilter> filters = new ArrayList<>();
+		setDefaultFilter(request, filters);
 		if(StringFunction.isNotEmpty(columns.getSearch().get(DataTableCriterias.SearchCriterias.value))){
 			filters.add(new SearchFilter(Faq.QUESTION, Operator.LIKE, columns.getSearch().get(DataTableCriterias.SearchCriterias.value)));
 		}

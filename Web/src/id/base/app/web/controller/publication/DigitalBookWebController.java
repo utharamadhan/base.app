@@ -121,5 +121,4 @@ public class DigitalBookWebController extends BaseController<DigitalBook> {
 	protected String getListPath() {
 		return PATH_LIST;
 	}
-
 }

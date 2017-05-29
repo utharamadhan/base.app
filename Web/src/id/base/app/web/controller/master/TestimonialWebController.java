@@ -1,5 +1,6 @@
 package id.base.app.web.controller.master;
 
+import id.base.app.ILookupConstant;
 import id.base.app.ILookupGroupConstant;
 import id.base.app.SystemConstant;
 import id.base.app.exception.ErrorHolder;
@@ -12,6 +13,7 @@ import id.base.app.util.StringFunction;
 import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
+import id.base.app.valueobject.Pages;
 import id.base.app.valueobject.testimonial.Testimonial;
 import id.base.app.web.DataTableCriterias;
 import id.base.app.web.controller.BaseController;
@@ -38,8 +40,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/master/testimonial")
 public class TestimonialWebController extends BaseController<Testimonial> {
 
-	private final String PATH_LIST = "/testimonial/testimonialList";
-	private final String PATH_DETAIL = "/testimonial/testimonialDetail";
+	private final String PATH_LIST = "/master/testimonialList";
+	private final String PATH_DETAIL = "/master/testimonialDetail";
 	
 	@Override
 	protected RestCaller<Testimonial> getRestCaller() {
@@ -52,10 +54,15 @@ public class TestimonialWebController extends BaseController<Testimonial> {
 		return null;
 	}
 
+	private void setDefaultFilter(HttpServletRequest request, List<SearchFilter> filters) {
+		filters.add(new SearchFilter(Pages.STATUS, Operator.NOT_EQUAL, ILookupConstant.ArticleStatus.DELETE, Integer.class));
+	}
+	
 	@Override
 	protected List<SearchFilter> convertForFilter(HttpServletRequest request,
 			Map<String, String> paramWrapper, DataTableCriterias columns) {
 		List<SearchFilter> filters = new ArrayList<>();
+		setDefaultFilter(request, filters);
 		if(StringFunction.isNotEmpty(columns.getSearch().get(DataTableCriterias.SearchCriterias.value))){
 			filters.add(new SearchFilter(Testimonial.NAME, Operator.LIKE, columns.getSearch().get(DataTableCriterias.SearchCriterias.value)));
 		}

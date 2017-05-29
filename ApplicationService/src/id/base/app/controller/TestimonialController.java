@@ -5,7 +5,6 @@ import id.base.app.exception.SystemException;
 import id.base.app.rest.RestConstant;
 import id.base.app.service.MaintenanceService;
 import id.base.app.service.testimonial.ITestimonialService;
-import id.base.app.valueobject.publication.News;
 import id.base.app.valueobject.testimonial.Testimonial;
 
 import java.util.ArrayList;

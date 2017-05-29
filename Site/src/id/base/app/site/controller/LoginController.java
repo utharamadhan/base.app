@@ -275,29 +275,6 @@ public class LoginController {
 		return redirect;
 	}
 	
-	public RedirectView setInitialWizardAndGetRedirectURL(AppUser user, SpecificRestCaller<AppUser> userService) {
-		if(user.getInitialWizardStep() == null) {
-			return new RedirectView(SystemConstant.InitialWizard.FIRST_COMPANY_REDIRECT_URL, true, false);
-		} else if(user.getInitialWizardStep().equals(SystemConstant.InitialWizard.FIRST_COMPANY)) {
-			return new RedirectView(SystemConstant.InitialWizard.SECOND_THIRD_PARTY_REDIRECT_URL, true, false);
-		} else if(user.getInitialWizardStep().equals(SystemConstant.InitialWizard.SECOND_THIRD_PARTY)) {
-			return new RedirectView(SystemConstant.InitialWizard.THIRD_PRODUCT_REDIRECT_URL, true, false);
-		} else if(user.getInitialWizardStep().equals(SystemConstant.InitialWizard.THIRD_PRODUCT)) {
-			return new RedirectView(SystemConstant.InitialWizard.FOURTH_WAREHOUSE_REDIRECT_URL, true, false);
-		} else if(user.getInitialWizardStep().equals(SystemConstant.InitialWizard.FOURTH_WAREHOUSE)) {
-			return new RedirectView(SystemConstant.InitialWizard.FIFTH_MACHINERY_REDIRECT_URL, true, false);
-		} else if(user.getInitialWizardStep().equals(SystemConstant.InitialWizard.FIFTH_MACHINERY)) {
-			return new RedirectView(SystemConstant.InitialWizard.SIXTH_TRANSPORTER_REDIRECT_URL, true, false);
-		} else if(user.getInitialWizardStep().equals(SystemConstant.InitialWizard.SIXTH_TRANSPORTER)) {
-			return new RedirectView(SystemConstant.InitialWizard.SEVENTH_MASTER_FEE_REDIRECT_URL, true, false);
-		} else if(user.getInitialWizardStep().equals(SystemConstant.InitialWizard.SEVENTH_MASTER_FEE)) {
-			return new RedirectView(SystemConstant.InitialWizard.EIGHTH_LOOKUP_REDIRECT_URL, true, false);
-		} else if(user.getInitialWizardStep().equals(SystemConstant.InitialWizard.EIGHTH_LOOKUP_REDIRECT_URL)) {
-			userService.performPost("/updateInitialWizard/"+user.getPkAppUser()+"/"+SystemConstant.InitialWizard.DONE, user);
-		}
-		return null;
-	}
-	
 	@RequestMapping(method=RequestMethod.GET, value="/out")
 	public String logout(HttpServletRequest request, HttpServletResponse response){
 		 String userName="";

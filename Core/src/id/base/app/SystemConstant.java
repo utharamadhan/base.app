@@ -326,46 +326,11 @@ public class SystemConstant  {
 		}
 	}
 	
-	public static final class InitialWizard {
-		
-		public static final Integer FIRST_COMPANY = 1;
-		public static final Integer SECOND_THIRD_PARTY = 2;
-		public static final Integer THIRD_PRODUCT = 3;
-		public static final Integer FOURTH_WAREHOUSE = 4;
-		public static final Integer FIFTH_MACHINERY = 5;
-		public static final Integer SIXTH_TRANSPORTER = 6;
-		public static final Integer SEVENTH_MASTER_FEE = 7;
-		public static final Integer EIGHTH_LOOKUP = 8;
-		
-		public static final Integer DONE = 9;
-		
-		public static final String FIRST_COMPANY_REDIRECT_URL = "/do/initialWizard/showCompany?initialWizardDecorator";
-		public static final String SECOND_THIRD_PARTY_REDIRECT_URL = "/do/initialWizard/showThirdParty?initialWizardDecorator";
-		public static final String THIRD_PRODUCT_REDIRECT_URL = "/do/initialWizard/showProduct?initialWizardDecorator";
-		public static final String FOURTH_WAREHOUSE_REDIRECT_URL = "/do/initialWizard/showWarehouse?initialWizardDecorator";
-		public static final String FIFTH_MACHINERY_REDIRECT_URL = "/do/initialWizard/showMachinery?initialWizardDecorator";
-		public static final String SIXTH_TRANSPORTER_REDIRECT_URL = "/do/initialWizard/showTransporter?initialWizardDecorator";
-		public static final String SEVENTH_MASTER_FEE_REDIRECT_URL = "/do/initialWizard/showMasterFee?initialWizardDecorator";
-		public static final String EIGHTH_LOOKUP_REDIRECT_URL = "/do/initialWizard/showLookup?initialWizardDecorator";
-		
-		public static final HashMap<Integer, String> REDIRECT_MAP = new HashMap<>();
-		static {
-			REDIRECT_MAP.put(FIRST_COMPANY, FIRST_COMPANY_REDIRECT_URL);
-			REDIRECT_MAP.put(SECOND_THIRD_PARTY, SECOND_THIRD_PARTY_REDIRECT_URL);
-			REDIRECT_MAP.put(THIRD_PRODUCT, THIRD_PRODUCT_REDIRECT_URL);
-			REDIRECT_MAP.put(FOURTH_WAREHOUSE, FOURTH_WAREHOUSE_REDIRECT_URL);
-			REDIRECT_MAP.put(FIFTH_MACHINERY, FIFTH_MACHINERY_REDIRECT_URL);
-			REDIRECT_MAP.put(SIXTH_TRANSPORTER, SIXTH_TRANSPORTER_REDIRECT_URL);
-			REDIRECT_MAP.put(SEVENTH_MASTER_FEE, SEVENTH_MASTER_FEE_REDIRECT_URL);
-			REDIRECT_MAP.put(EIGHTH_LOOKUP, EIGHTH_LOOKUP_REDIRECT_URL);
-		}
-		
-	}
-	
 	public static final class StatusAdvisory{
 		public static final Integer CLOSED = 0;
 		public static final Integer NEW = 1;
 		public static final Integer OPEN = 2;
+
 		public static final Integer ANSWERED = 3;
 	}
 	
@@ -386,11 +351,18 @@ public class SystemConstant  {
 	}
 	
 	public static final class LinkUrlType{
-		public static final String HOUSING_INDEX = "HI";
 		public static final String FOOTER = "FT";
 	}
 	
 	public static final class LookupUsage{
 		public static final String CONTACT = "CONTACT";
+	}
+	
+	public static final class PagesType{
+		public static final String DEFAULT = "DF";
+		public static final String ABOUT_US = "AU";
+		public static final String PROGRAM_LEARNING = "PRL";
+		public static final String PROGRAM_ADVISORY = "PRA";
+		public static final String PROGRAM_RESEARCH_DEVELOPMENT = "PRRD";
 	}
 }

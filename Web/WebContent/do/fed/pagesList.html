@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:ifs="http://btn.co.id">
+<head>
+<meta charset="ISO-8859-1"/>
+<title>Pages Maintenance</title>
+</head>
+<style>
+.dataTables_scrollBody {
+	height : auto !important;
+	min-height : 120px;
+}
+</style>
+<body>
+<div id="content" class="col-md-12">
+	<div id="pages-detail-container"></div>
+	<div id="pages-list-container">
+	<div class="pageheader">
+		<h4><i class="fa fa-shopping-basket"></i> Front End Display / Pages List
+		<span></span></h4>
+	</div>
+	<div class="col-md-4 tile-body no-vpadding" style="margin:10px;">
+		<a href="#" id="pages-btn-add" class="btn btn-primary" style="margin-bottom:5px"><i class="fa fa-plus dropdown-plus"></i> &nbsp; Add</a>
+	</div>
+	<div class="main">
+		<div class="row">
+			<div class="col-md-12">	
+				<section class="tile transparent">
+					<div class="table-responsive">
+						<div class="tile-body rounded-corners">
+	                      	<table id="pages-list-table" class="table table-datatable table-custom">
+		                        <thead>
+		                          <tr>
+									<th>Title</th>
+									<th>E/D</th>
+		                          </tr>
+		                        </thead>
+	                     	</table>
+	                     	<div style="padding-bottom: 3px; bottom: 0;" th:replace="pagingDiv::pager (${pagingWrapper}, ${#dates.createNow()}, 'pages-list-table', 'contentArea')">
+							</div>
+                     	</div>
+					</div>
+				</section>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script th:inline="javascript">
+	/*<![CDATA[*/
+		function showAdd() {
+	    	var sURL = /*[[@{/do/master/pages/showAdd?skipdecorator=}]]*/ #;
+	    	showScreen('pages-list-container', 'pages-detail-container', sURL);
+		}
+		
+		function showDetail(maintenancePK) {
+			var sURL = /*[[@{/do/master/pages/showEdit?maintenancePK=}]]*/ #;
+			showScreen('pages-list-container', 'pages-detail-container', sURL + maintenancePK + "&skipdecorator=");
+		}
+		
+		function deleteItem(maintenancePK) {
+			var sURL = /*[[@{/do/master/pages/delete?}]]*/ #;
+			var serializedData = "maintenancePKs=" + maintenancePK;
+			$.post(sURL, serializedData,function(data){
+				if(data.errorList!=null){
+					//show error message
+				}else{
+					search();
+				}
+			});
+		} 
+		
+		function deletePages() {
+			var sURL = /*[[@{/do/master/pages/deletePages?skipDecorator}]]*/ #;
+			$.post(sURL, $('.pages-list-check-delete').serialize(), function(data){
+				if(data.errorList!=null){
+					
+				}else{
+					location.reload(true);
+				}
+			});
+		}
+	
+	    $(function(){
+		    setMenuActive('pages');
+		    var colDefs = [{ name : "title" },
+	    	               { type : "deleteAndEdit" , param : [ "pkPages" ] }
+	    	               ];
+		    var sURL = /*[[@{/do/master/pages/list?}]]*/ #;
+		    buildDataTable(/*[[@{/}]]*/, sURL, 'pages-list-table', 450, colDefs, null, null);
+	    });
+	    
+		$('#pages-btn-add').click(function(){
+			showAdd();
+		});
+		
+		$('#pages-btn-delete').click(function(){
+			deletePages();
+		});
+		
+	/*]]>*/
+</script>
+</body>
+</html>

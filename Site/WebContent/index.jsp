@@ -10,34 +10,46 @@
 			<div class="row clearfix">
 				<div class="about_inner">
 					<div class="col-md-4">
-						<div class="hexagon_learning hexagon_clipath hexagon_bg hexagon_learning" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/mainProgram/learning'">
-							<img src="<%=request.getContextPath()%>/images/learning_.jpg"/>
+						<div class="hexagon_learning hexagon_bg_top hexagon_learning" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/mainProgram/learning'">
+							<div class="hb-1">
+								<div class="hb-2">
+									<img src="<%=request.getContextPath()%>/images/learning_.jpg"/>
+								</div>
+							</div>
 						</div>
 						<label class="learning_text">Learning</label>
 					</div>
 					<div class="col-md-4">
-						<div class="hexagon_advisory hexagon_clipath hexagon_bg hexagon_advisory" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/advisory'">
-							<img src="<%=request.getContextPath()%>/images/advisory_.jpg"/>
+						<div class="hexagon_advisory hexagon_bg_top hexagon_advisory" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/advisory'">
+							<div class="hb-1">
+								<div class="hb-2">
+									<img src="<%=request.getContextPath()%>/images/advisory_.jpg"/>
+								</div>
+							</div>
 						</div>
 						<label class="advisory_text">Advisory</label>
 					</div>
 					<div class="col-md-4">
-						<div class="hexagon_research hexagon_clipath hexagon_bg hexagon_rnd" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/research-development'">
-							<img src="<%=request.getContextPath()%>/images/rnd_.jpg"/>
+						<div class="hexagon_research hexagon_bg_top hexagon_rnd" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/research-development'">
+							<div class="hb-1">
+								<div class="hb-2">
+									<img src="<%=request.getContextPath()%>/images/rnd_.jpg"/>
+								</div>
+							</div>
 						</div>
 						<label class="rnd_text">Research<br/>&#38;<br/>Development</label>
 						<div class="hexagon_hfc">
 							<img src="<%=request.getContextPath()%>/images/icon-hfc.png"/>
 						</div>
-						<div class="hexagon_light_learning hll1"></div>
-						<div class="hexagon_light_learning hll2"></div>
-						<div class="hexagon_light_learning hll3"></div>
-						<div class="hexagon_light_advisory hla1"></div>
-						<div class="hexagon_light_advisory hla2"></div>
-						<div class="hexagon_light_advisory hla3"></div>
-						<div class="hexagon_light_rnd hlr1"></div>
-						<div class="hexagon_light_rnd hlr2"></div>
-						<div class="hexagon_light_rnd hlr3"></div>
+						<div class="hexagon_light_learning hll1"><div class="hb-1"><div class="hb-2"></div></div></div>
+						<div class="hexagon_light_learning hll2"><div class="hb-1"><div class="hb-2"></div></div></div>
+						<div class="hexagon_light_learning hll3"><div class="hb-1"><div class="hb-2"></div></div></div>
+						<div class="hexagon_light_advisory hla1"><div class="hb-1"><div class="hb-2"></div></div></div>
+						<div class="hexagon_light_advisory hla2"><div class="hb-1"><div class="hb-2"></div></div></div>
+						<div class="hexagon_light_advisory hla3"><div class="hb-1"><div class="hb-2"></div></div></div>
+						<div class="hexagon_light_rnd hlr1"><div class="hb-1"><div class="hb-2"></div></div></div>
+						<div class="hexagon_light_rnd hlr2"><div class="hb-1"><div class="hb-2"></div></div></div>
+						<div class="hexagon_light_rnd hlr3"><div class="hb-1"><div class="hb-2"></div></div></div>
 						<div class="housing_index">
 							<div class="breakingNews bn-yellow" id="bn1">
 						    	<div class="bn-title" style="width: auto;"><h2 style="display: inline-block;">BTN Housing Index</h2><span></span></div>
@@ -72,7 +84,6 @@
 							</div>
 							<div class="row step-expert">
 								<div class="col-md-3">
-									<div class="step-expert-border"></div>
 									<div class="step-expert-icon-wrapper">
 										<div class="step-expert-content">
 											<span>Akses Website Housing Finance Center</span>
@@ -80,7 +91,6 @@
 									</div>
 								</div>
 								<div class="col-md-3">
-									<div class="step-expert-border"></div>
 									<div class="step-expert-icon-wrapper">
 										<div class="step-expert-content">
 											<span>Browser<br/>Publikasi<br/>Kami</span>
@@ -88,7 +98,6 @@
 									</div>
 								</div>
 								<div class="col-md-3">
-									<div class="step-expert-border"></div>
 									<div class="step-expert-icon-wrapper">
 										<div class="step-expert-content">
 											<span>Pilih<br/>Program<br/>Kami</span>
@@ -96,15 +105,15 @@
 									</div>
 								</div>
 								<div class="col-md-3">
-									<div class="step-expert-border"></div>
 									<div class="step-expert-icon-wrapper">
-										<div class="step-expert-content help-form">
+										<div class="step-expert-content">
 											<span>Butuh Bantuan? Hubungi Layanan Pelanggan</span>
 										</div>
 									</div>
 								</div>
 							</div>
 							<div class="row step-expert-line">
+								<div class="col-md-12"></div>
 							</div>						
 						</div>
 					</div>
