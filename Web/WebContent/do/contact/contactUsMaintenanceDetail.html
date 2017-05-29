@@ -8,10 +8,120 @@
 </style>
 <body>
 <div id="content" class="col-md-12">
+	<div class="pageheader">
+		<div class="row col-md-8">
+			<h4><i class="fa fa-tachometer"></i> Contact Setting Detail
+			<span></span></h4>
+		</div>
+	</div>
+	<div class="row col-md-12">
+	<section class="tile transparent">
+			<div class="tile-body rounded-corners">
+				<form action="#" id="contactSetting-detail-form" class="form-horizontal" method="POST" novalidate="novalidate" th:object="${detail}">
+					<div class="stockTypeStyle">
+						<div class="form-group">
+							<div class="col-md-12">
+								<div id="errorFragmentList">
+									<th:block th:if="${message}">
+										<div class='alert alert-success'>
+											<a href='#' class='close' data-dismiss='alert' aria-label='close' title='close'>&#10006;</a>			
+											<label th:text="${message}"></label>
+										</div>
+									</th:block>
+								</div>
+							</div>									
+							&nbsp;
+						</div>
+						<input id="contactSetting-detail-maintenancePk" type="hidden" th:field="*{pkContactSetting}"/>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" th:text="'Name'">Name</label>
+							<div class="col-sm-8 form-input-container">
+								<input type="text" class="form-control" placeholder="Name" name="name" id="input-text-name" th:field="*{name}"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" th:text="'Address'">Address</label>
+							<div class="col-sm-9 form-input-container">
+								<input type="text" class="form-control" placeholder="Address" name="address" id="input-text-address" th:field="*{address}"/>
+                           	</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" th:text="'Phone'">Phone</label>
+							<div class="col-sm-9 form-input-container">
+								<input type="text" class="form-control" placeholder="Phone" name="phone" id="input-text-phone" th:field="*{phone}"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" th:text="'Fax'">Fax</label>
+							<div class="col-sm-9 form-input-container">
+								<input type="text" class="form-control" placeholder="Fax" name="fax" id="input-text-fax" th:field="*{fax}"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" th:text="'Working Day 1'">Working Day 1</label>
+							<div class="col-sm-9 form-input-container">
+								<input type="text" class="form-control" placeholder="Working Day 1" name="workingDay1" id="input-text-working1" th:field="*{workingDay1}"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" th:text="'Working Day 2'">Working Day 2</label>
+							<div class="col-sm-9 form-input-container">
+								<input type="text" class="form-control" placeholder="Working Day 2" name="workingDay2" id="input-text-working2" th:field="*{workingDay2}"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" th:text="'Working Day 3'">Working Day 3</label>
+							<div class="col-sm-9 form-input-container">
+								<input type="text" class="form-control" placeholder="Working Day 3" name="workingDay3" id="input-text-working3" th:field="*{workingDay3}"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" th:text="'Longitude'">Longitude</label>
+							<div class="col-sm-9 form-input-container">
+								<input type="text" class="form-control" placeholder="Longitude" name="longitude" id="input-text-longitude" th:field="*{longitude}"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" th:text="'Latitude'">Latitude</label>
+							<div class="col-sm-9 form-input-container">
+								<input type="text" class="form-control" placeholder="Latitude" name="latitude" id="input-text-latitude" th:field="*{latitude}"/>
+							</div>
+						</div>
+						<div class="form-group form-footer">				
+							<div class="col-sm-offset-3 col-sm-9">
+								<a href="#" id="contactSetting-detail-btn-cancel" class="btn btn-default" type="reset" data-toggle="tooltip" title="">Reset</a>
+								<button id="contactSetting-detail-btn-save" class="btn btn-primary" type="submit" data-toggle="tooltip" title="">Simpan</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+	</section>
+	</div>
 </div>
 <script th:inline="javascript">
 	/*<![CDATA[*/
-	    
+	var detail = /*[[${detail}]]*/;       
+	
+	    $(function(){
+			var submitForm = function(){
+				cleanErrorParsley();
+				var sURL = /*[[@{/do/contactUs/maintenance/saveContactSetting/}]]*/ #;
+				$.post(sURL, $("#contactSetting-detail-form").serialize(), function(data) {
+					if(data.errorList!=null){
+						displayErrorParsley(data.errorList);
+					}else{
+						bootBoxSuccessSave("Successfully Save The Data");
+					}
+				});
+			};
+			
+			$('#contactSetting-detail-btn-save').click(function(e){
+				e.preventDefault();
+				submitForm();
+			});
+			
+	    });    
 	/*]]>*/
 </script>
 </body>

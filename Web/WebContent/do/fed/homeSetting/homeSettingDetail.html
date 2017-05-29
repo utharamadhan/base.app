@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:ifs="http://btn.co.id">
+<head>
+<meta charset="ISO-8859-1"/>
+<title>Home Setting Detail</title>
+</head>
+<body>
+	<div class="pageheader">
+		<div class="row col-md-8">
+			<h4><i class="fa fa-tachometer"></i> Home Setting Detail
+			<span></span></h4>
+		</div>
+	</div>
+	<div class="row col-md-12">
+	<section class="tile transparent">
+			<div class="tile-body rounded-corners">
+				<form action="#" id="homeSetting-detail-form" class="form-horizontal" method="POST" novalidate="novalidate" th:object="${detail}">
+					<div class="stockTypeStyle">
+						<div class="form-group">
+							<div class="col-md-12">
+								<div id="errorFragmentList">
+									<th:block th:if="${message}">
+										<div class='alert alert-success'>
+											<a href='#' class='close' data-dismiss='alert' aria-label='close' title='close'>&#10006;</a>			
+											<label th:text="${message}"></label>
+										</div>
+									</th:block>
+								</div>
+							</div>									
+							&nbsp;
+						</div>
+						<input id="homeSetting-detail-maintenancePk" type="hidden" th:field="*{pkHomeSetting}"/>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" th:text="'Code'">Code</label>
+							<div class="col-sm-8 form-input-container">
+								<input type="text" class="form-control" placeholder="Code" name="code" id="input-text-code" th:field="*{code}"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" th:text="'Head Background'">Background Image</label>
+							<div class="col-sm-9 form-input-container">
+								<th:block th:if="${detail.backgroundImage != null}">
+									<input type="hidden" id="input-hidden-basicPictureURL1" th:field="*{backgroundImage}"/>
+									<input type="file" class="form-control" id="input-file-basicPictureURL1" style="display:none;"/>
+									<div id="container-basicPictureURL1">
+										<img th:src="${detail.backgroundImage}" class="gcDetail-basicPicture"/>
+										<a href="#" class="btn btn-primary btn-xs margin-bottom-20 basicPicture-delete1" data-toggle="tooltip" title="Delete"><i class="fa fa-trash"></i></a>
+									</div>
+								</th:block>
+								<th:block th:if="${detail.backgroundImage == null}">
+									<input type="hidden" id="input-hidden-basicPictureURL1" name="backgroundImage"/>
+									<input type="file" class="form-control" id="input-file-basicPictureURL1"/>
+									<div id="container-basicPictureURL1" style='display:none;'>
+									</div>
+								</th:block>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" th:text="'Title'">Title</label>
+							<div class="col-sm-9 form-input-container">
+								<input type="text" class="form-control" placeholder="Title" name="titleText" id="input-text-title" th:field="*{titleText}"/>
+                           	</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" th:text="'Sub Title'">Sub Title</label>
+							<div class="col-sm-9 form-input-container">
+								<input type="text" class="form-control" placeholder="SubTitle" name="subTitleText" id="input-text-subtitle" th:field="*{subTitleText}"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" th:text="'Link'">Link</label>
+							<div class="col-sm-9 form-input-container">
+								<input type="text" class="form-control" placeholder="Link" name="linkUrl" id="input-text-link" th:field="*{linkUrl}"/>
+							</div>
+						</div>
+						<div class="form-group form-footer">				
+							<div class="col-sm-offset-3 col-sm-9">
+								<a href="#" id="homeSetting-detail-btn-cancel" class="btn btn-default" type="reset" data-toggle="tooltip" title="">Batal</a>
+								<button id="homeSetting-detail-btn-save" class="btn btn-primary" type="submit" data-toggle="tooltip" title="">Simpan</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+	</section>
+	</div>
+	<script th:inline="javascript">
+	/*<![CDATA[*/
+	    var detail = /*[[${detail}]]*/;       
+	
+	    function initDeletePicture1() {
+			$('.basicPicture-delete1').click(function(e){
+				e.preventDefault();
+				$('#input-file-basicPictureURL1').show();
+				$('#container-basicPictureURL1').html("");
+				$('#input-hidden-basicPictureURL1, #input-file-basicPictureURL1').val("");
+				$('#container-basicPictureURL1').hide();
+			});
+		}
+	           
+	    $(function(){
+	    	var uploadURL = /*[[@{/do/fileManager/upload/}]]*/ #;
+	    	
+	    	initDeletePicture1();
+	    	
+	    	var showImage1 = function(imageURL) {
+				$('#input-file-basicPictureURL1').hide();
+				var htmlContent = '<image src="'+imageURL+'" style="max-height:250px;"></image>';
+				htmlContent += '<a href="#" class="btn btn-primary btn-xs margin-bottom-20 basicPicture-delete1" data-toggle="tooltip" title="Delete" style="position:absolute; left:25px; top:10px;"><i class="fa fa-trash"></i></a>';
+				$('#container-basicPictureURL1').html(htmlContent);
+				$('#input-hidden-basicPictureURL1').val(imageURL);
+				$('#container-basicPictureURL1').show();
+				initDeletePicture1();
+			}
+	    	
+	    	var uploadFile1 = function(image, uploadURL) {
+				var data = new FormData();
+				data.append('file', image);
+				var xhr = new XMLHttpRequest();
+				xhr.open('POST', uploadURL, true);
+				xhr.onreadystatechange = function() {
+				  if (xhr.readyState === 4) {
+				    var response = JSON.parse(xhr.responseText);
+				    if (response) {
+				      	showImage1(response);
+				    } else {
+				      	var reader = new FileReader();
+				      	reader.onload = function(e) {
+				        	callback(e.target.result);
+				      	};
+				      	reader.readAsDataURL(image);
+				    }
+				  }
+				}
+				xhr.send(data);
+			};
+			
+			var thisObj1 = '';
+			$('#input-file-basicPictureURL1').unbind('change').on('change', function(){
+				var sURL = /*[[@{/do/fileManager/uploadFeaturedImage/}]]*/ #;
+				var thisObj1 = $('#input-file-basicPictureURL1')[0];
+				uploadFile1(thisObj1.files[0], sURL);
+			});
+	    	
+			var backToList = function(){
+				returnToList('homeSetting-detail-container', 'homeSetting-list-container', true);
+			};
+			
+			var submitForm = function(){
+				cleanErrorParsley();
+				var sURL = /*[[@{/do/fed/homeSetting/saveHomeSetting/}]]*/ #;
+				$.post(sURL, $("#homeSetting-detail-form").serialize(), function(data) {
+					if(data.errorList!=null){
+						displayErrorParsley(data.errorList);
+					}else{
+						backToList();
+					}
+				});
+			};
+			
+			$('#homeSetting-detail-btn-save').click(function(e){
+				e.preventDefault();
+				submitForm();
+			});
+			
+			$('#homeSetting-detail-btn-cancel').click(function(e){
+				e.preventDefault();
+				backToList();
+			});
+			
+	    });
+	/*]]>*/
+	</script>
+</body>
+</html>

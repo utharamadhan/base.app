@@ -1,5 +1,17 @@
 package id.base.app.web;
 
+import javax.servlet.ServletContext;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+
+import org.jasypt.digest.config.SimpleDigesterConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.web.context.ContextLoader;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
+
 import id.base.app.LoginSession;
 import id.base.app.SystemParameter;
 import id.base.app.config.BeanUtilsConfigurer;
@@ -28,9 +40,11 @@ import id.base.app.valueobject.advisory.AdvisoryPost;
 import id.base.app.valueobject.advisory.Article;
 import id.base.app.valueobject.advisory.Category;
 import id.base.app.valueobject.contact.Contact;
+import id.base.app.valueobject.contact.ContactSetting;
 import id.base.app.valueobject.course.Course;
 import id.base.app.valueobject.course.GroupCourse;
 import id.base.app.valueobject.course.Tag;
+import id.base.app.valueobject.frontend.HomeSetting;
 import id.base.app.valueobject.notification.Notification;
 import id.base.app.valueobject.party.Party;
 import id.base.app.valueobject.party.Student;
@@ -44,18 +58,6 @@ import id.base.app.valueobject.report.VWStudentReport;
 import id.base.app.valueobject.research.Research;
 import id.base.app.valueobject.research.ResearchTheme;
 import id.base.app.valueobject.testimonial.Testimonial;
-
-import javax.servlet.ServletContext;
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
-
-import org.jasypt.digest.config.SimpleDigesterConfig;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
-import org.springframework.web.context.ContextLoader;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 
 
 public class ParameterLoader extends ContextLoader implements ServletContextListener  {
@@ -277,6 +279,13 @@ public class ParameterLoader extends ContextLoader implements ServletContextList
 		RestCaller.BASE_CLASS.put(RestServiceConstant.STUDENT_REPORT_SERVICE, VWStudentReport.class);
 		RestCaller.BASE_URL.put(RestServiceConstant.RESEARCH_DEVELOPMENT_REPORT_SERVICE, RestConstant.RM_RESEARCH_DEVELOPMENT_REPORT);
 		RestCaller.BASE_CLASS.put(RestServiceConstant.RESEARCH_DEVELOPMENT_REPORT_SERVICE, VWResearchDevelopmentReport.class);
+		
+		//Front End
+		RestCaller.BASE_URL.put(RestServiceConstant.HOME_SETTING_SERVICE, RestConstant.RM_HOME_SETTING);
+		RestCaller.BASE_CLASS.put(RestServiceConstant.HOME_SETTING_SERVICE, HomeSetting.class);
+		
+		RestCaller.BASE_URL.put(RestServiceConstant.CONTACT_SETTING_SERVICE, RestConstant.RM_CONTACT_SETTING);
+		RestCaller.BASE_CLASS.put(RestServiceConstant.CONTACT_SETTING_SERVICE, ContactSetting.class);
 		
 	}
 }

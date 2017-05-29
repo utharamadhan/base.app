@@ -1,10 +1,12 @@
 package id.base.app.web.controller.report;
 
+import id.base.app.paging.PagingWrapper;
 import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
 import id.base.app.rest.RestServiceConstant;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
+import id.base.app.valueobject.report.VWResearchDevelopmentReport;
 import id.base.app.valueobject.report.VWStudentReport;
 import id.base.app.web.DataTableCriterias;
 import id.base.app.web.controller.BaseController;
@@ -22,16 +24,17 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Scope(value="request")
 @Controller
-@RequestMapping("/report/VWStudentReport")
+@RequestMapping("/report/student")
 public class StudentReportWebController extends BaseController<VWStudentReport> {
 
-	private final String PATH_LIST = "/report/VWStudentReportReportList";
+	private final String PATH_LIST = "/report/student/studentReportDataList";
 	
 	@Override
 	protected RestCaller<VWStudentReport> getRestCaller() {
@@ -55,8 +58,13 @@ public class StudentReportWebController extends BaseController<VWStudentReport> 
 		if(orders != null) {
 			orders.clear();
 		}
-		orders.add(new SearchOrder(VWStudentReport.NAME, SearchOrder.Sort.ASC));
 		return orders;
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="showList")
+	public String showList(ModelMap model, HttpServletRequest request){
+		model.addAttribute("pagingWrapper", new PagingWrapper<VWStudentReport>());
+		return getListPath();
 	}
 
 	@RequestMapping(method=RequestMethod.GET, value="/downloadXls")
@@ -65,7 +73,7 @@ public class StudentReportWebController extends BaseController<VWStudentReport> 
 		Map<String, Object> resultMap = null;
 		
 		try {
-			response.setHeader("Content-Disposition", "attachment; filename=VWStudentReportReport.xlsx");
+			response.setHeader("Content-Disposition", "attachment; filename=StudentReport.xlsx");
 			XSSFWorkbook workbook = generateFile();
 			workbook.write(response.getOutputStream());
 			response.getOutputStream().close();

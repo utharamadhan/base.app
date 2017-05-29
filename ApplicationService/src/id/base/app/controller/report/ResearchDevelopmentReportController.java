@@ -16,11 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class ResearchDevelopmentReportController extends SuperController<VWResearchDevelopmentReport> {
 
 	@Autowired
-	private IVWResearchDevelopmentReportService ResearchDevelopmentReportService;
+	private IVWResearchDevelopmentReportService researchDevelopmentReportService;
 	
 	@Override
 	public MaintenanceService<VWResearchDevelopmentReport> getMaintenanceService() {
-		return ResearchDevelopmentReportService;
+		return researchDevelopmentReportService;
 	}
 
 	@Override

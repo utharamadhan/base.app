@@ -1,10 +1,12 @@
 package id.base.app.web.controller.report;
 
+import id.base.app.paging.PagingWrapper;
 import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
 import id.base.app.rest.RestServiceConstant;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
+import id.base.app.valueobject.contact.Contact;
 import id.base.app.valueobject.report.VWResearchDevelopmentReport;
 import id.base.app.web.DataTableCriterias;
 import id.base.app.web.controller.BaseController;
@@ -22,6 +24,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -30,6 +33,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping("/report/researchDevelopment")
 public class ResearchDevelopmentReportWebController extends BaseController<VWResearchDevelopmentReport> {
+	
+	private final String PATH_LIST = "/report/research/researchReportDataList";
 
 	@Override
 	protected RestCaller<VWResearchDevelopmentReport> getRestCaller() {
@@ -52,6 +57,12 @@ public class ResearchDevelopmentReportWebController extends BaseController<VWRes
 	protected List<SearchOrder> getSearchOrder() {
 		return null;
 	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="showList")
+	public String showList(ModelMap model, HttpServletRequest request){
+		model.addAttribute("pagingWrapper", new PagingWrapper<VWResearchDevelopmentReport>());
+		return getListPath();
+	}
 
 	@RequestMapping(method=RequestMethod.GET, value="/downloadXls")
 	@ResponseBody
@@ -59,7 +70,7 @@ public class ResearchDevelopmentReportWebController extends BaseController<VWRes
 		Map<String, Object> resultMap = null;
 		
 		try {
-			response.setHeader("Content-Disposition", "attachment; filename=VWStudentReportReport.xlsx");
+			response.setHeader("Content-Disposition", "attachment; filename=ResearchReport.xlsx");
 			XSSFWorkbook workbook = generateFile();
 			workbook.write(response.getOutputStream());
 			response.getOutputStream().close();
@@ -215,7 +226,7 @@ public class ResearchDevelopmentReportWebController extends BaseController<VWRes
 
 	@Override
 	protected String getListPath() {
-		return null;
+		return PATH_LIST;
 	}
 
 }

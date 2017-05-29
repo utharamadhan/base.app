@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:ifs="http://btn.co.id">
+<head>
+<meta charset="ISO-8859-1"/>
+<title>Report - Research</title>
+</head>
+<style>
+.dataTables_scrollBody {
+	height : auto !important;
+	min-height : 120px;
+}
+
+#contact-list-table a {
+	color : #717171 !important;
+	text-decoration: underline;
+}
+
+</style>
+<body>
+<div id="content" class="col-md-12">
+	<div id="contactUs-detail-container"></div>
+	<div id="contactUs-list-container">
+	<div class="pageheader">
+		<h4><i class="fa fa-shopping-basket"></i> Report Research List
+		<span></span></h4>
+	</div>
+	<div class="col-md-4 tile-body no-vpadding" style="margin:10px;">
+		<a href="#" id="contact-btn-download" class="btn btn-primary" style="margin-bottom:5px"><i class="fa fa-plus dropdown-plus"></i> &nbsp; Download</a>
+	</div>
+	<div class="main">
+		<div class="row">
+			<div class="col-md-12">	
+				<section class="tile transparent">
+					<div class="table-responsive">
+						<div class="tile-body rounded-corners">
+	                      	<table id="research-list-table" class="table table-datatable table-custom">
+		                        <thead>
+		                          <tr>
+		                            <th>Title</th>
+									<th>Subtitle</th>
+									<th>Description</th>
+									<th>Vendor</th>
+									<th>Value</th>
+		                          </tr>
+		                        </thead>
+	                     	</table>
+	                     	<div style="padding-bottom: 3px; bottom: 0;" th:replace="pagingDiv::pager (${pagingWrapper}, ${#dates.createNow()}, 'advisory-list-table', 'contentArea')">
+							</div>
+                     	</div>
+					</div>
+				</section>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script th:inline="javascript">
+	/*<![CDATA[*/
+	    $(function(){
+		    setMenuActive('research-report');
+		    var colDefs = [{ name : "title"}, 
+	    	               { name : "subtitle" },
+	    	               { name : "description" },
+	    	               { name : "vendor" },
+	    	               { name : "projectValue" }
+	    	               ];
+		    var sURL = /*[[@{/do/report/researchDevelopment/list?}]]*/ #;
+		    buildDataTableWithoutFilter(/*[[@{/}]]*/, sURL, 'research-list-table', 450, colDefs, null, null);
+		    
+		    $('#contact-btn-download').click(function(){
+		    	var sURL = /*[[@{/do/report/researchDevelopment/downloadXls}]]*/ #;
+		    	downloadXls(sURL);
+			});
+		    
+	    });
+	
+	    
+		function downloadXls(sURL){
+			$.ajax({ 
+			    type: "GET",
+			    url: sURL,
+			    cache: false,
+			    contentType: false,
+			    processData: false,
+			    success: function(data){
+			    	if(data.errorList != null){
+			    		displayErrorJson(data.errorList, 4);
+			        }else{
+			        	window.location.href = sURL;
+			        }
+			    } 
+			});
+		}
+		
+	/*]]>*/
+</script>
+</body>
+</html>

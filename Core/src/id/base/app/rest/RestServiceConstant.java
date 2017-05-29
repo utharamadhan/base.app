@@ -80,4 +80,8 @@ public class RestServiceConstant {
 	//Report
 	public static final String STUDENT_REPORT_SERVICE = "studentReportService";
 	public static final String RESEARCH_DEVELOPMENT_REPORT_SERVICE = "researchDevelopmentReportService";
+	
+	//front end 
+	public static final String HOME_SETTING_SERVICE = "homeSettingService";
+	public static final String CONTACT_SETTING_SERVICE = "contactSettingService";
 }
