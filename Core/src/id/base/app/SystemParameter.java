@@ -21,7 +21,7 @@ public class SystemParameter {
 
 	public static String EMAIL_SENDER = "housingfinancecenterbtn@gmail.com";
 	public static String EMAIL_USERNAME = "housingfinancecenterbtn@gmail.com";
-	public static String EMAIL_PASSWORD = "c3VwZXJtYW4mYmF0bWFuMTIz";
+	public static String EMAIL_PASSWORD = "superman&batman123";
 	public static String EMAIL_SMTP_AUTH = "true";
 	public static String EMAIL_SMTP_TLS_ENABLE = "true";
 	public static String EMAIL_HOST = "smtp.gmail.com";
