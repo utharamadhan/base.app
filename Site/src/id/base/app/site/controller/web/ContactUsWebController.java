@@ -112,7 +112,7 @@ public class ContactUsWebController {
 		setDefaultData(model);
 		
 		final String username = SystemParameter.EMAIL_USERNAME;
-		final String password = new String(Base64.decodeBase64(SystemParameter.EMAIL_PASSWORD.getBytes()));
+		final String password = SystemParameter.EMAIL_PASSWORD;
 		
 		Properties props = new Properties();
 		props.put("mail.smtp.auth", "true");
@@ -153,7 +153,7 @@ public class ContactUsWebController {
 	public Map<String, Object> sendEmail(HttpServletRequest request, HttpServletResponse response, @RequestParam Map<String,String> params){
 		Map<String, Object> resultMap = new HashMap<>();
 		final String username = SystemParameter.EMAIL_USERNAME;
-		final String password = new String(Base64.decodeBase64(SystemParameter.EMAIL_PASSWORD.getBytes()));
+		final String password = SystemParameter.EMAIL_PASSWORD;
 		final String host = SystemParameter.EMAIL_HOST;
 		final String port = SystemParameter.EMAIL_PORT;
 		
