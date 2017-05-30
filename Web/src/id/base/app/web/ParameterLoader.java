@@ -1,17 +1,5 @@
 package id.base.app.web;
 
-import javax.servlet.ServletContext;
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
-
-import org.jasypt.digest.config.SimpleDigesterConfig;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
-import org.springframework.web.context.ContextLoader;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
-
 import id.base.app.LoginSession;
 import id.base.app.SystemParameter;
 import id.base.app.config.BeanUtilsConfigurer;
@@ -59,6 +47,18 @@ import id.base.app.valueobject.research.Research;
 import id.base.app.valueobject.research.ResearchTheme;
 import id.base.app.valueobject.testimonial.Testimonial;
 
+import javax.servlet.ServletContext;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+
+import org.jasypt.digest.config.SimpleDigesterConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.web.context.ContextLoader;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
+
 
 public class ParameterLoader extends ContextLoader implements ServletContextListener  {
 	
@@ -98,10 +98,10 @@ public class ParameterLoader extends ContextLoader implements ServletContextList
 	private void initializeMailSender(WebApplicationContext ctx) {
 		logger.info("Start initializing mail sender... ");
 		JavaMailSenderImpl mailSender = (JavaMailSenderImpl) ctx.getBean("mailSender");
-		mailSender.setHost(SystemParameter.MAIL_HOST);
-		mailSender.setPort(SystemParameter.MAIL_PORT);
-		mailSender.setUsername(SystemParameter.MAIL_USERNAME);
-		mailSender.setPassword(SystemParameter.MAIL_PASSWORD);
+		mailSender.setHost(SystemParameter.EMAIL_HOST);
+		mailSender.setPort(Integer.valueOf(SystemParameter.EMAIL_PORT));
+		mailSender.setUsername(SystemParameter.EMAIL_USERNAME);
+		mailSender.setPassword(SystemParameter.EMAIL_PASSWORD);
 		logger.info("Finish initializing mail sender... ");
 	}
 

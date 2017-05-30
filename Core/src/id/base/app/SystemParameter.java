@@ -19,11 +19,13 @@ public class SystemParameter {
 	
     private static final Logger logger = LoggerFactory.getLogger(SystemParameter.class);
 
-	public static String EMAIL_SENDER = "postmaster@padiku.id";
-	public static String MAIL_USERNAME = "SMTP_Injection";
-	public static String MAIL_PASSWORD = "efbabe7b51e09a87a9c5d63877e4a331db7e368f";
-	public static String MAIL_HOST = "smtp.sparkpostmail.com";
-	public static int MAIL_PORT = 587;
+	public static String EMAIL_SENDER = "housingfinancecenterbtn@gmail.com";
+	public static String EMAIL_USERNAME = "housingfinancecenterbtn@gmail.com";
+	public static String EMAIL_PASSWORD = "c3VwZXJtYW4mYmF0bWFuMTIz";
+	public static String EMAIL_SMTP_AUTH = "true";
+	public static String EMAIL_SMTP_TLS_ENABLE = "true";
+	public static String EMAIL_HOST = "smtp.gmail.com";
+	public static String EMAIL_PORT = "587";
 	
 	public static class SparkPostConfiguration {
 		public static final String API_URL = "https://api.sparkpost.com/api/v1/transmissions";
