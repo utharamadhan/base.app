@@ -5,7 +5,6 @@ import id.base.app.ILookupGroupConstant;
 import id.base.app.SystemConstant;
 import id.base.app.SystemParameter;
 import id.base.app.mail.MailManager;
-import id.base.app.properties.ApplicationProperties;
 import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
 import id.base.app.rest.RestServiceConstant;
@@ -112,13 +111,8 @@ public class ContactUsWebController {
 	public String testEmail(ModelMap model, HttpServletRequest request, HttpServletResponse response){
 		setDefaultData(model);
 		
-		System.out.println(Base64.encodeBase64("superman&batman123".getBytes()));
-		
-		final String username = ApplicationProperties.getProperty("email.smtp.username");
-		System.out.println(new String(Base64.encodeBase64("superman&batman123".getBytes())));
-		System.out.println(new String(Base64.decodeBase64("c3VwZXJtYW4mYmF0bWFuMTIz".getBytes())));
-		
-		final String password = ApplicationProperties.getProperty("email.smtp.password");
+		final String username = SystemParameter.EMAIL_USERNAME;
+		final String password = new String(Base64.decodeBase64(SystemParameter.EMAIL_PASSWORD.getBytes()));
 		
 		Properties props = new Properties();
 		props.put("mail.smtp.auth", "true");
