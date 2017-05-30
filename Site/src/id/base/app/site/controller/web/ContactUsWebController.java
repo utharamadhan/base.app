@@ -1,5 +1,22 @@
 package id.base.app.site.controller.web;
 
+import id.base.app.ILookupConstant;
+import id.base.app.ILookupGroupConstant;
+import id.base.app.SystemConstant;
+import id.base.app.SystemParameter;
+import id.base.app.mail.MailManager;
+import id.base.app.properties.ApplicationProperties;
+import id.base.app.rest.RestCaller;
+import id.base.app.rest.RestConstant;
+import id.base.app.rest.RestServiceConstant;
+import id.base.app.util.dao.Operator;
+import id.base.app.util.dao.SearchFilter;
+import id.base.app.util.dao.SearchOrder;
+import id.base.app.util.dao.SearchOrder.Sort;
+import id.base.app.valueobject.Lookup;
+import id.base.app.valueobject.contact.Contact;
+import id.base.app.valueobject.course.Course;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,6 +33,7 @@ import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,22 +48,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.code.kaptcha.Constants;
-
-import id.base.app.ILookupConstant;
-import id.base.app.ILookupGroupConstant;
-import id.base.app.SystemConstant;
-import id.base.app.mail.MailManager;
-import id.base.app.properties.ApplicationProperties;
-import id.base.app.rest.RestCaller;
-import id.base.app.rest.RestConstant;
-import id.base.app.rest.RestServiceConstant;
-import id.base.app.util.dao.Operator;
-import id.base.app.util.dao.SearchFilter;
-import id.base.app.util.dao.SearchOrder;
-import id.base.app.util.dao.SearchOrder.Sort;
-import id.base.app.valueobject.Lookup;
-import id.base.app.valueobject.contact.Contact;
-import id.base.app.valueobject.course.Course;
 
 @Scope(value="request")
 @RequestMapping(value="/contact")
@@ -106,14 +108,60 @@ public class ContactUsWebController {
 		return "/contact/main";
 	}
 	
+	@RequestMapping(method=RequestMethod.GET, value="/testEmail")
+	public String testEmail(ModelMap model, HttpServletRequest request, HttpServletResponse response){
+		setDefaultData(model);
+		
+		System.out.println(Base64.encodeBase64("superman&batman123".getBytes()));
+		
+		final String username = ApplicationProperties.getProperty("email.smtp.username");
+		System.out.println(new String(Base64.encodeBase64("superman&batman123".getBytes())));
+		System.out.println(new String(Base64.decodeBase64("c3VwZXJtYW4mYmF0bWFuMTIz".getBytes())));
+		
+		final String password = ApplicationProperties.getProperty("email.smtp.password");
+		
+		Properties props = new Properties();
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtp.host", "smtp.gmail.com");
+		props.put("mail.smtp.port", "587");
+
+		Session session = Session.getInstance(props,
+		  new javax.mail.Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(username, password);
+			}
+		  });
+
+		try {
+
+			Message message = new MimeMessage(session);
+			message.setFrom(new InternetAddress(username));
+			message.setRecipients(Message.RecipientType.TO,
+				InternetAddress.parse("bona.dvent@gmail.com"));
+			message.setSubject("Testing Subject");
+			message.setText("Dear TESTING EMAIL,"
+				+ "\n\n TESTTTTTTTTTTT, please!");
+
+			Transport.send(message);
+
+			System.out.println("Done");
+
+		} catch (MessagingException e) {
+			throw new RuntimeException(e);
+		}
+		
+		return "/contact/main";
+	}
+	
 	@RequestMapping(method=RequestMethod.POST, value="/sendEmail")
 	@ResponseBody
 	public Map<String, Object> sendEmail(HttpServletRequest request, HttpServletResponse response, @RequestParam Map<String,String> params){
 		Map<String, Object> resultMap = new HashMap<>();
-		final String username = ApplicationProperties.getProperty("email.smtp.username");
-		final String password = ApplicationProperties.getProperty("email.smtp.password");
-		final String host = ApplicationProperties.getProperty("mail.smtp.host");
-		final String port = ApplicationProperties.getProperty("mail.smtp.port");
+		final String username = SystemParameter.EMAIL_USERNAME;
+		final String password = new String(Base64.decodeBase64(SystemParameter.EMAIL_PASSWORD.getBytes()));
+		final String host = SystemParameter.EMAIL_HOST;
+		final String port = SystemParameter.EMAIL_PORT;
 		
 		String contactName = params.get("name");
 		String contactEmail = params.get("email");
@@ -189,8 +237,8 @@ public class ContactUsWebController {
 	 		getRestCaller().saveOrUpdate(contact);
 	 		
 	 		
-	 		String from = "mardyemailaja@gmail.com";
-	 		String subject = "Contact Email";
+	 		String from = SystemParameter.EMAIL_SENDER;
+	 		String subject = "Housing Finance Center - Contact Us";
 	 		StringBuffer to = new StringBuffer();
 	 		to.append(contactEmail);
 	 		
@@ -215,8 +263,8 @@ public class ContactUsWebController {
 	 	             InternetAddress.parse(to.toString()));
 	 	         message.setSubject(subject);
 	 	         
-	 	         String text = "Thank you for contacting us. We will immediately contact you, Thank you!";
-	 	
+	 	         String text = "Dear "+contactEmail+",\n\nThank you for contacting us. We will contact you soon, Thank you\n\nBest Regards\n\nHousing Finance Center";
+	 	        
 	 	         message.setText(text);
 	 	
 	 	         
@@ -238,7 +286,7 @@ public class ContactUsWebController {
 	 	         
 	 	         
 	 	         resultMap.put("success", true);
-	 	         resultMap.put("message", "Your email successfully been processed");
+	 	         resultMap.put("message", "Thank you for contacting us. We will contact you soon.");
 	 		}catch(MessagingException e) {
 	 			resultMap.put("success", false);
 	 	         resultMap.put("message", "Your email failed to processed");
@@ -246,10 +294,8 @@ public class ContactUsWebController {
 	 		}
 	     }else{
 	    	 resultMap.put("success", false);
- 	         resultMap.put("message", "Your email failed to processed");
+ 	         resultMap.put("message", "The captcha was not entered correctly, please try it again");
 	     }
-		
-		
 		
 		return resultMap;
 	}

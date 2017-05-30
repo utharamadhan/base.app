@@ -82,10 +82,10 @@ public class ParameterLoader extends ContextLoader implements ServletContextList
 	private void initializeMailSender(WebApplicationContext ctx) {
 		logger.info("Start initializing mail sender... ");
 		JavaMailSenderImpl mailSender = (JavaMailSenderImpl) ctx.getBean("mailSender");
-		mailSender.setHost(SystemParameter.MAIL_HOST);
-		mailSender.setPort(SystemParameter.MAIL_PORT);
-		mailSender.setUsername(SystemParameter.MAIL_USERNAME);
-		mailSender.setPassword(SystemParameter.MAIL_PASSWORD);
+		mailSender.setHost(SystemParameter.EMAIL_HOST);
+		mailSender.setPort(Integer.valueOf(SystemParameter.EMAIL_PORT));
+		mailSender.setUsername(SystemParameter.EMAIL_USERNAME);
+		mailSender.setPassword(SystemParameter.EMAIL_PASSWORD);
 		logger.info("Finish initializing mail sender... ");
 	}
 
