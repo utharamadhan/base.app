@@ -890,22 +890,6 @@
 	border-left: 28.87px solid #faea33;
 	top: 0px;
 }		
-@media only screen and (max-width: 768px){
-	.aboutArea{display:none}
-	.banner-wrapper .form-wrapper .banner-header{
-		padding-top:40px;
-	}
-}		
-@media only screen and (max-width: 479px){
-	.testimonial{ padding: 80px 15px 5px; }
-	.testimonial::before{ top: 10px; }
-	.testimonial .pic{
-		width: 120px;
-		height: 120px;
-		top: -60px;
-	}
-}
-
 .learning_text{
 	font-size: 28px;
    	color: #99ff66;
@@ -976,3 +960,56 @@
      	left:97px;
      }
 }
+@media only screen and (max-width: 1280px){
+	.hexagon_bg_top, .hexagon_bg_top img{
+		height:210px;
+		width:182.609px;
+	}
+	.hexagon_learning{
+	    top: -73px;
+    	left: 275px;
+	}
+	.hexagon_research{
+		top: -64px;
+	    left: -82px;
+	}
+	.hexagon_advisory{
+		top: 127px;
+	    left: 107px;
+	}
+	.housing_index{
+		right: 824px;
+	}
+	.learning_text{
+		left: 46px;
+    	top: 52px;
+	}
+	.rnd_text{
+		left: 173px;
+    	top: 35px;
+	}
+	.advisory_text{
+	    top: 237px;
+	    left: -44px;
+	}
+	
+}
+@media only screen and (max-width: 1024px){
+	
+}
+@media only screen and (max-width: 768px){
+	.aboutArea{display:none}
+	.banner-wrapper .form-wrapper .banner-header{
+		padding-top:40px;
+	}
+}		
+@media only screen and (max-width: 479px){
+	.testimonial{ padding: 80px 15px 5px; }
+	.testimonial::before{ top: 10px; }
+	.testimonial .pic{
+		width: 120px;
+		height: 120px;
+		top: -60px;
+	}
+}
+
