@@ -3673,10 +3673,14 @@ ul.contact_info li a:hover {
 }
 .hb-1{
 	overflow: hidden;
+	-webkit-transform: rotate(-60deg) skewY(30deg);
+    -ms-transform: rotate(-60deg) skewY(30deg);
     transform: rotate(-60deg) skewY(30deg);
 }
 .hb-2{
 	overflow: hidden;
+	-webkit-transform: skewY(-30deg) rotate(60deg);
+	-ms-transform: skewY(-30deg) rotate(60deg);
     transform: skewY(-30deg) rotate(60deg);
 }
 @media only screen and (max-width: 479px) {

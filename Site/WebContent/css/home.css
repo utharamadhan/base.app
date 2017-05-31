@@ -408,6 +408,8 @@
   float:left;
   overflow:hidden;
   visibility:hidden;
+  -webkit-transform: rotate(-60deg) skewY(30deg);
+  -ms-transform: rotate(-60deg) skewY(30deg);
   transform: rotate(-60deg) skewY(30deg);
 }
 #categories li *{
@@ -420,6 +422,8 @@
   text-align:center;
   color:#419639;
   overflow:hidden;
+  -webkit-transform: skewY(-30deg) rotate(60deg);
+  -ms-transform: skewY(-30deg) rotate(60deg);
   transform: skewY(-30deg) rotate(60deg);
 }
 
