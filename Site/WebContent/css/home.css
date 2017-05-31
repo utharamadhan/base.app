@@ -611,14 +611,6 @@
 #fork:hover:before {
   transform: translateX(0) skewX(-45deg);
 }
-.hb-1{
-	overflow: hidden;
-    transform: rotate(-60deg) skewY(30deg);
-}
-.hb-2{
-	overflow: hidden;
-    transform: skewY(-30deg) rotate(60deg);
-}
 .hexagon_bg_top{
 	width: 200px;
     height: 230px;

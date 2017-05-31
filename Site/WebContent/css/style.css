@@ -3154,15 +3154,14 @@ ul.contact_info li a:hover {
     margin-top: 0;
 }
 .socialFollow .fa {
-    background: #fcdb00 none repeat scroll 0 0;
+    background-image: url('/Site/images/hexa-yellow-small.png');
+    background-size: 100% 100%;
     color: #004fb6;
     font-size: 22px;
     height: 45px;
     line-height: 45px;
     text-align: center;
     width: 45px;
-    -webkit-clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
 }
 .socialFollow .fa:hover {
     opacity: 0.8;
@@ -3494,8 +3493,6 @@ ul.contact_info li a:hover {
 	border-left:1px solid #ececec;
 	background:#f6f6f6;
 	box-shadow: 0 1px 4px rgba(0,0,0,.23);
-	-webkit-clip-path: polygon(50% 0, 100% 17%, 100% 100%, 0 100%, 0 17%);
-    clip-path: polygon(50% 0, 100% 17%, 100% 100%, 0 100%, 0 17%);
     padding-bottom: 5px;
 }
 .green .card-box{
@@ -3506,11 +3503,6 @@ ul.contact_info li a:hover {
 }
 .green .card-active .card-title a{
 	color:#ffffff;
-}
-.card-box .card-image img{
-	width:100%;
-	-webkit-clip-path: polygon(50% 0%, 100% 20%, 100% 80%, 50% 100%, 0 80%, 0 20%);
-	clip-path: polygon(50% 0%, 100% 20%, 100% 80%, 50% 100%, 0 80%, 0 20%);
 }
 .card-box .card-title{
 	text-align:center;	
@@ -3678,6 +3670,14 @@ ul.contact_info li a:hover {
 }
 .back-hexa{
 	background-image:url(/Site/images/back-hexa.png);
+}
+.hb-1{
+	overflow: hidden;
+    transform: rotate(-60deg) skewY(30deg);
+}
+.hb-2{
+	overflow: hidden;
+    transform: skewY(-30deg) rotate(60deg);
 }
 @media only screen and (max-width: 479px) {
     .img-responsive {
