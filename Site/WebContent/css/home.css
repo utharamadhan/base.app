@@ -964,7 +964,7 @@
      	left:97px;
      }
 }
-@media only screen and (max-width: 1280px){
+@media only screen and (max-width: 1279px){
 	.hexagon_bg_top, .hexagon_bg_top img{
 		height:210px;
 		width:182.609px;
@@ -981,9 +981,6 @@
 		top: 127px;
 	    left: 107px;
 	}
-	.housing_index{
-		right: 824px;
-	}
 	.learning_text{
 		left: 46px;
     	top: 52px;
@@ -996,17 +993,61 @@
 	    top: 237px;
 	    left: -44px;
 	}
-	
+	.back-pcb{
+		top:18px;
+	}
+	.aboutArea{
+		padding:24px 0 0 0;
+	}
+	.housing_index {
+	    right: 660px;
+	}
+	.circle-top {
+	    height: 153px;
+	    background-size: 100% 153px;
+	}
+	.main-content-right .panel-heading a {
+	    font-size: 14px;
+	}
+	.aboutUsArea .circle-bottom-wrapper {
+    	height: 225px;
+    	background-size: 100% 225px;
+	}
+	.aboutUsArea .circle-bottom-wrapper .title-center h2 {
+	    padding-top: 4%;
+	    font-size: 22px;
+	}
+	.circle-bottom4{
+		top:135px;
+	}
 }
-@media only screen and (max-width: 1024px){
-	
+@media only screen and (max-width: 1023px){
+	.housing_index {
+	    right: 0px;
+	}
 }
-@media only screen and (max-width: 768px){
+@media only screen and (max-width: 767px){
 	.aboutArea{display:none}
 	.banner-wrapper .form-wrapper .banner-header{
 		padding-top:40px;
 	}
+	.circle-top {
+	    height: 153px;
+	    background-size: 100% 153px;
+	}
+	.aboutUsArea .circle-bottom-wrapper {
+	    background-size: 100% 225px;
+	    margin-top: 280px;
+	}
 }		
+@media only screen and (max-width: 639px){
+	.circle-top {
+	    background-size: 100% 153px;
+	}
+	.aboutUsArea .circle-bottom-wrapper {
+	    background-size: 100% 225px;
+	}
+}
 @media only screen and (max-width: 479px){
 	.testimonial{ padding: 80px 15px 5px; }
 	.testimonial::before{ top: 10px; }

@@ -32,3 +32,6 @@
 .breakingNews>.bn-navi,
 .breakingNews>ul>li>a,
 .breakingNews>.bn-navi>span{transition: .25s linear;-moz-transition: .25s linear;-webkit-transition: .25s linear;}
+@media only screen and (max-width: 1024px){
+	
+}
