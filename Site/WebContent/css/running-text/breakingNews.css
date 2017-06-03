@@ -6,7 +6,7 @@
 .breakingNews>.bn-title>h2{display:inline-block; margin:0; padding:0 20px; line-height:40px; font-size:20px; color:#004fb6; height:40px; box-sizing:border-box;}
 .breakingNews>.bn-title>span{width: 0;position:absolute;right:-10px;top:10px;height: 0;border-style: solid;border-width: 10px 0 10px 10px;border-color: transparent transparent transparent #2096cd;}
 
-.breakingNews>ul{padding:0; margin:0; list-style:none; position:absolute; left:210px; top:0; right:40px; height:40px; font-size:14px;}
+.breakingNews>ul{padding:0; margin:0; list-style:none; position:absolute; left:254px; top:0; right:40px; height:40px; font-size:14px;}
 .breakingNews>ul>li{position:absolute; height:40px; width:100%; line-height:40px; display:none;}
 .breakingNews>ul>li>a{text-decoration:none; color:#333; overflow:hidden; display:block; white-space: nowrap;text-overflow: ellipsis; font-weight:normal;}
 .breakingNews>ul>li>a>span{color:#2096cd;}
@@ -21,7 +21,8 @@
 
 /*color styles -----------------------------*/
 .bn-yellow{border-color:#d3ac23;}
-.bn-yellow>.bn-title{background:#FFDE00;}
+.bn-yellow>.bn-title{background:#FFDE00;width: auto;}
+.bn-yellow>.bn-title h2{display: inline-block;}
 .bn-yellow>.bn-title>span{border-left-color:#FFDE00;}
 .bn-yellow>ul>li>a:hover,.bn-yellow>ul>li>a>span{color:#d3ac23;}
 

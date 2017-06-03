@@ -30,7 +30,7 @@
 						<label class="advisory_text">Advisory</label>
 					</div>
 					<div class="col-md-4">
-						<div class="hexagon_research hexagon_bg_top hexagon_rnd" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/research-development'">
+						<div class="hexagon_rnd hexagon_bg_top" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/research-development'">
 							<div class="hb-1">
 								<div class="hb-2">
 									<img src="<%=request.getContextPath()%>/images/rnd_.jpg"/>
@@ -52,20 +52,17 @@
 						<div class="hexagon_light_rnd hlr3"><img src="<%=request.getContextPath()%>/images/hexa-white.png"/></div>
 						<div class="housing_index">
 							<div class="breakingNews bn-yellow" id="bn1">
-						    	<div class="bn-title" style="width: auto;"><h2 style="display: inline-block;">BTN Housing Index</h2><span></span></div>
-						        <ul style="left: 208px;" id="btnHIContent"></ul>
-						        <div class="bn-navi">
-						        	<span></span>
-						            <span></span>
-						        </div>
+						    	<div class="bn-title"><h2>BTN Housing Index</h2><span></span></div>
+						        <ul id="btnHIContent"></ul>
+						        <div class="bn-navi"><span></span><span></span></div>
 						    </div>
 						</div>
 					</div>
 				</div>
-			</div><!-- row clearfix -->
-		  </div><!-- container -->
-		</div><!-- aboutArea -->
-		<div style="clear:both"></div>
+			</div>
+		  </div>
+		</div>
+		<div class="clear"></div>
 		<div class="mainHomeArea">
 			<div class="banner carousel slide" id="recommended-item-carousel" data-ride="carousel">
 				<div class="banner-wrapper back-gradient-transparent">
@@ -75,7 +72,7 @@
 								<h2 class="top-header">SEMUA INFORMASI PEMBIAYAAN PERUMAHAN ADA DISINI</h2>
 								<h2 class="sub-header">Ikuti 4 Langkah Berikut Ini</h2>
 							</div>
-							<div style="clear:both"></div>
+							<div class="clear"></div>
 							<div class="row step-number">
 								<div class="col-md-3"><label>1</label></div>
 								<div class="col-md-3"><label>2</label></div>
@@ -118,7 +115,7 @@
 						</div>
 					</div>
 				</div>
-			</div><!--end banner-->
+			</div>
 				<div class="clear"></div>
 		 		<div id="aboutUsArea" class="aboutUsArea back-hexa">
 				<div class="container">
@@ -127,11 +124,11 @@
 							<div class="row circle-top">
 								<div class="col-md-12">
 									<div class="title-center">
-										<h2 style="color: white;padding-top: 15%;">SIAPAKAH KAMI?</h2>
+										<h2>SIAPAKAH KAMI?</h2>
 									</div>
 								</div>
 							</div>
-							<div class="row" style="height:385px">
+							<div class="row middleContent">
 								<div class="col-md-8 main-content-left"><iframe width="100%" height="100%" src="https://www.youtube.com/embed/felFVPmAu5s" frameborder="0" allowfullscreen></iframe></div>
 								<div class="col-md-4 main-content-right">
 									<div class="panel-group" id="accordion">
@@ -223,7 +220,7 @@
 				    	<div>
 				      		<img src="${news.encodedPicture}" alt="" />
 				      		<h1>${news.title}</h1>
-				      		<p><a href="page/engagement/list" class="btn btn-third btn-medium" style="width:90%">selengkapnya</a></p>
+				      		<p><a href="page/engagement/list" class="btn btn-third btn-medium">selengkapnya</a></p>
 				    	</div>
 				  	</li>
 				  </c:forEach>
@@ -294,7 +291,7 @@
 					html += "<div>";
 					html += "<img src='"+n[i].encodedPicture+"' alt='' />";
 					html += "<h1>"+n[i].title+"</h1>";
-					html += "<p><a href='/Site/page/engagement/list' class='btn btn-third btn-medium' style='width:90%'>selengkapnya</a></p>";
+					html += "<p><a href='/Site/page/engagement/list' class='btn btn-third btn-medium'>selengkapnya</a></p>";
 					html += "</div>";
 					html += "</li>";	
 				}
@@ -335,7 +332,6 @@
 					autoPlay:true
 				});
 			});
-			
 			
 			var colors = new Array(
 			  [255,255,255],
@@ -386,7 +382,6 @@
 			    colorIndices[2] = colorIndices[3];
 			    colorIndices[1] = ( colorIndices[1] + Math.floor( 1 + Math.random() * (colors.length - 1))) % colors.length;
 			    colorIndices[3] = ( colorIndices[3] + Math.floor( 1 + Math.random() * (colors.length - 1))) % colors.length;
-			    
 			  }
 			}
 

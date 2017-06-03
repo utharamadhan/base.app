@@ -14,9 +14,15 @@
 .aboutUsArea .circle-bottom-wrapper .title-center h2{
 	color: white;padding-top: 7%;font-size: 24px;
 }
-.circle-top{
+.aboutUsArea .middleContent{
+	height:385px;	
+}
+.aboutUsArea .circle-top{
 	height:230px;
 	background-image:url('/Site/images/hexa-who-top.png');
+}
+.aboutUsArea .circle-top h2{
+	font-size:32px;color: white;padding-top: 15%;
 }
 .circle-bottom1{
 	height:150px;
@@ -79,7 +85,7 @@
     box-shadow: none;
 }
 .banner-wrapper .container{
-	padding: 25px 20px 20px;
+	padding: 30px 20px 30px;
 }
 .banner-wrapper .form-wrapper {
 	max-width: 980px;
@@ -96,8 +102,8 @@
 	color:#004fb6;
 }
 .banner-header .sub-header{
-	margin-top:10px;
-	margin-bottom: 10px;
+	margin-top:3px;
+	margin-bottom: 20px;
 	color:#004fb6;
 }
 .step-expert .step-expert-icon-wrapper{
@@ -303,15 +309,15 @@
 	background-image: url('/Site/images/background-home.png'), linear-gradient(to bottom, rgba(246,244,244,1) 0%, rgba(240,240,227,0.9) 47%, rgba(230,227,227,1) 100%);
 }
 .aboutUsArea{
-	padding:25px 0px;
+	padding:30px 0px;
 }
-.aboutUsArea .title-center h2, .newsArea .title-center h2{
+.newsArea .title-center h2, .testimonialArea .title-center h2{
 	font-size:32px;
 	color:#004fb6;
 }
 .testimonialArea{
-	padding:40px 0px;
-	background-image: url('/Site/images/background-testimonial.jpg');
+	padding:30px 0px;
+	background-image: url(/Site/images/back-hexa.png);
 }
 .contactArea{
 	background-image: url('/Site/images/background-contact.jpg');
@@ -415,6 +421,9 @@
 #categories li *{
   position:absolute;
   visibility:visible;
+}
+#categories li .btn-medium{
+	width:90%;	
 }
 #categories li > div{
   width:100%;
@@ -616,26 +625,47 @@
   transform: translateX(0) skewX(-45deg);
 }
 .hexagon_bg_top{
-	width: 200px;
-    height: 230px;
-	background-size: 100% 100%;
+	width: 171.304px;
+    height: 197px;
+    background-size: 100% 100%;
 }
 .hexagon_bg_top:hover {
     -webkit-animation-play-state: paused;
     animation-play-state: paused;
  }
 .hexagon_bg_top img{
-	height: 230px;
-    width: 200px;
+	width: 171.304px;
+    height: 197px;
 }
 .hexagon_learning{
 	animation: spinnerY 8s infinite linear;
+	position: absolute;
+    top: -52px;
+    left: 269px;
+    z-index: 999;
 }
 .hexagon_advisory{
 	animation: spinnerY 9s infinite linear;
+	position: absolute;
+    top: 165px;
+    left: 119px;
+    z-index: 2;
 }
 .hexagon_rnd{
 	animation: spinnerY 10s infinite linear;
+	position: absolute;
+    top: -42px;
+    left: -54px;
+    z-index: 2;
+}
+.hexagon_learning:hover,.hexagon_advisory:hover,.hexagon_rnd:hover{
+	cursor: pointer;
+}
+.housing_index{
+	position: relative;
+    top: 335px;
+    right: 855px;
+    width: 490px;
 }
 @keyframes spinnerY {
     0% { transform: rotate3d(0, 1, 0, 0deg); }
@@ -808,7 +838,7 @@
 .newsArea {
     width: 100%;
     height: auto;
-    padding: 25px 0;
+    padding: 30px 0;
     border-top: 5px solid #FFDE00;
     -webkit-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.75);
 	-moz-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.75);
@@ -895,11 +925,11 @@
 	top: 0px;
 }		
 .learning_text{
-	font-size: 28px;
+	font-size: 36px;
    	color: #99ff66;
    	position: absolute;
-   	left: 50px;
-   	top: 80px;
+   	left: 37px;
+    top: 70px;
   	-webkit-animation: neon-green 1.5s ease-in-out infinite alternate;
   	-moz-animation: neon-green 1.5s ease-in-out infinite alternate;
   	animation: neon-green 1.5s ease-in-out infinite alternate;
@@ -914,11 +944,11 @@
 }
 
 .advisory_text{
-	font-size: 28px;
+	font-size: 36px;
     color: #ead096;
     position: absolute;
-    top: 278px;
-    left: -53px;
+    top: 273px;
+    left: -81px;
     -webkit-animation: neon-orange 1.5s ease-in-out infinite alternate;
   	-moz-animation: neon-orange 1.5s ease-in-out infinite alternate;
   	animation: neon-orange 1.5s ease-in-out infinite alternate;
@@ -933,11 +963,12 @@
 }	
 
 .rnd_text{
-	font-size: 28px;
+	font-size: 36px;
     color: #fcdb00;
     position: absolute;
     left: 199px;
-    top: 45px;
+    top: 50px;
+    line-height: 31px;
     text-align: center;
     -webkit-animation: neon-yellow 1.5s ease-in-out infinite alternate;
   	-moz-animation: neon-yellow 1.5s ease-in-out infinite alternate;
