@@ -5,6 +5,8 @@
 <title></title>
 </head>
 <body>
+    <link rel="stylesheet" th:href="@{/plugin/vendor/jquery-bonsai/jquery.bonsai.css}" type="text/css" media="all"></link>
+	<link rel="stylesheet" th:href="@{/plugin/vendor/jquery-bonsai/assets/svg-icons.css}" type="text/css" media="all"></link>
 	<div class="breadcrumb-wrapper">
 			<div class="breadcrumb">
 				<div class="container">
@@ -16,69 +18,251 @@
 			</div>
 		</div>
 		<div class="rnd_section">
-			<div class="rnd_banner">
-				<div class="parallax-window" data-parallax="scroll" th:attr="data-image-src=@{/images/background-research.jpg}" >
-					<div class="rnd_wrapper_cnt_banner">
-						<div class="container">
+			<div class="container">
+				<h3>PUSAT RESEARCH &#38; DEVELOPMENT</h3>
+				<div class="filter_form">
+				<form>
+					<div class="row">
+						<div class="col-md-5"><label>Pencarian</label></div>
+						<div class="col-md-5"><label>Kategori</label></div>
+						<div class="col-md-2"></div>
+					</div>
+					<div class="row">
+						<div class="col-md-5">
+							<input type="text" class="form-control" name="name" />
+						</div>
+						<div class="col-md-5">
+							<select class="form-control" name="learning">
+								<option>Semua Kategori</option>
+								<option>Judul</option>
+								<option>Judul Tambahan</option>
+								<option>Abstrak</option>
+								<option>Kata Kunci</option>
+							</select>
+						</div>
+						<div class="col-md-2">
+							<button type="submit" class="btn btn-primary">
+								<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+							</button>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-2">
+							<select class="form-control" name="learning">
+								<option>DAN</option>
+								<option>ATAU</option>
+							</select>
+						</div>
+						<div class="col-md-10"></div>
+					</div>
+					<div class="row">
+						<div class="col-md-5">
+							<input type="text" class="form-control" name="name" />
+						</div>
+						<div class="col-md-5">
+							<select class="form-control" name="learning">
+								<option>Semua Kategori</option>
+								<option>Judul</option>
+								<option>Judul Tambahan</option>
+								<option>Abstrak</option>
+								<option>Kata Kunci</option>
+							</select>
+						</div>
+						<div class="col-md-2">
+							<button type="submit" class="btn btn-primary">
+								<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+							</button>
+							<button type="submit" class="btn btn-primary">
+								<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+							</button>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12"><label><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Tanggal Publikasi</label></div>
+					</div>
+					<div class="row">
+						<div class="col-md-12"><label>Rentang Tanggal</label></div>
+					</div>
+					<div class="row">
+						<ul>
+						  <li>
+						  	<div class="row">
+						  		<div class="col-md-2">
+						  			<input type="radio" id="f-option" name="selector"/>
+						  			<label for="f-option">Tahun Publikasi</label>
+						  		</div>
+						  		<div class="col-md-2">
+						  			<select class="form-control" name="learning">
+										<option>Semua Tahun</option>
+										<option>2017</option>
+										<option>2016</option>
+										<option>2015</option>
+									</select>
+						  		</div>
+						  		<div class="col-md-2">
+						  			<label for="f-option">sampai dengan</label>
+						  		</div>
+						  		<div class="col-md-2">
+						  			<select class="form-control" name="learning">
+										<option>Semua Tahun</option>
+										<option>2017</option>
+										<option>2016</option>
+										<option>2015</option>
+									</select>
+						  		</div>	
+							</div>
+						  </li>
+						  <li>
+						    <div class="row">
+						  		<div class="col-md-2">
+						  			<input type="radio" id="f-option" name="selector"/>
+						  			<label for="f-option">Dipublikasi dari </label>
+						  		</div>
+						  		<div class="col-md-2">
+						  			<input type="text" class="form-control" name="name" />
+						  		</div>
+						  		<div class="col-md-2">
+						  			<label for="f-option"> hari yang lalu</label>
+						  		</div>	
+							</div>
+						  </li>
+						</ul>
+					</div>
+					<div class="row">
+						<div class="col-md-12"><label><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Tema</label></div>
+					</div>
+					<div class="row">
+						<div class="col-md-3">
 							<div class="row">
-								<div class="col-md-4 rnd_top_title">
-									<h2 class="rnd_title">World Class<br/>Research &#38; Development</h2>
+								<div class="col-md-12">		
+									<label for="f-option">SUPPLY</label>
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-md-4 rnd_title_top_menu">
-									<h3 class="rnd_title">Our Research Themes</h3>
+								<div class="col-md-12">
+									<ol class='auto-checkboxes expanded' data-name='foo'>
+								      <li data-value='11' data-id='11'>LAND/ENVIRONMENT
+								      	<ol>
+								          <li data-value='111'>Dukungan Infrastruktur yang terbatas</li>
+								          <li data-value='112'>Suplai lahan yang terbatas</li>
+								          <li data-value='113'>Cara Akuisisi Tanah</li>
+								        </ol>
+								      </li>
+								      <li data-value='12' data-id='12'>LEGAL
+								      	<ol>
+								          <li data-value='121'>Kebijakan Pemerintah</li>
+								          <li data-value='122'>Perijinan</li>
+								          <li data-value='123'>Subyek Hukum</li>
+								          <li data-value='124'>Penguasaan Tanah</li>
+								        </ol>
+								      </li>
+								      <li data-value='13' data-id='13'>CAPITAL
+								      	<ol>
+								          <li data-value='131'>Permodalan</li>
+								          <li data-value='132'>Pembiayaan Proyek</li>
+								          <li data-value='133'>Kredit Bank</li>
+								        </ol>
+								      </li>
+								      <li data-value='14' data-id='14'>SKILL
+								      	<ol>
+								          <li data-value='141'>Limitasi Kapasitas Developer : proyek, keuangan, SDM, dan penjualan</li>
+								        </ol>
+								      </li>
+								      <li data-value='15' data-id='15'>LAINNYA</li>
+								    </ol>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="row">
+								<div class="col-md-12">		
+									<label for="f-option">DEMAND</label>
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-md-4 rnd_top_menu">
-									<ul>
-										<li th:each="rt, i : ${researchThemes}">
-											<a th:href="@{/page/research-development/themes/}+${rt.pkResearchTheme}+'/'+${#strings.replace(rt.title, ' ', '-')}" th:text="${rt.title}"></a>
-										</li>
-									</ul>
+								<div class="col-md-12">
+									<ol class='auto-checkboxes expanded' data-name='foo'>
+								      <li data-value='11' data-id='11'>KEBIJAKAN / KETENTUAN PEMERINTAH
+								      	<ol>
+								          <li data-value='111'>FLPP</li>
+								          <li data-value='112'>LTV</li>
+								        </ol>
+								      </li>
+								      <li data-value='12' data-id='12'>PEMBIAYAAN
+								      	<ol>
+								          <li data-value='121'>Produk</li>
+								          <li data-value='122'>Bunga</li>
+								          <li data-value='123'>Biaya</li>
+								          <li data-value='124'>Proses</li>
+								        </ol>
+								      </li>
+								      <li data-value='13' data-id='13'>MASYARAKAT
+								      	<ol>
+								          <li data-value='131'>Penghasilan</li>
+								          <li data-value='132'>Tempat bekerja</li>
+								        </ol>
+								      </li>
+								    </ol>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="row">
+								<div class="col-md-12">		
+									<label for="f-option">PRODUK DANA</label>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12">
+									<ol class='auto-checkboxes expanded' data-name='foo'>
+								      <li data-value='11' data-id='11'>GIRO</li>
+								      <li data-value='12' data-id='12'>TABUNGAN</li>
+								      <li data-value='13' data-id='13'>DEPOSITO</li>
+								    </ol>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="row">
+								<div class="col-md-12">		
+									<label for="f-option">PRODUK LAYANAN</label>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12">
+									<ol class='auto-checkboxes expanded' data-name='foo'>
+								      <li data-value='11' data-id='11'>LAYANAN</li>
+								      <li data-value='12' data-id='12'>FEE BASED</li>
+								    </ol>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-			</div>
-			
-			<div class="rnd_article">
-				<div class="container">
-					<div class="rnd_container row">
-						<div class="col-md-12"> 
-							<div class="row"> 
-								<h2 class="title_article">The most pressing challenges our local and global communities face are deeply complex and can only be overcome by the combined efforts of diverse disciplines.</h2>
-								<div>
-									<p>Our Research Themes draw together our rich multi-disciplinary expertise to develop solutions to real-world problems of global relevance, within a local context. They provide an interdisciplinary setting for individuals, established research concentrations and our partners to work collaboratively, and capitalise on the advantages presented by our unique locality and existing areas of research excellence.</p>
-								</div>
-							</div> 
+					<div class="row">
+						<div class="col-md-12">
+							<label for="f-option">Produk Layanan</label>
 						</div>
 					</div>
-				</div>
-			</div>
-			
-			<div class="rnd_excerpt_themes">
-				<div class="parallax-window" data-parallax="scroll" th:attr="data-image-src=@{/images/background-research-themes.jpg}" >
-					<div class="rnd_excerpt_container container">
-						<div class="row">
-							<div class="col-md-4" th:each="rt, i : ${researchThemes}">
-								<div class="rnd_excerpt_wrapper">
-									<h3><a th:href="@{/page/research-development/themes/}+${rt.pkResearchTheme}+'/'+${#strings.replace(rt.title, ' ', '-')}" th:text="${rt.title}"></a></h3>
-									<div class="rnd_excerpt_content" th:text="${rt.excerpt}"></div>	
-								</div>
-							</div>
+					<div class="row">
+						<div class="col-md-12">
+							<input type="button" value="Cari" class="button-blue submit_btn" id="search" />
 						</div>
 					</div>
+				</form>
 				</div>
 			</div>
 		</div>
-		
+		<script th:src="@{/plugin/vendor/jquery-bonsai/jquery.qubit.js}"></script>
+		<script th:src="@{/plugin/vendor/jquery-bonsai/jquery.bonsai.js}"></script>
 		<script type="text/javascript" th:inline="javascript">
 		/*<![CDATA[*/
 		$(function(){  
-			
+			setNavbarActive('program');
+			$('.auto-checkboxes').bonsai({
+			  expandAll: true,
+			  checkboxes: true, // depends on jquery.qubit plugin
+			  createInputs: 'checkbox' // takes values from data-name and data-value, and data-name is inherited
+			});
 		});
 		/*]]>*/
 		</script>

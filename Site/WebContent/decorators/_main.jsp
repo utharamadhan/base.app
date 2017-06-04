@@ -30,12 +30,12 @@
 	    <script src="<%=request.getContextPath()%>/js/fullcalendar.min.js"></script><!-- jQuery master -->
 	    <script src="<%=request.getContextPath()%>/js/bootstrap.min.js"></script><!-- bootstrap -->
 		<script src="<%=request.getContextPath()%>/js/jquery.flexslider.js"></script><!-- flexslider -->
-	     <script src="<%=request.getContextPath()%>/js/jquery.selectbox-0.1.3.min.js"></script><!-- select box -->
-		 <script src="<%=request.getContextPath()%>/js/jquery.magnific-popup.js" type="text/javascript" charset="utf-8"></script>
-		 <script src="<%=request.getContextPath()%>/js/socialCircle.js" type="text/javascript" charset="utf-8"></script> <!-- Behaviour Share Button -->
-		 <script src="<%=request.getContextPath()%>/js/parallax.min.js" type="text/javascript" charset="utf-8"></script>
-		 <script src="<%=request.getContextPath()%>/js/running-text/breakingNews.js.download"></script><!-- mrdy plugin js -->
-		<script src="<%=request.getContextPath()%>/js/custom.js"></script><!-- custom js -->
+	    <script src="<%=request.getContextPath()%>/js/jquery.selectbox-0.1.3.min.js"></script><!-- select box -->
+		<script src="<%=request.getContextPath()%>/js/jquery.magnific-popup.js" type="text/javascript" charset="utf-8"></script>
+		<script src="<%=request.getContextPath()%>/js/socialCircle.js" type="text/javascript" charset="utf-8"></script> <!-- Behaviour Share Button -->
+		<script src="<%=request.getContextPath()%>/js/running-text/breakingNews.js.download"></script><!-- mrdy plugin js -->
+		<script src="<%=request.getContextPath()%>/js/parallax.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="<%=request.getContextPath()%>/js/mrdy-plugin.js"></script><!-- mrdy plugin js -->
+		<script src="<%=request.getContextPath()%>/js/custom.js"></script><!-- custom js -->
 	</body>
 </html>

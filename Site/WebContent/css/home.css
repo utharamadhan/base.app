@@ -316,8 +316,14 @@
 	color:#004fb6;
 }
 .testimonialArea{
-	padding:30px 0px;
-	background-image: url(/Site/images/back-hexa.png);
+	padding: 30px 0px;
+    background: linear-gradient(to bottom, rgba(246,244,244,0.9) 0%, rgba(240,240,227,0.9) 100%, rgba(230,227,227,0.9) 100%);
+}
+.testimonialWrapper{
+	-webkit-box-shadow: inset 0px 0px 20px 0px rgba(0,0,0,1);
+    -moz-box-shadow: inset 0px 0px 20px 0px rgba(0,0,0,1);
+    box-shadow: inset 0px 0px 20px 0px rgba(0,0,0,1);
+    min-height: 738.91px;
 }
 .contactArea{
 	background-image: url('/Site/images/background-contact.jpg');
