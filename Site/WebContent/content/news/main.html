@@ -14,7 +14,8 @@
 				</div>
 			</div>
 		</div>
-		<div class="post_section hexa-top-right">
+		<div class="hexa-top-right-long">
+		<div class="top_post_section back-gradient-transparent">
 			<div class="container">
 				<form class="back-gradient-transparent" style="padding:10px 0px;">
 				<div class="row">
@@ -30,26 +31,36 @@
 				<br/>
 				<div class="row list_data">
 					<th:block th:each="data , i : ${news.result}">
-						<div id="template" class="col-md-4 data_result">
-							<div class="post post-polygon1">
-								<div class="post_thumb">
-									<img th:src="${data.encodedPicture}" alt="" class="show_detail my_link"/>
-									<div class="overlay">
-									    <div class="text show_detail my_link"><i class="fa fa-align-left"></i> Baca</div>
-									</div>
-								</div>
-								<h2><a href="#"><label th:text="${data.title}" class="title_news show_detail my_link"></label></a></h2>
+						<div id="template" class="col-md-6 data_result">
+							<div class="post post-polygon2">
 								<div class="row">
-									<div class="col-md-6 col-md-offset-6 date-wrapper"><i class="fa fa-calendar date-icon" aria-hidden="true"></i><span class="date" th:text="${data.publishDate!=null?#dates.format(data.publishDate, T(id.base.app.SystemConstant).SYSTEM_DATE_MONTH_DETAIL):''}"></span></div>
+									<div class="col-md-6">
+										<div class="post_thumb_wrapper">
+											<div class="post_thumb">
+												<svg class="show_detail my_link" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" version="1.1" preserveAspectRatio="xMidYMin slice">
+												  <defs>
+												    <pattern th:attr="id=${i.count}" patternUnits="userSpaceOnUse" width="600" height="400">
+												      <image width="600" height="400" xmlns:xlink="http://www.w3.org/1999/xlink" th:attr="'xlink:href'=${data.encodedPicture}"></image>
+												    </pattern>
+												  </defs>
+												  <polygon th:attr="id='hex'+${i.count},fill='url(#'+${i.count}+')'"  points="300,0 600,100 600,300 300,400 0,300 0,100"></polygon>
+												</svg>
+												<div class="overlay">
+												    <div class="text show_detail my_link"><i class="fa fa-align-left"></i> Baca</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<h2><a href="#"><label th:text="${data.title}" class="title_news show_detail my_link"></label></a></h2>
+										<span class="date-wrapper"><i class="fa fa-calendar date-icon" aria-hidden="true"></i><span class="date" th:text="${data.publishDate!=null?#dates.format(data.publishDate, T(id.base.app.SystemConstant).SYSTEM_DATE_MONTH_DETAIL):''}"></span></span>
+									</div>
 								</div>
 								<div class="bottom-left-yellow"></div>
 								<div class="bottom-right-blue"></div>
 								<input type="hidden" name="identity" th:value="${data.permalink}"/>
 							</div>
-						</div>					
-						<th:block th:if="${i.count % 3 == 0}">
-							<div class="clear"></div>
-						</th:block>
+						</div>
 					</th:block>
 				</div>
 				<div class="row load_pagination" style="display: none;">
@@ -74,6 +85,8 @@
 				</div><!--end post_left-->	
 			</div>
 		</div>
+		<div class="clear"></div>
+		</div>
 		
 		<script type="text/javascript" th:inline="javascript">
 		/*<![CDATA[*/
@@ -93,7 +106,7 @@
 					load_content = load_content + "<div class='clear'></div>";
 				}
 				var cloning = $('.template_part .data_result').eq(0).clone();
-				cloning.find('.post_thumb img').attr('src',datas[i].encodedPicture);
+				cloning.find('.post_thumb svg image').attr('xlink:href',datas[i].encodedPicture);
 				cloning.find('.title_news').html(datas[i].title);
 				cloning.find('input[name="identity"]').val(datas[i].permalink);
 				cloning.wrap('<div></div>');

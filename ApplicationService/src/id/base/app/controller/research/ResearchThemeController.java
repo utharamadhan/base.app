@@ -31,9 +31,6 @@ public class ResearchThemeController extends SuperController<ResearchTheme>{
 		if(StringFunction.isEmpty(anObject.getTitle())) {
 			errorList.add(new ErrorHolder(ResearchTheme.TITLE, messageSource.getMessage("error.mandatory", new String[]{"title"}, Locale.ENGLISH)));
 		}
-		if(StringFunction.isEmpty(anObject.getDescription())) {
-			errorList.add(new ErrorHolder(ResearchTheme.DESCRIPTION, messageSource.getMessage("error.mandatory", new String[]{"description"}, Locale.ENGLISH)));
-		}
 		if(errorList.size() > 0) {
 			throw new SystemException(errorList);
 		}
