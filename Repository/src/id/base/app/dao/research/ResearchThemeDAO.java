@@ -10,7 +10,6 @@ import id.base.app.valueobject.research.ResearchTheme;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.beanutils.BeanUtils;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Projections;
 import org.hibernate.transform.ResultTransformer;
@@ -58,17 +57,16 @@ public class ResearchThemeDAO extends AbstractHibernateDAO<ResearchTheme, Long> 
 	public List<ResearchTheme> findAllResearchThemeTitle() throws SystemException {
 		Criteria crit = getSession().createCriteria(domainClass);
 			crit.setProjection(Projections.projectionList().
-					add(Projections.property("pkResearchTheme")).
-					add(Projections.property("title")).
-					add(Projections.property("excerpt")));
+					add(Projections.property(ResearchTheme.PK_RESEARCH_THEME)).
+					add(Projections.property(ResearchTheme.TITLE)));
 			crit.setResultTransformer(new ResultTransformer() {
+				private static final long serialVersionUID = 7242499844075874681L;
 				@Override
 				public Object transformTuple(Object[] tuple, String[] aliases) {
 					ResearchTheme rt = ResearchTheme.getInstance();
 					try {
-						BeanUtils.copyProperty(rt, "pkResearchTheme", tuple[0]);
-						BeanUtils.copyProperty(rt, "title", tuple[1]);
-						BeanUtils.copyProperty(rt, "excerpt", tuple[2]);
+						rt.setPkResearchTheme(Long.valueOf(tuple[0].toString()));
+						rt.setTitle(String.valueOf(tuple[1]));
 					} catch (Exception e) {
 						LOGGER.error(e.getMessage(), e);
 					}
