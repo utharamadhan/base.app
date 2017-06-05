@@ -1,8 +1,10 @@
 package id.base.app.web.controller.research;
 
+import id.base.app.ILookupGroupConstant;
 import id.base.app.SystemConstant;
 import id.base.app.exception.ErrorHolder;
 import id.base.app.paging.PagingWrapper;
+import id.base.app.rest.QueryParamInterfaceRestCaller;
 import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
 import id.base.app.rest.RestServiceConstant;
@@ -11,10 +13,10 @@ import id.base.app.util.StringFunction;
 import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
-import id.base.app.valueobject.Lookup;
 import id.base.app.valueobject.research.ResearchTheme;
 import id.base.app.web.DataTableCriterias;
 import id.base.app.web.controller.BaseController;
+import id.base.app.web.rest.LookupRestCaller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,8 +51,7 @@ public class ResearchThemeWebController extends BaseController<ResearchTheme> {
 		return null;
 	}
 	
-	private void setDefaultFilter(HttpServletRequest request, List<SearchFilter> filters) {
-	}
+	private void setDefaultFilter(HttpServletRequest request, List<SearchFilter> filters) {}
 
 	@Override
 	protected List<SearchFilter> convertForFilter(HttpServletRequest request, Map<String, String> paramWrapper, DataTableCriterias columns) {
@@ -78,10 +79,9 @@ public class ResearchThemeWebController extends BaseController<ResearchTheme> {
 	}
 	
 	public void setDefaultData(ModelMap model) {
-		List<Lookup> statusOptions = new ArrayList<Lookup>();
-		statusOptions.add(Lookup.getInstanceShort(SystemConstant.ValidFlag.VALID.toString(), SystemConstant.ValidFlag.VALID_STR));
-		statusOptions.add(Lookup.getInstanceShort(SystemConstant.ValidFlag.INVALID.toString(), SystemConstant.ValidFlag.INVALID_STR));
-		model.addAttribute("statusOptions", statusOptions);
+		LookupRestCaller lrc = new LookupRestCaller();
+		model.addAttribute("statusOptions", lrc.findByLookupGroup(ILookupGroupConstant.ARTICLE_STATUS));
+		model.addAttribute("rtOptions", getResearchThemesTitle());
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="showAdd")
@@ -118,5 +118,23 @@ public class ResearchThemeWebController extends BaseController<ResearchTheme> {
 	@Override
 	protected String getListPath() {
 		return PATH_LIST;
+	}
+	
+	private List<ResearchTheme> getResearchThemesTitle(){
+		SpecificRestCaller<ResearchTheme> rcRT = new SpecificRestCaller<ResearchTheme>(RestConstant.REST_SERVICE, RestServiceConstant.RESEARCH_THEME_SERVICE);
+		List<ResearchTheme> objList = rcRT.executeGetList(new QueryParamInterfaceRestCaller() {
+			
+			@Override
+			public String getPath() {
+				return "/findAllResearchThemeTitle";
+			}
+			
+			@Override
+			public Map<String, Object> getParameters() {
+				Map<String,Object> map = new HashMap<String, Object>();
+				return map;
+			}
+		});
+		return objList;
 	}
 }

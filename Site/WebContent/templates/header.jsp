@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="<%=request.getContextPath()%>/css/running-text/css" type="text/css">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/css/running-text/breakingNews.css" type="text/css">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/plugin/vendor/owl-carousel/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/plugin/vendor/owl-carousel/css/owl.theme.min.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/plugin/vendor/owl-carousel/css/owl.theme.min.css">    
     
     <script src="<%=request.getContextPath()%>/js/jquery.min.js"></script><!-- jQuery master -->
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->

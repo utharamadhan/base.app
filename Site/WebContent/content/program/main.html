@@ -14,7 +14,8 @@
 				</div>
 			</div>
 		</div>
-		<div class="post_section hexa-top-right">
+		<div class="hexa-top-right-long">
+		<div class="top_post_section back-gradient-transparent">
 			<div class="container">
 				<form class="back-gradient-transparent" style="padding:10px 0px;">
 				<div class="row">
@@ -36,7 +37,14 @@
 									<div class="col-md-6">
 										<div class="post_thumb_wrapper">
 											<div class="post_thumb">
-												<img th:src="${data.encodedPicture}" alt="" class="show_detail my_link"/>
+												<svg class="show_detail my_link" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" version="1.1" preserveAspectRatio="xMidYMin slice">
+												  <defs>
+												    <pattern th:attr="id=${i.count}" patternUnits="userSpaceOnUse" width="600" height="400">
+												      <image width="600" height="400" xmlns:xlink="http://www.w3.org/1999/xlink" th:attr="'xlink:href'=${data.encodedPicture}"></image>
+												    </pattern>
+												  </defs>
+												  <polygon th:attr="id='hex'+${i.count},fill='url(#'+${i.count}+')'"  points="300,0 600,100 600,300 300,400 0,300 0,100"></polygon>
+												</svg>
 												<div class="overlay">
 												    <div class="text show_detail my_link"><i class="fa fa-align-left"></i> Baca</div>
 												</div>
@@ -80,6 +88,8 @@
 				</div>	
 			</div>
 		</div>
+		<div class="clear"></div>
+		</div>
 		
 		<script type="text/javascript" th:inline="javascript">
 		/*<![CDATA[*/
@@ -99,7 +109,7 @@
 					load_content = load_content + "<div class='clear'></div>";
 				}
 				var cloning = $('.template_part .data_result').eq(0).clone();
-				cloning.find('.post_thumb img').attr('src',datas[i].encodedPicture);
+				cloning.find('.post_thumb svg image').attr('xlink:href',datas[i].encodedPicture);
 				cloning.find('.title_program').html(datas[i].title);
 				cloning.find('input[name="identity"]').val(datas[i].permalink);
 				cloning.wrap('<div></div>');

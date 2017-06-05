@@ -117,7 +117,7 @@
 				</div>
 			</div>
 				<div class="clear"></div>
-		 		<div id="aboutUsArea" class="aboutUsArea back-hexa">
+		 		<div id="aboutUsArea" class="aboutUsArea" data-parallax="scroll" data-image-src="/Site/images/background-home.png">
 				<div class="container">
 					<div class="row">
 						<div class="col-md-10 col-md-offset-1">
@@ -208,13 +208,14 @@
 						</div>
 					</div>
 				</div>
+				<div class="clear"></div>
 			</div>
 			<div class="clear"></div>
 			<div class="newsArea back-gradient-transparent">
 				<div class="title-center">
 					<h2>BERITA TERKINI</h2>
 				</div>
-				<ul id="categories" class="clr">
+				<ul id="categories" class="latest-news clr">
 				  <c:forEach items="${newsLatest}" var="news" varStatus="loop" begin="0" end="9" step="1">
 				  	<li>
 				    	<div>
@@ -228,6 +229,7 @@
 			</div>
 		</div>
 		<div class="clear"></div>
+		<div class="testimonialWrapper" data-parallax="scroll" data-image-src="/Site/images/background-home.png">
 		<div class="testimonialArea">
 		  <div class="container">
 			<div class="row">
@@ -249,6 +251,7 @@
 				</div>
 			</div>
 		  </div>
+		</div>
 		</div>
 		<div class="contactArea">
 			<div class="container">
@@ -295,9 +298,9 @@
 					html += "</div>";
 					html += "</li>";	
 				}
-				$('#categories').html(html);
+				$('.latest-news').html(html);
 				
-				var t = data.testimonialList;
+				/* var t = data.testimonialList;
 				html = "";
 				for(var i=0;i<t.length;i++){
 					html += '<div class="custom_testimony">';
@@ -330,7 +333,7 @@
 					slideSpeed:1000,
 					singleItem:true,
 					autoPlay:true
-				});
+				}); */
 			});
 			
 			var colors = new Array(

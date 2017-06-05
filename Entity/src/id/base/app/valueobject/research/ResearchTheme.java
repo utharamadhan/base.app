@@ -1,25 +1,23 @@
 package id.base.app.valueobject.research;
 
-import java.io.Serializable;
-import java.util.List;
+import id.base.app.ILookupConstant;
+import id.base.app.valueobject.BaseEntity;
 
-import javax.persistence.CascadeType;
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-
-import id.base.app.SystemConstant;
-import id.base.app.encryptor.EncodeDecode;
-import id.base.app.valueobject.BaseEntity;
 
 @Entity
 @Table(name = "RESEARCH_THEME")
@@ -30,7 +28,6 @@ public class ResearchTheme extends BaseEntity implements Serializable {
 	
 	public static final String PK_RESEARCH_THEME	= "pkResearchTheme";
 	public static final String TITLE 				= "title";
-	public static final String DESCRIPTION 			= "description";
 	public static final String STATUS				= "status";
 	
 	public static ResearchTheme getInstance() {
@@ -46,26 +43,15 @@ public class ResearchTheme extends BaseEntity implements Serializable {
 	@Column(name="TITLE")
 	private String title;
 	
-	@Column(name="DESCRIPTION")
-	private String description;
-	
-	@Column(name="BG_IMAGE_URL")
-	private String bgImageUrl;
-	
-	@Column(name="EXCERPT")
-	private String excerpt;
+	@ManyToOne
+	@JoinColumn(name="FK_RESEARCH_THEME_PARENT")
+	private ResearchTheme researchThemeParent;
 	
 	@Column(name="STATUS")
 	private Integer status;
 	
-	@OneToMany(mappedBy="researchTheme", cascade=CascadeType.DETACH)
-	private List<Research> researches;
-	
 	@Transient
-	private String statusDescr;
-	
-	@Transient
-	public String encodedPicture;
+	private String statusStr;
 
 	public Long getPkResearchTheme() {
 		return pkResearchTheme;
@@ -83,28 +69,12 @@ public class ResearchTheme extends BaseEntity implements Serializable {
 		this.title = title;
 	}
 
-	public String getDescription() {
-		return description;
+	public ResearchTheme getResearchThemeParent() {
+		return researchThemeParent;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	
-	public String getBgImageUrl() {
-		return bgImageUrl;
-	}
-
-	public void setBgImageUrl(String bgImageUrl) {
-		this.bgImageUrl = bgImageUrl;
-	}
-
-	public String getExcerpt() {
-		return excerpt;
-	}
-
-	public void setExcerpt(String excerpt) {
-		this.excerpt = excerpt;
+	public void setResearchThemeParent(ResearchTheme researchThemeParent) {
+		this.researchThemeParent = researchThemeParent;
 	}
 
 	public Integer getStatus() {
@@ -114,26 +84,8 @@ public class ResearchTheme extends BaseEntity implements Serializable {
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
-	
-	public List<Research> getResearches() {
-		return researches;
-	}
 
-	public void setResearches(List<Research> researches) {
-		this.researches = researches;
-	}
-
-	public String getStatusDescr() {
-		return SystemConstant.ValidFlag.validFlagMap.get(status);
-	}
-	
-	public String getEncodedPicture() throws Exception {
-		if(getBgImageUrl()!=null && !"".equals(getBgImageUrl())){
-			encodedPicture = EncodeDecode.getBase64FromLink(getBgImageUrl());
-		}
-		return encodedPicture;
-	}
-	public void setEncodedPicture(String encodedPicture) {
-		this.encodedPicture = encodedPicture;
+	public String getStatusStr() {
+		return ILookupConstant.ArticleStatus.ARTICLE_STATUS_MAP.get(status);
 	}
 }

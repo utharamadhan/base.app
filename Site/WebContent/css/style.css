@@ -3175,8 +3175,11 @@ ul.contact_info li a:hover {
 }
 .ebook_section .post .post_thumb{
 	margin: 0px;
-	max-height:215px;
+	height:215px;
 	overflow:hidden;
+}
+.ebook_section .post_title{
+	margin:5px 15px;
 }
 .button-group{
 	background-color:rgba(238, 238, 238, 0.51);
@@ -3772,95 +3775,6 @@ svg {
     margin-left: -163px;
 }
 
-.rnd_banner,.advisory_banner{
-	width: 100%;
-	position: relative;
-	z-index: 1;
-}
-.rnd_banner .rnd_wrapper_cnt_banner{
-	position: absolute;
-    opacity: 0.95;
-    text-align: center;
-    width: 100%;
-}
-.rnd_banner .rnd_wrapper_cnt_banner .rnd_top_title{
-	background-color: #004fb6;
-    margin-top: 10%;
-    padding: 20px;
-    border-bottom: 5px solid #02316f;
-    border-radius: 5px;
-}
-.rnd_top_title .rnd_title{
-	font-size: 26px;
-	color: #fcdb00;
-}
-.rnd_wrapper_cnt_banner .rnd_title_top_menu{
-	margin-top: 3%;
-    background-color: #000000;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-}
-.rnd_title_top_menu .rnd_title{
-	font-size: 22px;
-	color: #ffffff;
-	margin: 10px;
-    text-align: left;
-}
-.rnd_wrapper_cnt_banner .rnd_top_menu{
-    background-color: #004fb6;
-    text-align: left;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-    border-left: 25px solid #02316f;
-    padding-left: 0px;
-}
-.rnd_wrapper_cnt_banner .rnd_top_menu ul li{
-	padding: 8px;
-	border-bottom:1px solid #63a7ff;
-	padding: 8px 15px;
-}
-.rnd_wrapper_cnt_banner .rnd_top_menu ul li:hover{
-	background-color:#02316f;
-}
-.rnd_wrapper_cnt_banner .rnd_top_menu a{
-	color: #ffffff;
-	font-weight: 500;
-    font-size: 15px;
-}
-.rnd_article{
-	padding:30px;
-}
-.rnd_article .title_article{
-	margin-bottom:10px;
-	line-height: 1.5;
-}
-.rnd_excerpt_themes{
-	width: 100%;
-    position: relative;
-}
-.rnd_excerpt_container{
-	padding-top: 100px;
-}
-.rnd_excerpt_wrapper{
-	background-color: rgba(255,255,255,0.95);
-    margin: 10px;
-    padding: 10px 20px;
-    border-bottom: 5px solid #fcdb00;
-    border-radius: 5px;
-}
-.rnd_excerpt_wrapper:hover{
-    box-shadow: 0 2px 1px rgba(0,0,0,.25);
-    -webkit-transform: translateY(-2px);
-    transform: translateY(-2px);
-}
-.rnd_excerpt_wrapper h3{
-	margin-bottom: 10px;
-    border-bottom: 1px solid #d0d0d0;
-    padding-bottom: 10px;
-}
-.rnd_excerpt_wrapper h3 a{
-	font-size:17px;
-}
 .info_banner{
 	position:absolute;
 	top: 50%;
