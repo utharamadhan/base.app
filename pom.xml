@@ -14,6 +14,7 @@
 	<module>Scheduler</module>
 	<module>ApplicationService</module>
 	<module>Login</module>
+	<module>Auth</module>
 	<module>security-filter</module>
   </modules>
 </project>

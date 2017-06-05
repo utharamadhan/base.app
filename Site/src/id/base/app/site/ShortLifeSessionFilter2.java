@@ -1,5 +1,6 @@
 package id.base.app.site;
 
+import id.base.app.JSONConstant;
 import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
 import id.base.app.rest.RestServiceConstant;
@@ -12,9 +13,11 @@ import java.util.Set;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -60,7 +63,27 @@ public class ShortLifeSessionFilter2 implements Filter{
 			FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) resp;
-		chain.doFilter(request, response);
+		Cookie cookieValue = getCookie(request.getCookies(), request);
+		if(cookieValue!=null){	
+			chain.doFilter(request, response);
+		}else{
+			String url = request.getContextPath().replace("Site", "Auth");
+			response.sendRedirect(url);
+			return;
+		}
+	}
+	
+	private Cookie getCookie(Cookie[] cookies, HttpServletRequest request) {
+		Cookie cookie = null;
+		if(cookies!=null){
+			for (Cookie cook : cookies) {
+				if(cook.getName().equals("AUTH_KEY")){
+					cookie = cook;
+					break;
+				}
+			}
+		}
+		return cookie;
 	}
 
 	@Override
