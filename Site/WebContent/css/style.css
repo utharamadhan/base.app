@@ -4602,6 +4602,13 @@ svg {
 	left: 4px;
 	top: -15px;
 }
+.rnd_section form.filter_form{
+	margin-top: 15px;
+    padding: 15px 20px;
+}
+.rnd_section .trigger{
+	cursor:pointer;
+}
 @media only screen and (max-width: 1280px){
 	
 }
