@@ -1536,8 +1536,7 @@ ul.channel-links li{
     border-bottom: 1px solid #dce4ea;
 }
 .courses_right_inner {
-    padding-left: 30px;
-    border-left: 1px solid #dce4ea;
+    padding-left: 10px;
     width: 100%;
     float: left;
 }
@@ -1704,19 +1703,15 @@ ul.channel-links li{
     float: left;
     height: auto;
 }
-.courses_left_inner h3 {
+.courses_left_inner .head-filter {
     text-transform: uppercase;
-    margin: 0 0 13px;
+    margin: 10px 0px;
+    font-size: 18px;
 }
-.courses_left_inner ul {
+.courses_left_inner ul,.courses_left_inner ul li {
     float: left;
     width: 100%;
-    margin: 0 0 40px;
-}
-.courses_left_inner ul li {
-    float: left;
-    width: 100%;
-    margin: 0 0 6px;
+    margin: 0px;
 }
 .courses_left_inner ul li:last-child {
     margin: 0;
@@ -1734,6 +1729,23 @@ ul.channel-links li{
 .courses_left_inner ul li a:hover,
 .courses_left_inner ul li.active a {
     color: #0056a1;
+}
+.courses_left_inner .checkbox{
+	margin: 0px;
+    padding: 3px 0px;
+    width: 65%;
+}
+.btn-link{
+	padding:3px 0px;
+}
+.courses_left_inner hr{
+	margin:7px 0px;
+}
+.table-research>tbody>tr>td, .table-research>tbody>tr>th, .table-research>tfoot>tr>td, .table-research>tfoot>tr>th, .table-research>thead>tr>td, .table-research>thead>tr>th{
+	border-top:0px solid white;
+}
+.table-research .research-info{
+	border-bottom:1px solid #ddd;
 }
 .search_section li .selectBox {
     margin: 0;
@@ -4608,6 +4620,26 @@ svg {
 }
 .rnd_section .trigger{
 	cursor:pointer;
+}
+.rnd_section .head-label{
+	font-size:18px;
+	font-weight: 500;
+}
+.rnd_section .theme-header{
+	border-bottom:3px solid #004fb6;
+	width: 100%;
+}
+.theme-checkboxes label{
+	margin-left:5px;
+	max-width: 90%;
+    vertical-align: top;
+    font-weight: 500;
+}
+.pos-left{
+	float:left;	
+}
+.pos-right{
+	float:right;	
 }
 @media only screen and (max-width: 1280px){
 	

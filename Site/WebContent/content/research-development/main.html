@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta name="author"/>
-<title></title>
 </head>
 <body>
     <link rel="stylesheet" th:href="@{/plugin/vendor/jquery-bonsai/jquery.bonsai.css}" type="text/css" media="all"></link>
@@ -22,10 +20,10 @@
 		<div class="rnd_section">
 			<div class="container">
 				<h2>PUSAT RESEARCH &#38; DEVELOPMENT</h2>
-				<form class="filter_form back-gradient-transparent form-top-blue">
+				<form class="filter_form back-gradient-transparent form-top-blue" action="#" th:action="@{/page/research-development/list}" method="GET">
 					<div class="row">
-						<div class="col-md-5"><label>Pencarian</label></div>
-						<div class="col-md-5"><label>Kategori</label></div>
+						<div class="col-md-5"><label class="head-label">Pencarian</label></div>
+						<div class="col-md-5"><label class="head-label">Kategori</label></div>
 						<div class="col-md-2"></div>
 					</div>
 					<div class="row">
@@ -80,7 +78,7 @@
 					</div>
 					<br/>
 					<div class="row">
-						<div class="col-md-12"><label class="date-trigger trigger"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Tanggal Publikasi</label></div>
+						<div class="col-md-12"><label class="date-trigger trigger head-label"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Tanggal Publikasi</label></div>
 					</div>
 					<div class="date-content" style="display:none">
 						<div class="row">
@@ -134,19 +132,19 @@
 					</div>
 					<br/>
 					<div class="row">
-						<div class="col-md-12"><label class="theme-trigger trigger"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Tema</label></div>
+						<div class="col-md-12"><label class="theme-trigger trigger head-label"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Kategori &#38; Tema</label></div>
 					</div>
 					<div class="theme-content" style="display:none">
 						<div class="row">
 							<div class="col-md-3">
 								<div class="row">
 									<div class="col-md-12">		
-										<label for="f-option">SUPPLY</label>
+										<label class="theme-header">SUPPLY</label>
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-md-12">
-										<ol class='auto-checkboxes expanded' data-name='foo'>
+										<ol class='theme-checkboxes expanded' data-name='foo'>
 									      <li data-value='11' data-id='11'>LAND/ENVIRONMENT
 									      	<ol>
 									          <li data-value='111'>Dukungan Infrastruktur yang terbatas</li>
@@ -182,12 +180,12 @@
 							<div class="col-md-3">
 								<div class="row">
 									<div class="col-md-12">		
-										<label for="f-option">DEMAND</label>
+										<label class="theme-header">DEMAND</label>
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-md-12">
-										<ol class='auto-checkboxes expanded' data-name='foo'>
+										<ol class='theme-checkboxes expanded' data-name='foo'>
 									      <li data-value='11' data-id='11'>KEBIJAKAN / KETENTUAN PEMERINTAH
 									      	<ol>
 									          <li data-value='111'>FLPP</li>
@@ -215,12 +213,12 @@
 							<div class="col-md-3">
 								<div class="row">
 									<div class="col-md-12">		
-										<label for="f-option">PRODUK DANA</label>
+										<label class="theme-header">PRODUK DANA</label>
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-md-12">
-										<ol class='auto-checkboxes expanded' data-name='foo'>
+										<ol class='theme-checkboxes expanded' data-name='foo'>
 									      <li data-value='11' data-id='11'>GIRO</li>
 									      <li data-value='12' data-id='12'>TABUNGAN</li>
 									      <li data-value='13' data-id='13'>DEPOSITO</li>
@@ -231,12 +229,12 @@
 							<div class="col-md-3">
 								<div class="row">
 									<div class="col-md-12">		
-										<label for="f-option">PRODUK LAYANAN</label>
+										<label class="theme-header">PRODUK LAYANAN</label>
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-md-12">
-										<ol class='auto-checkboxes expanded' data-name='foo'>
+										<ol class='theme-checkboxes expanded' data-name='foo'>
 									      <li data-value='11' data-id='11'>LAYANAN</li>
 									      <li data-value='12' data-id='12'>FEE BASED</li>
 									    </ol>
@@ -244,15 +242,12 @@
 								</div>
 							</div>
 						</div>
-						<div class="row">
-							<div class="col-md-12">
-								<label for="f-option">Produk Layanan</label>
-							</div>
-						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-12">
-							<input type="button" value="Cari" class="button-blue submit_btn" id="search" />
+							<div>
+								<input type="submit" value="Cari" class="button-blue submit_btn" id="search" />
+							</div>
 						</div>
 					</div>
 				</form>
@@ -267,7 +262,7 @@
 		/*<![CDATA[*/
 		$(function(){  
 			setNavbarActive('program');
-			$('.auto-checkboxes').bonsai({
+			$('.theme-checkboxes').bonsai({
 			  expandAll: true,
 			  checkboxes: true, // depends on jquery.qubit plugin
 			  createInputs: 'checkbox' // takes values from data-name and data-value, and data-name is inherited

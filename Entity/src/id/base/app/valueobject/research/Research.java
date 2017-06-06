@@ -1,5 +1,8 @@
 package id.base.app.valueobject.research;
 
+import id.base.app.encryptor.EncodeDecode;
+import id.base.app.valueobject.BaseEntity;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
@@ -19,9 +22,6 @@ import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-
-import id.base.app.encryptor.EncodeDecode;
-import id.base.app.valueobject.BaseEntity;
 
 @Entity
 @Table(name = "RESEARCH")
@@ -92,6 +92,9 @@ public class Research extends BaseEntity implements Serializable {
 	@Column(name="STATUS")
 	private Integer status;
 	
+	@Column(name="PERMALINK")
+	private String permalink;
+	
 	@OneToMany(mappedBy="research", cascade=CascadeType.DETACH)
 	private List<ResearchOfficer> researchers;
 	
@@ -100,6 +103,9 @@ public class Research extends BaseEntity implements Serializable {
 	
 	@OneToMany(mappedBy="research", cascade=CascadeType.DETACH)
 	private List<ResearchResult> results;
+	
+	@OneToMany(mappedBy="research", cascade=CascadeType.DETACH)
+	private List<ResearchKeyword> keywords;
 	
 	@Transient
 	private Integer fromTab;
@@ -235,6 +241,14 @@ public class Research extends BaseEntity implements Serializable {
 		this.status = status;
 	}
 
+	public String getPermalink() {
+		return permalink;
+	}
+
+	public void setPermalink(String permalink) {
+		this.permalink = permalink;
+	}
+
 	public List<ResearchOfficer> getResearchers() {
 		return researchers;
 	}
@@ -257,6 +271,14 @@ public class Research extends BaseEntity implements Serializable {
 
 	public void setResults(List<ResearchResult> results) {
 		this.results = results;
+	}
+
+	public List<ResearchKeyword> getKeywords() {
+		return keywords;
+	}
+
+	public void setKeywords(List<ResearchKeyword> keywords) {
+		this.keywords = keywords;
 	}
 
 	public Integer getFromTab() {

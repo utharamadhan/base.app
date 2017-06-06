@@ -51,53 +51,14 @@ public class ResearchDevelopmentWebController {
 		return "/research-development/main";
 	}
 	
-	@RequestMapping(method=RequestMethod.GET, value="/themes/{id}/{title}")
-	public String themes(ModelMap model, HttpServletRequest request, HttpServletResponse response, @PathVariable(value="id") Long id,
-			@PathVariable(value="title") String title){
-		ResearchTheme detail = getRestCallerThemes().findById(id);
-		if(detail!=null){
-			if(detail.getTitle()!=null){
-				String dataTitle = detail.getTitle().replace(" ", "-");
-				if(dataTitle.equals(title)){
-					model.addAttribute("detail", detail);
-					model.addAttribute("researchThemes", getResearchThemesTitle());
-					return "/research-development/main-themes";
-				}
-			}
-		}
-		LOGGER.error("ERROR DATA NOT VALID");
-		return "redirect:/page/notfound";
-	}
-	
 	@RequestMapping(method=RequestMethod.GET, value="/list")
-	public String list(ModelMap model, HttpServletRequest request, HttpServletResponse response,
-			@RequestParam(value="startNo",defaultValue="1") int startNo, 
-			@RequestParam(value="offset",defaultValue="10") int offset,
-			@RequestParam(value="filter", defaultValue="", required=false) String filterJson){
-		List<SearchFilter> filter = new ArrayList<SearchFilter>();
-		List<SearchOrder> order = new ArrayList<SearchOrder>();
-		PagingWrapper<Research> researches = getRestCaller().findAllByFilter(startNo, offset, filter, order);
-		List<ResearchTheme> topics = getRestCallerThemes().findAll(null, null);
-		model.addAttribute("researches", researches);
-		model.addAttribute("topics", topics);
+	public String listGet(ModelMap model, HttpServletRequest request, HttpServletResponse response){
 		return "/research-development/list";
 	}
 	
-	@RequestMapping(method=RequestMethod.GET, value="/detail/{id}/{title}")
-	public String detail(ModelMap model, HttpServletRequest request, HttpServletResponse response, @PathVariable(value="id") Long id,
-			@PathVariable(value="title") String title){
-		Research detail = getRestCaller().findById(id);
-		if(detail!=null){
-			if(detail.getTitle()!=null){
-				String dataTitle = detail.getTitle().replace(" ", "-");
-				if(dataTitle.equals(title)){
-					model.addAttribute("detail", detail);
-					return "/research-development/detail";
-				}
-			}
-		}
-		LOGGER.error("ERROR DATA NOT VALID");
-		return "redirect:/page/notfound";
+	@RequestMapping(method=RequestMethod.GET, value="/detail")
+	public String detail(ModelMap model, HttpServletRequest request, HttpServletResponse response){
+		return "/research-development/detail";
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/list/load")

@@ -1,16 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta name="author" content="Mardy Jonathan"/>
-<title></title>
-</head>
+<head></head>
 <body>
 	<div class="breadcrumb-wrapper">
 			<div class="breadcrumb">
 				<div class="container">
 					<ul>
 					<li><a th:href="@{/}">Beranda</a></li>
-					<li><a href="#">Research</a></li>
+					<li><a th:href="@{/page/research-development}">Research</a></li>
+					<li><a href="#">List</a></li>
 					</ul>
 				</div>
 			</div>
@@ -18,59 +16,280 @@
 		<div class="courses_section">
 			<div class="container">
 				<div class="row">
-					<div class="col-xs-12 col-sm-3 col-md-2 courses_left hidden-xs">
+					<div class="col-md-4 courses_left hidden-xs">
+						<ul>
+							<li>
+								<button type="button" class="btn-link" title="Ubah Pencarian">
+								<span class="ico-pencel" aria-hidden="true"></span>
+								<span class="btnText"><a th:href="@{/page/research-development}">Ubah Pencarian</a></span>
+								</button>
+							</li>
+						</ul>
+						<div class="search_section search_full_section">
+							<form action="##" method="post">								
+								<div class="input-group">
+								  <input type="text" class="form-control" placeholder="Mencari di antara hasil" aria-describedby="basic-addon2" />
+								  <span class="input-group-addon" id="basic-addon2"><i class="fa fa-search" aria-hidden="true"></i></span>
+								</div>
+							</form>
+						</div>
 						<div class="courses_left_inner">
-							<h3>Research</h3>
+							<h3 class="head-filter">Tahun</h3>
 							<ul>
-								<li class="active"><a href="#">View all research (2014 - 2016)</a></li>
-								<li><a href="#">2016</a></li>
-								<li><a href="#">2015</a></li>
-								<li><a href="#">2014</a></li>
+								<li>
+									<div class="checkbox pos-left"><label><input type="checkbox" value=""/>2017</label></div>
+									<button type="button" class="btn-link btn-sm pos-right" data-toggle="modal" title="Show preview for 2018">
+										<span class="badge">(<span class="btnText">3,281</span>)</span>
+									</button>
+								</li>
+								<li>
+									<div class="checkbox pos-left"><label><input type="checkbox" value=""/>2016</label></div>
+									<button type="button" class="btn-link btn-sm pos-right" data-toggle="modal" title="Show preview for 2018">
+										<span class="badge">(<span class="btnText">3,101</span>)</span>
+									</button>
+								</li>
+								<li>
+									<div class="checkbox pos-left"><label><input type="checkbox" value=""/>2015</label></div>
+									<button type="button" class="btn-link btn-sm pos-right" data-toggle="modal" title="Show preview for 2018">
+										<span class="badge">(<span class="btnText">2,123</span>)</span>
+									</button>
+								</li>
 							</ul>
-							
-							<h3>Research Topics</h3>
-							<div th:each="topic, i : ${topics}"><h5 th:text="${topic.title}"></h5></div>
+							<div class="clear"></div>
+							<hr/>
+							<h3 class="head-filter">Kategori</h3>
+							<ul>
+								<li>
+									<div class="checkbox pos-left"><label><input type="checkbox" value=""/>Supply</label></div>
+									<button type="button" class="btn-link btn-sm pos-right" data-toggle="modal" title="Show preview for 2018">
+										<span class="badge">(<span class="btnText">4,213</span>)</span>
+									</button>
+								</li>
+								<li>
+									<div class="checkbox pos-left"><label><input type="checkbox" value=""/>Demand</label></div>
+									<button type="button" class="btn-link btn-sm pos-right" data-toggle="modal" title="Show preview for 2018">
+										<span class="badge">(<span class="btnText">2,982</span>)</span>
+									</button>
+								</li>
+								<li>
+									<div class="checkbox pos-left"><label><input type="checkbox" value=""/>Produk Dana</label></div>
+									<button type="button" class="btn-link btn-sm pos-right" data-toggle="modal" title="Show preview for 2018">
+										<span class="badge">(<span class="btnText">1,323</span>)</span>
+									</button>
+								</li>
+								<li>
+									<div class="checkbox pos-left"><label><input type="checkbox" value=""/>Produk Layanan</label></div>
+									<button type="button" class="btn-link btn-sm pos-right" data-toggle="modal" title="Show preview for 2018">
+										<span class="badge">(<span class="btnText">910</span>)</span>
+									</button>
+								</li>
+							</ul>
+							<div class="clear"></div>
+							<hr/>
+							<h3 class="head-filter">Tema</h3>
+							<ul>
+								<li>
+									<div class="checkbox pos-left"><label><input type="checkbox" value=""/>Legal - Kebijakan Pemerintah</label></div>
+									<button type="button" class="btn-link btn-sm pos-right" data-toggle="modal" title="Show preview for 2018">
+										<span class="badge">(<span class="btnText">2,382</span>)</span>
+									</button>
+								</li>
+								<li>
+									<div class="checkbox pos-left"><label><input type="checkbox" value=""/>Legal - Perijinan</label></div>
+									<button type="button" class="btn-link btn-sm pos-right" data-toggle="modal" title="Show preview for 2018">
+										<span class="badge">(<span class="btnText">2,193</span>)</span>
+									</button>
+								</li>
+								<li>
+									<div class="checkbox pos-left"><label><input type="checkbox" value=""/>Capital - Permodalan</label></div>
+									<button type="button" class="btn-link btn-sm pos-right" data-toggle="modal" title="Show preview for 2018">
+										<span class="badge">(<span class="btnText">1,212</span>)</span>
+									</button>
+								</li>
+								<li>
+									<div class="checkbox pos-left"><label><input type="checkbox" value=""/>Pembiayaan - Produk</label></div>
+									<button type="button" class="btn-link btn-sm pos-right" data-toggle="modal" title="Show preview for 2018">
+										<span class="badge">(<span class="btnText">832</span>)</span>
+									</button>
+								</li>
+								<li>
+									<div class="checkbox pos-left"><label><input type="checkbox" value=""/>Masyarakat - Penghasilan</label></div>
+									<button type="button" class="btn-link btn-sm pos-right" data-toggle="modal" title="Show preview for 2018">
+										<span class="badge">(<span class="btnText">289</span>)</span>
+									</button>
+								</li>
+							</ul>
+							<div class="clear"></div>
+							<hr/>
+							<h3 class="head-filter">Kata Kunci</h3>
+							<ul>
+								<li>
+									<div class="checkbox pos-left"><label><input type="checkbox" value=""/>Produk</label></div>
+									<button type="button" class="btn-link btn-sm pos-right" data-toggle="modal" title="Show preview for 2018">
+										<span class="badge">(<span class="btnText">2,539</span>)</span>
+									</button>
+								</li>
+								<li>
+									<div class="checkbox pos-left"><label><input type="checkbox" value=""/>Properti</label></div>
+									<button type="button" class="btn-link btn-sm pos-right" data-toggle="modal" title="Show preview for 2018">
+										<span class="badge">(<span class="btnText">2,213</span>)</span>
+									</button>
+								</li>
+								<li>
+									<div class="checkbox pos-left"><label><input type="checkbox" value=""/>Perumahan</label></div>
+									<button type="button" class="btn-link btn-sm pos-right" data-toggle="modal" title="Show preview for 2018">
+										<span class="badge">(<span class="btnText">1,322</span>)</span>
+									</button>
+								</li>
+								<li>
+									<div class="checkbox pos-left"><label><input type="checkbox" value=""/>Developer</label></div>
+									<button type="button" class="btn-link btn-sm pos-right" data-toggle="modal" title="Show preview for 2018">
+										<span class="badge">(<span class="btnText">912</span>)</span>
+									</button>
+								</li>
+								<li>
+									<div class="checkbox pos-left"><label><input type="checkbox" value=""/>Investasi</label></div>
+									<button type="button" class="btn-link btn-sm pos-right" data-toggle="modal" title="Show preview for 2018">
+										<span class="badge">(<span class="btnText">901</span>)</span>
+									</button>
+								</li>
+							</ul>
+							<div class="clear"></div>
 						</div>
 					</div><!--end post_left-->
 					
-					<div class="col-xs-12 col-sm-9 col-md-10 courses_right">
+					<div class="col-md-8 courses_right">
 						<div class="courses_right_inner">
-							<div class="search_section search_full_section">
-								<form action="##" method="post">								
-									<div class="input-group">
-									  <input type="text" class="form-control" placeholder="Research Name" aria-describedby="basic-addon2" />
-									  <span class="input-group-addon" id="basic-addon2"><i class="fa fa-search" aria-hidden="true"></i></span>
-									</div>
-								</form>
+							<div class="row">
+								<div class="col-md-8">
+									<h2>Hasil Pencarian</h2>
+								</div>
+								<div class="col-md-4">
+									<form class="form-inline">
+										<div class="form-group">
+                							<label class="control-label">order:</label>
+											<select class="form-control" name="learning">
+												<option>Tanggal Publikasi (Terbaru)</option>
+												<option>Tanggal Publikasi (Terlama)</option>
+												<option>Judul (A-Z)</option>
+												<option>Judul (Z-A)</option>
+												<option>Nama Peneliti Pertama (A-Z)</option>
+												<option>Nama Peneliti Pertama (Z-A)</option>
+											</select>
+										</div>
+									</form>
+								</div>
 							</div>
-						
 							<div class="courses">
-								<table class="table table-bordered table-striped">
+								<table class="table table-striped table-research">
 									<thead>
 									  <tr>
-										<th>Research Name</th>
-										<th>Research Topic</th>
+									  	<th>No.</th>
+										<th width="40%">Judul Penelitian</th>
+										<th width="40%">Peneliti</th>
+										<th nowrap="nowrap">Tanggal Publikasi</th>
 									  </tr>
 									</thead>
 									<tbody class="list_data">
-									  <tr class="option">
-										<td>2016</td>
-										<td>&nbsp;</td>
+									  <tr>
+										<td>1.</td>
+										<td><a th:href="@{/page/research-development/detail}">Sun Rise di Jawa Barat</a></td>
+										<td>Tomczyk, A., Szczepaniak, P.S.</td>
+										<td>1 Juni 2014</td>
 									  </tr>
-									  <tr id="template" class="data_result" th:each="res, i : ${researches.result}">
-										<td>
-											<ul>
-												<li class="active resName">
-													<a th:href="@{/page/research-development/detail/}+${res.pkResearch}+'/'+${#strings.replace(res.title, ' ', '-')}" th:text="${res.title}"></a>
-												</li>
-												<li class="resSubtitle">
-													<a href="#" th:text="${res.subtitle}"></a>
-												</li>
-												
-											</ul>
-										</td>
-										<!-- td class="resTopic" th:text="${res.researchTopic.title}"></td -->
-										<td></td>
+									  <tr class="research-info">
+									  	<td>&nbsp;</td>
+									  	<td colspan="3">Abstrak <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></td>
+									  </tr>
+									  <tr>
+										<td>2.</td>
+										<td><a th:href="@{/page/research-development/detail}">Potensi Daerah</a></td>
+										<td>PT. Bumi Madani (<i>Vendor</i>)</td>
+										<td>1 Januari 2015</td>
+									  </tr>
+									  <tr class="research-info">
+									  	<td>&nbsp;</td>
+									  	<td colspan="3">Abstrak <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></td>
+									  </tr>
+									  <tr>
+										<td>3.</td>
+										<td><a th:href="@{/page/research-development/detail}">Supply and Demand</a></td>
+										<td>Scherz, W.D., Fritz, D., Velicu, O.R., Seepold, R., Madrid, N.M.</td>
+										<td>21 Februari 2015</td>
+									  </tr>
+									  <tr class="research-info">
+									  	<td>&nbsp;</td>
+									  	<td colspan="3">Abstrak <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></td>
+									  </tr>
+									  <tr>
+										<td>4.</td>
+										<td><a th:href="@{/page/research-development/detail}">Keb. Pembangunan Properti</a></td>
+										<td>Dorosti, V., Firouzi, A., Golsefid, H.T., Jebeli, A.</td>
+										<td>20 Oktober 2015</td>
+									  </tr>
+									  <tr class="research-info">
+									  	<td>&nbsp;</td>
+									  	<td colspan="3">Abstrak <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></td>
+									  </tr>
+									  <tr>
+										<td>5.</td>
+										<td><a th:href="@{/page/research-development/detail}">Skill Set Developer</a></td>
+										<td>Raiesdana, N., Kamali, E., Soleimani, M., Mohammad Khani, M.M.</td>
+										<td>20 Februari 2016</td>
+									  </tr>
+									  <tr class="research-info">
+									  	<td>&nbsp;</td>
+									  	<td colspan="3">Abstrak <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></td>
+									  </tr>
+									  <tr>
+										<td>6.</td>
+										<td><a th:href="@{/page/research-development/detail}">BTN Housing Index 2016</a></td>
+										<td>Ahmad, S., Panda, B.P., Kohli, K., Fahim, M., Dubey, K.</td>
+										<td>1 Desember 2016</td>
+									  </tr>
+									  <tr class="research-info">
+									  	<td>&nbsp;</td>
+									  	<td colspan="3">Abstrak <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></td>
+									  </tr>
+									  <tr>
+										<td>7.</td>
+										<td><a th:href="@{/page/research-development/detail}">Skema Kolaborasi ABCG</a></td>
+										<td>Mirian, N.-S., Sedehi, M., Kheiri, S., Ahmadi, A.</td>
+										<td>2 Desember 2016</td>
+									  </tr>
+									  <tr class="research-info">
+									  	<td>&nbsp;</td>
+									  	<td colspan="3">Abstrak <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></td>
+									  </tr>
+									  <tr>
+										<td>8.</td>
+										<td><a th:href="@{/page/research-development/detail}">Customer Profiling</a></td>
+										<td>Ebrahimi, S., Zakerimoghadam, M., Shahsavari, H., Gholizadeh, B., Naboureh, A.</td>
+										<td>20 Desember 2016</td>
+									  </tr>
+									  <tr class="research-info">
+									  	<td>&nbsp;</td>
+									  	<td colspan="3">Abstrak <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></td>
+									  </tr>
+									  <tr>
+										<td>9.</td>
+										<td><a th:href="@{/page/research-development/detail}">Kajian MBR</a></td>
+										<td>PT. Jaya Sentosa (<i>Vendor</i>)</td>
+										<td>21 Desember 2016</td>
+									  </tr>
+									  <tr class="research-info">
+									  	<td>&nbsp;</td>
+									  	<td colspan="3">Abstrak <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></td>
+									  </tr>
+									  <tr>
+										<td>10.</td>
+										<td><a th:href="@{/page/research-development/detail}">Kajian Produk Dana Perbankan</a></td>
+										<td>PT. Makmur Sentosa (<i>Vendor</i>)</td>
+										<td>1 Januari 2016</td>
+									  </tr>
+									  <tr class="research-info">
+									  	<td>&nbsp;</td>
+									  	<td colspan="3">Abstrak <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></td>
 									  </tr>
 									</tbody>
 								  </table>
@@ -82,21 +301,12 @@
 									<span aria-hidden="true">Previous</span>
 								  </a>
 								</li>
-								<th:block th:each="j : ${#numbers.sequence(1, researches.noOfPage)}" th:if="${researches.noOfPage &gt; 0}">
-								<li th:if="${j==researches.currentPage}" class="active" th:classappend="${j}"><a href="#" th:text="${j}"></a></li>
-								<li th:unless="${j==researches.currentPage}" class="change_page" th:classappend="${j}"><a href="#" th:text="${j}"></a></li>
-								</th:block>
-								<th:block th:unless="${researches.noOfPage &gt; 0}">
-									<li class="active" th:classappend="1"><a href="#" th:text="1"></a></li>
-								</th:block>
 								<li class="next">
 								  <a aria-label="Next" href="#">
 									<span aria-hidden="true">Next</span>
 								  </a>
 								</li>
 							  </ul>
-							  <input type="hidden" th:value="${researches.startRecordIndex}" class="startNo"/>
-						  	  <input type="hidden" th:value="${researches.recordsPerPage}" class="offset"/>
 						</div><!--end courses right inner-->
 					</div><!--end post_right-->
 					
@@ -105,103 +315,8 @@
 		</div><!--end post section-->
 		<script type="text/javascript" th:inline="javascript">
 		/*<![CDATA[*/
-		$(function(){      
-			$('.change_page').unbind('click').click(function(){
-				changePage($(this));
-			});
-			
-			checkPagination();
+		$(function(){
 		});
-		
-		function checkPagination(){
-			var activePage = $('.active').find('a').html();
-			var noOfPage = /*[[${researches.noOfPage}]]*/
-			if(activePage>1){
-				$('.prev').unbind('click').click(function(){
-					var nextPage = parseInt($('.active').find('a').html()) - 1;
-					changePage($(this), nextPage);
-				});
-			}else{
-				$('.prev').unbind('click');
-			}
-			
-			if(activePage<noOfPage){
-				$('.next').unbind('click').click(function(){
-					var nextPage = parseInt($('.active').find('a').html()) + 1;
-					changePage($(this), nextPage);
-				});
-			}else{
-				$('.next').unbind('click');
-			}
-		}
-		
-		function changePage(elem, paramNextPage){
-			var id = /*[[${idGroup}]]*/;
-			var title = /*[[${title}]]*/;
-			title = replaceall(title, " ", "-");
-			var sURL = /*[[@{/page/list/}]]*/
-			sURL = sURL + title + "/" + id + "/load";
-			var param = $('.param').val();
-			var nextPage = paramNextPage ? paramNextPage : elem.find('a').html();
-			var oldPage = $('.active').find('a').html();
-			var nextStartNo = (parseInt($('.offset').val()) * (parseInt(nextPage)-1)) + 1;
-			var offset = $('.offset').val();
-			var img_url = /*[[@{/images/gif/hex-loader.gif}]]*/;
-			$.ajax({
-	            type: 'GET',
-	            url: sURL,
-	            data: {filter : param, startNo : nextStartNo, offset : offset},
-	            dataType: 'json',
-	            success: function (data) {
-	            	$('.load_reload_wrapper').remove();
-	            	$('.mrdy_btn').disableBtn({enabled:true});
-	            	processData(data.researches.result, false);	
-	            	$('.'+nextPage).addClass('active');
-	            	$('.'+nextPage).removeClass('change_page');
-	            	$('.'+oldPage).removeClass('active');
-	            	$('.'+oldPage).addClass('change_page');
-	            	$('.change_page').unbind('click').click(function(){
-	    				changePage($(this));
-	    			});
-	            	checkPagination();
-	            },
-	            beforeSend: function($jqXHR, $textStatus){
-	            	$('.list_data').html('<tr class="load_reload_wrapper"><td colspan="5"><div class="col-md-12 loading_reload" style="display: block; margin-left: auto; margin-right: auto;text-align: center;"><img src="'+img_url+'" /></div></td></tr>');
-					$('.mrdy_btn').disableBtn({enabled:false});
-				},
-				error: function ($jqXHR, $textStatus, $errorThrown) {
-					$('.load_reload_wrapper').remove();
-					$('.mrdy_btn').disableBtn({enabled:true});
-				},
-				complete: function($jqXHR, $textStatus){
-					$('.load_reload_wrapper').remove();
-					$('.mrdy_btn').disableBtn({enabled:true});
-				}
-	        });
-		}
-		
-		
-		function processData(datas, load){
-			var load_content = '';
-			var detailLink = /*[[@{/page/research-development/detail/}]]*/;
-			for(var i=0;i<datas.length;i++){
-				var cloning = $('.template_part .data_result').eq(0).clone();
-				cloning.find('.resName').find('a').attr('href',detailLink+datas[i].pkResearch+'/'+replaceall(datas[i].title,' ','-'));
-				cloning.find('.resName').html(datas[i].name);
-				cloning.find('.resSubtitle').html(datas[i].subtitle);
-				cloning.find('.resTopic').html(datas[i].researchTopic.name);
-				cloning.wrap('<div></div>');
-				if(!load){
-					$('.list_data').append(cloning.parent().html());
-				}else{
-					load_content = load_content + cloning.parent().html();
-				}
-			}
-			
-			if(load){
-				$('.list_data').html(load_content);
-			}
-		}
 		/*]]>*/
 		</script>
 </body>
