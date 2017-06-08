@@ -1,15 +1,19 @@
 package id.base.app.service.frontEndDisplay;
 
+import id.base.app.ILookupConstant;
 import id.base.app.dao.frontEndDisplay.IPagesDAO;
 import id.base.app.exception.SystemException;
 import id.base.app.paging.PagingWrapper;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.valueobject.Pages;
+import id.base.app.valueobject.publication.News;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -56,5 +60,5 @@ public class PagesService implements IPagesService {
 	public List<Pages> findAll(List<SearchFilter> filter, List<SearchOrder> order) throws SystemException {
 		return pagesDAO.findAll(filter, order);
 	}
-
+	
 }
