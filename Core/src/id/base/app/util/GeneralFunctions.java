@@ -71,23 +71,23 @@ public class GeneralFunctions {
 	
 	public static Cookie buildCookie(String context, Map<String, String> tokenMap) {
 		Cookie cookie = new Cookie(JSONConstant.KEY_TOKEN, GeneralFunctions.encodeFromMap(tokenMap));
-			cookie.setMaxAge(GeneralFunctions.getExpiryFromToken(tokenMap.get("expiredTime")));
+			cookie.setMaxAge(GeneralFunctions.getExpiry(tokenMap.get("expiredTime")));
 			cookie.setPath(context);
 		return cookie;
 	}
-
+	
 	public static int getExpiryFromToken(String token) {
+		Map<String, String> map = getTokenMap(token);
+		return getExpiry(map.get("expiredTime"));
+	}
+
+	public static int getExpiry(String expiredTime) {
 		int expire = 60*15;
 		try {
-			if(StringFunction.isNotEmpty(token)){
-				Map<String, String> map = getTokenMap(token);
-				String yyyyMMddHHmm = map.get("expiredTime");
+			if(StringFunction.isNotEmpty(expiredTime)){
 				Calendar tcal = Calendar.getInstance();
-				Date d = null;
-			    if (yyyyMMddHHmm != null && yyyyMMddHHmm.length()>0) {
-			        d = (new SimpleDateFormat("yyyyMMddHHmm")).parse(yyyyMMddHHmm);
-			        tcal.setTime(d);
-			    }
+				Date d = (new SimpleDateFormat("yyyyMMddHHmm")).parse(expiredTime);
+				tcal.setTime(d);
 				Calendar cal = Calendar.getInstance();
 				if(d!=null){
 					expire = getDiff(expire,cal,tcal);

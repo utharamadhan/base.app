@@ -30,6 +30,9 @@ public class PagesController extends SuperController<Pages>{
 		List<ErrorHolder> errorList = new ArrayList<>();
 		if(StringFunction.isEmpty(anObject.getTitle())) {
 			errorList.add(new ErrorHolder(Pages.TITLE, messageSource.getMessage("error.mandatory", new String[]{"title"}, Locale.ENGLISH)));
+		}else{
+			String permalink = StringFunction.toPrettyURL(anObject.getTitle());
+			anObject.setPermalink(permalink);
 		}
 		if(StringFunction.isEmpty(anObject.getContent())) {
 			errorList.add(new ErrorHolder(Pages.CONTENT, messageSource.getMessage("error.mandatory", new String[]{"content"}, Locale.ENGLISH)));

@@ -1,6 +1,7 @@
 package id.base.app.web.controller.aboutUs;
 
 import id.base.app.ILookupConstant;
+import id.base.app.ILookupGroupConstant;
 import id.base.app.SystemConstant;
 import id.base.app.exception.ErrorHolder;
 import id.base.app.paging.PagingWrapper;
@@ -15,6 +16,7 @@ import id.base.app.util.dao.SearchOrder;
 import id.base.app.valueobject.Pages;
 import id.base.app.web.DataTableCriterias;
 import id.base.app.web.controller.BaseController;
+import id.base.app.web.rest.LookupRestCaller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -79,7 +81,10 @@ public class CommonPostWebController extends BaseController<Pages> {
 		return getListPath();
 	}
 	
-	public void setDefaultData(ModelMap model) {}
+	public void setDefaultData(ModelMap model) {
+		LookupRestCaller lrc = new LookupRestCaller();
+		model.addAttribute("statusOptions", lrc.findByLookupGroup(ILookupGroupConstant.ARTICLE_STATUS));
+	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="showAdd")
 	public String showAdd(ModelMap model, HttpServletRequest request){
