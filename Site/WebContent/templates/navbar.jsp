@@ -29,7 +29,7 @@
 									<li class="col-sm-4">
 										<ul id="common-post-content">
 											<c:forEach items="${posts}" var="post" varStatus="loop">
-											<li class="dropdown-header"><a href="${ctx}/page/post/${post.pkCommonPost}/${fn:replace(post.title,' ','-')}">${post.title}</a></li>
+											<li class="dropdown-header"><a href="${ctx}/page/about-us/${post.permalink}">${post.title}</a></li>
 											</c:forEach>
 										</ul>
 										<ul>
@@ -100,7 +100,7 @@
 								  </ul>
 								</li>
 								<li id="program" class="dropdown">
-								  <a class="parent-menu" href="<%=request.getContextPath()%>/page/mainProgram" role="button" aria-haspopup="true" aria-expanded="false">PROGRAM</a>
+								  <a class="parent-menu" href="<%=request.getContextPath()%>/page/main-program" role="button" aria-haspopup="true" aria-expanded="false">PROGRAM</a>
 								</li>
 								<li id="galeri" class="dropdown">
 								  <a class="parent-menu" href="<%=request.getContextPath()%>/page/galeri" role="button" aria-haspopup="true" aria-expanded="false">GALERI</a>

@@ -31,7 +31,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Scope(value="request")
-@RequestMapping(value="/research-development")
+@RequestMapping(value="main-program/research-development")
 @Controller
 public class ResearchDevelopmentWebController {
 	
@@ -45,23 +45,33 @@ public class ResearchDevelopmentWebController {
 		return new RestCaller<ResearchTheme>(RestConstant.REST_SERVICE, RestServiceConstant.RESEARCH_THEME_SERVICE);
 	}
 	
-	@RequestMapping(method=RequestMethod.GET)
-	public String view(ModelMap model, HttpServletRequest request, HttpServletResponse response){
+	@RequestMapping(method=RequestMethod.GET, value="/research")
+	public String research(ModelMap model, HttpServletRequest request, HttpServletResponse response){
+		return "/research-development/research";
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/development")
+	public String development(ModelMap model, HttpServletRequest request, HttpServletResponse response){
+		return "/research-development/development";
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/research/search")
+	public String viewResearch(ModelMap model, HttpServletRequest request, HttpServletResponse response){
 		model.addAttribute("researchThemes", getResearchThemesTitle());
-		return "/research-development/main";
+		return "/research-development/research/main";
 	}
 	
-	@RequestMapping(method=RequestMethod.GET, value="/list")
+	@RequestMapping(method=RequestMethod.GET, value="/research/list")
 	public String listGet(ModelMap model, HttpServletRequest request, HttpServletResponse response){
-		return "/research-development/list";
+		return "/research-development/research/list";
 	}
 	
-	@RequestMapping(method=RequestMethod.GET, value="/detail")
+	@RequestMapping(method=RequestMethod.GET, value="/research/detail")
 	public String detail(ModelMap model, HttpServletRequest request, HttpServletResponse response){
-		return "/research-development/detail";
+		return "/research-development/research/detail";
 	}
 	
-	@RequestMapping(method=RequestMethod.GET, value="/list/load")
+	@RequestMapping(method=RequestMethod.GET, value="/research/list/load")
 	@ResponseBody
 	public Map<String, Object> load(ModelMap model, HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value="startNo",defaultValue="1") int startNo, 
@@ -76,7 +86,7 @@ public class ResearchDevelopmentWebController {
 		return resultMap;
 	}
 	
-	@RequestMapping(method=RequestMethod.GET, value="/downloadFile/{id}")
+	@RequestMapping(method=RequestMethod.GET, value="/research/downloadFile/{id}")
 	@ResponseBody
 	public Map<String, Object> downloadTemplate(HttpServletRequest request, HttpServletResponse response, @PathVariable(value="id") Long id){
 		Map<String, Object> resultMap = null;

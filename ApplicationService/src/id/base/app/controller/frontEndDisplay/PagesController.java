@@ -8,13 +8,17 @@ import id.base.app.service.MaintenanceService;
 import id.base.app.service.frontEndDisplay.IPagesService;
 import id.base.app.util.StringFunction;
 import id.base.app.valueobject.Pages;
+import id.base.app.valueobject.publication.News;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -51,6 +55,12 @@ public class PagesController extends SuperController<Pages>{
 	@Override
 	public Pages preUpdate(Pages anObject) throws SystemException{
 		return validate(anObject);
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/findByPermalink/{permalink}")
+	@ResponseBody
+	public Pages findByPermalink(@PathVariable(value="permalink") String permalink) throws SystemException {
+		return pagesService.findByPermalink(permalink);
 	}
 	
 }

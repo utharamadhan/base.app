@@ -28,6 +28,7 @@ public class Pages extends BaseEntity implements Serializable {
 	public static final String ORDER_NO	= "orderNo";
 	public static final String STATUS 	= "status";
 	public static final String TYPE 	= "type";
+	public static final String PERMALINK = "permalink";
 	
 	public static Pages getInstance() {
 		return new Pages();

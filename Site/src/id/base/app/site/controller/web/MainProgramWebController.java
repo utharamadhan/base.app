@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Scope(value="request")
-@RequestMapping(value="/mainProgram")
+@RequestMapping(value="/main-program")
 @Controller
 public class MainProgramWebController {
 
@@ -23,24 +23,4 @@ public class MainProgramWebController {
 		return "/main-program/main";
 	}
 	
-	@RequestMapping(method=RequestMethod.GET, value="/learning")
-	public String learning(ModelMap model, HttpServletRequest request, HttpServletResponse response){
-		return "/main-program/seminar";
-	}
-	
-	@RequestMapping(method=RequestMethod.GET, value="/seminar")
-	public String seminar(ModelMap model, HttpServletRequest request, HttpServletResponse response){
-		return "/main-program/seminar";
-	}
-	
-	@RequestMapping(method=RequestMethod.GET, value="/workshop")
-	public String workshop(ModelMap model, HttpServletRequest request, HttpServletResponse response){
-		return "/main-program/workshop";
-	}
-	
-	@RequestMapping(method=RequestMethod.GET, value="/kursus")
-	public String kursus(ModelMap model, HttpServletRequest request, HttpServletResponse response){
-		return "/main-program/kursus";
-	}
-
 }

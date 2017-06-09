@@ -10,7 +10,7 @@
 			<div class="row clearfix">
 				<div class="about_inner">
 					<div class="col-md-4">
-						<div class="hexagon_learning hexagon_bg_top hexagon_learning" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/mainProgram/learning'">
+						<div class="hexagon_learning hexagon_bg_top hexagon_learning" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/main-program/learning/seminar'">
 							<div class="hb-1">
 								<div class="hb-2">
 									<img src="<%=request.getContextPath()%>/images/learning_.jpg"/>
@@ -30,7 +30,7 @@
 						<label class="advisory_text">Advisory</label>
 					</div>
 					<div class="col-md-4">
-						<div class="hexagon_rnd hexagon_bg_top" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/research-development'">
+						<div class="hexagon_rnd hexagon_bg_top" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/main-program/research-development/research'">
 							<div class="hb-1">
 								<div class="hb-2">
 									<img src="<%=request.getContextPath()%>/images/rnd_.jpg"/>

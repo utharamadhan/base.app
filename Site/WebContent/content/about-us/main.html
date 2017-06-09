@@ -2,90 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1"/>
-<meta name="author" content="Mardy Jonathan"/>
-<title></title>
 </head>
 <body>
 		<div class="content_top">
-			<div class="container">
-				<div class="row">
-					<div class="col-xs-12 col-sm-3">
-						<img th:src="@{/images/direktur-utama-btn.jpg}"/>
-					</div>
-					<div class="col-xs-12 col-sm-9">
-						<div class="content_left">
-							<h1>Sambutan Direktur Utama</h1>
-							<p>Housing Finance Center (HFC) merupakan suatu unit bisnis strategis dari BTN yang dapat memberikan kebangkitan bagi BTN sehingga diharapkan pemimpin utama di bidang pembiayaan perumahan. Rencana usaha jangka panjang telah diwujudkan dalam roadmap BTN dimana terdapat program Quick Wins diantaranya program riset, pendidikan property dan advisory dalam bentuk coaching clinic. Dampak dari Quick Wins ini memberikan exposure dalam meningkatkan esksistensi dari HFC ini.</p>
-							
-							<p>Akhirnya, kami mengucapkan terima kasih kepada semua pihak dalam merencanakan dan merancang HFC, semoga kontribusi ini dapat memberikan arah strategis Bank BTN, sehingga bisa menjadi Bank terdepan dalam pembiayaan perumahan dan tmbuh bersama membangun bangsa.</p>
-							
-							<p>Direktur Utama<br/>PT Bank Tabungan Negara (Persero) Tbk</p>
-						</div><!--end content left-->
-					</div>
-				</div>
-				<hr/>
-				<div class="row">
-					<div class="col-xs-12 col-sm-3">
-						<h3>TUJUAN PROGRAM</h3>
-					</div>
-					<div class="col-xs-12 col-sm-9">
-						<p>Memberikan pelayanan unggul, inovatif dan terintegrasi dalam riset, edukasi dan konsultasi terkait pembiayaan perumahan bagi klien</p>
-					</div>
-				</div>
-				<hr/>
-				<div class="row">
-					<div class="col-xs-12 col-sm-3">
-						<h3>TOPIK RISET BIDANG PROPERTY</h3>
-					</div>
-					<div class="col-xs-12 col-sm-9">
-						<div class="row">
-							<div class="col-xs-12 col-sm-3">
-								<h4>PILAR LAND AND ENVIRONMENT</h4>
-							</div>
-							<div class="col-xs-12 col-sm-9">
-								* Studi Perihal lahan sunrise di Indonesia<br/>
-								* Studi Harga Pasar Rumah<br/>
-								* Kajian Program Sejuta Rumah<br/>
-								* Potensi Daerah<br/>
-								* BTN Housing Index
-							</div>
-						</div>
-						<hr/>
-						<div class="row">
-							<div class="col-xs-12 col-sm-3">
-								<h4>PILAR CAPITAL</h4>
-							</div>
-							<div class="col-xs-12 col-sm-9">
-								* Riset perbandingan pembiayaan properti di daerah di Indonesia<br/>
-								* Kajian NPL<br/>
-								* Customer Profilling
-							</div>
-						</div>
-					</div>
-				</div>
-				<hr/>
-				<div class="row">
-					<div class="col-xs-12 col-sm-3">
-						<h3>VISI</h3>
-					</div>
-					<div class="col-xs-12 col-sm-9">
-					<p>Menjadi pusat riset, edukasi dan konsultasi terkait pembiayaan perumahan yang terdepan</p>	
-					</div>
-				</div>
-				<hr/>
-				<div class="row">
-					<div class="col-xs-12 col-sm-3">
-						<h3>MISI</h3>
-					</div>
-					<div class="col-xs-12 col-sm-9">
-					<p>Memberikan pelayanan unggul, inovatif dan terintegrasi dalam riset, edukasi dan konsultasi terkait pembiayaan perumahan bagi klien</p>	
-					</div>
-				</div>
-		</div><!--end content top-->
+			<div class="container" th:utext="${detail.content}"></div>
 		</div>
-		
 		<script type="text/javascript" th:inline="javascript">
 		/*<![CDATA[*/
+			setNavbarActive('tentang-kami');
 		/*]]>*/
 		</script>
 </body>

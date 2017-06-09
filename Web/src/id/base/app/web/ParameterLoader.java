@@ -221,8 +221,6 @@ public class ParameterLoader extends ContextLoader implements ServletContextList
 		RestCaller.BASE_CLASS.put(RestServiceConstant.GROUP_COURSE_SERVICE,  GroupCourse.class);
 		RestCaller.BASE_URL.put(RestServiceConstant.COURSE_SERVICE, RestConstant.RM_COURSE);
 		RestCaller.BASE_CLASS.put(RestServiceConstant.COURSE_SERVICE,  Course.class);
-		RestCaller.BASE_URL.put(RestServiceConstant.COURSE_TAG_SERVICE, RestConstant.RM_COURSE_TAG);
-		RestCaller.BASE_CLASS.put(RestServiceConstant.COURSE_TAG_SERVICE, Tag.class);
 		
 		// research
 		RestCaller.BASE_URL.put(RestServiceConstant.RESEARCH_THEME_SERVICE, RestConstant.RM_RESEARCH_THEME);

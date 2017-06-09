@@ -1,11 +1,5 @@
 package id.base.app.site;
 
-import id.base.app.JSONConstant;
-import id.base.app.rest.RestCaller;
-import id.base.app.rest.RestConstant;
-import id.base.app.rest.RestServiceConstant;
-import id.base.app.valueobject.course.Tag;
-
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
@@ -13,7 +7,6 @@ import java.util.Set;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -29,10 +22,6 @@ import org.springframework.stereotype.Component;
 public class ShortLifeSessionFilter2 implements Filter{
 	private final static Logger LOGGER = LoggerFactory.getLogger(ShortLifeSessionFilter2.class);
 	
-	protected RestCaller<Tag> getRestTagCaller() {
-		return new RestCaller<Tag>(RestConstant.REST_SERVICE, RestServiceConstant.COURSE_TAG_SERVICE);
-	}
-	
 	private static final Set<String> BYPASS_TOKEN = new HashSet<String>();
 	static{
 		BYPASS_TOKEN.add("/page/landingPage");
@@ -47,12 +36,8 @@ public class ShortLifeSessionFilter2 implements Filter{
 		BYPASS_TOKEN.add("/page/login/setCompanySelected");
 		BYPASS_TOKEN.add("/page/registration/activationPage");
 		BYPASS_TOKEN.add("/page/registration/activationSubmit");
-		BYPASS_TOKEN.add("/page/aboutUs/commonPost/showList");
 	}
-	
-	private static final String URL_ACTIVATION = "/page/registration/activation";
-	private static final String URL_INITIAL_WIZARD = "initialWizard";
-	
+
 	@Override
 	public void destroy() {
 		
