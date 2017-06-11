@@ -42,14 +42,11 @@
 									</div>
 								</div>
 								<h2><a href="#"><label th:text="${book.title}" class="post_title show_detail my_link"></label></a></h2>
-								<div class="bottom-left-yellow"></div>
-								<div class="bottom-right-blue"></div>
 								<input type="hidden" name="identity" th:value="${book.permalink}"/>
 							</div>
+							<div class="bottom-left-yellow"></div>
+							<div class="bottom-right-blue"></div>
 						</div>
-						<th:block th:if="${i.count % 6 == 0}">
-							<div class="clear"></div>
-						</th:block>
 					</th:block>					
 				</div>
 				<div class="row load_pagination" style="display: none;">
@@ -189,6 +186,31 @@
 				var link = /*[[@{/page/ebook/}]]*/ '';
 				window.location.href = link + $(this).parents('.post').find('input[name="identity"]').val();
 			});
+			
+			var heightsEqualizer = function(selector) {
+			    var elements = document.querySelectorAll(selector),
+			        max_height = 0,
+			        len = 0,
+			        i;
+			 
+			    if ( (elements) && (elements.length > 0) ) {
+			        len = elements.length;
+			 
+			        for (i = 0; i < len; i++) { // get max height
+						elements[i].style.height = ''; // reset height attr
+			            if (elements[i].clientHeight > max_height) {
+			                max_height = elements[i].clientHeight;
+			            }
+			        }
+			 
+			        for (i = 0; i < len; i++) { // set max height to all elements
+			            elements[i].style.height = max_height + 'px';
+			        }
+			    }
+			}
+			
+			heightsEqualizer('.data_result .post');
+			
 		});
 		/*]]>*/
 		</script>

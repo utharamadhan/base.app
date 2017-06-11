@@ -10,7 +10,10 @@
 				<div class="container">
 					<ul>
 					<li><a th:href="@{/}">Beranda</a></li>
-					<li><a th:href="@{/page/research-development}">Research &#38; Development</a></li>
+					<li><a th:href="@{/page/main-program}">Program</a></li>
+					<li><a th:href="@{/page/main-program/research-development/research}">Research &#38; Development</a></li>
+					<li><a th:href="@{/page/main-program/research-development/research}">Research</a></li>
+					<li><a href="#">Kumpulan Hasil Penelitian</a></li>
 					</ul>
 				</div>
 			</div>
@@ -20,7 +23,7 @@
 		<div class="rnd_section">
 			<div class="container">
 				<h2>KUMPULAN HASIL PENELITIAN</h2>
-				<form class="filter_form back-gradient-transparent form-top-blue" action="#" th:action="@{/page/main-program/research-development/research/list}" method="GET">
+				<form class="filter_form back-gradient-transparent-force-white form-top-blue" action="#" th:action="@{/page/main-program/research-development/research/list}" method="GET">
 					<div class="row">
 						<div class="col-md-5"><label class="head-label">Pencarian</label></div>
 						<div class="col-md-5"><label class="head-label">Kategori</label></div>
