@@ -2839,9 +2839,7 @@ ul.channel-links li{
     width: 100%;
     float: left;
     height: auto;
-    border-bottom: 1px solid #dce4ea;
     padding: 50px 0 20px;
-    background: #fff;
 }
 .custom_title {
     width: 100%;
@@ -4449,7 +4447,6 @@ svg {
 
 .consulting_main_part{
 	position: relative;
-    top: -220px;
     z-index: 99;
 }
 
