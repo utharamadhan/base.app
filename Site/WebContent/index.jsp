@@ -185,22 +185,22 @@
 							</div>
 							<div class="row circle-bottom-wrapper">
 								<div class="circle-bottom1">
-									<div class="title-center">
-										<h2>Land & Environment</h2>
+									<div class="title-center link-pilar">
+										<h2>Land &#38; Environment</h2>
 									</div>
 								</div>
 								<div class="circle-bottom2">
-									<div class="title-center">
+									<div class="title-center link-pilar">
 										<h2>Capital</h2>
 									</div>
 								</div>
 								<div class="circle-bottom3">
-									<div class="title-center">
+									<div class="title-center link-pilar">
 										<h2>Legal</h2>
 									</div>
 								</div>
 								<div class="circle-bottom4">
-									<div class="title-center">
+									<div class="title-center link-pilar">
 										<h2>Skills</h2>
 									</div>
 								</div>
@@ -268,6 +268,9 @@
 		<script>
 		setNavbarActive('beranda');
 		$(document).ready(function(){
+			$('.link-pilar').click(function(){
+				location.href='/Site/page/pilar';
+			});
 			$('.arrowBottom').click(function(){
 				scrollToBottom('aboutUsArea', 72);
 			});
@@ -389,6 +392,7 @@
 			}
 
 			setInterval(updateGradient,10);
+			
 		});
 	</script>
  </body>

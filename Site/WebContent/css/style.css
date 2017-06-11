@@ -1070,7 +1070,6 @@ h4.modal-title{
 .post .post_thumb {
     width: 100%;
     float: left;
-    height: 174.33px;
     margin: 0px;
     position: relative;
 }
@@ -1101,16 +1100,19 @@ h4.modal-title{
   height:0;
   transition: .5s ease;
 }
-
 .green .post .post_thumb .overlay {
   background-color: rgba(26, 181, 11, 0.8);
 }
-
+.yellow .post .post_thumb .overlay{
+  background-color: rgba(255,251,227, 0.8);
+}
+.yellow .post .post_thumb a{
+  color: #004fb6;
+}
 .post .post_thumb:hover .overlay {
   bottom: 0;
   height: 100%;
 }
-
 .post .post_thumb .overlay .text {
   white-space: nowrap; 
   color: white;
@@ -1121,6 +1123,9 @@ h4.modal-title{
   left: 50%;
   transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
+}
+.yellow .post .post_thumb .overlay .text{
+	color: #004fb6;
 }
 .post h2 a{
 	font-size: 16px;
@@ -1538,6 +1543,26 @@ ul.channel-links li{
     padding-left: 10px;
     width: 100%;
     float: left;
+}
+.post_content_right_inner .data_result{
+	margin:0px 0px 20px 0px;	
+}
+.post_content_right_inner .post .post_thumb{
+	margin: 0px;
+    height: 260px;
+    overflow: hidden;
+}
+.post_content_right_inner .post {
+	margin: 0px;
+}
+.post_content_right_inner .post .info{
+	margin:5px 10px;
+}
+.post_content_right_inner .post .info label{
+	margin-bottom:0px;
+}
+.post_content_right_inner .post .info .date{
+	text-align:center;
 }
 .post_content_right_inner .table-striped>tbody>tr:nth-child(2n)>td,
 .post_content_right_inner .table-striped>tbody>tr:nth-child(2n)>th {
@@ -4708,6 +4733,9 @@ svg {
     border-radius: 50px;
     width: 20px;
     height: 20px;
+}
+.link-pilar{
+	cursor:pointer;
 }
 @media only screen and (max-width: 1280px){
 	
