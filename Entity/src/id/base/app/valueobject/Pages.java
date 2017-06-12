@@ -1,5 +1,7 @@
 package id.base.app.valueobject;
 
+import id.base.app.ILookupConstant;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -10,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "PAGES")
@@ -25,6 +28,7 @@ public class Pages extends BaseEntity implements Serializable {
 	public static final String ORDER_NO	= "orderNo";
 	public static final String STATUS 	= "status";
 	public static final String TYPE 	= "type";
+	public static final String PERMALINK = "permalink";
 	
 	public static Pages getInstance() {
 		return new Pages();
@@ -44,6 +48,9 @@ public class Pages extends BaseEntity implements Serializable {
 	
 	@Column(name="STATUS")
 	private Integer status;
+	
+	@Transient
+	private String statusStr;
 	
 	@Column(name="PUBLISH_DATE")
 	private Date publishDate;
@@ -90,6 +97,10 @@ public class Pages extends BaseEntity implements Serializable {
 
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+	
+	public String getStatusStr() {
+		return ILookupConstant.ArticleStatus.ARTICLE_STATUS_MAP.get(status);
 	}
 
 	public Date getPublishDate() {

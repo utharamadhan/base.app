@@ -1001,14 +1001,13 @@
      	left:111px!important;
      }
 }
-@media only screen and (max-width: 1279px){
-	.hexagon_bg_top, .hexagon_bg_top img{
-		height:210px;
-		width:182.609px;
+@media only screen and (min-width: 1280px) and (max-width: 1365px) {
+	.back-pcb{
+		top:3px;
 	}
 	.hexagon_learning{
-	    top: -73px;
-    	left: 275px;
+	    top: -13px;
+    	left: 279px;
 	}
 	.hexagon_research{
 		top: -64px;
@@ -1030,11 +1029,8 @@
 	    top: 237px;
 	    left: -44px;
 	}
-	.back-pcb{
-		top:18px;
-	}
 	.aboutArea{
-		padding:24px 0 0 0;
+		padding:32px 0 0 0;
 	}
 	.housing_index {
 	    right: 660px;
@@ -1058,12 +1054,15 @@
 		top:135px;
 	}
 }
-@media only screen and (max-width: 1023px){
+@media only screen and (min-width: 1024px) and (max-width: 1279px) {
+	
+}
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
 	.housing_index {
 	    right: 0px;
 	}
 }
-@media only screen and (max-width: 767px){
+@media only screen and (min-width: 640px) and (max-width: 767px) {
 	.aboutArea{display:none}
 	.banner-wrapper .form-wrapper .banner-header{
 		padding-top:40px;
@@ -1077,7 +1076,7 @@
 	    margin-top: 280px;
 	}
 }		
-@media only screen and (max-width: 639px){
+@media only screen and (min-width: 480px) and (max-width: 639px) {
 	.circle-top {
 	    background-size: 100% 153px;
 	}
@@ -1085,7 +1084,7 @@
 	    background-size: 100% 225px;
 	}
 }
-@media only screen and (max-width: 479px){
+@media only screen and (min-width: 320px) and (max-width: 479px) {
 	.testimonial{ padding: 80px 15px 5px; }
 	.testimonial::before{ top: 10px; }
 	.testimonial .pic{
@@ -1094,4 +1093,3 @@
 		top: -60px;
 	}
 }
-

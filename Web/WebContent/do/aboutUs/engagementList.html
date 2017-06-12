@@ -49,19 +49,19 @@
 <script th:inline="javascript">
 	/*<![CDATA[*/
 		function showAdd() {
-	    	var sURL = /*[[@{/do/activity/engagement/showAdd?skipdecorator=}]]*/ #;
+	    	var sURL = /*[[@{/do/aboutUs/engagement/showAdd?skipdecorator=}]]*/ #;
 	    	showScreen('engagement-list-container', 'engagement-detail-container', sURL);
 		}
 		
 		function showDetail(maintenancePK) {
-			var sURL = /*[[@{/do/activity/engagement/showEdit?maintenancePK=}]]*/ #;
+			var sURL = /*[[@{/do/aboutUs/engagement/showEdit?maintenancePK=}]]*/ #;
 			showScreen('engagement-list-container', 'engagement-detail-container', sURL + maintenancePK + "&skipdecorator=");
 		}
 		
 		function deleteItem(maintenancePK) {
 			var callbackDelete = function(result) {
 				if (result) {
-					var sURL = /*[[@{/do/activity/engagement/delete?}]]*/ #;
+					var sURL = /*[[@{/do/aboutUs/engagement/delete?}]]*/ #;
 					var serializedData = "maintenancePKs=" + maintenancePK;
 					$.post(sURL, serializedData,function(data){
 						if(data.errorList!=null){
@@ -76,7 +76,7 @@
 		}
 		
 		function deleteEngagement() {
-			var sURL = /*[[@{/do/activity/engagement/deleteEngagement?skipDecorator}]]*/ #;
+			var sURL = /*[[@{/do/aboutUs/engagement/deleteEngagement?skipDecorator}]]*/ #;
 			$.post(sURL, $('.engagement-list-check-delete').serialize(), function(data){
 				if(data.errorList!=null){
 					
@@ -92,7 +92,7 @@
 		                   { name : "statusStr" },
 	    	               { type : "deleteAndEdit" , param : [ "pkEngagement" ] }
 	    	               ];
-		    var sURL = /*[[@{/do/activity/engagement/list?}]]*/ #;
+		    var sURL = /*[[@{/do/aboutUs/engagement/list?}]]*/ #;
 		    buildDataTable(/*[[@{/}]]*/, sURL, 'engagement-list-table', 450, colDefs, null, null);
 	    });
 	    

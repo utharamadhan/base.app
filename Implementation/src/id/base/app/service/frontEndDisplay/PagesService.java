@@ -56,5 +56,10 @@ public class PagesService implements IPagesService {
 	public List<Pages> findAll(List<SearchFilter> filter, List<SearchOrder> order) throws SystemException {
 		return pagesDAO.findAll(filter, order);
 	}
-
+	
+	@Override
+	public Pages findByPermalink(String permalink) throws SystemException {
+		return pagesDAO.findByPermalink(permalink);
+	}
+	
 }

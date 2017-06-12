@@ -10,7 +10,7 @@
 			<div class="row clearfix">
 				<div class="about_inner">
 					<div class="col-md-4">
-						<div class="hexagon_learning hexagon_bg_top hexagon_learning" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/mainProgram/learning'">
+						<div class="hexagon_learning hexagon_bg_top hexagon_learning" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/main-program/learning/seminar'">
 							<div class="hb-1">
 								<div class="hb-2">
 									<img src="<%=request.getContextPath()%>/images/learning_.jpg"/>
@@ -30,7 +30,7 @@
 						<label class="advisory_text">Advisory</label>
 					</div>
 					<div class="col-md-4">
-						<div class="hexagon_rnd hexagon_bg_top" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/research-development'">
+						<div class="hexagon_rnd hexagon_bg_top" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/main-program/research-development/research'">
 							<div class="hb-1">
 								<div class="hb-2">
 									<img src="<%=request.getContextPath()%>/images/rnd_.jpg"/>
@@ -185,22 +185,22 @@
 							</div>
 							<div class="row circle-bottom-wrapper">
 								<div class="circle-bottom1">
-									<div class="title-center">
-										<h2>Land & Environment</h2>
+									<div class="title-center link-pilar">
+										<h2>Land &#38; Environment</h2>
 									</div>
 								</div>
 								<div class="circle-bottom2">
-									<div class="title-center">
+									<div class="title-center link-pilar">
 										<h2>Capital</h2>
 									</div>
 								</div>
 								<div class="circle-bottom3">
-									<div class="title-center">
+									<div class="title-center link-pilar">
 										<h2>Legal</h2>
 									</div>
 								</div>
 								<div class="circle-bottom4">
-									<div class="title-center">
+									<div class="title-center link-pilar">
 										<h2>Skills</h2>
 									</div>
 								</div>
@@ -268,6 +268,9 @@
 		<script>
 		setNavbarActive('beranda');
 		$(document).ready(function(){
+			$('.link-pilar').click(function(){
+				location.href='/Site/page/pilar';
+			});
 			$('.arrowBottom').click(function(){
 				scrollToBottom('aboutUsArea', 72);
 			});
@@ -389,6 +392,7 @@
 			}
 
 			setInterval(updateGradient,10);
+			
 		});
 	</script>
  </body>

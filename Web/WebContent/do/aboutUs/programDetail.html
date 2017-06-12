@@ -131,7 +131,7 @@
 			var submitForm = function(){
 				cleanErrorParsley();
 				$('#tinyMCE-hidden').val(tinymce.get('tinyMCE-area').getContent());
-				var sURL = /*[[@{/do/activity/program/saveProgram/}]]*/ #;
+				var sURL = /*[[@{/do/aboutUs/program/saveProgram/}]]*/ #;
 				$.post(sURL, $("#program-detail-form").serialize(), function(data) {
 					if(data.errorList!=null){
 						

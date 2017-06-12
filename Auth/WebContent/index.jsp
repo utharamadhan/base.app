@@ -55,7 +55,7 @@
     <center>
       <div class="section"></div>
 
-      <h5 class="title-login">Please, login into your account</h5>
+      <h5 class="title-login">Please login before entering HFC Site</h5>
       <div class="section"></div>
 
       <div class="container">

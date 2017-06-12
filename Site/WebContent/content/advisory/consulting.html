@@ -33,15 +33,12 @@
 					<div class="container">
 						<div class="advisor_container">
 							<div class="advisor-title add-animation animate">
-		                        <h2>I Want To</h2>
-		                        <div class="separator-container">
-		                            <div class="separator line-separator">&#x25A0;</div>
-		                        </div>
+		                        <h2>Saya ingin bertanya mengenai : </h2>
 		                    </div>
 		                    <div class="category_advisory">
 			                    <div class="row title_consulting_content">
 			                    	<div class="col-md-6">
-			                    		<h4>Category</h4>
+			                    		<h4>Categori</h4>
 			                    	</div>
 			                    	<div class="col-md-6"> 
 			                    	</div>
@@ -124,16 +121,17 @@
 						</div>
 					</div>
 				</div>
-				
-				
+				<div class="clear"></div>
+				<div class="hexa-top-yellow-left-long yellow">
+				<div class="post_section back-gradient-transparent-force-white">
 				<!-- Closing advisory -->
 				<div class="custom_content custom" id="consult_form_part">
 					<div class="container large">
 						
 						<div class="row">
-							<div class="col-xs-12 col-sm-8 col-md-8 custom_right">
+							<div class="col-md-6 custom_right post_sidebar_left">
 								<div class="single_content_left" style="border: 0;">
-									<h3>Ask Us</h3>
+									<h3>Kirim pertanyaan anda kepada kami :</h3>
 									
 									<div class="contact_form">
 											
@@ -231,11 +229,96 @@
 								
 								
 							</div>
+							<div class="col-md-6 custom_right">
+								<div class="single_content_left" style="border: 0;">
+									<h3>Atau kunjungi kami langsung di : </h3>
+									
+									<div class="visit_form">
+											
+										<form method="post" action="#" id="advisory_form">
+											<div class="form-group">
+												<select class="form-control" id="kc-btn" name="kc-btn">
+												<option value="0">-- Pilih Kantor Cabang BTN Terdekat Anda --</option>
+												<option value="1">Kantor Cabang Jakarta Harmoni</option>
+												<option value="2">Kantor Cabang Kelapa Gading Square</option>
+												<option value="3">Kantor Cabang Depok</option>
+												<option value="4">Kantor Cabang Bekasi</option>
+												<option value="5">Kantor Cabang Bogor</option>
+												</select>
+											</div>
+											<div class="ct" id="ct-1" style="display:none">
+												Menara Bank BTN Jln. Gajah Mada No. 1 Jakarta Pusat 10130, Jakarta<br/>
+												Telepon: 021 - 6336789; 6332666<br/>
+												Fax: 021 - 6386593; 6332676; 6333021<br/>
+												Email: kc.jakartaharmoni@btn.co.id<br/>
+												<br/>
+												<div>
+												<h3 style="margin-bottom:10px">Jam Layanan</h3>
+												Senin-Jumat: 8am to 8pm<br/>Sabtu: 9am to 3pm<br/>Minggu: Tutup
+												</div>
+											</div>
+											<div class="ct" id="ct-2" style="display:none">
+												Gedung Emerald Tower Jl. Boulevard Barat Blok XB No.3 Jakarta 14240, Jakarta<br/>
+												Telepon: (021) 45866883, 45866884<br/>
+												Fax: (021) 45866885<br/>
+												<br/>
+												<div>
+												<h3 style="margin-bottom:10px">Jam Layanan</h3>
+												Senin-Jumat: 8am to 8pm<br/>Sabtu: 9am to 3pm<br/>Minggu: Tutup
+												</div>
+											</div>
+											<div class="ct" id="ct-3" style="display:none">
+												Jl. Margonda Raya No. 186 Depok 16423, Depok<br/>
+												Telepon: 021-7751236<br/>
+												Fax: 021-7772927<br/>
+												Email: kc.depok@btn.co.id<br/>
+												<br/>
+												<div>
+												<h3 style="margin-bottom:10px">Jam Layanan</h3>
+												Senin-Jumat: 8am to 8pm<br/>Sabtu: 9am to 3pm<br/>Minggu: Tutup
+												</div>
+											</div>
+											<div class="ct" id="ct-4" style="display:none">
+												Jl. Jend. Sudirman No. 19 Bekasi 17143, Bekasi<br/>
+												Telepon: (021) 8840649<br/>
+												Fax: (021) 8849519<br/>
+												Email: kc.bekasi@btn.co.id<br/>
+												<br/>
+												<div>
+												<h3 style="margin-bottom:10px">Jam Layanan</h3>
+												Senin-Jumat: 8am to 8pm<br/>Sabtu: 9am to 3pm<br/>Minggu: Tutup
+												</div>
+											</div>
+											<div class="ct" id="ct-5" style="display:none">
+												Jl. Pengadilan No. 13-15 Bogor 16121, Bogor<br/>
+												Telepon: 0251 - 8311700<br/>
+												Fax: 0251 - 8323007<br/>
+												Email: kc.bogor@btn.co.id<br/>
+												<br/>
+												<div>
+												<h3 style="margin-bottom:10px">Jam Layanan</h3>
+												Senin-Jumat: 8am to 8pm<br/>Sabtu: 9am to 3pm<br/>Minggu: Tutup
+												</div>
+											</div>
+										</form>
+									</div>  
+									
+									
+								</div><!--end single content left-->
+								
+								
+								
+							</div>
 							
 						</div><!--end row-->
 						
 					</div>
+					<div class="clear"></div>
 				</div><!--end custom content-->
+				<div class="clear"></div>
+				</div>
+				<div class="clear"></div>
+				</div>
 			</section>
 		</div><!--end post section-->
 		
@@ -480,6 +563,13 @@
 					$('.advisor_input').show();
 				}
 				finalChoose();
+			});
+			
+			$('#kc-btn').change(function(){
+				$('.ct').hide();
+				if($(this).val()!='0'){
+					$('#ct-'+$(this).val()).show();	
+				}	
 			});
 		});
 		

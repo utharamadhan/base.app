@@ -49,19 +49,19 @@
 <script th:inline="javascript">
 	/*<![CDATA[*/
 		function showAdd() {
-	    	var sURL = /*[[@{/do/activity/program/showAdd?skipdecorator=}]]*/ #;
+	    	var sURL = /*[[@{/do/aboutUs/program/showAdd?skipdecorator=}]]*/ #;
 	    	showScreen('program-list-container', 'program-detail-container', sURL);
 		}
 		
 		function showDetail(maintenancePK) {
-			var sURL = /*[[@{/do/activity/program/showEdit?maintenancePK=}]]*/ #;
+			var sURL = /*[[@{/do/aboutUs/program/showEdit?maintenancePK=}]]*/ #;
 			showScreen('program-list-container', 'program-detail-container', sURL + maintenancePK + "&skipdecorator=");
 		}
 		
 		function deleteItem(maintenancePK) {
 			var callbackDelete = function(result) {
 				if (result) {
-					var sURL = /*[[@{/do/activity/program/delete?}]]*/ #;
+					var sURL = /*[[@{/do/aboutUs/program/delete?}]]*/ #;
 					var serializedData = "maintenancePKs=" + maintenancePK;
 					$.post(sURL, serializedData,function(data){
 						if(data.errorList!=null){
@@ -76,7 +76,7 @@
 		}
 		
 		function deleteProgramPost() {
-			var sURL = /*[[@{/do/activity/program/deleteProgram?skipDecorator}]]*/ #;
+			var sURL = /*[[@{/do/aboutUs/program/deleteProgram?skipDecorator}]]*/ #;
 			$.post(sURL, $('.program-list-check-delete').serialize(), function(data){
 				if(data.errorList!=null){
 					
@@ -92,7 +92,7 @@
 		                   { name : "statusStr" },
 	    	               { type : "deleteAndEdit" , param : [ "pkProgramPost" ] }
 	    	               ];
-		    var sURL = /*[[@{/do/activity/program/list?}]]*/ #;
+		    var sURL = /*[[@{/do/aboutUs/program/list?}]]*/ #;
 		    buildDataTable(/*[[@{/}]]*/, sURL, 'program-list-table', 450, colDefs, null, null);
 	    });
 	    

@@ -31,6 +31,7 @@
 		                        <thead>
 		                          <tr>
 									<th>Title</th>
+									<th>Status</th>
 									<th>E/D</th>
 		                          </tr>
 		                        </thead>
@@ -83,7 +84,8 @@
 	    $(function(){
 		    setMenuActive('commonPost');
 		    var colDefs = [{ name : "title" },
-	    	               { type : "deleteAndEdit" , param : [ "pkCommonPost" ] }
+		                   { name : "statusStr" },
+	    	               { type : "deleteAndEdit" , param : [ "pkPages" ] }
 	    	               ];
 		    var sURL = /*[[@{/do/aboutUs/commonPost/list?}]]*/ #;
 		    buildDataTable(/*[[@{/}]]*/, sURL, 'commonPost-list-table', 450, colDefs, null, null);

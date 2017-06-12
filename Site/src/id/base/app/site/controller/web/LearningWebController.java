@@ -8,15 +8,11 @@ import id.base.app.rest.RestConstant;
 import id.base.app.rest.RestServiceConstant;
 import id.base.app.rest.SpecificRestCaller;
 import id.base.app.site.rest.LookupRestCaller;
-import id.base.app.util.dao.Operator;
-import id.base.app.util.dao.SearchFilter;
-import id.base.app.util.dao.SearchOrder;
 import id.base.app.valueobject.Lookup;
 import id.base.app.valueobject.course.Course;
 import id.base.app.valueobject.course.GroupCourse;
 import id.base.app.valueobject.course.Tag;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,7 +34,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Scope(value="request")
-@RequestMapping(value="/learning")
+@RequestMapping(value="/main-program/learning")
 @Controller
 public class LearningWebController {
 	
@@ -58,13 +54,29 @@ public class LearningWebController {
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public String view(ModelMap model, HttpServletRequest request, HttpServletResponse response){
-		List<SearchFilter> filter = new ArrayList<SearchFilter>();
+		/*List<SearchFilter> filter = new ArrayList<SearchFilter>();
 		filter.add(new SearchFilter(GroupCourse.ORDER_NO, Operator.IS_NOT_NULL, null));
 		List<SearchOrder> order = new ArrayList<SearchOrder>();
 		order.add(new SearchOrder(GroupCourse.ORDER_NO, SearchOrder.Sort.ASC));
 		List<GroupCourse> groups = getRestCaller().findAll(filter, order);
 		model.addAttribute("groups", groups);
-		return "/learning/main";
+		return "/learning/main";*/
+		return "redirect:/page/main-program/research-development/learning/seminar";
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/seminar")
+	public String seminar(ModelMap model, HttpServletRequest request, HttpServletResponse response){
+		return "/learning/seminar";
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/workshop")
+	public String workshop(ModelMap model, HttpServletRequest request, HttpServletResponse response){
+		return "/learning/workshop";
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/kursus")
+	public String kursus(ModelMap model, HttpServletRequest request, HttpServletResponse response){
+		return "/learning/kursus";
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/detail/{id}/{title}")
