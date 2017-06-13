@@ -3708,13 +3708,6 @@ svg {
 .no-border-right{
 	border-right:0px solid white;
 }
-.contact-us-wrapper{
-	background-image: url(/Site/images/background_contact.jpg);
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
 .hexa-top-right{
 	background-image:url('/Site/images/background_detail.png');
 	background-repeat: no-repeat; 

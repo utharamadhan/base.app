@@ -55,14 +55,8 @@ public class ResearchDevelopmentWebController {
 		return "/research-development/development";
 	}
 	
-	@RequestMapping(method=RequestMethod.GET, value="/research/search")
-	public String viewResearch(ModelMap model, HttpServletRequest request, HttpServletResponse response){
-		model.addAttribute("researchThemes", getResearchThemesTitle());
-		return "/research-development/research/main";
-	}
-	
 	@RequestMapping(method=RequestMethod.GET, value="/research/list")
-	public String listGet(ModelMap model, HttpServletRequest request, HttpServletResponse response){
+	public String listResearch(ModelMap model, HttpServletRequest request, HttpServletResponse response){
 		return "/research-development/research/list";
 	}
 	
