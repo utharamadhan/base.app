@@ -1,5 +1,23 @@
 package id.base.app.site.controller.web;
 
+import id.base.app.SystemConstant;
+import id.base.app.exception.ErrorHolder;
+import id.base.app.paging.PagingWrapper;
+import id.base.app.properties.ApplicationProperties;
+import id.base.app.rest.RestCaller;
+import id.base.app.rest.RestConstant;
+import id.base.app.rest.RestServiceConstant;
+import id.base.app.util.dao.Operator;
+import id.base.app.util.dao.SearchFilter;
+import id.base.app.util.dao.SearchOrder;
+import id.base.app.util.dao.SearchOrder.Sort;
+import id.base.app.valueobject.AppUser;
+import id.base.app.valueobject.advisory.Advisory;
+import id.base.app.valueobject.advisory.AdvisoryMenu;
+import id.base.app.valueobject.advisory.AdvisoryPost;
+import id.base.app.valueobject.advisory.Article;
+import id.base.app.valueobject.advisory.Category;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,24 +48,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.code.kaptcha.Constants;
-
-import id.base.app.SystemConstant;
-import id.base.app.exception.ErrorHolder;
-import id.base.app.paging.PagingWrapper;
-import id.base.app.properties.ApplicationProperties;
-import id.base.app.rest.RestCaller;
-import id.base.app.rest.RestConstant;
-import id.base.app.rest.RestServiceConstant;
-import id.base.app.util.dao.Operator;
-import id.base.app.util.dao.SearchFilter;
-import id.base.app.util.dao.SearchOrder;
-import id.base.app.util.dao.SearchOrder.Sort;
-import id.base.app.valueobject.AppUser;
-import id.base.app.valueobject.advisory.Advisory;
-import id.base.app.valueobject.advisory.AdvisoryMenu;
-import id.base.app.valueobject.advisory.AdvisoryPost;
-import id.base.app.valueobject.advisory.Article;
-import id.base.app.valueobject.advisory.Category;
 
 @Scope(value="request")
 @RequestMapping(value="/advisory")
@@ -82,6 +82,26 @@ public class AdvisoryWebController {
 	
 	protected RestCaller<AdvisoryPost> getRestCallerPost() {
 		return new RestCaller<AdvisoryPost>(RestConstant.REST_SERVICE, RestServiceConstant.ADVISORY_POST_SERVICE);
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/advisory1")
+	public String advisory1(ModelMap model, HttpServletRequest request, HttpServletResponse response){
+		return "/advisory/advisory1";
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/advisory2")
+	public String advisory2(ModelMap model, HttpServletRequest request, HttpServletResponse response){
+		return "/advisory/advisory2";
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/advisory3")
+	public String advisory3(ModelMap model, HttpServletRequest request, HttpServletResponse response){
+		return "/advisory/advisory3";
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/advisory4")
+	public String advisory4(ModelMap model, HttpServletRequest request, HttpServletResponse response){
+		return "/advisory/advisory4";
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)

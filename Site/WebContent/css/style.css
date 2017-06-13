@@ -3544,6 +3544,10 @@ ul.contact_info li a:hover {
     padding-top: 60px;
     margin-top: -66px;
 }
+.md-3 .card-box{
+	margin-top: -130px;
+	height: 175px;
+}
 .green .card-box{
 	border-top:0px solid #2d7926;
 	border-right:1px solid #2d7926;
@@ -3555,6 +3559,12 @@ ul.contact_info li a:hover {
 	border-right:1px solid #fcdb00;
 	border-left:1px solid #fcdb00;
 	background:#fae033;
+}
+.orange .card-box{
+	border-top:0px solid #a85d03;
+	border-right:1px solid #a85d03;
+	border-left:1px solid #a85d03;
+	background:#c16d08;
 }
 .green .card-active .card-title a{
 	color:#ffffff;
@@ -3599,6 +3609,9 @@ svg {
 .yellow .card-not-active .card-box{
 	background:rgba(255,250,214, 0.4);
 }
+.orange .card-not-active .card-box{
+	background:rgba(193, 109, 8, 0.4);
+}
 .card-not-active a{
 	color:rgba(0, 79, 182, 0.5);
 }	
@@ -3619,6 +3632,13 @@ svg {
     border-bottom: 1px solid #FFDE00;
     border-right: 1px solid #fcdb00;
     border-left: 1px solid #fcdb00;
+}
+.orange .top-desc{
+	background-color: #c16d08;
+	color:#ffffff;
+    border-bottom:1px solid #a85d03;
+	border-right:1px solid #a85d03;
+	border-left:1px solid #a85d03;
 }
 .green .filter{
 	background-color: #014e24;
@@ -3694,6 +3714,16 @@ svg {
 	background: -ms-linear-gradient(left, rgba(255,251,227,0.8) 0%, rgba(255,245,191,0.8) 100%);
 	background: linear-gradient(to right, rgba(255,251,227,0.8) 0%, rgba(255,245,191,0.8) 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fffbe3', endColorstr='#fff5bf', GradientType=1 );
+}
+.orange .back-gradient-transparent{
+	background: rgba(255,224,186,0.8);
+	background: -moz-linear-gradient(left, rgba(255,224,186,0.8) 0%, rgba(255,214,163,0.8) 100%);
+	background: -webkit-gradient(left top, right top, color-stop(0%, rgba(255,224,186,0.8)), color-stop(100%, rgba(255,214,163,0.8)));
+	background: -webkit-linear-gradient(left, rgba(255,224,186,0.8) 0%, rgba(255,214,163,0.8) 100%);
+	background: -o-linear-gradient(left, rgba(255,224,186,0.8) 0%, rgba(255,214,163,0.8) 100%);
+	background: -ms-linear-gradient(left, rgba(255,224,186,0.8) 0%, rgba(255,214,163,0.8) 100%);
+	background: linear-gradient(to right, rgba(255,224,186,0.8) 0%, rgba(255,214,163,0.8) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffe0ba', endColorstr='#ffd6a3', GradientType=1 );
 }
 .back-gradient-transparent-menu{
 	background: rgba(246,244,244,0.9);
@@ -3811,42 +3841,6 @@ svg {
 .rnd_themes_body_wrapper{
 	background: white;
     padding: 30px;	
-}
-.header_advisory{
-	padding: 0px;
-}
-
-.advisory_head_back_margin{
-	background-color: #657178;
-	height: 25px;
-}
-
-.advisory_head_back{
-	background-color: #657178;
-	height: 125px;
-	background-image: url(../images/nav_bg.png);
-	background-repeat: repeat-x;
-	background-position: 0 0;
-}
-
-
-.advisory_head_menu{
-	background-color: transparent;
-	height: 80px;
-	position: relative;
-	z-index: 2;
-}
-
-.advisory_logo{
-	background-image: url(../images/advisory_logo2.png);
-	background-repeat: no-repeat;
-	width: 327px;
-    height: 165px;
-    z-index: 999;
-    position: absolute;
-    top:  96px;
-    left: 50%;
-    margin-left: -163px;
 }
 
 .info_banner{

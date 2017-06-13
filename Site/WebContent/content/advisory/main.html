@@ -6,7 +6,7 @@
 <title></title>
 </head>
 <body>
-	<div class="breadcrumb-wrapper">
+		<div class="breadcrumb-wrapper">
 			<div class="breadcrumb">
 				<div class="container">
 					<ul>
@@ -16,60 +16,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="advisory_head_back_margin">
-			&nbsp;
-		</div>
-		<div class="advisory_head_back">
-			&nbsp;
-		</div>
 		<div class="main_advisory_section">
-			<div class="header_advisory">
-				<h1 class="advisory_logo"></h1>
-				<div class="container">
-					<div class="row">
-						<nav class="clearfix" th:if="${#lists.size(menus) &lt; 1}">
-							<span class="set-1">
-								<span class="content_float_right">
-									<a th:href="@{/page/advisory/sub/stories}" title="Advisory Story" class="menu_choice_left content_float_left">Advisory Story</a>
-									<a th:href="@{/page/advisory/sub/advisor}" title="Advisory Team" class="menu_choice_left content_float_left">Advisory Team</a>
-								</span>
-							</span>
-							<span class="set-2">
-								<span class="content_float_left">
-									<a th:href="@{/page/advisory/sub/article}" title="Research &amp; Insight" class="menu_choice_right">Research &amp; Insight</a>
-									<a th:href="@{/page/advisory/sub/consulting}" title="Consulting" class="menu_choice_right">Consulting</a>
-								</span>
-							</span>
-						</nav>
-						<nav class="clearfix" th:if="${#lists.size(menus) &gt; 0}">
-							<span class="set-1">
-								<span class="content_float_right">
-									<span th:each="menu, i : ${menus}" th:if="${i.index &lt; leftMenu}">
-										<th:block th:if="${menu.link !=null and menu.link!=''}">
-											<a th:href="@{${menu.link}}" th:title="${menu.name}" class="menu_choice_left content_float_left" th:text="${menu.name}">Advisory Story</a>
-										</th:block>
-										<th:block th:if="${menu.post !=null and menu.post.pkAdvisoryPost!=null}">
-											<a th:href="@{${'/page/advisory/sub/post/' + menu.post.pkAdvisoryPost + '/' + #strings.replace(menu.name, ' ', '-')}}" th:title="${menu.name}" class="menu_choice_left content_float_left" th:text="${menu.name}">Advisory Story</a>
-										</th:block>
-									</span>
-								</span>
-							</span>
-							<span class="set-2">
-								<span class="content_float_left">
-									<span th:each="menu, i : ${menus}" th:if="${i.index &lt; rightMenu + leftMenu and i.count &gt; leftMenu}">
-										<th:block th:if="${menu.link !=null and menu.link!=''}">
-											<a th:href="@{${menu.link}}" th:title="${menu.name}" class="menu_choice_left content_float_left" th:text="${menu.name}">Advisory Story</a>
-										</th:block>
-										<th:block th:if="${menu.post !=null and menu.post.pkAdvisoryPost!=null}">
-											<a th:href="@{${menu.link}}" th:title="${menu.name}" class="menu_choice_left content_float_left" th:text="${menu.name}">Advisory Story</a>
-										</th:block>
-									</span>
-								</span>
-							</span>
-						</nav>
-					</div>
-				</div>
-			</div>
 			<!-- Start advisory article -->
 			<div class="advisory_article">
 				<div class="container">
@@ -97,7 +44,6 @@
 							</div>
 							</th:block>
 						</div>
-						<div class="bouton bouton-red"><a th:href="@{/page/advisory/sub/article}">View More</a></div>
 					</div>
 				</div>
 			</div>
