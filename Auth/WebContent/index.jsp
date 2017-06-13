@@ -59,7 +59,7 @@
       <div class="section"></div>
 
       <div class="container">
-        <div class="z-depth-1 row login-wrapper" style="width: 400px;">
+        <div class="z-depth-1 row login-wrapper">
 
           <form class="col s12" method="post">
             <div class='row'>
