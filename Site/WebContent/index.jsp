@@ -5,62 +5,64 @@
  <body>
  	<link href="<%=request.getContextPath()%>/css/home.css" rel="stylesheet" />
 		<div id="aboutArea" class="aboutArea">
-		  <div class="container">
-		  	<img src="<%=request.getContextPath()%>/images/hfc-pcb.png" class="back-pcb"/>
-			<div class="row clearfix">
+			<div class="clearfix">
 				<div class="about_inner">
-					<div class="col-md-4">
-						<div class="hexagon_learning hexagon_bg_top hexagon_learning" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/main-program/learning/seminar'">
-							<div class="hb-1">
-								<div class="hb-2">
-									<img src="<%=request.getContextPath()%>/images/learning_.jpg"/>
-								</div>
-							</div>
-						</div>
-						<label class="learning_text">Learning</label>
+					<div class="hexagon_hfc">
+						<img src="<%=request.getContextPath()%>/images/icon-hfc.png"/>
 					</div>
-					<div class="col-md-4">
-						<div class="hexagon_advisory hexagon_bg_top hexagon_advisory" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/advisory'">
-							<div class="hb-1">
-								<div class="hb-2">
-									<img src="<%=request.getContextPath()%>/images/advisory_.jpg"/>
-								</div>
-							</div>
-						</div>
-						<label class="advisory_text">Advisory</label>
+					<div class="light_hfc">
+						<svg width="100%" height="100%" viewBox="0 0 1000 1000" preserveAspectRatio="none">
+						    <defs>  
+						        <linearGradient id="hfc-proyektor" x1="0%" y1="100%" x2="50%" y2="100%" >
+						            <stop stop-opacity=".6" offset="5%" stop-color="#0056a1">
+						                <animate attributeName="stop-color" values="#0056a1; #FFFFFF; #0056a1" dur="3s" repeatCount="indefinite"></animate>
+						            </stop>
+						            <stop stop-opacity=".6" offset="95%" stop-color="#FFFFFF">
+						                <animate attributeName="stop-color" values="#FFFFFF; #0056a1; #FFFFFF" dur="3s" repeatCount="indefinite"></animate>
+						            </stop>
+						        </linearGradient>
+						    </defs>
+						    <g>
+						      <path fill="url('#hfc-proyektor')" d="M889 610  L724 150 L650 31 L0 0 L0 1000 L490 940 L860 800 L860 750 L840 750 Z"></path>
+						    </g>
+						</svg>
 					</div>
-					<div class="col-md-4">
-						<div class="hexagon_rnd hexagon_bg_top" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/main-program/research-development/research'">
-							<div class="hb-1">
-								<div class="hb-2">
-									<img src="<%=request.getContextPath()%>/images/rnd_.jpg"/>
-								</div>
+					<img src="<%=request.getContextPath()%>/images/pcb-learning.png" class="pcb-learning"/>
+					<img src="<%=request.getContextPath()%>/images/pcb-advisory.png" class="pcb-advisory"/>
+					<img src="<%=request.getContextPath()%>/images/pcb-rnd.png" class="pcb-rnd"/>
+					<div class="hexagon_learning hexagon_bg_top hexagon_learning" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/main-program/learning/seminar'">
+						<div class="hb-1">
+							<div class="hb-2">
+								<img src="<%=request.getContextPath()%>/images/learning_.jpg"/>
 							</div>
 						</div>
-						<label class="rnd_text">Research<br/>&#38;<br/>Development</label>
-						<div class="hexagon_hfc">
-							<img src="<%=request.getContextPath()%>/images/icon-hfc.png"/>
+					</div>
+					<label class="learning_text">Learning</label>
+					<div class="hexagon_advisory hexagon_bg_top hexagon_advisory" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/advisory'">
+						<div class="hb-1">
+							<div class="hb-2">
+								<img src="<%=request.getContextPath()%>/images/advisory_.jpg"/>
+							</div>
 						</div>
-						<div class="hexagon_light_learning hll1"><img src="<%=request.getContextPath()%>/images/hexa-white.png"/></div>
-						<div class="hexagon_light_learning hll2"><img src="<%=request.getContextPath()%>/images/hexa-white.png"/></div>
-						<div class="hexagon_light_learning hll3"><img src="<%=request.getContextPath()%>/images/hexa-white.png"/></div>
-						<div class="hexagon_light_advisory hla1"><img src="<%=request.getContextPath()%>/images/hexa-white.png"/></div>
-						<div class="hexagon_light_advisory hla2"><img src="<%=request.getContextPath()%>/images/hexa-white.png"/></div>
-						<div class="hexagon_light_advisory hla3"><img src="<%=request.getContextPath()%>/images/hexa-white.png"/></div>
-						<div class="hexagon_light_rnd hlr1"><img src="<%=request.getContextPath()%>/images/hexa-white.png"/></div>
-						<div class="hexagon_light_rnd hlr2"><img src="<%=request.getContextPath()%>/images/hexa-white.png"/></div>
-						<div class="hexagon_light_rnd hlr3"><img src="<%=request.getContextPath()%>/images/hexa-white.png"/></div>
-						<div class="housing_index">
-							<div class="breakingNews bn-yellow" id="bn1">
-						    	<div class="bn-title"><h2>BTN Housing Index</h2><span></span></div>
-						        <ul id="btnHIContent"></ul>
-						        <div class="bn-navi"><span></span><span></span></div>
-						    </div>
+					</div>
+					<label class="advisory_text">Advisory</label>
+					<div class="hexagon_rnd hexagon_bg_top" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/main-program/research-development/research'">
+						<div class="hb-1">
+							<div class="hb-2">
+								<img src="<%=request.getContextPath()%>/images/rnd_.jpg"/>
+							</div>
 						</div>
+					</div>
+					<label class="rnd_text">Research<br/>&#38;<br/>Development</label>
+					<div class="housing_index">
+						<div class="breakingNews bn-yellow" id="bn1">
+					    	<div class="bn-title"><h2>BTN Housing Index</h2><span></span></div>
+					        <ul id="btnHIContent"></ul>
+					        <div class="bn-navi"><span></span><span></span></div>
+					    </div>
+					</div>
 					</div>
 				</div>
-			</div>
-		  </div>
 		</div>
 		<div class="clear"></div>
 		<div class="mainHomeArea">
@@ -83,28 +85,28 @@
 								<div class="col-md-3">
 									<div class="step-expert-icon-wrapper">
 										<div class="step-expert-content">
-											<span>Akses Website Housing Finance Center</span>
+											<a href="page/contact"><span>Akses Website Housing Finance Center</span></a>
 										</div>
 									</div>
 								</div>
 								<div class="col-md-3">
 									<div class="step-expert-icon-wrapper">
 										<div class="step-expert-content">
-											<span>Browser<br/>Publikasi<br/>Kami</span>
+											<a href="#"><span>Browser<br/>Publikasi<br/>Kami</span></a>
 										</div>
 									</div>
 								</div>
 								<div class="col-md-3">
 									<div class="step-expert-icon-wrapper">
 										<div class="step-expert-content">
-											<span>Pilih<br/>Program<br/>Kami</span>
+											<a href="page/main-program"><span>Pilih<br/>Program<br/>Kami</span></a>
 										</div>
 									</div>
 								</div>
 								<div class="col-md-3">
 									<div class="step-expert-icon-wrapper">
 										<div class="step-expert-content">
-											<span>Butuh Bantuan? Hubungi Layanan Pelanggan</span>
+											<a href="page/contact"><span>Butuh Bantuan? Hubungi Layanan Pelanggan</span></a>
 										</div>
 									</div>
 								</div>

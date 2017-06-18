@@ -532,7 +532,8 @@ h4.modal-title{
 .about_inner {
     width: 100%;
     float: left;
-    height: 400px;
+    height: 475px;
+    position: relative;
 }
 .about_inner ul {
     float: left;
