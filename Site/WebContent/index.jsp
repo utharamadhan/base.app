@@ -14,10 +14,10 @@
 						<svg width="100%" height="100%" viewBox="0 0 1000 1000" preserveAspectRatio="none">
 						    <defs>  
 						        <linearGradient id="hfc-proyektor" x1="0%" y1="100%" x2="50%" y2="100%" >
-						            <stop stop-opacity=".6" offset="5%" stop-color="#0056a1">
+						            <stop stop-opacity=".5" offset="5%" stop-color="#0056a1">
 						                <animate attributeName="stop-color" values="#0056a1; #FFFFFF; #0056a1" dur="3s" repeatCount="indefinite"></animate>
 						            </stop>
-						            <stop stop-opacity=".6" offset="95%" stop-color="#FFFFFF">
+						            <stop stop-opacity=".5" offset="95%" stop-color="#FFFFFF">
 						                <animate attributeName="stop-color" values="#FFFFFF; #0056a1; #FFFFFF" dur="3s" repeatCount="indefinite"></animate>
 						            </stop>
 						        </linearGradient>
@@ -27,9 +27,12 @@
 						    </g>
 						</svg>
 					</div>
-					<img src="<%=request.getContextPath()%>/images/pcb-learning.png" class="pcb-learning"/>
-					<img src="<%=request.getContextPath()%>/images/pcb-advisory.png" class="pcb-advisory"/>
-					<img src="<%=request.getContextPath()%>/images/pcb-rnd.png" class="pcb-rnd"/>
+					<img src="<%=request.getContextPath()%>/images/pcb-learning.png" class="pcb-learning desktop-content"/>
+					<img src="<%=request.getContextPath()%>/images/pcb-advisory.png" class="pcb-advisory desktop-content"/>
+					<img src="<%=request.getContextPath()%>/images/pcb-rnd.png" class="pcb-rnd desktop-content"/>
+					<img src="<%=request.getContextPath()%>/images/pcb-learning-small.png" class="pcb-learning mobile-content"/>
+					<img src="<%=request.getContextPath()%>/images/pcb-advisory-small.png" class="pcb-advisory mobile-content"/>
+					<img src="<%=request.getContextPath()%>/images/pcb-rnd-small.png" class="pcb-rnd mobile-content"/>
 					<div class="hexagon_learning hexagon_bg_top hexagon_learning" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/main-program/learning/seminar'">
 						<div class="hb-1">
 							<div class="hb-2">
@@ -85,7 +88,7 @@
 								<div class="col-md-3">
 									<div class="step-expert-icon-wrapper">
 										<div class="step-expert-content">
-											<a href="page/contact"><span>Akses Website Housing Finance Center</span></a>
+											<a href="page/contact"><span>Akses Website<br/>Housing Finance<br/>Center</span></a>
 										</div>
 									</div>
 								</div>
@@ -106,7 +109,7 @@
 								<div class="col-md-3">
 									<div class="step-expert-icon-wrapper">
 										<div class="step-expert-content">
-											<a href="page/contact"><span>Butuh Bantuan? Hubungi Layanan Pelanggan</span></a>
+											<a href="page/contact"><span>Butuh Bantuan?<br/>Hubungi Layanan<br/>Pelanggan</span></a>
 										</div>
 									</div>
 								</div>
