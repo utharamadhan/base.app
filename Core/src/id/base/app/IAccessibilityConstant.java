@@ -46,23 +46,18 @@ public class IAccessibilityConstant {
 		public static int INT_PB_HOUSING_IDX = 640;
 		
 	public static int INT_LEARNING = 700;
-		public static int INT_LG_METHOD = 710;
-		public static int INT_LG_ORGANIZER = 720;
-		public static int INT_LG_CATEGORY = 730;
-		public static int INT_LG_ITEM = 740;
+		public static int INT_LG_CATEGORY = 710;
+		public static int INT_LG_ITEM = 720;
 		
 	public static int INT_RESEARCH = 800;
-		public static int INT_RD_THEME = 810;
-		public static int INT_RD_MAINTENANCE = 820;
+		public static int INT_RD_CATEGORY = 810;
+		public static int INT_RD_ITEM = 820;
 		public static int INT_RD_MANAGEMENT = 830;
 
 	public static int INT_ADVISORY = 900;
-		public static int INT_ADV_SUB_MENU = 910;
-		public static int INT_ADV_PAGES = 920;
-		public static int INT_ADV_CATEGORY = 930;
-		public static int INT_ADV_ISSUE_INSIGHT = 940;
-		public static int INT_ADV_CONTACT = 950;
-		public static int INT_ADV_CONSULTING = 960;
+		public static int INT_ADV_CATEGORY = 910;
+		public static int INT_ADV_CONTACT = 920;
+		public static int INT_ADV_CONSULTING = 930;
 
 	public static int INT_STUDENT_DATABASE = 1000;
 		public static int INT_SD_MAINTENANCE = 1010;

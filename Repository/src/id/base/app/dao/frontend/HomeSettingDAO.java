@@ -10,7 +10,7 @@ import id.base.app.exception.SystemException;
 import id.base.app.paging.PagingWrapper;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
-import id.base.app.valueobject.advisory.Advisory;
+import id.base.app.valueobject.advisory.AdvisoryConsulting;
 import id.base.app.valueobject.frontend.HomeSetting;
 
 @Repository

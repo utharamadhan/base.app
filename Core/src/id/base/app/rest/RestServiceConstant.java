@@ -48,22 +48,19 @@ public class RestServiceConstant {
 	public static final String RESEARCH_REPORT_SERVICE = "researchReportService";
 	public static final String DIGITAL_BOOK_SERVICE = "digitalBookService";
 	
+	public static final String CATEGORY_SERVICE = "categoryService";
+	
 	//course
 	public static final String GROUP_COURSE_SERVICE = "groupCourseService";
 	public static final String COURSE_SERVICE 		= "courseService";
 	public static final String COURSE_TAG_SERVICE 		= "courseTagService";
 	
 	//research
-	public static final String RESEARCH_THEME_SERVICE = "researchThemeService";
 	public static final String RESEARCH_SERVICE = "researchService";
 	
 	//advisory
 	public static final String ADVISORY_SERVICE = "advisoryService";
-	public static final String ADVISORY_MENU_SERVICE = "advisoryMenuService";
-	public static final String ADVISORY_POST_SERVICE = "advisoryPostService";
 	public static final String ADVISOR_SERVICE = "advisorService";
-	public static final String ADVISORY_CATEGORY_SERVICE = "advisoryCategoryService";
-	public static final String ADVISORY_ARTICLE_SERVICE = "advisoryArticleService";
 	
 	//contact
 	public static final String CONTACT_SERVICE = "contactService";

@@ -365,4 +365,10 @@ public class SystemConstant  {
 		public static final String PROGRAM_ADVISORY = "PRA";
 		public static final String PROGRAM_RESEARCH_DEVELOPMENT = "PRRD";
 	}
+	
+	public static final class CategoryType{
+		public static final String LEARNING = "LG";
+		public static final String ADVISORY = "ADV";
+		public static final String RESEARCH_DEVELOPMENT = "RND";
+	}
 }

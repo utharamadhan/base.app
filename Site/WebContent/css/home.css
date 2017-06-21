@@ -14,8 +14,20 @@
     left: 57.7%;
 }
 
-.aboutArea {    
+.aboutArea {
+    width: 100%;
+    float: left;
+    height: auto;
 	padding: 0px;
+    background: #ecf3f7;
+	background-image: url("../images/background_header.jpg");
+	background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    -webkit-box-shadow: inset 0px -3px 5px 0px rgba(115,115,115,1);
+	-moz-box-shadow: inset 0px -3px 5px 0px rgba(115,115,115,1);
+	box-shadow: inset 0px -3px 5px 0px rgba(115,115,115,1);
 }
 .aboutUsArea .circle-bottom-wrapper{
 	position:relative;
@@ -657,21 +669,21 @@
     height: 197px;
 }
 .hexagon_learning{
-	/* animation: spinnerY 8s infinite linear; */
+	animation: spinnerY 8s infinite linear;
 	position: absolute;
     top: 4.999999761581%;
     left: 26.9%;
     z-index: 999;
 }
 .hexagon_advisory{
-	/* animation: spinnerY 9s infinite linear; */
+	animation: spinnerY 9s infinite linear;
 	position: absolute;
     top: 48.4%;
     left: 42.5%;
     z-index: 999;
 }
 .hexagon_rnd{
-	/* animation: spinnerY 10s infinite linear; */
+	animation: spinnerY 10s infinite linear;
 	position: absolute;
     top: 7%;
     left: 58.8%;
@@ -1112,6 +1124,9 @@
 	}
 }
 @media screen and (max-width: 767px) {
+	.margin-top {
+	    margin-top: 61px;
+	}
 	.housing_index {
 	    right: 0px;
 	}
@@ -1164,8 +1179,50 @@
 	.housing_index {
     	top: 90.5%;
 	}
+	.aboutUsArea .circle-top {
+	    height: 150px;
+	    background-size: 100% 150px;
+	}
+	.aboutUsArea .circle-top h2 {
+	    padding-top: 15%;
+	}
+	.aboutUsArea .circle-bottom-wrapper .title-center h2 {
+	    font-size: 20px;
+	}
+	.aboutUsArea .circle-bottom-wrapper {
+	    height: 190px;
+	    background-size: 100% 190px;
+	}
+	.main-content-right .panel-heading a {
+	    font-size: 18px;
+	}
+	.circle-bottom1, .circle-bottom2, .circle-bottom3 {
+    	height: 95px;
+	}
+	.circle-bottom4{
+		top:110px;
+	}
+	.aboutUsArea .circle-bottom-wrapper .title-center h2 {
+	    padding-top: 3%;
+	}
 }
 @media screen and (max-width: 639px) {
+	.aboutUsArea .circle-top {
+	    height: 125px;
+	    background-size: 100% 125px;
+	}
+	.header .navbar-brand img {
+	    height: 36px;
+	}
+	.header .navbar-brand img.logo-btn {
+    	height: 36px;
+	}
+	.navbar-toggle {
+	    margin: 8px 0px;
+	}
+	.margin-top {
+	    margin-top: 59px;
+	}
 	.banner-wrapper .form-wrapper .banner-header{
 		padding-top:40px;
 	}
@@ -1173,9 +1230,50 @@
 	    height: 153px;
 	    background-size: 100% 153px;
 	}
+	.aboutUsArea .circle-top h2 {
+	    padding-top: 18%;
+	}
 	.aboutUsArea .circle-bottom-wrapper {
-	    background-size: 100% 225px;
-	    margin-top: 280px;
+	    margin-top: 385px;
+	    height: 160px;
+    	background-size: 100% 160px;
+	}
+	.aboutUsArea .circle-bottom-wrapper .title-center h2 {
+	    font-size: 16px;
+	}
+	.circle-bottom1, .circle-bottom2, .circle-bottom3 {
+	    height: 80px;
+	}
+	.circle-bottom4 {
+	    top: 98px;
+	}
+	.pcb-learning {
+    	left: 0.5%;
+	}
+	.pcb-advisory {
+    	left: 23.7%;
+	}
+	.pcb-rnd {
+    	left: 50.4%;
+	}
+	.hexagon_learning {
+    	left: 9.6%;
+	}
+	.hexagon_advisory {
+    	left: 31.6%;
+	}
+	.hexagon_rnd {
+	    left: 53.5%;
+	}
+	.hexagon_hfc {
+	    top: 52%;
+	    left: 77%;
+	}
+	.advisory_text {
+    	left: 4%;
+	}
+	.rnd_text {
+    	left: 64%;
 	}
 }
 @media screen and (max-width: 479px) {

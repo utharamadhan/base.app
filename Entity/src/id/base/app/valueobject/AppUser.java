@@ -1,7 +1,6 @@
 package id.base.app.valueobject;
 
 import id.base.app.ILookupConstant;
-import id.base.app.valueobject.advisory.Article;
 import id.base.app.valueobject.party.Party;
 
 import java.io.Serializable;
@@ -26,6 +25,7 @@ import javax.persistence.Transient;
 
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.net.nntp.Article;
 
 @Entity
 @Table(name = "APP_USER")
@@ -155,10 +155,7 @@ public class AppUser extends BaseEntity implements Serializable {
 			inverseJoinColumns=@JoinColumn(name="FK_APP_ROLE"))
 	private List<AppRole> appRoles;
     
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy="advisor")
-	private Set<Article> articles;
-	
-	public Long getPkAppUser() {
+    public Long getPkAppUser() {
 		return pkAppUser;
 	}
 
@@ -344,14 +341,5 @@ public class AppUser extends BaseEntity implements Serializable {
 	public void setIsNewPassword(Boolean isNewPassword) {
 		this.isNewPassword = isNewPassword;
 	}
-
-	public Set<Article> getArticles() {
-		return articles;
-	}
-
-	public void setArticles(Set<Article> articles) {
-		this.articles = articles;
-	}
-	
 	
 }

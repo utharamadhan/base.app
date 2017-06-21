@@ -2,6 +2,7 @@ package id.base.app.valueobject.research;
 
 import id.base.app.encryptor.EncodeDecode;
 import id.base.app.valueobject.BaseEntity;
+import id.base.app.valueobject.Category;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -50,8 +51,8 @@ public class Research extends BaseEntity implements Serializable {
 	private Boolean isInternal;
 	
 	@ManyToOne
-	@JoinColumn(name="FK_RESEARCH_THEME")
-	private ResearchTheme researchTheme;
+	@JoinColumn(name="FK_CATEGORY")
+	private Category category;
 	
 	@Column(name="TITLE")
 	private String title;
@@ -129,12 +130,12 @@ public class Research extends BaseEntity implements Serializable {
 		this.isInternal = isInternal;
 	}
 
-	public ResearchTheme getResearchTheme() {
-		return researchTheme;
+	public Category getCategory() {
+		return category;
 	}
 
-	public void setResearchTheme(ResearchTheme researchTheme) {
-		this.researchTheme = researchTheme;
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 
 	public String getTitle() {

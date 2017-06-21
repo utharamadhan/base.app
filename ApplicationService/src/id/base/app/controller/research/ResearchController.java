@@ -72,7 +72,6 @@ public class ResearchController extends SuperController<Research>{
 					newObject.setIsInternal(anObject.getIsInternal());
 				}
 				if(SystemConstant.TabResearchManagement.PRE.equals(anObject.getFromTab())){
-					newObject.setResearchTheme(anObject.getResearchTheme());
 					newObject.setTitle(anObject.getTitle());
 					newObject.setSubtitle(anObject.getSubtitle());
 					newObject.setImageURL(anObject.getImageURL());

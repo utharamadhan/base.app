@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:ifs="http://btn.co.id">
+<head>
+<meta charset="ISO-8859-1"/>
+<title>Research &#38; Dev. Category Detail</title>
+</head>
+<style>
+.gcDetail-basicPicture {
+	max-height : 250px;
+}
+
+.basicPicture-delete {
+	position:absolute;
+	left:25px;
+	top:10px;
+}
+</style>
+<body>
+	<div class="pageheader">
+		<div class="row col-md-12">
+			<h4><i class="fa fa-tachometer"></i> Research &#38; Dev. / Research &#38; Dev. Category List / Research &#38; Dev. Category Detail
+			<span></span></h4>
+		</div>
+	</div>
+	<div class="row col-md-12">
+	<section class="tile transparent">
+			<div class="tile-body rounded-corners">
+				<form action="#" id="researchDevCategory-detail-form" class="form-horizontal" method="POST" novalidate="novalidate" th:object="${detail}">
+					<div>
+						<div class="form-group">
+							<div class="col-md-12">
+								<div id="errorFragmentList">
+									<th:block th:if="${message}">
+										<div class='alert alert-success'>
+											<a href='#' class='close' data-dismiss='alert' aria-label='close' title='close'>&#10006;</a>			
+											<label th:text="${message}"></label>
+										</div>
+									</th:block>
+								</div>
+							</div>									
+							&nbsp;
+						</div>
+						<input id="researchDevCategory-detail-maintenancePk" type="hidden" th:field="*{pkCategory}"/>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" th:text="'Title'">Title</label>
+							<div class="col-sm-9 form-input-container">
+								<input type="text" class="form-control" placeholder="Title" name="srch-term" id="input-text-name" th:field="*{title}"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" th:text="'Order No'">Order No</label>
+							<div class="col-sm-9 form-input-container">
+								<input type="text" class="form-control" placeholder="Order No" name="srch-term" id="input-text-order-no" th:field="*{orderNo}"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" th:text="'Featured Image'">Featured Image</label>
+							<div class="col-sm-9 form-input-container">
+								<th:block th:if="${detail.basicPictureURL != null}">
+									<input type="hidden" id="input-hidden-basicPictureURL" th:field="*{basicPictureURL}"/>
+									<input type="file" class="form-control" id="input-file-basicPictureURL" style="display:none;"/>
+									<div id="container-basicPictureURL">
+										<img th:src="${detail.basicPictureURL}" class="gcDetail-basicPicture"/>
+										<a href="#" class="btn btn-primary btn-xs margin-bottom-20 basicPicture-delete" data-toggle="tooltip" title="Delete"><i class="fa fa-trash"></i></a>
+									</div>
+								</th:block>
+								<th:block th:if="${detail.basicPictureURL == null}">
+									<input type="hidden" id="input-hidden-basicPictureURL" name="basicPictureURL"/>
+									<input type="file" class="form-control" id="input-file-basicPictureURL"/>
+									<div id="container-basicPictureURL" style='display:none;'>
+									</div>
+								</th:block>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" th:text="'Description'">Description</label>
+							<input id="textEditor-description-hidden" name="description" type="hidden"/>
+							<div id="textEditor-description-parent" class="col-sm-9">					
+								<textarea id="textEditor-description-area" th:text="*{description}">
+								</textarea>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" th:text="'Status'">Status</label>
+							<div class="col-sm-9 form-input-container">
+								<select class="chosen-select form-control" th:field="*{status}">
+									<option th:each="opt : ${statusOptions}" th:value="${opt.code}" th:text="${opt.name}">Name</option>
+                           		</select>
+                           	</div>
+						</div>
+						<div class="form-group form-footer">				
+							<div class="col-sm-offset-3 col-sm-9">
+								<a href="#" id="researchDevCategory-detail-btn-cancel" class="btn btn-default" type="reset" data-toggle="tooltip" title="">Batal</a>
+								<button id="researchDevCategory-detail-btn-save" class="btn btn-primary" type="submit" data-toggle="tooltip" title="">Simpan</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+	</section>
+	</div>
+	<script th:inline="javascript">
+	/*<![CDATA[*/
+		function initDeletePicture() {
+			$('.basicPicture-delete').click(function(e){
+				e.preventDefault();
+				$('#input-file-basicPictureURL').show();
+				$('#container-basicPictureURL').html("");
+				$('#input-hidden-basicPictureURL, #input-file-basicPictureURL').val("");
+				$('#container-basicPictureURL').hide();
+			});
+		}
+	
+	    $(function(){
+	    	var fileManagerURL = /*[[@{/do/fileManager/upload/}]]*/ #;
+	    	
+	    	initDeletePicture();
+	    	initTextEditor('#textEditor-description-area', '#textEditor-description-parent', fileManagerURL);
+	    	
+			var backToList = function(){
+				removeTextEditor("textEditor-description-area", "textEditor-description-parent");
+				returnToList('researchDevCategory-detail-container', 'researchDevCategory-list-container', true);
+			};
+			
+			var submitForm = function(){
+				cleanErrorParsley();
+				$('#textEditor-description-hidden').val(tinymce.get('textEditor-description-area').getContent());
+				var sURL = /*[[@{/do/researchDev/category/saveCategory/}]]*/ #;
+				$.post(sURL, $("#researchDevCategory-detail-form").serialize(), function(data) {
+					if(data.errorList!=null){
+						displayErrorParsley(data.errorList);
+					}else{
+						backToList();
+					}
+				});
+			};
+			
+			var showImage = function(imageURL) {
+				$('#input-file-basicPictureURL').hide();
+				var htmlContent = '<image src="'+imageURL+'" style="max-height:250px;"></image>';
+				htmlContent += '<a href="#" class="btn btn-primary btn-xs margin-bottom-20 basicPicture-delete" data-toggle="tooltip" title="Delete" style="position:absolute; left:25px; top:10px;"><i class="fa fa-trash"></i></a>';
+				$('#container-basicPictureURL').html(htmlContent);
+				$('#input-hidden-basicPictureURL').val(imageURL);
+				$('#container-basicPictureURL').show();
+				initDeletePicture();
+			}
+			
+			var uploadFile = function(image, uploadURL) {
+				var data = new FormData();
+				data.append('file', image);
+				var xhr = new XMLHttpRequest();
+				xhr.open('POST', uploadURL, true);
+				xhr.onreadystatechange = function() {
+				  if (xhr.readyState === 4) {
+				    var response = JSON.parse(xhr.responseText);
+				    if (response) {
+				      	showImage(response);
+				    } else {
+				      	var reader = new FileReader();
+				      	reader.onload = function(e) {
+				        	callback(e.target.result);
+				      	};
+				      	reader.readAsDataURL(image);
+				    }
+				  }
+				}
+				xhr.send(data);
+			};
+		
+			var thisObj = '';
+			$(document).unbind('change').on('change', '#input-file-basicPictureURL', function(){
+				var sURL = /*[[@{/do/fileManager/uploadFeaturedImage/}]]*/ #;
+				var thisObj = $('#input-file-basicPictureURL')[0];
+				uploadFile(thisObj.files[0], sURL);
+			});
+			
+			$('#researchDevCategory-detail-btn-save').click(function(e){
+				e.preventDefault();
+				submitForm();
+			});
+			
+			$('#researchDevCategory-detail-btn-cancel').click(function(e){
+				e.preventDefault();
+				backToList();
+			});
+			
+	    });
+	/*]]>*/
+	</script>
+</body>
+</html>

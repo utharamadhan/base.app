@@ -499,21 +499,6 @@ h4.modal-title{
     background: #49c32c;
     cursor: pointer;
 }
-.aboutArea {
-    width: 100%;
-    float: left;
-    height: auto;
-	padding: 150px 0 0 0;
-    background: #ecf3f7;
-	background-image: url("../images/background_header.jpg");
-	background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    -webkit-box-shadow: inset 0px -3px 5px 0px rgba(115,115,115,1);
-	-moz-box-shadow: inset 0px -3px 5px 0px rgba(115,115,115,1);
-	box-shadow: inset 0px -3px 5px 0px rgba(115,115,115,1);
-}
 .aboutArea,
 .aboutTitle,
 .aboutImage,
@@ -5188,15 +5173,18 @@ svg {
 	}
 }
 @media screen and (max-width: 767px) {
+	.container {
+    	width: 95%;
+	}
 	.header .navbar-brand img.logo-btn {
-	    height: 42px;
+	    height: 40px;
 	    padding: 5px 20px 0px 0px;
 	}
 	.header .navbar-brand img {
-	    height: 46px;
+	    height: 40px;
 	}
 	.navbar-toggle {
-        margin: 14px 0 14px;
+        margin: 9px 0px;
     }
     .navbar-collapse {
         margin-top: 10px;
@@ -5735,6 +5723,12 @@ svg {
     }
 }
 @media screen and (max-width: 479px) {
+    .header .navbar-brand img.logo-btn {
+    	height: 31px;
+    }
+    .header .navbar-brand img {
+	    height: 31px;
+	}
     .img-responsive {
         width: 100%;
     }
@@ -5810,7 +5804,7 @@ svg {
         width: 100%;
     }
     .navbar-toggle {
-        margin: 9px 0;
+        margin: 8px 0;
     }
     .post h1 {
         margin: 0 0 20px;

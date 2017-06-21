@@ -5,7 +5,7 @@ import id.base.app.exception.SystemException;
 import id.base.app.paging.PagingWrapper;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
-import id.base.app.valueobject.advisory.Advisory;
+import id.base.app.valueobject.advisory.AdvisoryConsulting;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,15 +13,15 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class AdvisoryDAO extends AbstractHibernateDAO<Advisory, Long> implements IAdvisoryDAO {
+public class AdvisoryDAO extends AbstractHibernateDAO<AdvisoryConsulting, Long> implements IAdvisoryDAO {
 
 	@Override
-	public Advisory findById(Long id) throws SystemException {
+	public AdvisoryConsulting findById(Long id) throws SystemException {
 		return super.findByPK(id);
 	}
 
 	@Override
-	public void saveOrUpdate(Advisory anObject) throws SystemException {
+	public void saveOrUpdate(AdvisoryConsulting anObject) throws SystemException {
 		if (anObject.getPkAdvisory()==null) {
 			super.create(anObject);
 		} else {
@@ -31,9 +31,9 @@ public class AdvisoryDAO extends AbstractHibernateDAO<Advisory, Long> implements
 
 	@Override
 	public void delete(Long[] objectPKs) throws SystemException {
-		List<Advisory> objectList = new ArrayList<>();
+		List<AdvisoryConsulting> objectList = new ArrayList<>();
 		for(int i=0;i<objectPKs.length;i++){
-			Advisory object = Advisory.getInstance();
+			AdvisoryConsulting object = AdvisoryConsulting.getInstance();
 			object = findById(objectPKs[i]);
 			objectList.add(object);
 		}
@@ -41,12 +41,12 @@ public class AdvisoryDAO extends AbstractHibernateDAO<Advisory, Long> implements
 	}
 
 	@Override
-	public List<Advisory> findObjects(Long[] objectPKs) throws SystemException {
+	public List<AdvisoryConsulting> findObjects(Long[] objectPKs) throws SystemException {
 		return null;
 	}
 
 	@Override
-	public PagingWrapper<Advisory> findAllByFilter(int startNo, int offset, List<SearchFilter> filter, List<SearchOrder> order) throws SystemException {
+	public PagingWrapper<AdvisoryConsulting> findAllByFilter(int startNo, int offset, List<SearchFilter> filter, List<SearchOrder> order) throws SystemException {
 		return super.findAllWithPagingWrapper(startNo, offset, filter, order, null);
 	}
 

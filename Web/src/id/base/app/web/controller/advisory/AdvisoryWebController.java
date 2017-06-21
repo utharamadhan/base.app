@@ -14,21 +14,17 @@ import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.valueobject.AppRole;
 import id.base.app.valueobject.AppUser;
-import id.base.app.valueobject.advisory.Advisory;
-import id.base.app.valueobject.advisory.Article;
-import id.base.app.valueobject.advisory.Category;
+import id.base.app.valueobject.Category;
+import id.base.app.valueobject.advisory.AdvisoryConsulting;
 import id.base.app.web.DataTableCriterias;
 import id.base.app.web.controller.BaseController;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -41,14 +37,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Scope(value="request")
 @Controller
 @RequestMapping("/advisory/consulting")
-public class AdvisoryWebController extends BaseController<Advisory> {
+public class AdvisoryWebController extends BaseController<AdvisoryConsulting> {
 
 	private final String PATH_LIST = "/advisory/consultingList";
 	private final String PATH_DETAIL = "/advisory/consultingDetail";
 	
 	@Override
-	protected RestCaller<Advisory> getRestCaller() {
-		return new RestCaller<Advisory>(RestConstant.REST_SERVICE, RestServiceConstant.ADVISORY_SERVICE);
+	protected RestCaller<AdvisoryConsulting> getRestCaller() {
+		return new RestCaller<AdvisoryConsulting>(RestConstant.REST_SERVICE, RestServiceConstant.ADVISORY_SERVICE);
 	}
 	
 	protected RestCaller<AppUser> getRestCallerUser() {
@@ -60,13 +56,9 @@ public class AdvisoryWebController extends BaseController<Advisory> {
 	}
 	
 	protected RestCaller<Category> getRestCallerCategory() {
-		return new RestCaller<Category>(RestConstant.REST_SERVICE, RestServiceConstant.ADVISORY_CATEGORY_SERVICE);
+		return new RestCaller<Category>(RestConstant.REST_SERVICE, RestServiceConstant.CATEGORY_SERVICE);
 	}
 	
-	protected RestCaller<Article> getRestCallerArticle() {
-		return new RestCaller<Article>(RestConstant.REST_SERVICE, RestServiceConstant.ADVISORY_ARTICLE_SERVICE);
-	}
-
 	@Override
 	protected List<SearchFilter> convertForFilter(Map<String, String> paramWrapper) {
 		return null;
@@ -75,7 +67,7 @@ public class AdvisoryWebController extends BaseController<Advisory> {
 	private void setDefaultFilter(HttpServletRequest request, List<SearchFilter> filters) {
 		if(!isNotAdvisor()){
 			LoginSession userLogin = LoginSessionUtil.getLogin();
-			filters.add(new SearchFilter(Advisory.TUTOR_PK, Operator.EQUALS, userLogin.getPkAppUser(),Long.class));
+			filters.add(new SearchFilter(AdvisoryConsulting.TUTOR_PK, Operator.EQUALS, userLogin.getPkAppUser(),Long.class));
 		}
 	}
 
@@ -91,7 +83,7 @@ public class AdvisoryWebController extends BaseController<Advisory> {
 		if(orders != null) {
 			orders.clear();
 		}
-		orders.add(new SearchOrder(Advisory.PK_ADVISORY, SearchOrder.Sort.DESC));
+		orders.add(new SearchOrder(AdvisoryConsulting.PK_ADVISORY, SearchOrder.Sort.DESC));
 		return orders;
 	}
 	
@@ -108,8 +100,6 @@ public class AdvisoryWebController extends BaseController<Advisory> {
 		model.addAttribute("userLogin", LoginSessionUtil.getLogin().getPkAppUser());
 		List<SearchFilter> filterCategory = new ArrayList<SearchFilter>();
 		model.addAttribute("categoryOptions", getAllCategoryOptions(filterCategory));
-		List<SearchFilter> filterArticle = new ArrayList<SearchFilter>();
-		model.addAttribute("articleOptions", getAllArticleOptions(filterArticle));
 	}
 	
 	private List<AppUser> getAllAdvisorOptions() {
@@ -121,10 +111,6 @@ public class AdvisoryWebController extends BaseController<Advisory> {
 	private List<Category> getAllCategoryOptions(List<SearchFilter> filter){
 		List<SearchOrder> order = new ArrayList<SearchOrder>();
 		return getRestCallerCategory().findAll(filter, order);
-	}
-	
-	private List<Article> getAllArticleOptions(List<SearchFilter> filter){
-		return getRestCallerArticle().findAll(new ArrayList<SearchFilter>(), new ArrayList<SearchOrder>());
 	}
 	
 	private boolean isNotAdvisor(){
@@ -142,7 +128,7 @@ public class AdvisoryWebController extends BaseController<Advisory> {
 		return true;
 	}
 	
-	private void setStatusCanSeeByAllUser(Advisory anObject){
+	private void setStatusCanSeeByAllUser(AdvisoryConsulting anObject){
 		if(!isNotAdvisor() && anObject!=null && anObject.getAnswer()!=null){
 			anObject.setStatus(SystemConstant.StatusAdvisory.ANSWERED);
 		}
@@ -150,7 +136,7 @@ public class AdvisoryWebController extends BaseController<Advisory> {
 	
 	@RequestMapping(method=RequestMethod.GET, value="showAdd")
 	public String showAdd(ModelMap model, HttpServletRequest request){
-		model.addAttribute("detail", Advisory.getInstance());
+		model.addAttribute("detail", AdvisoryConsulting.getInstance());
 		setDefaultData(model);
 		return PATH_DETAIL;
 	}
@@ -158,19 +144,19 @@ public class AdvisoryWebController extends BaseController<Advisory> {
 	@RequestMapping(method=RequestMethod.GET, value="showEdit")
 	public String showEdit(@RequestParam(value="maintenancePK") final Long maintenancePK, @RequestParam Map<String, String> paramWrapper, ModelMap model, HttpServletRequest request){
 		setDefaultData(model);
-		Advisory detail = getRestCaller().findById(maintenancePK);
+		AdvisoryConsulting detail = getRestCaller().findById(maintenancePK);
 		model.addAttribute("detail", detail);
 		return PATH_DETAIL;
 	}
 	
 	@RequestMapping(method=RequestMethod.POST, value="saveAdvisory")
 	@ResponseBody
-	public Map<String, Object> saveAdvisory(final Advisory anObject, HttpServletRequest request) {
+	public Map<String, Object> saveAdvisory(final AdvisoryConsulting anObject, HttpServletRequest request) {
 		Map<String, Object> resultMap = new HashMap<>();
 		setStatusCanSeeByAllUser(anObject);
 		List<ErrorHolder> errors = new ArrayList<>();
 		try{
-			errors = new SpecificRestCaller<Advisory>(RestConstant.REST_SERVICE, RestServiceConstant.ADVISORY_SERVICE).performPut("/update", anObject);
+			errors = new SpecificRestCaller<AdvisoryConsulting>(RestConstant.REST_SERVICE, RestServiceConstant.ADVISORY_SERVICE).performPut("/update", anObject);
 			if(errors != null && errors.size() > 0){
 				resultMap.put(SystemConstant.ERROR_LIST, errors);
 			}
@@ -180,35 +166,6 @@ public class AdvisoryWebController extends BaseController<Advisory> {
 		return resultMap;
 	}
 	
-	@RequestMapping(method=RequestMethod.GET, value="/loadArticleAndCategory")
-	@ResponseBody
-	public Map<String, Object> loadArticleAndCategory(ModelMap model, HttpServletRequest request, HttpServletResponse response,
-			@RequestParam(value="startNo",defaultValue="1") int startNo, 
-			@RequestParam(value="offset",defaultValue="12") int offset,
-			@RequestParam(value="filter", defaultValue="", required=false) String filterJson,
-			@RequestParam Map<String,String> params
-		){
-		Map<String, Object> resultMap = new HashMap<>();
-		List<SearchFilter> filter = new ArrayList<SearchFilter>();
-		if(params.containsKey("chooseAdvisor") && params.get("chooseAdvisor")!=null && !"".equals(params.get("chooseAdvisor"))){
-			Long chooseAdvisor = new Long(params.get("chooseAdvisor").toString());
-			filter.add(new SearchFilter(Article.ADVISOR_PK, Operator.EQUALS, chooseAdvisor, Long.class));
-		}
-		List<SearchOrder> order = new ArrayList<SearchOrder>();
-		List<Article> articles = getRestCallerArticle().findAll(filter, order);
-		List<Category> categories = new ArrayList<Category>();
-		Set<Long> dataCategories = new HashSet<Long>();
-		for(Article article : articles){
-			if(article.getCategory()!=null && !dataCategories.contains(article.getCategory().getPkCategory())){
-				dataCategories.add(article.getCategory().getPkCategory());
-				categories.add(article.getCategory());
-			}
-		}
-		resultMap.put("articles", articles);
-		resultMap.put("categories", categories);
-		return resultMap;
-	}
-
 	@Override
 	protected String getListPath() {
 		return PATH_LIST;

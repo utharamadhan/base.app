@@ -1,5 +1,9 @@
 package id.base.app.valueobject.advisory;
 
+import id.base.app.valueobject.AppUser;
+import id.base.app.valueobject.BaseEntity;
+import id.base.app.valueobject.Category;
+
 import java.io.Serializable;
 
 import javax.persistence.Column;
@@ -15,13 +19,10 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-import id.base.app.valueobject.AppUser;
-import id.base.app.valueobject.BaseEntity;
-
 @Entity
-@Table(name = "ADVISORY")
-@JsonIdentityInfo(generator=ObjectIdGenerators.UUIDGenerator.class, property="advisoryJid", scope=Advisory.class)
-public class Advisory extends BaseEntity implements Serializable {
+@Table(name = "ADVISORY_CONSULTING")
+@JsonIdentityInfo(generator=ObjectIdGenerators.UUIDGenerator.class, property="advisoryConsultingJid", scope=AdvisoryConsulting.class)
+public class AdvisoryConsulting extends BaseEntity implements Serializable {
 	/**
 	 * 
 	 */
@@ -31,13 +32,11 @@ public class Advisory extends BaseEntity implements Serializable {
 	public static final String STATUS			= "status";
 	public static final String TUTOR 			= "tutor";
 	public static final String TUTOR_PK 		= "tutor.pkAppUser";
-	public static final String ARTICLE 			= "article";
-	public static final String ARTICLE_PK 		= "article.pkArticle";
 	public static final String CATEGORY 		= "category";
 	public static final String CATEGORY_PK 		= "category.pkCategory";
 	
-	public static Advisory getInstance() {
-		return new Advisory();
+	public static AdvisoryConsulting getInstance() {
+		return new AdvisoryConsulting();
 	}
 	
 	@Id
@@ -53,10 +52,6 @@ public class Advisory extends BaseEntity implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="FK_CATEGORY")
 	private Category category;
-	
-	@ManyToOne
-	@JoinColumn(name="FK_ARTICLE")
-	private Article article;
 	
 	@Column(name="QUESTION")
 	private String question;
@@ -134,11 +129,4 @@ public class Advisory extends BaseEntity implements Serializable {
 	public void setCategory(Category category) {
 		this.category = category;
 	}
-	public Article getArticle() {
-		return article;
-	}
-	public void setArticle(Article article) {
-		this.article = article;
-	}
-	
 }

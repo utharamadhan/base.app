@@ -77,22 +77,19 @@ public class RestConstant {
 	//event
 	public static final String RM_EVENT = "/event/eventMaintenance";
 	
+	public static final String RM_CATEGORY = "/category";
+	
 	//learning
 	public static final String RM_GROUP_COURSE = "/course/groupCourse";
 	public static final String RM_COURSE = "/course/course";
 	public static final String RM_COURSE_TAG = "/course/courseTag";
 	
 	//research
-	public static final String RM_RESEARCH_THEME = "/research/researchTheme";
 	public static final String RM_RESEARCH = "/research/research";
 	
 	//advisory
 	public static final String RM_ADVISORY = "/advisory";
-	public static final String RM_ADVISORY_MENU = "/advisory/menu";
-	public static final String RM_ADVISORY_POST = "/advisory/post";
 	public static final String RM_ADVISOR = "/advisory/advisor";
-	public static final String RM_ADVISORY_CATEGORY = "/advisory/category";
-	public static final String RM_ADVISORY_ARTICLE = "/advisory/article";
 
 	//testimonial
 	public static final String RM_TESTIMONIAL = "/testimonial";

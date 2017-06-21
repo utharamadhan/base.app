@@ -1,4 +1,7 @@
-package id.base.app.valueobject.advisory;
+package id.base.app.valueobject;
+
+import id.base.app.ILookupConstant;
+import id.base.app.encryptor.EncodeDecode;
 
 import java.io.Serializable;
 
@@ -11,22 +14,17 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import id.base.app.encryptor.EncodeDecode;
-import id.base.app.valueobject.BaseEntity;
-
 @Entity
 @Table(name = "CATEGORY")
 public class Category extends BaseEntity implements Serializable {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 8342553462195240581L;
 	
 	public static final String PK_CATEGORY 	= "pkCategory";
-	public static final String CODE 		= "code";
-	public static final String NAME 		= "name";
-	public static final String VALID 		= "valid";
+	public static final String TYPE 		= "type";
+	public static final String TITLE 		= "title";
+	public static final String PERMALINK	= "permalink";
+	public static final String STATUS		= "status";
 	
 	public static Category getInstance() {
 		return new Category();
@@ -43,14 +41,20 @@ public class Category extends BaseEntity implements Serializable {
 	@Column(name = "PK_CATEGORY", unique = true ,nullable = false)
 	private Long pkCategory;
 		
-	@Column(name="CODE")
-	private String code;
+	@Column(name="TYPE")
+	private String type;
 	
-	@Column(name="NAME")
-	private String name;
+	@Column(name="TITLE")
+	private String title;
+	
+	@Column(name="PERMALINK")
+	private String permalink;
 	
 	@Column(name="DESCRIPTION")
 	private String description;
+	
+	@Column(name="ORDER_NO")
+	private Integer orderNo;
 	
 	@Column(name="BASIC_PICTURE_URL")
 	private String basicPictureURL;
@@ -58,8 +62,11 @@ public class Category extends BaseEntity implements Serializable {
 	@Transient
 	public String encodedPicture;
 	
-	@Column(name="VALID")
-	private Integer valid;
+	@Column(name="STATUS")
+	private Integer status;
+	
+	@Transient
+	private String statusStr;
 	
 	public Long getPkCategory() {
 		return pkCategory;
@@ -69,28 +76,44 @@ public class Category extends BaseEntity implements Serializable {
 		this.pkCategory = pkCategory;
 	}
 
-	public String getCode() {
-		return code;
+	public String getType() {
+		return type;
 	}
 
-	public void setCode(String code) {
-		this.code = code;
+	public void setType(String type) {
+		this.type = type;
 	}
 
-	public String getName() {
-		return name;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 	
+	public String getPermalink() {
+		return permalink;
+	}
+
+	public void setPermalink(String permalink) {
+		this.permalink = permalink;
+	}
+
 	public String getDescription() {
 		return description;
 	}
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	
+	public Integer getOrderNo() {
+		return orderNo;
+	}
+
+	public void setOrderNo(Integer orderNo) {
+		this.orderNo = orderNo;
 	}
 
 	public String getBasicPictureURL() {
@@ -101,12 +124,16 @@ public class Category extends BaseEntity implements Serializable {
 		this.basicPictureURL = basicPictureURL;
 	}
 
-	public Integer getValid() {
-		return valid;
+	public Integer getStatus() {
+		return status;
 	}
 
-	public void setValid(Integer valid) {
-		this.valid = valid;
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+	
+	public String getStatusStr() {
+		return ILookupConstant.ArticleStatus.ARTICLE_STATUS_MAP.get(status);
 	}
 
 	public String getEncodedPicture() throws Exception {

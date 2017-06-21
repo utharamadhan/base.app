@@ -12,7 +12,7 @@ import id.base.app.exception.SystemException;
 import id.base.app.paging.PagingWrapper;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
-import id.base.app.valueobject.advisory.Category;
+import id.base.app.valueobject.Category;
 
 @Service
 @Transactional
@@ -55,6 +55,11 @@ public class CategoryService implements ICategoryService {
 	@Override
 	public List<Category> findAll(List<SearchFilter> filter, List<SearchOrder> order) throws SystemException {
 		return categoryDAO.findAll(filter, order);
+	}
+	
+	@Override
+	public List<String> getSamePermalink(Long pk, String permalink) throws SystemException {
+		return categoryDAO.getSamePermalink(pk, permalink);
 	}
 
 }

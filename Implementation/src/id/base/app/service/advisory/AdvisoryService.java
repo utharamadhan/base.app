@@ -5,7 +5,7 @@ import id.base.app.exception.SystemException;
 import id.base.app.paging.PagingWrapper;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
-import id.base.app.valueobject.advisory.Advisory;
+import id.base.app.valueobject.advisory.AdvisoryConsulting;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,15 +21,15 @@ public class AdvisoryService implements IAdvisoryService {
 	@Autowired
 	private IAdvisoryDAO advisoryDAO;
     
-	public PagingWrapper<Advisory> findAll(int startNo, int offset) throws SystemException {
+	public PagingWrapper<AdvisoryConsulting> findAll(int startNo, int offset) throws SystemException {
 		return null;
 	}
 
-	public Advisory findById(Long id) throws SystemException {
+	public AdvisoryConsulting findById(Long id) throws SystemException {
 		return advisoryDAO.findById(id);
 	}
 
-	public void saveOrUpdate(Advisory anObject) throws SystemException {
+	public void saveOrUpdate(AdvisoryConsulting anObject) throws SystemException {
 		advisoryDAO.saveOrUpdate(anObject);
 	}
 
@@ -37,14 +37,14 @@ public class AdvisoryService implements IAdvisoryService {
 		advisoryDAO.delete(objectPKs);
 	}
 
-	public PagingWrapper<Advisory> findAllByFilter(int startNo, int offset, List<SearchFilter> filter, List<SearchOrder> order) throws SystemException {
+	public PagingWrapper<AdvisoryConsulting> findAllByFilter(int startNo, int offset, List<SearchFilter> filter, List<SearchOrder> order) throws SystemException {
 		return advisoryDAO.findAllByFilter(startNo, offset, filter, order);
 	}
 	
 	@Override
-	public List<Advisory> findObjects(Long[] objectPKs) throws SystemException {
-		List<Advisory> objects = new ArrayList<>();
-		Advisory object = null;
+	public List<AdvisoryConsulting> findObjects(Long[] objectPKs) throws SystemException {
+		List<AdvisoryConsulting> objects = new ArrayList<>();
+		AdvisoryConsulting object = null;
 		for(Long l:objectPKs){
 			object = advisoryDAO.findById(l);
 			objects.add(object);
@@ -53,7 +53,7 @@ public class AdvisoryService implements IAdvisoryService {
 	}
 
 	@Override
-	public List<Advisory> findAll(List<SearchFilter> filter, List<SearchOrder> order) throws SystemException {
+	public List<AdvisoryConsulting> findAll(List<SearchFilter> filter, List<SearchOrder> order) throws SystemException {
 		return advisoryDAO.findAll(filter, order);
 	}
 

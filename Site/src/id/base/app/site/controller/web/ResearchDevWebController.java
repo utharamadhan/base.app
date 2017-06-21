@@ -1,15 +1,13 @@
 package id.base.app.site.controller.web;
 
 import id.base.app.paging.PagingWrapper;
-import id.base.app.rest.QueryParamInterfaceRestCaller;
 import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
 import id.base.app.rest.RestServiceConstant;
-import id.base.app.rest.SpecificRestCaller;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
+import id.base.app.valueobject.Category;
 import id.base.app.valueobject.research.Research;
-import id.base.app.valueobject.research.ResearchTheme;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,16 +31,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Scope(value="request")
 @RequestMapping(value="main-program/research-development")
 @Controller
-public class ResearchDevelopmentWebController {
+public class ResearchDevWebController {
 	
-	static Logger LOGGER = LoggerFactory.getLogger(ResearchDevelopmentWebController.class);
+	static Logger LOGGER = LoggerFactory.getLogger(ResearchDevWebController.class);
 	
 	protected RestCaller<Research> getRestCaller() {
 		return new RestCaller<Research>(RestConstant.REST_SERVICE, RestServiceConstant.RESEARCH_SERVICE);
 	}
 	
-	protected RestCaller<ResearchTheme> getRestCallerThemes() {
-		return new RestCaller<ResearchTheme>(RestConstant.REST_SERVICE, RestServiceConstant.RESEARCH_THEME_SERVICE);
+	protected RestCaller<Category> getRestCallerCategories() {
+		return new RestCaller<Category>(RestConstant.REST_SERVICE, RestServiceConstant.CATEGORY_SERVICE);
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/research")
@@ -117,24 +115,6 @@ public class ResearchDevelopmentWebController {
 		}
 		
 		return resultMap;
-	}
-	
-	private List<ResearchTheme> getResearchThemesTitle(){
-		SpecificRestCaller<ResearchTheme> rcRT = new SpecificRestCaller<ResearchTheme>(RestConstant.REST_SERVICE, RestServiceConstant.RESEARCH_THEME_SERVICE);
-		List<ResearchTheme> objList = rcRT.executeGetList(new QueryParamInterfaceRestCaller() {
-			
-			@Override
-			public String getPath() {
-				return "/findAllResearchThemeTitle";
-			}
-			
-			@Override
-			public Map<String, Object> getParameters() {
-				Map<String,Object> map = new HashMap<String, Object>();
-				return map;
-			}
-		});
-		return objList;
 	}
 	
 }
