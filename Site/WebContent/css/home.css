@@ -669,21 +669,21 @@
     height: 197px;
 }
 .hexagon_learning{
-	animation: spinnerY 8s infinite linear;
+	/* animation: spinnerY 8s infinite linear; */
 	position: absolute;
     top: 4.999999761581%;
     left: 26.9%;
     z-index: 999;
 }
 .hexagon_advisory{
-	animation: spinnerY 9s infinite linear;
+	/* animation: spinnerY 9s infinite linear; */
 	position: absolute;
     top: 48.4%;
     left: 42.5%;
     z-index: 999;
 }
 .hexagon_rnd{
-	animation: spinnerY 10s infinite linear;
+	/* animation: spinnerY 10s infinite linear; */
 	position: absolute;
     top: 7%;
     left: 58.8%;
@@ -1283,6 +1283,53 @@
 	.aboutUsArea .circle-bottom-wrapper {
 	    background-size: 100% 225px;
 	}
+	.hexagon_bg_top, .hexagon_bg_top img{
+		width: 130px;
+	    height: 149.5px;
+	}
+	.pcb-learning, .pcb-advisory, .pcb-rnd{
+		height: 177px;
+	}
+	.pcb-learning {
+	    left: 2.69%;
+	    top: 3.73%;
+	}
+	.pcb-advisory {
+		left: 25%;
+	    top: 39.5%;
+	}
+	.pcb-rnd {
+		left: 50.5%;
+    	top: 3.73%;
+	}
+	.hexagon_learning {
+	    left: 11.58%;
+    	top: 7.3%;
+	}
+	.hexagon_advisory {
+		left: 32.6%;
+    	top: 43%;
+	}
+	.hexagon_rnd {
+		top: 7.3%;
+	}
+	.hexagon_hfc {
+	  	top: 52%;
+    	left: 81%;
+	}
+	.hexagon_hfc img{
+		height: 50px;
+	    width: auto;
+	}
+	.about_inner {
+	    height: 375px;
+	}
+	.housing_index {
+	    top: 88.5%;
+	}
+}
+@media screen and (max-width: 400px) {
+	
 }
 @media screen and (max-width: 319px) {
 }
