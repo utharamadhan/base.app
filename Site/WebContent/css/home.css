@@ -1273,15 +1273,69 @@
 	}
 }
 @media screen and (max-width: 479px) {
+	.pcb-learning, .pcb-advisory, .pcb-rnd{
+		height: 177px;
+	}
+	.hexagon_bg_top, .hexagon_bg_top img{
+		width: 130px;
+	    height: 149.5px;
+	}
+	.about_inner {
+	    height: 380px;
+	}
+	.pcb-learning {
+	    left: 8%;
+	}
+	.pcb-advisory {
+	    left: 27.7%;
+	    top: 38.6%;
+	}
+	.pcb-rnd {
+	    left: 50%;
+	}
+	.hexagon_learning {
+	    left: 15.7%;
+	    top: 6.4%;
+	}
+	.hexagon_advisory {
+    	left: 34.2%;
+	    top: 42%;
+	}
+	.hexagon_rnd {
+	    left: 52.5%;
+	    top: 6.4%;
+	}
+	.hexagon_hfc{
+		width:98px;
+	}
+	.learning_text, .advisory_text, .rnd_text {
+	    font-size: 22px;
+	}
+	.learning_text {
+	    top: 24%;
+	}
+	.advisory_text {
+	    left: 8%;
+	    top: 60%;
+	}
+	.rnd_text {
+	    left: 65%;
+	    top: 20%;
+	    line-height: 1em;
+	}
+	.housing_index {
+	    top: 88.4%;
+	}
+	.aboutUsArea .circle-top h2,.newsArea .title-center h2, .testimonialArea .title-center h2 {
+    	font-size: 26px;
+	}
+}
+@media screen and (max-width: 439px) {
 	.circle-top {
 	    background-size: 100% 153px;
 	}
 	.aboutUsArea .circle-bottom-wrapper {
 	    background-size: 100% 225px;
-	}
-	.hexagon_bg_top, .hexagon_bg_top img{
-		width: 130px;
-	    height: 149.5px;
 	}
 	.pcb-learning, .pcb-advisory, .pcb-rnd{
 		height: 177px;
@@ -1351,7 +1405,7 @@
 	    font-size: 14px;
 	}
 }
-@media screen and (max-width: 380px) {
+@media screen and (max-width: 399px) {
 	.hexagon_bg_top, .hexagon_bg_top img {
 	    width: 107.826px;
 	    height: 124px;
@@ -1435,6 +1489,9 @@
 	.aboutUsArea .circle-top h2, .newsArea .title-center h2, .testimonialArea .title-center h2 {
 	    font-size: 20px;
 	}
+}
+@media screen and (max-width: 359px) {
+	
 }
 @media screen and (max-width: 319px) {
 }
