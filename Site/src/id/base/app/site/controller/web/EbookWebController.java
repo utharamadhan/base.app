@@ -57,7 +57,7 @@ public class EbookWebController {
 			@RequestParam(value="filter", defaultValue="", required=false) String filterJson
 	){
 		List<SearchFilter> filter = new ArrayList<SearchFilter>();
-		filter.add(new SearchFilter(DigitalBook.STATUS, Operator.EQUALS, ILookupConstant.ArticleStatus.PUBLISH, Integer.class));
+		filter.add(new SearchFilter(DigitalBook.STATUS, Operator.EQUALS, ILookupConstant.Status.PUBLISH, Integer.class));
 		if(StringUtils.isNotEmpty(filterJson)){
 			filter.add(new SearchFilter(DigitalBook.TITLE, Operator.LIKE, filterJson));
 		}
@@ -77,7 +77,7 @@ public class EbookWebController {
 	){
 		Map<String, Object> resultMap = new HashMap<>();
 		List<SearchFilter> filter = new ArrayList<SearchFilter>();
-		filter.add(new SearchFilter(DigitalBook.STATUS, Operator.EQUALS, ILookupConstant.ArticleStatus.PUBLISH, Integer.class));
+		filter.add(new SearchFilter(DigitalBook.STATUS, Operator.EQUALS, ILookupConstant.Status.PUBLISH, Integer.class));
 		if(StringUtils.isNotEmpty(filterJson)){
 			filter.add(new SearchFilter(DigitalBook.TITLE, Operator.LIKE, filterJson));
 		}

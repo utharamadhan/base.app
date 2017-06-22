@@ -53,7 +53,7 @@ public class ProgramHFCWebController extends BaseController<ProgramPost> {
 	}
 	
 	private void setDefaultFilter(HttpServletRequest request, List<SearchFilter> filters) {
-		filters.add(new SearchFilter(ProgramPost.STATUS, Operator.NOT_EQUAL, ILookupConstant.ArticleStatus.DELETE, Integer.class));
+		filters.add(new SearchFilter(ProgramPost.STATUS, Operator.NOT_EQUAL, ILookupConstant.Status.DELETE, Integer.class));
 	}
 
 	@Override
@@ -83,7 +83,7 @@ public class ProgramHFCWebController extends BaseController<ProgramPost> {
 	
 	public void setDefaultData(ModelMap model) {
 		LookupRestCaller lrc = new LookupRestCaller();
-		model.addAttribute("statusOptions", lrc.findByLookupGroup(ILookupGroupConstant.ARTICLE_STATUS));
+		model.addAttribute("statusOptions", lrc.findByLookupGroup(ILookupGroupConstant.STATUS));
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="showAdd")

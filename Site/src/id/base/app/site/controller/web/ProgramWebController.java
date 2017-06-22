@@ -53,7 +53,7 @@ public class ProgramWebController {
 			@RequestParam(value="filter", defaultValue="", required=false) String filterJson
 		){
 		List<SearchFilter> filter = new ArrayList<SearchFilter>();
-		filter.add(new SearchFilter(ProgramPost.STATUS, Operator.EQUALS, ILookupConstant.ArticleStatus.PUBLISH, Integer.class));
+		filter.add(new SearchFilter(ProgramPost.STATUS, Operator.EQUALS, ILookupConstant.Status.PUBLISH, Integer.class));
 		if(StringUtils.isNotEmpty(filterJson)){
 			filter.add(new SearchFilter(ProgramPost.TITLE, Operator.LIKE, filterJson));
 		}
@@ -73,7 +73,7 @@ public class ProgramWebController {
 		){
 		Map<String, Object> resultMap = new HashMap<>();
 		List<SearchFilter> filter = new ArrayList<SearchFilter>();
-		filter.add(new SearchFilter(ProgramPost.STATUS, Operator.EQUALS, ILookupConstant.ArticleStatus.PUBLISH, Integer.class));
+		filter.add(new SearchFilter(ProgramPost.STATUS, Operator.EQUALS, ILookupConstant.Status.PUBLISH, Integer.class));
 		if(StringUtils.isNotEmpty(filterJson)){
 			filter.add(new SearchFilter(ProgramPost.TITLE, Operator.LIKE, filterJson));
 		}

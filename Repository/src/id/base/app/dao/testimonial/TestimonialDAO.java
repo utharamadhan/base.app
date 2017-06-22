@@ -57,7 +57,7 @@ public class TestimonialDAO extends AbstractHibernateDAO<Testimonial, Long> impl
 	@Override
 	public List<Testimonial> findLatest(int number) throws SystemException {
 		Criteria crit = this.getSession().createCriteria(domainClass);
-		crit.add(Restrictions.eq(Testimonial.STATUS, ILookupConstant.ArticleStatus.PUBLISH));
+		crit.add(Restrictions.eq(Testimonial.STATUS, ILookupConstant.Status.PUBLISH));
 		crit.addOrder(Order.desc(Testimonial.TESTIMONIAL_DATE));
 		crit.setMaxResults(number);
 		return crit.list();

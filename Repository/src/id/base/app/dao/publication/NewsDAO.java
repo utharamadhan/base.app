@@ -61,7 +61,7 @@ public class NewsDAO extends AbstractHibernateDAO<News, Long> implements INewsDA
 	@Override
 	public List<News> findLatestNews(int number) throws SystemException {
 		Criteria crit = this.getSession().createCriteria(domainClass);
-		crit.add(Restrictions.eq(News.STATUS, ILookupConstant.ArticleStatus.PUBLISH));
+		crit.add(Restrictions.eq(News.STATUS, ILookupConstant.Status.PUBLISH));
 		crit.addOrder(Order.desc(News.PK_NEWS));
 		crit.setMaxResults(number);
 		crit.setProjection(Projections.projectionList().
@@ -124,7 +124,7 @@ public class NewsDAO extends AbstractHibernateDAO<News, Long> implements INewsDA
 	public News findByPermalink(String permalink) throws SystemException {
 		Criteria criteria = getSession().createCriteria(News.class);
 		criteria.add(Restrictions.eq(News.PERMALINK, permalink));
-		criteria.add(Restrictions.eq(News.STATUS, ILookupConstant.ArticleStatus.PUBLISH));
+		criteria.add(Restrictions.eq(News.STATUS, ILookupConstant.Status.PUBLISH));
 		return (News) criteria.uniqueResult();
 	}
 }

@@ -124,7 +124,7 @@ public class ProgramPost extends BaseEntity implements Serializable {
 	}
 
 	public String getStatusStr() {
-		return ILookupConstant.ArticleStatus.ARTICLE_STATUS_MAP.get(status);
+		return ILookupConstant.Status.STATUS_MAP.get(status);
 	}
 	
 	@Transient

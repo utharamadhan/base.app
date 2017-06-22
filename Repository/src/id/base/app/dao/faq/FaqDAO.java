@@ -67,7 +67,7 @@ public class FaqDAO extends AbstractHibernateDAO<Faq,Long> implements IFaqDAO {
 	public List<Faq> findFaqListForView() throws SystemException {
 		Criteria crit = getSession().createCriteria(Faq.class);
 		crit.createAlias("faqCategoryLookup", "faqCategoryLookup");
-		crit.add(Restrictions.eq(Faq.STATUS, ILookupConstant.ArticleStatus.PUBLISH));
+		crit.add(Restrictions.eq(Faq.STATUS, ILookupConstant.Status.PUBLISH));
 		crit.addOrder(Order.asc("faqCategoryLookup.code"));
 		crit.addOrder(Order.asc(Faq.QUESTION));
 		ProjectionList projectionList = Projections.projectionList();

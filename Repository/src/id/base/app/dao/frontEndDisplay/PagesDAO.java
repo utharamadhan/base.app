@@ -57,7 +57,7 @@ public class PagesDAO extends AbstractHibernateDAO<Pages, Long> implements IPage
 	public Pages findByPermalink(String permalink) throws SystemException {
 		Criteria criteria = getSession().createCriteria(Pages.class);
 		criteria.add(Restrictions.eq(Pages.PERMALINK, permalink));
-		criteria.add(Restrictions.eq(Pages.STATUS, ILookupConstant.ArticleStatus.PUBLISH));
+		criteria.add(Restrictions.eq(Pages.STATUS, ILookupConstant.Status.PUBLISH));
 		return (Pages) criteria.uniqueResult();
 	}
 

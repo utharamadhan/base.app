@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:ifs="http://btn.co.id">
 <head>
 <meta charset="ISO-8859-1"/>
-<title>Research Maintenance</title>
+<title>Research &#38; Dev. Item</title>
 </head>
 <style>
 .dataTables_scrollBody {
@@ -12,14 +12,14 @@
 </style>
 <body>
 <div id="content" class="col-md-12">
-	<div id="researchMaintenance-detail-container"></div>
-	<div id="researchMaintenance-list-container">
+	<div id="researchDevItem-detail-container"></div>
+	<div id="researchDevItem-list-container">
 	<div class="pageheader">
-		<h4><i class="fa fa-shopping-basket"></i> Research / Research Maintenance List
+		<h4><i class="fa fa-shopping-basket"></i> Research &#38; Dev. / Research &#38; Dev. List
 		<span></span></h4>
 	</div>
 	<div class="col-md-4 tile-body no-vpadding" style="margin:10px;">
-		<a href="#" id="researchMaintenance-btn-add" class="btn btn-primary" style="margin-bottom:5px"><i class="fa fa-plus dropdown-plus"></i> &nbsp; Add</a>
+		<a href="#" id="researchDevItem-btn-add" class="btn btn-primary" style="margin-bottom:5px"><i class="fa fa-plus dropdown-plus"></i> &nbsp; Add</a>
 	</div>
 	<div class="main">
 		<div class="row">
@@ -27,15 +27,17 @@
 				<section class="tile transparent">
 					<div class="table-responsive">
 						<div class="tile-body rounded-corners">
-	                      	<table id="researchMaintenance-list-table" class="table table-datatable table-custom">
+	                      	<table id="researchDevItem-list-table" class="table table-datatable table-custom">
 		                        <thead>
 		                          <tr>
 		                            <th>Title</th>
+		                            <th>Year From</th>
+		                            <th>Status</th>
 									<th>E/D</th>
 		                          </tr>
 		                        </thead>
 	                     	</table>
-	                     	<div style="padding-bottom: 3px; bottom: 0;" th:replace="pagingDiv::pager (${pagingWrapper}, ${#dates.createNow()}, 'researchMaintenance-list-table', 'contentArea')">
+	                     	<div style="padding-bottom: 3px; bottom: 0;" th:replace="pagingDiv::pager (${pagingWrapper}, ${#dates.createNow()}, 'researchDevItem-list-table', 'contentArea')">
 							</div>
                      	</div>
 					</div>
@@ -48,17 +50,17 @@
 <script th:inline="javascript">
 	/*<![CDATA[*/
 		function showAdd() {
-	    	var sURL = /*[[@{/do/research/researchMaintenance/showAdd?skipdecorator=}]]*/ #;
-	    	showScreen('researchMaintenance-list-container', 'researchMaintenance-detail-container', sURL);
+	    	var sURL = /*[[@{/do/researchDev/item/showAdd?skipdecorator=}]]*/ #;
+	    	showScreen('researchDevItem-list-container', 'researchDevItem-detail-container', sURL);
 		}
 		
 		function showDetail(maintenancePK) {
-			var sURL = /*[[@{/do/research/researchMaintenance/showEdit?maintenancePK=}]]*/ #;
-			showScreen('researchMaintenance-list-container', 'researchMaintenance-detail-container', sURL + maintenancePK + "&skipdecorator=");
+			var sURL = /*[[@{/do/researchDev/item/showEdit?maintenancePK=}]]*/ #;
+			showScreen('researchDevItem-list-container', 'researchDevItem-detail-container', sURL + maintenancePK + "&skipdecorator=");
 		}
 		
 		function deleteItem(maintenancePK) {
-			var sURL = /*[[@{/do/research/researchMaintenance/delete?}]]*/ #;
+			var sURL = /*[[@{/do/researchDev/item/delete?}]]*/ #;
 			var serializedData = "maintenancePKs=" + maintenancePK;
 			$.post(sURL, serializedData,function(data){
 				if(data.errorList!=null){
@@ -70,8 +72,8 @@
 		} 
 		
 		function deleteProgramPost() {
-			var sURL = /*[[@{/do/research/researchMaintenance/deleteProgramPost?skipDecorator}]]*/ #;
-			$.post(sURL, $('.researchMaintenance-list-check-delete').serialize(), function(data){
+			var sURL = /*[[@{/do/researchDev/item/deleteProgramPost?skipDecorator}]]*/ #;
+			$.post(sURL, $('.researchDevItem-list-check-delete').serialize(), function(data){
 				if(data.errorList!=null){
 					
 				}else{
@@ -81,19 +83,21 @@
 		}
 	
 	    $(function(){
-		    setMenuActive('researchMaintenance');
+		    setMenuActive('researchDevItem');
 		    var colDefs = [{ name : "title" },
+		                   { name : "year" },
+		                   { name : "statusStr" },
 	    	               { type : "deleteAndEdit" , param : [ "pkResearch" ] }
 	    	               ];
-		    var sURL = /*[[@{/do/research/researchMaintenance/list?}]]*/ #;
-		    buildDataTable(/*[[@{/}]]*/, sURL, 'researchMaintenance-list-table', 450, colDefs, null, null);
+		    var sURL = /*[[@{/do/researchDev/item/list?}]]*/ #;
+		    buildDataTable(/*[[@{/}]]*/, sURL, 'researchDevItem-list-table', 450, colDefs, null, null);
 	    });
 	    
-		$('#researchMaintenance-btn-add').click(function(){
+		$('#researchDevItem-btn-add').click(function(){
 			showAdd();
 		});
 		
-		$('#researchMaintenance-btn-delete').click(function(){
+		$('#researchDevItem-btn-delete').click(function(){
 			deleteProgramPost();
 		});
 		

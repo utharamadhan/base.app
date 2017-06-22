@@ -85,7 +85,7 @@ public class FooterLinkUrlWebController extends BaseController<LinkUrl> {
 	
 	public void setDefaultData(ModelMap model, LinkUrl obj) {
 		LookupRestCaller lrc = new LookupRestCaller();
-		model.addAttribute("statusOptions", lrc.findByLookupGroup(ILookupGroupConstant.ARTICLE_STATUS));
+		model.addAttribute("statusOptions", lrc.findByLookupGroup(ILookupGroupConstant.STATUS));
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="showAdd")

@@ -6,7 +6,7 @@ import java.util.List;
 public class ILookupGroupConstant {
 
 	public static final String USER_STATUS				= "USER_STATUS";
-	public static final String ARTICLE_STATUS			= "ARTICLE_STATUS";
+	public static final String STATUS					= "STATUS";
 	public static final String CONTACT_TYPE				= "CONTACT_TYPE";
 	public static final String COURSE_BASIC_INFO_FIELD 	= "COURSE_BASIC_INFO_FIELD";
 	public static final String COURSE_CATEGORY			= "COURSE_CATEGORY";
@@ -26,7 +26,7 @@ public class ILookupGroupConstant {
 	public static List<String> LOOKUP_GROUP_LIST = new ArrayList<>();
 	static {
 		LOOKUP_GROUP_LIST.add(USER_STATUS);
-		LOOKUP_GROUP_LIST.add(ARTICLE_STATUS);
+		LOOKUP_GROUP_LIST.add(STATUS);
 		LOOKUP_GROUP_LIST.add(CONTACT_TYPE);
 		LOOKUP_GROUP_LIST.add(COURSE_BASIC_INFO_FIELD);
 		LOOKUP_GROUP_LIST.add(ENROLLMENT_STATUS);

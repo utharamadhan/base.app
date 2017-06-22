@@ -53,7 +53,7 @@ public class NewsWebController {
 			@RequestParam(value="filter", defaultValue="", required=false) String filterJson
 		){
 		List<SearchFilter> filter = new ArrayList<SearchFilter>();
-		filter.add(new SearchFilter(News.STATUS, Operator.EQUALS, ILookupConstant.ArticleStatus.PUBLISH, Integer.class));
+		filter.add(new SearchFilter(News.STATUS, Operator.EQUALS, ILookupConstant.Status.PUBLISH, Integer.class));
 		if(StringUtils.isNotEmpty(filterJson)){
 			filter.add(new SearchFilter(News.TITLE, Operator.LIKE, filterJson));
 		}
@@ -73,7 +73,7 @@ public class NewsWebController {
 		){
 		Map<String, Object> resultMap = new HashMap<>();
 		List<SearchFilter> filter = new ArrayList<SearchFilter>();
-		filter.add(new SearchFilter(News.STATUS, Operator.EQUALS, ILookupConstant.ArticleStatus.PUBLISH, Integer.class));
+		filter.add(new SearchFilter(News.STATUS, Operator.EQUALS, ILookupConstant.Status.PUBLISH, Integer.class));
 		if(StringUtils.isNotEmpty(filterJson)){
 			filter.add(new SearchFilter(News.TITLE, Operator.LIKE, filterJson));
 		}

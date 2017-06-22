@@ -96,7 +96,7 @@ public class HousingIndex extends BaseEntity implements Serializable {
 	}
 
 	public String getStatusStr() {
-		return ILookupConstant.ArticleStatus.ARTICLE_STATUS_MAP.get(status);
+		return ILookupConstant.Status.STATUS_MAP.get(status);
 	}
 
 	public void setStatusStr(String statusStr) {

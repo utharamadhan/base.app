@@ -1,5 +1,6 @@
 package id.base.app.valueobject.research;
 
+import id.base.app.ILookupConstant;
 import id.base.app.encryptor.EncodeDecode;
 import id.base.app.valueobject.BaseEntity;
 import id.base.app.valueobject.Category;
@@ -35,6 +36,7 @@ public class Research extends BaseEntity implements Serializable {
 	public static final String IS_INTERNAL			= "isInternal";
 	public static final String TITLE 				= "title";
 	public static final String SUB_TITLE			= "subTitle";
+	public static final String YEAR_FROM			= "yearFrom";
 	public static final String STATUS				= "status";
 	
 	public static Research getInstance() {
@@ -59,6 +61,12 @@ public class Research extends BaseEntity implements Serializable {
 	
 	@Column(name="SUBTITLE")
 	private String subtitle;
+	
+	@Column(name="YEAR_FROM")
+	private Integer yearFrom;
+	
+	@Column(name="YEAR_To")
+	private Integer yearTo;
 	
 	@Column(name="IMAGE_URL")
 	private String imageURL;
@@ -93,6 +101,9 @@ public class Research extends BaseEntity implements Serializable {
 	@Column(name="STATUS")
 	private Integer status;
 	
+	@Transient
+	private String statusStr;
+	
 	@Column(name="PERMALINK")
 	private String permalink;
 	
@@ -113,6 +124,9 @@ public class Research extends BaseEntity implements Serializable {
 	
 	@Transient
 	public String encodedPicture;
+	
+	@Transient
+	private String year;
 
 	public Long getPkResearch() {
 		return pkResearch;
@@ -152,6 +166,22 @@ public class Research extends BaseEntity implements Serializable {
 
 	public void setSubtitle(String subtitle) {
 		this.subtitle = subtitle;
+	}
+	
+	public Integer getYearFrom() {
+		return yearFrom;
+	}
+
+	public void setYearFrom(Integer yearFrom) {
+		this.yearFrom = yearFrom;
+	}
+
+	public Integer getYearTo() {
+		return yearTo;
+	}
+
+	public void setYearTo(Integer yearTo) {
+		this.yearTo = yearTo;
 	}
 
 	public String getImageURL() {
@@ -241,6 +271,10 @@ public class Research extends BaseEntity implements Serializable {
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
+	
+	public String getStatusStr() {
+		return ILookupConstant.Status.STATUS_MAP.get(status);
+	}
 
 	public String getPermalink() {
 		return permalink;
@@ -298,6 +332,18 @@ public class Research extends BaseEntity implements Serializable {
 	}
 	public void setEncodedPicture(String encodedPicture) {
 		this.encodedPicture = encodedPicture;
+	}
+
+	public String getYear() {
+		if(getYearFrom()==null){
+			return getYearTo()+"";
+		}else{
+			String year = getYearFrom()+"";
+			if(getYearTo()!=null){
+				year += " - "+getYearTo();	
+			}
+			return year;
+		}
 	}
 	
 }

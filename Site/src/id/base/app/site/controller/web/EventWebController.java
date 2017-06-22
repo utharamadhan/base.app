@@ -62,7 +62,7 @@ public class EventWebController {
 	public String archived(ModelMap model, HttpServletRequest request, HttpServletResponse response) throws JsonProcessingException{
 		List<SearchFilter> filter = new ArrayList<SearchFilter>();
 		List<SearchOrder> order = new ArrayList<SearchOrder>();
-		filter.add(new SearchFilter(Event.STATUS, Operator.EQUALS, ILookupConstant.ArticleStatus.PUBLISH));
+		filter.add(new SearchFilter(Event.STATUS, Operator.EQUALS, ILookupConstant.Status.PUBLISH));
 		final String filterJson = mapper.writeValueAsString(filter);
 		final String orderJson = mapper.writeValueAsString(order);
 		SpecificRestCaller<Event> eventRC = new SpecificRestCaller<Event>(RestConstant.REST_SERVICE, RestServiceConstant.EVENT_SERVICE);
@@ -91,7 +91,7 @@ public class EventWebController {
 		ArrayNode jsonData = null;
 		List<SearchFilter> filter = new ArrayList<SearchFilter>();
 		List<SearchOrder> order = new ArrayList<SearchOrder>();
-		filter.add(new SearchFilter(Event.STATUS, Operator.EQUALS, ILookupConstant.ArticleStatus.PUBLISH));
+		filter.add(new SearchFilter(Event.STATUS, Operator.EQUALS, ILookupConstant.Status.PUBLISH));
 		final Map<String,String> param = params; 
 		final String filterJson = mapper.writeValueAsString(filter);
 		final String orderJson = mapper.writeValueAsString(order);

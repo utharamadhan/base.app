@@ -57,7 +57,7 @@ public class ResearchDevCategoryWebController extends BaseController<Category> {
 	protected List<SearchFilter> convertForFilter(HttpServletRequest request,
 			Map<String, String> paramWrapper, DataTableCriterias columns) {
 		List<SearchFilter> filters = new ArrayList<>();
-		filters.add(new SearchFilter(Category.STATUS, Operator.NOT_EQUAL, ILookupConstant.ArticleStatus.DELETE, Integer.class));
+		filters.add(new SearchFilter(Category.STATUS, Operator.NOT_EQUAL, ILookupConstant.Status.DELETE, Integer.class));
 		filters.add(new SearchFilter(Category.TYPE, Operator.EQUALS, SystemConstant.CategoryType.RESEARCH_DEVELOPMENT, String.class));
 		if(StringFunction.isNotEmpty(columns.getSearch().get(DataTableCriterias.SearchCriterias.value))){
 			filters.add(new SearchFilter(Category.TITLE, Operator.LIKE, columns.getSearch().get(DataTableCriterias.SearchCriterias.value)));
@@ -87,7 +87,7 @@ public class ResearchDevCategoryWebController extends BaseController<Category> {
 	
 	public void setDefaultData(ModelMap model) {
 		LookupRestCaller lrc = new LookupRestCaller();
-		model.addAttribute("statusOptions", lrc.findByLookupGroup(ILookupGroupConstant.ARTICLE_STATUS));
+		model.addAttribute("statusOptions", lrc.findByLookupGroup(ILookupGroupConstant.STATUS));
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="showAdd")

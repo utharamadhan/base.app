@@ -1,5 +1,6 @@
 package id.base.app.web.controller.researchDevelopment;
 
+import id.base.app.ILookupConstant;
 import id.base.app.SystemConstant;
 import id.base.app.exception.ErrorHolder;
 import id.base.app.paging.PagingWrapper;
@@ -32,11 +33,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Scope(value="request")
 @Controller
-@RequestMapping("/research/researchMaintenance")
+@RequestMapping("/researchDev/item")
 public class ResearchDevItemWebController extends BaseController<Research> {
 
-	private final String PATH_LIST = "/research/researchMaintenanceList";
-	private final String PATH_DETAIL = "/research/researchMaintenanceDetail";
+	private final String PATH_LIST = "/researchDev/researchDevItemList";
+	private final String PATH_DETAIL = "/researchDev/researchDevItemDetail";
 	
 	@Override
 	protected RestCaller<Research> getRestCaller() {
@@ -49,7 +50,7 @@ public class ResearchDevItemWebController extends BaseController<Research> {
 	}
 	
 	private void setDefaultFilter(HttpServletRequest request, List<SearchFilter> filters) {
-		filters.add(new SearchFilter(Research.STATUS, Operator.NOT_EQUAL, SystemConstant.ValidFlag.INVALID));
+		filters.add(new SearchFilter(Research.STATUS, Operator.NOT_EQUAL, ILookupConstant.Status.DELETE));
 	}
 
 	@Override
@@ -79,7 +80,6 @@ public class ResearchDevItemWebController extends BaseController<Research> {
 	
 	public void setDefaultData(ModelMap model) {
 	}
-	
 	
 	@RequestMapping(method=RequestMethod.GET, value="showAdd")
 	public String showAdd(ModelMap model, HttpServletRequest request){

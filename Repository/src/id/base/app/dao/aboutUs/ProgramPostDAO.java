@@ -61,7 +61,7 @@ public class ProgramPostDAO extends AbstractHibernateDAO<ProgramPost, Long> impl
 	@Override
 	public List<ProgramPost> findLatest(int number) throws SystemException {
 		Criteria crit = this.getSession().createCriteria(domainClass);
-		crit.add(Restrictions.eq(ProgramPost.STATUS, ILookupConstant.ArticleStatus.PUBLISH));
+		crit.add(Restrictions.eq(ProgramPost.STATUS, ILookupConstant.Status.PUBLISH));
 		crit.addOrder(Order.desc(ProgramPost.PK_PROGRAM_POST));
 		crit.setMaxResults(number);
 		crit.setProjection(Projections.projectionList().
@@ -120,7 +120,7 @@ public class ProgramPostDAO extends AbstractHibernateDAO<ProgramPost, Long> impl
 	public ProgramPost findByPermalink(String permalink) throws SystemException {
 		Criteria criteria = getSession().createCriteria(ProgramPost.class);
 		criteria.add(Restrictions.eq(ProgramPost.PERMALINK, permalink));
-		criteria.add(Restrictions.eq(ProgramPost.STATUS, ILookupConstant.ArticleStatus.PUBLISH));
+		criteria.add(Restrictions.eq(ProgramPost.STATUS, ILookupConstant.Status.PUBLISH));
 		return (ProgramPost) criteria.uniqueResult();
 	}
 }

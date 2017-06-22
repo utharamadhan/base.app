@@ -55,7 +55,7 @@ public class FaqWebController extends BaseController<Faq> {
 	}
 
 	private void setDefaultFilter(HttpServletRequest request, List<SearchFilter> filters) {
-		filters.add(new SearchFilter(Pages.STATUS, Operator.NOT_EQUAL, ILookupConstant.ArticleStatus.DELETE, Integer.class));
+		filters.add(new SearchFilter(Pages.STATUS, Operator.NOT_EQUAL, ILookupConstant.Status.DELETE, Integer.class));
 	}
 	
 	@Override
@@ -92,7 +92,7 @@ public class FaqWebController extends BaseController<Faq> {
 	public void setDefaultData(ModelMap model) {
 		LookupRestCaller lrc = new LookupRestCaller();
 		model.addAttribute("categoryOptions", lrc.findByLookupGroup(ILookupGroupConstant.FAQ_CATEGORY));
-		model.addAttribute("statusOptions", lrc.findByLookupGroup(ILookupGroupConstant.ARTICLE_STATUS));
+		model.addAttribute("statusOptions", lrc.findByLookupGroup(ILookupGroupConstant.STATUS));
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="showAdd")

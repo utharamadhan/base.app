@@ -65,7 +65,7 @@ public class ContentWebController {
 		RestCaller<HousingIndex> rc = new RestCaller<HousingIndex>(RestConstant.REST_SERVICE, RestServiceConstant.HOUSING_INDEX_SERVICE);
 		List<SearchFilter> filters = new ArrayList<SearchFilter>();
 		List<SearchOrder> orders = new ArrayList<SearchOrder>();
-		filters.add(new SearchFilter(HousingIndex.STATUS, Operator.EQUALS, ILookupConstant.ArticleStatus.PUBLISH, Integer.class));
+		filters.add(new SearchFilter(HousingIndex.STATUS, Operator.EQUALS, ILookupConstant.Status.PUBLISH, Integer.class));
 		orders.add(new SearchOrder(HousingIndex.ORDER_NO, SearchOrder.Sort.ASC));
 		return rc.findAll(filters, orders);
 	}
@@ -74,7 +74,7 @@ public class ContentWebController {
 		RestCaller<Testimonial> rc = new RestCaller<Testimonial>(RestConstant.REST_SERVICE, RestServiceConstant.TESTIMONIAL_SERVICE);
 		List<SearchFilter> filters = new ArrayList<SearchFilter>();
 		List<SearchOrder> orders = new ArrayList<SearchOrder>();
-		filters.add(new SearchFilter(Testimonial.STATUS, Operator.EQUALS, ILookupConstant.ArticleStatus.PUBLISH, Integer.class));
+		filters.add(new SearchFilter(Testimonial.STATUS, Operator.EQUALS, ILookupConstant.Status.PUBLISH, Integer.class));
 		orders.add(new SearchOrder(Testimonial.TESTIMONIAL_DATE, SearchOrder.Sort.DESC));
 		return rc.findAll(filters, orders);
 	}
@@ -82,7 +82,7 @@ public class ContentWebController {
 	private List<Pages> getCommonPostList(){
 		RestCaller<Pages> restCall = new RestCaller<Pages>(RestConstant.REST_SERVICE, RestServiceConstant.PAGES_SERVICE);
 		List<SearchFilter> filter = new ArrayList<SearchFilter>();
-		filter.add(new SearchFilter(Pages.STATUS, Operator.EQUALS, ILookupConstant.ArticleStatus.PUBLISH, Integer.class));
+		filter.add(new SearchFilter(Pages.STATUS, Operator.EQUALS, ILookupConstant.Status.PUBLISH, Integer.class));
 		filter.add(new SearchFilter(Pages.TYPE, Operator.EQUALS, SystemConstant.PagesType.ABOUT_US, String.class));
 		List<SearchOrder> order = new ArrayList<SearchOrder>();
 		order.add(new SearchOrder(Pages.PK_PAGES, Sort.ASC));
@@ -188,7 +188,7 @@ public class ContentWebController {
 		RestCaller<LinkUrl> restCallFLU = new RestCaller<LinkUrl>(RestConstant.REST_SERVICE, RestServiceConstant.LINK_URL_SERVICE);
 		List<SearchFilter> filterFLU = new ArrayList<SearchFilter>();
 		filterFLU.add(new SearchFilter(LinkUrl.TYPE, Operator.EQUALS, SystemConstant.LinkUrlType.FOOTER, String.class));
-		filterFLU.add(new SearchFilter(LinkUrl.STATUS, Operator.EQUALS, ILookupConstant.ArticleStatus.PUBLISH, Integer.class));
+		filterFLU.add(new SearchFilter(LinkUrl.STATUS, Operator.EQUALS, ILookupConstant.Status.PUBLISH, Integer.class));
 		List<SearchOrder> orderFLU = new ArrayList<SearchOrder>();
 		orderFLU.add(new SearchOrder(LinkUrl.ORDER_NO, Sort.ASC));
 		return restCallFLU.findAll(filterFLU, orderFLU);

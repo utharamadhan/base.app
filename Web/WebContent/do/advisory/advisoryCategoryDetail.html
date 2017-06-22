@@ -42,7 +42,7 @@
 						</div>
 						<input id="advisoryCategory-detail-maintenancePk" type="hidden" th:field="*{pkCategory}"/>
 						<div class="form-group">
-							<label class="col-sm-2 control-label" th:text="'Title'">Title</label>
+							<label class="col-sm-2 control-label required" th:text="'Title'">Title</label>
 							<div class="col-sm-9 form-input-container">
 								<input type="text" class="form-control" placeholder="Title" name="srch-term" id="input-text-name" th:field="*{title}"/>
 							</div>
@@ -70,6 +70,7 @@
 									<div id="container-basicPictureURL" style='display:none;'>
 									</div>
 								</th:block>
+								<small class="text-muted">Image Resolution : 600px X 400px</small>
 							</div>
 						</div>
 						<div class="form-group">
@@ -89,7 +90,7 @@
                            	</div>
 						</div>
 						<div class="form-group form-footer">				
-							<div class="col-sm-offset-3 col-sm-9">
+							<div class="col-sm-offset-2 col-sm-10">
 								<a href="#" id="advisoryCategory-detail-btn-cancel" class="btn btn-default" type="reset" data-toggle="tooltip" title="">Batal</a>
 								<button id="advisoryCategory-detail-btn-save" class="btn btn-primary" type="submit" data-toggle="tooltip" title="">Simpan</button>
 							</div>

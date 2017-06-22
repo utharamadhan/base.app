@@ -61,7 +61,7 @@ public class DigitalBookDAO extends AbstractHibernateDAO<DigitalBook, Long> impl
 	@Override
 	public List<DigitalBook> findLatestEbook(int number) throws SystemException {
 		Criteria crit = this.getSession().createCriteria(domainClass);
-		crit.add(Restrictions.eq(DigitalBook.STATUS, ILookupConstant.ArticleStatus.PUBLISH));
+		crit.add(Restrictions.eq(DigitalBook.STATUS, ILookupConstant.Status.PUBLISH));
 		crit.addOrder(Order.desc(DigitalBook.PK_DIGITAL_BOOK));
 		crit.setMaxResults(number);
 		crit.setProjection(Projections.projectionList().
@@ -122,7 +122,7 @@ public class DigitalBookDAO extends AbstractHibernateDAO<DigitalBook, Long> impl
 	public DigitalBook findByPermalink(String permalink) throws SystemException {
 		Criteria criteria = getSession().createCriteria(DigitalBook.class);
 		criteria.add(Restrictions.eq(DigitalBook.PERMALINK, permalink));
-		criteria.add(Restrictions.eq(DigitalBook.STATUS, ILookupConstant.ArticleStatus.PUBLISH));
+		criteria.add(Restrictions.eq(DigitalBook.STATUS, ILookupConstant.Status.PUBLISH));
 		return (DigitalBook) criteria.uniqueResult();
 	}
 

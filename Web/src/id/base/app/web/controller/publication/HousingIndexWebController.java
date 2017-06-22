@@ -85,7 +85,7 @@ public class HousingIndexWebController extends BaseController<HousingIndex> {
 	
 	public void setDefaultData(ModelMap model, HousingIndex obj) {
 		LookupRestCaller lrc = new LookupRestCaller();
-		model.addAttribute("statusOptions", lrc.findByLookupGroup(ILookupGroupConstant.ARTICLE_STATUS));
+		model.addAttribute("statusOptions", lrc.findByLookupGroup(ILookupGroupConstant.STATUS));
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="showAdd")

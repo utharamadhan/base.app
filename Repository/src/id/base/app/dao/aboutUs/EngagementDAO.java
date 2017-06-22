@@ -61,7 +61,7 @@ public class EngagementDAO extends AbstractHibernateDAO<Engagement, Long> implem
 	@Override
 	public List<Engagement> findLatest(int number) throws SystemException {
 		Criteria crit = this.getSession().createCriteria(domainClass);
-		crit.add(Restrictions.eq(Engagement.STATUS, ILookupConstant.ArticleStatus.PUBLISH));
+		crit.add(Restrictions.eq(Engagement.STATUS, ILookupConstant.Status.PUBLISH));
 		crit.addOrder(Order.desc(Engagement.PK_ENGAGEMENT));
 		crit.setMaxResults(number);
 		crit.setProjection(Projections.projectionList().
@@ -120,7 +120,7 @@ public class EngagementDAO extends AbstractHibernateDAO<Engagement, Long> implem
 	public Engagement findByPermalink(String permalink) throws SystemException {
 		Criteria criteria = getSession().createCriteria(Engagement.class);
 		criteria.add(Restrictions.eq(Engagement.PERMALINK, permalink));
-		criteria.add(Restrictions.eq(Engagement.STATUS, ILookupConstant.ArticleStatus.PUBLISH));
+		criteria.add(Restrictions.eq(Engagement.STATUS, ILookupConstant.Status.PUBLISH));
 		return (Engagement) criteria.uniqueResult();
 	}
 }

@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:ifs="http://btn.co.id">
 <head>
 <meta charset="ISO-8859-1"/>
-<title>Research Maintenance Detail</title>
+<title>Research &#38; Dev. Item Detail</title>
 </head>
 <style>
 .gcDetail-basicPicture {
@@ -18,7 +18,7 @@
 <body>
 	<div class="pageheader">
 		<div class="row col-md-12">
-			<h4><i class="fa fa-tachometer"></i> Research / Research Maintenance List / Research Maintenance Detail
+			<h4><i class="fa fa-tachometer"></i> Research &#38; Dev. / Research &#38; Dev. Item List / Research &#38; Dev. Item Detail
 			<span></span></h4>
 		</div>
 	</div>
@@ -54,6 +54,16 @@
 							</div>
 						</div>
 						<div class="form-group">
+							<label class="col-sm-2 control-label" th:text="'Year'">Year</label>
+							<div class="col-sm-1 form-input-container">
+								<input type="text" class="form-control" placeholder="From" id="input-text-title" th:field="*{year}"/>
+							</div>
+							<label class="col-sm-1 control-label">to</label>
+							<div class="col-sm-1 form-input-container">
+								<input type="text" class="form-control" placeholder="To" id="input-text-title" th:field="*{year}"/>
+							</div>
+						</div>
+						<div class="form-group">
 							<label class="col-sm-2 control-label" th:text="'Featured Image'">Featured Image</label>
 							<div class="col-sm-9 form-input-container">
 								<th:block th:if="${detail.imageURL != null}">
@@ -83,65 +93,9 @@
 								      </h4>
 								    </div>
 								    <div id="collapseOne" class="panel-collapse collapse">
-								        <input id="tinyMCE-hidden" name="abstractDesc" type="hidden"/>
+								        <input id="tinyMCE-hidden" name="description" type="hidden"/>
 										<div class="tinyMCE-parent">					
-											<textarea class="tinyMCE-area" th:text="*{abstractDesc}">
-											</textarea>
-										</div>
-								    </div>
-								  </div>
-								  <div class="panel panel-default">
-								    <div class="panel-heading">
-								      <h4 class="panel-title"  data-toggle="collapse" data-parent="#accordion" data-target="#collapseTwo">
-								        <a class="accordion-toggle" th:text="'Introduction'">Introduction</a>
-								      </h4>
-								    </div>
-								    <div id="collapseTwo" class="panel-collapse collapse">
-								        <input id="tinyMCE-hidden" name="introduction" type="hidden"/>
-										<div class="tinyMCE-parent">					
-											<textarea class="tinyMCE-area" th:text="*{introduction}">
-											</textarea>
-										</div>
-								    </div>
-								  </div>
-								  <div class="panel panel-default">
-								    <div class="panel-heading">
-								      <h4 class="panel-title" data-toggle="collapse" data-parent="#accordion" data-target="#collapseThree">
-								        <a class="accordion-toggle" th:text="'Literature Review'">Literature Review</a>
-								      </h4>
-								    </div>
-								    <div id="collapseThree" class="panel-collapse collapse">
-								        <input id="tinyMCE-hidden" name="literatureReview" type="hidden"/>
-										<div class="tinyMCE-parent">					
-											<textarea class="tinyMCE-area" th:text="*{literatureReview}">
-											</textarea>
-										</div>
-								    </div>
-								  </div>
-								  <div class="panel panel-default">
-								    <div class="panel-heading">
-								      <h4 class="panel-title" data-toggle="collapse" data-parent="#accordion" data-target="#collapseThree">
-								        <a class="accordion-toggle" th:text="'Methods'">Methods</a>
-								      </h4>
-								    </div>
-								    <div id="collapseThree" class="panel-collapse collapse">
-								        <input id="tinyMCE-hidden" name="methods" type="hidden"/>
-										<div class="tinyMCE-parent">					
-											<textarea class="tinyMCE-area" th:text="*{methods}">
-											</textarea>
-										</div>
-								    </div>
-								  </div>
-								  <div class="panel panel-default">
-								    <div class="panel-heading">
-								      <h4 class="panel-title" data-toggle="collapse" data-parent="#accordion" data-target="#collapseThree">
-								        <a class="accordion-toggle" th:text="'Results'">Results</a>
-								      </h4>
-								    </div>
-								    <div id="collapseThree" class="panel-collapse collapse">
-								        <input id="tinyMCE-hidden" name="results" type="hidden"/>
-										<div class="tinyMCE-parent">					
-											<textarea class="tinyMCE-area" th:text="*{results}">
+											<textarea class="tinyMCE-area" th:text="*{description}">
 											</textarea>
 										</div>
 								    </div>
@@ -184,7 +138,7 @@
 	    	
 			var submitForm = function(){
 				cleanErrorParsley();
-				var sURL = /*[[@{/do/research/researchMaintenance/saveResearch/}]]*/ #;
+				var sURL = /*[[@{/do/researchDev/item/saveResearch/}]]*/ #;
 				$.post(sURL, $("#researchMaintenance-detail-form").serialize(), function(data) {
 					if(data.errorList!=null){
 						displayErrorParsley(data.errorList);

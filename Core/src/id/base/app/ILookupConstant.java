@@ -31,7 +31,7 @@ public interface ILookupConstant {
 		}
 	}
 	
-	public static final class ArticleStatus {
+	public static final class Status {
 		public static final Integer DELETE 	= 0;
 		public static final Integer DRAFT 	= 1;
 		public static final Integer PUBLISH = 2;
@@ -40,11 +40,11 @@ public interface ILookupConstant {
 		public static final String DRAFT_STR = "Draft";
 		public static final String PUBLISH_STR = "Publish";
 		
-		public static final Map<Integer, String> ARTICLE_STATUS_MAP = new HashMap<>();
+		public static final Map<Integer, String> STATUS_MAP = new HashMap<>();
 		static {
-			ARTICLE_STATUS_MAP.put(DELETE, DELETE_STR);
-			ARTICLE_STATUS_MAP.put(DRAFT, DRAFT_STR);
-			ARTICLE_STATUS_MAP.put(PUBLISH, PUBLISH_STR);
+			STATUS_MAP.put(DELETE, DELETE_STR);
+			STATUS_MAP.put(DRAFT, DRAFT_STR);
+			STATUS_MAP.put(PUBLISH, PUBLISH_STR);
 		}
 	}
 	
