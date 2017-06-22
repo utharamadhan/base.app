@@ -37,38 +37,10 @@
 		                    </div>
 		                    <div class="category_advisory">
 			                    <div class="row title_consulting_content">
-			                    	<div class="col-md-6">
-			                    		<h4>Categori</h4>
-			                    	</div>
-			                    	<div class="col-md-6"> 
+			                    	<div class="col-md-12">
+			                    		<h4>Layanan Konsultasi Pembiayaan Rumah dan Kebutuhan Lainnya</h4>
 			                    	</div>
 			                    </div>
-								<div class="row article_category_list"> 
-									<div class="col-md-6"> 
-										<div class="foreground_list_wrapper" th:each="category, i : ${categories}" th:if="${i.count % 2 !=0}">
-											<div class="foreground_list">
-												<div><label class="label_want" th:text="${category.name}">Make a Concept House</label></div>
-												<div>
-													<input type="hidden" class="idCategory" th:value="${category.pkCategory}"/>
-													<span class="glyphicon glyphicon-play position_right" aria-hidden="true"></span>
-												</div>
-											</div>
-											<div class="info_wrapper"><span class="glyphicon glyphicon-info-sign position_right_info" aria-hidden="true" th:attr="data=${category.pkCategory},name=${category.name}"></span></div>
-										</div>
-									</div>
-									<div class="col-md-6"> 
-										<div class="foreground_list_wrapper" th:each="category, i : ${categories}" th:if="${i.count % 2 ==0}">
-											<div class="foreground_list">
-												<div><label class="label_want" th:text="${category.name}">Secure assets</label></div>
-												<div>
-													<input type="hidden" class="idCategory" th:value="${category.pkCategory}" />
-													<span class="glyphicon glyphicon-play position_right" aria-hidden="true"></span>
-												</div>
-												<div class="info_wrapper"><span class="glyphicon glyphicon-info-sign position_right_info" aria-hidden="true" th:attr="data=${category.pkCategory},name=${category.name}"></span></div>
-											</div>
-										</div>
-									</div> 
-								</div>
 							</div>
 							<div class="research_advisory" style="display: none;">
 								<div class="row title_consulting_content">

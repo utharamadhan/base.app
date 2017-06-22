@@ -4395,11 +4395,12 @@ svg {
 	margin-right: auto;
 }
 
-.title_consulting_content h4{
-	font-size: 18px;
-	color: #a19335;
+.title_consulting_content h4 {
+    font-size: 18px;
+    color: #a19335;
+    text-align: center;
+    padding-top: 15px;
 }
-
 .category_advisory, .research_advisory, .advisor_advisory{
 	position: relative;
 }
