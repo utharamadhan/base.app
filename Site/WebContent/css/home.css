@@ -1490,6 +1490,26 @@
 	    font-size: 20px;
 	}
 }
+@media screen and (max-width: 381px) {
+	.pcb-learning {
+    	left: 6.4%;
+	}
+	.pcb-rnd {
+    	left: 46.2%;
+	}
+	.hexagon_learning {
+    	left: 13.6%;
+	}
+	.hexagon_advisory {
+    	left: 30.8%;
+	}
+	.hexagon_rnd {
+	    left: 48.8%;
+	}
+	.aboutUsArea .circle-top h2 {
+	    padding-top: 13%;
+	}
+}
 @media screen and (max-width: 359px) {
 	
 }
