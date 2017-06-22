@@ -669,21 +669,21 @@
     height: 197px;
 }
 .hexagon_learning{
-	/* animation: spinnerY 8s infinite linear; */
+	animation: spinnerY 8s infinite linear;
 	position: absolute;
     top: 4.999999761581%;
     left: 26.9%;
     z-index: 999;
 }
 .hexagon_advisory{
-	/* animation: spinnerY 9s infinite linear; */
+	animation: spinnerY 9s infinite linear;
 	position: absolute;
     top: 48.4%;
     left: 42.5%;
     z-index: 999;
 }
 .hexagon_rnd{
-	/* animation: spinnerY 10s infinite linear; */
+	animation: spinnerY 10s infinite linear;
 	position: absolute;
     top: 7%;
     left: 58.8%;
@@ -981,6 +981,17 @@
 		font-size:14px;
 	}
 }
+@media screen and (max-width: 1270px) {
+	.hexagon_learning {
+	    left: 24.1%;
+	}
+	.hexagon_rnd {
+	    left: 54.35%;
+	}
+	.hexagon_advisory {
+    	left: 39.5%;
+	}
+}
 @media screen and (max-width: 1023px) {
 	.hexagon_learning {
     	left: 28.4%;
@@ -1124,9 +1135,6 @@
 	}
 }
 @media screen and (max-width: 767px) {
-	.margin-top {
-	    margin-top: 61px;
-	}
 	.housing_index {
 	    right: 0px;
 	}
@@ -1210,18 +1218,6 @@
 	.aboutUsArea .circle-top {
 	    height: 125px;
 	    background-size: 100% 125px;
-	}
-	.header .navbar-brand img {
-	    height: 36px;
-	}
-	.header .navbar-brand img.logo-btn {
-    	height: 36px;
-	}
-	.navbar-toggle {
-	    margin: 8px 0px;
-	}
-	.margin-top {
-	    margin-top: 59px;
 	}
 	.banner-wrapper .form-wrapper .banner-header{
 		padding-top:40px;
@@ -1321,15 +1317,124 @@
 		height: 50px;
 	    width: auto;
 	}
+	.learning_text {
+	    top: 24%;
+	}
+	.advisory_text {
+	    left: 6%;
+	    top: 60%;
+	}
+	.rnd_text {
+	    left: 64%;
+	}
 	.about_inner {
 	    height: 375px;
 	}
 	.housing_index {
 	    top: 88.5%;
 	}
+	.learning_text, .advisory_text, .rnd_text {
+	    font-size: 20px;
+	}
+	.aboutUsArea .circle-top {
+	    height: 100px;
+	    background-size: 100% 100px;
+	}
+	.aboutUsArea .circle-top h2,.newsArea .title-center h2, .testimonialArea .title-center h2 {
+    	font-size: 22px;
+	}
+	.aboutUsArea .circle-bottom-wrapper {
+		height:140px;
+	    background-size: 100% 140px;
+	}
+	.aboutUsArea .circle-bottom-wrapper .title-center h2 {
+	    font-size: 14px;
+	}
 }
-@media screen and (max-width: 400px) {
-	
+@media screen and (max-width: 380px) {
+	.hexagon_bg_top, .hexagon_bg_top img {
+	    width: 107.826px;
+	    height: 124px;
+	}
+	.hexagon_hfc {
+	    top: 47%;
+	    left: 77%;
+	}
+	.hexagon_advisory {
+	    left: 32.3%;
+	    top: 41.3%;
+	}
+	.hexagon_learning {
+	    left: 11.4%;
+	    top: 7%;
+	}
+	.hexagon_rnd {
+	    top: 7%;
+	}
+	.pcb-learning, .pcb-advisory, .pcb-rnd {
+	    height: 145px;
+	}
+	.about_inner {
+	    height: 320px;
+	}
+	.pcb-advisory {
+	    top: 38%;
+	}
+	.learning_text, .advisory_text, .rnd_text {
+	    font-size: 18px;
+	    line-height: 1em;
+	}
+	.advisory_text {
+	    top: 58%;
+	}
+	.rnd_text {
+	    left: 60%;
+	}
+	.housing_index {
+	    top: 87.5%;
+	}
+	.breakingNews{
+		height: 34px;
+	}
+	.breakingNews>.bn-title>h2 {
+		font-size:14px;
+		line-height: 30px;
+	}
+	.breakingNews>.bn-navi>span{
+		height: 30px;
+	}
+	.breakingNews>.bn-title>span{
+	    top: 6px;
+	}
+	.aboutUsArea {
+	    padding: 20px 0px;
+	}
+	.aboutUsArea .circle-top h2 {
+	    padding-top: 18%;
+	}
+	.aboutUsArea .circle-top {
+	    height: 80px;
+	    background-size: 100% 80px;
+	}
+	.main-content-right .panel-heading a {
+	    font-size: 16px;
+	}
+	.aboutUsArea .circle-bottom-wrapper {
+	    height: 120px;
+	    background-size: 100% 120px;
+	}
+	.aboutUsArea .circle-bottom-wrapper .title-center h2 {
+	    font-size: 11px;
+	}
+	.aboutUsArea .circle-bottom-wrapper .circle-bottom2 .title-center h2 {
+    	padding-top: 20%;
+	}
+	.circle-bottom4 {
+	    top: 73px;
+	}
+	.aboutUsArea .circle-top h2, .newsArea .title-center h2, .testimonialArea .title-center h2 {
+	    font-size: 20px;
+	}
 }
 @media screen and (max-width: 319px) {
 }

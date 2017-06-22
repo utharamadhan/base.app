@@ -5173,6 +5173,9 @@ svg {
 	}
 }
 @media screen and (max-width: 767px) {
+	.margin-top {
+	    margin-top: 61px;
+	}
 	.container {
     	width: 95%;
 	}
@@ -5551,7 +5554,19 @@ svg {
     }
 }
 @media screen and (max-width: 639px) {
-    .img-responsive {
+	.header .navbar-brand img {
+	    height: 36px;
+	}
+	.header .navbar-brand img.logo-btn {
+    	height: 36px;
+	}
+	.navbar-toggle {
+	    margin: 8px 0px;
+	}
+	.margin-top {
+	    margin-top: 59px;
+	}
+	.img-responsive {
         width: 100%;
     }
     .aboutArea {
@@ -5982,6 +5997,27 @@ svg {
         font-size: 10px;
         line-height: 16px;
     }
+}
+@media screen and (max-width: 415px) {
+	.header .navbar-brand img.logo-btn {
+	    height: 30px;
+	}
+	.header .navbar-brand img {
+	    height: 33px;
+	}
+	.navbar-toggle {
+	    margin: 7px 0px;
+    	padding: 7px 6px;
+	}
+	.navbar-default {
+    	min-height: 45px;
+	}
+	.fixed-top{
+		height: 55px;
+	}
+	.margin-top {
+	    margin-top: 54px;
+	}
 }
 @media screen and (max-width: 319px) {
 }
