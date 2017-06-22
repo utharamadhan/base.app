@@ -41,7 +41,7 @@
 						</div>
 					</div>
 					<label class="learning_text">Learning</label>
-					<div class="hexagon_advisory hexagon_bg_top hexagon_advisory" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/advisory'">
+					<div class="hexagon_advisory hexagon_bg_top hexagon_advisory" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/advisory/advisory1'">
 						<div class="hb-1">
 							<div class="hb-2">
 								<img src="<%=request.getContextPath()%>/images/advisory_.jpg"/>
