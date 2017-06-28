@@ -13,7 +13,9 @@ import java.util.List;
 import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -51,5 +53,11 @@ public class CategoryController extends SuperController<Category>{
 	@Override
 	public Category preUpdate(Category anObject) throws SystemException{
 		return validate(anObject);
+	}
+	
+	@RequestMapping(value="/findByType/{type}")
+	@ResponseBody
+	public List<Category> findByType(@PathVariable(value="type") String type) throws SystemException {
+		return categoryService.findByType(type);
 	}
 }

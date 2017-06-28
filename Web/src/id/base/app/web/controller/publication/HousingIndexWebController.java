@@ -4,6 +4,7 @@ import id.base.app.ILookupGroupConstant;
 import id.base.app.SystemConstant;
 import id.base.app.exception.ErrorHolder;
 import id.base.app.paging.PagingWrapper;
+import id.base.app.rest.PathInterfaceRestCaller;
 import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
 import id.base.app.rest.RestServiceConstant;
@@ -12,7 +13,6 @@ import id.base.app.util.StringFunction;
 import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
-import id.base.app.valueobject.Faq;
 import id.base.app.valueobject.publication.HousingIndex;
 import id.base.app.valueobject.publication.LinkUrl;
 import id.base.app.web.DataTableCriterias;
@@ -79,7 +79,8 @@ public class HousingIndexWebController extends BaseController<HousingIndex> {
 	
 	@RequestMapping(method=RequestMethod.GET, value="showList")
 	public String showList(ModelMap model, HttpServletRequest request){
-		model.addAttribute("pagingWrapper", new PagingWrapper<Faq>());
+		model.addAttribute("pagingWrapper", new PagingWrapper<HousingIndex>());
+		model.addAttribute("linkUrl", getLinkUrlDetail());
 		return getListPath();
 	}
 	
@@ -119,6 +120,36 @@ public class HousingIndexWebController extends BaseController<HousingIndex> {
 			LOGGER.error(e.getMessage(), e);
 		}
 		return resultMap;
+	}
+	
+	@RequestMapping(method=RequestMethod.POST, value="updateLinkDetail")
+	@ResponseBody
+	public Map<String, Object> updateLinkDetail(@RequestParam(value="linkUrl") String linkUrl) {
+		Map<String, Object> resultMap = new HashMap<>();
+		try{
+			new SpecificRestCaller<String>(RestConstant.REST_SERVICE, RestConstant.RM_HOUSING_INDEX,String.class).executePost("/updateLinkDetail", linkUrl);
+		}catch(Exception e){
+			LOGGER.error(e.getMessage(), e);
+			resultMap.put(SystemConstant.ERROR_LIST, e.getMessage());
+		}
+		return resultMap;
+	};
+	
+	private String getLinkUrlDetail(){
+		SpecificRestCaller<String> str = new SpecificRestCaller<String>(RestConstant.REST_SERVICE, RestConstant.RM_HOUSING_INDEX, String.class);
+		return str.executeGet(new PathInterfaceRestCaller() {
+			
+			@Override
+			public String getPath() {
+				return "/getLinkUrlDetail";
+			}
+			
+			@Override
+			public Map<String, Object> getParameters() {
+				Map<String,Object> map = new HashMap<String,Object>();
+				return map;
+			}
+		});
 	}
 	
 }

@@ -1210,6 +1210,13 @@ function initTextEditorWithoutP(editorArea, editorParent, uploadURL) {
   	});
 }
 
+function bootBoxSuccessSaveOnly(customMessage) {
+	bootbox.alert({
+        title: "Success",
+        message: customMessage
+    });
+}
+
 function bootBoxSuccessSave(customMessage, customCallback) {
 	bootbox.alert({
         title: "Success",

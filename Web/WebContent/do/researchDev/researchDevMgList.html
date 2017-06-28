@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:ifs="http://btn.co.id">
 <head>
 <meta charset="ISO-8859-1"/>
-<title>Research Management</title>
+<title>Research &#38; Dev. Management</title>
 </head>
 <style>
 .dataTables_scrollBody {
@@ -15,7 +15,7 @@
 	<div id="rm-detail-container"></div>
 	<div id="rm-list-container">
 	<div class="pageheader">
-		<h4><i class="fa fa-shopping-basket"></i> Research / Research Management List
+		<h4><i class="fa fa-shopping-basket"></i> Research &#38; Dev. / Management List
 		<span></span></h4>
 	</div>
 	<div class="col-md-4 tile-body no-vpadding" style="margin:10px;">
@@ -31,6 +31,7 @@
 		                        <thead>
 		                          <tr>
 		                            <th>Title</th>
+		                            <th>Year</th>
 									<th>E/D</th>
 		                          </tr>
 		                        </thead>
@@ -48,17 +49,17 @@
 <script th:inline="javascript">
 	/*<![CDATA[*/
 		function showAdd() {
-	    	var sURL = /*[[@{/do/research/researchManagement/showAdd?skipdecorator=}]]*/ #;
+	    	var sURL = /*[[@{/do/researchDev/management/showAdd?skipdecorator=}]]*/ #;
 	    	showScreen('rm-list-container', 'rm-detail-container', sURL);
 		}
 		
 		function showDetail(maintenancePK) {
-			var sURL = /*[[@{/do/research/researchManagement/showEdit?maintenancePK=}]]*/ #;
+			var sURL = /*[[@{/do/researchDev/management/showEdit?maintenancePK=}]]*/ #;
 			showScreen('rm-list-container', 'rm-detail-container', sURL + maintenancePK + "&skipdecorator=");
 		}
 		
 		function deleteItem(maintenancePK) {
-			var sURL = /*[[@{/do/research/researchManagement/delete?}]]*/ #;
+			var sURL = /*[[@{/do/researchDev/management/delete?}]]*/ #;
 			var serializedData = "maintenancePKs=" + maintenancePK;
 			$.post(sURL, serializedData,function(data){
 				if(data.errorList!=null){
@@ -70,7 +71,7 @@
 		} 
 		
 		function deleteRM() {
-			var sURL = /*[[@{/do/research/researchManagement/deleteProgramPost?skipDecorator}]]*/ #;
+			var sURL = /*[[@{/do/researchDev/management/deleteProgramPost?skipDecorator}]]*/ #;
 			$.post(sURL, $('.rm-list-check-delete').serialize(), function(data){
 				if(data.errorList!=null){
 					
@@ -83,9 +84,10 @@
 	    $(function(){
 		    setMenuActive('researchManagement');
 		    var colDefs = [{ name : "title" },
+		                   { name : "year" },
 	    	               { type : "deleteAndEdit" , param : [ "pkResearch" ] }
 	    	               ];
-		    var sURL = /*[[@{/do/research/researchManagement/list?}]]*/ #;
+		    var sURL = /*[[@{/do/researchDev/management/list?}]]*/ #;
 		    buildDataTable(/*[[@{/}]]*/, sURL, 'rm-list-table', 450, colDefs, null, null);
 	    });
 	    

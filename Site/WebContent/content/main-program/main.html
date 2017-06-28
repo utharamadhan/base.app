@@ -31,7 +31,7 @@
 							</div>
 							<div class="card-box">
 								<h2 class="card-title"><a href="/Site/page/main-program/learning/seminar">LEARNING</a></h2>
-								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+								<p>Menyediakan pelatihan/worshop/short course di bidang pembiayaan perumahan. Kkegiatan ini dimaksudkan  untuk meningkatkan pengetahuan, keahlian, kompetensi, sebagai hasil dari pengajaran vocational dan latihan keahlian dan pengetahuan yang berhubungan dengan penggunaan keahlian yang spesifik. Dari segi lokasi pelaksanaan : inhouse dan outhouse. Dari segi jenis pelatihan dapat berupa : pelatihan (training), seminar, penyuluhan.</p>
 								<div class="card-clear"></div>
 							</div>
 						</div>
@@ -48,7 +48,7 @@
 							</div>
 							<div class="card-box">
 								<h2 class="card-title"><a href="/Site/page/advisory/advisory1">ADVISORY</a></h2>
-								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+								<p>Menyediakan jasa konsultasi terkait pembangunan dan pembiayaan perumahan untuk membantu stake holders dalam mengambil keputusan. Kegiatan ini berhubungan dengan pemberian nasihat secara teknis dibidang pembiayaan property pelayanan informasi pengembangan properti dan analisis property.</p>
 								<div class="card-clear"></div>
 							</div>
 						</div>
@@ -65,7 +65,7 @@
 							</div>
 							<div class="card-box">
 								<h2 class="card-title"><a href="/Site/page/main-program/research-development/research">RESEARCH &#38; DEVELOPMENT</a></h2>
-								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+								<p>Menyediakan data riset terkini dibidang property yang mendukung bisnis pembangunan dan pembiayaan perumahan.</p>
 								<div class="card-clear"></div>
 							</div>
 						</div>	
@@ -79,21 +79,22 @@
 		/*<![CDATA[*/
 		setNavbarActive('program');
 		$(function() {
-			  $('svg').each(function() {
-			    var svg = $(this);
-			    var text = svg.find('img');
-			    var bbox = text.get(0).getBBox();
-			    //the hack
-			    var calcString = "calc(100% * " + bbox.height/bbox.width + ")";
-			    svg.css("padding-bottom",calcString);
-			    
-			    svg.get(0).setAttribute('viewBox',
-			                           [bbox.x,
-			                            bbox.y,
-			                            bbox.width,
-			                            bbox.height].join(' '));
-			  });
-			});
+		  heightsEqualizer('.loop .card-box');
+		  $('svg').each(function() {
+		    var svg = $(this);
+		    var text = svg.find('img');
+		    var bbox = text.get(0).getBBox();
+		    //the hack
+		    var calcString = "calc(100% * " + bbox.height/bbox.width + ")";
+		    svg.css("padding-bottom",calcString);
+		    
+		    svg.get(0).setAttribute('viewBox',
+		                           [bbox.x,
+		                            bbox.y,
+		                            bbox.width,
+		                            bbox.height].join(' '));
+		  });
+		});
 		/*]]>*/
 		</script>
 </body>

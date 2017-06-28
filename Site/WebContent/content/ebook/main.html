@@ -187,28 +187,6 @@
 				window.location.href = link + $(this).parents('.post').find('input[name="identity"]').val();
 			});
 			
-			var heightsEqualizer = function(selector) {
-			    var elements = document.querySelectorAll(selector),
-			        max_height = 0,
-			        len = 0,
-			        i;
-			 
-			    if ( (elements) && (elements.length > 0) ) {
-			        len = elements.length;
-			 
-			        for (i = 0; i < len; i++) { // get max height
-						elements[i].style.height = ''; // reset height attr
-			            if (elements[i].clientHeight > max_height) {
-			                max_height = elements[i].clientHeight;
-			            }
-			        }
-			 
-			        for (i = 0; i < len; i++) { // set max height to all elements
-			            elements[i].style.height = max_height + 'px';
-			        }
-			    }
-			}
-			
 			heightsEqualizer('.data_result .post');
 			
 		});

@@ -1,18 +1,18 @@
 package id.base.app.service.advisory;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import id.base.app.dao.advisory.ICategoryDAO;
 import id.base.app.exception.SystemException;
 import id.base.app.paging.PagingWrapper;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.valueobject.Category;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
@@ -60,6 +60,11 @@ public class CategoryService implements ICategoryService {
 	@Override
 	public List<String> getSamePermalink(Long pk, String permalink) throws SystemException {
 		return categoryDAO.getSamePermalink(pk, permalink);
+	}
+	
+	@Override
+	public List<Category> findByType(String type) throws SystemException {
+		return categoryDAO.findByType(type);
 	}
 
 }

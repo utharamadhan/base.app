@@ -2,6 +2,7 @@ package id.base.app.valueobject.research;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -35,13 +36,13 @@ public class ResearchKeyword implements Serializable{
 	@Column(name = "PK_RESEARCH_KEYWORD", unique = true ,nullable = false)
 	private Long pkResearchKeyword;
 	
+	@ManyToOne(cascade=CascadeType.DETACH)
+	@JoinColumn(name="FK_RESEARCH")
+	private Research research;
+	
 	@Column(name="KEYWORD")
 	private String keyword;
 	
-	@ManyToOne
-	@JoinColumn(name="FK_RESEARCH")
-	private Research research;
-
 	public Long getPkResearchKeyword() {
 		return pkResearchKeyword;
 	}

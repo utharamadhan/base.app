@@ -1,6 +1,7 @@
 package id.base.app.dao.advisory;
 
 import id.base.app.AbstractHibernateDAO;
+import id.base.app.ILookupConstant;
 import id.base.app.exception.SystemException;
 import id.base.app.paging.PagingWrapper;
 import id.base.app.util.dao.SearchFilter;
@@ -12,6 +13,7 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.transform.ResultTransformer;
@@ -81,5 +83,39 @@ public class CategoryDAO extends AbstractHibernateDAO<Category, Long> implements
 			}
 		});
 		return crit.list();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Category> findByType(String type) throws SystemException {
+		Criteria crit = getSession().createCriteria(Category.class);
+		crit.add(Restrictions.eq(Category.TYPE, type));
+		crit.add(Restrictions.eq(Category.STATUS, ILookupConstant.Status.PUBLISH));
+		ProjectionList pl = Projections.projectionList();
+		pl.add(Projections.property(Category.PK_CATEGORY));
+		pl.add(Projections.property(Category.TITLE));
+		crit.setProjection(pl);
+		crit.setResultTransformer(new ResultTransformer() {
+			private static final long serialVersionUID = 1021195617174304873L;
+
+			@Override
+			public Object transformTuple(Object[] tuple, String[] aliases) {
+				Category c = new Category();
+				try{					
+					c.setPkCategory(Long.valueOf(tuple[0].toString()));
+					c.setTitle(tuple[1].toString());
+				}catch(Exception e){
+					LOGGER.error(e.getMessage());
+				}
+				return c;
+			}
+			
+			@SuppressWarnings("rawtypes")
+			@Override
+			public List transformList(List collection) {
+				return collection;
+			}
+		});
+		return crit.list();	
 	}
 }

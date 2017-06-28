@@ -9,5 +9,7 @@ import java.util.List;
 public interface ICategoryDAO extends IBaseDAO<Category> {
 
 	public List<String> getSamePermalink(Long pk, String permalink) throws SystemException;
+
+	public List<Category> findByType(String type) throws SystemException;
 	
 }

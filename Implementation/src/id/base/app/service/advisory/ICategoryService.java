@@ -10,4 +10,6 @@ public interface ICategoryService extends MaintenanceService<Category> {
 
 	public List<String> getSamePermalink(Long pk, String permalink) throws SystemException;
 
+	public List<Category> findByType(String type) throws SystemException;
+
 }

@@ -60,5 +60,15 @@ public class HousingIndexService implements IHousingIndexService {
 			List<SearchOrder> order) throws SystemException {
 		return housingIndexDAO.findAll(filter, order);
 	}
+	
+	@Override
+	public void updateLinkDetail(String linkUrl) throws SystemException {
+		housingIndexDAO.updateLinkDetail(linkUrl);
+	}
 
+	@Override
+	public String getLinkUrlDetail() throws SystemException {
+		return housingIndexDAO.getLinkUrlDetail();
+	}
+	
 }

@@ -1349,6 +1349,8 @@ menu button .fa, menu .btn .fa { margin-right: 3px; }
 
 .parsley-error-list { list-style-type: none; padding: 0; font-size: 11px; }
 
+.panel-group{margin-bottom:0px;}
+
 textarea { height: auto; }
 
 .help-block { font-size: 11px; color: #bebebe; }

@@ -18,6 +18,30 @@
 		<h4><i class="fa fa-shopping-basket"></i> Publication / Housing Index List
 		<span></span></h4>
 	</div>
+	<div class="main">
+		<div class="row">
+			<div class="col-md-12">	
+				<section class="tile transparent">
+					<div class="tile-body rounded-corners">
+					<form action="#" id="HI-link-detail-form" class="form-horizontal" method="POST" novalidate="novalidate">
+						<div class="form-group">
+							<label class="col-sm-2 control-label" th:text="'Link Detail'">Link Detail</label>
+							<div class="col-sm-9 form-input-container">
+								<input type="text" class="form-control" placeholder="Link URL" name="linkUrl" th:value="${linkUrl}" id="linkUrl"/>
+							</div>
+						</div>
+						<div class="form-group form-footer">				
+							<div class="col-sm-offset-2 col-sm-10">
+								<a href="#" id="HI-link-detail-btn-cancel" class="btn btn-default" type="reset" data-toggle="tooltip" title="" th:text="#{button.cancel}">Cancel</a>
+								<button id="HI-link-detail-btn-save" class="btn btn-primary" type="submit" data-toggle="tooltip" title="" th:text="#{button.save}">Save</button>
+							</div>
+						</div>
+					</form>
+					</div>
+				</section>
+			</div>
+		</div>
+	</div>
 	<div class="col-md-4 tile-body no-vpadding" style="margin:10px;">
 		<a href="#" id="housingIndex-btn-add" class="btn btn-primary" style="margin-bottom:5px"><i class="fa fa-plus dropdown-plus"></i> &nbsp; Add</a>
 	</div>
@@ -90,6 +114,7 @@
 	
 	    $(function(){
 		    setMenuActive('housingIndex');
+		    var initLinkUrl = /*[[${linkUrl}]]*/;
 		    var colDefs = [{ name : "title" },
 		                   { name : "value" },
 		                   { name : "orderNo" },
@@ -98,16 +123,38 @@
 	    	               ];
 		    var sURL = /*[[@{/do/publication/housingIndex/list?}]]*/ #;
 		    buildDataTable(/*[[@{/}]]*/, sURL, 'housingIndex-list-table', 450, colDefs, null, null);
-	    });
 	    
-		$('#housingIndex-btn-add').click(function(){
-			showAdd();
-		});
-		
-		$('#housingIndex-btn-delete').click(function(){
-			deleteHousingIndex();
-		});
-		
+		    var submitFormLinkDetail = function(){
+				cleanErrorParsley();
+				var sURLDetail = /*[[@{/do/publication/housingIndex/updateLinkDetail/}]]*/ #;
+				var sData = "linkUrl=" + $('#linkUrl').val();
+				$.post(sURLDetail, sData,function(data){
+					if(data.errorList!=null){
+						displayErrorParsley(data.errorList);
+					}else{
+						initLinkUrl = $('#linkUrl').val();
+						bootBoxSuccessSaveOnly('Link Detail Successfully Updated');
+					}
+				});
+			};
+			
+			$('#housingIndex-btn-add').click(function(){
+				showAdd();
+			});
+			
+			$('#housingIndex-btn-delete').click(function(){
+				deleteHousingIndex();
+			});
+			
+			$('#HI-link-detail-btn-cancel').click(function(e){
+				e.preventDefault();
+				$('#linkUrl').val(initLinkUrl);
+			});
+			$('#HI-link-detail-btn-save').click(function(e){
+				e.preventDefault();
+				submitFormLinkDetail();
+			});
+	    });
 	/*]]>*/
 </script>
 </body>

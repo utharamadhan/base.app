@@ -352,6 +352,7 @@ public class SystemConstant  {
 	
 	public static final class LinkUrlType{
 		public static final String FOOTER = "FT";
+		public static final String HOUSING_INDEX = "HI";
 	}
 	
 	public static final class LookupUsage{

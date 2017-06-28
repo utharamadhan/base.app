@@ -10,6 +10,8 @@ import id.base.app.valueobject.publication.HousingIndex;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -52,5 +54,20 @@ public class HousingIndexDAO extends AbstractHibernateDAO<HousingIndex, Long> im
 			throws SystemException {
 		return super.findAllWithPagingWrapper(startNo, offset, filter, order, null);
 	}
+	
+	@Override
+	public void updateLinkDetail(String linkUrl) {
+		String updateQuery = "UPDATE LINK_URL SET URL = ? WHERE TYPE = 'HI'";
+		SQLQuery sqlQuery = getSession().createSQLQuery(updateQuery);
+		sqlQuery.setString(0, linkUrl);
+		sqlQuery.executeUpdate();
+	}
+	
+	@Override
+	public String getLinkUrlDetail() throws SystemException {
+		Query query = getSession().createSQLQuery("SELECT url FROM LINK_URL WHERE TYPE = 'HI' AND STATUS = 1 LIMIT 1");
+		return ((String) query.uniqueResult()).toString();
+	}
+	
 
 }

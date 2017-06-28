@@ -8,14 +8,18 @@ import id.base.app.valueobject.Category;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
@@ -38,6 +42,7 @@ public class Research extends BaseEntity implements Serializable {
 	public static final String SUB_TITLE			= "subTitle";
 	public static final String YEAR_FROM			= "yearFrom";
 	public static final String STATUS				= "status";
+	public static final String IS_ITEM				= "isItem";
 	
 	public static Research getInstance() {
 		return new Research();
@@ -52,7 +57,13 @@ public class Research extends BaseEntity implements Serializable {
 	@Column(name="IS_INTERNAL")
 	private Boolean isInternal;
 	
-	@ManyToOne
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name="RESEARCH_CATEGORY",
+			joinColumns=@JoinColumn(name="FK_RESEARCH"),
+			inverseJoinColumns=@JoinColumn(name="FK_CATEGORY"))
+	private Set<Category> categories;
+	
+	@ManyToOne(cascade=CascadeType.DETACH)
 	@JoinColumn(name="FK_CATEGORY")
 	private Category category;
 	
@@ -101,6 +112,9 @@ public class Research extends BaseEntity implements Serializable {
 	@Column(name="STATUS")
 	private Integer status;
 	
+	@Column(name = "IS_ITEM")
+	private Boolean isItem;
+	
 	@Transient
 	private String statusStr;
 	
@@ -142,6 +156,14 @@ public class Research extends BaseEntity implements Serializable {
 
 	public void setIsInternal(Boolean isInternal) {
 		this.isInternal = isInternal;
+	}
+	
+	public Set<Category> getCategories() {
+		return categories;
+	}
+
+	public void setCategories(Set<Category> categories) {
+		this.categories = categories;
 	}
 
 	public Category getCategory() {
@@ -279,6 +301,14 @@ public class Research extends BaseEntity implements Serializable {
 	public String getPermalink() {
 		return permalink;
 	}
+	
+	public Boolean getIsItem() {
+		return isItem;
+	}
+
+	public void setIsItem(Boolean isItem) {
+		this.isItem = isItem;
+	}
 
 	public void setPermalink(String permalink) {
 		this.permalink = permalink;
@@ -335,14 +365,18 @@ public class Research extends BaseEntity implements Serializable {
 	}
 
 	public String getYear() {
-		if(getYearFrom()==null){
-			return getYearTo()+"";
+		if(getYearFrom()==null && getYearTo()==null){
+			return "";
 		}else{
-			String year = getYearFrom()+"";
-			if(getYearTo()!=null){
-				year += " - "+getYearTo();	
+			if(getYearFrom()==null){
+				return getYearTo()+"";
+			}else{
+				String year = getYearFrom()+"";
+				if(getYearTo()!=null){
+					year += " - "+getYearTo();	
+				}
+				return year;
 			}
-			return year;
 		}
 	}
 	

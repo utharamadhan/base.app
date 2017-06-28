@@ -145,7 +145,7 @@
 								            </div>
 								            <div id="cHFC" class="panel-collapse collapse in">
 								                <div class="panel-body">
-								                    <p>Deskripsi Housing Finance Center <a href="#" target="_blank">Selengkapnya.</a></p>
+								                    <p>Sebagai leader pembiayaan perumahan di Indonesia, BTN HFC menjadi motor penggerak dan pusat referensi property di Indonesia. Sesuai dengan tujuan didirikannya BTN HFC akan menjadi pengelola pusat pembelajaraan perbankan dan riset  perumahan yang profesional dan terkemuka di Indonesia. BTN HFC akan menjadi sumber inspirasi para pelaku bisnis di bidang pembiayaan perumahan. Menjawab kebutuhan bisnis pembiayaan perumahan apakah itu dari dunia perbankan ataupun para pelaku pembangunan perumahan, BTN HFC adalah tempatnya. Ini akan menjadi pusat menjawab kebutuhan masalah perumahan di Indonesia.</p>
 								                </div>
 								            </div>
 								        </div>
@@ -157,7 +157,12 @@
 								            </div>
 								            <div id="cTujuan" class="panel-collapse collapse">
 								                <div class="panel-body">
-								                    <p>Memberikan pelayanan unggul, inovatif dan terintegrasi dalam riset, edukasi dan konsultasi terkait pembiayaan perumahan bagi klien <a href="#" target="_blank">Selengkapnya.</a></p>
+								                    <p>Housing Finance Center BTN yang selaras dengan tujuan didirikannya, yakni :</p>
+													<ul>
+														<li>Pusat Pembelajaran perbankan dan riset perumahan yang profesional terkemuka di Indonesia,</li>
+														<li>Menjadi sumber inspirasi para pelaku bisnis di bidang pembiayaan perumahan,</li>
+														<li>Menjawab kebutuhan bisnis pembiayaan perumahan baik dunia perbankan maupun pengembang perumahan.</li>
+													</ul>
 								                </div>
 								            </div>
 								        </div>
@@ -169,7 +174,12 @@
 								            </div>
 								            <div id="cProgram" class="panel-collapse collapse">
 								                <div class="panel-body">
-								                    <p>Memberikan pelayanan unggul, inovatif dan terintegrasi dalam riset, edukasi dan konsultasi terkait pembiayaan perumahan bagi klien <a href="#" target="_blank">Selengkapnya.</a></p>
+								                    <p>Program kerja di bidang  Learning :</p>
+													<ol>
+													<li>Foundation Property Developer : diperuntukkan bagi developer kecil atau pemula. Selain itu program ini dirancang bagi masyarakat umum yang memiliki passion untuk tumbuh menjadi pengembang.</li>
+													<li>Professional  Developer : diperuntukkan bagi  pengembang skala menengah, yang telah membangun di beberapa titik lokasi sekaligus.</li>
+													<li>Executive  Property Developer : Diperuntukkan bagi pengembang skala besar, yang berorientasi pada pembangunan suatu kawasan atau kota mandiri.</li>
+													</ol>
 								                </div>
 								            </div>
 								        </div>
@@ -181,7 +191,14 @@
 								            </div>
 								            <div id="cKerjasama" class="panel-collapse collapse">
 								                <div class="panel-body">
-								                    <p>Memberikan pelayanan unggul, inovatif dan terintegrasi dalam riset, edukasi dan konsultasi terkait pembiayaan perumahan bagi klien <a href="#" target="_blank">Selengkapnya.</a></p>
+								                    <ol>
+													<li>MoU BTN - HDFC India</li>
+													<li>MoU BTN dengan Pengembang 21-22 April 2015</li>
+													<li>MoU BTN - SBM ITB 24 Oktober 2015</li>
+													<li>MoU BTN - IAEI 3 Maret 2016</li>
+													<li>PKS BTN dengan UNDIP Semarang, 20 April 2017</li>
+													<li>MoU BTN dengan Balai Pustaka, 2 Mei 2017</li>
+													</ol>
 								                </div>
 								            </div>
 								        </div>
@@ -262,7 +279,11 @@
 			<div class="container">
 				<div class="contact-wrapper">
 					<div class="contact-intro">
-						<span>Lalu tunggu apa lagi?<br/>Jadilah bagian dalam perubahan dunia property</span>
+						<ul>
+							<li>Memberikan pelayanan unggul, inovatif dan terintegrasi yang bisa diandalkan</li>
+							<li>Fokus pada bidang riset, konsultasi dan edukasi</li>
+							<li>Menjadi pusat riset, edukasi dan konsultasi terkait pembiayaan perumahan yang terdepan dengan pelayanan <i>CEPAT</i></li>
+						</ul>
 					</div>
 					<div class="contact-button">
 						<a href="page/contact" class="btn btn-secondary btn-medium">Kontak Kami</a>
