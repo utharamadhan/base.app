@@ -251,3 +251,6 @@
 
 -- 2017-Juni-22
 \i DDL/SCRIPT_ALL_20170622.sql;
+
+-- 2017-Juni-29
+\i DDL/SCRIPT_ALL_20170629.sql;
