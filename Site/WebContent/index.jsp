@@ -276,9 +276,12 @@
 		</div>
 		</div>
 		<div class="contactArea">
+			<div class="contactArea-overlay">
 			<div class="container">
 				<div class="contact-wrapper">
 					<div class="contact-intro">
+						<h2>HOUSING FINANCE CENTER</h2>
+						<hr/>
 						<ul>
 							<li>Memberikan pelayanan unggul, inovatif dan terintegrasi yang bisa diandalkan</li>
 							<li>Fokus pada bidang riset, konsultasi dan edukasi</li>
@@ -289,6 +292,7 @@
 						<a href="page/contact" class="btn btn-secondary btn-medium">Kontak Kami</a>
 					</div>
 				</div>
+			</div>
 			</div>
 		</div>
 		<script>
