@@ -135,7 +135,7 @@
 							</div>
 							<div class="row middleContent">
 								<div class="col-md-8 main-content-left">
-								<video width="100%" controls>
+								<video width="100%" controls preload="none">
 							  	<source src="<%=request.getContextPath()%>/videos/intro.mp4" type="video/mp4">
 							  	Your browser does not support HTML5 video.
 								</video>
