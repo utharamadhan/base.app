@@ -134,7 +134,12 @@
 								</div>
 							</div>
 							<div class="row middleContent">
-								<div class="col-md-8 main-content-left"><iframe width="100%" height="100%" src="https://www.youtube.com/embed/felFVPmAu5s" frameborder="0" allowfullscreen></iframe></div>
+								<div class="col-md-8 main-content-left">
+								<video width="100%" controls>
+							  	<source src="<%=request.getContextPath()%>/videos/intro.mp4" type="video/mp4">
+							  	Your browser does not support HTML5 video.
+								</video>
+								</div>
 								<div class="col-md-4 main-content-right">
 									<div class="panel-group" id="accordion">
 								        <div class="panel panel-default">

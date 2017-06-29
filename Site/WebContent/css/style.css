@@ -3263,7 +3263,7 @@ ul.contact_info li a:hover {
   border: none;
   padding: 10px 20px;
   background-color:white;
-  max-height: 150px;
+  max-height: 140px;
   overflow-y: scroll;
   overflow-x: hidden;
 }
