@@ -3581,8 +3581,12 @@ ul.contact_info li a:hover {
 	margin-top: 10px;
     margin-bottom: 0px;
 }
-.card-box p{
+.card-box .card-box-content{
 	margin:25px;
+	text-align: justify;
+}
+.card-box .card-box-content li{
+	margin-left:15px;
 }
 .card-image{
 	height:246px;
