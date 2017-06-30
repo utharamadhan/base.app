@@ -688,6 +688,11 @@ h4.modal-title{
 }
 .menuFooter .info-hfc {
 	font-size: 12px;
+    line-height: 1.8em;
+}
+.menuFooter .info-hfc .title{
+	font-weight: bold;
+    font-size: 14px;
 }
 .borderLeft {
     border-left: 1px solid #dce4ea;
@@ -4717,6 +4722,21 @@ svg {
 }
 .link-pilar{
 	cursor:pointer;
+}
+blockquote {
+  font-size: 40px;
+  line-height: 1.3em;
+  padding: 8px;
+  margin: 5px;
+  background-image: url("../images/openquote1.gif");
+  background-position: top left;
+  background-repeat: no-repeat;
+}
+blockquote span {
+  	display: block;
+  	background-image: url("../images/closequote1.gif");
+  	background-repeat: no-repeat;
+  	background-position: bottom right;
 }
 @media only screen and (min-width: 1200px) {
     body.bodyColor .header {

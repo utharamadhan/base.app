@@ -27,7 +27,7 @@ public class Testimonial extends BaseEntity implements Serializable {
 	
 	public static final String PK_TESTIMONIAL = "pkTestimonial";
 	public static final String NAME = "name";
-	public static final String TITLE = "title";
+	public static final String JOB_TITLE = "jobTitle";
 	public static final String PHOTO_URL = "photoURL";
 	public static final String DESCRIPTION = "description";
 	public static final String TESTIMONIAL_DATE = "testimonialDate";
@@ -46,8 +46,8 @@ public class Testimonial extends BaseEntity implements Serializable {
 	@Column(name="NAME")
 	private String name;
 	
-	@Column(name="TITLE")
-	private String title;
+	@Column(name="JOB_TITLE")
+	private String jobTitle;
 	
 	@Column(name="PHOTO_URL")
 	private String photoURL;
@@ -80,12 +80,12 @@ public class Testimonial extends BaseEntity implements Serializable {
 		this.name = name;
 	}
 
-	public String getTitle() {
-		return title;
+	public String getJobTitle() {
+		return jobTitle;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setJobTitle(String jobTitle) {
+		this.jobTitle = jobTitle;
 	}
 
 	public String getPhotoURL() {

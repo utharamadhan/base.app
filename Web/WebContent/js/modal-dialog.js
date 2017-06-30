@@ -242,6 +242,13 @@ function displayErrorParsley (errors, num) {
 			var field = $('input[name="'+error.validatedField+'"]');
 			if (field.length === 0) {
 				field = $('select[name="'+error.validatedField+'"]');
+				if (field.length === 0) {
+					field = $('textarea[name="'+error.validatedField+'"]');	
+				}
+			}else{
+				if(field.attr('id')=='tinyMCE-hidden'){
+					field = field.parent().find('#tinyMCE-area');
+				}
 			}
 			field.addClass('parsley-validated parsley-error');
 			field.closest('.form-input-container').append('<label class=\'parsley-error-list\'>'+error.error+'</label>');

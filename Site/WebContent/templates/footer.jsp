@@ -13,10 +13,13 @@
 		  		</div>
 		  		<div class="col-md-2">
 		  			<div class="info-hfc">
-		  				<span class="address">Menara Bank BTN, Jl. Gajah Mada No.1, Jakarta 10130</span><br/>
-		  				<span class="telp">Telp. : (021) 6336789</span><br/>
-		  				<span class="fax">Fax. : (021) 6336719</span><br/>
-		  				<span class="email">Email Contact Center :<br/>btncontactcenter@btn.co.id</span>
+		  				<span class="title">Kantor Pusat :</span><br/>
+		  				<span class="address">Menara BTN Lt. 18, Jl. Gajah Mada 1 Jakarta 10130</span><br/>
+		  				<span class="telp">Telp. 021 - 6336789 ext. 1831</span><br/>
+		  				<span class="title">Sekretariat :</span><br/>
+		  				<span class="address">Jl. HOS Cokroaminoto 95, Menteng, Jakarta Pusat</span><br/>
+		  				<span class="title">Email Contact Center :</span>
+		  				<span class="email">HFC@btn.co.id</span>
 		  			</div>
 		  		</div>
 		  		<div class="col-md-3">

@@ -31,6 +31,7 @@ public class News extends BaseEntity implements Serializable {
 	public static final String TITLE 	= "title";
 	public static final String PERMALINK = "permalink";
 	public static final String CONTENT 	= "content";
+	public static final String EXCERPT 	= "excerpt";
 	public static final String PUBLISH_DATE	= "publishDate";
 	public static final String IMAGE_URL	= "imageURL";
 	public static final String STATUS 	= "status";

@@ -285,6 +285,8 @@
 			<div class="container">
 				<div class="contact-wrapper">
 					<div class="contact-intro">
+						<blockquote><span>Anda ingin menjadi pengembang sukses ?.<br/>Kami siap membantu anda !</span></blockquote>
+						<br/>
 						<h2>HOUSING FINANCE CENTER</h2>
 						<hr/>
 						<ul>
