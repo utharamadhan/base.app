@@ -34,6 +34,7 @@ public class News extends BaseEntity implements Serializable {
 	public static final String EXCERPT 	= "excerpt";
 	public static final String PUBLISH_DATE	= "publishDate";
 	public static final String IMAGE_URL	= "imageURL";
+	public static final String IMAGE_THUMB_URL	= "imageThumbURL";
 	public static final String STATUS 	= "status";
 	
 	public static News getInstance() {
@@ -63,6 +64,9 @@ public class News extends BaseEntity implements Serializable {
 	
 	@Column(name="IMAGE_URL")
 	private String imageURL;
+	
+	@Column(name="IMAGE_THUMB_URL")
+	private String imageThumbURL;
 	
 	@Column(name="STATUS")
 	private Integer status;
@@ -123,7 +127,12 @@ public class News extends BaseEntity implements Serializable {
 	public void setImageURL(String imageURL) {
 		this.imageURL = imageURL;
 	}
-	
+	public String getImageThumbURL() {
+		return imageThumbURL;
+	}
+	public void setImageThumbURL(String imageThumbURL) {
+		this.imageThumbURL = imageThumbURL;
+	}
 	public Integer getStatus() {
 		return status;
 	}
@@ -151,7 +160,9 @@ public class News extends BaseEntity implements Serializable {
 	}
 	
 	public String getEncodedPicture() throws Exception {
-		if(getImageURL()!=null && !"".equals(getImageURL())){
+		if(getImageThumbURL()!=null && !"".equals(getImageThumbURL())){
+			encodedPicture = EncodeDecode.getBase64FromLink(getImageThumbURL());
+		}else if(getImageURL()!=null && !"".equals(getImageURL())){
 			encodedPicture = EncodeDecode.getBase64FromLink(getImageURL());
 		}
 		return encodedPicture;

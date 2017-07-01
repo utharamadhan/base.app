@@ -15,4 +15,8 @@ public interface INewsDAO extends IBaseDAO<News> {
 
 	public News findByPermalink(String permalink) throws SystemException;
 
+	public List<String> findThumbById(Long[] pkNews) throws SystemException;
+
+	public void updateThumb(Long pkNews, String thumbURL) throws SystemException;
+
 }

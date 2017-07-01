@@ -71,4 +71,14 @@ public class NewsService implements INewsService {
 	public News findByPermalink(String permalink) throws SystemException {
 		return newsDAO.findByPermalink(permalink);
 	}
+	
+	@Override
+	public List<String> findThumbById(Long[] pkNews) throws SystemException {
+		return newsDAO.findThumbById(pkNews);
+	}
+	
+	@Override
+	public void updateThumb(Long pkNews, String thumbURL) throws SystemException {
+		newsDAO.updateThumb(pkNews, thumbURL);
+	}
 }

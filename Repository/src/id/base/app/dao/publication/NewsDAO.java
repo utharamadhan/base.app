@@ -13,6 +13,7 @@ import java.util.List;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.hibernate.Criteria;
+import org.hibernate.SQLQuery;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
@@ -126,5 +127,42 @@ public class NewsDAO extends AbstractHibernateDAO<News, Long> implements INewsDA
 		criteria.add(Restrictions.eq(News.PERMALINK, permalink));
 		criteria.add(Restrictions.eq(News.STATUS, ILookupConstant.Status.PUBLISH));
 		return (News) criteria.uniqueResult();
+	}
+	
+	@Override
+	public List<String> findThumbById(Long[] pkNews) throws SystemException {
+		Criteria crit = getSession().createCriteria(News.class);
+		crit.add(Restrictions.in("pkNews", pkNews));
+		crit.setProjection(Projections.projectionList().add(Projections.property("imageURL")));
+		crit.setResultTransformer(new ResultTransformer() {
+			private static final long serialVersionUID = -1679903852991772525L;
+
+			@Override
+			public Object transformTuple(Object[] tuple, String[] aliases) {
+				String imageURL = "";
+				try{
+					imageURL = String.valueOf(tuple[0]);
+				}catch(Exception e){
+					LOGGER.error(e.getMessage(), e);
+				}
+				return imageURL;
+			}
+			
+			@SuppressWarnings("rawtypes")
+			@Override
+			public List transformList(List collection) {
+				return collection;
+			}
+		});
+		return crit.list();
+	}
+	
+	@Override
+	public void updateThumb(Long pkNews, String thumbURL) throws SystemException {
+		String updateQuery = "UPDATE NEWS SET IMAGE_THUMB_URL = :thumbURL WHERE PK_NEWS = :pkNews";
+		SQLQuery sqlQuery = getSession().createSQLQuery(updateQuery);
+		sqlQuery.setLong("pkNews", pkNews);
+		sqlQuery.setString("thumbURL", thumbURL);
+		sqlQuery.executeUpdate();
 	}
 }

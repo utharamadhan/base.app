@@ -372,4 +372,9 @@ public class SystemConstant  {
 		public static final String ADVISORY = "ADV";
 		public static final String RESEARCH_DEVELOPMENT = "RND";
 	}
+	
+	public static final class ThumbnailsDimension{
+		public static final int WIDTH = 600;
+		public static final int HEIGHT = 400;
+	}
 }

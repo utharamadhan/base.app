@@ -7,9 +7,11 @@ import id.base.app.exception.SystemException;
 import id.base.app.rest.RestConstant;
 import id.base.app.service.MaintenanceService;
 import id.base.app.service.news.INewsService;
+import id.base.app.util.ImageFunction;
 import id.base.app.util.StringFunction;
 import id.base.app.valueobject.publication.News;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -18,11 +20,13 @@ import java.util.List;
 import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -64,6 +68,21 @@ public class NewsController extends SuperController<News>{
 	public News preUpdate(News anObject) throws SystemException{
 		return validate(anObject);
 	}
+
+	private void processDeleteOldImage(String fileSystemURL) throws IOException{
+		Path path = Paths.get(fileSystemURL);
+		Files.deleteIfExists(path);
+	}
+	
+	private void deleteOldImage(String oldURL) throws IOException{
+		String fileSystemURL = SystemConstant.FILE_STORAGE + oldURL.substring(SystemConstant.IMAGE_SHARING_URL.length(), oldURL.length());
+		String ext = fileSystemURL.substring(oldURL.lastIndexOf("."));
+		String tempURL = fileSystemURL.replaceFirst(".([a-z]+)$", "_temp." + ext);
+		String thumbURL = fileSystemURL.replaceFirst(".([a-z]+)$", "_thumb." + ext);
+		processDeleteOldImage(fileSystemURL);
+		processDeleteOldImage(tempURL);
+		processDeleteOldImage(thumbURL);
+	}
 	
 	@Override
 	public void postUpdate(Object oldObject, News newObject) {
@@ -71,11 +90,14 @@ public class NewsController extends SuperController<News>{
 			if(oldObject != null && oldObject instanceof News && newObject != null && StringFunction.isNotEmpty(newObject.getImageURL())) {
 				if (!((News)oldObject).getImageURL().equalsIgnoreCase(newObject.getImageURL())) {
 					String oldURL = ((News)oldObject).getImageURL();
-					String fileSystemURL = SystemConstant.FILE_STORAGE + oldURL.substring(SystemConstant.IMAGE_SHARING_URL.length(), oldURL.length());
-					Path path = Paths.get(fileSystemURL);
-					Files.deleteIfExists(path);
+					deleteOldImage(oldURL);
+					String thumbURL = ImageFunction.createThumbnails(newObject.getImageURL(), SystemConstant.ThumbnailsDimension.WIDTH, SystemConstant.ThumbnailsDimension.HEIGHT);
+					newsService.updateThumb(newObject.getPkNews(), thumbURL);
 				}
-			}	
+			}else{
+				String thumbURL = ImageFunction.createThumbnails(newObject.getImageURL(), SystemConstant.ThumbnailsDimension.WIDTH, SystemConstant.ThumbnailsDimension.HEIGHT);
+				newsService.updateThumb(newObject.getPkNews(), thumbURL);
+			}
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage(), e);
 		}
@@ -85,6 +107,21 @@ public class NewsController extends SuperController<News>{
 	public News getOldObject(News object) throws SystemException {
 		News oldObject = new News();
 		return object.getPkNews() != null ? cloneObject(oldObject, findById(object.getPkNews())) : null;
+	}
+	
+	@Override
+	@RequestMapping(method=RequestMethod.DELETE, value="/delete")
+	@ResponseStatus( HttpStatus.OK )
+	public void delete(@RequestParam(value="objectPKs") Long[] objectPKs) throws SystemException {
+		List<String> imageURLs = newsService.findThumbById(objectPKs);
+		getMaintenanceService().delete(preDelete(objectPKs));
+		for (String oldURL : imageURLs) {
+			try {
+				deleteOldImage(oldURL);
+			} catch (IOException e) {
+				LOGGER.error(e.getMessage(), e);
+			}
+		}
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/findLatestNews")
