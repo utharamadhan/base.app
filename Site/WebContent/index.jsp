@@ -60,7 +60,11 @@
 					<div class="housing_index">
 						<div class="breakingNews bn-yellow" id="bn1">
 					    	<div class="bn-title"><h2>BTN Housing Index</h2><span></span></div>
-					        <ul id="btnHIContent"></ul>
+					        <ul id="btnHIContent">
+						        <c:forEach items="${housingIndexList}" var="hi">
+						        	<li><label>${hi.title}</label>&nbsp;: &nbsp;<span>${hi.value}</span></li>
+								</c:forEach>
+					        </ul>
 					        <div class="bn-navi"><span></span><span></span></div>
 					    </div>
 					</div>
@@ -122,7 +126,7 @@
 				</div>
 			</div>
 				<div class="clear"></div>
-		 		<div id="aboutUsArea" class="aboutUsArea" data-parallax="scroll" data-image-src="/Site/images/background-home.png">
+		 		<div id="aboutUsArea" class="aboutUsArea" data-parallax="scroll" data-image-src="${ctx}/images/background-home.png">
 				<div class="container">
 					<div class="row">
 						<div class="col-md-10 col-md-offset-1">
@@ -242,13 +246,13 @@
 				<div class="title-center">
 					<h2>BERITA TERKINI</h2>
 				</div>
-				<ul id="categories" class="latest-news clr">
-				  <c:forEach items="${newsLatest}" var="news" varStatus="loop" begin="0" end="9" step="1">
+				<ul id="latest-news" class="hexas latest-news clr">
+				  <c:forEach items="${newsHomeList}" var="news">
 				  	<li>
 				    	<div>
 				      		<img src="${news.encodedPicture}" alt="" />
 				      		<h1>${news.title}</h1>
-				      		<p><a href="page/engagement/list" class="btn btn-third btn-medium">selengkapnya</a></p>
+				      		<p><a href="${ctx}/page/engagement/list" class="btn btn-third btn-medium">selengkapnya</a></p>
 				    	</div>
 				  	</li>
 				  </c:forEach>
@@ -256,7 +260,7 @@
 			</div>
 		</div>
 		<div class="clear"></div>
-		<div class="testimonialWrapper" data-parallax="scroll" data-image-src="/Site/images/background-home.png">
+		<div class="testimonialWrapper" data-parallax="scroll" data-image-src="${ctx}/images/background-home.png">
 		<div class="testimonialArea">
 		  <div class="container">
 			<div class="row">
@@ -266,11 +270,13 @@
 			</div>
 			<div class="row">
 				<div class="col-md-12">
-					<ul id="categories" class="clr">
+					<ul id="latest-testi" class="hexas clr">
 					  <c:forEach var="i" begin="1" end="14">
 					  	<li>
 					    	<div>
 					    		<img src="<%=request.getContextPath()%>/images/faces/${i}.jpg"/>
+					    		<h1>aaaaaaaa</h1>
+				      			<p><a href="page/engagement/list" class="btn btn-third btn-medium">selengkapnya</a></p>
 					    	</div>
 					  	</li>
 					  </c:forEach>
@@ -312,68 +318,12 @@
 				scrollToBottom('aboutUsArea', 72);
 			});
 			
-			$.get( "/Site/page/content/getDataForHome", function( data ) {
-				var hi = data.housingIndexList;
-				var html = "";
-				for(var i=0;i<hi.length;i++){
-					html += "<li><label>"+hi[i].title+" : </label>&nbsp;<span>"+hi[i].value+"</span></a></li>";	
-				}
-				$('#btnHIContent').html(html);
-				$("#bn1").breakingNews({
-					effect		:"slide-h",
-					autoplay	:true,
-					timer		:3000,
-					color		:"yellow",
-					border		:true
-				});
-				
-				var n = data.newsList;
-				html = "";
-				for(var i=0;i<n.length;i++){
-					html += "<li>";
-					html += "<div>";
-					html += "<img src='"+n[i].encodedPicture+"' alt='' />";
-					html += "<h1>"+n[i].title+"</h1>";
-					html += "<p><a href='/Site/page/engagement/list' class='btn btn-third btn-medium'>selengkapnya</a></p>";
-					html += "</div>";
-					html += "</li>";	
-				}
-				$('.latest-news').html(html);
-				
-				/* var t = data.testimonialList;
-				html = "";
-				for(var i=0;i<t.length;i++){
-					html += '<div class="custom_testimony">';
-					html += '<div class="sub_hexagon1 sub_hexagon1_post" style="display: inline-block;">';
-					html += '<div style="position: absolute;width:100%;">';
-					html += '<h2 style="color: #ffffff; position:relative; text-align: center; display: block; padding-bottom: 20px;">'+t[i].name+'</h2>';
-					html += '<h4 style="color: #1f85e5; position:relative; text-align: center; display: block; padding-bottom: 20px;">'+t[i].title+'</h4>';
-					html += '</div>';
-					html += '</div>';
-					html += '<div class="main_hexagon1" style="background-image: url('+t[i].photoURL.replace(/\\/g,"/")+');display: inline-block;">';
-					html += '<div class="main_hexagon1_hexTop"></div>';
-					html += '<div class="main_hexagon1_hexBottom"></div>';
-					html += '</div>';
-					html += '<div class="sub_hexagon2 sub_hexagon2_post" style="display: inline-block;">';
-					html += '<div style="position: absolute;">';
-					html += '<label style="padding-left: 12px; padding-right: 12px; font-size: 12px;">'+t[i].description+'</labe>';
-					html += '</div>';
-					html += '</div>';
-					html += '</div>';
-				}
-				$('#testimonial-slider').html(html);
-				$("#testimonial-slider").owlCarousel({
-					items:1,
-					itemsDesktop:[1000,1],
-					itemsDesktopSmall:[979,1],
-					itemsTablet:[768,1],
-					pagination:true,
-					navigation:false,
-					navigationText:["",""],
-					slideSpeed:1000,
-					singleItem:true,
-					autoPlay:true
-				}); */
+			$("#bn1").breakingNews({
+				effect		:"slide-h",
+				autoplay	:true,
+				timer		:3000,
+				color		:"yellow",
+				border		:true
 			});
 			
 			var colors = new Array(

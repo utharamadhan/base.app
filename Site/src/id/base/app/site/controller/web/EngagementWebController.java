@@ -7,6 +7,7 @@ import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
 import id.base.app.rest.RestServiceConstant;
 import id.base.app.rest.SpecificRestCaller;
+import id.base.app.site.controller.BaseSiteController;
 import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
@@ -38,7 +39,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Scope(value="request")
 @RequestMapping(value="/engagement")
 @Controller
-public class EngagementWebController {
+public class EngagementWebController extends BaseSiteController<Engagement>{
 	
 	static Logger LOGGER = LoggerFactory.getLogger(EngagementWebController.class);
 	
@@ -52,6 +53,7 @@ public class EngagementWebController {
 			@RequestParam(value="offset",defaultValue="6") int offset,
 			@RequestParam(value="filter", defaultValue="", required=false) String filterJson
 		){
+		setMenu(model);
 		List<SearchFilter> filter = new ArrayList<SearchFilter>();
 		filter.add(new SearchFilter(Engagement.STATUS, Operator.EQUALS, ILookupConstant.Status.PUBLISH, Integer.class));
 		if(StringUtils.isNotEmpty(filterJson)){
@@ -112,6 +114,7 @@ public class EngagementWebController {
 			@PathVariable(value="permalink") String permalink){
 		Engagement detail = findByPermalink(permalink);
 		if(detail!=null){
+			setMenu(model);
 			model.addAttribute("detail", detail);
 			return "/engagement/detail";
 		}

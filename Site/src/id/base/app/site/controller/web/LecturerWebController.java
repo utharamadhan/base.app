@@ -1,5 +1,15 @@
 package id.base.app.site.controller.web;
 
+import id.base.app.paging.PagingWrapper;
+import id.base.app.rest.RestCaller;
+import id.base.app.rest.RestConstant;
+import id.base.app.rest.RestServiceConstant;
+import id.base.app.site.controller.BaseSiteController;
+import id.base.app.util.dao.Operator;
+import id.base.app.util.dao.SearchFilter;
+import id.base.app.util.dao.SearchOrder;
+import id.base.app.valueobject.aboutUs.Tutor;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,24 +34,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import id.base.app.paging.PagingWrapper;
-import id.base.app.rest.RestCaller;
-import id.base.app.rest.RestConstant;
-import id.base.app.rest.RestServiceConstant;
-import id.base.app.util.dao.Operator;
-import id.base.app.util.dao.SearchFilter;
-import id.base.app.util.dao.SearchOrder;
-import id.base.app.valueobject.aboutUs.Engagement;
-import id.base.app.valueobject.aboutUs.Tutor;
 
 @Scope(value="request")
 @RequestMapping(value="/lecturer")
 @Controller
-public class LecturerWebController {
+public class LecturerWebController extends BaseSiteController<Tutor>{
 	
 	static Logger LOGGER = LoggerFactory.getLogger(LecturerWebController.class);
 	
@@ -61,6 +60,7 @@ public class LecturerWebController {
 			if(detail.getName()!=null){
 				String dataTitle = detail.getName().replace(" ", "-");
 				if(dataTitle.equals(title)){
+					setMenu(model);
 					model.addAttribute("detail", detail);
 					return "/lecturer/detail";
 				}
@@ -76,6 +76,7 @@ public class LecturerWebController {
 			@RequestParam(value="offset",defaultValue="12") int offset,
 			@RequestParam(value="filter", defaultValue="", required=false) String filterJson
 		) throws JsonParseException, JsonMappingException, IOException{
+		setMenu(model);
 		List<SearchFilter> filter = new ArrayList<SearchFilter>();
 		if(StringUtils.isNotEmpty(filterJson)){
 			filter.add(new SearchFilter(Tutor.NAME, Operator.LIKE, filterJson));

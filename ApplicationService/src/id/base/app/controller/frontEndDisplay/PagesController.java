@@ -8,22 +8,26 @@ import id.base.app.service.MaintenanceService;
 import id.base.app.service.frontEndDisplay.IPagesService;
 import id.base.app.util.StringFunction;
 import id.base.app.valueobject.Pages;
-import id.base.app.valueobject.publication.News;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(RestConstant.RM_PAGES)
 public class PagesController extends SuperController<Pages>{
+	
+	protected static Logger LOGGER = LoggerFactory.getLogger(PagesController.class);
 	
 	@Autowired
 	private IPagesService pagesService;
@@ -61,6 +65,17 @@ public class PagesController extends SuperController<Pages>{
 	@ResponseBody
 	public Pages findByPermalink(@PathVariable(value="permalink") String permalink) throws SystemException {
 		return pagesService.findByPermalink(permalink);
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/findSimpleData")
+	@ResponseBody
+	public List<Pages> findSimpleData(@RequestParam(value="type") String type) throws SystemException {
+		try {
+			return pagesService.findSimpleData(type);
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage(), e);
+			throw new SystemException(new ErrorHolder("error finding your data"));
+		}
 	}
 	
 }

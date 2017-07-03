@@ -28,7 +28,7 @@
 								  <ul class="dropdown-menu mega-dropdown-menu row about-us-mega-menu">
 									<li class="col-sm-4">
 										<ul id="common-post-content">
-											<c:forEach items="${posts}" var="post" varStatus="loop">
+											<c:forEach items="${commonPostList}" var="post">
 											<li class="dropdown-header"><a href="${ctx}/page/about-us/${post.permalink}">${post.title}</a></li>
 											</c:forEach>
 										</ul>
@@ -42,7 +42,7 @@
 											<li class="dropdown-header"><a href="#">KERJASAMA</a></li>
 										</ul>
 										<ul id="engagement-content">
-											<c:forEach items="${engages}" var="engage" varStatus="loop">
+											<c:forEach items="${engagementList}" var="engage">
 											<li><a href="${ctx}/page/engagement/${engage.permalink}">${engage.title}</a></li>
 											</c:forEach>
 										</ul>
@@ -53,7 +53,7 @@
 											<li class="dropdown-header"><a href="#">PROGRAM HFC</a></li>
 										</ul>
 										<ul id="program-content">
-											<c:forEach items="${programs}" var="program" varStatus="loop">
+											<c:forEach items="${programList}" var="program">
 											<li><a href="${ctx}/page/program/${program.permalink}">${program.title}</a></li>
 											</c:forEach>
 										</ul>
@@ -69,8 +69,14 @@
 											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/page/ebook">BUKU ELEKTRONIK</a></li>
 										</ul>
 										<ul id="digital-book-content" class="content">
-											<c:forEach items="${ebooksLatest}" var="ebookLatest" varStatus="loop">
-											<li><a href="${ctx}/page/ebook/${ebookLatest.permalink}">${ebookLatest.title}</a></li>
+											<c:forEach items="${digitalBookList}" var="ebook">
+											<li>
+												<div class='thumb-mini-img1'><img src='${ebook.encodedPicture}'/></div>
+												<div class='menu-label1'>
+													<a href='${ctx}/page/ebook/${ebook.permalink}'>${ebook.title}</a>
+												</div>
+												<div class='clear'></div>
+											</li>
 											</c:forEach>
 										</ul>
 										<a href="${ctx}/page/ebook"><span class="button-blue">Selengkapnya...</span></a>
@@ -80,8 +86,14 @@
 											<li class="dropdown-header"><a href="#">BERITA</a></li>
 										</ul>
 										<ul id="news-content" class="content">
-											<c:forEach items="${newsLatest}" begin="0" end="4" var="news" varStatus="loop">
-											<li><a href="${ctx}/page/news/${news.permalink}">${news.title}</a></li>
+											<c:forEach items="${newsList}" var="news">
+											<li>
+												<div class='thumb-mini-img2 thumb-home'><img src='${news.encodedPicture}'/></div>
+												<div class='menu-label2'>
+													<a href='${ctx}/page/news/${news.permalink}'>${news.title}</a>
+												</div>
+												<div class='clear'></div>
+											</li>
 											</c:forEach>
 										</ul>
 										<a href="${ctx}/page/news"><span class="button-blue">Selengkapnya...</span></a>
@@ -91,8 +103,14 @@
 											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/page/ebook">KEGIATAN</a></li>
 										</ul>
 										<ul id="event-content" class="content">
-											<c:forEach items="${eventLatest}" var="event" varStatus="loop">
-											<li><a href="${ctx}/page/event/${event.permalink}">${event.title}</a></li>
+											<c:forEach items="${eventList}" var="event">
+											<li>
+												<div class='thumb-mini-img2 thumb-hexagon'><img src='${event.encodedPicture}'/></div>
+												<div class='menu-label2'>
+													<a href='${ctx}/page/event/${event.permalink}'>${event.title}</a>
+												</div>
+												<div class='clear'></div>
+											</li>
 											</c:forEach>
 										</ul>
 										<a href="${ctx}/page/event/upcoming"><span class="button-blue">Selengkapnya...</span></a>

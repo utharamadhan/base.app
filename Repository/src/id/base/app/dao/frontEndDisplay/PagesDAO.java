@@ -11,8 +11,12 @@ import id.base.app.valueobject.Pages;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.hibernate.Criteria;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.transform.ResultTransformer;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -59,6 +63,36 @@ public class PagesDAO extends AbstractHibernateDAO<Pages, Long> implements IPage
 		criteria.add(Restrictions.eq(Pages.PERMALINK, permalink));
 		criteria.add(Restrictions.eq(Pages.STATUS, ILookupConstant.Status.PUBLISH));
 		return (Pages) criteria.uniqueResult();
+	}
+	
+	@Override
+	public List<Pages> findSimpleData(String type) throws SystemException {
+		Criteria crit = this.getSession().createCriteria(domainClass);
+		crit.add(Restrictions.eq(Pages.STATUS, ILookupConstant.Status.PUBLISH));
+		crit.add(Restrictions.eq(Pages.TYPE, type));
+		crit.addOrder(Order.asc(Pages.ORDER_NO));
+		crit.setProjection(Projections.projectionList().
+				add(Projections.property(Pages.TITLE)).
+				add(Projections.property(Pages.PERMALINK)));
+		crit.setResultTransformer(new ResultTransformer() {
+			@Override
+			public Object transformTuple(Object[] tuple, String[] aliases) {
+				Pages obj = new Pages();
+				try {
+					BeanUtils.copyProperty(obj, Pages.TITLE, tuple[0]);
+					BeanUtils.copyProperty(obj, Pages.PERMALINK, tuple[1]);
+				} catch (Exception e) {
+					LOGGER.error(e.getMessage(), e);
+				}
+				return obj;
+			}
+			
+			@Override
+			public List transformList(List collection) {
+				return collection;
+			}
+		});
+		return crit.list();
 	}
 
 }

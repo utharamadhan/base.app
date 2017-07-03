@@ -8,6 +8,7 @@ import id.base.app.mail.MailManager;
 import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
 import id.base.app.rest.RestServiceConstant;
+import id.base.app.site.controller.BaseSiteController;
 import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
@@ -50,7 +51,7 @@ import com.google.code.kaptcha.Constants;
 @Scope(value="request")
 @RequestMapping(value="/contact")
 @Controller
-public class ContactUsWebController {
+public class ContactUsWebController extends BaseSiteController<Contact>{
 	
 	MailManager mailManager;
 	
@@ -72,6 +73,7 @@ public class ContactUsWebController {
 	}
 	
 	protected void setDefaultData(ModelMap model){
+		setMenu(model);
 		List<SearchFilter> filterCH = new ArrayList<SearchFilter>();
 		List<SearchOrder> orderCH = new ArrayList<SearchOrder>();
 		filterCH.add(new SearchFilter(Lookup.LOOKUP_GROUP_STRING, Operator.EQUALS, ILookupGroupConstant.CATEGORY_HELP));

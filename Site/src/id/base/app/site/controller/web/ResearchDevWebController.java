@@ -4,9 +4,11 @@ import id.base.app.paging.PagingWrapper;
 import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
 import id.base.app.rest.RestServiceConstant;
+import id.base.app.site.controller.BaseSiteController;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.valueobject.Category;
+import id.base.app.valueobject.Pages;
 import id.base.app.valueobject.research.Research;
 
 import java.util.ArrayList;
@@ -31,7 +33,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Scope(value="request")
 @RequestMapping(value="main-program/research-development")
 @Controller
-public class ResearchDevWebController {
+public class ResearchDevWebController extends BaseSiteController<Pages>{
 	
 	static Logger LOGGER = LoggerFactory.getLogger(ResearchDevWebController.class);
 	
@@ -45,21 +47,25 @@ public class ResearchDevWebController {
 	
 	@RequestMapping(method=RequestMethod.GET, value="/research")
 	public String research(ModelMap model, HttpServletRequest request, HttpServletResponse response){
+		setMenu(model);
 		return "/research-development/research";
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/development")
 	public String development(ModelMap model, HttpServletRequest request, HttpServletResponse response){
+		setMenu(model);
 		return "/research-development/development";
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/research/list")
 	public String listResearch(ModelMap model, HttpServletRequest request, HttpServletResponse response){
+		setMenu(model);
 		return "/research-development/research/list";
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/research/detail")
 	public String detail(ModelMap model, HttpServletRequest request, HttpServletResponse response){
+		setMenu(model);
 		return "/research-development/research/detail";
 	}
 	

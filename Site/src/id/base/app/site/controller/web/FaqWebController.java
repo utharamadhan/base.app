@@ -5,6 +5,7 @@ import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
 import id.base.app.rest.RestServiceConstant;
 import id.base.app.rest.SpecificRestCaller;
+import id.base.app.site.controller.BaseSiteController;
 import id.base.app.valueobject.Faq;
 
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Scope(value="request")
 @Controller
 @RequestMapping(value="/faq")
-public class FaqWebController {
+public class FaqWebController extends BaseSiteController<Faq>{
 
 	static Logger LOGGER = LoggerFactory.getLogger(FaqWebController.class);
 	
@@ -36,6 +37,7 @@ public class FaqWebController {
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public String view(ModelMap model, HttpServletRequest request, HttpServletResponse response){
+		setMenu(model);
 		model.addAttribute("faq", findFaqListForView());
 		return "/faq/main";
 	}

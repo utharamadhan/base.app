@@ -7,6 +7,7 @@ import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
 import id.base.app.rest.RestServiceConstant;
 import id.base.app.rest.SpecificRestCaller;
+import id.base.app.site.controller.BaseSiteController;
 import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
@@ -42,7 +43,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Scope(value="request")
 @RequestMapping(value="/ebook")
 @Controller
-public class EbookWebController {
+public class EbookWebController extends BaseSiteController<DigitalBook>{
 	
 	static Logger LOGGER = LoggerFactory.getLogger(EbookWebController.class);
 	
@@ -56,6 +57,7 @@ public class EbookWebController {
 			@RequestParam(value="offset",defaultValue="12") int offset,
 			@RequestParam(value="filter", defaultValue="", required=false) String filterJson
 	){
+		setMenu(model);
 		List<SearchFilter> filter = new ArrayList<SearchFilter>();
 		filter.add(new SearchFilter(DigitalBook.STATUS, Operator.EQUALS, ILookupConstant.Status.PUBLISH, Integer.class));
 		if(StringUtils.isNotEmpty(filterJson)){
@@ -116,6 +118,7 @@ public class EbookWebController {
 			@PathVariable(value="permalink") String permalink){
 		DigitalBook detail = findByPermalink(permalink);
 		if(detail!=null){
+			setMenu(model);
 			model.addAttribute("detail", detail);
 			return "/ebook/detail";
 		}
@@ -125,7 +128,7 @@ public class EbookWebController {
 	
 	@RequestMapping(method=RequestMethod.GET, value="/downloadFile/{id}")
 	@ResponseBody
-	public Map<String, Object> downloadTemplate(HttpServletRequest request, HttpServletResponse response, @PathVariable(value="id") Long id){
+	public Map<String, Object> downloadFile(HttpServletRequest request, HttpServletResponse response, @PathVariable(value="id") Long id){
 		Map<String, Object> resultMap = null;
 		
 		try {

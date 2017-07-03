@@ -7,6 +7,7 @@ import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
 import id.base.app.rest.RestServiceConstant;
 import id.base.app.rest.SpecificRestCaller;
+import id.base.app.site.controller.BaseSiteController;
 import id.base.app.site.rest.LookupRestCaller;
 import id.base.app.valueobject.Lookup;
 import id.base.app.valueobject.course.Course;
@@ -36,7 +37,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Scope(value="request")
 @RequestMapping(value="/main-program/learning")
 @Controller
-public class LearningWebController {
+public class LearningWebController extends BaseSiteController<Course>{
 	
 	static Logger LOGGER = LoggerFactory.getLogger(LearningWebController.class);
 	
@@ -66,16 +67,19 @@ public class LearningWebController {
 	
 	@RequestMapping(method=RequestMethod.GET, value="/seminar")
 	public String seminar(ModelMap model, HttpServletRequest request, HttpServletResponse response){
+		setMenu(model);
 		return "/learning/seminar";
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/workshop")
 	public String workshop(ModelMap model, HttpServletRequest request, HttpServletResponse response){
+		setMenu(model);
 		return "/learning/workshop";
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/kursus")
 	public String kursus(ModelMap model, HttpServletRequest request, HttpServletResponse response){
+		setMenu(model);
 		return "/learning/kursus";
 	}
 	
@@ -90,6 +94,7 @@ public class LearningWebController {
 			if(detail.getTitle()!=null){
 				String dataTitle = detail.getTitle().replace(" ", "-");
 				if(dataTitle.equals(title)){
+					setMenu(model);
 					model.addAttribute("detail", detail);
 					return "/learning/detail";
 				}
@@ -114,6 +119,7 @@ public class LearningWebController {
 			if(detail.getTitle()!=null){
 				String dataTitle = detail.getTitle().replace(" ", "-");
 				if(dataTitle.equals(title)){
+					setMenu(model);
 					SpecificRestCaller<Course> rcCourse = new SpecificRestCaller<Course>(RestConstant.REST_SERVICE, RestServiceConstant.COURSE_SERVICE);
 					PagingWrapper<Course> courses = rcCourse.executeGetPagingWrapper(startNo, offset, new QueryParamInterfaceRestCaller() {
 						
@@ -165,6 +171,7 @@ public class LearningWebController {
 				if(detail.getName()!=null){
 					String dataTitle = detail.getName().replace(" ", "-");
 					if(dataTitle.equals(title)){
+						setMenu(model);
 						model.addAttribute("title", title.replace("-", " "));
 						model.addAttribute("titleGroup", titleGroup);
 						model.addAttribute("idGroup", idGroup);

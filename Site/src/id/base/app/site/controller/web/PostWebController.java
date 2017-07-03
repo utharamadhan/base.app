@@ -3,6 +3,7 @@ package id.base.app.site.controller.web;
 import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
 import id.base.app.rest.RestServiceConstant;
+import id.base.app.site.controller.BaseSiteController;
 import id.base.app.valueobject.Pages;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Scope(value="request")
 @RequestMapping(value="/post")
 @Controller
-public class PostWebController {
+public class PostWebController extends BaseSiteController<Pages>{
 	
 	static Logger LOGGER = LoggerFactory.getLogger(PostWebController.class);
 	
@@ -41,6 +42,7 @@ public class PostWebController {
 			if(detail.getTitle()!=null){
 				String dataTitle = detail.getTitle().replace(" ", "-");
 				if(dataTitle.equals(title)){
+					setMenu(model);
 					model.addAttribute("detail", detail);
 					return "/post/main";
 				}

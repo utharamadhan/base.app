@@ -34,7 +34,7 @@
 		  		<div class="col-md-3">
 		  			<h4>Situs Lain</h4>
 		  			<ul id="link-url-content">
-			  			<c:forEach items="${footerLinkUrl}" var="flu" varStatus="loop">
+			  			<c:forEach items="${linkUrlList}" var="flu">
 							<li><a href="${flu.url}">${flu.title}</a></li>
 						</c:forEach>
 		  			</ul>
@@ -56,62 +56,8 @@
 		  <div class="container">
 			<div class="row clearfix">
 			  <div class="col-sm-5 col-xs-12">
-				<p class="copyRight">© 2017 Copyright Housing Finance Center</p>
+				<p class="copyRight">&#169; 2017 Copyright Housing Finance Center</p>
 			  </div>
 			</div>
 		  </div>
 		</div>
-		<script>
-		$(document).ready(function(){
-			$.get( "/Site/page/content/getData", function( data ) {
-				var cp = data.commonPostList;
-				html = "";
-				for(var i=0;i<cp.length;i++){
-					html += "<li class='dropdown-header'><a href='/Site/page/post/"+cp[i].pkPages+"/"+(cp[i].title).replace(/\s+/g, '-')+"'>"+cp[i].title.toUpperCase()+"</a></li>";	
-				}
-				$('#common-post-content').html(html);
-				
-				var e = data.engagementList;
-				html = "";
-				for(var i=0;i<e.length;i++){
-					html += "<li><a href='/Site/page/engagement/"+e[i].permalink+"'>"+e[i].title+"</a></li>";
-				}
-				$('#engagement-content').html(html);
-				
-				var p = data.programList;
-				html = "";
-				for(var i=0;i<p.length;i++){
-					html += "<li><a href='/Site/page/program/"+p[i].permalink+"'>"+p[i].title+"</a></li>";
-				}
-				$('#program-content').html(html);
-				
-				var db = data.digitalBookList;
-				html = "";
-				for(var i=0;i<db.length;i++){
-					html += "<li><div class='thumb-mini-img1'><img src='"+db[i].encodedPicture+"'/></div><div class='menu-label1'><a href='/Site/page/ebook/"+db[i].permalink+"'>"+db[i].title+"</a></div><div class='clear'></div></li>";
-				}
-				$('#digital-book-content').html(html);
-				
-				var n = data.newsList;
-				html = "";
-				for(var i=0;i<n.length;i++){
-					html += "<li><div class='thumb-mini-img2 thumb-home'><img src='"+n[i].encodedPicture+"'/></div><div class='menu-label2'><a href='/Site/page/news/"+n[i].permalink+"'>"+n[i].title+"</a></div><div class='clear'></div></li>";
-				}
-				$('#news-content').html(html);
-				
-				var e = data.eventList;
-				html = "";
-				for(var i=0;i<e.length;i++){
-					html += "<li><div class='thumb-mini-img2 thumb-hexagon'><img src='"+e[i].encodedPicture+"'/></div><div class='menu-label2'><a href='/Site/page/event/"+e[i].permalink+"'>"+e[i].title+"</a></div><div class='clear'></div></li>";
-				}
-				$('#event-content').html(html);
-				
-				var lu = data.linkUrlList;
-				html = "";
-				for(var i=0;i<lu.length;i++){
-					html += "<li><a href='"+lu[i].url+"'>"+lu[i].title+"</a></li>";
-				}
-				$('#link-url-content').html(html);
-			});
-		});
-		</script>

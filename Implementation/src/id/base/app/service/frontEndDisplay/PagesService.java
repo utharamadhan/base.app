@@ -62,4 +62,9 @@ public class PagesService implements IPagesService {
 		return pagesDAO.findByPermalink(permalink);
 	}
 	
+	@Override
+	public List<Pages> findSimpleData(String type) throws SystemException {
+		return pagesDAO.findSimpleData(type);
+	}
+	
 }

@@ -70,5 +70,9 @@ public class HousingIndexService implements IHousingIndexService {
 	public String getLinkUrlDetail() throws SystemException {
 		return housingIndexDAO.getLinkUrlDetail();
 	}
-	
+
+	@Override
+	public List<HousingIndex> findSimpleData() throws SystemException {
+		return housingIndexDAO.findSimpleData();
+	}
 }

@@ -65,4 +65,15 @@ public class HousingIndexController extends SuperController<HousingIndex>{
 		housingIndexService.updateLinkDetail(linkUrl);
 	}
 	
+	@RequestMapping(method=RequestMethod.GET, value="/findSimpleData")
+	@ResponseBody
+	public List<HousingIndex> findSimpleData() throws SystemException {
+		try {
+			return housingIndexService.findSimpleData();
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage(), e);
+			throw new SystemException(new ErrorHolder("error finding your data"));
+		}
+	}
+	
 }

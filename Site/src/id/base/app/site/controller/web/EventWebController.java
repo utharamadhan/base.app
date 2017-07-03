@@ -8,6 +8,7 @@ import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
 import id.base.app.rest.RestServiceConstant;
 import id.base.app.rest.SpecificRestCaller;
+import id.base.app.site.controller.BaseSiteController;
 import id.base.app.util.DateTimeFunction;
 import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
@@ -43,7 +44,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 @Scope(value="request")
 @RequestMapping(value="/event")
 @Controller
-public class EventWebController {
+public class EventWebController extends BaseSiteController<Event>{
 	
 	static Logger LOGGER = LoggerFactory.getLogger(EventWebController.class);
 	
@@ -54,12 +55,14 @@ public class EventWebController {
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/upcoming")
-	public String upcoming(HttpServletRequest request, HttpServletResponse response){
+	public String upcoming(ModelMap model, HttpServletRequest request, HttpServletResponse response){
+		setMenu(model);
 		return "/event/upcoming/main";
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/archived")
 	public String archived(ModelMap model, HttpServletRequest request, HttpServletResponse response) throws JsonProcessingException{
+		setMenu(model);
 		List<SearchFilter> filter = new ArrayList<SearchFilter>();
 		List<SearchOrder> order = new ArrayList<SearchOrder>();
 		filter.add(new SearchFilter(Event.STATUS, Operator.EQUALS, ILookupConstant.Status.PUBLISH));
@@ -154,6 +157,7 @@ public class EventWebController {
 			@PathVariable(value="permalink") String permalink, @RequestParam Map<String,String> params){
 		Event detail = findByPermalink(permalink);
 		if(detail!=null){
+			setMenu(model);
 			model.addAttribute("detail", detail);
 			model.addAttribute("f", params.get("f"));
 			return "/event/detail";

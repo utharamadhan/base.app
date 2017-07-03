@@ -3,6 +3,7 @@ package id.base.app.site.controller.web;
 import id.base.app.rest.PathInterfaceRestCaller;
 import id.base.app.rest.RestConstant;
 import id.base.app.rest.SpecificRestCaller;
+import id.base.app.site.controller.BaseSiteController;
 import id.base.app.valueobject.Pages;
 
 import java.util.HashMap;
@@ -25,12 +26,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Scope(value="request")
 @RequestMapping(value="/about-us")
 @Controller
-public class AboutUsWebController {
+public class AboutUsWebController extends BaseSiteController<Pages>{
 	
 	static Logger LOGGER = LoggerFactory.getLogger(AboutUsWebController.class);
 	
 	@RequestMapping(method=RequestMethod.GET, value="/{permalink}")
 	public String detail(ModelMap model, HttpServletRequest request, HttpServletResponse response, @PathVariable(value="permalink") String permalink){
+		setMenu(model);
 		Pages detail = findByPermalink(permalink);
 		if(detail!=null){
 			if(detail.getTitle()!=null){
