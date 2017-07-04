@@ -48,18 +48,18 @@
 								  <div class="panel panel-default">
 								    <div class="panel-heading" data-toggle="collapse" data-parent="#acc-category" data-target="#acc-category-one">
 								      <h4 class="panel-title">
-								        <a class="accordion-toggle" init="1">[Please select at least one category]</a>
+								        <a class="accordion-toggle">[Select category]</a>
 								      </h4>
 								    </div>
 								    <div id="acc-category-one" class="panel-collapse collapse">
+								    	<div class="collapse-content">
 								    	<th:block th:each="cat, i : ${categoryOptions}">
 											<div class="checkbox">
-											    <input type="checkbox" id="checkbox1"/>
-											    <label for="checkbox1">
-											        Check me out
-											    </label>
+											    <input type="checkbox" th:attr="id='cat-'+${cat.pkCategory}" th:value="${cat.pkCategory}"/>
+											    <label th:attr="for='cat-'+${cat.pkCategory}" th:text="${cat.title}"></label>
 											  </div>
 										</th:block>
+										</div>
 								    </div>
 								  </div>
 								</div>
@@ -114,15 +114,38 @@
 								  <div class="panel panel-default">
 								    <div class="panel-heading" data-toggle="collapse" data-parent="#acc-officer" data-target="#acc-officer-one">
 								      <h4 class="panel-title">
-								        <a class="accordion-toggle" th:text="'Abstract'">Abstract</a>
+								        <a class="accordion-toggle">[Insert officer]</a>
 								      </h4>
 								    </div>
 								    <div id="acc-officer-one" class="panel-collapse collapse">
-								        <input id="tinyMCE-hidden" name="description" type="hidden"/>
-										<div id="tinyMCE-parent">					
-											<textarea id="tinyMCE-area" th:text="*{description}">
-											</textarea>
-										</div>
+								    	<div class="collapse-content">
+								        <table id="officerTable" class="table table-custom table-sortable" style="width:100%;">
+			 								<thead>
+						                        <tr>
+						                          <th style="width:45%">Name</th>
+						                          <th style="width:45%">Position</th>
+						                          <th style="width:10%">Action</th>
+						                        </tr>
+						                    </thead>
+						                    <tbody>
+						                    	<tr>
+						                    		<td>
+						                    			<div class="input-group">
+															<input type="text" class="form-control"/>
+														</div>
+													</td>
+													<td>
+						                    			<div class="input-group">
+															<input type="text" class="form-control"/>
+														</div>
+													</td>
+													<td>
+														<a href="#" onclick="" class="btn btn-primary btn-xs" data-toggle="tooltip" title="" data-original-title="Delete"><i class="fa fa-trash"></i></a>
+													</td>
+												</tr>
+						                    </tbody>
+                  						</table>
+                  						</div>
 								    </div>
 								  </div>
 								</div>	
@@ -135,7 +158,7 @@
 								  <div class="panel panel-default">
 								    <div class="panel-heading" data-toggle="collapse" data-parent="#acc-description" data-target="#acc-description-one">
 								      <h4 class="panel-title">
-								        <a class="accordion-toggle" th:text="'Abstract'">Abstract</a>
+								        <a class="accordion-toggle">[Insert Abstract]</a>
 								      </h4>
 								    </div>
 								    <div id="acc-description-one" class="panel-collapse collapse">
@@ -144,6 +167,43 @@
 											<textarea id="tinyMCE-area" th:text="*{description}">
 											</textarea>
 										</div>
+								    </div>
+								  </div>
+								</div>	
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" th:text="'Keyword'">Keyword</label>
+							<div class="col-sm-9 form-input-container">
+								<div class="panel-group" id="acc-keyword">
+								  <div class="panel panel-default">
+								    <div class="panel-heading" data-toggle="collapse" data-parent="#acc-keyword" data-target="#acc-keyword-one">
+								      <h4 class="panel-title">
+								        <a class="accordion-toggle">[Insert Keyword]</a>
+								      </h4>
+								    </div>
+								    <div id="acc-keyword-one" class="panel-collapse collapse">
+								    	<div class="collapse-content">
+								        <table id="keywordTable" class="table table-custom table-sortable" style="width:100%;">
+			 								<thead>
+						                        <tr>
+						                          <th style="width:45%">Keyword</th>
+						                          <th style="width:10%">Action</th>
+						                        </tr>
+						                    </thead>
+						                    <tbody>
+						                    	<tr>
+						                    		<td>
+						                    			<div class="input-group">
+															<input type="text" class="form-control"/>
+														</div>
+													</td>
+													<td>
+													</td>
+												</tr>
+						                    </tbody>
+                  						</table>
+                  						</div>
 								    </div>
 								  </div>
 								</div>	

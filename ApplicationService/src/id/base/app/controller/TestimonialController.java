@@ -8,6 +8,7 @@ import id.base.app.service.MaintenanceService;
 import id.base.app.service.testimonial.ITestimonialService;
 import id.base.app.util.ImageFunction;
 import id.base.app.util.StringFunction;
+import id.base.app.valueobject.aboutUs.Engagement;
 import id.base.app.valueobject.testimonial.Testimonial;
 
 import java.util.ArrayList;
@@ -16,6 +17,9 @@ import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -78,6 +82,17 @@ public class TestimonialController extends SuperController<Testimonial>{
 	public Testimonial getOldObject(Testimonial object) throws SystemException {
 		Testimonial oldObject = new Testimonial();
 		return object.getPkTestimonial() != null ? cloneObject(oldObject, findById(object.getPkTestimonial())) : null;
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/findLatest")
+	@ResponseBody
+	public List<Testimonial> findLatest(@RequestParam(value="number") int number) throws SystemException {
+		try {
+			return testimonialService.findLatest(number);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new SystemException(new ErrorHolder("error finding your data"));
+		}
 	}
 	
 }

@@ -2,6 +2,12 @@
 	background: #0062A7;
     border-bottom: 5px solid #FFDE00!important;
 }
+.collapse-content {
+    padding: 5px 15px;
+}
+.collapse-content table .input-group,.collapse-content table input[type=text].form-control{
+	width:100%;
+}
 .top-filter{
 	color:white;
 }

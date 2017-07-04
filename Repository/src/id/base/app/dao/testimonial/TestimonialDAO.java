@@ -11,6 +11,7 @@ import id.base.app.valueobject.testimonial.Testimonial;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.hibernate.Criteria;
 import org.hibernate.SQLQuery;
 import org.hibernate.criterion.MatchMode;
@@ -64,6 +65,37 @@ public class TestimonialDAO extends AbstractHibernateDAO<Testimonial, Long> impl
 		crit.add(Restrictions.eq(Testimonial.STATUS, ILookupConstant.Status.PUBLISH));
 		crit.addOrder(Order.desc(Testimonial.TESTIMONIAL_DATE));
 		crit.setMaxResults(number);
+		crit.setProjection(Projections.projectionList().
+				add(Projections.property(Testimonial.NAME)).
+				add(Projections.property(Testimonial.PERMALINK)).
+				add(Projections.property(Testimonial.JOB_TITLE)).
+				add(Projections.property(Testimonial.PHOTO_URL)).
+				add(Projections.property(Testimonial.PHOTO_THUMB_URL)).
+				add(Projections.property(Testimonial.CONTENT)).
+				add(Projections.property(Testimonial.TESTIMONIAL_DATE)));
+		crit.setResultTransformer(new ResultTransformer() {
+			@Override
+			public Object transformTuple(Object[] tuple, String[] aliases) {
+				Testimonial obj = new Testimonial();
+				try {
+					BeanUtils.copyProperty(obj, Testimonial.NAME, tuple[0]);
+					BeanUtils.copyProperty(obj, Testimonial.PERMALINK, tuple[1]);
+					BeanUtils.copyProperty(obj, Testimonial.JOB_TITLE, tuple[2]);
+					BeanUtils.copyProperty(obj, Testimonial.PHOTO_URL, tuple[3]);
+					BeanUtils.copyProperty(obj, Testimonial.PHOTO_THUMB_URL, tuple[4]);
+					BeanUtils.copyProperty(obj, Testimonial.CONTENT, tuple[5]);
+					BeanUtils.copyProperty(obj, Testimonial.TESTIMONIAL_DATE, tuple[6]);
+				} catch (Exception e) {
+					LOGGER.error(e.getMessage(), e);
+				}
+				return obj;
+			}
+			
+			@Override
+			public List transformList(List collection) {
+				return collection;
+			}
+		});
 		return crit.list();
 	}
 	

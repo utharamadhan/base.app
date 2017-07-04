@@ -116,12 +116,22 @@ public class ShortLifeSessionFilter2 implements Filter{
 	}
 	
 	private List<Testimonial> getTestimonialList(){
-		RestCaller<Testimonial> rc = new RestCaller<Testimonial>(RestConstant.REST_SERVICE, RestServiceConstant.TESTIMONIAL_SERVICE);
-		List<SearchFilter> filters = new ArrayList<SearchFilter>();
-		List<SearchOrder> orders = new ArrayList<SearchOrder>();
-		filters.add(new SearchFilter(Testimonial.STATUS, Operator.EQUALS, ILookupConstant.Status.PUBLISH, Integer.class));
-		orders.add(new SearchOrder(Testimonial.TESTIMONIAL_DATE, SearchOrder.Sort.DESC));
-		return rc.findAll(filters, orders);
+		SpecificRestCaller<Testimonial> rcEngagement = new SpecificRestCaller<Testimonial>(RestConstant.REST_SERVICE, RestServiceConstant.TESTIMONIAL_SERVICE);
+		List<Testimonial> testimonials = rcEngagement.executeGetList(new QueryParamInterfaceRestCaller() {
+			
+			@Override
+			public String getPath() {
+				return "/findLatest";
+			}
+			
+			@Override
+			public Map<String, Object> getParameters() {
+				Map<String,Object> map = new HashMap<String, Object>();
+				map.put("number", 14);
+				return map;
+			}
+		});
+		return testimonials;
 	}
 	
 	private List<Pages> getCommonPostList(){

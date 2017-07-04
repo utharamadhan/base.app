@@ -471,6 +471,9 @@
   -ms-transform: skewY(-30deg) rotate(60deg);
   transform: skewY(-30deg) rotate(60deg);
 }
+.hexas li > div.defaultHexa{
+	background-color:#0056a1;
+}
 
 /* HEX CONTENT */
 .hexas li img{

@@ -271,14 +271,19 @@
 			<div class="row">
 				<div class="col-md-12">
 					<ul id="latest-testi" class="hexas clr">
-					  <c:forEach var="i" begin="1" end="14">
+				      <c:set var="testiCount" value="${0}"/>
+					  <c:forEach items="${testimonialHomeList}" var="testi">
 					  	<li>
 					    	<div>
-					    		<img src="<%=request.getContextPath()%>/images/faces/${i}.jpg"/>
-					    		<h1>aaaaaaaa</h1>
+					    		<img src="${testi.encodedPicture}" alt="" />
+					    		<h1>${testi.name}<br/>${testi.jobTitle}</h1>
 				      			<p><a href="page/engagement/list" class="btn btn-third btn-medium">selengkapnya</a></p>
 					    	</div>
 					  	</li>
+					  	<c:set var="testiCount" value="${testiCount+1}"/>
+					  </c:forEach>
+					  <c:forEach var="i" begin="1" end="${14 - testiCount}">
+					  	<li><div class="defaultHexa"></div></li>
 					  </c:forEach>
 					</ul>
 				</div>
