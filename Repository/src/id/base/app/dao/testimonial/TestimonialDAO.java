@@ -13,8 +13,11 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.SQLQuery;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.transform.ResultTransformer;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -71,5 +74,33 @@ public class TestimonialDAO extends AbstractHibernateDAO<Testimonial, Long> impl
 		sqlQuery.setLong("pkTestimonial", pkTestimonial);
 		sqlQuery.setString("thumbURL", thumbURL);
 		sqlQuery.executeUpdate();
+	}
+	
+	@Override
+	public List<String> getSamePermalink(Long pk, String permalink) throws SystemException {
+		Criteria crit = getSession().createCriteria(Testimonial.class);
+		crit.add(Restrictions.like(Testimonial.PERMALINK, permalink, MatchMode.START));
+		if(pk!=null){
+			crit.add(Restrictions.ne(Testimonial.PK_TESTIMONIAL, pk));
+		}
+		crit.setProjection(Projections.projectionList().add(Projections.property("permalink")));
+		crit.setResultTransformer(new ResultTransformer() {
+			@Override
+			public Object transformTuple(Object[] tuple, String[] aliases) {
+				String r = null;
+				try{
+					r = tuple[0].toString();
+				}catch(Exception e){
+					LOGGER.error(e.getMessage(), e);
+				}
+				return r;
+			}
+			
+			@Override
+			public List<?> transformList(List collection) {
+				return collection;
+			}
+		});
+		return crit.list();
 	}
 }

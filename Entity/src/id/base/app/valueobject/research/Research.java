@@ -82,6 +82,9 @@ public class Research extends BaseEntity implements Serializable {
 	@Column(name="IMAGE_URL")
 	private String imageURL;
 	
+	@Column(name="IMAGE_THUMB_URL")
+	private String imageThumbURL;
+	
 	@Column(name="DESCRIPTION")
 	private String description;
 	
@@ -212,6 +215,14 @@ public class Research extends BaseEntity implements Serializable {
 
 	public void setImageURL(String imageURL) {
 		this.imageURL = imageURL;
+	}
+	
+	public String getImageThumbURL() {
+		return imageThumbURL;
+	}
+
+	public void setImageThumbURL(String imageThumbURL) {
+		this.imageThumbURL = imageThumbURL;
 	}
 
 	public String getDescription() {
@@ -355,7 +366,9 @@ public class Research extends BaseEntity implements Serializable {
 	}
 	
 	public String getEncodedPicture() throws Exception {
-		if(getImageURL()!=null && !"".equals(getImageURL())){
+		if(getImageThumbURL()!=null && !"".equals(getImageThumbURL())){
+			encodedPicture = EncodeDecode.getBase64FromLink(getImageThumbURL());
+		}else if(getImageURL()!=null && !"".equals(getImageURL())){
 			encodedPicture = EncodeDecode.getBase64FromLink(getImageURL());
 		}
 		return encodedPicture;

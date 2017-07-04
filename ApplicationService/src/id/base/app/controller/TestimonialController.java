@@ -8,11 +8,11 @@ import id.base.app.service.MaintenanceService;
 import id.base.app.service.testimonial.ITestimonialService;
 import id.base.app.util.ImageFunction;
 import id.base.app.util.StringFunction;
-import id.base.app.valueobject.publication.News;
 import id.base.app.valueobject.testimonial.Testimonial;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,6 +35,14 @@ public class TestimonialController extends SuperController<Testimonial>{
 		List<ErrorHolder> errors = new ArrayList<>();
 		if(anObject.getName() == null){
 			errors.add(new ErrorHolder("Name is Mandatory"));
+		}else{
+			String permalink = StringFunction.toPrettyURL(anObject.getName());
+			List<String> permalinkDBList = testimonialService.getSamePermalink(anObject.getPkTestimonial(), permalink);
+			permalink = StringFunction.generatePermalink(permalinkDBList, permalink);
+			anObject.setPermalink(permalink);
+		}
+		if(StringFunction.isEmpty(anObject.getContent())) {
+			errors.add(new ErrorHolder(Testimonial.CONTENT, messageSource.getMessage("error.mandatory", new String[]{"testimonial"}, Locale.ENGLISH)));
 		}
 		if(errors != null && errors.size() > 0){
 			throw new SystemException(errors);

@@ -12,4 +12,6 @@ public interface ITestimonialDAO extends IBaseDAO<Testimonial> {
 
 	public void updateThumb(Long pkTestimonial, String thumbURL) throws SystemException;
 
+	public List<String> getSamePermalink(Long pk, String permalink) throws SystemException;
+
 }

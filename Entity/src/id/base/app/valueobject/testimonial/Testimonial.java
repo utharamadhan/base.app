@@ -1,6 +1,7 @@
 package id.base.app.valueobject.testimonial;
 
 import id.base.app.ILookupConstant;
+import id.base.app.encryptor.EncodeDecode;
 import id.base.app.valueobject.BaseEntity;
 
 import java.io.Serializable;
@@ -27,10 +28,11 @@ public class Testimonial extends BaseEntity implements Serializable {
 	
 	public static final String PK_TESTIMONIAL = "pkTestimonial";
 	public static final String NAME = "name";
+	public static final String PERMALINK = "permalink";
 	public static final String JOB_TITLE = "jobTitle";
 	public static final String PHOTO_URL = "photoURL";
 	public static final String PHOTO_THUMB_URL	= "photoThumbURL";
-	public static final String DESCRIPTION = "description";
+	public static final String CONTENT = "content";
 	public static final String TESTIMONIAL_DATE = "testimonialDate";
 	public static final String STATUS = "status";
 	
@@ -47,6 +49,9 @@ public class Testimonial extends BaseEntity implements Serializable {
 	@Column(name="NAME")
 	private String name;
 	
+	@Column(name="PERMALINK")
+	private String permalink;
+	
 	@Column(name="JOB_TITLE")
 	private String jobTitle;
 	
@@ -56,8 +61,8 @@ public class Testimonial extends BaseEntity implements Serializable {
 	@Column(name="PHOTO_THUMB_URL")
 	private String photoThumbURL;
 	
-	@Column(name="DESCRIPTION")
-	private String description;
+	@Column(name="CONTENT")
+	private String content;
 	
 	@Column(name="TESTIMONIAL_DATE")
 	private Date testimonialDate;
@@ -67,6 +72,9 @@ public class Testimonial extends BaseEntity implements Serializable {
 	
 	@Transient
 	private String statusStr;
+	
+	@Transient
+	public String encodedPicture;
 
 	public Long getPkTestimonial() {
 		return pkTestimonial;
@@ -82,6 +90,14 @@ public class Testimonial extends BaseEntity implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public String getPermalink() {
+		return permalink;
+	}
+
+	public void setPermalink(String permalink) {
+		this.permalink = permalink;
 	}
 
 	public String getJobTitle() {
@@ -116,12 +132,12 @@ public class Testimonial extends BaseEntity implements Serializable {
 		this.testimonialDate = testimonialDate;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getContent() {
+		return content;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setContent(String content) {
+		this.content = content;
 	}
 
 	public Integer getStatus() {
@@ -135,9 +151,21 @@ public class Testimonial extends BaseEntity implements Serializable {
 	public String getStatusStr() {
 		return ILookupConstant.Status.STATUS_MAP.get(status);
 	}
-
+	
 	public void setStatusStr(String statusStr) {
 		this.statusStr = statusStr;
+	}
+	
+	public String getEncodedPicture() throws Exception {
+		if(getPhotoThumbURL()!=null && !"".equals(getPhotoThumbURL())){
+			encodedPicture = EncodeDecode.getBase64FromLink(getPhotoThumbURL());
+		}else if(getPhotoURL()!=null && !"".equals(getPhotoURL())){
+			encodedPicture = EncodeDecode.getBase64FromLink(getPhotoURL());
+		}
+		return encodedPicture;
+	}
+	public void setEncodedPicture(String encodedPicture) {
+		this.encodedPicture = encodedPicture;
 	}
 	
 }

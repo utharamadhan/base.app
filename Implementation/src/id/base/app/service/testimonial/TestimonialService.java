@@ -66,4 +66,9 @@ public class TestimonialService implements ITestimonialService {
 	public void updateThumb(Long pkTestimonial, String thumbURL) throws SystemException {
 		testimonialDAO.updateThumb(pkTestimonial, thumbURL);
 	}
+	
+	@Override
+	public List<String> getSamePermalink(Long pk, String permalink) throws SystemException {
+		return testimonialDAO.getSamePermalink(pk, permalink);
+	}
 }
