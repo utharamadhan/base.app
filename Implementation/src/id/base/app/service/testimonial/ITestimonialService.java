@@ -10,4 +10,6 @@ public interface ITestimonialService extends MaintenanceService<Testimonial> {
 
 	public List<Testimonial> findLatest(int number) throws SystemException;
 
+	public void updateThumb(Long pkTestimonial, String thumbURL) throws SystemException;
+
 }

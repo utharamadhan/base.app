@@ -231,6 +231,7 @@ public class SystemConstant  {
     public static String FILE_STORAGE					= "";
     public static String FILE_CONTENT_DIRECTORY			= "contentDirectory" + File.separator;
     public static String FILE_FEATURED_IMAGE_DIRECTORY	= "featuredImage" + File.separator;
+    public static String FILE_PHOTO_DIRECTORY			= "photo" + File.separator;
     public static String FILE_EBOOK_DIRECTORY			= "ebook" + File.separator;
 	
 	public static void setSharedFolderLocation(String sharedFolderLoc) throws Exception {
@@ -374,7 +375,13 @@ public class SystemConstant  {
 	}
 	
 	public static final class ThumbnailsDimension{
-		public static final int WIDTH = 600;
-		public static final int HEIGHT = 400;
+		public static final class FeatureImage{
+			public static final int WIDTH = 600;
+			public static final int HEIGHT = 400;	
+		}
+		public static final class Photo{
+			public static final int WIDTH = 200;
+			public static final int HEIGHT = 200;	
+		}
 	}
 }

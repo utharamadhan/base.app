@@ -1,10 +1,14 @@
 package id.base.app.controller;
 
+import id.base.app.SystemConstant;
 import id.base.app.exception.ErrorHolder;
 import id.base.app.exception.SystemException;
 import id.base.app.rest.RestConstant;
 import id.base.app.service.MaintenanceService;
 import id.base.app.service.testimonial.ITestimonialService;
+import id.base.app.util.ImageFunction;
+import id.base.app.util.StringFunction;
+import id.base.app.valueobject.publication.News;
 import id.base.app.valueobject.testimonial.Testimonial;
 
 import java.util.ArrayList;
@@ -42,4 +46,30 @@ public class TestimonialController extends SuperController<Testimonial>{
 	public Testimonial preUpdate(Testimonial anObject) throws SystemException{
 		return validate(anObject);
 	}
+	
+	@Override
+	public void postUpdate(Object oldObject, Testimonial newObject) {
+		try {
+			if(oldObject != null && oldObject instanceof Testimonial && newObject != null && StringFunction.isNotEmpty(newObject.getPhotoURL())) {
+				if (!((Testimonial)oldObject).getPhotoURL().equalsIgnoreCase(newObject.getPhotoURL())) {
+					String oldURL = ((Testimonial)oldObject).getPhotoURL();
+					deleteOldImage(oldURL);
+					String thumbURL = ImageFunction.createThumbnails(newObject.getPhotoURL(), SystemConstant.ThumbnailsDimension.Photo.WIDTH, SystemConstant.ThumbnailsDimension.Photo.HEIGHT);
+					testimonialService.updateThumb(newObject.getPkTestimonial(), thumbURL);
+				}
+			}else{
+				String thumbURL = ImageFunction.createThumbnails(newObject.getPhotoURL(), SystemConstant.ThumbnailsDimension.Photo.WIDTH, SystemConstant.ThumbnailsDimension.Photo.HEIGHT);
+				testimonialService.updateThumb(newObject.getPkTestimonial(), thumbURL);
+			}
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage(), e);
+		}
+	}
+	
+	@Override
+	public Testimonial getOldObject(Testimonial object) throws SystemException {
+		Testimonial oldObject = new Testimonial();
+		return object.getPkTestimonial() != null ? cloneObject(oldObject, findById(object.getPkTestimonial())) : null;
+	}
+	
 }

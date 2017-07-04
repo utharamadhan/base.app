@@ -29,6 +29,7 @@ public class Testimonial extends BaseEntity implements Serializable {
 	public static final String NAME = "name";
 	public static final String JOB_TITLE = "jobTitle";
 	public static final String PHOTO_URL = "photoURL";
+	public static final String PHOTO_THUMB_URL	= "photoThumbURL";
 	public static final String DESCRIPTION = "description";
 	public static final String TESTIMONIAL_DATE = "testimonialDate";
 	public static final String STATUS = "status";
@@ -51,6 +52,9 @@ public class Testimonial extends BaseEntity implements Serializable {
 	
 	@Column(name="PHOTO_URL")
 	private String photoURL;
+	
+	@Column(name="PHOTO_THUMB_URL")
+	private String photoThumbURL;
 	
 	@Column(name="DESCRIPTION")
 	private String description;
@@ -96,6 +100,14 @@ public class Testimonial extends BaseEntity implements Serializable {
 		this.photoURL = photoURL;
 	}
 	
+	public String getPhotoThumbURL() {
+		return photoThumbURL;
+	}
+
+	public void setPhotoThumbURL(String photoThumbURL) {
+		this.photoThumbURL = photoThumbURL;
+	}
+
 	public Date getTestimonialDate() {
 		return testimonialDate;
 	}

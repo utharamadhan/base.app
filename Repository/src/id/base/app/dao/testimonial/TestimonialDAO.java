@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.SQLQuery;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
@@ -61,5 +62,14 @@ public class TestimonialDAO extends AbstractHibernateDAO<Testimonial, Long> impl
 		crit.addOrder(Order.desc(Testimonial.TESTIMONIAL_DATE));
 		crit.setMaxResults(number);
 		return crit.list();
+	}
+	
+	@Override
+	public void updateThumb(Long pkTestimonial, String thumbURL) throws SystemException {
+		String updateQuery = "UPDATE TESTIMONIAL SET PHOTO_THUMB_URL = :thumbURL WHERE PK_TESTIMONIAL = :pkTestimonial";
+		SQLQuery sqlQuery = getSession().createSQLQuery(updateQuery);
+		sqlQuery.setLong("pkTestimonial", pkTestimonial);
+		sqlQuery.setString("thumbURL", thumbURL);
+		sqlQuery.executeUpdate();
 	}
 }

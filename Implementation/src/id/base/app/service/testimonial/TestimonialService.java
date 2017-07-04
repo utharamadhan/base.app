@@ -61,4 +61,9 @@ public class TestimonialService implements ITestimonialService {
 	public List<Testimonial> findLatest(int number) throws SystemException {
 		return testimonialDAO.findLatest(number);
 	}
+	
+	@Override
+	public void updateThumb(Long pkTestimonial, String thumbURL) throws SystemException {
+		testimonialDAO.updateThumb(pkTestimonial, thumbURL);
+	}
 }

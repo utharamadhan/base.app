@@ -12,9 +12,6 @@ import id.base.app.util.StringFunction;
 import id.base.app.valueobject.publication.News;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -68,21 +65,6 @@ public class NewsController extends SuperController<News>{
 	public News preUpdate(News anObject) throws SystemException{
 		return validate(anObject);
 	}
-
-	private void processDeleteOldImage(String fileSystemURL) throws IOException{
-		Path path = Paths.get(fileSystemURL);
-		Files.deleteIfExists(path);
-	}
-	
-	private void deleteOldImage(String oldURL) throws IOException{
-		String fileSystemURL = SystemConstant.FILE_STORAGE + oldURL.substring(SystemConstant.IMAGE_SHARING_URL.length(), oldURL.length());
-		String ext = fileSystemURL.substring(oldURL.lastIndexOf("."));
-		String tempURL = fileSystemURL.replaceFirst(".([a-z]+)$", "_temp." + ext);
-		String thumbURL = fileSystemURL.replaceFirst(".([a-z]+)$", "_thumb." + ext);
-		processDeleteOldImage(fileSystemURL);
-		processDeleteOldImage(tempURL);
-		processDeleteOldImage(thumbURL);
-	}
 	
 	@Override
 	public void postUpdate(Object oldObject, News newObject) {
@@ -91,11 +73,11 @@ public class NewsController extends SuperController<News>{
 				if (!((News)oldObject).getImageURL().equalsIgnoreCase(newObject.getImageURL())) {
 					String oldURL = ((News)oldObject).getImageURL();
 					deleteOldImage(oldURL);
-					String thumbURL = ImageFunction.createThumbnails(newObject.getImageURL(), SystemConstant.ThumbnailsDimension.WIDTH, SystemConstant.ThumbnailsDimension.HEIGHT);
+					String thumbURL = ImageFunction.createThumbnails(newObject.getImageURL(), SystemConstant.ThumbnailsDimension.FeatureImage.WIDTH, SystemConstant.ThumbnailsDimension.FeatureImage.HEIGHT);
 					newsService.updateThumb(newObject.getPkNews(), thumbURL);
 				}
 			}else{
-				String thumbURL = ImageFunction.createThumbnails(newObject.getImageURL(), SystemConstant.ThumbnailsDimension.WIDTH, SystemConstant.ThumbnailsDimension.HEIGHT);
+				String thumbURL = ImageFunction.createThumbnails(newObject.getImageURL(), SystemConstant.ThumbnailsDimension.FeatureImage.WIDTH, SystemConstant.ThumbnailsDimension.FeatureImage.HEIGHT);
 				newsService.updateThumb(newObject.getPkNews(), thumbURL);
 			}
 		} catch (Exception e) {

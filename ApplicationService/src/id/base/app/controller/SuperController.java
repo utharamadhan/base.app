@@ -12,6 +12,9 @@ import id.base.app.valueobject.CreateEntity;
 import id.base.app.valueobject.UpdateEntity;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -208,6 +211,21 @@ public abstract class SuperController<T> {
 			LOGGER.error(e.getMessage(), e);
 		}
 		return null;
+	}
+	
+	protected void processDeleteOldImage(String fileSystemURL) throws IOException{
+		Path path = Paths.get(fileSystemURL);
+		Files.deleteIfExists(path);
+	}
+	
+	protected void deleteOldImage(String oldURL) throws IOException{
+		String fileSystemURL = SystemConstant.FILE_STORAGE + oldURL.substring(SystemConstant.IMAGE_SHARING_URL.length(), oldURL.length());
+		String ext = fileSystemURL.substring(oldURL.lastIndexOf("."));
+		String tempURL = fileSystemURL.replaceFirst(".([a-z]+)$", "_temp." + ext);
+		String thumbURL = fileSystemURL.replaceFirst(".([a-z]+)$", "_thumb." + ext);
+		processDeleteOldImage(fileSystemURL);
+		processDeleteOldImage(tempURL);
+		processDeleteOldImage(thumbURL);
 	}
 	
 }
