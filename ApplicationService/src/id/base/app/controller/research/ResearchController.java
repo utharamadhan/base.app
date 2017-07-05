@@ -107,7 +107,6 @@ public class ResearchController extends SuperController<Research>{
 				keyword.setResearch(anObject);
 			}
 		}
-		anObject.setStatus(SystemConstant.ValidFlag.VALID);
 		return validate(anObject);
 	}
 	

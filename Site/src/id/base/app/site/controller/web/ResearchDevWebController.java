@@ -1,12 +1,15 @@
 package id.base.app.site.controller.web;
 
+import id.base.app.ILookupConstant;
 import id.base.app.paging.PagingWrapper;
 import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
 import id.base.app.rest.RestServiceConstant;
 import id.base.app.site.controller.BaseSiteController;
+import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
+import id.base.app.util.dao.SearchOrder.Sort;
 import id.base.app.valueobject.Category;
 import id.base.app.valueobject.Pages;
 import id.base.app.valueobject.research.Research;
@@ -19,6 +22,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
@@ -58,8 +62,20 @@ public class ResearchDevWebController extends BaseSiteController<Pages>{
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/research/list")
-	public String listResearch(ModelMap model, HttpServletRequest request, HttpServletResponse response){
+	public String listResearch(ModelMap model, HttpServletRequest request, HttpServletResponse response, 
+			@RequestParam(value="startNo",defaultValue="1") int startNo, 
+			@RequestParam(value="offset",defaultValue="12") int offset,
+			@RequestParam(value="filter", defaultValue="", required=false) String filterJson){
 		setMenu(model);
+		List<SearchFilter> filter = new ArrayList<SearchFilter>();
+		filter.add(new SearchFilter(Research.STATUS, Operator.EQUALS, ILookupConstant.Status.PUBLISH, Integer.class));
+		if(StringUtils.isNotEmpty(filterJson)){
+			filter.add(new SearchFilter(Research.TITLE, Operator.LIKE, filterJson));
+		}
+		List<SearchOrder> order = new ArrayList<SearchOrder>();
+		order.add(new SearchOrder(Research.YEAR_FROM, Sort.DESC));
+		PagingWrapper<Research> researches = getRestCaller().findAllByFilter(startNo, offset, filter, order);
+		model.addAttribute("researches", researches);
 		return "/research-development/research/list";
 	}
 	

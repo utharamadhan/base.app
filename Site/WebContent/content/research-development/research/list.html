@@ -114,12 +114,13 @@
 						<br/>
 						<div class="content">
 							<div class="row list_data">
-				
+								<th:block th:each="data, i : ${researches.result}">
 								<div id="template" class="col-md-3 data_result">
 									<div class="post">
 										<div class="post_thumb_wrapper">
 											<div class="post_thumb">
-												<img alt="" class="show_detail my_link" src="/Site/images/ebook/ebook1.jpg"/>
+												<!-- <img alt="" class="show_detail my_link" src="/Site/images/ebook/ebook1.jpg"/> -->
+												<div class="cover-empty" th:text="${data.title}"></div>
 												<div class="overlay">
 												    <div class="text show_detail my_link"><i class="fa fa-align-left"></i> <a href="/Site/page/main-program/research-development/research/detail">Baca</a></div>
 												</div>
@@ -127,191 +128,15 @@
 										</div>
 										<div class="clear"></div>
 										<div class="info">
-											<h2><a href="/Site/page/main-program/research-development/research/detail"><label class="post_title show_detail my_link">Sun Rise di Jawa Barat</label></a></h2>
-											<div class="date"><label>2015</label></div>
+											<h2><a th:href="@{detail/__${data.permalink}__}"><label class="post_title show_detail my_link" th:text="${data.title}"></label></a></h2>
+											<div class="date"><label th:text="${data.yearFrom}"></label></div>
 										</div>
 									</div>
 									<div class="bottom-left-yellow"></div>
 									<div class="bottom-right-blue"></div>
 								</div>
-								
-								<div id="template" class="col-md-3 data_result">
-									<div class="post">
-										<div class="post_thumb_wrapper">
-											<div class="post_thumb">
-												<img alt="" class="show_detail my_link" src="/Site/images/ebook/ebook2.jpg"/>
-												<div class="overlay">
-												    <div class="text show_detail my_link"><i class="fa fa-align-left"></i> <a href="/Site/page/main-program/research-development/research/detail">Baca</a></div>
-												</div>
-											</div>
-										</div>
-										<div class="clear"></div>
-										<div class="info">
-											<h2><a href="/Site/page/main-program/research-development/research/detail"><label class="post_title show_detail my_link">Potensi Daerah</label></a></h2>
-											<div class="date"><label>2015</label></div>
-										</div>
-									</div>
-									<div class="bottom-left-yellow"></div>
-									<div class="bottom-right-blue"></div>
-								</div>
-								
-							
-							
-								<div id="template" class="col-md-3 data_result">
-									<div class="post">
-										<div class="post_thumb_wrapper">
-											<div class="post_thumb">
-												<img alt="" class="show_detail my_link" src="/Site/images/ebook/ebook3.jpg"/>
-												<div class="overlay">
-												    <div class="text show_detail my_link"><i class="fa fa-align-left"></i> <a href="/Site/page/main-program/research-development/research/detail">Baca</a></div>
-												</div>
-											</div>
-										</div>
-										<div class="clear"></div>
-										<div class="info">
-											<h2><a href="/Site/page/main-program/research-development/research/detail"><label class="post_title show_detail my_link">Supply and Demand</label></a></h2>
-											<div class="date"><label>2015</label></div>
-										</div>
-									</div>
-									<div class="bottom-left-yellow"></div>
-									<div class="bottom-right-blue"></div>
-								</div>
-								
-							
-							
-								<div id="template" class="col-md-3 data_result">
-									<div class="post">
-										<div class="post_thumb_wrapper">
-											<div class="post_thumb">
-												<img alt="" class="show_detail my_link" src="/Site/images/ebook/ebook5.jpg"/>
-												<div class="overlay">
-												    <div class="text show_detail my_link"><i class="fa fa-align-left"></i> <a href="/Site/page/main-program/research-development/research/detail">Baca</a></div>
-												</div>
-											</div>
-										</div>
-										<div class="clear"></div>
-										<div class="info">
-											<h2><a href="/Site/page/main-program/research-development/research/detail"><label class="post_title show_detail my_link">Keb. Pembangunan Properti</label></a></h2>
-											<div class="date"><label>2015</label></div>
-										</div>
-									</div>
-									<div class="bottom-left-yellow"></div>
-									<div class="bottom-right-blue"></div>
-								</div>
-								
-							
-							
-								<div id="template" class="col-md-3 data_result">
-									<div class="post">
-										<div class="post_thumb_wrapper">
-											<div class="post_thumb">
-												<img alt="" class="show_detail my_link" src="/Site/images/ebook/ebook6.jpg"/>
-												<div class="overlay">
-												    <div class="text show_detail my_link"><i class="fa fa-align-left"></i> <a href="/Site/page/main-program/research-development/research/detail">Baca</a></div>
-												</div>
-											</div>
-										</div>
-										<div class="clear"></div>
-										<div class="info">
-											<h2><a href="/Site/page/main-program/research-development/research/detail"><label class="post_title show_detail my_link">Skill Set Developer</label></a></h2>
-											<div class="date"><label>2016</label></div>
-										</div>
-									</div>
-									<div class="bottom-left-yellow"></div>
-									<div class="bottom-right-blue"></div>
-								</div>
-								
-							
-							
-								<div id="template" class="col-md-3 data_result">
-									<div class="post">
-										<div class="post_thumb_wrapper">
-											<div class="post_thumb">
-												<img alt="" class="show_detail my_link" src="/Site/images/ebook/ebook7.jpg"/>
-												<div class="overlay">
-												    <div class="text show_detail my_link"><i class="fa fa-align-left"></i> <a href="/Site/page/main-program/research-development/research/detail">Baca</a></div>
-												</div>
-											</div>
-										</div>
-										<div class="clear"></div>
-										<div class="info">
-											<h2><a href="/Site/page/main-program/research-development/research/detail"><label class="post_title show_detail my_link">BTN Housing Index</label></a></h2>
-											<div class="date"><label>2016</label></div>
-										</div>
-									</div>
-									<div class="bottom-left-yellow"></div>
-									<div class="bottom-right-blue"></div>
-								</div>
-								
-								
-								<div id="template" class="col-md-3 data_result">
-									<div class="post">
-										<div class="post_thumb_wrapper">
-											<div class="post_thumb">
-												<img alt="" class="show_detail my_link" src="/Site/images/ebook/ebook8.jpg"/>
-												<div class="overlay">
-												    <div class="text show_detail my_link"><i class="fa fa-align-left"></i> <a href="/Site/page/main-program/research-development/research/detail">Baca</a></div>
-												</div>
-											</div>
-										</div>
-										<div class="clear"></div>
-										<div class="info">
-											<h2><a href="/Site/page/main-program/research-development/research/detail"><label class="post_title show_detail my_link">Skema Kolaborasi ABCG</label></a></h2>
-											<div class="date"><label>2016</label></div>
-										</div>
-									</div>
-									<div class="bottom-left-yellow"></div>
-									<div class="bottom-right-blue"></div>
-								</div>
-								
-							
-							
-								<div id="template" class="col-md-3 data_result">
-									<div class="post">
-										<div class="post_thumb_wrapper">
-											<div class="post_thumb">
-												<img alt="" class="show_detail my_link" src="/Site/images/ebook/ebook9.jpg"/>
-												<div class="overlay">
-												    <div class="text show_detail my_link"><i class="fa fa-align-left"></i> <a href="/Site/page/main-program/research-development/research/detail">Baca</a></div>
-												</div>
-											</div>
-										</div>
-										<div class="clear"></div>
-										<div class="info">
-											<h2><a href="/Site/page/main-program/research-development/research/detail"><label class="post_title show_detail my_link">Kajian MBR</label></a></h2>
-											<div class="date"><label>2016</label></div>
-										</div>
-									</div>
-									<div class="bottom-left-yellow"></div>
-									<div class="bottom-right-blue"></div>
-								</div>
-								
-							
-							
-								<div id="template" class="col-md-3 data_result">
-									<div class="post">
-										<div class="post_thumb_wrapper">
-											<div class="post_thumb">
-												<img alt="" class="show_detail my_link" src="/Site/images/ebook/ebook10.jpg"/>
-												<div class="overlay">
-												    <div class="text show_detail my_link"><i class="fa fa-align-left"></i> <a href="/Site/page/main-program/research-development/research/detail">Baca</a></div>
-												</div>
-											</div>
-										</div>
-										<div class="clear"></div>
-										<div class="info">
-											<h2><a href="/Site/page/main-program/research-development/research/detail"><label class="post_title show_detail my_link">Customer Profiling</label></a></h2>
-											<div class="date"><label>2017</label></div>
-										</div>
-									</div>
-									<div class="bottom-left-yellow"></div>
-									<div class="bottom-right-blue"></div>
-								</div>
-								
-							
-							
-																	
-						</div>
+								</th:block>										
+							</div>
 						</div>
 					</div>
 				</div>
