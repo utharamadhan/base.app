@@ -10,6 +10,8 @@ import id.base.app.valueobject.research.Research;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.collection.internal.PersistentBag;
+import org.hibernate.collection.spi.PersistentCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -64,7 +66,14 @@ public class ResearchService implements IResearchService {
 	
 	@Override
 	public Research findByPermalink(String permalink) throws SystemException {
-		return researchDAO.findByPermalink(permalink);
+		Research research = researchDAO.findByPermalink(permalink);
+		if(research.getOfficers() instanceof PersistentBag) {
+			((PersistentCollection) research.getOfficers() ).forceInitialization();
+		}
+		if(research.getKeywords() instanceof PersistentBag) {
+			((PersistentCollection) research.getKeywords() ).forceInitialization();
+		}
+		return research;
 	}
 
 }

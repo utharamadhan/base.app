@@ -30,7 +30,7 @@
 						<div class="clear"></div>
 						<div class="content_wrapper">
 							<div>
-								<h2>Abstrak</h2>
+								<h2>Abstrak</h2><br/>
 								<div th:utext="${detail.description}"></div>
 							</div>
 						</div>
@@ -38,7 +38,10 @@
 					<div class="col-md-4">
 						<div>
 							<h2>Peneliti</h2>
-							<p>Tim Peneliti Bank BTN</p>
+							<th:block th:each="data , i : ${detail.officers}">
+								<p th:text="${data.officerName}"></p>
+							</th:block>
+							
 						</div>
 						<div>
 							<h2>Tahun Penelitian</h2>
@@ -47,10 +50,9 @@
 						<div>
 							<h2>Kata Kunci</h2>
 							<p>
-								<span class="badge">Developer</span>
-								<span class="badge">Pembangunan</span>
-								<span class="badge">Daerah</span>
-								<span class="badge">Statistik Report</span>
+							<th:block th:each="data , i : ${detail.keywords}">
+								<span class="badge" th:text="${data.keyword}"></span>
+							</th:block>
 							</p>
 						</div>
 					</div>
