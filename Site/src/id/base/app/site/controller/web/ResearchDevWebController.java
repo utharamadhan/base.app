@@ -2,9 +2,11 @@ package id.base.app.site.controller.web;
 
 import id.base.app.ILookupConstant;
 import id.base.app.paging.PagingWrapper;
+import id.base.app.rest.PathInterfaceRestCaller;
 import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
 import id.base.app.rest.RestServiceConstant;
+import id.base.app.rest.SpecificRestCaller;
 import id.base.app.site.controller.BaseSiteController;
 import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
@@ -79,10 +81,17 @@ public class ResearchDevWebController extends BaseSiteController<Pages>{
 		return "/research-development/research/list";
 	}
 	
-	@RequestMapping(method=RequestMethod.GET, value="/research/detail")
-	public String detail(ModelMap model, HttpServletRequest request, HttpServletResponse response){
-		setMenu(model);
-		return "/research-development/research/detail";
+	@RequestMapping(method=RequestMethod.GET, value="/research/detail/{permalink}")
+	public String detail(ModelMap model, HttpServletRequest request, HttpServletResponse response,
+			@PathVariable(value="permalink") String permalink){
+		Research detail = findByPermalink(permalink);
+		if(detail!=null){
+			setMenu(model);
+			model.addAttribute("detail", detail);
+			return "/research-development/research/detail";
+		}
+		LOGGER.error("ERROR DATA NOT FOUND");
+		return "redirect:/page/notfound";
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/research/list/load")
@@ -137,6 +146,29 @@ public class ResearchDevWebController extends BaseSiteController<Pages>{
 		}
 		
 		return resultMap;
+	}
+	
+	private Research findByPermalink(final String permalink){
+		Research detail = new Research();
+		try{
+			detail = new SpecificRestCaller<Research>(RestConstant.REST_SERVICE, RestConstant.RM_RESEARCH, Research.class).executeGet(new PathInterfaceRestCaller() {	
+				@Override
+				public String getPath() {
+					return "/findByPermalink/{permalink}";
+				}
+				
+				@Override
+				public Map<String, Object> getParameters() {
+					Map<String,Object> map = new HashMap<String, Object>();
+					map.put("permalink", permalink);
+					return map;
+				}
+			});
+			
+		}catch(Exception e){
+			detail = null;
+		}
+		return detail;
 	}
 	
 }

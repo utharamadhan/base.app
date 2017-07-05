@@ -122,7 +122,7 @@
 												<!-- <img alt="" class="show_detail my_link" src="/Site/images/ebook/ebook1.jpg"/> -->
 												<div class="cover-empty" th:text="${data.title}"></div>
 												<div class="overlay">
-												    <div class="text show_detail my_link"><i class="fa fa-align-left"></i> <a href="/Site/page/main-program/research-development/research/detail">Baca</a></div>
+												    <div class="text show_detail my_link"><i class="fa fa-align-left"></i> <a th:href="@{detail/__${data.permalink}__}">Baca</a></div>
 												</div>
 											</div>
 										</div>

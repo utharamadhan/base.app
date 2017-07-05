@@ -168,4 +168,10 @@ public class ResearchController extends SuperController<Research>{
         }
 		researchOfficerService.saveOrUpdate(preUpdateOfficer(anObject));
 	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/findByPermalink/{permalink}")
+	@ResponseBody
+	public Research findByPermalink(@PathVariable(value="permalink") String permalink) throws SystemException {
+		return researchService.findByPermalink(permalink);
+	}
 }
