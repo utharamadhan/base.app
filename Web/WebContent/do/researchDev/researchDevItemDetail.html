@@ -55,12 +55,13 @@
 								    	<div class="collapse-content">
 								    	<th:block th:each="cat, i : ${categoryOptions}">
 											<div class="checkbox">
-											    <input type="checkbox" th:attr="id='cat-'+${cat.pkCategory}" th:value="${cat.pkCategory}"/>
+											    <input type="checkbox" class="categories" th:attr="id='cat-'+${cat.pkCategory}" th:value="${cat.pkCategory}"/>
 											    <label th:attr="for='cat-'+${cat.pkCategory}" th:text="${cat.title}"></label>
 											  </div>
 										</th:block>
 										</div>
 								    </div>
+								    <div id="category-hidden"></div>
 								  </div>
 								</div>
                            	</div>
@@ -131,16 +132,17 @@
 						                    	<tr>
 						                    		<td>
 						                    			<div class="input-group">
-															<input type="text" class="form-control"/>
+															<input type="text" class="form-control name"/>
 														</div>
 													</td>
 													<td>
 						                    			<div class="input-group">
-															<input type="text" class="form-control"/>
+															<input type="text" class="form-control position"/>
 														</div>
 													</td>
 													<td>
-														<a href="#" onclick="" class="btn btn-primary btn-xs" data-toggle="tooltip" title="" data-original-title="Delete"><i class="fa fa-trash"></i></a>
+														<a href="#" class="btn btn-primary btn-xs btn-delete" data-toggle="tooltip" title="" data-original-title="Delete"><i class="fa fa-trash"></i></a>
+														<a href="#" class="btn btn-primary btn-xs btn-add" data-toggle="tooltip" title="" data-original-title="Add"><i class="fa fa-plus"></i></a>
 													</td>
 												</tr>
 						                    </tbody>
@@ -195,10 +197,12 @@
 						                    	<tr>
 						                    		<td>
 						                    			<div class="input-group">
-															<input type="text" class="form-control"/>
+															<input type="text" class="form-control keyword"/>
 														</div>
 													</td>
 													<td>
+														<a href="#" class="btn btn-primary btn-xs btn-delete" data-toggle="tooltip" title="" data-original-title="Delete"><i class="fa fa-trash"></i></a>
+														<a href="#" class="btn btn-primary btn-xs btn-add" data-toggle="tooltip" title="" data-original-title="Add"><i class="fa fa-plus"></i></a>
 													</td>
 												</tr>
 						                    </tbody>
@@ -228,6 +232,43 @@
 			</div>
 	</section>
 	</div>
+	<div id="tableData" style="display:none">
+	<table id="officerTableData">
+       	<tbody>
+       		<tr>
+       			<td>
+       				<div class="input-group">
+       					<input type="text" class="form-control name"/>
+       				</div>
+       			</td>
+       			<td>
+       				<div class="input-group">
+       					<input type="text" class="form-control position"/>
+					</div>
+				</td>
+				<td>
+					<a href="#" class="btn btn-primary btn-xs btn-delete" data-toggle="tooltip" title="" data-original-title="Delete"><i class="fa fa-trash"></i></a>
+					<a href="#" class="btn btn-primary btn-xs btn-add" data-toggle="tooltip" title="" data-original-title="Add"><i class="fa fa-plus"></i></a>
+				</td>
+			</tr>
+       	</tbody>
+  	</table>
+  	<table id="keywordTableData">
+       	<tbody>
+       		<tr>
+       			<td>
+       				<div class="input-group">
+						<input type="text" class="form-control keyword"/>
+					</div>
+				</td>
+				<td>
+					<a href="#" class="btn btn-primary btn-xs btn-delete" data-toggle="tooltip" title="" data-original-title="Delete"><i class="fa fa-trash"></i></a>
+					<a href="#" class="btn btn-primary btn-xs btn-add" data-toggle="tooltip" title="" data-original-title="Add"><i class="fa fa-plus"></i></a>
+				</td>
+			</tr>
+       	</tbody>
+  	</table>
+	</div>
 	<script th:inline="javascript">
 	/*<![CDATA[*/
 	           
@@ -250,9 +291,32 @@
 				returnToList('researchDevItem-detail-container', 'researchDevItem-list-container', true);
 			};
 	    	
+			var preSerializeForm = function() {
+				var html = "";
+				var idx = 0;
+				$('#acc-category-one .categories:checkbox:checked').each(function(){
+					html += "<input type='text' name='categories["+idx+"].pkCategory' value='"+$(this).val()+"'/>";
+					idx++;
+				});
+				$('#category-hidden').html(html);
+				var idx = 0;
+				$('#officerTable').find('tbody').find('tr').each(function(){
+					$(this).find('.name').attr('name', 'officers['+idx+'].officerName');
+					$(this).find('.position').attr('name', 'officers['+idx+'].officerPosition');
+					idx++;
+				});
+				
+				var idx = 0;
+				$('#keywordTable').find('tbody').find('tr').each(function(){
+					$(this).find('.keyword').attr('name', 'keywords['+idx+'].keyword');
+					idx++;
+				});
+			};
+			
 			var submitForm = function(){
 				cleanErrorParsley();
 				$('#tinyMCE-hidden').val(tinymce.get('tinyMCE-area').getContent());
+				preSerializeForm();
 				var sURL = /*[[@{/do/researchDev/item/saveItem/}]]*/ #;
 				$.post(sURL, $("#researchDevItem-detail-form").serialize(), function(data) {
 					if(data.errorList!=null){
@@ -354,6 +418,28 @@
 			$('#researchDevItem-detail-btn-cancel').click(function(e){
 				e.preventDefault();
 				backToList();
+			});
+			
+			var addRowTable = function(str){
+				$('#'+str+'Table tbody .btn-add').remove();
+				$('#'+str+'Table tbody tr').last().parent().append($('#'+str+'TableData tbody').html());
+			};
+			var deleteRowTable = function(str,obj){
+				$('#'+str+'Table tbody .btn-add').remove();
+				obj.closest('tr').remove();
+				$('#'+str+'Table tbody tr td').last().html($('#'+str+'TableData tbody tr td').last().html());
+			};
+			$('#officerTable').on('click','.btn-add',function(){
+				addRowTable('officer');
+			});
+			$('#officerTable').on('click','.btn-delete',function(){
+				deleteRowTable('officer',$(this));
+			});
+			$('#keywordTable').on('click','.btn-add',function(){
+				addRowTable('keyword');
+			});
+			$('#keywordTable').on('click','.btn-delete',function(){
+				deleteRowTable('keyword',$(this));
 			});
 	    });
 	/*]]>*/

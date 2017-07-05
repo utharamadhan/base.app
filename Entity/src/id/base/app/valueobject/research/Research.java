@@ -8,19 +8,16 @@ import id.base.app.valueobject.Category;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -43,6 +40,7 @@ public class Research extends BaseEntity implements Serializable {
 	public static final String YEAR_FROM			= "yearFrom";
 	public static final String STATUS				= "status";
 	public static final String IS_ITEM				= "isItem";
+	public static final String PERMALINK			= "permalink";
 	
 	public static Research getInstance() {
 		return new Research();
@@ -57,15 +55,11 @@ public class Research extends BaseEntity implements Serializable {
 	@Column(name="IS_INTERNAL")
 	private Boolean isInternal;
 	
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany
 	@JoinTable(name="RESEARCH_CATEGORY",
 			joinColumns=@JoinColumn(name="FK_RESEARCH"),
 			inverseJoinColumns=@JoinColumn(name="FK_CATEGORY"))
-	private Set<Category> categories;
-	
-	@ManyToOne(cascade=CascadeType.DETACH)
-	@JoinColumn(name="FK_CATEGORY")
-	private Category category;
+	private List<Category> categories;
 	
 	@Column(name="TITLE")
 	private String title;
@@ -124,16 +118,16 @@ public class Research extends BaseEntity implements Serializable {
 	@Column(name="PERMALINK")
 	private String permalink;
 	
-	@OneToMany(mappedBy="research", cascade=CascadeType.DETACH)
-	private List<ResearchOfficer> researchers;
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="research")
+	private List<ResearchOfficer> officers;
 	
-	@OneToMany(mappedBy="research", cascade=CascadeType.DETACH)
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="research")
 	private List<ResearchImplementation> implementations;
 	
-	@OneToMany(mappedBy="research", cascade=CascadeType.DETACH)
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="research")
 	private List<ResearchResult> results;
 	
-	@OneToMany(mappedBy="research", cascade=CascadeType.DETACH)
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="research")
 	private List<ResearchKeyword> keywords;
 	
 	@Transient
@@ -161,20 +155,12 @@ public class Research extends BaseEntity implements Serializable {
 		this.isInternal = isInternal;
 	}
 	
-	public Set<Category> getCategories() {
+	public List<Category> getCategories() {
 		return categories;
 	}
 
-	public void setCategories(Set<Category> categories) {
+	public void setCategories(List<Category> categories) {
 		this.categories = categories;
-	}
-
-	public Category getCategory() {
-		return category;
-	}
-
-	public void setCategory(Category category) {
-		this.category = category;
 	}
 
 	public String getTitle() {
@@ -325,12 +311,12 @@ public class Research extends BaseEntity implements Serializable {
 		this.permalink = permalink;
 	}
 
-	public List<ResearchOfficer> getResearchers() {
-		return researchers;
+	public List<ResearchOfficer> getOfficers() {
+		return officers;
 	}
 
-	public void setResearchers(List<ResearchOfficer> researchers) {
-		this.researchers = researchers;
+	public void setOfficers(List<ResearchOfficer> officers) {
+		this.officers = officers;
 	}
 
 	public List<ResearchImplementation> getImplementations() {

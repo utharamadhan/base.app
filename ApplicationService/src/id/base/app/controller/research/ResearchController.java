@@ -13,6 +13,7 @@ import id.base.app.util.StringFunction;
 import id.base.app.validation.InvalidRequestException;
 import id.base.app.valueobject.UpdateEntity;
 import id.base.app.valueobject.research.Research;
+import id.base.app.valueobject.research.ResearchKeyword;
 import id.base.app.valueobject.research.ResearchOfficer;
 
 import java.util.ArrayList;
@@ -50,6 +51,11 @@ public class ResearchController extends SuperController<Research>{
 		List<ErrorHolder> errorList = new ArrayList<>();
 		if(StringFunction.isEmpty(anObject.getTitle())) {
 			errorList.add(new ErrorHolder(Research.TITLE, messageSource.getMessage("error.mandatory", new String[]{"title"}, Locale.ENGLISH)));
+		}else{
+			String permalink = StringFunction.toPrettyURL(anObject.getTitle());
+			List<String> permalinkDBList = researchService.getSamePermalink(anObject.getPkResearch(), permalink);
+			permalink = StringFunction.generatePermalink(permalinkDBList, permalink);
+			anObject.setPermalink(permalink);	
 		}
 		if(errorList.size() > 0) {
 			throw new SystemException(errorList);
@@ -90,6 +96,16 @@ public class ResearchController extends SuperController<Research>{
 			
 		} else if(StringFunction.isEmpty(anObject.getTitle())){
 			anObject.setTitle(SystemConstant.DEFAULT_TITLE_RESEARCH);
+		}
+		if(anObject.getOfficers()!=null && !anObject.getOfficers().isEmpty()){
+			for (ResearchOfficer officer : anObject.getOfficers()) {
+				officer.setResearch(anObject);
+			}
+		}
+		if(anObject.getKeywords()!=null && !anObject.getKeywords().isEmpty()){
+			for (ResearchKeyword keyword : anObject.getKeywords()) {
+				keyword.setResearch(anObject);
+			}
 		}
 		anObject.setStatus(SystemConstant.ValidFlag.VALID);
 		return validate(anObject);

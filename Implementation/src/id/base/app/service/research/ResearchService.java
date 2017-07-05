@@ -56,5 +56,15 @@ public class ResearchService implements IResearchService {
 	public List<Research> findAll(List<SearchFilter> filter, List<SearchOrder> order) throws SystemException {
 		return researchDAO.findAll(filter, order);
 	}
+	
+	@Override
+	public List<String> getSamePermalink(Long pk, String permalink) throws SystemException {
+		return researchDAO.getSamePermalink(pk, permalink);
+	}
+	
+	@Override
+	public Research findByPermalink(String permalink) throws SystemException {
+		return researchDAO.findByPermalink(permalink);
+	}
 
 }
