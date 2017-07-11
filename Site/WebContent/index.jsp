@@ -23,7 +23,7 @@
 						        </linearGradient>
 						    </defs>
 						    <g>
-						      <path fill="url('#hfc-proyektor')" d="M889 610  L724 150 L650 31 L0 0 L0 1000 L490 940 L860 800 L860 750 L840 750 Z"></path>
+						      <path fill="url('#hfc-proyektor')" d="M889 610  L724 150 L650 31 L0 0 L0 1000 L490 900 L860 800 L860 750 L840 750 Z"></path>
 						    </g>
 						</svg>
 					</div>
@@ -139,8 +139,8 @@
 							</div>
 							<div class="row middleContent">
 								<div class="col-md-8 main-content-left">
-								<video width="100%" controls preload="metadata">
-							  	<source src="<%=request.getContextPath()%>/videos/intro.mp4#t=0.1" type="video/mp4">
+								<video id="intro-hfc-video" width="100%" controls preload="metadata">
+							  	<source src="<%=request.getContextPath()%>/videos/intro.mp4#t=0.005" type="video/mp4">
 							  	Your browser does not support HTML5 video.
 								</video>
 								</div>
@@ -385,6 +385,16 @@
 
 			setInterval(updateGradient,10);
 			
+			var video = document.getElementById("intro-hfc-video");
+
+			$(video).on({
+			    mouseenter: function () {
+			      video.setAttribute("controls","controls")
+			    },
+			    mouseleave: function () {
+			      video.removeAttribute("controls");
+			    }
+			});
 		});
 	</script>
  </body>

@@ -5,7 +5,7 @@
 }
 .pcb-advisory{
 	position: absolute;
-    top: 44.8%;
+    top: 40.8%;
     left: 36.6%;
 }
 .pcb-rnd{
@@ -686,8 +686,8 @@
 .hexagon_advisory{
 	animation: spinnerY 9s infinite linear;
 	position: absolute;
-    top: 48.4%;
-    left: 42.5%;
+    top: 44.4%;
+    left: 42.7%;
     z-index: 999;
 }
 .hexagon_rnd{
@@ -702,9 +702,9 @@
 }
 .housing_index{
 	position: absolute;
-    top: 87%;
-    left: 3%;
-    width: 490px;
+    top: 88%;
+    left: 1%;
+    width: 600px;
 }
 @keyframes spinnerY {
     0% { transform: rotate3d(0, 1, 0, 0deg); }
@@ -839,7 +839,7 @@
 	z-index: 999;
     color: #ead096;
     position: absolute;
-    top: 70%;
+    top: 66%;
     left: 28%;
     -webkit-animation: neon-orange 1.5s ease-in-out infinite alternate;
   	-moz-animation: neon-orange 1.5s ease-in-out infinite alternate;
