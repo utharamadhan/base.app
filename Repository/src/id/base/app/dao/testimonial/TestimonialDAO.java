@@ -72,7 +72,8 @@ public class TestimonialDAO extends AbstractHibernateDAO<Testimonial, Long> impl
 				add(Projections.property(Testimonial.PHOTO_URL)).
 				add(Projections.property(Testimonial.PHOTO_THUMB_URL)).
 				add(Projections.property(Testimonial.CONTENT)).
-				add(Projections.property(Testimonial.TESTIMONIAL_DATE)));
+				add(Projections.property(Testimonial.TESTIMONIAL_DATE)).
+				add(Projections.property(Testimonial.PK_TESTIMONIAL)));
 		crit.setResultTransformer(new ResultTransformer() {
 			@Override
 			public Object transformTuple(Object[] tuple, String[] aliases) {
@@ -85,6 +86,7 @@ public class TestimonialDAO extends AbstractHibernateDAO<Testimonial, Long> impl
 					BeanUtils.copyProperty(obj, Testimonial.PHOTO_THUMB_URL, tuple[4]);
 					BeanUtils.copyProperty(obj, Testimonial.CONTENT, tuple[5]);
 					BeanUtils.copyProperty(obj, Testimonial.TESTIMONIAL_DATE, tuple[6]);
+					BeanUtils.copyProperty(obj, Testimonial.PK_TESTIMONIAL, tuple[7]);
 				} catch (Exception e) {
 					LOGGER.error(e.getMessage(), e);
 				}
