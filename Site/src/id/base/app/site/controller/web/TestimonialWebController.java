@@ -36,14 +36,9 @@ public class TestimonialWebController extends BaseSiteController<Testimonial>{
 			@PathVariable(value="name") String name){
 		Testimonial detail = getRestCaller().findById(id);
 		if(detail!=null){
-			if(detail.getName()!=null){
-				String dataTitle = detail.getName().replace(" ", "-");
-				if(dataTitle.equals(name)){
-					setMenu(model);
-					model.addAttribute("detail", detail);
-					return "/testimonial/detail";
-				}
-			}
+			setMenu(model);
+			model.addAttribute("detail", detail);
+			return "/testimonial/detail";
 		}
 		LOGGER.error("ERROR DATA NOT VALID");
 		return "redirect:/page/notfound";
