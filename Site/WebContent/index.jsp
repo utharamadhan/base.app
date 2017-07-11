@@ -317,7 +317,7 @@
 		setNavbarActive('beranda');
 		$(document).ready(function(){
 			$('.link-pilar').click(function(){
-				location.href='/Site/page/pilar';
+				location.href='/Site/page/${pilar}';
 			});
 			$('.arrowBottom').click(function(){
 				scrollToBottom('aboutUsArea', 72);

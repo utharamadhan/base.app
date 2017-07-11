@@ -95,6 +95,15 @@ public class ShortLifeSessionFilter2 implements Filter{
 		request.setAttribute("newsList", getNewsList(5));
 		request.setAttribute("eventList", getEventList());
 		request.setAttribute("linkUrlList", getLinkUrlList());
+		List<Pages> pages = getTocAndPilarLink();
+		for (Pages p : pages) {
+			if(SystemConstant.PagesType.PILAR.equals(p.getType())){
+				request.setAttribute("pilar", p.getPermalink());
+			}else if(SystemConstant.PagesType.TERM_CONDITION.equals(p.getType())){
+				request.setAttribute("toc", p.getPermalink());
+				request.setAttribute("tocTitle", p.getTitle());
+			}
+		}
 	}
 	
 	private List<HousingIndex> getHousingIndexList(){
@@ -256,6 +265,24 @@ public class ShortLifeSessionFilter2 implements Filter{
 		List<SearchOrder> orderFLU = new ArrayList<SearchOrder>();
 		orderFLU.add(new SearchOrder(LinkUrl.ORDER_NO, Sort.ASC));
 		return restCallFLU.findAll(filterFLU, orderFLU);
+	}
+	
+	private List<Pages> getTocAndPilarLink(){
+		SpecificRestCaller<Pages> rcPages = new SpecificRestCaller<Pages>(RestConstant.REST_SERVICE, RestServiceConstant.PAGES_SERVICE);
+		List<Pages> pages = rcPages.executeGetList(new QueryParamInterfaceRestCaller() {
+			
+			@Override
+			public String getPath() {
+				return "/getTocAndPilarLink";
+			}
+			
+			@Override
+			public Map<String, Object> getParameters() {
+				Map<String,Object> map = new HashMap<String, Object>();
+				return map;
+			}
+		});
+		return pages;
 	}
 	
 	private Cookie getCookie(Cookie[] cookies, HttpServletRequest request) {

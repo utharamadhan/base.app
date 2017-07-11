@@ -67,4 +67,11 @@ public class PagesService implements IPagesService {
 		return pagesDAO.findSimpleData(type);
 	}
 	
+	@Override
+	public List<Pages> getLatestPages(List<String> types) throws SystemException {
+		return pagesDAO.getLatestPages(types);
+	}
+	
+	
+	
 }
