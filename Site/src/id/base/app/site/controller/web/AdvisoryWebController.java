@@ -137,14 +137,9 @@ public class AdvisoryWebController extends BaseSiteController<Pages>{
 			@PathVariable(value="title") String title){
 		AdvisoryConsulting detail = getRestCaller().findById(id);
 		if(detail!=null){
-			if(detail.getName()!=null){
-				String dataTitle = detail.getName().replace(" ", "-");
-				if(dataTitle.equals(title)){
-					setMenu(model);
-					model.addAttribute("detail", detail);
-					return "/advisory/detail";
-				}
-			}
+			setMenu(model);
+			model.addAttribute("detail", detail);
+			return "/advisory/detail";
 		}
 		LOGGER.error("ERROR DATA NOT VALID");
 		return "redirect:/page/notfound";
