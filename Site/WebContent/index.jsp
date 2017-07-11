@@ -277,7 +277,7 @@
 					    	<div>
 					    		<img src="${testi.encodedPicture}" alt="" />
 					    		<h1>${testi.name}<br/>${testi.jobTitle}</h1>
-				      			<p><a href="page/testimonial/detail/${testi.name}" class="btn btn-third btn-medium">selengkapnya</a></p>
+				      			<p><a href="page/testimonial/detail/${testi.pkTestimonial}/${testi.name}" class="btn btn-third btn-medium">selengkapnya</a></p>
 					    	</div>
 					  	</li>
 					  	<c:set var="testiCount" value="${testiCount+1}"/>
