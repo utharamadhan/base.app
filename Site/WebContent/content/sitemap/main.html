@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1"/>
+<title>Housing Finance Center - Sitemap</title>
+</head>
+<body>
+		<div class="hexa-top-green-left-long">
+		<div class="top_post_section back-gradient-transparent">
+		<div class="custom_content custom">
+			<div class="container large">
+				<div class="row">
+					<div class="bottom-left-yellow"></div>
+					<div class="bottom-right-blue"></div>
+					<div class="clear"></div>
+					<div class="col-md-12 back-gradient-transparent">
+						<div class="single_content_right sitemap">
+							<ul>
+								<li>
+									<label>Beranda</label>
+									<ul>
+										<li><label>Testimonial</label></li>
+									</ul>
+								</li>
+								<li>
+									<label>Tentang Kami</label>
+									<ul>
+										<li><label>Siapa Kami?</label></li>
+										<li><label>Tim Pengajar</label></li>
+										<li><label>Tim Advisor</label></li>
+										<li><label>Kerjasama</label></li>
+										<li><label>Program HFC</label></li>
+									</ul>
+								</li>
+								<li>
+									<label>Publikasi</label>
+									<ul>
+										<li><label>Buku Elektronik</label></li>
+										<li><label>Berita</label></li>
+										<li><label>Kegiatan</label></li>
+									</ul>
+								</li>
+								<li>
+									<label>Program</label>
+									<ul>
+										<li>
+											<label>Learning</label>
+											<ul>
+												<li><label>Seminar</label></li>
+												<li><label>Workshop</label></li>
+												<li><label>Kursus</label></li>
+											</ul>
+										</li>
+										<li>
+											<label>Advisory</label>
+											<ul>
+												<li><label>Pusat Solusi Supply Chain dan Pembiayaan Proyek Perumahan</label></li>
+												<li><label>Layanan Konsultasi Pembiayaan rumah</label></li>
+												<li><label>Fasilitator Permasalahan Perumahan</label></li>
+												<li><label>Inkubator Bisnis</label></li>
+											</ul>
+										</li>
+										<li>
+											<label>Research &amp; Development</label>
+											<ul>
+												<li><label>Research</label></li>
+												<li><label>Development</label></li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+								<li><label>Galeri</label></li>
+								<li>
+									<label>Kontak Kami</label>
+									<ul>
+										<li><label>Hubungi Call Center</label></li>
+										<li><label>Ingin Mendaftar Program</label></li>
+										<li><label>Memberi Masukan</label></li>
+									</ul>
+								</li>
+							</ul>
+								
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="clear"></div>
+		</div>
+		<div class="clear"></div>
+		</div>
+		
+		<script type="text/javascript" th:inline="javascript">
+		/*<![CDATA[*/
+		setNavbarActive('kontak-kami');
+		$(function(){
+			$("#sendEmail").unbind('click').click(function(){
+				var sURL = /*[[@{/page/contact/sendEmail}]]*/ #;
+				sendEmail(sURL);
+			});
+			var runFirst = function(){
+				$('.contact-content').hide();
+				$('.'+[[${type}]]+"-content").show();	
+			}
+			runFirst();
+			
+			$('.menu_left li').click(function(){
+				$('.menu_left li.menu_left_active').removeClass('menu_left_active');
+				$(this).addClass('menu_left_active');
+				$('.contact-content').hide();
+				$('.'+$(this).attr('id')+"-content").show();
+			});
+		})      
+		
+		function sendEmail(sURL){
+			var img_url = /*[[@{/images/gif/loading_gear.gif}]]*/;
+			$.ajax({ 
+			    type: "POST",
+			    url: sURL,
+			    data:$('#email_form').serialize(),
+			    dataType: 'json',
+			    success: function(data){
+			    	if(data.success){
+			    		alert(data.message);
+			    		location.reload();
+			    	}else{
+			    		alert(data.message);
+			    	}
+			    	var generateCaptcha = /*[[@{/kaptcha}]]*/;
+		    		$('.captchaImage').attr('src',generateCaptcha);
+			    },beforeSend: function($jqXHR, $textStatus){
+			    	var generateCaptcha = /*[[@{/kaptcha}]]*/;
+		    		$('.captchaImage').attr('src',generateCaptcha);
+					$('.submit_btn').disableBtn({enabled:false});
+					$('.mrdy_overlay').html('<div class="col-md-12 loading_reload" style="display: block; margin-left: auto; margin-right: auto;text-align: center;top: 40%;"><img src="'+img_url+'" /></div>');
+				},
+				error: function ($jqXHR, $textStatus, $errorThrown) {
+					var generateCaptcha = /*[[@{/kaptcha}]]*/;
+		    		$('.captchaImage').attr('src',generateCaptcha);
+					$('.loading_reload').remove();
+					$('.submit_btn').disableBtn({enabled:true});
+				},
+				complete: function($jqXHR, $textStatus){
+					var generateCaptcha = /*[[@{/kaptcha}]]*/;
+		    		$('.captchaImage').attr('src',generateCaptcha);
+					$('.loading_reload').remove();
+					$('.submit_btn').disableBtn({enabled:true});
+				} 
+			});
+		}
+		/*]]>*/
+		</script>
+</body>
+</html>

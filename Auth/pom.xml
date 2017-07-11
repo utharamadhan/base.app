@@ -7,11 +7,8 @@
     <artifactId>BaseApp</artifactId>
     <version>0.0.1</version>
   </parent>
-  <groupId>id.base.app</groupId>
   <artifactId>Auth</artifactId>
   <packaging>war</packaging>
-  <version>0.0.1</version>
-  <name>Auth</name>
   <url>http://maven.apache.org</url>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

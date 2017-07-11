@@ -5234,6 +5234,7 @@ blockquote span {
         max-height: 100%;
     }
     .header .navbar-nav>li>.dropdown-menu {
+    	overflow: auto;
         border-radius: 0;
         box-shadow: none;
         border: none;
@@ -6066,4 +6067,31 @@ blockquote span {
 		width: 500px;
 		margin: 30px auto;
 	}
+}
+
+.dropdown-header{
+	text-transform: uppercase;
+}
+
+.sitemap label{
+	color: #369;
+}
+
+.sitemap ul { 
+   list-style-type: disc; 
+   list-style-position: inside; 
+}
+.sitemap ol { 
+   list-style-type: decimal; 
+   list-style-position: inside; 
+}
+.sitemap ul ul, ol ul { 
+   list-style-type: circle; 
+   list-style-position: inside; 
+   margin-left: 30px; 
+}
+.sitemap ol ol, ul ol { 
+   list-style-type: lower-latin; 
+   list-style-position: inside; 
+   margin-left: 30px; 
 }

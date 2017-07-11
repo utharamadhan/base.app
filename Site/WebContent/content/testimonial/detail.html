@@ -9,8 +9,7 @@
 				<div class="container">
 					<ul>
 					<li><a th:href="@{/}">Beranda</a></li>
-					<li><a th:href="@{/page/program}">Program List</a></li>
-					<li><a href="#">Program Detail</a></li>
+					<li><a href="#">Testimonial</a></li>
 					</ul>
 				</div>
 			</div>
@@ -19,8 +18,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-md-8">
-						<h1 th:utext="${detail.name}"></h1>
-						<h3 th:utext="${detail.jobTitle}"></h3>
+						<h1 th:utext="${detail.title}"></h1>
 						<div class="bottom-left-yellow"></div>
 						<div class="bottom-right-blue"></div>
 						<div class="clear"></div>
@@ -28,7 +26,6 @@
 					</div>
 					<div class="col-md-4">
 						<img class="image_main" th:src="${detail.encodedPicture}"/>
-						<label class="date-wrapper"><i class="fa fa-calendar date-icon" aria-hidden="true"></i> <span class="date" th:text="${detail.publishDate!=null?#dates.format(detail.publishDate, T(id.base.app.SystemConstant).SYSTEM_DATE_MONTH_DETAIL):''}"></span></label>
 					</div>
 				</div>
 				<hr/>
