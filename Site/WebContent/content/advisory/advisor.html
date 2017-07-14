@@ -15,64 +15,54 @@
 				</div>
 			</div>
 		</div>
-		<div class="advisory_section">
-			<div class="advisory_banner">
-				<div class="parallax-window" data-parallax="scroll" th:attr="data-image-src=@{/images/advisor_banner.jpg}" ></div>
-				<div class="info_banner_search_left">
-					<h1 class="find_advisor_title">Find Expert Advisor</h1>
-					<div class="part_div">
-						<input type="text" class="find_name param" placeholder="Name"/>
+		<div class="ebook_section post_section">
+			<div class="container">
+				<h1 style="text-align:center">Tim Pengajar</h1>
+				<br/>
+				<form style="background:#eeeeee;padding:10px 0px;">
+				<div class="row">
+					<div class="col-md-4"></div>
+					<div class="col-md-4">
+						<input type="text" class="form-control param" placeholder="Enter Keyword..."/>
 					</div>
-					<div class="part_div">
-						<button type="button" class="btn btn-danger btn_find">FIND NOW</button>
-					</div>
-				</div>
-			</div>
-			
-			<!-- Start Advisor Data -->
-			<div class="advisory_expert" id="advisory_expert">
-				<div class="container">
-					<div class="advisor_container">
-						<div class="advisor-title add-animation animate">
-	                        <h2>Meet our Advisor</h2>
-	                        <div class="separator-container">
-	                            <div class="separator line-separator">&#x25A0;</div>
-	                        </div>
-	                    </div>
-						<div class="row advisor_list list_data"> 
-							<div id="template" class="col-md-3 align_center data_result" th:each="advisor, i : ${advisors.result}"> 
-								<input type="hidden" name="pkAppUser" class="id_advisor" th:value="${advisor.pkAppUser}"/>
-								<img class="img-circle" th:src="${advisor.party.encodedPicture}"/>
-								<div class="advisor_description">
-									<h3 class="big-text yellow-text-color advisor_name" th:text="${advisor.party.name}"></h3>
-                                    <div>
-                                    	<a href="#" class="link_see_article mrdy_btn">View Article</a>
-                                    </div>
-								</div>
-							</div> 
-						</div>
-						<input type="hidden" th:value="${advisors.startRecordIndex}" class="startNo"/>
-						<input type="hidden" th:value="${advisors.recordsPerPage}" class="offset"/>
-						<div class="row load_pagination" style="display: none;">
-							<div class="col-md-12">
-								<div class="col-md-4"></div>
-								<div class="col-md-4"><img th:src="@{/images/gif/loading_linear.gif}" style="margin-left: 50px;"/></div>
-								<div class="col-md-4"></div>
-							</div>
-						</div>
-						<div class="bouton bouton-brown" th:if="${#lists.size(advisors.result) &gt; 12}"><a href="#" class="load_more"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Load More</a></div>
+					<div class="col-md-4">
+						<button type="button" class="btn btn-danger mrdy_btn search">Cari Pengajar</button>
 					</div>
 				</div>
+				</form>
+				<br/>
+				<div class="row list_data">
+					<div id="template" class="col-md-2 data_result" th:each="advisor, i : ${advisors.result}">
+						<div class="post">
+								<div class="post_thumb">
+									<img th:src="${advisor.party.encodedPicture}" alt="" />
+								</div><!-- end post thumb -->
+								<h1><a  th:href="@{/page/lecturer/}+${advisor.pkAppUser}+'/'+${#strings.replace(advisor.party.name, ' ', '-')}"><label th:text="${advisor.party.name}" class="post_title">Roy</label></a></h1>
+							</div><!-- end post -->
+					</div>	
+				</div>
+				<div class="row load_pagination" style="display: none;">
+					<div class="col-md-12">
+						<div class="col-md-4"></div>
+						<div class="col-md-4"> <img th:src="@{/images/gif/loading_linear.gif}" style="margin-left: 50px;"/> </div>
+						<div class="col-md-4"></div>
+					</div>
+				</div>
+				<div class="row pagination_part">
+					<div class="col-md-12">
+						<div class="col-md-4"></div>
+						<div class="col-md-4">
+							<ul class="pagination_section">
+								<li style="width:100%;text-align:center"><a href="#" class="load_more mrdy_btn">Pengajar Lain</a></li>
+							</ul><!--end pagination section-->		
+							<input type="hidden" th:value="${advisors.startRecordIndex}" class="startNo"/>
+							<input type="hidden" th:value="${advisors.recordsPerPage}" class="offset"/>
+						</div>
+						<div class="col-md-4"></div>
+					</div><!--end post left section-->
+				</div><!--end post_left-->	
 			</div>
-			
-			
-			<!-- Closing advisory -->
-			<div class="advisory_consult">
-				<h1>Have A Question?</h1>
-				<p class="small-text">All your confusing and problem will be answered all by the experts.</p>
-				<button type="button" class="btn btn-primary consult_btn">CONSULT NOW <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span></button>
-			</div>
-		</div><!--end post section-->
+		</div>
 		
 		<script type="text/javascript" th:inline="javascript">
 		/*<![CDATA[*/
@@ -88,11 +78,8 @@
 			var load_content = '';
 			for(var i=0;i<datas.length;i++){
 				var cloning = $('.template_part .data_result').eq(0).clone();
-				cloning.find('.id_advisor').val(datas[i].pkAppUser);
-				cloning.find('.img-circle').attr('src',datas[i].party.encodedPicture);
-				cloning.find('.advisor_name').html(datas[i].party.name);
-				cloning.find('.specialist_part').html(datas[i].party.title);
-				cloning.find('.description').html(datas[i].party.profileDescription);
+				cloning.find('.post_thumb img').attr('src',datas[i].encodedPicture);
+				cloning.find('.post_title').html(datas[i].name);
 				cloning.wrap('<div></div>');
 				if(!load){
 					$('.list_data').append(cloning.parent().html());
@@ -104,80 +91,80 @@
 			if(load){
 				$('.list_data').html(load_content);
 			}
-		}       
-		
-		function loadAdvisor(isLoad){
-			var sURL = /*[[@{/page/advisory/sub/advisor/load}]]*/
-			var param = $('.param').val();
-			var nextStartNo = parseInt($('.startNo').val()) + parseInt($('.offset').val());
-			var offset = $('.offset').val();
-			$.ajax({
-	            type: 'GET',
-	            url: sURL,
-	            data: {filter : param, startNo : nextStartNo, offset : offset},
-	            dataType: 'json',
-	            success: function (data) {
-	            	$('.load_pagination').hide();
-	            	$('.mrdy_btn').disableBtn({enabled:true});
-	            	processData(data.advisors.result, isLoad);		
-	            	var newMaxRecord = data.advisors.maxRecord;
-	            	var newCurrentRecord = data.advisors.currentRecord;
-	            	showPaging(newMaxRecord, newCurrentRecord);
-	            	$('.startNo').val(data.advisors.startRecordIndex);
-	            },
-	            beforeSend: function($jqXHR, $textStatus){
-					$('.load_pagination').show();
-					$('.mrdy_btn').disableBtn({enabled:false});
-				},
-				error: function ($jqXHR, $textStatus, $errorThrown) {
-					$('.load_pagination').hide();
-					$('.mrdy_btn').disableBtn({enabled:true});
-				},
-				complete: function($jqXHR, $textStatus){
-					$('.load_pagination').hide();
-					$('.mrdy_btn').disableBtn({enabled:true});
-				}
-	        });	
 		}
 		           
-		$(function(){ 
+		$(function(){
 			var maxRecord = /*[[${advisors.maxRecord}]]*/;
 			var currentRecord = /*[[${advisors.currentRecord}]]*/;
 			
 			showPaging(maxRecord, currentRecord);
 			
-			$('.load_more').unbind('click').click(function(e){
-				e.preventDefault();
-				loadAdvisor(false);			
+			$('.load_more').unbind('click').click(function(){
+				var sURL = /*[[@{/page/lecturer/load}]]*/
+				var param = $('.param').val();
+				var nextStartNo = parseInt($('.startNo').val()) + parseInt($('.offset').val());
+				var offset = $('.offset').val();
+				$.ajax({
+		            type: 'GET',
+		            url: sURL,
+		            data: {filter : param, startNo : nextStartNo, offset : offset},
+		            dataType: 'json',
+		            success: function (data) {
+		            	$('.load_pagination').hide();
+		            	$('.mrdy_btn').disableBtn({enabled:true});
+		            	processData(data.advisors.result, false);		
+		            	var newMaxRecord = data.advisors.maxRecord;
+		            	var newCurrentRecord = data.advisors.currentRecord;
+		            	showPaging(newMaxRecord, newCurrentRecord);
+		            	$('.startNo').val(data.advisors.startRecordIndex);
+		            },
+		            beforeSend: function($jqXHR, $textStatus){
+						$('.load_pagination').show();
+						$('.mrdy_btn').disableBtn({enabled:false});
+					},
+					error: function ($jqXHR, $textStatus, $errorThrown) {
+						$('.load_pagination').hide();
+						$('.mrdy_btn').disableBtn({enabled:true});
+					},
+					complete: function($jqXHR, $textStatus){
+						$('.load_pagination').hide();
+						$('.mrdy_btn').disableBtn({enabled:true});
+					}
+		        });				
 			});
 			
-			$('.consult_btn').unbind('click').click(function(){
-				var url = /*[[@{/page/advisory/sub/consulting}]]*/
-				window.location.href = url;
-			});
-			
-			$('.btn_find').unbind('click').click(function(e){
-				e.preventDefault();
-				loadAdvisor(true);
-				scrollToBottom('advisory_expert', 72);
-			});
-			
-			$('.advisor_name').unbind('click').click(function(){
-				var idVal = $(this).parent().parent().find('.id_advisor').val();
-				var advisorName = $(this).parent().parent().find('.advisor_name').html();
-				advisorName = replaceall(advisorName, '' , '-');
-				var url = /*[[@{/page/advisory/sub/advisor/detail/}]]*/
-				url += idVal + '/' +advisorName;
-				window.location.href = url;
-			});
-			
-			$('.link_see_article').unbind('click').click(function(){
-				var idAdvisor = $(this).parents('#template').find('.id_advisor').val();
-				var advisorName = $(this).parents('#template').find('.advisor_name').html();
-				advisorName = replaceall(advisorName, '' , '-');
-				var url = /*[[@{/page/advisory/sub/article}]]*/
-				url+= "?chooseAdvisor="+ idAdvisor;
-				window.location.href = url;
+			$('.search').unbind('click').click(function(){
+				var sURL = /*[[@{/page/lecturer/load}]]*/
+				var param = $('.param').val();
+				var img_url = /*[[@{/images/gif/hex-loader.gif}]]*/;
+				$.ajax({
+		            type: 'GET',
+		            url: sURL,
+		            data: {filter : param},
+		            dataType: 'json',
+		            success: function (data) {
+		            	$('.pagination_part').hide();
+		            	$('.loading_reload').remove();
+		            	$('.mrdy_btn').disableBtn({enabled:true});
+		            	processData(data.advisors.result, true);
+		            	var newMaxRecord = data.advisors.maxRecord;
+		            	var newCurrentRecord = data.advisors.currentRecord;
+		            	showPaging(newMaxRecord, newCurrentRecord);
+		            	$('.startNo').val(data.advisors.startRecordIndex);
+		            },
+		            beforeSend: function($jqXHR, $textStatus){
+		            	$('.list_data').html('<div class="col-md-12 loading_reload" style="display: block; margin-left: auto; margin-right: auto;text-align: center;"><img src="'+img_url+'" /></div>');
+						$('.mrdy_btn').disableBtn({enabled:false});
+					},
+					error: function ($jqXHR, $textStatus, $errorThrown) {
+						$('.loading_reload').remove();
+						$('.mrdy_btn').disableBtn({enabled:true});
+					},
+					complete: function($jqXHR, $textStatus){
+						$('.loading_reload').remove();
+						$('.mrdy_btn').disableBtn({enabled:true});
+					}
+		        });				
 			});
 		});
 		
