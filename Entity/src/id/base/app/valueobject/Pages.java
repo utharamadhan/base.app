@@ -1,6 +1,7 @@
 package id.base.app.valueobject;
 
 import id.base.app.ILookupConstant;
+import id.base.app.SystemConstant;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -66,6 +67,9 @@ public class Pages extends BaseEntity implements Serializable {
 	
 	@Column(name="TYPE")
 	private String type;
+	
+	@Transient
+	private String typeStr;
 
 	public Long getPkPages() {
 		return pkPages;
@@ -141,5 +145,9 @@ public class Pages extends BaseEntity implements Serializable {
 
 	public void setType(String type) {
 		this.type = type;
-	}	
+	}
+
+	public String getTypeStr() {
+		return SystemConstant.PagesType.PAGES_MAP.get(type);
+	}
 }

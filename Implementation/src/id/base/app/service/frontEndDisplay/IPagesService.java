@@ -12,4 +12,6 @@ public interface IPagesService extends MaintenanceService<Pages> {
 
 	public List<Pages> findSimpleData(String type) throws SystemException;
 
+	public List<Pages> getLatestPages(List<String> types) throws SystemException;
+
 }

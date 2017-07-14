@@ -1,5 +1,6 @@
 package id.base.app.controller.frontEndDisplay;
 
+import id.base.app.SystemConstant;
 import id.base.app.controller.SuperController;
 import id.base.app.exception.ErrorHolder;
 import id.base.app.exception.SystemException;
@@ -38,7 +39,7 @@ public class PagesController extends SuperController<Pages>{
 		List<ErrorHolder> errorList = new ArrayList<>();
 		if(StringFunction.isEmpty(anObject.getTitle())) {
 			errorList.add(new ErrorHolder(Pages.TITLE, messageSource.getMessage("error.mandatory", new String[]{"title"}, Locale.ENGLISH)));
-		}else{
+		}else if(StringFunction.isEmpty(anObject.getPermalink())){
 			String permalink = StringFunction.toPrettyURL(anObject.getTitle());
 			anObject.setPermalink(permalink);
 		}
@@ -77,5 +78,15 @@ public class PagesController extends SuperController<Pages>{
 			throw new SystemException(new ErrorHolder("error finding your data"));
 		}
 	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/getTocAndPilarLink")
+	@ResponseBody
+	public List<Pages> getLatestPages() throws SystemException {
+		List<String> types = new ArrayList<>();
+		types.add(SystemConstant.PagesType.TERM_CONDITION);
+		types.add(SystemConstant.PagesType.PILAR);
+		return pagesService.getLatestPages(types);
+	}
+	
 	
 }

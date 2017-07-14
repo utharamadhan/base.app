@@ -361,11 +361,26 @@ public class SystemConstant  {
 	}
 	
 	public static final class PagesType{
-		public static final String DEFAULT = "DF";
+		public static final String OTHER = "OT";
 		public static final String ABOUT_US = "AU";
+		public static final String PILAR = "PL";
+		public static final String TERM_CONDITION = "TC";
 		public static final String PROGRAM_LEARNING = "PRL";
 		public static final String PROGRAM_ADVISORY = "PRA";
 		public static final String PROGRAM_RESEARCH_DEVELOPMENT = "PRRD";
+		
+		public static final String OTHER_STR = "Other";
+		public static final String ABOUT_US_STR = "About Us";
+		public static final String PILAR_STR = "Pilar";
+		public static final String TERM_CONDITION_STR = "Term & Condition";
+		
+		public static final Map<String, String> PAGES_MAP = new HashMap<>();
+		static {
+			PAGES_MAP.put(OTHER, OTHER_STR);
+			PAGES_MAP.put(ABOUT_US, ABOUT_US_STR);
+			PAGES_MAP.put(PILAR, PILAR_STR);
+			PAGES_MAP.put(TERM_CONDITION, TERM_CONDITION_STR);
+		}
 	}
 	
 	public static final class CategoryType{

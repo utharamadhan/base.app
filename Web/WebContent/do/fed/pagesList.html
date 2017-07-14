@@ -31,6 +31,9 @@
 		                        <thead>
 		                          <tr>
 									<th>Title</th>
+									<th>Order No</th>
+									<th>Type</th>
+									<th>Status</th>
 									<th>E/D</th>
 		                          </tr>
 		                        </thead>
@@ -48,17 +51,17 @@
 <script th:inline="javascript">
 	/*<![CDATA[*/
 		function showAdd() {
-	    	var sURL = /*[[@{/do/master/pages/showAdd?skipdecorator=}]]*/ #;
+	    	var sURL = /*[[@{/do/fed/page/showAdd?skipdecorator=}]]*/ #;
 	    	showScreen('pages-list-container', 'pages-detail-container', sURL);
 		}
 		
 		function showDetail(maintenancePK) {
-			var sURL = /*[[@{/do/master/pages/showEdit?maintenancePK=}]]*/ #;
+			var sURL = /*[[@{/do/fed/page/showEdit?maintenancePK=}]]*/ #;
 			showScreen('pages-list-container', 'pages-detail-container', sURL + maintenancePK + "&skipdecorator=");
 		}
 		
 		function deleteItem(maintenancePK) {
-			var sURL = /*[[@{/do/master/pages/delete?}]]*/ #;
+			var sURL = /*[[@{/do/fed/page/delete?}]]*/ #;
 			var serializedData = "maintenancePKs=" + maintenancePK;
 			$.post(sURL, serializedData,function(data){
 				if(data.errorList!=null){
@@ -70,7 +73,7 @@
 		} 
 		
 		function deletePages() {
-			var sURL = /*[[@{/do/master/pages/deletePages?skipDecorator}]]*/ #;
+			var sURL = /*[[@{/do/fed/page/deletePages?skipDecorator}]]*/ #;
 			$.post(sURL, $('.pages-list-check-delete').serialize(), function(data){
 				if(data.errorList!=null){
 					
@@ -83,9 +86,12 @@
 	    $(function(){
 		    setMenuActive('pages');
 		    var colDefs = [{ name : "title" },
+		                   { name : "orderNo" },
+		                   { name : "typeStr" },
+		                   { name : "statusStr" },
 	    	               { type : "deleteAndEdit" , param : [ "pkPages" ] }
 	    	               ];
-		    var sURL = /*[[@{/do/master/pages/list?}]]*/ #;
+		    var sURL = /*[[@{/do/fed/page/list?}]]*/ #;
 		    buildDataTable(/*[[@{/}]]*/, sURL, 'pages-list-table', 450, colDefs, null, null);
 	    });
 	    

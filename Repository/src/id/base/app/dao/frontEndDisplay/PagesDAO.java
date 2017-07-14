@@ -8,11 +8,13 @@ import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.valueobject.Pages;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.hibernate.Criteria;
+import org.hibernate.SQLQuery;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
@@ -93,6 +95,43 @@ public class PagesDAO extends AbstractHibernateDAO<Pages, Long> implements IPage
 			}
 		});
 		return crit.list();
+	}
+	
+	@Override
+	public List<Pages> getLatestPages(List<String> types) throws SystemException {
+		String query = "SELECT DISTINCT ON (TYPE)TYPE,TITLE,PERMALINK FROM PAGES "
+				+ "WHERE STATUS = :status AND PERMALINK IS NOT NULL AND TYPE IN :types "
+				+ "ORDER BY TYPE,ORDER_NO DESC";
+		SQLQuery sqlQuery = getSession().createSQLQuery(query);
+			sqlQuery.setParameterList("types", types);			
+			sqlQuery.setParameter("status", ILookupConstant.Status.PUBLISH);
+			sqlQuery.setResultTransformer(new ResultTransformer() {
+
+				private static final long serialVersionUID = 6857506591081945427L;
+
+				@Override
+				public Object transformTuple(Object[] tuple, String[] aliases) {
+					Pages p = new Pages();
+					try {
+						BeanUtils.copyProperty(p, "type", tuple[0]);
+						BeanUtils.copyProperty(p, "title", tuple[1]);     
+						BeanUtils.copyProperty(p, "permalink", tuple[2]);
+					} catch (IllegalAccessException e) {
+						e.printStackTrace();
+					} catch (InvocationTargetException e) {
+						e.printStackTrace();
+					}
+					return p;
+				}
+				
+				@SuppressWarnings("rawtypes")
+				@Override
+				public List transformList(List collection) {
+					return collection;
+				}
+			});
+
+		return sqlQuery.list();
 	}
 
 }
