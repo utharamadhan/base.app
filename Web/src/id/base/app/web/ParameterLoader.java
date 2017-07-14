@@ -26,9 +26,8 @@ import id.base.app.valueobject.aboutUs.Tutor;
 import id.base.app.valueobject.advisory.AdvisoryConsulting;
 import id.base.app.valueobject.contact.Contact;
 import id.base.app.valueobject.contact.ContactSetting;
-import id.base.app.valueobject.course.Course;
-import id.base.app.valueobject.course.GroupCourse;
 import id.base.app.valueobject.frontend.HomeSetting;
+import id.base.app.valueobject.learning.LearningItem;
 import id.base.app.valueobject.notification.Notification;
 import id.base.app.valueobject.party.Party;
 import id.base.app.valueobject.party.Student;
@@ -211,11 +210,9 @@ public class ParameterLoader extends ContextLoader implements ServletContextList
 		RestCaller.BASE_URL.put(RestServiceConstant.EVENT_SERVICE, RestConstant.RM_EVENT);
 		RestCaller.BASE_CLASS.put(RestServiceConstant.EVENT_SERVICE, Event.class);
 		
-		// course
-		RestCaller.BASE_URL.put(RestServiceConstant.GROUP_COURSE_SERVICE, RestConstant.RM_GROUP_COURSE);
-		RestCaller.BASE_CLASS.put(RestServiceConstant.GROUP_COURSE_SERVICE,  GroupCourse.class);
-		RestCaller.BASE_URL.put(RestServiceConstant.COURSE_SERVICE, RestConstant.RM_COURSE);
-		RestCaller.BASE_CLASS.put(RestServiceConstant.COURSE_SERVICE,  Course.class);
+		// learning item
+		RestCaller.BASE_URL.put(RestServiceConstant.LEARNING_ITEM_SERVICE, RestConstant.RM_LEARNING_ITEM);
+		RestCaller.BASE_CLASS.put(RestServiceConstant.LEARNING_ITEM_SERVICE,  LearningItem.class);
 		
 		// research
 		RestCaller.BASE_URL.put(RestServiceConstant.RESEARCH_SERVICE, RestConstant.RM_RESEARCH);

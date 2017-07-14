@@ -24,6 +24,8 @@ public class Category extends BaseEntity implements Serializable {
 	public static final String TYPE 		= "type";
 	public static final String TITLE 		= "title";
 	public static final String PERMALINK	= "permalink";
+	public static final String BASIC_PICTURE_URL = "basicPictureURL";
+	public static final String DESCRIPTION	= "description";
 	public static final String STATUS		= "status";
 	
 	public static Category getInstance() {
@@ -56,8 +58,11 @@ public class Category extends BaseEntity implements Serializable {
 	@Column(name="ORDER_NO")
 	private Integer orderNo;
 	
-	@Column(name="BASIC_PICTURE_URL")
-	private String basicPictureURL;
+	@Column(name="IMAGE_URL")
+	private String imageURL;
+	
+	@Column(name="IMAGE_THUMB_URL")
+	private String imageThumbURL;
 	
 	@Transient
 	public String encodedPicture;
@@ -116,12 +121,20 @@ public class Category extends BaseEntity implements Serializable {
 		this.orderNo = orderNo;
 	}
 
-	public String getBasicPictureURL() {
-		return basicPictureURL;
+	public String getImageURL() {
+		return imageURL;
 	}
 
-	public void setBasicPictureURL(String basicPictureURL) {
-		this.basicPictureURL = basicPictureURL;
+	public void setImageURL(String imageURL) {
+		this.imageURL = imageURL;
+	}
+
+	public String getImageThumbURL() {
+		return imageThumbURL;
+	}
+
+	public void setImageThumbURL(String imageThumbURL) {
+		this.imageThumbURL = imageThumbURL;
 	}
 
 	public Integer getStatus() {
@@ -137,8 +150,10 @@ public class Category extends BaseEntity implements Serializable {
 	}
 
 	public String getEncodedPicture() throws Exception {
-		if(getBasicPictureURL()!=null && !"".equals(getBasicPictureURL())){
-			encodedPicture = EncodeDecode.getBase64FromLink(getBasicPictureURL());
+		if(getImageThumbURL()!=null && !"".equals(getImageThumbURL())){
+			encodedPicture = EncodeDecode.getBase64FromLink(getImageThumbURL());
+		}else if(getImageURL()!=null && !"".equals(getImageURL())){
+			encodedPicture = EncodeDecode.getBase64FromLink(getImageURL());
 		}
 		return encodedPicture;
 	}

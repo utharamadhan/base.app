@@ -200,6 +200,10 @@ public class RestCaller<T> extends RestBase<T>{
 		return delete(objectPKs,"/delete");
 	}
 	
+	public List<ErrorHolder> deleteWithImages(Long[] objectPKs) throws SystemException {
+		return delete(objectPKs,"/deleteWithImages");
+	}
+	
 	public List<ErrorHolder> delete(Long[] objectPKs, String path) throws SystemException {
 		List<ErrorHolder> errors;
 		URI url;

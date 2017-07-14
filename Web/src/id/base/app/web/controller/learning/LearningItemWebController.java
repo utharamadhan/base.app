@@ -1,9 +1,12 @@
-package id.base.app.web.controller.course;
+package id.base.app.web.controller.learning;
 
+import id.base.app.ILookupConstant;
 import id.base.app.ILookupGroupConstant;
 import id.base.app.SystemConstant;
 import id.base.app.exception.ErrorHolder;
+import id.base.app.exception.SystemException;
 import id.base.app.paging.PagingWrapper;
+import id.base.app.rest.PathInterfaceRestCaller;
 import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
 import id.base.app.rest.RestServiceConstant;
@@ -13,7 +16,9 @@ import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.valueobject.AppUser;
-import id.base.app.valueobject.course.GroupCourse;
+import id.base.app.valueobject.Category;
+import id.base.app.valueobject.Lookup;
+import id.base.app.valueobject.learning.LearningItem;
 import id.base.app.web.DataTableCriterias;
 import id.base.app.web.controller.BaseController;
 import id.base.app.web.rest.LookupRestCaller;
@@ -35,24 +40,24 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Scope(value="request")
 @Controller
-@RequestMapping("/course/groupCourse")
-public class GroupCourseWebController extends BaseController<GroupCourse> {
+@RequestMapping("/learning/item")
+public class LearningItemWebController extends BaseController<LearningItem> {
 
-	private final String PATH_LIST = "/course/groupCourseList";
-	private final String PATH_DETAIL = "/course/groupCourseDetail";
+	private final String PATH_LIST = "/learning/learningItemList";
+	private final String PATH_DETAIL = "/learning/learningItemDetail";
 	
 	@Override
-	protected RestCaller<GroupCourse> getRestCaller() {
-		return new RestCaller<GroupCourse>(RestConstant.REST_SERVICE, RestServiceConstant.GROUP_COURSE_SERVICE);
+	protected RestCaller<LearningItem> getRestCaller() {
+		return new RestCaller<LearningItem>(RestConstant.REST_SERVICE, RestServiceConstant.LEARNING_ITEM_SERVICE);
 	}
-
+	
 	@Override
 	protected List<SearchFilter> convertForFilter(Map<String, String> paramWrapper) {
 		return null;
 	}
 	
 	private void setDefaultFilter(HttpServletRequest request, List<SearchFilter> filters) {
-		filters.add(new SearchFilter(GroupCourse.STATUS, Operator.EQUALS, SystemConstant.ValidFlag.VALID));
+		filters.add(new SearchFilter(LearningItem.STATUS, Operator.NOT_EQUAL, ILookupConstant.Status.DELETE, Integer.class));
 	}
 
 	@Override
@@ -60,7 +65,7 @@ public class GroupCourseWebController extends BaseController<GroupCourse> {
 		List<SearchFilter> filters = new ArrayList<>();
 		setDefaultFilter(request, filters);
 		if(StringFunction.isNotEmpty(columns.getSearch().get(DataTableCriterias.SearchCriterias.value))){
-			filters.add(new SearchFilter(GroupCourse.TITLE, Operator.LIKE, columns.getSearch().get(DataTableCriterias.SearchCriterias.value)));
+			filters.add(new SearchFilter(LearningItem.TITLE, Operator.LIKE, columns.getSearch().get(DataTableCriterias.SearchCriterias.value)));
 		}
 		return filters;
 	}
@@ -70,7 +75,7 @@ public class GroupCourseWebController extends BaseController<GroupCourse> {
 		if(orders != null) {
 			orders.clear();
 		}
-		orders.add(new SearchOrder(GroupCourse.PK_GROUP_COURSE, SearchOrder.Sort.DESC));
+		orders.add(new SearchOrder(LearningItem.PK_LEARNING_ITEM, SearchOrder.Sort.DESC));
 		return orders;
 	}
 	
@@ -82,12 +87,20 @@ public class GroupCourseWebController extends BaseController<GroupCourse> {
 	
 	public void setDefaultData(ModelMap model) {
 		LookupRestCaller lrc = new LookupRestCaller();
-		model.addAttribute("basicFieldOptions", lrc.findByLookupGroup(ILookupGroupConstant.COURSE_BASIC_INFO_FIELD));
+		model.addAttribute("categoryOptions", getCategory());
+		model.addAttribute("methodOptions", lrc.findByLookupGroup(ILookupGroupConstant.LEARNING_METHOD));
+		model.addAttribute("organizerOptions", lrc.findByLookupGroup(ILookupGroupConstant.LEARNING_ORGANIZER));
+		model.addAttribute("paymentOptions", lrc.findByLookupGroup(ILookupGroupConstant.LEARNING_PAYMENT));
+		model.addAttribute("statusOptions", lrc.findByLookupGroup(ILookupGroupConstant.STATUS));
+		List<Lookup> booleanList = new ArrayList<>();
+		booleanList.add(new Lookup().getInstanceShort("0", "No"));
+		booleanList.add(new Lookup().getInstanceShort("1", "Yes"));
+		model.addAttribute("booleanOptions", booleanList);
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="showAdd")
 	public String showAdd(ModelMap model, HttpServletRequest request){
-		model.addAttribute("detail", GroupCourse.getInstance());
+		model.addAttribute("detail", LearningItem.getInstance());
 		setDefaultData(model);
 		return PATH_DETAIL;
 	}
@@ -95,18 +108,18 @@ public class GroupCourseWebController extends BaseController<GroupCourse> {
 	@RequestMapping(method=RequestMethod.GET, value="showEdit")
 	public String showEdit(@RequestParam(value="maintenancePK") final Long maintenancePK, @RequestParam Map<String, String> paramWrapper, ModelMap model, HttpServletRequest request){
 		setDefaultData(model);
-		GroupCourse detail = getRestCaller().findById(maintenancePK);
+		LearningItem detail = getRestCaller().findById(maintenancePK);
 		model.addAttribute("detail", detail);
 		return PATH_DETAIL;
 	}
 	
-	@RequestMapping(method=RequestMethod.POST, value="saveGroupCourse")
+	@RequestMapping(method=RequestMethod.POST, value="saveItem")
 	@ResponseBody
-	public Map<String, Object> saveGroupCourse(final GroupCourse anObject, HttpServletRequest request) {
+	public Map<String, Object> saveItem(final LearningItem anObject, HttpServletRequest request) {
 		Map<String, Object> resultMap = new HashMap<>();
 		List<ErrorHolder> errors = new ArrayList<>();
 		try{
-			errors = new SpecificRestCaller<GroupCourse>(RestConstant.REST_SERVICE, RestServiceConstant.GROUP_COURSE_SERVICE).performPut("/update", anObject);
+			errors = new SpecificRestCaller<LearningItem>(RestConstant.REST_SERVICE, RestServiceConstant.LEARNING_ITEM_SERVICE).performPut("/update", anObject);
 			if(errors != null && errors.size() > 0){
 				resultMap.put(SystemConstant.ERROR_LIST, errors);
 			}
@@ -115,10 +128,26 @@ public class GroupCourseWebController extends BaseController<GroupCourse> {
 		}
 		return resultMap;
 	}
-
+	
 	@Override
 	protected String getListPath() {
 		return PATH_LIST;
+	}
+	
+	private List<Category> getCategory() throws SystemException {
+		return new SpecificRestCaller<Category>(RestConstant.REST_SERVICE, RestConstant.RM_CATEGORY, Category.class).executeGetList(new PathInterfaceRestCaller() {
+			@Override
+			public String getPath() {
+				return "/findByType/{type}";
+			}
+			
+			@Override
+			public Map<String, Object> getParameters() {
+				Map<String,Object> map = new HashMap<String, Object>();
+				map.put("type", SystemConstant.CategoryType.LEARNING);
+				return map;
+			}
+		});
 	}
 
 }

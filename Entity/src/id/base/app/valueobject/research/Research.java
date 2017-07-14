@@ -36,7 +36,7 @@ public class Research extends BaseEntity implements Serializable {
 	public static final String PK_RESEARCH			= "pkResearch";
 	public static final String IS_INTERNAL			= "isInternal";
 	public static final String TITLE 				= "title";
-	public static final String SUB_TITLE			= "subTitle";
+	public static final String SUBTITLE				= "subtitle";
 	public static final String YEAR_FROM			= "yearFrom";
 	public static final String STATUS				= "status";
 	public static final String IS_ITEM				= "isItem";

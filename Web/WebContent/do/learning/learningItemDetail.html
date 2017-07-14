@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:ifs="http://btn.co.id">
+<head>
+<meta charset="ISO-8859-1"/>
+<title>Learning Item Detail</title>
+</head>
+<style>
+.itemDetail-image {
+	max-height : 250px;
+}
+
+.image-delete {
+	position:absolute;
+	left:25px;
+	top:10px;
+}
+
+</style>
+<body>
+	<div class="pageheader">
+		<div class="row col-md-8">
+			<h4><i class="fa fa-tachometer"></i> Learning / Item List / Item Detail
+			<span></span></h4>
+		</div>
+	</div>
+	<div class="row col-md-12">
+	<section class="tile transparent">
+			<div class="tile-body rounded-corners">
+				<form action="#" id="item-detail-form" class="form-horizontal" method="POST" novalidate="novalidate" th:object="${detail}">
+					<div>
+						<div>
+							<div class="col-md-12">
+								<div id="errorFragmentList">
+									<th:block th:if="${message}">
+										<div class='alert alert-success'>
+											<a href='#' class='close' data-dismiss='alert' aria-label='close' title='close'>&#10006;</a>			
+											<label th:text="${message}"></label>
+										</div>
+									</th:block>
+								</div>
+							</div>									
+							&nbsp;
+						</div>
+						<input id="learningItem-detail-maintenancePk" type="hidden" th:field="*{pkLearningItem}"/>
+						<div class="form-group">
+							<label class="col-sm-2 control-label required" th:text="'Category'">Category</label>
+							<div class="col-sm-9 form-input-container">
+								<div class="panel-group" id="acc-category">
+								  <div class="panel panel-default">
+								    <div class="panel-heading" data-toggle="collapse" data-parent="#acc-category" data-target="#acc-category-one">
+								      <h4 class="panel-title">
+								        <a class="accordion-toggle">[Select category]</a>
+								      </h4>
+								    </div>
+								    <div id="acc-category-one" class="panel-collapse collapse">
+								    	<div class="collapse-content">
+								    	<th:block th:each="cat, i : ${categoryOptions}">
+											<div class="checkbox">
+											    <input type="checkbox" class="categories" th:attr="id='cat-'+${cat.pkCategory}" th:value="${cat.pkCategory}"/>
+											    <label th:attr="for='cat-'+${cat.pkCategory}" th:text="${cat.title}"></label>
+											  </div>
+										</th:block>
+										</div>
+								    </div>
+								    <div id="category-hidden"></div>
+								  </div>
+								</div>
+                           	</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" th:text="'Code'">Code</label>
+							<div class="col-sm-9 form-input-container">
+								<input type="text" class="form-control" placeholder="Code" id="input-text-title" th:field="*{code}"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label required" th:text="'Title'">Title</label>
+							<div class="col-sm-9 form-input-container">
+								<input type="text" class="form-control" placeholder="Title" id="input-text-title" th:field="*{title}"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" th:text="'Sub Title'">Sub Title</label>
+							<div class="col-sm-9 form-input-container">
+								<input type="text" class="form-control" placeholder="Sub Title" id="input-text-title" th:field="*{subtitle}"/>
+							</div>
+						</div>
+						<div class="form-group">
+                          	<label class="col-sm-2 control-label required">Event Date</label>
+                          	<div class="col-sm-4">
+                            	<input type='text' class="datepickerInput input-date form-control" placeholder="From" th:name="dateFrom" th:value="${detail.dateFrom!=null?#dates.format(detail.dateFrom, T(id.base.app.SystemConstant).SYSTEM_DATE_MASK_2):''}" />
+                           	</div>
+                           	<label class="col-sm-1 control-label">to</label>
+                           	<div class="col-sm-4">
+                            	<input type='text' class="datepickerInput input-date form-control" placeholder="To" th:name="dateTo" th:value="${detail.dateTo!=null?#dates.format(detail.dateTo, T(id.base.app.SystemConstant).SYSTEM_DATE_MASK_2):''}" />
+                           	</div>
+                       	</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" th:text="'Featured Image'">Featured Image</label>
+							<div class="col-sm-9 form-input-container">
+								<th:block th:if="${detail.imageURL != null}">
+									<input type="hidden" id="input-hidden-imageURL" th:field="*{imageURL}"/>
+									<input type="file" class="form-control" id="input-file-imageURL" style="display:none;"/>
+									<div id="container-imageURL">
+										<img th:src="${detail.imageURL}" class="itemDetail-image"/>
+										<a href="#" class="btn btn-primary btn-xs margin-bottom-20 image-delete" data-toggle="tooltip" title="Delete"><i class="fa fa-trash"></i></a>
+									</div>
+								</th:block>
+								<th:block th:if="${detail.imageURL == null}">
+									<input type="hidden" id="input-hidden-imageURL" name="imageURL"/>
+									<input type="file" class="form-control" id="input-file-imageURL"/>
+									<div id="container-imageURL" style='display:none;'>
+									</div>
+								</th:block>
+								<small class="text-muted">Image Resolution : 600px X 400px</small>
+							</div>
+						</div>
+                       	<div class="form-group">
+							<label class="col-sm-2 control-label required" th:text="'Method'">Method</label>
+							<div class="col-sm-9 form-input-container">
+								<select class="chosen-select form-control" th:field="*{methodLookup.pkLookup}">
+									<option value="">[Please Select Method]</option>
+									<option th:each="opt : ${methodOptions}" th:value="${opt.pkLookup}" th:text="${opt.name}">Name</option>
+                           		</select>
+                           	</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label required" th:text="'Organizer'">Organizer</label>
+							<div class="col-sm-9 form-input-container">
+								<select class="chosen-select form-control" th:field="*{organizerLookup.pkLookup}">
+									<option value="">[Please Select Organizer]</option>
+									<option th:each="opt : ${organizerOptions}" th:value="${opt.pkLookup}" th:text="${opt.name}">Name</option>
+                           		</select>
+                           	</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label required" th:text="'Payment'">Payment</label>
+							<div class="col-sm-9 form-input-container">
+								<select class="chosen-select form-control" th:field="*{paymentLookup.pkLookup}">
+									<option value="">[Please Select Payment]</option>
+									<option th:each="opt : ${paymentOptions}" th:value="${opt.pkLookup}" th:text="${opt.name}">Name</option>
+                           		</select>
+                           	</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label required" th:text="'Description'">Description</label>
+							<div class="col-sm-9 form-input-container">
+								<div class="panel-group" id="acc-description">
+								  <div class="panel panel-default">
+								    <div class="panel-heading" data-toggle="collapse" data-parent="#acc-description" data-target="#acc-description-one">
+								      <h4 class="panel-title">
+								        <a class="accordion-toggle">[Insert Description]</a>
+								      </h4>
+								    </div>
+								    <div id="acc-description-one" class="panel-collapse collapse">
+								        <input id="tinyMCE-desc-hidden" name="description" type="hidden"/>
+										<div id="tinyMCE-desc-parent">					
+											<textarea id="tinyMCE-desc-area" th:text="*{description}">
+											</textarea>
+										</div>
+								    </div>
+								  </div>
+								</div>	
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" th:text="'Admission Requirement'">Admission Requirement</label>
+							<div class="col-sm-9 form-input-container">
+								<div class="panel-group" id="acc-description">
+								  <div class="panel panel-default">
+								    <div class="panel-heading" data-toggle="collapse" data-parent="#acc-admission" data-target="#acc-admission-one">
+								      <h4 class="panel-title">
+								        <a class="accordion-toggle">[Insert Admission Requirement]</a>
+								      </h4>
+								    </div>
+								    <div id="acc-admission-one" class="panel-collapse collapse">
+								        <input id="tinyMCE-adm-hidden" name="admissionRequirement" type="hidden"/>
+										<div id="tinyMCE-adm-parent">					
+											<textarea id="tinyMCE-adm-area" th:text="*{admissionRequirement}">
+											</textarea>
+										</div>
+								    </div>
+								  </div>
+								</div>	
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" th:text="'Payment Detail'">Payment Detail</label>
+							<div class="col-sm-9 form-input-container">
+								<div class="panel-group" id="acc-description">
+								  <div class="panel panel-default">
+								    <div class="panel-heading" data-toggle="collapse" data-parent="#acc-payment" data-target="#acc-payment-one">
+								      <h4 class="panel-title">
+								        <a class="accordion-toggle">[Insert Payment Detail]</a>
+								      </h4>
+								    </div>
+								    <div id="acc-payment-one" class="panel-collapse collapse">
+								        <input id="tinyMCE-pay-hidden" name="paymentDetail" type="hidden"/>
+										<div id="tinyMCE-pay-parent">					
+											<textarea id="tinyMCE-pay-area" th:text="*{paymentDetail}">
+											</textarea>
+										</div>
+								    </div>
+								  </div>
+								</div>	
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" th:text="'Get Certificate'">Get Certificate</label>
+							<div class="col-sm-9 form-input-container">
+								<select class="chosen-select form-control" th:field="*{isCertification}">
+									<option th:each="opt : ${booleanOptions}" th:value="${opt.code}" th:text="${opt.descr}">Name</option>
+                           		</select>
+                           	</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" th:text="'Status'">Status</label>
+							<div class="col-sm-9 form-input-container">
+								<select class="chosen-select form-control" th:field="*{status}">
+									<option th:each="opt : ${statusOptions}" th:value="${opt.code}" th:text="${opt.name}">Name</option>
+                           		</select>
+                           	</div>
+						</div>
+						<div class="form-group form-footer">				
+							<div class="col-sm-offset-2 col-sm-10">
+								<a href="#" id="item-detail-btn-cancel" class="btn btn-default" type="reset" data-toggle="tooltip" title="" th:text="#{button.cancel}">Cancel</a>
+								<button id="item-detail-btn-save" class="btn btn-primary" type="submit" data-toggle="tooltip" title="" th:text="#{button.save}">Save</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+	</section>
+	</div>
+	<div id="tableData" style="display:none">
+	<table id="teacherTableData">
+       	<tbody>
+       		<tr>
+       			<td>
+       				<div class="input-group">
+       					<input type="text" class="form-control name"/>
+       				</div>
+       			</td>
+				<td>
+					<a href="#" class="btn btn-primary btn-xs btn-delete" data-toggle="tooltip" title="" data-original-title="Delete"><i class="fa fa-trash"></i></a>
+					<a href="#" class="btn btn-primary btn-xs btn-add" data-toggle="tooltip" title="" data-original-title="Add"><i class="fa fa-plus"></i></a>
+				</td>
+			</tr>
+       	</tbody>
+  	</table>
+  	</div>
+	<script th:inline="javascript">
+	/*<![CDATA[*/
+	  	function initDeletePicture() {
+			$('.image-delete').click(function(e){
+				e.preventDefault();
+				$('#input-file-imageURL').show();
+				$('#container-imageURL').html("");
+				$('#input-hidden-imageURL, #input-file-imageURL').val("");
+				$('#container-imageURL').hide();
+			});
+		}
+	
+	    $(function(){
+	    	initDeletePicture();
+	    	var uploadURL = /*[[@{/do/fileManager/upload/}]]*/ #;
+	    	initDatePicker("datepickerInput", "mm/dd/yyyy");
+	    	initTextEditorWithoutP('#tinyMCE-desc-area', '#tinyMCE-desc-parent', uploadURL);
+	    	initTextEditorWithoutP('#tinyMCE-adm-area', '#tinyMCE-adm-parent', uploadURL);
+	    	initTextEditorWithoutP('#tinyMCE-pay-area', '#tinyMCE-pay-parent', uploadURL);
+	    	
+	    	var backToList = function(){
+				returnToList('item-detail-container', 'item-list-container', true);
+			};
+			
+			var preSerializeForm = function() {
+				var html = "";
+				var idx = 0;
+				$('#acc-category-one .categories:checkbox:checked').each(function(){
+					html += "<input type='text' name='categories["+idx+"].pkCategory' value='"+$(this).val()+"'/>";
+					idx++;
+				});
+				$('#category-hidden').html(html);
+			};
+			
+			var submitForm = function(){
+				cleanErrorParsley();
+				$('#tinyMCE-desc-hidden').val(tinymce.get('tinyMCE-desc-area').getContent());
+				$('#tinyMCE-pay-hidden').val(tinymce.get('tinyMCE-pay-area').getContent());
+				$('#tinyMCE-adm-hidden').val(tinymce.get('tinyMCE-adm-area').getContent());
+				preSerializeForm();
+				var sURL = /*[[@{/do/learning/item/saveItem/}]]*/ #;
+				$.post(sURL, $("#item-detail-form").serialize(), function(data) {
+					if(data.errorList!=null){
+						displayErrorParsley(data.errorList);
+					}else{
+						backToList();
+					}
+				});
+			};
+			
+			var showImage = function(imageURL) {
+				$('#input-file-imageURL').hide();
+				var htmlContent = '<image src="'+imageURL+'" style="max-height:250px;"></image>';
+				htmlContent += '<a href="#" class="btn btn-primary btn-xs margin-bottom-20 image-delete" data-toggle="tooltip" title="Delete" style="position:absolute; left:25px; top:10px;"><i class="fa fa-trash"></i></a>';
+				$('#container-imageURL').html(htmlContent);
+				$('#input-hidden-imageURL').val(imageURL);
+				$('#container-imageURL').show();
+				initDeletePicture();
+			}
+			
+			$('#input-file-imageURL').change(function(){
+				var sURL = /*[[@{/do/fileManager/uploadFeaturedImage/}]]*/ #;
+				var thisObj = $('#input-file-imageURL')[0];
+				uploadFile(thisObj.files[0], sURL);
+			});
+			
+			var showImage = function(imageURL) {
+				$('#input-file-imageURL').hide();
+				var htmlContent = '<image src="'+imageURL+'" style="max-height:250px;"></image>';
+				htmlContent += '<a href="#" class="btn btn-primary btn-xs margin-bottom-20 image-delete" data-toggle="tooltip" title="Delete" style="position:absolute; left:25px; top:10px;"><i class="fa fa-trash"></i></a>';
+				$('#container-imageURL').html(htmlContent);
+				$('#input-hidden-imageURL').val(imageURL);
+				$('#container-imageURL').show();
+				initDeletePicture();
+			}
+			
+			
+			var uploadFile = function(image, uploadURL) {
+				var data = new FormData();
+				data.append('file', image);
+				var xhr = new XMLHttpRequest();
+				xhr.open('POST', uploadURL, true);
+				xhr.onreadystatechange = function() {
+				  if (xhr.readyState === 4) {
+				    var response = JSON.parse(xhr.responseText);
+				    if (response) {
+				      	showImage(response);
+				    } else {
+				      	var reader = new FileReader();
+				      	reader.onload = function(e) {
+				        	callback(e.target.result);
+				      	};
+				      	reader.readAsDataURL(image);
+				    }
+				  }
+				}
+				xhr.send(data);
+			};
+			
+			$('#input-file-fileURL').change(function(){
+				var sURL = /*[[@{/do/fileManager/uploadEBookFile/}]]*/ #;
+				var thisObj = $('#input-file-fileURL')[0];
+				uploadFile(thisObj.files[0], sURL, false);
+			});
+			
+			$('#item-detail-btn-save').click(function(e){
+				e.preventDefault();
+				submitForm();
+			});
+			
+			$('#item-detail-btn-cancel').click(function(e){
+				e.preventDefault();
+				backToList();
+			});
+			
+	    });
+	/*]]>*/
+	</script>
+</body>
+</html>

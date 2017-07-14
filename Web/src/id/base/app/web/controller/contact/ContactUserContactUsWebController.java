@@ -207,7 +207,7 @@ public class ContactUserContactUsWebController extends BaseController<Contact> {
 						valueCell.setCellValue(contacts.get(j-1).getHelpLookup().getDescr());
 						break;
 					case 6:
-						valueCell.setCellValue(contacts.get(j-1).getCourse() !=null ? contacts.get(j-1).getCourse().getName() : "");
+						valueCell.setCellValue(contacts.get(j-1).getCourse() !=null ? contacts.get(j-1).getCourse().getTitle() : "");
 						break;
 					case 7:
 						valueCell.setCellValue(contacts.get(j-1).getTemaLookup() !=null ? contacts.get(j-1).getTemaLookup().getName() : "");

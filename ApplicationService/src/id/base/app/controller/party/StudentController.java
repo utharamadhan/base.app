@@ -17,7 +17,7 @@ import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.validation.InvalidRequestException;
 import id.base.app.valueobject.UpdateEntity;
-import id.base.app.valueobject.course.StudentCourse;
+import id.base.app.valueobject.learning.StudentCourse;
 import id.base.app.valueobject.party.Student;
 import id.base.app.valueobject.party.VWStudentList;
 

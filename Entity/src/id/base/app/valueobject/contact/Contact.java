@@ -3,7 +3,7 @@ package id.base.app.valueobject.contact;
 import id.base.app.util.DateTimeFunction;
 import id.base.app.valueobject.BaseEntity;
 import id.base.app.valueobject.Lookup;
-import id.base.app.valueobject.course.Course;
+import id.base.app.valueobject.learning.LearningItem;
 
 import java.io.Serializable;
 import java.util.Calendar;
@@ -72,7 +72,7 @@ public class Contact extends BaseEntity implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name="FK_COURSE")
-	private Course course;
+	private LearningItem course;
 	
 	@Column(name="NAME")
 	private String name;
@@ -179,11 +179,11 @@ public class Contact extends BaseEntity implements Serializable {
 		this.answer = answer;
 	}
 
-	public Course getCourse() {
+	public LearningItem getCourse() {
 		return course;
 	}
 
-	public void setCourse(Course course) {
+	public void setCourse(LearningItem course) {
 		this.course = course;
 	}
 

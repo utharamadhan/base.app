@@ -9,8 +9,8 @@ import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.valueobject.AppParameter;
 import id.base.app.valueobject.Lookup;
-import id.base.app.valueobject.course.Course;
-import id.base.app.valueobject.course.StudentCourse;
+import id.base.app.valueobject.learning.LearningItem;
+import id.base.app.valueobject.learning.StudentCourse;
 import id.base.app.valueobject.party.Student;
 
 import java.util.List;
@@ -122,7 +122,7 @@ public class StudentDAO extends AbstractHibernateDAO<Student,Long> implements IS
 					try {
 						BeanUtils.copyProperty(sc, "pkStudentCourse", tuple[0]);
 						if(tuple[1]!=null) {
-							Course c = Course.getInstance();
+							LearningItem c = LearningItem.getInstance();
 							BeanUtils.copyProperty(c, "pkCourse", tuple[1]);
 							BeanUtils.copyProperty(c, "name", tuple[2]);
 							BeanUtils.copyProperty(sc, "course", c);

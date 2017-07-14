@@ -198,6 +198,12 @@ public abstract class BaseController<T> {
 		return "success";
 	}
 	
+	@RequestMapping(method=RequestMethod.POST, value="/deleteWithImages")
+	public String deleteWithImages(@RequestParam(value="maintenancePKs") Long[] maintenancePKs){
+		getRestCaller().deleteWithImages(maintenancePKs);
+		return "success";
+	}
+	
 	public AppUser getUser(final Long pkAppUser) {
 		return new RestCaller<AppUser>(RestConstant.REST_SERVICE, RestServiceConstant.USER_SERVICE).findById(pkAppUser);
 	}

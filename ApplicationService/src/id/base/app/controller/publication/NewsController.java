@@ -75,10 +75,10 @@ public class NewsController extends SuperController<News>{
 					deleteOldImage(oldURL);
 					String thumbURL = ImageFunction.createThumbnails(newObject.getImageURL(), SystemConstant.ThumbnailsDimension.FeatureImage.WIDTH, SystemConstant.ThumbnailsDimension.FeatureImage.HEIGHT);
 					newsService.updateThumb(newObject.getPkNews(), thumbURL);
+				}else if(StringFunction.isEmpty(newObject.getImageThumbURL())){
+					String thumbURL = ImageFunction.createThumbnails(newObject.getImageURL(), SystemConstant.ThumbnailsDimension.FeatureImage.WIDTH, SystemConstant.ThumbnailsDimension.FeatureImage.HEIGHT);
+					newsService.updateThumb(newObject.getPkNews(), thumbURL);
 				}
-			}else{
-				String thumbURL = ImageFunction.createThumbnails(newObject.getImageURL(), SystemConstant.ThumbnailsDimension.FeatureImage.WIDTH, SystemConstant.ThumbnailsDimension.FeatureImage.HEIGHT);
-				newsService.updateThumb(newObject.getPkNews(), thumbURL);
 			}
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage(), e);

@@ -86,15 +86,38 @@ public abstract class SuperController<T> {
 		return object;
 	}
 	
+	public T getOldObject(Long pk) throws SystemException {
+		LOGGER.warn("Calling Get-Old-Object by pk without implementation: {}", this.getClass().getName());
+		return findById(pk);
+	}
+	
 	public Long[] preDelete(Long[] objectPKs) throws SystemException{
 		LOGGER.warn("Calling Pre-Delete without implementation: {}", this.getClass().getName());
 		return objectPKs;
+	}
+	
+	public void postDelete(T oldObject) throws SystemException {
+		LOGGER.warn("Calling Post-Delete without implementation: {}", this.getClass().getName());
 	}
 	
 	@RequestMapping(method=RequestMethod.DELETE, value="/delete")
 	@ResponseStatus( HttpStatus.OK )
 	public void delete(@RequestParam(value="objectPKs") Long[] objectPKs) throws SystemException {
 		getMaintenanceService().delete(preDelete(objectPKs));
+	}
+	
+	@RequestMapping(method=RequestMethod.DELETE, value="/deleteWithImages")
+	@ResponseStatus( HttpStatus.OK )
+	public void deleteWithImages(@RequestParam(value="objectPKs") Long[] objectPKs) throws SystemException {
+		Long[] newObjPks = preDelete(objectPKs);
+		List<T> list = new ArrayList<>();
+		for (Long pk : newObjPks) {
+			 list.add(getOldObject(pk));
+		}
+		getMaintenanceService().delete(preDelete(newObjPks));
+		for (T obj : list) {
+			postDelete(obj);	
+		}
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="{id}")

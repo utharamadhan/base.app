@@ -15,7 +15,7 @@ import id.base.app.util.dao.SearchOrder;
 import id.base.app.util.dao.SearchOrder.Sort;
 import id.base.app.valueobject.Lookup;
 import id.base.app.valueobject.contact.Contact;
-import id.base.app.valueobject.course.Course;
+import id.base.app.valueobject.learning.LearningItem;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -68,8 +68,8 @@ public class ContactUsWebController extends BaseSiteController<Contact>{
 		return new RestCaller<Lookup>(RestConstant.REST_SERVICE, RestServiceConstant.LOOKUP_SERVICE);
 	}
 	
-	protected RestCaller<Course> getRestCallerCourse() {
-		return new RestCaller<Course>(RestConstant.REST_SERVICE, RestServiceConstant.COURSE_SERVICE);
+	protected RestCaller<LearningItem> getRestCallerCourse() {
+		return new RestCaller<LearningItem>(RestConstant.REST_SERVICE, RestServiceConstant.LEARNING_ITEM_SERVICE);
 	}
 	
 	protected void setDefaultData(ModelMap model){
@@ -81,7 +81,7 @@ public class ContactUsWebController extends BaseSiteController<Contact>{
 		orderCH.add(new SearchOrder(Lookup.ORDER_NO_STRING, Sort.ASC));
 		model.addAttribute("category", getRestCallerLookup().findAll(filterCH, orderCH));
 		
-		List<Course> courses = getRestCallerCourse().findAll(new ArrayList<SearchFilter>(), new ArrayList<SearchOrder>());
+		List<LearningItem> courses = getRestCallerCourse().findAll(new ArrayList<SearchFilter>(), new ArrayList<SearchOrder>());
 		model.addAttribute("courses", courses);
 	}
 	
@@ -218,7 +218,7 @@ public class ContactUsWebController extends BaseSiteController<Contact>{
 	 		
 	 		if(ILookupConstant.CategoryHelp.PROGRAM.equals(type)){
 	 			if(learning != null){
-	 				Course course = getRestCallerCourse().findById(new Long(learning));
+	 				LearningItem course = getRestCallerCourse().findById(new Long(learning));
 	 				contact.setCourse(course);
 	 			}
 	 		}

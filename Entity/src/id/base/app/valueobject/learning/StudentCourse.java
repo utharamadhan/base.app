@@ -1,4 +1,4 @@
-package id.base.app.valueobject.course;
+package id.base.app.valueobject.learning;
 
 import id.base.app.valueobject.BaseEntity;
 import id.base.app.valueobject.Lookup;
@@ -36,10 +36,10 @@ public class StudentCourse extends BaseEntity implements Serializable {
 	}
 	
 	public static StudentCourse getInstance(Long pkStudent, Long pkCourse) {
-		return getInstance(Student.getInstance(pkStudent), Course.getInstance(pkCourse));
+		return getInstance(Student.getInstance(pkStudent), LearningItem.getInstance(pkCourse));
 	}
 	
-	public static StudentCourse getInstance(Student student, Course course) {
+	public static StudentCourse getInstance(Student student, LearningItem course) {
 		StudentCourse sc = new StudentCourse();
 			sc.setStudent(student);
 			sc.setCourse(course);
@@ -65,7 +65,7 @@ public class StudentCourse extends BaseEntity implements Serializable {
 	
 	@ManyToOne(cascade=CascadeType.DETACH)
 	@JoinColumn(name="FK_COURSE")
-	private Course course;
+	private LearningItem course;
 	
 	@Column(name="ENROLL_DATE")
 	private Date enrollDate;
@@ -97,10 +97,10 @@ public class StudentCourse extends BaseEntity implements Serializable {
 		this.student = student;
 	}
 
-	public Course getCourse() {
+	public LearningItem getCourse() {
 		return course;
 	}
-	public void setCourse(Course course) {
+	public void setCourse(LearningItem course) {
 		this.course = course;
 	}
 

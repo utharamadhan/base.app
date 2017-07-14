@@ -2,7 +2,7 @@ package id.base.app.valueobject.party;
 
 import id.base.app.valueobject.BaseEntity;
 import id.base.app.valueobject.Lookup;
-import id.base.app.valueobject.course.StudentCourse;
+import id.base.app.valueobject.learning.StudentCourse;
 
 import java.io.Serializable;
 import java.util.Date;

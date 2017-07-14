@@ -1,4 +1,4 @@
-package id.base.app.valueobject.course;
+package id.base.app.valueobject.learning;
 
 import java.io.Serializable;
 import java.util.Set;
@@ -58,9 +58,6 @@ public class Tag extends BaseEntity implements Serializable {
 	@Column(name="VALID")
 	private Integer valid;
 	
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy="courseTags")
-	private Set<Course> course;
-
 	public Long getPkTag() {
 		return pkTag;
 	}
@@ -84,15 +81,7 @@ public class Tag extends BaseEntity implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	public Set<Course> getCourse() {
-		return course;
-	}
-
-	public void setCourse(Set<Course> course) {
-		this.course = course;
-	}
-
+	
 	public Integer getValid() {
 		return valid;
 	}

@@ -80,9 +80,7 @@ public class RestConstant {
 	public static final String RM_CATEGORY = "/category";
 	
 	//learning
-	public static final String RM_GROUP_COURSE = "/course/groupCourse";
-	public static final String RM_COURSE = "/course/course";
-	public static final String RM_COURSE_TAG = "/course/courseTag";
+	public static final String RM_LEARNING_ITEM = "/learning/item";
 	
 	//research
 	public static final String RM_RESEARCH = "/research/research";
