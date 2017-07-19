@@ -151,4 +151,5 @@ public class LearningItemDAO extends AbstractHibernateDAO<LearningItem, Long> im
 		sqlQuery.setString("thumbURL", thumbURL);
 		sqlQuery.executeUpdate();
 	}
+	
 }

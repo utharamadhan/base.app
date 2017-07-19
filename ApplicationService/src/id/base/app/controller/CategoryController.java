@@ -105,4 +105,16 @@ public class CategoryController extends SuperController<Category>{
 	private String getFirstPermalinkData(@PathVariable("type") String type){
 		return categoryService.getFirstPermalinkData(type);
 	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/findSimpleDataByPermalink/{permalink}")
+	@ResponseBody
+	private Category findSimpleDataByPermalink(@PathVariable("permalink") String permalink){
+		return categoryService.findSimpleDataByPermalink(permalink);
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/findSimpleDataForList/{type}")
+	@ResponseBody
+	private List<Category> findSimpleDataForList(@PathVariable("type") String type){
+		return categoryService.findSimpleDataForList(type);
+	}
 }

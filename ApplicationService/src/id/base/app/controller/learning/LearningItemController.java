@@ -10,6 +10,7 @@ import id.base.app.service.learning.ILearningItemService;
 import id.base.app.util.ImageFunction;
 import id.base.app.util.StringFunction;
 import id.base.app.valueobject.learning.LearningItem;
+import id.base.app.valueobject.publication.News;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +18,9 @@ import java.util.Locale;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -118,6 +121,12 @@ public class LearningItemController extends SuperController<LearningItem> {
 	@ResponseBody
 	public List<LearningItem> findAllCourseAndTags(@RequestParam Map<String, Object> paramWrapper) throws SystemException {
 		return learningItemService.findAllCourseAndTags(paramWrapper);
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/findByPermalink/{permalink}")
+	@ResponseBody
+	public LearningItem findByPermalink(@PathVariable(value="permalink") String permalink) throws SystemException {
+		return learningItemService.findByPermalink(permalink);
 	}
 
 }

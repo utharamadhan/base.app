@@ -24,8 +24,10 @@ public class Category extends BaseEntity implements Serializable {
 	public static final String TYPE 		= "type";
 	public static final String TITLE 		= "title";
 	public static final String PERMALINK	= "permalink";
-	public static final String BASIC_PICTURE_URL = "basicPictureURL";
+	public static final String IMAGE_URL 	= "imageURL";
+	public static final String IMAGE_THUMB_URL = "imageThumbURL";
 	public static final String DESCRIPTION	= "description";
+	public static final String ORDER_NO		= "orderNo";
 	public static final String STATUS		= "status";
 	
 	public static Category getInstance() {

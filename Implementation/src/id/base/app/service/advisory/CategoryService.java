@@ -76,6 +76,11 @@ public class CategoryService implements ICategoryService {
 	public Category findSimpleDataByPermalink(String permalink) throws SystemException {
 		return categoryDAO.findSimpleDataByPermalink(permalink);
 	}
+	
+	@Override
+	public List<Category> findSimpleDataForList(String type) throws SystemException {
+		return categoryDAO.findSimpleDataForList(type);
+	}
 
 	@Override
 	public void updateThumb(Long pkCategory, String thumbURL) throws SystemException {

@@ -141,7 +141,8 @@ public class CategoryDAO extends AbstractHibernateDAO<Category, Long> implements
 		crit.setProjection(Projections.projectionList().
 				add(Projections.property(Category.TITLE)).
 				add(Projections.property(Category.PERMALINK)).
-				add(Projections.property(Category.BASIC_PICTURE_URL)).
+				add(Projections.property(Category.IMAGE_URL)).
+				add(Projections.property(Category.IMAGE_THUMB_URL)).
 				add(Projections.property(Category.DESCRIPTION)));
 		crit.setResultTransformer(new ResultTransformer() {
 			@Override
@@ -150,8 +151,9 @@ public class CategoryDAO extends AbstractHibernateDAO<Category, Long> implements
 				try {
 					BeanUtils.copyProperty(obj, Category.TITLE, tuple[0]);
 					BeanUtils.copyProperty(obj, Category.PERMALINK, tuple[1]);
-					BeanUtils.copyProperty(obj, Category.BASIC_PICTURE_URL, tuple[2]);
-					BeanUtils.copyProperty(obj, Category.DESCRIPTION, tuple[3]);
+					BeanUtils.copyProperty(obj, Category.IMAGE_URL, tuple[2]);
+					BeanUtils.copyProperty(obj, Category.IMAGE_THUMB_URL, tuple[3]);
+					BeanUtils.copyProperty(obj, Category.DESCRIPTION, tuple[4]);
 				} catch (Exception e) {
 					LOGGER.error(e.getMessage(), e);
 				}
@@ -169,6 +171,42 @@ public class CategoryDAO extends AbstractHibernateDAO<Category, Long> implements
 		}else{
 			return null;
 		}
+	}
+	
+	@Override
+	public List<Category> findSimpleDataForList(String type) throws SystemException {
+		Criteria crit = this.getSession().createCriteria(domainClass);
+		crit.add(Restrictions.eq(Category.STATUS, ILookupConstant.Status.PUBLISH));
+		crit.add(Restrictions.eq(Category.TYPE, type));
+		crit.addOrder(Order.asc(Category.ORDER_NO));
+		crit.setProjection(Projections.projectionList().
+				add(Projections.property(Category.TITLE)).
+				add(Projections.property(Category.PERMALINK)).
+				add(Projections.property(Category.IMAGE_URL)).
+				add(Projections.property(Category.IMAGE_THUMB_URL)).
+				add(Projections.property(Category.DESCRIPTION)));
+		crit.setResultTransformer(new ResultTransformer() {
+			@Override
+			public Object transformTuple(Object[] tuple, String[] aliases) {
+				Category obj = new Category();
+				try {
+					BeanUtils.copyProperty(obj, Category.TITLE, tuple[0]);
+					BeanUtils.copyProperty(obj, Category.PERMALINK, tuple[1]);
+					BeanUtils.copyProperty(obj, Category.IMAGE_URL, tuple[2]);
+					BeanUtils.copyProperty(obj, Category.IMAGE_THUMB_URL, tuple[3]);
+					BeanUtils.copyProperty(obj, Category.DESCRIPTION, tuple[4]);
+				} catch (Exception e) {
+					LOGGER.error(e.getMessage(), e);
+				}
+				return obj;
+			}
+			
+			@Override
+			public List transformList(List collection) {
+				return collection;
+			}
+		});
+		return crit.list();
 	}
 	
 	@Override

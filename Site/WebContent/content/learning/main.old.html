@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head></head>
+<body>
+		<div class="breadcrumb-wrapper">
+			<div class="breadcrumb">
+				<div class="container">
+					<ul>
+					<li><a th:href="@{/}">Beranda</a></li>
+					<li><a href="#">Learning</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="hexa-top-right">
+			<div class="top_post_section back-gradient-transparent">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-6">
+							<h2>MBA Mini Properti BTN - SBM ITB Batch 5</h2>
+							<br/>
+							<p>Merupakan program (lembaga pendidikan) di bidang property yang merupakan hasil kerjasama antara Housing Finance Center (HFC) Bank BTN dan School of Business and Management Institut  Teknologi Bandung ( SBM-ITB ) dalam rangka menciptakan enterpreneur (wirausaha) baru pada industry property.</p>
+							<br/>
+							<div class="button-blue" onclick="javascript:window.location.href='/Site/page/engagement/list'">Detail</div>
+						</div>
+						<div class="col-md-6">
+							<iframe width="560" height="315" src="https://www.youtube.com/embed/Y4iR8TK4Els" frameborder="0" allowfullscreen="true"></iframe>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="post_section">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-4 loop" th:each="group, i : ${groups}">
+							<div class="card-box">
+								<div class="card-image">
+									<img th:src="${group.encodedPicture}" alt="" />
+								</div>
+								<h2 class="card-title"><a th:href="@{/page/learning/program/}+${group.pkGroupCourse}+'/'+${#strings.replace(group.title, ' ', '-')}" th:text="${group.title}"></a></h2>
+								<hr/>
+								<div class="card-button-wrapper">
+									<div class="col-md-6">
+										<div class="button-blue show_detail">Detail</div>
+									</div>
+									<div class="col-md-6">
+										<div class="button-blue show_program">Learning</div>
+									</div>
+									<div class="card-clear"></div>
+								</div>
+								<div class="card-clear"></div>
+							</div>
+							<input type="hidden" name="identity" th:value="${group.pkGroupCourse}"/>
+							<input type="hidden" name="title" th:value="${group.title}"/>
+						</div>					
+					</div>
+				</div>
+			</div>
+			<div style="clear:both"></div>
+		</div>
+		
+		<script type="text/javascript" th:inline="javascript">
+		/*<![CDATA[*/
+		setNavbarActive('program');
+		$('.show_detail').unbind('click').click(function(){
+			var obj = $(this).parents('.loop');
+			var param = obj.find('input[name="identity"]').val();
+			var title = obj.find('input[name="title"]').val();
+			title = replaceall(title," ", "-");
+			var link = /*[[@{/page/learning/detail/}]]*/ '';
+			link = link + param + "/" + title;
+			window.location.href = link;
+		});
+		
+		$('.show_program').unbind('click').click(function(){
+			var obj = $(this).parents('.loop');
+			var param = obj.find('input[name="identity"]').val();
+			var title = obj.find('input[name="title"]').val();
+			title = replaceall(title," ", "-");
+			var link = /*[[@{/page/learning/program/}]]*/ '';
+			link = link + param + "/" + title;
+			window.location.href = link;
+		});
+		/*]]>*/
+		</script>
+</body>
+</html>

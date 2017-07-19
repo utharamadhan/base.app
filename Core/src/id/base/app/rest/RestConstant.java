@@ -81,6 +81,7 @@ public class RestConstant {
 	
 	//learning
 	public static final String RM_LEARNING_ITEM = "/learning/item";
+	public static final String RM_VW_LEARNING_ITEM = "/view/learning/item";
 	
 	//research
 	public static final String RM_RESEARCH = "/research/research";
