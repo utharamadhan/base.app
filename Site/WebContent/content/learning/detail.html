@@ -161,15 +161,11 @@
 								<div class="item_inner program">
 									<h4>Program At a Glance</h4>
 									<ul>
-										<li><span>Program Code:</span>010117</li>
-										
-										<li><span>Accerediation:</span>Ontario College Of Diploma</li>
-										
-										<li><span>Length of Study:</span>2 Years</li>
-										
-										<li><span>Study Options:</span>Full Time</li>
-										
-										<li><span>Location:</span>College Drive</li>
+										<th:block th:if="${detail.code!=null}">
+										<li><span>Code:</span><th:block th:text="${detail.code}"></th:block></li>
+										</th:block>
+										<li><span>Event Date:</span><th:block th:text="${detail.eventDate}"></th:block></li>
+										<li><span>Certificate:</span><th:block th:text="${detail.isCertification?'Yes':'No'}"></th:block></li>
 										<li><span>Teacher:</span>Mr. Smith <a href="#">(click for detail)</a></li>
 									</ul>
 								</div>

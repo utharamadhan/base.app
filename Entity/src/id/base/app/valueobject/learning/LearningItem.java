@@ -1,7 +1,9 @@
 package id.base.app.valueobject.learning;
 
 import id.base.app.ILookupConstant;
+import id.base.app.SystemConstant;
 import id.base.app.encryptor.EncodeDecode;
+import id.base.app.util.DateTimeFunction;
 import id.base.app.valueobject.BaseEntity;
 import id.base.app.valueobject.Category;
 import id.base.app.valueobject.Lookup;
@@ -147,6 +149,9 @@ public class LearningItem extends BaseEntity implements Serializable {
 	
 	@Transient
 	public String encodedBackgroundImage;
+	
+	@Transient
+	public String eventDate;
 
 	public Long getPkLearningItem() {
 		return pkLearningItem;
@@ -350,6 +355,18 @@ public class LearningItem extends BaseEntity implements Serializable {
 		return encodedBackgroundImage;
 	}
 	
+	public String getEventDate() {
+		if(dateTo==null){
+			return DateTimeFunction.date2String(dateFrom, SystemConstant.SYSTEM_DATE_MASK);
+		}else{
+			return DateTimeFunction.date2String(dateFrom, SystemConstant.SYSTEM_DATE_MASK) + " - " + 
+					DateTimeFunction.date2String(dateTo, SystemConstant.SYSTEM_DATE_MASK);
+		}
+	}
+
+	public void setEventDate(String eventDate) {
+		this.eventDate = eventDate;
+	}
 	
 
 }
