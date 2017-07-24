@@ -25,6 +25,10 @@ public class VWLearningItem implements Serializable {
 
 	public static final String CATEGORY_PERMALINK = "categoyPermalink";
 	public static final String DATE_FROM = "dateFrom";
+	public static final String FK_LOOKUP_METHOD = "fkLookupMethod";
+	public static final String FK_LOOKUP_ORGANIZER = "fkLookupOrganizer";
+	public static final String FK_LOOKUP_PAYMENT = "fkLookupPayment";
+	public static final String PERIOD = "period";
 	public static final String STATUS = "status";
 	
 	@Id
@@ -66,6 +70,9 @@ public class VWLearningItem implements Serializable {
 	
 	@Column(name="FK_LOOKUP_PAYMENT")
 	private Long fkLookupPayment;
+
+	@Column(name="PERIOD")
+	private String period;
 	
 	@Column(name="STATUS")
 	private Integer status;
@@ -180,6 +187,14 @@ public class VWLearningItem implements Serializable {
 		this.fkLookupPayment = fkLookupPayment;
 	}
 	
+	public String getPeriod() {
+		return period;
+	}
+
+	public void setPeriod(String period) {
+		this.period = period;
+	}
+
 	public Integer getStatus() {
 		return status;
 	}

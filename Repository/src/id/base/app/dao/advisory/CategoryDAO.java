@@ -210,6 +210,36 @@ public class CategoryDAO extends AbstractHibernateDAO<Category, Long> implements
 	}
 	
 	@Override
+	public List<Category> findSimpleDataForSelect(String type) throws SystemException {
+		Criteria crit = this.getSession().createCriteria(domainClass);
+		crit.add(Restrictions.eq(Category.STATUS, ILookupConstant.Status.PUBLISH));
+		crit.add(Restrictions.eq(Category.TYPE, type));
+		crit.addOrder(Order.asc(Category.ORDER_NO));
+		crit.setProjection(Projections.projectionList().
+				add(Projections.property(Category.PK_CATEGORY)).
+				add(Projections.property(Category.TITLE)));
+		crit.setResultTransformer(new ResultTransformer() {
+			@Override
+			public Object transformTuple(Object[] tuple, String[] aliases) {
+				Category obj = new Category();
+				try {
+					BeanUtils.copyProperty(obj, Category.PK_CATEGORY, tuple[0]);
+					BeanUtils.copyProperty(obj, Category.TITLE, tuple[1]);
+				} catch (Exception e) {
+					LOGGER.error(e.getMessage(), e);
+				}
+				return obj;
+			}
+			
+			@Override
+			public List transformList(List collection) {
+				return collection;
+			}
+		});
+		return crit.list();
+	}
+	
+	@Override
 	public void updateThumb(Long pkCategory, String thumbURL) throws SystemException {
 		String updateQuery = "UPDATE CATEGORY SET IMAGE_THUMB_URL = :thumbURL WHERE PK_CATEGORY = :pkCategory";
 		SQLQuery sqlQuery = getSession().createSQLQuery(updateQuery);

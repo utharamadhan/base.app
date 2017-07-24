@@ -18,6 +18,8 @@ public interface ICategoryService extends MaintenanceService<Category> {
 
 	public List<Category> findSimpleDataForList(String type) throws SystemException;
 	
+	public List<Category> findSimpleDataForSelect(String type) throws SystemException;
+	
 	public void updateThumb(Long pkCategory, String thumbURL) throws SystemException;
 
 }

@@ -399,4 +399,9 @@ public class SystemConstant  {
 			public static final int HEIGHT = 200;	
 		}
 	}
+	
+	public static final class Period{
+		public static final String PAST = "P";
+		public static final String FUTURE = "F";
+	}
 }

@@ -81,6 +81,11 @@ public class CategoryService implements ICategoryService {
 	public List<Category> findSimpleDataForList(String type) throws SystemException {
 		return categoryDAO.findSimpleDataForList(type);
 	}
+	
+	@Override
+	public List<Category> findSimpleDataForSelect(String type) throws SystemException {
+		return categoryDAO.findSimpleDataForSelect(type);
+	}
 
 	@Override
 	public void updateThumb(Long pkCategory, String thumbURL) throws SystemException {
