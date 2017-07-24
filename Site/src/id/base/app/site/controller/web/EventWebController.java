@@ -56,13 +56,13 @@ public class EventWebController extends BaseSiteController<Event>{
 	
 	@RequestMapping(method=RequestMethod.GET, value="/upcoming")
 	public String upcoming(ModelMap model, HttpServletRequest request, HttpServletResponse response){
-		setMenu(model);
+		setCommonData(model);
 		return "/event/upcoming/main";
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/archived")
 	public String archived(ModelMap model, HttpServletRequest request, HttpServletResponse response) throws JsonProcessingException{
-		setMenu(model);
+		setCommonData(model);
 		List<SearchFilter> filter = new ArrayList<SearchFilter>();
 		List<SearchOrder> order = new ArrayList<SearchOrder>();
 		filter.add(new SearchFilter(Event.STATUS, Operator.EQUALS, ILookupConstant.Status.PUBLISH));
@@ -157,7 +157,7 @@ public class EventWebController extends BaseSiteController<Event>{
 			@PathVariable(value="permalink") String permalink, @RequestParam Map<String,String> params){
 		Event detail = findByPermalink(permalink);
 		if(detail!=null){
-			setMenu(model);
+			setCommonData(model);
 			model.addAttribute("detail", detail);
 			model.addAttribute("f", params.get("f"));
 			return "/event/detail";

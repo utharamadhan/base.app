@@ -1,17 +1,25 @@
 package id.base.app.site.controller;
 
+import id.base.app.ILookupConstant;
 import id.base.app.SystemConstant;
 import id.base.app.rest.QueryParamInterfaceRestCaller;
+import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
 import id.base.app.rest.RestServiceConstant;
 import id.base.app.rest.SpecificRestCaller;
+import id.base.app.util.dao.Operator;
+import id.base.app.util.dao.SearchFilter;
+import id.base.app.util.dao.SearchOrder;
+import id.base.app.util.dao.SearchOrder.Sort;
 import id.base.app.valueobject.Pages;
 import id.base.app.valueobject.aboutUs.Engagement;
 import id.base.app.valueobject.aboutUs.ProgramPost;
 import id.base.app.valueobject.publication.DigitalBook;
 import id.base.app.valueobject.publication.Event;
+import id.base.app.valueobject.publication.LinkUrl;
 import id.base.app.valueobject.publication.News;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,13 +32,14 @@ import org.springframework.ui.ModelMap;
 @Controller
 public abstract class BaseSiteController<T> {
 	
-	protected void setMenu(ModelMap model){
+	protected void setCommonData(ModelMap model){
 		model.addAttribute("commonPostList", getCommonPostList());
 		model.addAttribute("engagementList", getEngagementList());
 		model.addAttribute("programList", getProgramList());
 		model.addAttribute("digitalBookList", getDigitalBookList());
 		model.addAttribute("newsList", getNewsList(5));
 		model.addAttribute("eventList", getEventList());
+		model.addAttribute("linkUrlList", getLinkUrlList());
 	}
 	
 	private List<Pages> getCommonPostList(){
@@ -145,5 +154,15 @@ public abstract class BaseSiteController<T> {
 			}
 		});
 		return events;
+	}
+	
+	private List<LinkUrl> getLinkUrlList(){
+		RestCaller<LinkUrl> restCallFLU = new RestCaller<LinkUrl>(RestConstant.REST_SERVICE, RestServiceConstant.LINK_URL_SERVICE);
+		List<SearchFilter> filterFLU = new ArrayList<SearchFilter>();
+		filterFLU.add(new SearchFilter(LinkUrl.TYPE, Operator.EQUALS, SystemConstant.LinkUrlType.FOOTER, String.class));
+		filterFLU.add(new SearchFilter(LinkUrl.STATUS, Operator.EQUALS, ILookupConstant.Status.PUBLISH, Integer.class));
+		List<SearchOrder> orderFLU = new ArrayList<SearchOrder>();
+		orderFLU.add(new SearchOrder(LinkUrl.ORDER_NO, Sort.ASC));
+		return restCallFLU.findAll(filterFLU, orderFLU);
 	}
 }

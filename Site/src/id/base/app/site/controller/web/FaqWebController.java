@@ -37,7 +37,7 @@ public class FaqWebController extends BaseSiteController<Faq>{
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public String view(ModelMap model, HttpServletRequest request, HttpServletResponse response){
-		setMenu(model);
+		setCommonData(model);
 		model.addAttribute("faq", findFaqListForView());
 		return "/faq/main";
 	}

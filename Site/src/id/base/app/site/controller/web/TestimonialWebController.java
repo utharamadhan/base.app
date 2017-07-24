@@ -36,7 +36,7 @@ public class TestimonialWebController extends BaseSiteController<Testimonial>{
 			@PathVariable(value="name") String name){
 		Testimonial detail = getRestCaller().findById(id);
 		if(detail!=null){
-			setMenu(model);
+			setCommonData(model);
 			model.addAttribute("detail", detail);
 			return "/testimonial/detail";
 		}

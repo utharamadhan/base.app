@@ -30,7 +30,7 @@ public class SiteMapWebController extends BaseSiteController<Faq>{
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public String view(ModelMap model, HttpServletRequest request, HttpServletResponse response){
-		setMenu(model);
+		setCommonData(model);
 		return "/sitemap/main";
 	}
 	

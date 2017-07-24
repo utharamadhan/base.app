@@ -17,8 +17,10 @@ import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.util.dao.SearchOrder.Sort;
 import id.base.app.valueobject.Category;
+import id.base.app.valueobject.Lookup;
 import id.base.app.valueobject.learning.LearningItem;
 import id.base.app.valueobject.learning.VWLearningItem;
+import id.base.app.valueobject.publication.News;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,6 +30,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.TypeMismatchException;
@@ -39,6 +42,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Scope(value="request")
 @RequestMapping(value="/main-program/learning")
@@ -64,28 +68,74 @@ public class LearningWebController extends BaseSiteController<LearningItem>{
 			@RequestParam(value="startNo",defaultValue="1") int startNo, 
 			@RequestParam(value="offset",defaultValue="6") int offset,
 			@RequestParam(value="filter", defaultValue="", required=false) String filterJson){
-		setMenu(model);
+		setCommonData(model);
 		LookupRestCaller lrc = new LookupRestCaller();
 		model.addAttribute("permalink", permalink);
 		List<Category> categoryList = getCategoryList();
 		model.addAttribute("categories", categoryList);
+		Boolean foundPermalink = false;
 		for (Category category : categoryList) {
 			if(permalink.equalsIgnoreCase(category.getPermalink())){
 				model.addAttribute("category", category);
+				foundPermalink = true;
 				break;
 			}
 		}
-		model.addAttribute("methodOptions", lrc.findByLookupGroup(ILookupGroupConstant.LEARNING_METHOD));
-		model.addAttribute("organizerOptions", lrc.findByLookupGroup(ILookupGroupConstant.LEARNING_ORGANIZER));
-		model.addAttribute("paymentOptions", lrc.findByLookupGroup(ILookupGroupConstant.LEARNING_PAYMENT));
+		if(foundPermalink){
+			List<Lookup> periodOptions = new ArrayList<>();
+			periodOptions.add(Lookup.getInstanceShort(SystemConstant.Period.FUTURE, "Periode Yang Akan Datang"));
+			periodOptions.add(Lookup.getInstanceShort(SystemConstant.Period.PAST, "Periode Yang Akan Terselenggara"));
+			model.addAttribute("periodOptions", periodOptions);
+			model.addAttribute("methodOptions", lrc.findByLookupGroup(ILookupGroupConstant.LEARNING_METHOD));
+			model.addAttribute("organizerOptions", lrc.findByLookupGroup(ILookupGroupConstant.LEARNING_ORGANIZER));
+			model.addAttribute("paymentOptions", lrc.findByLookupGroup(ILookupGroupConstant.LEARNING_PAYMENT));
+			List<SearchFilter> filter = new ArrayList<SearchFilter>();
+			filter.add(new SearchFilter(VWLearningItem.PERIOD, Operator.EQUALS, SystemConstant.Period.FUTURE, String.class));
+			filter.add(new SearchFilter(VWLearningItem.CATEGORY_PERMALINK, Operator.EQUALS, permalink, String.class));
+			filter.add(new SearchFilter(VWLearningItem.STATUS, Operator.EQUALS, ILookupConstant.Status.PUBLISH, Integer.class));
+			List<SearchOrder> order = new ArrayList<SearchOrder>();
+			order.add(new SearchOrder(VWLearningItem.DATE_FROM, Sort.ASC));
+			PagingWrapper<VWLearningItem> items = getRestCallerView().findAllByFilter(startNo, offset, filter, order);
+			model.addAttribute("items", items);
+			return "/learning/main";
+		}else{
+			LOGGER.error("ERROR DATA NOT FOUND");
+			return "redirect:/page/notfound";
+		}
+	}
+	
+	private List<SearchFilter> convertForFilter(String permalink, Map<String, String> paramWrapper) {
 		List<SearchFilter> filter = new ArrayList<SearchFilter>();
-		filter.add(new SearchFilter(VWLearningItem.STATUS, Operator.EQUALS, ILookupConstant.Status.PUBLISH, Integer.class));
 		filter.add(new SearchFilter(VWLearningItem.CATEGORY_PERMALINK, Operator.EQUALS, permalink, String.class));
+		filter.add(new SearchFilter(VWLearningItem.STATUS, Operator.EQUALS, ILookupConstant.Status.PUBLISH, Integer.class));
+		if(StringUtils.isNotEmpty(paramWrapper.get("period"))){	
+			filter.add(new SearchFilter(VWLearningItem.PERIOD, Operator.EQUALS, paramWrapper.get("period"), String.class));
+		}
+		if(StringUtils.isNotEmpty(paramWrapper.get("method"))){	
+			filter.add(new SearchFilter(VWLearningItem.FK_LOOKUP_METHOD, Operator.EQUALS, paramWrapper.get("method"), Long.class));
+		}
+		if(StringUtils.isNotEmpty(paramWrapper.get("organizer"))){	
+			filter.add(new SearchFilter(VWLearningItem.FK_LOOKUP_ORGANIZER, Operator.EQUALS, paramWrapper.get("organizer"), Long.class));
+		}
+		if(StringUtils.isNotEmpty(paramWrapper.get("payment"))){	
+			filter.add(new SearchFilter(VWLearningItem.FK_LOOKUP_PAYMENT, Operator.EQUALS, paramWrapper.get("payment"), Long.class));
+		}
+		return filter;
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/load/{permalink}")
+	@ResponseBody
+	public Map<String, Object> load(ModelMap model, HttpServletRequest request, HttpServletResponse response, @PathVariable(value="permalink") String permalink,
+			@RequestParam(value="startNo",defaultValue="1") int startNo, 
+			@RequestParam(value="offset",defaultValue="6") int offset,
+			@RequestParam Map<String,String> paramWrapper
+		){
+		Map<String, Object> resultMap = new HashMap<>();
 		List<SearchOrder> order = new ArrayList<SearchOrder>();
-		order.add(new SearchOrder(VWLearningItem.DATE_FROM, Sort.DESC));
-		PagingWrapper<VWLearningItem> items = getRestCallerView().findAllByFilter(startNo, offset, filter, order);
-		model.addAttribute("items", items);
-		return "/learning/main";
+		order.add(new SearchOrder(News.PK_NEWS, Sort.DESC));
+		PagingWrapper<VWLearningItem> items = getRestCallerView().findAllByFilter(startNo, offset, convertForFilter(permalink, paramWrapper), order);
+		resultMap.put("items", items);
+		return resultMap;
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="detail/{permalink}")
@@ -93,7 +143,7 @@ public class LearningWebController extends BaseSiteController<LearningItem>{
 			@PathVariable(value="permalink") String permalink){
 		LearningItem detail = findItemByPermalink(permalink);
 		if(detail!=null){
-			setMenu(model);
+			setCommonData(model);
 			model.addAttribute("detail", detail);
 			return "/learning/detail";
 		}

@@ -60,7 +60,7 @@ public class LecturerWebController extends BaseSiteController<Tutor>{
 			if(detail.getName()!=null){
 				String dataTitle = detail.getName().replace(" ", "-");
 				if(dataTitle.equals(title)){
-					setMenu(model);
+					setCommonData(model);
 					model.addAttribute("detail", detail);
 					return "/lecturer/detail";
 				}
@@ -76,7 +76,7 @@ public class LecturerWebController extends BaseSiteController<Tutor>{
 			@RequestParam(value="offset",defaultValue="12") int offset,
 			@RequestParam(value="filter", defaultValue="", required=false) String filterJson
 		) throws JsonParseException, JsonMappingException, IOException{
-		setMenu(model);
+		setCommonData(model);
 		List<SearchFilter> filter = new ArrayList<SearchFilter>();
 		if(StringUtils.isNotEmpty(filterJson)){
 			filter.add(new SearchFilter(Tutor.NAME, Operator.LIKE, filterJson));

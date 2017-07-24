@@ -73,7 +73,7 @@ public class ContactUsWebController extends BaseSiteController<Contact>{
 	}
 	
 	protected void setDefaultData(ModelMap model){
-		setMenu(model);
+		setCommonData(model);
 		List<SearchFilter> filterCH = new ArrayList<SearchFilter>();
 		List<SearchOrder> orderCH = new ArrayList<SearchOrder>();
 		filterCH.add(new SearchFilter(Lookup.LOOKUP_GROUP_STRING, Operator.EQUALS, ILookupGroupConstant.CATEGORY_HELP));

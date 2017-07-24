@@ -53,7 +53,7 @@ public class NewsWebController extends BaseSiteController<News>{
 			@RequestParam(value="offset",defaultValue="6") int offset,
 			@RequestParam(value="filter", defaultValue="", required=false) String filterJson
 		){
-		setMenu(model);
+		setCommonData(model);
 		List<SearchFilter> filter = new ArrayList<SearchFilter>();
 		filter.add(new SearchFilter(News.STATUS, Operator.EQUALS, ILookupConstant.Status.PUBLISH, Integer.class));
 		if(StringUtils.isNotEmpty(filterJson)){
@@ -114,7 +114,7 @@ public class NewsWebController extends BaseSiteController<News>{
 			@PathVariable(value="permalink") String permalink){
 		News detail = findByPermalink(permalink);
 		if(detail!=null){
-			setMenu(model);
+			setCommonData(model);
 			model.addAttribute("detail", detail);
 			return "/news/detail";
 		}

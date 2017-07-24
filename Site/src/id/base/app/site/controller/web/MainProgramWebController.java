@@ -23,7 +23,7 @@ public class MainProgramWebController extends BaseSiteController<Pages>{
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public String view(ModelMap model, HttpServletRequest request, HttpServletResponse response){
-		setMenu(model);
+		setCommonData(model);
 		return "/main-program/main";
 	}
 	

@@ -73,25 +73,25 @@ public class AdvisoryWebController extends BaseSiteController<Pages>{
 	
 	@RequestMapping(method=RequestMethod.GET, value="/advisory1")
 	public String advisory1(ModelMap model, HttpServletRequest request, HttpServletResponse response){
-		setMenu(model);
+		setCommonData(model);
 		return "/advisory/advisory1";
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/advisory2")
 	public String advisory2(ModelMap model, HttpServletRequest request, HttpServletResponse response){
-		setMenu(model);
+		setCommonData(model);
 		return "/advisory/advisory2";
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/advisory3")
 	public String advisory3(ModelMap model, HttpServletRequest request, HttpServletResponse response){
-		setMenu(model);
+		setCommonData(model);
 		return "/advisory/advisory3";
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/advisory4")
 	public String advisory4(ModelMap model, HttpServletRequest request, HttpServletResponse response){
-		setMenu(model);
+		setCommonData(model);
 		return "/advisory/advisory4";
 	}
 	
@@ -101,7 +101,7 @@ public class AdvisoryWebController extends BaseSiteController<Pages>{
 			@RequestParam(value="offset",defaultValue="6") int offset,
 			@RequestParam(value="filter", defaultValue="", required=false) String filterJson
 		){
-		setMenu(model);
+		setCommonData(model);
 		//Advisor
 		List<SearchFilter> filter = new ArrayList<SearchFilter>();
 		filter.add(new SearchFilter(AppUser.APP_ROLES_CODE, Operator.EQUALS, SystemConstant.UserRole.ADVISOR));
@@ -124,7 +124,7 @@ public class AdvisoryWebController extends BaseSiteController<Pages>{
 			@RequestParam(value="offset",defaultValue="10") int offset,
 			@RequestParam(value="filter", defaultValue="", required=false) String filterJson
 		){
-		setMenu(model);
+		setCommonData(model);
 		List<SearchFilter> filter = new ArrayList<SearchFilter>();
 		List<SearchOrder> order = new ArrayList<SearchOrder>();
 		PagingWrapper<AdvisoryConsulting> advisories = getRestCaller().findAllByFilter(startNo, offset, filter, order);
@@ -140,7 +140,7 @@ public class AdvisoryWebController extends BaseSiteController<Pages>{
 			if(detail.getName()!=null){
 				String dataTitle = detail.getName().replace(" ", "-");
 				if(dataTitle.equals(title)){
-					setMenu(model);
+					setCommonData(model);
 					model.addAttribute("detail", detail);
 					return "/advisory/detail";
 				}
@@ -171,7 +171,7 @@ public class AdvisoryWebController extends BaseSiteController<Pages>{
 			@RequestParam(value="offset",defaultValue="6") int offset,
 			@RequestParam(value="filter", defaultValue="", required=false) String filterJson
 		){
-		setMenu(model);
+		setCommonData(model);
 		return "/advisory/stories";
 	}
 	
@@ -181,7 +181,7 @@ public class AdvisoryWebController extends BaseSiteController<Pages>{
 			@RequestParam(value="offset",defaultValue="12") int offset,
 			@RequestParam(value="filter", defaultValue="", required=false) String filterJson
 		){
-		setMenu(model);
+		setCommonData(model);
 		List<SearchFilter> filter = new ArrayList<SearchFilter>();
 		filter.add(new SearchFilter(AppUser.APP_ROLES_CODE, Operator.EQUALS, SystemConstant.UserRole.ADVISOR));
 		if(filterJson!=null && !"".equals(filterJson)){
@@ -228,7 +228,7 @@ public class AdvisoryWebController extends BaseSiteController<Pages>{
 			if(advisor.getParty()!=null && advisor.getParty().getName()!=null){
 				String dataTitle = advisor.getParty().getName().replace(" ", "-");
 				if(dataTitle.equals(name)){
-					setMenu(model);
+					setCommonData(model);
 					model.addAttribute("advisor", advisor);
 					return "/advisory/advisorDetail";
 				}
@@ -245,7 +245,7 @@ public class AdvisoryWebController extends BaseSiteController<Pages>{
 			@RequestParam(value="filter", defaultValue="", required=false) String filterJson,
 			@RequestParam Map<String,String> params
 		){
-		setMenu(model);
+		setCommonData(model);
 		List<SearchFilter> filter = new ArrayList<SearchFilter>();
 		filter.add(new SearchFilter(AppUser.APP_ROLES_CODE, Operator.EQUALS, SystemConstant.UserRole.ADVISOR));
 		List<SearchOrder> order = new ArrayList<SearchOrder>();
@@ -273,7 +273,7 @@ public class AdvisoryWebController extends BaseSiteController<Pages>{
 			if(category.getTitle()!=null){
 				String dataTitle = category.getTitle().replace(" ", "-");
 				if(dataTitle.equals(title)){
-					setMenu(model);
+					setCommonData(model);
 					model.addAttribute("category", category);
 					
 					//get question

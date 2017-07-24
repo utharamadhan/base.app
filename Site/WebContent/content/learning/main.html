@@ -58,9 +58,7 @@
 								<div class="row">
 									<div class="col-md-3">
 										<select class="form-control param">
-											<option>-- Periode --</option>
-											<option selected="selected">Periode Yang Akan Datang</option>
-											<option>Periode Yang Telah Terselenggara</option>
+											<option th:each="opt : ${periodOptions}" th:value="${opt.code}" th:text="${opt.descr}">Name</option>
 										</select>
 									</div>
 									<div class="col-md-2">
@@ -132,7 +130,6 @@
 		<script type="text/javascript" th:inline="javascript">
 		/*<![CDATA[*/
 		setNavbarActive('program');
-		
 		/*]]>*/
 		</script>
 </body>

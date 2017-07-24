@@ -1,6 +1,8 @@
 package id.base.app.site.controller.web;
 
 import id.base.app.ILookupConstant;
+import id.base.app.SystemConstant;
+import id.base.app.exception.SystemException;
 import id.base.app.paging.PagingWrapper;
 import id.base.app.rest.PathInterfaceRestCaller;
 import id.base.app.rest.RestCaller;
@@ -51,16 +53,27 @@ public class ResearchDevWebController extends BaseSiteController<Pages>{
 		return new RestCaller<Category>(RestConstant.REST_SERVICE, RestServiceConstant.CATEGORY_SERVICE);
 	}
 	
-	@RequestMapping(method=RequestMethod.GET, value="/research")
-	public String research(ModelMap model, HttpServletRequest request, HttpServletResponse response){
-		setMenu(model);
-		return "/research-development/research";
+	@RequestMapping(method=RequestMethod.GET)
+	public String view(ModelMap model, HttpServletRequest request, HttpServletResponse response){
+		return "redirect:/page/main-program/research-development/"+getFirstPermalinkData();
 	}
 	
-	@RequestMapping(method=RequestMethod.GET, value="/development")
-	public String development(ModelMap model, HttpServletRequest request, HttpServletResponse response){
-		setMenu(model);
-		return "/research-development/development";
+	@RequestMapping(method=RequestMethod.GET, value="/{permalink}")
+	public String main(ModelMap model, HttpServletRequest request, HttpServletResponse response, @PathVariable(value="permalink") String permalink,
+			@RequestParam(value="startNo",defaultValue="1") int startNo, 
+			@RequestParam(value="offset",defaultValue="6") int offset,
+			@RequestParam(value="filter", defaultValue="", required=false) String filterJson){
+		setCommonData(model);
+		model.addAttribute("permalink", permalink);
+		List<Category> categoryList = getCategoryList();
+		model.addAttribute("categories", categoryList);
+		for (Category category : categoryList) {
+			if(permalink.equalsIgnoreCase(category.getPermalink())){
+				model.addAttribute("category", category);
+				break;
+			}
+		}
+		return "/research-development/main";
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/research/list")
@@ -68,7 +81,7 @@ public class ResearchDevWebController extends BaseSiteController<Pages>{
 			@RequestParam(value="startNo",defaultValue="1") int startNo, 
 			@RequestParam(value="offset",defaultValue="12") int offset,
 			@RequestParam(value="filter", defaultValue="", required=false) String filterJson){
-		setMenu(model);
+		setCommonData(model);
 		List<SearchFilter> filter = new ArrayList<SearchFilter>();
 		filter.add(new SearchFilter(Research.STATUS, Operator.EQUALS, ILookupConstant.Status.PUBLISH, Integer.class));
 		if(StringUtils.isNotEmpty(filterJson)){
@@ -86,7 +99,7 @@ public class ResearchDevWebController extends BaseSiteController<Pages>{
 			@PathVariable(value="permalink") String permalink){
 		Research detail = findByPermalink(permalink);
 		if(detail!=null){
-			setMenu(model);
+			setCommonData(model);
 			model.addAttribute("detail", detail);
 			return "/research-development/research/detail";
 		}
@@ -169,6 +182,41 @@ public class ResearchDevWebController extends BaseSiteController<Pages>{
 			detail = null;
 		}
 		return detail;
+	}
+	
+	private String getFirstPermalinkData() throws SystemException {
+		return new SpecificRestCaller<String>(RestConstant.REST_SERVICE, RestConstant.RM_CATEGORY, String.class).executeGet(new PathInterfaceRestCaller() {
+			@Override
+			public String getPath() {
+				return "/getFirstPermalinkData/{type}";
+			}
+			
+			@Override
+			public Map<String, Object> getParameters() {
+				Map<String,Object> map = new HashMap<String, Object>();
+				map.put("type", SystemConstant.CategoryType.RESEARCH_DEVELOPMENT);
+				return map;
+			}
+		});
+	}
+	
+	private List<Category> getCategoryList(){
+		SpecificRestCaller<Category> rc = new SpecificRestCaller<Category>(RestConstant.REST_SERVICE, RestServiceConstant.CATEGORY_SERVICE);
+		List<Category> list = rc.executeGetList(new PathInterfaceRestCaller() {
+			
+			@Override
+			public String getPath() {
+				return "/findSimpleDataForList/{type}";
+			}
+			
+			@Override
+			public Map<String, Object> getParameters() {
+				Map<String,Object> map = new HashMap<String, Object>();
+				map.put("type", SystemConstant.CategoryType.RESEARCH_DEVELOPMENT);
+				return map;
+			}
+		});
+		return list;
 	}
 	
 }

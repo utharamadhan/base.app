@@ -10,7 +10,6 @@ import id.base.app.service.learning.ILearningItemService;
 import id.base.app.util.ImageFunction;
 import id.base.app.util.StringFunction;
 import id.base.app.valueobject.learning.LearningItem;
-import id.base.app.valueobject.publication.News;
 
 import java.util.ArrayList;
 import java.util.List;

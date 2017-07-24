@@ -57,7 +57,7 @@ public class EbookWebController extends BaseSiteController<DigitalBook>{
 			@RequestParam(value="offset",defaultValue="12") int offset,
 			@RequestParam(value="filter", defaultValue="", required=false) String filterJson
 	){
-		setMenu(model);
+		setCommonData(model);
 		List<SearchFilter> filter = new ArrayList<SearchFilter>();
 		filter.add(new SearchFilter(DigitalBook.STATUS, Operator.EQUALS, ILookupConstant.Status.PUBLISH, Integer.class));
 		if(StringUtils.isNotEmpty(filterJson)){
@@ -118,7 +118,7 @@ public class EbookWebController extends BaseSiteController<DigitalBook>{
 			@PathVariable(value="permalink") String permalink){
 		DigitalBook detail = findByPermalink(permalink);
 		if(detail!=null){
-			setMenu(model);
+			setCommonData(model);
 			model.addAttribute("detail", detail);
 			return "/ebook/detail";
 		}
