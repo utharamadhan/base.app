@@ -49,7 +49,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.code.kaptcha.Constants;
 
 @Scope(value="request")
-@RequestMapping(value="/advisory")
+@RequestMapping(value="/main-program/advisory")
 @Controller
 public class AdvisoryWebController extends BaseSiteController<Pages>{
 	

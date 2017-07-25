@@ -7,6 +7,7 @@ import id.base.app.exception.SystemException;
 import id.base.app.rest.RestConstant;
 import id.base.app.service.MaintenanceService;
 import id.base.app.service.frontEndDisplay.IPagesService;
+import id.base.app.util.ImageFunction;
 import id.base.app.util.StringFunction;
 import id.base.app.valueobject.Pages;
 
@@ -41,6 +42,8 @@ public class PagesController extends SuperController<Pages>{
 			errorList.add(new ErrorHolder(Pages.TITLE, messageSource.getMessage("error.mandatory", new String[]{"title"}, Locale.ENGLISH)));
 		}else if(StringFunction.isEmpty(anObject.getPermalink())){
 			String permalink = StringFunction.toPrettyURL(anObject.getTitle());
+			List<String> permalinkDBList = pagesService.getSamePermalink(anObject.getPkPages(), permalink);
+			permalink = StringFunction.generatePermalink(permalinkDBList, permalink);
 			anObject.setPermalink(permalink);
 		}
 		if(StringFunction.isEmpty(anObject.getContent())) {
@@ -60,6 +63,31 @@ public class PagesController extends SuperController<Pages>{
 	@Override
 	public Pages preUpdate(Pages anObject) throws SystemException{
 		return validate(anObject);
+	}
+	
+	@Override
+	public void postUpdate(Object oldObject, Pages newObject) {
+		try {
+			if(oldObject != null && oldObject instanceof Pages && newObject != null && StringFunction.isNotEmpty(newObject.getImageURL())) {
+				if (((Pages)oldObject).getImageURL()!=null && !((Pages)oldObject).getImageURL().equalsIgnoreCase(newObject.getImageURL())) {
+					String oldURL = ((Pages)oldObject).getImageURL();
+					deleteOldImage(oldURL);
+					String thumbURL = ImageFunction.createThumbnails(newObject.getImageURL(), SystemConstant.ThumbnailsDimension.FeatureImage.WIDTH, SystemConstant.ThumbnailsDimension.FeatureImage.HEIGHT);
+					pagesService.updateThumb(newObject.getPkPages(), thumbURL);
+				}else if(StringFunction.isEmpty(newObject.getImageThumbURL())){
+					String thumbURL = ImageFunction.createThumbnails(newObject.getImageURL(), SystemConstant.ThumbnailsDimension.FeatureImage.WIDTH, SystemConstant.ThumbnailsDimension.FeatureImage.HEIGHT);
+					pagesService.updateThumb(newObject.getPkPages(), thumbURL);
+				}
+			}
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage(), e);
+		}
+	}
+	
+	@Override
+	public Pages getOldObject(Pages object) throws SystemException {
+		Pages oldObject = new Pages();
+		return object.getPkPages() != null ? cloneObject(oldObject, findById(object.getPkPages())) : null;
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/findByPermalink/{permalink}")

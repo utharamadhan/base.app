@@ -18,73 +18,25 @@
 			<div class="top_post_section back-gradient-transparent">
 				<div class="container">
 					<div class="row">
+						<th:block th:each="data , i : ${programs}">
 						<div class="col-md-4 loop">
 							<div class="card-image">
 								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" version="1.1">
 								  <defs>
-								    <pattern id="img-learn" patternUnits="userSpaceOnUse" width="600" height="400">
-								      <image width="600" height="400" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/Site/images/learning_.jpg"></image>
+								    <pattern th:attr="id=${i.count}" patternUnits="userSpaceOnUse" width="600" height="400">
+								      <image width="600" height="400" xmlns:xlink="http://www.w3.org/1999/xlink" th:attr="'xlink:href'=${data.encodedPicture}"></image>
 								    </pattern>
 								  </defs>
-								  <polygon id="hex-learn" fill="url(#img-learn)" points="300,0 600,100 600,300 300,400 0,300 0,100"></polygon>
+								  <polygon th:attr="id='hex'+${i.count},fill='url(#'+${i.count}+')'" points="300,0 600,100 600,300 300,400 0,300 0,100"></polygon>
 								</svg>
 							</div>
 							<div class="card-box">
-								<h2 class="card-title"><a href="/Site/page/main-program/learning">LEARNING</a></h2>
-								<div class="card-box-content">
-								<p>Menyediakan pelatihan/worshop/short course di bidang pembiayaan perumahan. Kegiatan ini dimaksudkan  untuk meningkatkan pengetahuan, keahlian, kompetensi, sebagai hasil dari pengajaran vocational dan latihan keahlian dan pengetahuan yang berhubungan dengan penggunaan keahlian yang spesifik. Dari segi lokasi pelaksanaan : inhouse dan outhouse. Dari segi jenis pelatihan dapat berupa : pelatihan (training), seminar, penyuluhan.</p>
-								<ol>
-									<li>Program Seminar<br/>Suatu program pengenalan bisnis properti sehari, dengan peserta dari mahasiswa tingkat akhir, alumnus perguruan tinggi, serta masyarakat luas yang nantinya akan di didik dalam bidang properti, melalui program Mini MBA. Aatau program sejenis.</li>
-									<li>Program MBA Mini<br/>Suatu program dasar pembelajaran dalam bisnis properti, dengan teknik pembelajaran secara teori dan paktek, yang disampaikan oleh pengajar dari SBM-ITB Bandung dan CEO dari pengembang BTN yang handal. Sampai saat ini telah dididik sebanyak 500 peserta, yang saat ini sudah terselenggara 5 batch.</li> 
-								</ol>
-								</div>
+								<h2 class="card-title"><a th:href="@{/page/main-program/}+${data.permalink}" th:text="${data.title}"></a></h2>
+								<div class="card-box-content" th:utext="${data.content}"></div>
 								<div class="card-clear"></div>
 							</div>
 						</div>
-						<div class="col-md-4 loop">
-							<div class="card-image">
-								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" version="1.1">
-								  <defs>
-								    <pattern id="img-adv" patternUnits="userSpaceOnUse" width="600" height="400">
-								      <image width="600" height="400" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/Site/images/advisory_.jpg" />
-								    </pattern>
-								  </defs>
-								  <polygon id="hex-adv" fill="url(#img-adv)" points="300,0 600,100 600,300 300,400 0,300 0,100" />
-								</svg>
-							</div>
-							<div class="card-box">
-								<h2 class="card-title"><a href="/Site/page/advisory/advisory1">ADVISORY</a></h2>
-								<div class="card-box-content">
-								<p>Menyediakan jasa konsultasi terkait pembangunan dan pembiayaan perumahan untuk membantu stake holders dalam mengambil keputusan. Kegiatan ini berhubungan dengan pemberian nasihat secara teknis dibidang pembiayaan property pelayanan informasi pengembangan properti dan analisis property.</p>
-								<ol>
-									<li>Pendidikan Advisory di peruntukkan bagi alumni peserta Mini MBA Bank BTN, untuk memperdalam ilmu di Bidang Bisnis Properti.</li>
-									<li>Memberikan konsultasi bagi masyarakat umum yang berkecimpung di Bidang properti, untuk mengembangkan bisnisnya.</li>
-									<li>Turut serta memberikan masukan bagi stakeholder Bank BTN terutama pemerintah untuk mengatasi hambatan regulasi di bidang perumahan.</li>
-								</ol>
-								</div>
-								<div class="card-clear"></div>
-							</div>
-						</div>
-						<div class="col-md-4 loop">
-							<div class="card-image">
-								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" version="1.1">
-								  <defs>
-								    <pattern id="img-rnd" patternUnits="userSpaceOnUse" width="600" height="400">
-								      <image width="600" height="400" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/Site/images/rnd_.jpg" />
-								    </pattern>
-								  </defs>
-								  <polygon id="hex-learn" fill="url(#img-rnd)" points="300,0 600,100 600,300 300,400 0,300 0,100" />
-								</svg>
-							</div>
-							<div class="card-box">
-								<h2 class="card-title"><a href="/Site/page/main-program/research-development/research">RESEARCH &#38; DEVELOPMENT</a></h2>
-								<div class="card-box-content">
-								<p>Menyediakan data riset terkini dibidang property yang mendukung bisnis pembangunan dan pembiayaan perumahan.</p>
-								<p>Sejak tahun 2012 sampai saat ini, bank BTN telah melakukan sejumlah riset untuk mendukung kinerja bank BTN, dan saat ini dan yang akan datang Bank BTN akan mengembangkan riset tidak hanya memenuhi kebutuhan riset internal, tetapi juga memenuhi riset untuk kebutuhan khalayak luas. Selain itu riset juga mendukung untuk pengembangan bahan materi untuk learning dan advisory agar selalu up date dalam perkembangan bisnis properti yang sangat cepat berubah.</p>
-								</div>
-								<div class="card-clear"></div>
-							</div>
-						</div>	
+						</th:block>	
 					</div>
 				</div>
 			</div>

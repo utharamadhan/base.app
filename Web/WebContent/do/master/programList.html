@@ -18,9 +18,6 @@
 		<h4><i class="fa fa-shopping-basket"></i> Master / Program List
 		<span></span></h4>
 	</div>
-	<div class="col-md-4 tile-body no-vpadding" style="margin:10px;">
-		<a href="#" id="program-btn-add" class="btn btn-primary" style="margin-bottom:5px"><i class="fa fa-plus dropdown-plus"></i> &nbsp; Add</a>
-	</div>
 	<div class="main">
 		<div class="row">
 			<div class="col-md-12">	
@@ -31,7 +28,8 @@
 		                        <thead>
 		                          <tr>
 									<th>Title</th>
-									<th>E/D</th>
+									<th>Order No</th>
+									<th>Edit</th>
 		                          </tr>
 		                        </thead>
 	                     	</table>
@@ -83,7 +81,8 @@
 	    $(function(){
 		    setMenuActive('program');
 		    var colDefs = [{ name : "title" },
-	    	               { type : "deleteAndEdit" , param : [ "pkProgram" ] }
+		                   { name : "orderNo" },
+	    	               { type : "edit" , param : [ "pkPages" ] }
 	    	               ];
 		    var sURL = /*[[@{/do/master/program/list?}]]*/ #;
 		    buildDataTable(/*[[@{/}]]*/, sURL, 'program-list-table', 450, colDefs, null, null);

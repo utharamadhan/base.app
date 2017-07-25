@@ -13,7 +13,6 @@ import id.base.app.util.StringFunction;
 import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
-import id.base.app.valueobject.AppUser;
 import id.base.app.valueobject.Lookup;
 import id.base.app.valueobject.Pages;
 import id.base.app.web.DataTableCriterias;
@@ -56,7 +55,6 @@ public class PagesWebController extends BaseController<Pages> {
 	private void setDefaultFilter(HttpServletRequest request, List<SearchFilter> filters) {
 		List<String> arrType = new ArrayList<>();
 		arrType.add(SystemConstant.PagesType.OTHER);
-		arrType.add(SystemConstant.PagesType.ABOUT_US);
 		arrType.add(SystemConstant.PagesType.PILAR);
 		arrType.add(SystemConstant.PagesType.TERM_CONDITION);
 		filters.add(new SearchFilter(Pages.TYPE, Operator.IN, arrType, String.class));
@@ -79,13 +77,13 @@ public class PagesWebController extends BaseController<Pages> {
 		if(orders != null) {
 			orders.clear();
 		}
-		orders.add(new SearchOrder(Pages.PK_PAGES, SearchOrder.Sort.DESC));
+		orders.add(new SearchOrder(Pages.ORDER_NO, SearchOrder.Sort.ASC));
 		return orders;
 	}
 
 	@RequestMapping(method=RequestMethod.GET, value="showList")
 	public String showList(ModelMap model, HttpServletRequest request){
-		model.addAttribute("pagingWrapper", new PagingWrapper<AppUser>());
+		model.addAttribute("pagingWrapper", new PagingWrapper<Pages>());
 		return getListPath();
 	}
 	
@@ -94,7 +92,6 @@ public class PagesWebController extends BaseController<Pages> {
 		model.addAttribute("statusOptions", lrc.findByLookupGroup(ILookupGroupConstant.STATUS));
 		List<Lookup> pagesTypeHelper = new ArrayList<>();
 		pagesTypeHelper.add(Lookup.getInstanceShort(SystemConstant.PagesType.OTHER, SystemConstant.PagesType.OTHER_STR));
-		pagesTypeHelper.add(Lookup.getInstanceShort(SystemConstant.PagesType.ABOUT_US, SystemConstant.PagesType.ABOUT_US_STR));
 		pagesTypeHelper.add(Lookup.getInstanceShort(SystemConstant.PagesType.PILAR, SystemConstant.PagesType.PILAR_STR));
 		pagesTypeHelper.add(Lookup.getInstanceShort(SystemConstant.PagesType.TERM_CONDITION, SystemConstant.PagesType.TERM_CONDITION_STR));
 		model.addAttribute("typeOptions", pagesTypeHelper);

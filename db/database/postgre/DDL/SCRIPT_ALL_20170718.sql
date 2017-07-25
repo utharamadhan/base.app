@@ -8,3 +8,13 @@ END AS PERIOD,LI.STATUS
 FROM LEARNING_ITEM LI 
 INNER JOIN LEARNING_ITEM_CATEGORY LIC ON LIC.FK_LEARNING_ITEM = LI.PK_LEARNING_ITEM 
 INNER JOIN CATEGORY C ON C.PK_CATEGORY = LIC.FK_CATEGORY;
+
+INSERT INTO pages(title, status, permalink, order_no, type, created_by, creation_time, modified_by, modification_time)
+    VALUES ('LEARNING',2,'learning',1,'PRL','SYSTEM',CURRENT_TIMESTAMP,'SYSTEM',CURRENT_TIMESTAMP);
+INSERT INTO pages(title, status, permalink, order_no, type, created_by, creation_time, modified_by, modification_time)
+    VALUES ('ADVISORY',2,'advisory',2,'PRA','SYSTEM',CURRENT_TIMESTAMP,'SYSTEM',CURRENT_TIMESTAMP);
+INSERT INTO pages(title, status, permalink, order_no, type, created_by, creation_time, modified_by, modification_time)
+    VALUES ('RESEARCH & DEVELOPMENT',2,'research-development',3,'PRR','SYSTEM',CURRENT_TIMESTAMP,'SYSTEM',CURRENT_TIMESTAMP);
+COMMIT;
+
+ALTER TABLE PAGES ADD COLUMN IMAGE_THUMB_URL text;

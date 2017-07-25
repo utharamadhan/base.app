@@ -367,7 +367,7 @@ public class SystemConstant  {
 		public static final String TERM_CONDITION = "TC";
 		public static final String PROGRAM_LEARNING = "PRL";
 		public static final String PROGRAM_ADVISORY = "PRA";
-		public static final String PROGRAM_RESEARCH_DEVELOPMENT = "PRRD";
+		public static final String PROGRAM_RESEARCH_DEVELOPMENT = "PRR";
 		
 		public static final String OTHER_STR = "Other";
 		public static final String ABOUT_US_STR = "About Us";

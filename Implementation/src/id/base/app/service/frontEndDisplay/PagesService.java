@@ -72,6 +72,15 @@ public class PagesService implements IPagesService {
 		return pagesDAO.getLatestPages(types);
 	}
 	
+	@Override
+	public List<String> getSamePermalink(Long pk, String permalink) throws SystemException {
+		return pagesDAO.getSamePermalink(pk, permalink);
+	}
+	
+	@Override
+	public void updateThumb(Long pkPages, String thumbURL) throws SystemException {
+		pagesDAO.updateThumb(pkPages, thumbURL);
+	}
 	
 	
 }

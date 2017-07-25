@@ -2,6 +2,7 @@ package id.base.app.valueobject;
 
 import id.base.app.ILookupConstant;
 import id.base.app.SystemConstant;
+import id.base.app.encryptor.EncodeDecode;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -57,7 +58,10 @@ public class Pages extends BaseEntity implements Serializable {
 	private Date publishDate;
 	
 	@Column(name="IMAGE_URL")
-	private String imageUrl;
+	private String imageURL;
+	
+	@Column(name="IMAGE_THUMB_URL")
+	private String imageThumbURL;
 	
 	@Column(name="PERMALINK")
 	private String permalink;
@@ -70,6 +74,9 @@ public class Pages extends BaseEntity implements Serializable {
 	
 	@Transient
 	private String typeStr;
+	
+	@Transient
+	public String encodedPicture;
 
 	public Long getPkPages() {
 		return pkPages;
@@ -115,12 +122,20 @@ public class Pages extends BaseEntity implements Serializable {
 		this.publishDate = publishDate;
 	}
 
-	public String getImageUrl() {
-		return imageUrl;
+	public String getImageURL() {
+		return imageURL;
 	}
 
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
+	public void setImageURL(String imageURL) {
+		this.imageURL = imageURL;
+	}
+
+	public String getImageThumbURL() {
+		return imageThumbURL;
+	}
+
+	public void setImageThumbURL(String imageThumbURL) {
+		this.imageThumbURL = imageThumbURL;
 	}
 
 	public String getPermalink() {
@@ -149,5 +164,17 @@ public class Pages extends BaseEntity implements Serializable {
 
 	public String getTypeStr() {
 		return SystemConstant.PagesType.PAGES_MAP.get(type);
+	}
+	
+	public String getEncodedPicture() throws Exception {
+		if(getImageThumbURL()!=null && !"".equals(getImageThumbURL())){
+			encodedPicture = EncodeDecode.getBase64FromLink(getImageThumbURL());
+		}else if(getImageURL()!=null && !"".equals(getImageURL())){
+			encodedPicture = EncodeDecode.getBase64FromLink(getImageURL());
+		}
+		return encodedPicture;
+	}
+	public void setEncodedPicture(String encodedPicture) {
+		this.encodedPicture = encodedPicture;
 	}
 }
