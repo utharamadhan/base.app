@@ -95,11 +95,11 @@ public class LearningItem extends BaseEntity implements Serializable {
 	private String imageBackgroundURL;
 	
 	@Column(name="DATE_FROM")
-	@DateTimeFormat(pattern = "MM/dd/yyyy")
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dateFrom;
 	
 	@Column(name="DATE_TO")
-	@DateTimeFormat(pattern = "MM/dd/yyyy")
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dateTo;
 	
 	@OneToOne

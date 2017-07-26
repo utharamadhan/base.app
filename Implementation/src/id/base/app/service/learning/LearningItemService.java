@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.hibernate.collection.internal.PersistentBag;
+import org.hibernate.collection.spi.PersistentCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,7 +29,14 @@ public class LearningItemService implements ILearningItemService {
 	}
 
 	public LearningItem findById(Long id) throws SystemException {
-		return learningItemDAO.findById(id);
+		LearningItem obj = learningItemDAO.findById(id);
+		if(obj.getCategories() instanceof PersistentBag) {
+			((PersistentCollection) obj.getCategories() ).forceInitialization();
+		}
+		if(obj.getTeachers() instanceof PersistentBag) {
+			((PersistentCollection) obj.getTeachers() ).forceInitialization();
+		}
+		return obj;
 	}
 
 	public void saveOrUpdate(LearningItem anObject) throws SystemException {

@@ -1100,7 +1100,7 @@ function initDatePicker(datePickerClass, dateFormat) {
 	    todayHighlight: true,
 	    changeMonth: true,
 	    changeYear: true,
-		format: dateFormat,
+	    dateFormat: dateFormat,
 		yearRange: "1900:2100",
 		onSelect: function(dateText, datePicker) {
 			$(this).attr('value', dateText);

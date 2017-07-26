@@ -75,6 +75,9 @@ public class Category extends BaseEntity implements Serializable {
 	@Transient
 	private String statusStr;
 	
+	@Transient
+	private boolean checked;
+	
 	public Long getPkCategory() {
 		return pkCategory;
 	}
@@ -150,6 +153,14 @@ public class Category extends BaseEntity implements Serializable {
 	public String getStatusStr() {
 		return ILookupConstant.Status.STATUS_MAP.get(status);
 	}
+	
+	public boolean isChecked() {
+		return checked;
+	}
+
+	public void setChecked(boolean checked) {
+		this.checked = checked;
+	}
 
 	public String getEncodedPicture() throws Exception {
 		if(getImageThumbURL()!=null && !"".equals(getImageThumbURL())){
@@ -164,5 +175,4 @@ public class Category extends BaseEntity implements Serializable {
 		this.encodedPicture = encodedPicture;
 	}
 		
-	
 }

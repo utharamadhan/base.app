@@ -85,9 +85,23 @@ public class LearningItemWebController extends BaseController<LearningItem> {
 		return getListPath();
 	}
 	
-	public void setDefaultData(ModelMap model) {
+	public void setDefaultData(ModelMap model, LearningItem obj) {
 		LookupRestCaller lrc = new LookupRestCaller();
-		model.addAttribute("categoryOptions", getCategory());
+		List<Category> categories = getCategory();
+		List<Long> pkCategories = new ArrayList<>();
+		if(obj!=null){
+			for (Category catDB : obj.getCategories()) {
+				pkCategories.add(catDB.getPkCategory());
+			}
+			for (Category cat : categories) {
+				if(pkCategories.contains(cat.getPkCategory())){
+					cat.setChecked(true);
+				}else{
+					cat.setChecked(false);
+				}
+			}
+		}
+		model.addAttribute("categoryOptions", categories);
 		model.addAttribute("methodOptions", lrc.findByLookupGroup(ILookupGroupConstant.LEARNING_METHOD));
 		model.addAttribute("organizerOptions", lrc.findByLookupGroup(ILookupGroupConstant.LEARNING_ORGANIZER));
 		model.addAttribute("paymentOptions", lrc.findByLookupGroup(ILookupGroupConstant.LEARNING_PAYMENT));
@@ -101,14 +115,14 @@ public class LearningItemWebController extends BaseController<LearningItem> {
 	@RequestMapping(method=RequestMethod.GET, value="showAdd")
 	public String showAdd(ModelMap model, HttpServletRequest request){
 		model.addAttribute("detail", LearningItem.getInstance());
-		setDefaultData(model);
+		setDefaultData(model, null);
 		return PATH_DETAIL;
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="showEdit")
 	public String showEdit(@RequestParam(value="maintenancePK") final Long maintenancePK, @RequestParam Map<String, String> paramWrapper, ModelMap model, HttpServletRequest request){
-		setDefaultData(model);
 		LearningItem detail = getRestCaller().findById(maintenancePK);
+		setDefaultData(model, detail);
 		model.addAttribute("detail", detail);
 		return PATH_DETAIL;
 	}

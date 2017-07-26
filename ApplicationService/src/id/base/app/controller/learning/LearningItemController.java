@@ -10,6 +10,7 @@ import id.base.app.service.learning.ILearningItemService;
 import id.base.app.util.ImageFunction;
 import id.base.app.util.StringFunction;
 import id.base.app.valueobject.learning.LearningItem;
+import id.base.app.valueobject.learning.LearningItemTeacher;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,8 +70,17 @@ public class LearningItemController extends SuperController<LearningItem> {
 		return learningItemService;
 	}
 
+	private void preProcessUpdate(LearningItem anObject) throws SystemException {
+		if(anObject.getTeachers()!=null && !anObject.getTeachers().isEmpty()){
+			for (LearningItemTeacher teacher : anObject.getTeachers()) {
+				teacher.setLearningItem(anObject);
+			}
+		}
+	}
+	
 	@Override
 	public LearningItem preUpdate(LearningItem anObject) throws SystemException {
+		preProcessUpdate(anObject);
 		return validate(anObject);
 	}
 	
