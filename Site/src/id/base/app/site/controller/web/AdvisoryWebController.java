@@ -2,11 +2,14 @@ package id.base.app.site.controller.web;
 
 import id.base.app.SystemConstant;
 import id.base.app.exception.ErrorHolder;
+import id.base.app.exception.SystemException;
 import id.base.app.paging.PagingWrapper;
 import id.base.app.properties.ApplicationProperties;
+import id.base.app.rest.PathInterfaceRestCaller;
 import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
 import id.base.app.rest.RestServiceConstant;
+import id.base.app.rest.SpecificRestCaller;
 import id.base.app.site.controller.BaseSiteController;
 import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
@@ -67,69 +70,34 @@ public class AdvisoryWebController extends BaseSiteController<Pages>{
 		return new RestCaller<AppUser>(RestConstant.REST_SERVICE, RestServiceConstant.USER_SERVICE);
 	}
 	
-	protected RestCaller<AdvisoryConsulting> getRestCallerAdvisory() {
-		return new RestCaller<AdvisoryConsulting>(RestConstant.REST_SERVICE, RestServiceConstant.ADVISORY_SERVICE);
-	}
-	
-	@RequestMapping(method=RequestMethod.GET, value="/advisory1")
-	public String advisory1(ModelMap model, HttpServletRequest request, HttpServletResponse response){
-		setCommonData(model);
-		return "/advisory/advisory1";
-	}
-	
-	@RequestMapping(method=RequestMethod.GET, value="/advisory2")
-	public String advisory2(ModelMap model, HttpServletRequest request, HttpServletResponse response){
-		setCommonData(model);
-		return "/advisory/advisory2";
-	}
-	
-	@RequestMapping(method=RequestMethod.GET, value="/advisory3")
-	public String advisory3(ModelMap model, HttpServletRequest request, HttpServletResponse response){
-		setCommonData(model);
-		return "/advisory/advisory3";
-	}
-	
-	@RequestMapping(method=RequestMethod.GET, value="/advisory4")
-	public String advisory4(ModelMap model, HttpServletRequest request, HttpServletResponse response){
-		setCommonData(model);
-		return "/advisory/advisory4";
-	}
-	
 	@RequestMapping(method=RequestMethod.GET)
-	public String view(ModelMap model, HttpServletRequest request, HttpServletResponse response,
+	public String view(ModelMap model, HttpServletRequest request, HttpServletResponse response){
+		return "redirect:/page/main-program/advisory/"+getFirstPermalinkData();
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/{permalink}")
+	public String main(ModelMap model, HttpServletRequest request, HttpServletResponse response, @PathVariable(value="permalink") String permalink,
 			@RequestParam(value="startNo",defaultValue="1") int startNo, 
 			@RequestParam(value="offset",defaultValue="6") int offset,
-			@RequestParam(value="filter", defaultValue="", required=false) String filterJson
-		){
+			@RequestParam(value="filter", defaultValue="", required=false) String filterJson){
 		setCommonData(model);
-		//Advisor
-		List<SearchFilter> filter = new ArrayList<SearchFilter>();
-		filter.add(new SearchFilter(AppUser.APP_ROLES_CODE, Operator.EQUALS, SystemConstant.UserRole.ADVISOR));
-		List<SearchOrder> order = new ArrayList<SearchOrder>();
-		order.add(new SearchOrder(AppUser.PK_APP_USER, Sort.ASC));
-		List<AppUser> advisors = new ArrayList<AppUser>();
-		advisors = getRestCallerUser().findAll(filter, order);
-		model.addAttribute("advisors", advisors);
-		
-		//Category
-		List<Category> categories = new ArrayList<Category>();
-		categories = getRestCallerCategory().findAll(new ArrayList<SearchFilter>(), new ArrayList<SearchOrder>());
-		model.addAttribute("categories", categories);
-		return "/advisory/main";
-	}
-	
-	@RequestMapping(method=RequestMethod.GET, value="/list")
-	public String list(ModelMap model, HttpServletRequest request, HttpServletResponse response,
-			@RequestParam(value="startNo",defaultValue="1") int startNo, 
-			@RequestParam(value="offset",defaultValue="10") int offset,
-			@RequestParam(value="filter", defaultValue="", required=false) String filterJson
-		){
-		setCommonData(model);
-		List<SearchFilter> filter = new ArrayList<SearchFilter>();
-		List<SearchOrder> order = new ArrayList<SearchOrder>();
-		PagingWrapper<AdvisoryConsulting> advisories = getRestCaller().findAllByFilter(startNo, offset, filter, order);
-		model.addAttribute("advisories", advisories);
-		return "/advisory/list";
+		model.addAttribute("permalink", permalink);
+		List<Category> categoryList = getCategoryList();
+		model.addAttribute("categories", categoryList);
+		Boolean foundPermalink = false;
+		for (Category category : categoryList) {
+			if(permalink.equalsIgnoreCase(category.getPermalink())){
+				model.addAttribute("category", category);
+				foundPermalink = true;
+				break;
+			}
+		}
+		if(foundPermalink){
+			return "/advisory/main";
+		}else{
+			LOGGER.error("ERROR DATA NOT FOUND");
+			return "redirect:/page/notfound";
+		}
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/detail/{id}/{title}")
@@ -187,10 +155,6 @@ public class AdvisoryWebController extends BaseSiteController<Pages>{
 		if(filterJson!=null && !"".equals(filterJson)){
 			filter.add(new SearchFilter(AppUser.PARTY_NAME, Operator.LIKE, filterJson));
 		}
-		List<SearchOrder> order = new ArrayList<SearchOrder>();
-		PagingWrapper<AppUser> advisors = getRestCallerUser().findAllByFilter(startNo, offset, filter, order);
-		model.addAttribute("advisors", advisors);
-		
 		//Category
 		List<Category> categories = new ArrayList<Category>();
 		categories = getRestCallerCategory().findAll(new ArrayList<SearchFilter>(), new ArrayList<SearchOrder>());
@@ -238,7 +202,7 @@ public class AdvisoryWebController extends BaseSiteController<Pages>{
 		return "redirect:/page/notfound";
 	}
 	
-	@RequestMapping(method=RequestMethod.GET, value="/sub/consulting")
+	@RequestMapping(method=RequestMethod.GET, value="/consulting")
 	public String consulting(ModelMap model, HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value="startNo",defaultValue="1") int startNo, 
 			@RequestParam(value="offset",defaultValue="6") int offset,
@@ -280,7 +244,7 @@ public class AdvisoryWebController extends BaseSiteController<Pages>{
 					List<SearchFilter> filterAdvisory = new ArrayList<SearchFilter>();
 					filterAdvisory.add(new SearchFilter(AdvisoryConsulting.CATEGORY_PK, Operator.EQUALS, pkCategory, Long.class));
 					List<SearchOrder> orderAdvisory = new ArrayList<SearchOrder>();
-					List<AdvisoryConsulting> advisories = getRestCallerAdvisory().findAll(filterAdvisory, orderAdvisory);
+					List<AdvisoryConsulting> advisories = getRestCaller().findAll(filterAdvisory, orderAdvisory);
 					model.addAttribute("advisories", advisories);
 					return "/advisory/categoryDetail";
 				}
@@ -392,6 +356,41 @@ public class AdvisoryWebController extends BaseSiteController<Pages>{
 	public String handleTypeMismatchException(TypeMismatchException ex) {
 		LOGGER.error("ERROR PATH VARIABLE NOT VALID");
 		return "redirect:/page/notfound";
+	}
+	
+	private String getFirstPermalinkData() throws SystemException {
+		return new SpecificRestCaller<String>(RestConstant.REST_SERVICE, RestConstant.RM_CATEGORY, String.class).executeGet(new PathInterfaceRestCaller() {
+			@Override
+			public String getPath() {
+				return "/getFirstPermalinkData/{type}";
+			}
+			
+			@Override
+			public Map<String, Object> getParameters() {
+				Map<String,Object> map = new HashMap<String, Object>();
+				map.put("type", SystemConstant.CategoryType.ADVISORY);
+				return map;
+			}
+		});
+	}
+	
+	private List<Category> getCategoryList(){
+		SpecificRestCaller<Category> rc = new SpecificRestCaller<Category>(RestConstant.REST_SERVICE, RestServiceConstant.CATEGORY_SERVICE);
+		List<Category> list = rc.executeGetList(new PathInterfaceRestCaller() {
+			
+			@Override
+			public String getPath() {
+				return "/findSimpleDataForList/{type}";
+			}
+			
+			@Override
+			public Map<String, Object> getParameters() {
+				Map<String,Object> map = new HashMap<String, Object>();
+				map.put("type", SystemConstant.CategoryType.ADVISORY);
+				return map;
+			}
+		});
+		return list;
 	}
 	
 }

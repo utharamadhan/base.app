@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+<meta charset="ISO-8859-1"/>
 </head>
 <body>
 		<div class="breadcrumb-wrapper">
@@ -8,92 +9,61 @@
 				<div class="container">
 					<ul>
 					<li><a th:href="@{/}">Beranda</a></li>
-					<li><a th:href="@{/page/advisory}">Advisory</a></li>
+					<li><a th:href="@{/page/main-program}">Program</a></li>
+					<li><a th:href="@{/page/main-program/advisory}">Advisory</a></li>
+					<li><a href="#" th:text="${category.title}"></a></li>
 					</ul>
 				</div>
 			</div>
 		</div>
-		<div class="main_advisory_section">
-			<!-- Start advisory article -->
-			<div class="advisory_article">
+		<div class="hexa-top-right-long green orange md-3">
+			<div class="top_post_section back-gradient-transparent">
 				<div class="container">
-					<div class="advisory_article_container">
-						<div class="advisor-title add-animation animate row">
-	                        <h2>Kategori</h2>
-	                        <div class="separator-container">
-	                            <div class="separator line-separator">&#x25A0;</div>
-	                        </div>
-	                    </div>
-						<div class="row article_container list_data">
-							<th:block th:each="category, i : ${categories}" th:if="${i.index &lt; 8}">
-							<div class="col-md-3 list_category_article data_result">
-								<div class="post post-polygon1">
-									<div class="post_thumb"> 
-										<img th:src="${category.encodedPicture}" />
-										<div class="overlay">
-										    <div class="text"><a th:href="@{/page/advisory/sub/article(chooseCategory=${category.pkCategory})}"><i class="fa fa-align-left"></i> Baca</a></div>
-										</div>
-									</div>
-									<h2 class="box_cat_title_label"><a th:href="@{/page/advisory/sub/article(chooseCategory=${category.pkCategory})}"><label th:text="${category.name}"></label></a></h2>
-									<div class="bottom-left-yellow"></div>
-									<div class="bottom-right-blue"></div>
-								</div>
+					<div class="row">
+					<th:block th:each="data , i : ${categories}">
+						<div class="col-md-3 loop card-active" th:classappend="${data.permalink==permalink} ? card-active : card-not-active">
+							<div class="card-image">
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" version="1.1" preserveAspectRatio="xMidYMin slice">
+								  <defs>
+								    <pattern th:attr="id='img'+${i.count}" patternUnits="userSpaceOnUse" width="600" height="400">
+								      <image width="600" height="400" xmlns:xlink="http://www.w3.org/1999/xlink" th:attr="'xlink:href'=${data.encodedPicture}"></image>
+								    </pattern>
+								  </defs>
+								  <polygon th:attr="id='hex'+${i.count},fill='url(#img'+${i.count}+')'" points="300,0 600,100 600,300 300,400 0,300 0,100"></polygon>
+								</svg>
 							</div>
-							</th:block>
+							<div class="card-box">
+								<h2 class="card-title"><a th:href="@{/page/main-program/advisory/}+${data.permalink}" th:text="${data.title}"></a></h2>
+								<div class="card-clear"></div>
+							</div>
 						</div>
+						</th:block>
 					</div>
-				</div>
-			</div>
-			
-			<!-- Start Advisor Data -->
-			<div class="advisory_expert">
-				<div class="container">
-					<div class="advisor_container">
-						<div class="advisor-title add-animation animate">
-	                        <h2>Advisor Kami</h2>
-	                        <div class="separator-container">
-	                            <div class="separator line-separator">&#x25A0;</div>
-	                        </div>
-	                    </div>
-						<div class="row advisor_list"> 
-							<div class="col-md-3 align_center" th:each="advisor, i : ${advisors}" th:if="${i.index &lt; 8}"> 
-								<input type="hidden" name="pkAppUser" class="id_advisor" th:value="${advisor.pkAppUser}"/>
-								<img class="img-circle" th:src="${advisor.party.encodedPicture}"/>
-								<div class="advisor_description">
-									<h3 class="big-text yellow-text-color advisor_name" th:text="${advisor.party.name}"></h3>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="top-desc">
+								<div class="col-md-9" th:utext="${category.description}"></div>
+								<div class="col-md-3">
+									<a th:href="@{/page/main-program/advisory/consulting}"><img th:src="@{/images/consult-pos.png}"/></a>
 								</div>
-							</div> 
+								<div class="clear"></div>
+							</div>
+							<div class="bottom-left-yellow"></div>
+							<div class="bottom-right-blue"></div>
 						</div>
-						<div class="bouton bouton-brown"><a th:href="@{/page/advisory/sub/advisor}">View More</a></div>
 					</div>
 				</div>
 			</div>
-			
-			
-			<!-- Closing advisory -->
-			<div class="advisory_consult">
-				<h1>Have A Question?</h1>
-				<p class="small-text">All your confusing and problem will be answered all by the experts.</p>
-				<button type="button" class="btn btn-primary consult_btn">CONSULT NOW <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span></button>
+			<div class="clear"></div>
+			<div class="hexa-top-green-left-long">
+			<div class="clear"></div>
 			</div>
-		</div><!--end post section-->
+			<div class="clear"></div>
+		</div>
 		
 		<script type="text/javascript" th:inline="javascript">
 		/*<![CDATA[*/
-		$(function(){      
-			$('.consult_btn').unbind('click').click(function(){
-				var url = /*[[@{/page/advisory/sub/consulting}]]*/
-				window.location.href = url;
-			});
-			
-			$('.advisor_name').unbind('click').click(function(){
-				var idVal = $(this).parent().parent().find('.id_advisor').val();
-				var url = /*[[@{/page/advisory/sub/advisor/detail/}]]*/
-				url += idVal;
-				window.location.href = url;
-			});
-		});
-		
+		setNavbarActive('program');
 		/*]]>*/
 		</script>
 </body>
