@@ -5,11 +5,11 @@
 <title>Research &#38; Dev. Category Detail</title>
 </head>
 <style>
-.gcDetail-basicPicture {
+.gcDetail-image {
 	max-height : 250px;
 }
 
-.basicPicture-delete {
+.image-delete {
 	position:absolute;
 	left:25px;
 	top:10px;
@@ -56,18 +56,18 @@
 						<div class="form-group">
 							<label class="col-sm-2 control-label" th:text="'Featured Image'">Featured Image</label>
 							<div class="col-sm-9 form-input-container">
-								<th:block th:if="${detail.basicPictureURL != null}">
-									<input type="hidden" id="input-hidden-basicPictureURL" th:field="*{basicPictureURL}"/>
-									<input type="file" class="form-control" id="input-file-basicPictureURL" style="display:none;"/>
-									<div id="container-basicPictureURL">
-										<img th:src="${detail.basicPictureURL}" class="gcDetail-basicPicture"/>
-										<a href="#" class="btn btn-primary btn-xs margin-bottom-20 basicPicture-delete" data-toggle="tooltip" title="Delete"><i class="fa fa-trash"></i></a>
+								<th:block th:if="${detail.imageURL != null}">
+									<input type="hidden" id="input-hidden-imageURL" th:field="*{imageURL}"/>
+									<input type="file" class="form-control" id="input-file-imageURL" style="display:none;"/>
+									<div id="container-imageURL">
+										<img th:src="${detail.imageURL}" class="gcDetail-image"/>
+										<a href="#" class="btn btn-primary btn-xs margin-bottom-20 image-delete" data-toggle="tooltip" title="Delete"><i class="fa fa-trash"></i></a>
 									</div>
 								</th:block>
-								<th:block th:if="${detail.basicPictureURL == null}">
-									<input type="hidden" id="input-hidden-basicPictureURL" name="basicPictureURL"/>
-									<input type="file" class="form-control" id="input-file-basicPictureURL"/>
-									<div id="container-basicPictureURL" style='display:none;'>
+								<th:block th:if="${detail.imageURL == null}">
+									<input type="hidden" id="input-hidden-imageURL" name="imageURL"/>
+									<input type="file" class="form-control" id="input-file-imageURL"/>
+									<div id="container-imageURL" style='display:none;'>
 									</div>
 								</th:block>
 								<small class="text-muted">Image Resolution : 600px X 400px</small>
@@ -103,12 +103,12 @@
 	<script th:inline="javascript">
 	/*<![CDATA[*/
 		function initDeletePicture() {
-			$('.basicPicture-delete').click(function(e){
+			$('.image-delete').click(function(e){
 				e.preventDefault();
-				$('#input-file-basicPictureURL').show();
-				$('#container-basicPictureURL').html("");
-				$('#input-hidden-basicPictureURL, #input-file-basicPictureURL').val("");
-				$('#container-basicPictureURL').hide();
+				$('#input-file-imageURL').show();
+				$('#container-imageURL').html("");
+				$('#input-hidden-imageURL, #input-file-imageURL').val("");
+				$('#container-imageURL').hide();
 			});
 		}
 	
@@ -137,12 +137,12 @@
 			};
 			
 			var showImage = function(imageURL) {
-				$('#input-file-basicPictureURL').hide();
+				$('#input-file-imageURL').hide();
 				var htmlContent = '<image src="'+imageURL+'" style="max-height:250px;"></image>';
-				htmlContent += '<a href="#" class="btn btn-primary btn-xs margin-bottom-20 basicPicture-delete" data-toggle="tooltip" title="Delete" style="position:absolute; left:25px; top:10px;"><i class="fa fa-trash"></i></a>';
-				$('#container-basicPictureURL').html(htmlContent);
-				$('#input-hidden-basicPictureURL').val(imageURL);
-				$('#container-basicPictureURL').show();
+				htmlContent += '<a href="#" class="btn btn-primary btn-xs margin-bottom-20 image-delete" data-toggle="tooltip" title="Delete" style="position:absolute; left:25px; top:10px;"><i class="fa fa-trash"></i></a>';
+				$('#container-imageURL').html(htmlContent);
+				$('#input-hidden-imageURL').val(imageURL);
+				$('#container-imageURL').show();
 				initDeletePicture();
 			}
 			
@@ -169,9 +169,9 @@
 			};
 		
 			var thisObj = '';
-			$(document).unbind('change').on('change', '#input-file-basicPictureURL', function(){
+			$(document).unbind('change').on('change', '#input-file-imageURL', function(){
 				var sURL = /*[[@{/do/fileManager/uploadFeaturedImage/}]]*/ #;
-				var thisObj = $('#input-file-basicPictureURL')[0];
+				var thisObj = $('#input-file-imageURL')[0];
 				uploadFile(thisObj.files[0], sURL);
 			});
 			
