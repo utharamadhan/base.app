@@ -1816,9 +1816,11 @@ ul.channel-links li{
 	text-transform: uppercase;
 }
 .enroll-wrap .enroll-date{
-	display:block;
-	font-size: 11px;
-	color:#f5f5f5;
+	display: block;
+    font-size: 11px;
+    color: #f5f5f5;
+    line-height: 1.2em;
+    margin-top: 10px;
 }
 .single_caption {
     width: 100%;

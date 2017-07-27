@@ -10,7 +10,6 @@
 	<link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
     <link href="<%=request.getContextPath()%>/css/bootstrap.min.css" rel="stylesheet"><!-- Bootstrap -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/css/select_option1.css"><!-- select box -->
-	<link rel="stylesheet" href="<%=request.getContextPath()%>/css/font-awesome.min.css"><!-- font-awesome-->
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/css/fullcalendar.min.css"><!-- Calendar-->
 	<link rel="stylesheet" href='<%=request.getContextPath()%>/css/fullcalendar.print.min.css' rel='stylesheet' media='print' />
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/css/animate.css">

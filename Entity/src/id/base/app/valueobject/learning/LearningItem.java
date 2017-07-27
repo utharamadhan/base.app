@@ -82,9 +82,6 @@ public class LearningItem extends BaseEntity implements Serializable {
 	@Column(name="PERMALINK")
 	private String permalink;
 	
-	@Column(name="SUBTITLE")
-	private String subtitle;
-	
 	@Column(name="IMAGE_URL")
 	private String imageURL;
 	
@@ -123,8 +120,21 @@ public class LearningItem extends BaseEntity implements Serializable {
 	@Column(name="ADMISSION_REQUIREMENT")
 	private String admissionRequirement;
 	
+	@Column(name="PAYMENT_DESC")
+	private String paymentDesc;
+	
+	@Column(name="CLOSING_DATE_REG")
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	private Date closingDateReg;
+	
+	@Column(name="LOCATION")
+	private String location;
+	
 	@Column(name="PAYMENT_DETAIL")
 	private String paymentDetail;
+	
+	@Column(name="ORGANIZER_DETAIL")
+	private String organizerDetail;
 	
 	@Column(name="STATUS")
 	private Integer status;
@@ -152,6 +162,9 @@ public class LearningItem extends BaseEntity implements Serializable {
 	
 	@Transient
 	public String eventDate;
+	
+	@Transient
+	public Boolean eligibleRegistration;
 
 	public Long getPkLearningItem() {
 		return pkLearningItem;
@@ -183,14 +196,6 @@ public class LearningItem extends BaseEntity implements Serializable {
 
 	public void setPermalink(String permalink) {
 		this.permalink = permalink;
-	}
-
-	public String getSubtitle() {
-		return subtitle;
-	}
-
-	public void setSubtitle(String subtitle) {
-		this.subtitle = subtitle;
 	}
 
 	public String getImageURL() {
@@ -288,6 +293,38 @@ public class LearningItem extends BaseEntity implements Serializable {
 	public void setPaymentDetail(String paymentDetail) {
 		this.paymentDetail = paymentDetail;
 	}
+	
+	public String getPaymentDesc() {
+		return paymentDesc;
+	}
+
+	public void setPaymentDesc(String paymentDesc) {
+		this.paymentDesc = paymentDesc;
+	}
+
+	public Date getClosingDateReg() {
+		return closingDateReg;
+	}
+
+	public void setClosingDateReg(Date closingDateReg) {
+		this.closingDateReg = closingDateReg;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public String getOrganizerDetail() {
+		return organizerDetail;
+	}
+
+	public void setOrganizerDetail(String organizerDetail) {
+		this.organizerDetail = organizerDetail;
+	}
 
 	public Integer getStatus() {
 		return status;
@@ -367,6 +404,13 @@ public class LearningItem extends BaseEntity implements Serializable {
 	public void setEventDate(String eventDate) {
 		this.eventDate = eventDate;
 	}
-	
+
+	public Boolean getEligibleRegistration() {
+		Boolean eligible = false;
+		if(closingDateReg!=null && !(DateTimeFunction.getCurrentDateWithoutTime().compareTo(closingDateReg)>0)){
+			eligible = true;
+		}
+		return eligible;
+	}
 
 }

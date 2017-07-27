@@ -84,7 +84,11 @@ public class LearningItemService implements ILearningItemService {
 	
 	@Override
 	public LearningItem findByPermalink(String permalink) throws SystemException {
-		return learningItemDAO.findByPermalink(permalink);
+		LearningItem obj = learningItemDAO.findByPermalink(permalink);
+		if(obj.getTeachers() instanceof PersistentBag) {
+			((PersistentCollection) obj.getTeachers() ).forceInitialization();
+		}
+		return obj;
 	}
 
 	@Override

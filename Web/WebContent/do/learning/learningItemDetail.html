@@ -85,12 +85,6 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-2 control-label" th:text="'Sub Title'">Sub Title</label>
-							<div class="col-sm-9 form-input-container">
-								<input type="text" class="form-control" placeholder="Sub Title" id="input-text-title" th:field="*{subtitle}"/>
-							</div>
-						</div>
-						<div class="form-group">
                           	<label class="col-sm-2 control-label required">Event Date</label>
                           	<div class="col-sm-4">
                             	<input type='text' class="datepickerInput input-date form-control" placeholder="From" th:name="dateFrom" th:value="${detail.dateFrom!=null?#dates.format(detail.dateFrom, T(id.base.app.SystemConstant).SYSTEM_DATE_MASK_2):''}" />
@@ -100,6 +94,32 @@
                             	<input type='text' class="datepickerInput input-date form-control" placeholder="To" th:name="dateTo" th:value="${detail.dateTo!=null?#dates.format(detail.dateTo, T(id.base.app.SystemConstant).SYSTEM_DATE_MASK_2):''}" />
                            	</div>
                        	</div>
+                       	<div class="form-group">
+                          	<label class="col-sm-2 control-label">Closing Date of Registration</label>
+                          	<div class="col-sm-4">
+                            	<input type='text' class="datepickerInput input-date form-control" th:name="closingDateReg" th:value="${detail.closingDateReg!=null?#dates.format(detail.closingDateReg, T(id.base.app.SystemConstant).SYSTEM_DATE_MASK_2):''}" />
+                           	</div>
+                       	</div>
+                       	<div class="form-group">
+							<label class="col-sm-2 control-label" th:text="'Location'">Location</label>
+							<div class="col-sm-9 form-input-container">
+								<div class="panel-group" id="acc-loc-desc">
+								  <div class="panel panel-default">
+								    <div class="panel-heading" data-toggle="collapse" data-parent="#acc-location" data-target="#acc-location-one">
+								      <h4 class="panel-title">
+								        <a class="accordion-toggle">[Insert Location]</a>
+								      </h4>
+								    </div>
+								    <div id="acc-location-one" class="panel-collapse collapse">
+								        <input id="tinyMCE-loc-hidden" name="location" type="hidden"/>
+										<div id="tinyMCE-loc-parent">					
+											<textarea id="tinyMCE-loc-area" th:text="*{location}"></textarea>
+										</div>
+								    </div>
+								  </div>
+								</div>	
+							</div>
+						</div>
 						<div class="form-group">
 							<label class="col-sm-2 control-label" th:text="'Featured Image'">Featured Image</label>
 							<div class="col-sm-9 form-input-container">
@@ -120,7 +140,7 @@
 								<small class="text-muted">Image Resolution : 600px X 400px</small>
 							</div>
 						</div>
-                       	<div class="form-group">
+						<div class="form-group">
 							<label class="col-sm-2 control-label required" th:text="'Method'">Method</label>
 							<div class="col-sm-9 form-input-container">
 								<select class="chosen-select form-control" th:field="*{methodLookup.pkLookup}">
@@ -131,24 +151,18 @@
 						</div>
 						<div class="form-group">
 							<label class="col-sm-2 control-label required" th:text="'Organizer'">Organizer</label>
-							<div class="col-sm-9 form-input-container">
+							<div class="col-sm-4 form-input-container">
 								<select class="chosen-select form-control" th:field="*{organizerLookup.pkLookup}">
 									<option value="">[Please Select Organizer]</option>
 									<option th:each="opt : ${organizerOptions}" th:value="${opt.pkLookup}" th:text="${opt.name}">Name</option>
                            		</select>
                            	</div>
+                           	<div class="col-sm-5 form-input-container">
+								<input type="text" class="form-control" placeholder="Organizer Detail" id="input-text-title" th:field="*{organizerDetail}"/>
+							</div>
 						</div>
-						<div class="form-group">
-							<label class="col-sm-2 control-label required" th:text="'Payment'">Payment</label>
-							<div class="col-sm-9 form-input-container">
-								<select class="chosen-select form-control" th:field="*{paymentLookup.pkLookup}">
-									<option value="">[Please Select Payment]</option>
-									<option th:each="opt : ${paymentOptions}" th:value="${opt.pkLookup}" th:text="${opt.name}">Name</option>
-                           		</select>
-                           	</div>
-						</div>
-						<div class="form-group">
-							<label class="col-sm-2 control-label required" th:text="'Teacher'">Teacher</label>
+                       	<div class="form-group">
+							<label class="col-sm-2 control-label required" th:text="'Teacher / Speaker'">Teacher / Speaker</label>
 							<div class="col-sm-9 form-input-container">
 								<div class="panel-group" id="acc-teacher">
 								  <div class="panel panel-default">
@@ -216,8 +230,7 @@
 								    <div id="acc-description-one" class="panel-collapse collapse">
 								        <input id="tinyMCE-desc-hidden" name="description" type="hidden"/>
 										<div id="tinyMCE-desc-parent">					
-											<textarea id="tinyMCE-desc-area" th:text="*{description}">
-											</textarea>
+											<textarea id="tinyMCE-desc-area" th:text="*{description}"></textarea>
 										</div>
 								    </div>
 								  </div>
@@ -227,7 +240,7 @@
 						<div class="form-group">
 							<label class="col-sm-2 control-label" th:text="'Admission Requirement'">Admission Requirement</label>
 							<div class="col-sm-9 form-input-container">
-								<div class="panel-group" id="acc-description">
+								<div class="panel-group" id="acc-adm-req">
 								  <div class="panel panel-default">
 								    <div class="panel-heading" data-toggle="collapse" data-parent="#acc-admission" data-target="#acc-admission-one">
 								      <h4 class="panel-title">
@@ -237,8 +250,7 @@
 								    <div id="acc-admission-one" class="panel-collapse collapse">
 								        <input id="tinyMCE-adm-hidden" name="admissionRequirement" type="hidden"/>
 										<div id="tinyMCE-adm-parent">					
-											<textarea id="tinyMCE-adm-area" th:text="*{admissionRequirement}">
-											</textarea>
+											<textarea id="tinyMCE-adm-area" th:text="*{admissionRequirement}"></textarea>
 										</div>
 								    </div>
 								  </div>
@@ -246,20 +258,31 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-2 control-label" th:text="'Payment Detail'">Payment Detail</label>
+							<label class="col-sm-2 control-label required" th:text="'Payment'">Payment</label>
+							<div class="col-sm-4 form-input-container">
+								<select class="chosen-select form-control" th:field="*{paymentLookup.pkLookup}">
+									<option value="">[Please Select Payment]</option>
+									<option th:each="opt : ${paymentOptions}" th:value="${opt.pkLookup}" th:text="${opt.name}">Name</option>
+                           		</select>
+                           	</div>
+                           	<div class="col-sm-5 form-input-container">
+								<input type="text" class="form-control" placeholder="Payment Detail" id="input-text-title" th:field="*{paymentDetail}"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" th:text="'Payment Description'">Payment Description</label>
 							<div class="col-sm-9 form-input-container">
-								<div class="panel-group" id="acc-description">
+								<div class="panel-group" id="acc-pay-desc">
 								  <div class="panel panel-default">
 								    <div class="panel-heading" data-toggle="collapse" data-parent="#acc-payment" data-target="#acc-payment-one">
 								      <h4 class="panel-title">
-								        <a class="accordion-toggle">[Insert Payment Detail]</a>
+								        <a class="accordion-toggle">[Insert Payment Description]</a>
 								      </h4>
 								    </div>
 								    <div id="acc-payment-one" class="panel-collapse collapse">
-								        <input id="tinyMCE-pay-hidden" name="paymentDetail" type="hidden"/>
+								        <input id="tinyMCE-pay-hidden" name="paymentDesc" type="hidden"/>
 										<div id="tinyMCE-pay-parent">					
-											<textarea id="tinyMCE-pay-area" th:text="*{paymentDetail}">
-											</textarea>
+											<textarea id="tinyMCE-pay-area" th:text="*{paymentDesc}"></textarea>
 										</div>
 								    </div>
 								  </div>
@@ -283,7 +306,7 @@
                            	</div>
 						</div>
 						<div class="form-group form-footer">				
-							<div class="col-sm-offset-2 col-sm-10">
+							<div class="col-sm-offset-2 col-sm-10">	
 								<a href="#" id="item-detail-btn-cancel" class="btn btn-default" type="reset" data-toggle="tooltip" title="" th:text="#{button.cancel}">Cancel</a>
 								<button id="item-detail-btn-save" class="btn btn-primary" type="submit" data-toggle="tooltip" title="" th:text="#{button.save}">Save</button>
 							</div>
@@ -326,11 +349,16 @@
 	    	initDeletePicture();
 	    	var uploadURL = /*[[@{/do/fileManager/upload/}]]*/ #;
 	    	initDatePicker("datepickerInput", "dd/mm/yy");
+	    	initTextEditorWithoutP('#tinyMCE-loc-area', '#tinyMCE-loc-parent', uploadURL);
 	    	initTextEditorWithoutP('#tinyMCE-desc-area', '#tinyMCE-desc-parent', uploadURL);
 	    	initTextEditorWithoutP('#tinyMCE-adm-area', '#tinyMCE-adm-parent', uploadURL);
 	    	initTextEditorWithoutP('#tinyMCE-pay-area', '#tinyMCE-pay-parent', uploadURL);
 	    	
 	    	var backToList = function(){
+	    		removeTextEditor("tinyMCE-loc-area", "tinyMCE-loc-parent");
+	    		removeTextEditor("tinyMCE-desc-area", "tinyMCE-desc-parent");
+	    		removeTextEditor("tinyMCE-adm-area", "tinyMCE-adm-parent");
+	    		removeTextEditor("tinyMCE-pay-area", "tinyMCE-pay-parent");
 				returnToList('item-detail-container', 'item-list-container', true);
 			};
 			
@@ -351,6 +379,7 @@
 			
 			var submitForm = function(){
 				cleanErrorParsley();
+				$('#tinyMCE-loc-hidden').val(tinymce.get('tinyMCE-loc-area').getContent());
 				$('#tinyMCE-desc-hidden').val(tinymce.get('tinyMCE-desc-area').getContent());
 				$('#tinyMCE-pay-hidden').val(tinymce.get('tinyMCE-pay-area').getContent());
 				$('#tinyMCE-adm-hidden').val(tinymce.get('tinyMCE-adm-area').getContent());
@@ -390,8 +419,7 @@
 				$('#container-imageURL').show();
 				initDeletePicture();
 			}
-			
-			
+		
 			var uploadFile = function(image, uploadURL) {
 				var data = new FormData();
 				data.append('file', image);
@@ -413,12 +441,6 @@
 				}
 				xhr.send(data);
 			};
-			
-			$('#input-file-fileURL').change(function(){
-				var sURL = /*[[@{/do/fileManager/uploadEBookFile/}]]*/ #;
-				var thisObj = $('#input-file-fileURL')[0];
-				uploadFile(thisObj.files[0], sURL, false);
-			});
 			
 			$('#item-detail-btn-save').click(function(e){
 				e.preventDefault();
