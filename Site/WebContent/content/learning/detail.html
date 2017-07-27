@@ -52,7 +52,7 @@
 									<th:block th:if="${detail.admissionRequirement!=null and detail.admissionRequirement!=''}">
 									<li class=""><a href="#admission_requirements" data-toggle="tab" aria-expanded="false">Minimal Persyaratan</a></li>
 									</th:block>
-									<th:block th:if="${detail.paymentDetail!=null and detail.paymentDetail!=''}">
+									<th:block th:if="${detail.paymentDesc!=null and detail.paymentDesc!=''}">
 									<li class=""><a href="#cost" data-toggle="tab" aria-expanded="false">Cara Pembayaran</a></li>
 									</th:block>
 									<li class=""><a href="#faq" data-toggle="tab" aria-expanded="false">FAQs</a></li>
@@ -61,8 +61,8 @@
 							
 							<div class="tab-content single_tab_content">
 								<div role="tabpanel" class="tab-pane active" id="explore_program" th:utext="${detail.description}"></div>
-								<div role="tabpanel" class="tab-pane" id="cost" th:utext="${detail.paymentDetail}"></div>
 								<div role="tabpanel" class="tab-pane" id="admission_requirements" th:utext="${detail.admissionRequirement}"></div>
+								<div role="tabpanel" class="tab-pane" id="cost" th:utext="${detail.paymentDesc}"></div>
 								<div role="tabpanel" class="tab-pane" id="faq">
 									<div class="panel-group" id="accordion1">
 										<div class="panel panel-default">
