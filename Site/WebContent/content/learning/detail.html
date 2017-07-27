@@ -181,8 +181,22 @@
 										</ul>
 										</li>
 										<li><span>Metode:</span><br/><th:block th:text="${detail.methodLookup.descr}"></th:block></li>
-										<li><span>Penyelenggara:</span><br/><th:block th:text="${detail.organizerLookup.descr}"></th:block></li>
-										<li><span>Pembayaran:</span><br/><th:block th:text="${detail.paymentLookup.descr}"></th:block></li>
+										<li><span>Penyelenggara:</span><br/>
+										<th:block th:if="${detail.organizerDetail!=null and detail.organizerDetail!=''}">
+											<th:block th:text="${detail.organizerDetail}"></th:block>
+										</th:block>
+										<th:block th:if="${detail.organizerDetail==null or detail.organizerDetail==''}">
+											<th:block th:text="${detail.organizerLookup.descr}"></th:block>
+										</th:block>
+										</li>
+										<li><span>Pembayaran:</span><br/>
+										<th:block th:if="${detail.paymentDetail!=null and detail.paymentDetail!=''}">
+											<th:block th:text="${detail.paymentDetail}"></th:block>
+										</th:block>
+										<th:block th:if="${detail.paymentDetail==null or detail.paymentDetail==''}">
+											<th:block th:text="${detail.paymentLookup.descr}"></th:block>
+										</th:block>
+										</li>
 										<li><span>Sertifikasi:</span><br/><th:block th:text="${detail.isCertification?'Yes':'No'}"></th:block></li>
 									</ul>
 								</div>
