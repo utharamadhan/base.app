@@ -25,6 +25,7 @@ import id.base.app.valueobject.aboutUs.ProgramPost;
 import id.base.app.valueobject.aboutUs.Tutor;
 import id.base.app.valueobject.advisory.AdvisoryConsulting;
 import id.base.app.valueobject.contact.Contact;
+import id.base.app.valueobject.frontend.IntegrationScript;
 import id.base.app.valueobject.learning.LearningItem;
 import id.base.app.valueobject.learning.VWLearningItem;
 import id.base.app.valueobject.party.Party;
@@ -241,5 +242,8 @@ public class ParameterLoader extends ContextLoader implements ServletContextList
 		
 		RestCaller.BASE_URL.put(RestServiceConstant.HOUSING_INDEX_SERVICE, RestConstant.RM_HOUSING_INDEX);
 		RestCaller.BASE_CLASS.put(RestServiceConstant.HOUSING_INDEX_SERVICE, HousingIndex.class);
+		
+		RestCaller.BASE_URL.put(RestServiceConstant.INTEGRATION_SCRIPT_SERVICE, RestConstant.RM_INTEGRATION_SCRIPT);
+		RestCaller.BASE_CLASS.put(RestServiceConstant.INTEGRATION_SCRIPT_SERVICE, IntegrationScript.class);
 	}
 }

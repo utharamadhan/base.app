@@ -404,4 +404,22 @@ public class SystemConstant  {
 		public static final String PAST = "P";
 		public static final String FUTURE = "F";
 	}
+	
+	public static final class IntegrationScriptType{
+		public static final Integer GLOBAL = 0;
+		public static final Integer SPESIFIC = 1;
+	}
+	
+	public static final class IntegrationScriptPosition{
+		public static final Integer HEADER = 1;
+		public static final Integer FOOTER = 2;
+		public static final String HEADER_STR = "Header";
+		public static final String FOOTER_STR = "Footer";
+		public static final Map<Integer, String> POSITION_MAP = new HashMap<>();
+		static {
+			POSITION_MAP.put(HEADER, HEADER_STR);
+			POSITION_MAP.put(FOOTER, FOOTER_STR);
+		}
+	}
 }
+	

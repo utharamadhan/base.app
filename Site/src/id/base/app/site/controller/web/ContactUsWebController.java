@@ -89,7 +89,6 @@ public class ContactUsWebController extends BaseSiteController<Contact>{
 	@RequestMapping(method=RequestMethod.GET, value="/{type}")
 	public String view(ModelMap model, HttpServletRequest request, HttpServletResponse response, @PathVariable(value="type") String type){
 		setDefaultData(model);
-		
 		List<SearchFilter> filter = new ArrayList<SearchFilter>();
 		List<SearchOrder> order = new ArrayList<SearchOrder>();
 		filter.add(new SearchFilter(Lookup.LOOKUP_GROUP_STRING, Operator.EQUALS, ILookupGroupConstant.CATEGORY_HELP));
@@ -110,8 +109,6 @@ public class ContactUsWebController extends BaseSiteController<Contact>{
 	
 	@RequestMapping(method=RequestMethod.GET, value="/testEmail")
 	public String testEmail(ModelMap model, HttpServletRequest request, HttpServletResponse response){
-		setDefaultData(model);
-		
 		final String username = SystemParameter.EMAIL_USERNAME;
 		final String password = SystemParameter.EMAIL_PASSWORD;
 		

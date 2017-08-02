@@ -33,7 +33,7 @@
 										<input type="text" class="form-control param" placeholder="Masukan Kata Kunci..."/>
 									</div>
 									<div class="col-md-2">
-										<button type="button" class="btn btn-danger mrdy_btn search">Cari Album</button>
+										<button type="button" class="btn btn-danger mrdy_btn search">Cari Galeri</button>
 									</div>
 								</div>
 							</form>
@@ -69,10 +69,31 @@
 								</div>
 								<div class="bottom-left-yellow"></div>
 								<div class="bottom-right-blue"></div>
+								<input type="hidden" name="identity" th:value="${data?.learningPermalink}"/>
 							</div>
 						</div>					
 						</th:block>
 					</div>
+					<div class="row load_pagination" style="display: none;">
+						<div class="col-md-12">
+							<div class="col-md-4"></div>
+							<div class="col-md-4"> <img th:src="@{/images/gif/loading_linear.gif}" style="margin-left: 50px;"/> </div>
+							<div class="col-md-4"></div>
+						</div>
+					</div>
+					<div class="row pagination_part">
+						<div class="col-md-12">
+							<div class="col-md-4"></div>
+							<div class="col-md-4">
+								<ul class="pagination_section">
+									<li style="width:100%;text-align:center"><a href="#" class="load_more mrdy_btn">Older Galeri</a></li>
+								</ul><!--end pagination section-->		
+								<input type="hidden" th:value="${items.startRecordIndex}" class="startNo"/>
+								<input type="hidden" th:value="${items.recordsPerPage}" class="offset"/>
+							</div>
+							<div class="col-md-4"></div>
+						</div><!--end post left section-->
+					</div><!--end post_left-->
 				</div>
 			</div>
 			<div class="clear"></div>
@@ -81,7 +102,111 @@
 		<script type="text/javascript" th:inline="javascript">
 		/*<![CDATA[*/
 		setNavbarActive('galeri');
+		function showPaging(maxRecord, currentRecord){
+			if(maxRecord <= currentRecord || currentRecord == 0){
+				$('.pagination_part').hide();
+			}else{
+				$('.pagination_part').show();
+			}
+		}
 		
+		function processData(datas, load){
+			var load_content = '';
+			for(var i=0;i<datas.length;i++){
+				if(i%3==0){
+					load_content = load_content + "<div class='clear'></div>";
+				}
+				var cloning = $('.template_part .data_result').eq(0).clone();
+				cloning.find('.post_thumb svg image').attr('xlink:href',datas[i].encodedPicture);
+				cloning.find('.title_news').html(datas[i].title);
+				cloning.find('input[name="identity"]').val(datas[i].permalink);
+				cloning.wrap('<div></div>');
+				if(!load){
+					$('.list_data').append(cloning.parent().html());
+				}else{
+					load_content = load_content + cloning.parent().html();
+				}
+			}
+			
+			if(load){
+				$('.list_data').html(load_content);
+			}
+		}
+		
+		$(function(){
+			var maxRecord = /*[[${items.maxRecord}]]*/;
+			var currentRecord = /*[[${items.currentRecord}]]*/;
+			
+			showPaging(maxRecord, currentRecord);
+			
+			$('.load_more').unbind('click').click(function(){
+				var sURL = /*[[@{/page/galeri/load}]]*/
+				var param = $('.param').val();
+				var nextStartNo = parseInt($('.startNo').val()) + parseInt($('.offset').val());
+				var offset = $('.offset').val();
+				$.ajax({
+		            type: 'GET',
+		            url: sURL,
+		            data: {filter : param, startNo : nextStartNo, offset : offset},
+		            dataType: 'json',
+		            success: function (data) {
+		            	$('.load_pagination').hide();
+		            	$('.mrdy_btn').disableBtn({enabled:true});
+		            	processData(data.news.result, false);		
+		            	var newMaxRecord = data.news.maxRecord;
+		            	var newCurrentRecord = data.news.currentRecord;
+		            	showPaging(newMaxRecord, newCurrentRecord);
+		            	$('.startNo').val(data.news.startRecordIndex);
+		            },
+		            beforeSend: function($jqXHR, $textStatus){
+						$('.load_pagination').show();
+						$('.mrdy_btn').disableBtn({enabled:false});
+					},
+					error: function ($jqXHR, $textStatus, $errorThrown) {
+						$('.load_pagination').hide();
+						$('.mrdy_btn').disableBtn({enabled:true});
+					},
+					complete: function($jqXHR, $textStatus){
+						$('.load_pagination').hide();
+						$('.mrdy_btn').disableBtn({enabled:false});
+					}
+		        });				
+			});
+			
+			$('.search').unbind('click').click(function(){
+				var sURL = /*[[@{/page/galeri/load}]]*/
+				var param = $('.param').val();
+				var img_url = /*[[@{/images/gif/hex-loader.gif}]]*/;
+				$.ajax({
+		            type: 'GET',
+		            url: sURL,
+		            data: {filter : param},
+		            dataType: 'json',
+		            success: function (data) {
+		            	$('.pagination_part').hide();
+		            	$('.loading_reload').remove();
+		            	$('.mrdy_btn').disableBtn({enabled:true});
+		            	processData(data.news.result, true);
+		            	var newMaxRecord = data.news.maxRecord;
+		            	var newCurrentRecord = data.news.currentRecord;
+		            	showPaging(newMaxRecord, newCurrentRecord);
+		            	$('.startNo').val(data.news.startRecordIndex);
+		            },
+		            beforeSend: function($jqXHR, $textStatus){
+		            	$('.list_data').html('<div class="col-md-12 loading_reload" style="display: block; margin-left: auto; margin-right: auto;text-align: center;"><img src="'+img_url+'" /></div>');
+						$('.mrdy_btn').disableBtn({enabled:false});
+					},
+					error: function ($jqXHR, $textStatus, $errorThrown) {
+						$('.loading_reload').remove();
+						$('.mrdy_btn').disableBtn({enabled:true});
+					},
+					complete: function($jqXHR, $textStatus){
+						$('.loading_reload').remove();
+						$('.mrdy_btn').disableBtn({enabled:true});
+					}
+		        });				
+			});
+		});
 		/*]]>*/
 		</script>
 </body>

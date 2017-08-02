@@ -1805,7 +1805,7 @@ ul.channel-links li{
 .enroll-wrap{
 	margin-right: 10px;
     text-align: center;
-    background: #0056a1;
+    background: #1073ca;
     color: white;
     padding: 20px;
 	cursor:pointer;
@@ -1977,6 +1977,13 @@ ul.channel-links li{
     text-align: left;
     line-height: 18px;
     margin: 0 0 16px;
+}
+.item_inner.program ul.default-list{
+	padding-left:18px;
+}
+.item_inner.program ul.default-list li {
+	margin: 0px;
+    list-style-type: circle;
 }
 .item_inner.program ul li span {
     width: 40%;
@@ -4809,6 +4816,9 @@ blockquote span {
 @media screen and (max-width: 1279px) {
     body.bodyColor .header {
         max-width: 970px;
+    }
+    blockquote {
+    	font-size: 30px;
     }
     .videoLeft {
         width: 475px;

@@ -22,16 +22,33 @@
 					<div class="col-xs-12">
 						<div class="single_banner_inner">
 							<div class="single_caption">
+								<th:block th:if="${detail.eligibleRegistration}">
 								<div class="col-md-10 course-detail-title">
 									<h1 th:utext="${detail.title}"></h1>
 								</div>
+								</th:block>
+								<th:block th:if="${!detail.eligibleRegistration}">
+								<div class="col-md-8 course-detail-title">
+									<h1 th:utext="${detail.title}"></h1>
+								</div>
+								</th:block>
 								<div class="col-md-2" th:if="${detail.eligibleRegistration}">
 									<div class="enroll-wrap" data-toggle="modal" data-target="#sign-in-modal">
 										<!-- <div class="enroll-wrap" data-toggle="modal" data-target="#enroll-modal"> -->
-										<span class="enroll-title">Daftar</span>
+										<span class="enroll-title">Daftar Sekarang</span>
 										<span class="enroll-date">Pendaftaran Berakhir<br/>
 											<th:block th:text="${detail.closingDateReg!=null?#dates.format(detail.closingDateReg, T(id.base.app.SystemConstant).SYSTEM_DATE_MASK_2):''}" ></th:block>
 										</span>
+									</div>
+								</div>
+								<div class="col-md-2" th:if="${!detail.eligibleRegistration}">
+									<div class="enroll-wrap">
+										<span class="enroll-title">Galeri Foto</span>
+									</div>
+								</div>
+								<div class="col-md-2" th:if="${!detail.eligibleRegistration}">
+									<div class="enroll-wrap">
+										<span class="enroll-title">Galeri Video</span>
 									</div>
 								</div>
 							</div><!--end single caption-->
@@ -174,7 +191,7 @@
 											<li><span>Tempat:</span><br/><th:block th:utext="${detail.location}"></th:block></li>
 										</th:block>
 										<li><span>Pengajar/Pembicara:</span><br/>
-										<ul>
+										<ul class="default-list">
 											<th:block th:each="t, i : ${detail.teachers}">
 												<li th:text="${t.teacherName}"></li>
 											</th:block>

@@ -90,11 +90,10 @@ public class LearningWebController extends BaseSiteController<LearningItem>{
 			model.addAttribute("organizerOptions", lrc.findByLookupGroup(ILookupGroupConstant.LEARNING_ORGANIZER));
 			model.addAttribute("paymentOptions", lrc.findByLookupGroup(ILookupGroupConstant.LEARNING_PAYMENT));
 			List<SearchFilter> filter = new ArrayList<SearchFilter>();
-			filter.add(new SearchFilter(VWLearningItem.PERIOD, Operator.EQUALS, SystemConstant.Period.FUTURE, String.class));
 			filter.add(new SearchFilter(VWLearningItem.CATEGORY_PERMALINK, Operator.EQUALS, permalink, String.class));
 			filter.add(new SearchFilter(VWLearningItem.STATUS, Operator.EQUALS, ILookupConstant.Status.PUBLISH, Integer.class));
 			List<SearchOrder> order = new ArrayList<SearchOrder>();
-			order.add(new SearchOrder(VWLearningItem.DATE_FROM, Sort.ASC));
+			order.add(new SearchOrder(VWLearningItem.DATE_FROM, Sort.DESC));
 			PagingWrapper<VWLearningItem> items = getRestCallerView().findAllByFilter(startNo, offset, filter, order);
 			model.addAttribute("items", items);
 			return "/learning/main";

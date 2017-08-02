@@ -27,6 +27,7 @@ import id.base.app.valueobject.advisory.AdvisoryConsulting;
 import id.base.app.valueobject.contact.Contact;
 import id.base.app.valueobject.contact.ContactSetting;
 import id.base.app.valueobject.frontend.HomeSetting;
+import id.base.app.valueobject.frontend.IntegrationScript;
 import id.base.app.valueobject.learning.LearningItem;
 import id.base.app.valueobject.notification.Notification;
 import id.base.app.valueobject.party.Party;
@@ -265,6 +266,9 @@ public class ParameterLoader extends ContextLoader implements ServletContextList
 		
 		RestCaller.BASE_URL.put(RestServiceConstant.CONTACT_SETTING_SERVICE, RestConstant.RM_CONTACT_SETTING);
 		RestCaller.BASE_CLASS.put(RestServiceConstant.CONTACT_SETTING_SERVICE, ContactSetting.class);
+		
+		RestCaller.BASE_URL.put(RestServiceConstant.INTEGRATION_SCRIPT_SERVICE, RestConstant.RM_INTEGRATION_SCRIPT);
+		RestCaller.BASE_CLASS.put(RestServiceConstant.INTEGRATION_SCRIPT_SERVICE, IntegrationScript.class);
 		
 	}
 }

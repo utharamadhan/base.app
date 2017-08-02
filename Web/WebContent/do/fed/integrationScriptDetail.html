@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:ifs="http://btn.co.id">
+<head>
+<meta charset="ISO-8859-1"/>
+<title>Integration Script Detail</title>
+</head>
+<style>
+.control-label-province{
+	font-size: 11px;
+    padding-top: 13px!important;
+}
+</style>
+<body>
+	<div class="pageheader">
+		<div class="row col-md-8">
+			<h4><i class="fa fa-tachometer"></i> Front End Display / Integration Script List / Integration Script Detail
+			<span></span></h4>
+		</div>
+	</div>
+	<div class="row col-md-12">
+	<section class="tile transparent">
+			<div class="tile-body rounded-corners">
+				<form action="#" id="footerLinkUrl-detail-form" class="form-horizontal" method="POST" novalidate="novalidate" th:object="${detail}">
+					<div class="stockTypeStyle">
+						<div class="form-group">
+							<div class="col-md-12">
+								<div id="errorFragmentList">
+									<th:block th:if="${message}">
+										<div class='alert alert-success'>
+											<a href='#' class='close' data-dismiss='alert' aria-label='close' title='close'>&#10006;</a>			
+											<label th:text="${message}"></label>
+										</div>
+									</th:block>
+								</div>
+							</div>									
+							&nbsp;
+						</div>
+						<input id="footerLinkUrl-detail-maintenancePk" type="hidden" th:field="*{pkLinkUrl}"/>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" th:text="'Title'">Title</label>
+							<div class="col-sm-9 form-input-container">
+								<input type="text" class="form-control" placeholder="Title" name="srch-term" id="input-text-title" th:field="*{title}"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" th:text="'Link URL'">Link URL</label>
+							<div class="col-sm-9 form-input-container">
+								<input type="text" class="form-control" placeholder="Link URL" name="srch-term" id="input-text-title" th:field="*{url}"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" th:text="'Order No'">Order No</label>
+							<div class="col-sm-9 form-input-container">
+								<input type="text" class="form-control" placeholder="Order No" name="srch-term" id="input-text-title" th:field="*{orderNo}"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" th:text="'Status'">Status</label>
+							<div class="col-sm-9 form-input-container">
+								<select class="chosen-select form-control" th:field="*{status}">
+									<option th:each="opt : ${statusOptions}" th:value="${opt.code}" th:text="${opt.name}">Name</option>
+                           		</select>
+                           	</div>
+						</div>
+						<div class="form-group form-footer">				
+							<div class="col-sm-offset-3 col-sm-9">
+								<a href="#" id="footerLinkUrl-detail-btn-cancel" class="btn btn-default" type="reset" data-toggle="tooltip" title="" th:text="#{button.cancel}">Cancel</a>
+								<button id="footerLinkUrl-detail-btn-save" class="btn btn-primary" type="submit" data-toggle="tooltip" title="" th:text="#{button.save}">Save</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+	</section>
+	</div>
+	<script th:inline="javascript">
+	/*<![CDATA[*/
+	    $(function(){
+			var backToList = function(){
+				returnToList('footerLinkUrl-detail-container', 'footerLinkUrl-list-container', true);
+			};
+	    	
+			var submitForm = function(){
+				cleanErrorParsley();
+				var sURL = /*[[@{/do/fed/footerLinkUrl/saveFooterLinkUrl/}]]*/ #;
+				$.post(sURL, $("#footerLinkUrl-detail-form").serialize(), function(data) {
+					if(data.errorList!=null){
+						displayErrorParsley(data.errorList);
+					}else{
+						bootBoxSuccessSave('Footer Link URL Successfully Saved', backToList);
+					}
+				});
+			};
+			
+			$('#footerLinkUrl-detail-btn-save').click(function(e){
+				e.preventDefault();
+				submitForm();
+			});
+			
+			$('#footerLinkUrl-detail-btn-cancel').click(function(e){
+				e.preventDefault();
+				backToList();
+			});
+	    });
+	/*]]>*/
+	</script>
+</body>
+</html>

@@ -32,7 +32,8 @@ public class IAccessibilityConstant {
 		public static int INT_FE_MENU_SET = 410;
 		public static int INT_FE_HOME_SET = 420;
 		public static int INT_FE_PAGE = 430;
-		public static int INT_FE_FOOTER_LINK_URL = 430;
+		public static int INT_FE_FOOTER_LINK_URL = 440;
+		public static int INT_FE_INTEGRATION_SCRIPT = 450;
 
 	public static int INT_ABOUT_US = 500;
 		public static int INT_AU_COMMON_POST = 510;
