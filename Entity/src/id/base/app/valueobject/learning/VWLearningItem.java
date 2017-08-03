@@ -23,6 +23,7 @@ public class VWLearningItem implements Serializable {
 	
 	private static final long serialVersionUID = 6537519455353080348L;
 
+	public static final String PK = "pk";
 	public static final String CATEGORY_PERMALINK = "categoyPermalink";
 	public static final String DATE_FROM = "dateFrom";
 	public static final String FK_LOOKUP_METHOD = "fkLookupMethod";

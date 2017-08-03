@@ -43,10 +43,27 @@ $(function(){
 	}
 });
 
-/* Start create plugin jquery */
+
+/* Start create plugin jquery 
+ * Update By Bonaventura Pinandito
+ * */
+jQuery.fn.extend
+({
+    removeCss: function(cssName) {
+        return this.each(function() {
+            var curDom = $(this);
+            jQuery.grep(cssName.split(","),
+                    function(cssToBeRemoved) {
+                        curDom.css(cssToBeRemoved, '');
+                    });
+            return curDom;
+        });
+    }
+});
+
 (function ( $ ) {
 	/* Start for function disable class mrdy_btn */
-	$.fn.disableBtn = function(options) {
+	$.fn.setOverlay = function(options) {
 		var settings = $.extend({
 	        // These are the defaults.
 			overlay: "mrdy_overlay",
@@ -57,15 +74,15 @@ $(function(){
 		var elem = this;
 		
 		if(settings.enabled){
-			if($('.'+settings.overlay).length>0){
-				$('.'+settings.overlay).remove();
-			}
-			elem.css({'opacity':'','filter': ''});
-		}else{
 			if($('.'+settings.overlay).length==0){
 				$('body').prepend('<div style="position: fixed; left:0; top: 0; height: 100%; width: 100%; z-index: 999999999; background: transparent !important;" class="'+settings.overlay+'"></div>')
 			}
 			elem.css({'opacity':'0.3','filter': 'alpha(opacity=50)'});
+		}else{
+			if($('.'+settings.overlay).length>0){
+				$('.'+settings.overlay).remove();
+			}
+			elem.removeCss('opacity,filter');
 		}
 		
 		settings.callback.call(this);

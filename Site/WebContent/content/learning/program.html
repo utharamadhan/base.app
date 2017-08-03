@@ -205,7 +205,7 @@
 	            	if(data){
 		            	if(!data.errors){
 			            	$('.load_reload_wrapper').remove();
-			            	$('.mrdy_btn').disableBtn({enabled:true});
+			            	$('.mrdy_btn').setOverlay({enabled:true});
 			            	processData(data.courses.result, false);	
 			            	$('.'+nextPage).addClass('active');
 			            	$('.'+nextPage).removeClass('change_page');
@@ -222,15 +222,15 @@
 	            },
 	            beforeSend: function($jqXHR, $textStatus){
 	            	$('.list_data').html('<tr class="load_reload_wrapper"><td colspan="5"><div class="col-md-12 loading_reload" style="display: block; margin-left: auto; margin-right: auto;text-align: center;"><img src="'+img_url+'" /></div></td></tr>');
-					$('.mrdy_btn').disableBtn({enabled:false});
+					$('.mrdy_btn').setOverlay({enabled:false});
 				},
 				error: function ($jqXHR, $textStatus, $errorThrown) {
 					$('.load_reload_wrapper').remove();
-					$('.mrdy_btn').disableBtn({enabled:true});
+					$('.mrdy_btn').setOverlay({enabled:true});
 				},
 				complete: function($jqXHR, $textStatus){
 					$('.load_reload_wrapper').remove();
-					$('.mrdy_btn').disableBtn({enabled:true});
+					$('.mrdy_btn').setOverlay({enabled:true});
 				}
 	        });
 		}

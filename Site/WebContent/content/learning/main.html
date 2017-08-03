@@ -20,6 +20,7 @@
 			<div class="top_post_section back-gradient-transparent">
 				<div class="container">
 					<div class="row">
+					<input type="hidden" name="categoryPermalink" th:value="${permalink}"/>
 					<th:block th:each="data , i : ${categories}">
 						<div class="col-md-4 loop" th:classappend="${data.permalink==permalink} ? card-active : card-not-active">
 							<div class="card-image">
@@ -57,27 +58,27 @@
 							<form class="filter">
 								<div class="row">
 									<div class="col-md-3">
-										<select class="form-control param">
-											<option>-- Periode --</option>
+										<select class="form-control param" name="period">
+											<option value="">-- Periode --</option>
 											<option th:each="opt : ${periodOptions}" th:value="${opt.code}" th:text="${opt.descr}">Name</option>
 										</select>
 									</div>
 									<div class="col-md-2">
-										<select class="form-control param">
-											<option>-- Metode --</option>
-											<option th:each="opt : ${methodOptions}" th:value="${opt.code}" th:text="${opt.name}">Name</option>
+										<select class="form-control param" name="method">
+											<option value="">-- Metode --</option>
+											<option th:each="opt : ${methodOptions}" th:value="${opt.pkLookup}" th:text="${opt.name}">Name</option>
 	                           			</select>
 									</div>
 									<div class="col-md-3">
-										<select class="form-control param">
-											<option>-- Penyelenggara --</option>
-											<option th:each="opt : ${organizerOptions}" th:value="${opt.code}" th:text="${opt.name}">Name</option>
+										<select class="form-control param" name="organizer">
+											<option value="">-- Penyelenggara --</option>
+											<option th:each="opt : ${organizerOptions}" th:value="${opt.pkLookup}" th:text="${opt.name}">Name</option>
 	                           			</select>
 									</div>
 									<div class="col-md-3">
-										<select class="form-control param">
-											<option>-- Jenis Pembayaran --</option>
-											<option th:each="opt : ${paymentOptions}" th:value="${opt.code}" th:text="${opt.name}">Name</option>
+										<select class="form-control param" name="payment">
+											<option value="">-- Jenis Pembayaran --</option>
+											<option th:each="opt : ${paymentOptions}" th:value="${opt.pkLookup}" th:text="${opt.name}">Name</option>
 	                           			</select>
 									</div>
 									<div class="col-md-1">
@@ -117,10 +118,31 @@
 								</div>
 								<div class="bottom-left-yellow"></div>
 								<div class="bottom-right-blue"></div>
+								<input type="hidden" name="identity" th:value="${data.learningPermalink}"/>
 							</div>
 						</div>					
 						</th:block>	
 					</div>
+					<div class="row load_pagination" style="display: none;">
+						<div class="col-md-12">
+							<div class="col-md-4"></div>
+							<div class="col-md-4"> <img th:src="@{/images/gif/loading_linear.gif}" style="margin-left: 50px;"/> </div>
+							<div class="col-md-4"></div>
+						</div>
+					</div>
+					<div class="row pagination_part">
+						<div class="col-md-12">
+							<div class="col-md-4"></div>
+							<div class="col-md-4">
+								<ul class="pagination_section">
+									<li style="width:100%;text-align:center"><a href="#" class="load_more mrdy_btn">Lainnya</a></li>
+								</ul><!--end pagination section-->		
+								<input type="hidden" th:value="${items.startRecordIndex}" class="startNo"/>
+								<input type="hidden" th:value="${items.recordsPerPage}" class="offset"/>
+							</div>
+							<div class="col-md-4"></div>
+						</div><!--end post left section-->
+					</div><!--end post_left-->
 				</div>
 			</div>
 			<div class="clear"></div>
@@ -131,6 +153,132 @@
 		<script type="text/javascript" th:inline="javascript">
 		/*<![CDATA[*/
 		setNavbarActive('program');
+		function showPaging(maxRecord, currentRecord){
+			if(maxRecord <= currentRecord || currentRecord == 0){
+				$('.pagination_part').hide();
+			}else{
+				$('.pagination_part').show();
+			}
+		}
+		
+		function processData(datas, load){
+			var load_content = '';
+			for(var i=0;i<datas.length;i++){
+				var cloning = $('.template_part .data_result').eq(0).clone();
+				cloning.find('.post_thumb svg pattern').attr('id',i);
+				cloning.find('.post_thumb svg image').attr('xlink:href',datas[i].encodedPicture);
+				cloning.find('.post_thumb svg polygon').attr('id','hex'+i);
+				cloning.find('.post_thumb svg polygon').attr('fill','url(#'+i+')');
+				cloning.find('.title_news').html(datas[i].title);
+				cloning.find('.date').html(datas[i].publishedDate);
+				cloning.find('input[name="identity"]').val(datas[i].permalink);
+				cloning.wrap('<div></div>');
+				if(!load){
+					$('.list_data').append(cloning.parent().html());
+				}else{
+					load_content = load_content + cloning.parent().html();
+				}
+			}
+			
+			if(load){
+				$('.list_data').html(load_content);
+			}
+		}
+		$(function(){
+			var maxRecord = /*[[${items.maxRecord}]]*/;
+			var currentRecord = /*[[${items.currentRecord}]]*/;
+			
+			showPaging(maxRecord, currentRecord);
+			
+			var constructDataPost = function(loadMore){
+				if(loadMore==1){
+					var nextStartNo = parseInt($('.startNo').val()) + parseInt($('.offset').val());
+					var offset = $('.offset').val();
+					var data = {startNo : nextStartNo, offset : offset};
+				}else{
+					var data = {};
+				}
+				
+				$('.param').each(function(){
+					var param = {[$(this).attr('name')]: $(this).val()};
+					$.extend(data,param);
+				});
+				return data;
+			}
+			$('.load_more').unbind('click').click(function(e){
+				e.preventDefault();
+				var sURL = /*[[@{/page/main-program/learning/load/}]]*/
+					sURL += $('input[name="categoryPermalink"]').val();
+				$.ajax({
+		            type: 'POST',
+		            url: sURL,
+		            data: constructDataPost(1),
+		            dataType: 'json',
+		            success: function (data) {
+		            	$('.load_pagination').hide();
+		            	$('.mrdy_btn').setOverlay({enabled:false});
+		            	processData(data.items.result, false);		
+		            	var newMaxRecord = data.items.maxRecord;
+		            	var newCurrentRecord = data.items.currentRecord;
+		            	showPaging(newMaxRecord, newCurrentRecord);
+		            	$('.startNo').val(data.items.startRecordIndex);
+		            },
+		            beforeSend: function($jqXHR, $textStatus){
+						$('.load_pagination').show();
+						$('.mrdy_btn').setOverlay({enabled:true});
+					},
+					error: function ($jqXHR, $textStatus, $errorThrown) {
+						$('.load_pagination').hide();
+						$('.mrdy_btn').setOverlay({enabled:false});
+					},
+					complete: function($jqXHR, $textStatus){
+						$('.load_pagination').hide();
+						$('.mrdy_btn').setOverlay({enabled:false});
+					}
+		        });				
+			});
+			
+			$('.search').unbind('click').click(function(){
+				var sURL = /*[[@{/page/main-program/learning/load/}]]*/
+					sURL += $('input[name="categoryPermalink"]').val();
+				var param = $('.param').val();
+				var img_url = /*[[@{/images/gif/hex-loader.gif}]]*/;
+				$.ajax({
+		            type: 'POST',
+		            url: sURL,
+		            data: constructDataPost(0),
+		            dataType: 'json',
+		            success: function (data) {
+		            	$('.pagination_part').hide();
+		            	$('.loading_reload').remove();
+		            	$('.mrdy_btn').setOverlay({enabled:false});
+		            	processData(data.items.result, true);
+		            	var newMaxRecord = data.items.maxRecord;
+		            	var newCurrentRecord = data.items.currentRecord;
+		            	showPaging(newMaxRecord, newCurrentRecord);
+		            	$('.startNo').val(data.items.startRecordIndex);
+		            },
+		            beforeSend: function($jqXHR, $textStatus){
+		            	$('.list_data').html('<div class="col-md-12 loading_reload" style="display: block; margin-left: auto; margin-right: auto;text-align: center;"><img src="'+img_url+'" /></div>');
+						$('.mrdy_btn').setOverlay({enabled:true});
+					},
+					error: function ($jqXHR, $textStatus, $errorThrown) {
+						$('.loading_reload').remove();
+						$('.mrdy_btn').setOverlay({enabled:false});
+					},
+					complete: function($jqXHR, $textStatus){
+						$('.loading_reload').remove();
+						$('.mrdy_btn').setOverlay({enabled:false});
+					}
+		        });				
+			});
+			
+			$(document).on('click','.show_detail',function(){
+				var link = /*[[@{/page/main-program/learning/}]]*/ '';
+				link += $('input[name="categoryPermalink"]').val()+"/";
+				window.location.href = link + $(this).parents('.post').find('input[name="identity"]').val();
+			});
+		});
 		/*]]>*/
 		</script>
 </body>

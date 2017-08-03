@@ -101,7 +101,12 @@
 										<div class="col-xs-12">
 											<div class="form-group">
 												<label>Learning <span class="error">*</span></label>
-												<select class="form-control" name="learning">
+												<select class="form-control" name="learning1">
+													<option value="">Seminar</option>
+													<!-- <option th:each="course, i : ${courses}" th:text="${course.name}" th:value="${course.pkCourse}"></option> -->
+												</select><br/>
+												<select class="form-control" name="learning2">
+													<option value="">Seminar Properti Indonesia 2017</option>
 													<!-- <option th:each="course, i : ${courses}" th:text="${course.name}" th:value="${course.pkCourse}"></option> -->
 												</select>
 											</div>
@@ -239,20 +244,20 @@
 			    },beforeSend: function($jqXHR, $textStatus){
 			    	var generateCaptcha = /*[[@{/kaptcha}]]*/;
 		    		$('.captchaImage').attr('src',generateCaptcha);
-					$('.submit_btn').disableBtn({enabled:false});
+					$('.submit_btn').setOverlay({enabled:false});
 					$('.mrdy_overlay').html('<div class="col-md-12 loading_reload" style="display: block; margin-left: auto; margin-right: auto;text-align: center;top: 40%;"><img src="'+img_url+'" /></div>');
 				},
 				error: function ($jqXHR, $textStatus, $errorThrown) {
 					var generateCaptcha = /*[[@{/kaptcha}]]*/;
 		    		$('.captchaImage').attr('src',generateCaptcha);
 					$('.loading_reload').remove();
-					$('.submit_btn').disableBtn({enabled:true});
+					$('.submit_btn').setOverlay({enabled:true});
 				},
 				complete: function($jqXHR, $textStatus){
 					var generateCaptcha = /*[[@{/kaptcha}]]*/;
 		    		$('.captchaImage').attr('src',generateCaptcha);
 					$('.loading_reload').remove();
-					$('.submit_btn').disableBtn({enabled:true});
+					$('.submit_btn').setOverlay({enabled:true});
 				} 
 			});
 		}

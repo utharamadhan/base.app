@@ -75,7 +75,7 @@
 						<div class="col-md-4"></div>
 						<div class="col-md-4">
 							<ul class="pagination_section">
-								<li style="width:100%;text-align:center"><a href="#" class="load_more mrdy_btn">Older News</a></li>
+								<li style="width:100%;text-align:center"><a href="#" class="load_more mrdy_btn" th:text="#{button.load.more}"></a></li>
 							</ul><!--end pagination section-->		
 							<input type="hidden" th:value="${news.startRecordIndex}" class="startNo"/>
 							<input type="hidden" th:value="${news.recordsPerPage}" class="offset"/>
@@ -102,12 +102,13 @@
 		function processData(datas, load){
 			var load_content = '';
 			for(var i=0;i<datas.length;i++){
-				if(i%3==0){
-					load_content = load_content + "<div class='clear'></div>";
-				}
 				var cloning = $('.template_part .data_result').eq(0).clone();
+				cloning.find('.post_thumb svg pattern').attr('id',i);
 				cloning.find('.post_thumb svg image').attr('xlink:href',datas[i].encodedPicture);
+				cloning.find('.post_thumb svg polygon').attr('id','hex'+i);
+				cloning.find('.post_thumb svg polygon').attr('fill','url(#'+i+')');
 				cloning.find('.title_news').html(datas[i].title);
+				cloning.find('.date').html(datas[i].publishedDate);
 				cloning.find('input[name="identity"]').val(datas[i].permalink);
 				cloning.wrap('<div></div>');
 				if(!load){
@@ -128,19 +129,20 @@
 			
 			showPaging(maxRecord, currentRecord);
 			
-			$('.load_more').unbind('click').click(function(){
+			$('.load_more').unbind('click').click(function(e){
+				e.preventDefault();
 				var sURL = /*[[@{/page/news/load}]]*/
 				var param = $('.param').val();
 				var nextStartNo = parseInt($('.startNo').val()) + parseInt($('.offset').val());
 				var offset = $('.offset').val();
 				$.ajax({
-		            type: 'GET',
+		            type: 'POST',
 		            url: sURL,
 		            data: {filter : param, startNo : nextStartNo, offset : offset},
 		            dataType: 'json',
 		            success: function (data) {
 		            	$('.load_pagination').hide();
-		            	$('.mrdy_btn').disableBtn({enabled:true});
+		            	$('.mrdy_btn').setOverlay({enabled:false});
 		            	processData(data.news.result, false);		
 		            	var newMaxRecord = data.news.maxRecord;
 		            	var newCurrentRecord = data.news.currentRecord;
@@ -149,15 +151,15 @@
 		            },
 		            beforeSend: function($jqXHR, $textStatus){
 						$('.load_pagination').show();
-						$('.mrdy_btn').disableBtn({enabled:false});
+						$('.mrdy_btn').setOverlay({enabled:true});
 					},
 					error: function ($jqXHR, $textStatus, $errorThrown) {
 						$('.load_pagination').hide();
-						$('.mrdy_btn').disableBtn({enabled:true});
+						$('.mrdy_btn').setOverlay({enabled:false});
 					},
 					complete: function($jqXHR, $textStatus){
 						$('.load_pagination').hide();
-						$('.mrdy_btn').disableBtn({enabled:false});
+						$('.mrdy_btn').setOverlay({enabled:false});
 					}
 		        });				
 			});
@@ -167,14 +169,14 @@
 				var param = $('.param').val();
 				var img_url = /*[[@{/images/gif/hex-loader.gif}]]*/;
 				$.ajax({
-		            type: 'GET',
+		            type: 'POST',
 		            url: sURL,
 		            data: {filter : param},
 		            dataType: 'json',
 		            success: function (data) {
 		            	$('.pagination_part').hide();
 		            	$('.loading_reload').remove();
-		            	$('.mrdy_btn').disableBtn({enabled:true});
+		            	$('.mrdy_btn').setOverlay({enabled:false});
 		            	processData(data.news.result, true);
 		            	var newMaxRecord = data.news.maxRecord;
 		            	var newCurrentRecord = data.news.currentRecord;
@@ -183,15 +185,15 @@
 		            },
 		            beforeSend: function($jqXHR, $textStatus){
 		            	$('.list_data').html('<div class="col-md-12 loading_reload" style="display: block; margin-left: auto; margin-right: auto;text-align: center;"><img src="'+img_url+'" /></div>');
-						$('.mrdy_btn').disableBtn({enabled:false});
+						$('.mrdy_btn').setOverlay({enabled:true});
 					},
 					error: function ($jqXHR, $textStatus, $errorThrown) {
 						$('.loading_reload').remove();
-						$('.mrdy_btn').disableBtn({enabled:true});
+						$('.mrdy_btn').setOverlay({enabled:false});
 					},
 					complete: function($jqXHR, $textStatus){
 						$('.loading_reload').remove();
-						$('.mrdy_btn').disableBtn({enabled:true});
+						$('.mrdy_btn').setOverlay({enabled:false});
 					}
 		        });				
 			});

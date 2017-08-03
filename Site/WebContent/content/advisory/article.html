@@ -140,7 +140,7 @@
 	            dataType: 'json',
 	            success: function (data) {
 	            	$('.load_pagination').hide();
-	            	$('.mrdy_btn').disableBtn({enabled:true});
+	            	$('.mrdy_btn').setOverlay({enabled:true});
 	            	processData(data.articles.result, isLoad);		
 	            	var newMaxRecord = data.articles.maxRecord;
 	            	var newCurrentRecord = data.articles.currentRecord;
@@ -149,15 +149,15 @@
 	            },
 	            beforeSend: function($jqXHR, $textStatus){
 					$('.load_pagination').show();
-					$('.mrdy_btn').disableBtn({enabled:false});
+					$('.mrdy_btn').setOverlay({enabled:false});
 				},
 				error: function ($jqXHR, $textStatus, $errorThrown) {
 					$('.load_pagination').hide();
-					$('.mrdy_btn').disableBtn({enabled:true});
+					$('.mrdy_btn').setOverlay({enabled:true});
 				},
 				complete: function($jqXHR, $textStatus){
 					$('.load_pagination').hide();
-					$('.mrdy_btn').disableBtn({enabled:true});
+					$('.mrdy_btn').setOverlay({enabled:true});
 				}
 	        });	
 		}

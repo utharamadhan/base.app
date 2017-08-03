@@ -131,20 +131,20 @@
 			    },beforeSend: function($jqXHR, $textStatus){
 			    	var generateCaptcha = /*[[@{/kaptcha}]]*/;
 		    		$('.captchaImage').attr('src',generateCaptcha);
-					$('.submit_btn').disableBtn({enabled:false});
+					$('.submit_btn').setOverlay({enabled:false});
 					$('.mrdy_overlay').html('<div class="col-md-12 loading_reload" style="display: block; margin-left: auto; margin-right: auto;text-align: center;top: 40%;"><img src="'+img_url+'" /></div>');
 				},
 				error: function ($jqXHR, $textStatus, $errorThrown) {
 					var generateCaptcha = /*[[@{/kaptcha}]]*/;
 		    		$('.captchaImage').attr('src',generateCaptcha);
 					$('.loading_reload').remove();
-					$('.submit_btn').disableBtn({enabled:true});
+					$('.submit_btn').setOverlay({enabled:true});
 				},
 				complete: function($jqXHR, $textStatus){
 					var generateCaptcha = /*[[@{/kaptcha}]]*/;
 		    		$('.captchaImage').attr('src',generateCaptcha);
 					$('.loading_reload').remove();
-					$('.submit_btn').disableBtn({enabled:true});
+					$('.submit_btn').setOverlay({enabled:true});
 				} 
 			});
 		}

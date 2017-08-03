@@ -66,7 +66,7 @@ public class NewsWebController extends BaseSiteController<News>{
 		return "/news/main";
 	}
 	
-	@RequestMapping(method=RequestMethod.GET, value="/load")
+	@RequestMapping(method=RequestMethod.POST, value="/load")
 	@ResponseBody
 	public Map<String, Object> load(ModelMap model, HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value="startNo",defaultValue="1") int startNo, 

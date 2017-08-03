@@ -20,7 +20,6 @@ import id.base.app.valueobject.Category;
 import id.base.app.valueobject.Lookup;
 import id.base.app.valueobject.learning.LearningItem;
 import id.base.app.valueobject.learning.VWLearningItem;
-import id.base.app.valueobject.publication.News;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -122,7 +121,13 @@ public class LearningWebController extends BaseSiteController<LearningItem>{
 		return filter;
 	}
 	
-	@RequestMapping(method=RequestMethod.GET, value="/load/{permalink}")
+	private List<SearchOrder> convertForOrder(Map<String, String> paramWrapper) {
+		List<SearchOrder> orders = new ArrayList<SearchOrder>();
+		orders.add(new SearchOrder(VWLearningItem.DATE_FROM, SearchOrder.Sort.DESC));
+		return orders;
+	}
+	
+	@RequestMapping(method=RequestMethod.POST, value="/load/{permalink}")
 	@ResponseBody
 	public Map<String, Object> load(ModelMap model, HttpServletRequest request, HttpServletResponse response, @PathVariable(value="permalink") String permalink,
 			@RequestParam(value="startNo",defaultValue="1") int startNo, 
@@ -130,9 +135,7 @@ public class LearningWebController extends BaseSiteController<LearningItem>{
 			@RequestParam Map<String,String> paramWrapper
 		){
 		Map<String, Object> resultMap = new HashMap<>();
-		List<SearchOrder> order = new ArrayList<SearchOrder>();
-		order.add(new SearchOrder(News.PK_NEWS, Sort.DESC));
-		PagingWrapper<VWLearningItem> items = getRestCallerView().findAllByFilter(startNo, offset, convertForFilter(permalink, paramWrapper), order);
+		PagingWrapper<VWLearningItem> items = getRestCallerView().findAllByFilter(startNo, offset, convertForFilter(permalink, paramWrapper), convertForOrder(paramWrapper));
 		resultMap.put("items", items);
 		return resultMap;
 	}
