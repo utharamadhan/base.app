@@ -66,7 +66,7 @@
 								  <ul class="dropdown-menu mega-dropdown-menu row publications-mega-menu">
 									<li class="col-sm-4">
 										<ul>
-											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/page/ebook">BUKU ELEKTRONIK</a></li>
+											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/page/ebook">E-book (Artikel Properti)</a></li>
 										</ul>
 										<ul id="digital-book-content" class="content">
 											<c:forEach items="${digitalBookList}" var="ebook">
@@ -83,7 +83,7 @@
 									</li>
 									<li class="col-sm-4">
 										<ul>
-											<li class="dropdown-header"><a href="#">BERITA</a></li>
+											<li class="dropdown-header"><a href="#">News</a></li>
 										</ul>
 										<ul id="news-content" class="content">
 											<c:forEach items="${newsList}" var="news">
@@ -100,7 +100,7 @@
 									</li>
 									<li class="col-sm-4">
 										<ul>
-											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/page/ebook">KEGIATAN</a></li>
+											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/page/ebook">Program</a></li>
 										</ul>
 										<ul id="event-content" class="content">
 											<c:forEach items="${eventList}" var="event">
@@ -118,7 +118,7 @@
 								  </ul>
 								</li>
 								<li id="program" class="dropdown">
-								  <a class="parent-menu" href="<%=request.getContextPath()%>/page/main-program" role="button" aria-haspopup="true" aria-expanded="false">PROGRAM</a>
+								  <a class="parent-menu" href="<%=request.getContextPath()%>/page/main-program" role="button" aria-haspopup="true" aria-expanded="false">LAYANAN</a>
 								</li>
 								<li id="galeri" class="dropdown">
 								  <a class="parent-menu" href="<%=request.getContextPath()%>/page/galeri" role="button" aria-haspopup="true" aria-expanded="false">GALERI</a>
