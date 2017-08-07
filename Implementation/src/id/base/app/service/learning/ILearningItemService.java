@@ -19,4 +19,6 @@ public interface ILearningItemService extends MaintenanceService<LearningItem> {
 
 	public void updateThumb(Long pkLearningItem, String thumbURL) throws SystemException;
 
+	public List<LearningItem> findForSelectEligibleReg(Long pkCategory) throws SystemException;
+
 }

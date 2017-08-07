@@ -4,12 +4,7 @@
 <meta charset="ISO-8859-1"/>
 <title>Integration Script Detail</title>
 </head>
-<style>
-.control-label-province{
-	font-size: 11px;
-    padding-top: 13px!important;
-}
-</style>
+<style></style>
 <body>
 	<div class="pageheader">
 		<div class="row col-md-8">
@@ -20,7 +15,7 @@
 	<div class="row col-md-12">
 	<section class="tile transparent">
 			<div class="tile-body rounded-corners">
-				<form action="#" id="footerLinkUrl-detail-form" class="form-horizontal" method="POST" novalidate="novalidate" th:object="${detail}">
+				<form action="#" id="integrationScript-detail-form" class="form-horizontal" method="POST" novalidate="novalidate" th:object="${detail}">
 					<div class="stockTypeStyle">
 						<div class="form-group">
 							<div class="col-md-12">
@@ -35,23 +30,25 @@
 							</div>									
 							&nbsp;
 						</div>
-						<input id="footerLinkUrl-detail-maintenancePk" type="hidden" th:field="*{pkLinkUrl}"/>
+						<input id="integrationScript-detail-maintenancePk" type="hidden" th:field="*{pkIntegrationScript}"/>
 						<div class="form-group">
-							<label class="col-sm-2 control-label" th:text="'Title'">Title</label>
+							<label class="col-sm-2 control-label required" th:text="'URL'">URL</label>
 							<div class="col-sm-9 form-input-container">
-								<input type="text" class="form-control" placeholder="Title" name="srch-term" id="input-text-title" th:field="*{title}"/>
+								<input type="text" class="form-control" placeholder="URL" name="srch-term" id="input-text-title" th:field="*{url}"/>
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-2 control-label" th:text="'Link URL'">Link URL</label>
+							<label class="col-sm-2 control-label required" th:text="'Position'">Position</label>
 							<div class="col-sm-9 form-input-container">
-								<input type="text" class="form-control" placeholder="Link URL" name="srch-term" id="input-text-title" th:field="*{url}"/>
+								<select class="chosen-select form-control" th:field="*{position}">
+									<option th:each="opt : ${positionOptions}" th:value="${opt.valueInteger}" th:text="${opt.label}"></option>
+                           		</select>
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-2 control-label" th:text="'Order No'">Order No</label>
-							<div class="col-sm-9 form-input-container">
-								<input type="text" class="form-control" placeholder="Order No" name="srch-term" id="input-text-title" th:field="*{orderNo}"/>
+							<label class="col-sm-2 control-label required" th:text="'Script'">Script</label>
+							<div class="col-sm-9 form-input-container">					
+								<textarea class="form-control" th:field="*{script}" rows="10"></textarea>
 							</div>
 						</div>
 						<div class="form-group">
@@ -63,9 +60,9 @@
                            	</div>
 						</div>
 						<div class="form-group form-footer">				
-							<div class="col-sm-offset-3 col-sm-9">
-								<a href="#" id="footerLinkUrl-detail-btn-cancel" class="btn btn-default" type="reset" data-toggle="tooltip" title="" th:text="#{button.cancel}">Cancel</a>
-								<button id="footerLinkUrl-detail-btn-save" class="btn btn-primary" type="submit" data-toggle="tooltip" title="" th:text="#{button.save}">Save</button>
+							<div class="col-sm-offset-2 col-sm-9">
+								<a href="#" id="integrationScript-detail-btn-cancel" class="btn btn-default" type="reset" data-toggle="tooltip" title="" th:text="#{button.cancel}">Cancel</a>
+								<button id="integrationScript-detail-btn-save" class="btn btn-primary" type="submit" data-toggle="tooltip" title="" th:text="#{button.save}">Save</button>
 							</div>
 						</div>
 					</div>
@@ -77,27 +74,27 @@
 	/*<![CDATA[*/
 	    $(function(){
 			var backToList = function(){
-				returnToList('footerLinkUrl-detail-container', 'footerLinkUrl-list-container', true);
+				returnToList('integrationScript-detail-container', 'integrationScript-list-container', true);
 			};
 	    	
 			var submitForm = function(){
 				cleanErrorParsley();
-				var sURL = /*[[@{/do/fed/footerLinkUrl/saveFooterLinkUrl/}]]*/ #;
-				$.post(sURL, $("#footerLinkUrl-detail-form").serialize(), function(data) {
+				var sURL = /*[[@{/do/fed/integrationScript/saveSpesific/}]]*/ #;
+				$.post(sURL, $("#integrationScript-detail-form").serialize(), function(data) {
 					if(data.errorList!=null){
 						displayErrorParsley(data.errorList);
 					}else{
-						bootBoxSuccessSave('Footer Link URL Successfully Saved', backToList);
+						bootBoxSuccessSave('Integration Script Successfully Saved', backToList);
 					}
 				});
 			};
 			
-			$('#footerLinkUrl-detail-btn-save').click(function(e){
+			$('#integrationScript-detail-btn-save').click(function(e){
 				e.preventDefault();
 				submitForm();
 			});
 			
-			$('#footerLinkUrl-detail-btn-cancel').click(function(e){
+			$('#integrationScript-detail-btn-cancel').click(function(e){
 				e.preventDefault();
 				backToList();
 			});
@@ -105,4 +102,4 @@
 	/*]]>*/
 	</script>
 </body>
-</html>
+</html>	

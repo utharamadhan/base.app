@@ -18,7 +18,6 @@ public class ILookupGroupConstant {
 	public static final String STUDENT_STATUS			= "STUDENT_STATUS";
 	public static final String CONTACT_TEMA				= "CONTACT_TEMA";
 	public static final String CATEGORY_HELP			= "CATEGORY_HELP";
-	public static final String FAQ_CATEGORY				= "FAQ_CATEGORY";
 	public static final String LEARNING_METHOD			= "LEARNING_METHOD";
 	public static final String LEARNING_ORGANIZER		= "LEARNING_ORGANIZER";
 	public static final String LEARNING_PAYMENT			= "LEARNING_PAYMENT";
@@ -36,7 +35,6 @@ public class ILookupGroupConstant {
 		LOOKUP_GROUP_LIST.add(STUDENT_STATUS);
 		LOOKUP_GROUP_LIST.add(CONTACT_TEMA);
 		LOOKUP_GROUP_LIST.add(CATEGORY_HELP);
-		LOOKUP_GROUP_LIST.add(FAQ_CATEGORY);
 		LOOKUP_GROUP_LIST.add(LEARNING_METHOD);
 		LOOKUP_GROUP_LIST.add(LEARNING_ORGANIZER);
 		LOOKUP_GROUP_LIST.add(LEARNING_PAYMENT);

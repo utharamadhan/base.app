@@ -39,7 +39,7 @@ public class MainProgramWebController extends BaseSiteController<Pages>{
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public String view(ModelMap model, HttpServletRequest request, HttpServletResponse response){
-		setCommonData(model);
+		setCommonData(request,model);
 		model.addAttribute("programs", findData());
 		return "/main-program/main";
 	}

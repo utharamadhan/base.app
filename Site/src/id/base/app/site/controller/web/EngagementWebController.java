@@ -53,7 +53,7 @@ public class EngagementWebController extends BaseSiteController<Engagement>{
 			@RequestParam(value="offset",defaultValue="6") int offset,
 			@RequestParam(value="filter", defaultValue="", required=false) String filterJson
 		){
-		setCommonData(model);
+		setCommonData(request,model);
 		List<SearchFilter> filter = new ArrayList<SearchFilter>();
 		filter.add(new SearchFilter(Engagement.STATUS, Operator.EQUALS, ILookupConstant.Status.PUBLISH, Integer.class));
 		if(StringUtils.isNotEmpty(filterJson)){
@@ -114,7 +114,7 @@ public class EngagementWebController extends BaseSiteController<Engagement>{
 			@PathVariable(value="permalink") String permalink){
 		Engagement detail = findByPermalink(permalink);
 		if(detail!=null){
-			setCommonData(model);
+			setCommonData(request,model);
 			model.addAttribute("detail", detail);
 			return "/engagement/detail";
 		}

@@ -63,7 +63,7 @@ public class ResearchDevWebController extends BaseSiteController<Pages>{
 			@RequestParam(value="startNo",defaultValue="1") int startNo, 
 			@RequestParam(value="offset",defaultValue="6") int offset,
 			@RequestParam(value="filter", defaultValue="", required=false) String filterJson){
-		setCommonData(model);
+		setCommonData(request,model);
 		model.addAttribute("permalink", permalink);
 		List<Category> categoryList = getCategoryList();
 		model.addAttribute("categories", categoryList);
@@ -81,7 +81,7 @@ public class ResearchDevWebController extends BaseSiteController<Pages>{
 			@RequestParam(value="startNo",defaultValue="1") int startNo, 
 			@RequestParam(value="offset",defaultValue="12") int offset,
 			@RequestParam(value="filter", defaultValue="", required=false) String filterJson){
-		setCommonData(model);
+		setCommonData(request,model);
 		List<SearchFilter> filter = new ArrayList<SearchFilter>();
 		filter.add(new SearchFilter(Research.STATUS, Operator.EQUALS, ILookupConstant.Status.PUBLISH, Integer.class));
 		if(StringUtils.isNotEmpty(filterJson)){
@@ -99,7 +99,7 @@ public class ResearchDevWebController extends BaseSiteController<Pages>{
 			@PathVariable(value="permalink") String permalink){
 		Research detail = findByPermalink(permalink);
 		if(detail!=null){
-			setCommonData(model);
+			setCommonData(request,model);
 			model.addAttribute("detail", detail);
 			return "/research-development/research/detail";
 		}

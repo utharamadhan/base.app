@@ -137,5 +137,11 @@ public class LearningItemController extends SuperController<LearningItem> {
 	public LearningItem findByPermalink(@PathVariable(value="permalink") String permalink) throws SystemException {
 		return learningItemService.findByPermalink(permalink);
 	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/findForSelectEligibleReg/{pkcategory}")
+	@ResponseBody
+	public List<LearningItem> findForSelectEligibleReg(@PathVariable(value="pkcategory") Long pkcategory) throws SystemException {
+		return learningItemService.findForSelectEligibleReg(pkcategory);
+	}
 
 }

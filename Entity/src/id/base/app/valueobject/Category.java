@@ -4,6 +4,8 @@ import id.base.app.ILookupConstant;
 import id.base.app.encryptor.EncodeDecode;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -77,6 +79,9 @@ public class Category extends BaseEntity implements Serializable {
 	
 	@Transient
 	private boolean checked;
+	
+	@Transient
+	private List<Faq> faqs = new ArrayList<>();
 	
 	public Long getPkCategory() {
 		return pkCategory;
@@ -160,6 +165,14 @@ public class Category extends BaseEntity implements Serializable {
 
 	public void setChecked(boolean checked) {
 		this.checked = checked;
+	}
+	
+	public List<Faq> getFaqs() {
+		return faqs;
+	}
+
+	public void setFaqs(List<Faq> faqs) {
+		this.faqs = faqs;
 	}
 
 	public String getEncodedPicture() throws Exception {

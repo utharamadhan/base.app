@@ -2,6 +2,7 @@ package id.base.app.site;
 
 import id.base.app.ILookupConstant;
 import id.base.app.SystemConstant;
+import id.base.app.rest.MapRestCaller;
 import id.base.app.rest.QueryParamInterfaceRestCaller;
 import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
@@ -72,6 +73,7 @@ public class ShortLifeSessionFilter2 implements Filter{
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) resp;
 		if("/index.jsp".equalsIgnoreCase(request.getServletPath())){
+			setDataForScript(request);
 			setDataForHome(request);
 		}
 		Cookie cookieValue = getCookie(request.getCookies(), request);
@@ -81,6 +83,33 @@ public class ShortLifeSessionFilter2 implements Filter{
 			String url = request.getContextPath().replace("Site", "Auth");
 			response.sendRedirect(url);
 			return;
+		}
+	}
+	
+	private void setDataForScript(HttpServletRequest request){
+		final HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("url", request.getRequestURL().toString());
+		Map<String, Object> resultMap = new HashMap<>();
+		resultMap = new MapRestCaller<String, Object>(RestConstant.REST_SERVICE, RestServiceConstant.INTEGRATION_SCRIPT_SERVICE).executePostMap(new QueryParamInterfaceRestCaller() {
+			
+			@Override
+			public String getPath() {
+				return "/findByUrl";
+			}
+			
+			@Override
+			public Map<String, Object> getParameters() {
+				return map;
+			}
+		}, HashMap.class);
+		
+		if(resultMap!=null){
+			if(resultMap.get("header")!=null){
+				request.setAttribute("headerScript", resultMap.get("header"));		
+			}
+			if(resultMap.get("footer")!=null){
+				request.setAttribute("footerScript", resultMap.get("footer"));		
+			}
 		}
 	}
 	

@@ -2,6 +2,7 @@ package id.base.app.site.controller;
 
 import id.base.app.ILookupConstant;
 import id.base.app.SystemConstant;
+import id.base.app.rest.MapRestCaller;
 import id.base.app.rest.QueryParamInterfaceRestCaller;
 import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
@@ -24,6 +25,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -32,7 +35,8 @@ import org.springframework.ui.ModelMap;
 @Controller
 public abstract class BaseSiteController<T> {
 	
-	protected void setCommonData(ModelMap model){
+	protected void setCommonData(HttpServletRequest request, ModelMap model){
+		setDataForScript(request, model);
 		model.addAttribute("commonPostList", getCommonPostList());
 		model.addAttribute("engagementList", getEngagementList());
 		model.addAttribute("programList", getProgramList());
@@ -40,6 +44,33 @@ public abstract class BaseSiteController<T> {
 		model.addAttribute("newsList", getNewsList(5));
 		model.addAttribute("eventList", getEventList());
 		model.addAttribute("linkUrlList", getLinkUrlList());
+	}
+	
+	private void setDataForScript(HttpServletRequest request, ModelMap model){
+		final HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("url", request.getRequestURL().toString());
+		Map<String, Object> resultMap = new HashMap<>();
+		resultMap = new MapRestCaller<String, Object>(RestConstant.REST_SERVICE, RestServiceConstant.INTEGRATION_SCRIPT_SERVICE).executePostMap(new QueryParamInterfaceRestCaller() {
+			
+			@Override
+			public String getPath() {
+				return "/findByUrl";
+			}
+			
+			@Override
+			public Map<String, Object> getParameters() {
+				return map;
+			}
+		}, HashMap.class);
+		
+		if(resultMap!=null){
+			if(resultMap.get("header")!=null){
+				model.addAttribute("headerScript", resultMap.get("header"));		
+			}
+			if(resultMap.get("footer")!=null){
+				model.addAttribute("footerScript", resultMap.get("footer"));		
+			}
+		}
 	}
 	
 	private List<Pages> getCommonPostList(){

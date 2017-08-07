@@ -387,6 +387,7 @@ public class SystemConstant  {
 		public static final String LEARNING = "LG";
 		public static final String ADVISORY = "ADV";
 		public static final String RESEARCH_DEVELOPMENT = "RND";
+		public static final String FAQ = "FAQ";
 	}
 	
 	public static final class ThumbnailsDimension{

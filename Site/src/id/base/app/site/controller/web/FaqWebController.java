@@ -6,6 +6,7 @@ import id.base.app.rest.RestConstant;
 import id.base.app.rest.RestServiceConstant;
 import id.base.app.rest.SpecificRestCaller;
 import id.base.app.site.controller.BaseSiteController;
+import id.base.app.valueobject.Category;
 import id.base.app.valueobject.Faq;
 
 import java.util.ArrayList;
@@ -37,14 +38,24 @@ public class FaqWebController extends BaseSiteController<Faq>{
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public String view(ModelMap model, HttpServletRequest request, HttpServletResponse response){
-		setCommonData(model);
-		model.addAttribute("faq", findFaqListForView());
+		setCommonData(request,model);
+		/*List<Faq> faqList = findFaqListForView();
+		List<Category> catList = new ArrayList<>();
+		Long pkCategory = 0L;
+		for (Faq faq : faqList) {
+			if(!pkCategory.equals(faq.getFaqCategory().getPkCategory())){
+				pkCategory = faq.getFaqCategory().getPkCategory();
+				catList.add(faq.getFaqCategory());
+			}
+			
+		}
+		model.addAttribute("faq", );*/
 		return "/faq/main";
 	}
 	
 	private List<Faq> findFaqListForView(){
 		List<Faq> faqList = new ArrayList<>();
-		faqList = (List<Faq>) new SpecificRestCaller(RestConstant.REST_SERVICE, RestServiceConstant.FAQ_SERVICE).executeGetList(new PathInterfaceRestCaller() {
+		faqList = (List<Faq>) new SpecificRestCaller<Faq>(RestConstant.REST_SERVICE, RestServiceConstant.FAQ_SERVICE).executeGetList(new PathInterfaceRestCaller() {
 			@Override
 			public String getPath() {
 				return "/findFaqListForView";

@@ -1,4 +1,11 @@
-package id.base.app.web.controller.learning;
+package id.base.app.web.controller.master;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import id.base.app.ILookupConstant;
 import id.base.app.ILookupGroupConstant;
@@ -18,13 +25,6 @@ import id.base.app.web.DataTableCriterias;
 import id.base.app.web.controller.BaseController;
 import id.base.app.web.rest.LookupRestCaller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -36,11 +36,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Scope(value="request")
 @Controller
-@RequestMapping("/learning/category")
-public class LearningCategoryWebController extends BaseController<Category> {
+@RequestMapping("/master/faqCategory")
+public class FaqCategoryWebController extends BaseController<Category> {
 
-	private final String PATH_LIST = "/learning/learningCategoryList";
-	private final String PATH_DETAIL = "/learning/learningCategoryDetail";
+	private final String PATH_LIST = "/master/faqCategoryList";
+	private final String PATH_DETAIL = "/master/faqCategoryDetail";
 	
 	@Override
 	protected RestCaller<Category> getRestCaller() {
@@ -58,7 +58,7 @@ public class LearningCategoryWebController extends BaseController<Category> {
 			Map<String, String> paramWrapper, DataTableCriterias columns) {
 		List<SearchFilter> filters = new ArrayList<>();
 		filters.add(new SearchFilter(Category.STATUS, Operator.NOT_EQUAL, ILookupConstant.Status.DELETE, Integer.class));
-		filters.add(new SearchFilter(Category.TYPE, Operator.EQUALS, SystemConstant.CategoryType.LEARNING, String.class));
+		filters.add(new SearchFilter(Category.TYPE, Operator.EQUALS, SystemConstant.CategoryType.FAQ, String.class));
 		if(StringFunction.isNotEmpty(columns.getSearch().get(DataTableCriterias.SearchCriterias.value))){
 			filters.add(new SearchFilter(Category.TITLE, Operator.LIKE, columns.getSearch().get(DataTableCriterias.SearchCriterias.value)));
 		}
@@ -112,7 +112,7 @@ public class LearningCategoryWebController extends BaseController<Category> {
 		Map<String, Object> resultMap = new HashMap<>();
 		List<ErrorHolder> errors = new ArrayList<>();
 		try{
-			anObject.setType(SystemConstant.CategoryType.LEARNING);
+			anObject.setType(SystemConstant.CategoryType.FAQ);
 			errors = new SpecificRestCaller<Category>(RestConstant.REST_SERVICE, RestServiceConstant.CATEGORY_SERVICE).performPut("/update", anObject);
 			if(errors != null && errors.size() > 0){
 				resultMap.put(SystemConstant.ERROR_LIST, errors);
@@ -121,5 +121,5 @@ public class LearningCategoryWebController extends BaseController<Category> {
 			LOGGER.error(e.getMessage(), e);
 		}
 		return resultMap;
-	}
+	}	
 }

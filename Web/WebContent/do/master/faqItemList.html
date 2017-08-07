@@ -31,7 +31,8 @@
 		                        <thead>
 		                          <tr>
 		                            <th>Category</th>
-									<th>Question</th>	
+									<th>Question</th>
+									<th>Status</th>	
 									<th>E/D</th>
 		                          </tr>
 		                        </thead>
@@ -49,19 +50,19 @@
 <script th:inline="javascript">
 	/*<![CDATA[*/
 		function showAdd() {
-	    	var sURL = /*[[@{/do/master/faq/showAdd?skipdecorator=}]]*/ #;
+	    	var sURL = /*[[@{/do/master/faqItem/showAdd?skipdecorator=}]]*/ #;
 	    	showScreen('faq-list-container', 'faq-detail-container', sURL);
 		}
 		
 		function showDetail(maintenancePK) {
-			var sURL = /*[[@{/do/master/faq/showEdit?maintenancePK=}]]*/ #;
+			var sURL = /*[[@{/do/master/faqItem/showEdit?maintenancePK=}]]*/ #;
 			showScreen('faq-list-container', 'faq-detail-container', sURL + maintenancePK + "&skipdecorator=");
 		}
 		
 		function deleteItem(maintenancePK) {
 			var callbackDelete = function(result) {
 				if (result) {
-					var sURL = /*[[@{/do/master/faq/delete?}]]*/ #;
+					var sURL = /*[[@{/do/master/faqItem/delete?}]]*/ #;
 					var serializedData = "maintenancePKs=" + maintenancePK;
 					$.post(sURL, serializedData,function(data){
 						if(data.errorList!=null){
@@ -76,7 +77,7 @@
 		}
 		
 		function deletefaq() {
-			var sURL = /*[[@{/do/master/faq/deletefaq?skipDecorator}]]*/ #;
+			var sURL = /*[[@{/do/master/faqItem/deletefaq?skipDecorator}]]*/ #;
 			$.post(sURL, $('.faq-list-check-delete').serialize(), function(data){
 				if(data.errorList!=null){
 					
@@ -88,11 +89,12 @@
 	
 	    $(function(){
 		    setMenuActive('faq');
-		    var colDefs = [{ name : "faqCategoryLookup.name" }, 
+		    var colDefs = [{ name : "faqCategory.title" }, 
 	    	               { name : "question" },
+	    	               { name : "statusStr" },
 	    	               { type : "deleteAndEdit" , param : [ "pkFaq" ] }
 	    	               ];
-		    var sURL = /*[[@{/do/master/faq/list?}]]*/ #;
+		    var sURL = /*[[@{/do/master/faqItem/list?}]]*/ #;
 		    buildDataTable(/*[[@{/}]]*/, sURL, 'faq-list-table', 450, colDefs, null, null);
 	    });
 	    

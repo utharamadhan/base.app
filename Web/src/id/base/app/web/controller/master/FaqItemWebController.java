@@ -4,7 +4,9 @@ import id.base.app.ILookupConstant;
 import id.base.app.ILookupGroupConstant;
 import id.base.app.SystemConstant;
 import id.base.app.exception.ErrorHolder;
+import id.base.app.exception.SystemException;
 import id.base.app.paging.PagingWrapper;
+import id.base.app.rest.PathInterfaceRestCaller;
 import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
 import id.base.app.rest.RestServiceConstant;
@@ -13,6 +15,7 @@ import id.base.app.util.StringFunction;
 import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
+import id.base.app.valueobject.Category;
 import id.base.app.valueobject.Faq;
 import id.base.app.valueobject.Pages;
 import id.base.app.web.DataTableCriterias;
@@ -37,11 +40,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Scope(value="request")
 @Controller
-@RequestMapping("/master/faq")
-public class FaqWebController extends BaseController<Faq> {
+@RequestMapping("/master/faqItem")
+public class FaqItemWebController extends BaseController<Faq> {
 
-	private final String PATH_LIST = "/master/faqList";
-	private final String PATH_DETAIL = "/master/faqDetail";
+	private final String PATH_LIST = "/master/faqItemList";
+	private final String PATH_DETAIL = "/master/faqItemDetail";
 	
 	@Override
 	protected RestCaller<Faq> getRestCaller() {
@@ -91,7 +94,7 @@ public class FaqWebController extends BaseController<Faq> {
 	
 	public void setDefaultData(ModelMap model) {
 		LookupRestCaller lrc = new LookupRestCaller();
-		model.addAttribute("categoryOptions", lrc.findByLookupGroup(ILookupGroupConstant.FAQ_CATEGORY));
+		model.addAttribute("categoryOptions", getCategory());
 		model.addAttribute("statusOptions", lrc.findByLookupGroup(ILookupGroupConstant.STATUS));
 	}
 	
@@ -124,6 +127,22 @@ public class FaqWebController extends BaseController<Faq> {
 			LOGGER.error(e.getMessage(), e);
 		}
 		return resultMap;
+	}
+	
+	private List<Category> getCategory() throws SystemException {
+		return new SpecificRestCaller<Category>(RestConstant.REST_SERVICE, RestConstant.RM_CATEGORY, Category.class).executeGetList(new PathInterfaceRestCaller() {
+			@Override
+			public String getPath() {
+				return "/findByType/{type}";
+			}
+			
+			@Override
+			public Map<String, Object> getParameters() {
+				Map<String,Object> map = new HashMap<String, Object>();
+				map.put("type", SystemConstant.CategoryType.FAQ);
+				return map;
+			}
+		});
 	}
 	
 }

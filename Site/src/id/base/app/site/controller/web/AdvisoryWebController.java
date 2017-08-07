@@ -80,7 +80,7 @@ public class AdvisoryWebController extends BaseSiteController<Pages>{
 			@RequestParam(value="startNo",defaultValue="1") int startNo, 
 			@RequestParam(value="offset",defaultValue="6") int offset,
 			@RequestParam(value="filter", defaultValue="", required=false) String filterJson){
-		setCommonData(model);
+		setCommonData(request,model);
 		model.addAttribute("permalink", permalink);
 		List<Category> categoryList = getCategoryList();
 		model.addAttribute("categories", categoryList);
@@ -108,7 +108,7 @@ public class AdvisoryWebController extends BaseSiteController<Pages>{
 			if(detail.getName()!=null){
 				String dataTitle = detail.getName().replace(" ", "-");
 				if(dataTitle.equals(title)){
-					setCommonData(model);
+					setCommonData(request,model);
 					model.addAttribute("detail", detail);
 					return "/advisory/detail";
 				}
@@ -139,7 +139,7 @@ public class AdvisoryWebController extends BaseSiteController<Pages>{
 			@RequestParam(value="offset",defaultValue="6") int offset,
 			@RequestParam(value="filter", defaultValue="", required=false) String filterJson
 		){
-		setCommonData(model);
+		setCommonData(request,model);
 		return "/advisory/stories";
 	}
 	
@@ -149,7 +149,7 @@ public class AdvisoryWebController extends BaseSiteController<Pages>{
 			@RequestParam(value="offset",defaultValue="12") int offset,
 			@RequestParam(value="filter", defaultValue="", required=false) String filterJson
 		){
-		setCommonData(model);
+		setCommonData(request,model);
 		List<SearchFilter> filter = new ArrayList<SearchFilter>();
 		filter.add(new SearchFilter(AppUser.APP_ROLES_CODE, Operator.EQUALS, SystemConstant.UserRole.ADVISOR));
 		if(filterJson!=null && !"".equals(filterJson)){
@@ -192,7 +192,7 @@ public class AdvisoryWebController extends BaseSiteController<Pages>{
 			if(advisor.getParty()!=null && advisor.getParty().getName()!=null){
 				String dataTitle = advisor.getParty().getName().replace(" ", "-");
 				if(dataTitle.equals(name)){
-					setCommonData(model);
+					setCommonData(request,model);
 					model.addAttribute("advisor", advisor);
 					return "/advisory/advisorDetail";
 				}
@@ -209,7 +209,7 @@ public class AdvisoryWebController extends BaseSiteController<Pages>{
 			@RequestParam(value="filter", defaultValue="", required=false) String filterJson,
 			@RequestParam Map<String,String> params
 		){
-		setCommonData(model);
+		setCommonData(request,model);
 		List<SearchFilter> filter = new ArrayList<SearchFilter>();
 		filter.add(new SearchFilter(AppUser.APP_ROLES_CODE, Operator.EQUALS, SystemConstant.UserRole.ADVISOR));
 		List<SearchOrder> order = new ArrayList<SearchOrder>();
@@ -237,7 +237,7 @@ public class AdvisoryWebController extends BaseSiteController<Pages>{
 			if(category.getTitle()!=null){
 				String dataTitle = category.getTitle().replace(" ", "-");
 				if(dataTitle.equals(title)){
-					setCommonData(model);
+					setCommonData(request,model);
 					model.addAttribute("category", category);
 					
 					//get question

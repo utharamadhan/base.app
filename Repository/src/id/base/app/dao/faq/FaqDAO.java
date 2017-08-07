@@ -6,8 +6,8 @@ import id.base.app.exception.SystemException;
 import id.base.app.paging.PagingWrapper;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
+import id.base.app.valueobject.Category;
 import id.base.app.valueobject.Faq;
-import id.base.app.valueobject.Lookup;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,39 +65,41 @@ public class FaqDAO extends AbstractHibernateDAO<Faq,Long> implements IFaqDAO {
 	
 	@Override
 	public List<Faq> findFaqListForView() throws SystemException {
-		Criteria crit = getSession().createCriteria(Faq.class);
-		crit.createAlias("faqCategoryLookup", "faqCategoryLookup");
+		Criteria crit = getSession().createCriteria(Category.class);
+		crit.createAlias("faqCategory", "faqCategory");
 		crit.add(Restrictions.eq(Faq.STATUS, ILookupConstant.Status.PUBLISH));
-		crit.addOrder(Order.asc("faqCategoryLookup.code"));
+		crit.addOrder(Order.asc("faqCategory.orderNo"));
 		crit.addOrder(Order.asc(Faq.QUESTION));
 		ProjectionList projectionList = Projections.projectionList();
+		projectionList.add(Projections.property("faqCategory.pkCategory"));
+		projectionList.add(Projections.property("faqCategory.title"));
 		projectionList.add(Projections.property(Faq.QUESTION));
 		projectionList.add(Projections.property(Faq.ANSWER));
-		projectionList.add(Projections.property("faqCategoryLookup.code"));
 		crit.setProjection(projectionList);
 		crit.setResultTransformer(new ResultTransformer() {
-		
-		@Override
-		public Object transformTuple(Object[] tuple, String[] aliases) {
-			Faq faq = new Faq();
-			try{					
-				faq.setQuestion(tuple[0].toString());
-				faq.setAnswer(tuple[1].toString());
-				Lookup lookup = new Lookup();
-				lookup.setCode(tuple[3].toString());
-				faq.setFaqCategoryLookup(lookup);
-			}catch(Exception e){
-				LOGGER.error(e.getMessage());
+			private static final long serialVersionUID = -4871271162174076095L;
+
+			@Override
+			public Object transformTuple(Object[] tuple, String[] aliases) {
+				Faq faq = new Faq();
+				try{					
+					Category cat = new Category();
+					cat.setPkCategory(Long.valueOf(tuple[0].toString()));
+					cat.setTitle(tuple[1].toString());
+					faq.setFaqCategory(cat);
+					faq.setQuestion(tuple[2].toString());
+					faq.setAnswer(tuple[3].toString());
+				}catch(Exception e){
+					LOGGER.error(e.getMessage());
+				}
+				return faq;
 			}
-			return faq;
-		}
-		
-		@Override
-		public List transformList(List collection) {
-			return collection;
-		}
-	});
-	
-	return crit.list();
+			
+			@Override
+			public List transformList(List collection) {
+				return collection;
+			}
+		});
+		return crit.list();
 	}	
 }

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:ifs="http://btn.co.id">
+<head>
+<meta charset="ISO-8859-1"/>
+<title>FAQ Category Detail</title>
+</head>
+<style>
+.gcDetail-image {
+	max-height : 250px;
+}
+
+.image-delete {
+	position:absolute;
+	left:25px;
+	top:10px;
+}
+</style>
+<body>
+	<div class="pageheader">
+		<div class="row col-md-8">
+			<h4><i class="fa fa-tachometer"></i> FAQ / FAQ Category List / FAQ Category Detail
+			<span></span></h4>
+		</div>
+	</div>
+	<div class="row col-md-12">
+	<section class="tile transparent">
+			<div class="tile-body rounded-corners">
+				<form action="#" id="faqCategory-detail-form" class="form-horizontal" method="POST" novalidate="novalidate" th:object="${detail}">
+					<div>
+						<div class="form-group">
+							<div class="col-md-12">
+								<div id="errorFragmentList">
+									<th:block th:if="${message}">
+										<div class='alert alert-success'>
+											<a href='#' class='close' data-dismiss='alert' aria-label='close' title='close'>&#10006;</a>			
+											<label th:text="${message}"></label>
+										</div>
+									</th:block>
+								</div>
+							</div>									
+							&nbsp;
+						</div>
+						<input id="faqCategory-detail-maintenancePk" type="hidden" th:field="*{pkCategory}"/>
+						<div class="form-group">
+							<label class="col-sm-2 control-label required" th:text="'Title'">Title</label>
+							<div class="col-sm-9 form-input-container">
+								<input type="text" class="form-control" placeholder="Title" name="srch-term" id="input-text-name" th:field="*{title}"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" th:text="'Order No'">Order No</label>
+							<div class="col-sm-9 form-input-container">
+								<input type="text" class="form-control" placeholder="Order No" name="srch-term" id="input-text-order-no" th:field="*{orderNo}"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" th:text="'Status'">Status</label>
+							<div class="col-sm-9 form-input-container">
+								<select class="chosen-select form-control" th:field="*{status}">
+									<option th:each="opt : ${statusOptions}" th:value="${opt.code}" th:text="${opt.name}">Name</option>
+                           		</select>
+                           	</div>
+						</div>
+						<div class="form-group form-footer">				
+							<div class="col-sm-offset-2 col-sm-10">
+								<a href="#" id="faqCategory-detail-btn-cancel" class="btn btn-default" type="reset" data-toggle="tooltip" title="" th:text="#{button.cancel}">Cancel</a>
+								<button id="faqCategory-detail-btn-save" class="btn btn-primary" type="submit" data-toggle="tooltip" title="" th:text="#{button.save}">Save</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+	</section>
+	</div>
+	<script th:inline="javascript">
+	/*<![CDATA[*/
+		$(function(){
+	    	var backToList = function(){
+				removeTextEditor("textEditor-description-area", "textEditor-description-parent");
+				returnToList('faqCategory-detail-container', 'faqCategory-list-container', true);
+			};
+			
+			var submitForm = function(){
+				cleanErrorParsley();
+				var sURL = /*[[@{/do/master/faqCategory/saveCategory/}]]*/ #;
+				$.post(sURL, $("#faqCategory-detail-form").serialize(), function(data) {
+					if(data.errorList!=null){
+						displayErrorParsley(data.errorList);
+					}else{
+						backToList();
+					}
+				});
+			};
+			
+			$('#faqCategory-detail-btn-save').click(function(e){
+				e.preventDefault();
+				submitForm();
+			});
+			
+			$('#faqCategory-detail-btn-cancel').click(function(e){
+				e.preventDefault();
+				backToList();
+			});
+			
+	    });
+	/*]]>*/
+	</script>
+</body>
+</html>

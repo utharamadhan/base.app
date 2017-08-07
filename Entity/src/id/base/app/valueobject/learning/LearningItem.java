@@ -35,7 +35,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "LEARNING_ITEM")
-@JsonIdentityInfo(generator=ObjectIdGenerators.UUIDGenerator.class, property="courseJid", scope=LearningItem.class)
+@JsonIdentityInfo(generator=ObjectIdGenerators.UUIDGenerator.class, property="learningItemJid", scope=LearningItem.class)
 public class LearningItem extends BaseEntity implements Serializable {
 	
 	private static final long serialVersionUID = -8415773929940728045L;
@@ -46,6 +46,7 @@ public class LearningItem extends BaseEntity implements Serializable {
 	public static final String SUBTITLE 		= "subtitle";
 	public static final String PERMALINK		= "permalink";
 	public static final String DATE_FROM		= "dateFrom";
+	public static final String CLOSING_DATE_REG	= "closingDateReg";	
 	public static final String METHOD_LOOKUP	= "methodLookup";
 	public static final String METHOD_LOOKUP_PK	= METHOD_LOOKUP+"."+Lookup.ID;
 	public static final String ORGANIZER_LOOKUP	= "organizerLookup";

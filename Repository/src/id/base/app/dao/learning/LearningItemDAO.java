@@ -4,8 +4,10 @@ import id.base.app.AbstractHibernateDAO;
 import id.base.app.ILookupConstant;
 import id.base.app.exception.SystemException;
 import id.base.app.paging.PagingWrapper;
+import id.base.app.util.DateTimeFunction;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
+import id.base.app.valueobject.Category;
 import id.base.app.valueobject.learning.LearningItem;
 
 import java.util.ArrayList;
@@ -17,6 +19,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.transform.ResultTransformer;
@@ -150,6 +153,38 @@ public class LearningItemDAO extends AbstractHibernateDAO<LearningItem, Long> im
 		sqlQuery.setLong("pk", pkLearningItem);
 		sqlQuery.setString("thumbURL", thumbURL);
 		sqlQuery.executeUpdate();
+	}
+	
+	@Override
+	public List<LearningItem> findForSelectEligibleReg(Long pkCategory) throws SystemException {
+		Criteria crit = this.getSession().createCriteria(domainClass);
+		crit.createAlias("categories", "categories");
+		crit.add(Restrictions.eq("categories.pkCategory", pkCategory));
+		crit.add(Restrictions.eq(LearningItem.STATUS, ILookupConstant.Status.PUBLISH));
+		crit.add(Restrictions.ge(LearningItem.CLOSING_DATE_REG, DateTimeFunction.getCurrentDateWithoutTime()));
+		crit.addOrder(Order.asc(LearningItem.TITLE));
+		crit.setProjection(Projections.projectionList().
+				add(Projections.property(LearningItem.PK_LEARNING_ITEM)).
+				add(Projections.property(LearningItem.TITLE)));
+		crit.setResultTransformer(new ResultTransformer() {
+			@Override
+			public Object transformTuple(Object[] tuple, String[] aliases) {
+				LearningItem obj = new LearningItem();
+				try {
+					BeanUtils.copyProperty(obj, LearningItem.PK_LEARNING_ITEM, tuple[0]);
+					BeanUtils.copyProperty(obj, LearningItem.TITLE, tuple[1]);
+				} catch (Exception e) {
+					LOGGER.error(e.getMessage(), e);
+				}
+				return obj;
+			}
+			
+			@Override
+			public List transformList(List collection) {
+				return collection;
+			}
+		});
+		return crit.list();
 	}
 	
 }

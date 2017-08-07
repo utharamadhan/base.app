@@ -32,7 +32,7 @@ public class AboutUsWebController extends BaseSiteController<Pages>{
 	
 	@RequestMapping(method=RequestMethod.GET, value="/{permalink}")
 	public String detail(ModelMap model, HttpServletRequest request, HttpServletResponse response, @PathVariable(value="permalink") String permalink){
-		setCommonData(model);
+		setCommonData(request,model);
 		Pages detail = findByPermalink(permalink);
 		if(detail!=null){
 			if(detail.getTitle()!=null){

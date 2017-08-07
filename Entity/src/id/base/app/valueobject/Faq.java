@@ -1,5 +1,7 @@
 package id.base.app.valueobject;
 
+import id.base.app.ILookupConstant;
+
 import java.io.Serializable;
 
 import javax.persistence.CascadeType;
@@ -31,8 +33,8 @@ public class Faq extends BaseEntity implements Serializable {
 	private Long pkFaq;
 	
 	@OneToOne(cascade=CascadeType.DETACH)
-	@JoinColumn(name="FK_LOOKUP_FAQ_CATEGORY")
-	private Lookup faqCategoryLookup;
+	@JoinColumn(name="FK_CATEGORY")
+	private Category faqCategory;
 	
 	@Column(name="QUESTION")
     private String question;
@@ -57,11 +59,11 @@ public class Faq extends BaseEntity implements Serializable {
 	public void setPkFaq(Long pkFaq) {
 		this.pkFaq = pkFaq;
 	}
-	public Lookup getFaqCategoryLookup() {
-		return faqCategoryLookup;
+	public Category getFaqCategory() {
+		return faqCategory;
 	}
-	public void setFaqCategoryLookup(Lookup faqCategoryLookup) {
-		this.faqCategoryLookup = faqCategoryLookup;
+	public void setFaqCategory(Category faqCategory) {
+		this.faqCategory = faqCategory;
 	}
 	public String getQuestion() {
 		return question;
@@ -82,9 +84,7 @@ public class Faq extends BaseEntity implements Serializable {
 		this.status = status;
 	}
 	public String getStatusStr() {
-		return statusStr;
+		return ILookupConstant.Status.STATUS_MAP.get(status);
 	}
-	public void setStatusStr(String statusStr) {
-		this.statusStr = statusStr;
-	}
+	
 }

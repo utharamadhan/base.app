@@ -112,7 +112,7 @@
 										</div>
 									</div>
 									<div class="col-md-6">
-										<h2><a th:href="@{/page/main-program/learning/detail/}+${data.learningPermalink}"><label class="title_engagement show_detail my_link" th:text="${data.title}"></label></a></h2>
+										<h2><a th:href="@{/page/main-program/learning/}+${permalink}+'/'+${data.learningPermalink}"><label class="title_engagement show_detail my_link" th:text="${data.title}"></label></a></h2>
 										<span class="date-wrapper"><i class="fa fa-calendar date-icon" aria-hidden="true"></i><span class="date" th:text="${data.eventDate}"></span></span>
 									</div>
 								</div>
@@ -135,7 +135,7 @@
 							<div class="col-md-4"></div>
 							<div class="col-md-4">
 								<ul class="pagination_section">
-									<li style="width:100%;text-align:center"><a href="#" class="load_more mrdy_btn">Lainnya</a></li>
+									<li style="width:100%;text-align:center"><a href="#" class="load_more mrdy_btn" th:text="#{button.load.more}"></a></li>
 								</ul><!--end pagination section-->		
 								<input type="hidden" th:value="${items.startRecordIndex}" class="startNo"/>
 								<input type="hidden" th:value="${items.recordsPerPage}" class="offset"/>
@@ -184,6 +184,7 @@
 				$('.list_data').html(load_content);
 			}
 		}
+		
 		$(function(){
 			var maxRecord = /*[[${items.maxRecord}]]*/;
 			var currentRecord = /*[[${items.currentRecord}]]*/;
@@ -205,6 +206,7 @@
 				});
 				return data;
 			}
+			
 			$('.load_more').unbind('click').click(function(e){
 				e.preventDefault();
 				var sURL = /*[[@{/page/main-program/learning/load/}]]*/
@@ -241,7 +243,6 @@
 			$('.search').unbind('click').click(function(){
 				var sURL = /*[[@{/page/main-program/learning/load/}]]*/
 					sURL += $('input[name="categoryPermalink"]').val();
-				var param = $('.param').val();
 				var img_url = /*[[@{/images/gif/hex-loader.gif}]]*/;
 				$.ajax({
 		            type: 'POST',

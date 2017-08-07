@@ -26,7 +26,8 @@ public class IAccessibilityConstant {
 	public static int INT_MASTER = 300;
 		public static int INT_MT_PROGRAM = 310;
 		public static int INT_MT_TESTIMONIAL = 320;
-		public static int INT_MT_FAQ = 330;
+		public static int INT_MT_FAQ_CATEGORY = 330;
+		public static int INT_MT_FAQ_ITEM = 340;
 		
 	public static int INT_FRONT_END_DISPLAY = 400;
 		public static int INT_FE_MENU_SET = 410;

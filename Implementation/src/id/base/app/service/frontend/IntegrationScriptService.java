@@ -52,5 +52,10 @@ public class IntegrationScriptService implements IIntegrationScriptService {
 	public List<IntegrationScript> findAll(List<SearchFilter> filter,
 			List<SearchOrder> order) throws SystemException {
 		return integrationScriptDAO.findAll(filter, order);
-	}	
+	}
+	
+	@Override
+	public List<IntegrationScript> findByUrl(String url) throws SystemException {
+		return integrationScriptDAO.findByUrl(url);
+	}
 }

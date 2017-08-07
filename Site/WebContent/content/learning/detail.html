@@ -9,7 +9,7 @@
 					<ul>
 					<li><a th:href="@{/}">Beranda</a></li>
 					<li><a th:href="@{/page/main-program}">Program</a></li>
-					<li><a th:href="@{/page/main-program/learning}">Learning</a></li>
+					<li><a th:href="@{/page/main-program/learning/}+${categoryPermalink}" th:text="${categoryPermalink}"></a></li>
 					<li><a href="#" th:text="${detail.title}"></a></li>
 					</ul>
 				</div>
@@ -33,8 +33,7 @@
 								</div>
 								</th:block>
 								<div class="col-md-2" th:if="${detail.eligibleRegistration}">
-									<div class="enroll-wrap" data-toggle="modal" data-target="#sign-in-modal">
-										<!-- <div class="enroll-wrap" data-toggle="modal" data-target="#enroll-modal"> -->
+									<div class="enroll-wrap registerButton" th:attr="categoryPermalink=${categoryPermalink},permalink=${permalink}">
 										<span class="enroll-title">Daftar Sekarang</span>
 										<span class="enroll-date">Pendaftaran Berakhir<br/>
 											<th:block th:text="${detail.closingDateReg!=null?#dates.format(detail.closingDateReg, T(id.base.app.SystemConstant).SYSTEM_DATE_MASK_2):''}" ></th:block>
@@ -230,6 +229,13 @@
 <script th:inline="javascript">
 	/*<![CDATA[*/
 	setNavbarActive('program');
+	
+	$(function(){
+		$('.registerButton').click(function(){
+			var link = /*[[@{/page/contact/}]]*/;
+			window.location.href = link + $(this).attr('categoryPermalink')+'/'+$(this).attr('permalink');
+		});
+	})
 	/*]]>*/
 </script>           
 </body>

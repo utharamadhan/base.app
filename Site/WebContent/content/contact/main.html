@@ -17,7 +17,7 @@
 					<div class="col-md-4 no-pad-right">
 						<div class="list_block back-gradient-transparent-menu no-border-right">
 							<ul class="menu_left">
-								<th:block th:each="cat, i : ${category}">
+								<th:block th:each="cat, i : ${categoryHelps}">
 									<th:block th:if="${type!=null}"> 
 										<th:block th:if="${cat.code==type}">
 											<li th:attr="id=${cat.code}" class="menu_left_active" th:classappend="${cat.code}">
@@ -101,13 +101,12 @@
 										<div class="col-xs-12">
 											<div class="form-group">
 												<label>Learning <span class="error">*</span></label>
-												<select class="form-control" name="learning1">
-													<option value="">Seminar</option>
-													<!-- <option th:each="course, i : ${courses}" th:text="${course.name}" th:value="${course.pkCourse}"></option> -->
+												<select class="form-control" name="learningCategory" id="learningCategory">
+													<option th:each="data, i : ${categories}" th:text="${data.title}" th:value="${data.pkCategory}"></option>
 												</select><br/>
-												<select class="form-control" name="learning2">
-													<option value="">Seminar Properti Indonesia 2017</option>
-													<!-- <option th:each="course, i : ${courses}" th:text="${course.name}" th:value="${course.pkCourse}"></option> -->
+												<select class="form-control" name="learningItem" id="learningItem">
+													<option value="">-- Pilih Seminar --</option>
+													<option th:each="data, i : ${learningItems}" th:text="${data.title}" th:value="${data.pkLearningItem}"></option>
 												</select>
 											</div>
 										</div>
@@ -207,6 +206,23 @@
 		/*<![CDATA[*/
 		setNavbarActive('kontak-kami');
 		$(function(){
+			$('#learningCategory').change(function(){
+				var sURL = /*[[@{/page/contact/getLearningItemsByCategory}]]*/ #;
+				var html = '';
+				var txtSelected = $(this).find('option:selected').text();
+				$.get( sURL, {pkCategory:$('#learningCategory').val()}, function( data ) {
+					if(data.length>0){
+						html += '<option value="">-- Pilih '+capitalizeFirstLetter(txtSelected)+' --</option>';
+					}else{
+						html += '<option value="">-- Tidak ada '+txtSelected.toLowerCase()+' yang dapat di pilih --</option>';
+					}
+					for(var i=0;i<data.length;i++){
+						html += '<option value="'+data[i].pkLearningItem+'">'+data[i].title+'</option>';
+					};
+					$('#learningItem').html(html);
+				});
+			});
+			
 			$("#sendEmail").unbind('click').click(function(){
 				var sURL = /*[[@{/page/contact/sendEmail}]]*/ #;
 				sendEmail(sURL);
@@ -263,5 +279,14 @@
 		}
 		/*]]>*/
 		</script>
+		<th:block th:if="${categoryPermalink!=null}">
+		<script type="text/javascript" th:inline="javascript">
+		/*<![CDATA[*/
+			$(function(){
+				$('.menu_left #PR').trigger('click');
+			});
+		/*]]>*/
+		</script>
+		</th:block>
 </body>
 </html>

@@ -51,3 +51,37 @@ CREATE TABLE INTEGRATION_SCRIPT
 
 INSERT INTO app_function(pk_app_function,fk_app_function_parent, name, descr, access_page,is_active, user_type, order_no) VALUES (450,400,'Integration Script','INT_FE_INTEGRATION_SCRIPT','/do/fed/integrationScript/showList','t',1,5);
 COMMIT;
+
+UPDATE LOOKUP_GROUP SET LOOKUP_GROUP = 'FAQ_TYPE', GROUP_DESCR = 'FAQ_TYPE' WHERE LOOKUP_GROUP = 'FAQ_CATEGORY';
+UPDATE LOOKUP SET LOOKUP_GROUP = 'FAQ_TYPE' WHERE LOOKUP_GROUP = 'FAQ_CATEGORY';
+COMMIT;
+
+UPDATE APP_FUNCTION SET NAME = 'FAQ Category', DESCR = 'INT_MT_FAQ_CATEGORY', ACCESS_PAGE = '/do/master/faqCategory/showList' WHERE PK_APP_FUNCTION = 330; 
+INSERT INTO app_function(pk_app_function,fk_app_function_parent, name, descr, access_page,is_active, user_type, order_no) VALUES 
+(340,300,'FAQ','INT_MT_FAQ','/do/master/faq/showList','t',1,4);
+COMMIT;
+
+UPDATE APP_FUNCTION SET NAME = 'FAQ Item', DESCR = 'INT_MT_FAQ_ITEM', ACCESS_PAGE = '/do/master/faqItem/showList' WHERE PK_APP_FUNCTION = 340;
+COMMIT;
+
+DROP TABLE faq;
+
+CREATE TABLE faq
+(
+  pk_faq bigint NOT NULL DEFAULT nextval('faq_pk_faq_seq'::regclass),
+  fk_category bigint,
+  question text,
+  answer text,
+  status integer NOT NULL DEFAULT 1,
+  created_by character varying(200) NOT NULL,
+  creation_time timestamp with time zone NOT NULL DEFAULT now(),
+  modified_by character varying(200) NOT NULL,
+  modification_time timestamp with time zone NOT NULL DEFAULT now(),
+  CONSTRAINT pk_faq PRIMARY KEY (pk_faq),
+  CONSTRAINT faq_fk_category_fkey FOREIGN KEY (fk_category)
+      REFERENCES category (pk_category) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+);
+
+DELETE FROM LOOKUP WHERE LOOKUP_GROUP = 'FAQ_TYPE';
+COMMIT;

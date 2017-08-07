@@ -34,7 +34,7 @@ public class PageWebController extends BaseSiteController<Pages>{
 			@PathVariable(value="permalink") String permalink){
 		Pages detail = findByPermalink(permalink);
 		if(detail!=null){
-			setCommonData(model);
+			setCommonData(request,model);
 			model.addAttribute("detail", detail);
 			return "/page/detail";
 		}

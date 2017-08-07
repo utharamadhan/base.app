@@ -95,4 +95,9 @@ public class LearningItemService implements ILearningItemService {
 	public void updateThumb(Long pkLearningItem, String thumbURL) throws SystemException {
 		learningItemDAO.updateThumb(pkLearningItem, thumbURL);
 	}
+	
+	@Override
+	public List<LearningItem> findForSelectEligibleReg(Long pkCategory) throws SystemException {
+		return learningItemDAO.findForSelectEligibleReg(pkCategory);
+	}
 }

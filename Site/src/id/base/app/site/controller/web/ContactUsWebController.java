@@ -5,14 +5,17 @@ import id.base.app.ILookupGroupConstant;
 import id.base.app.SystemConstant;
 import id.base.app.SystemParameter;
 import id.base.app.mail.MailManager;
+import id.base.app.rest.PathInterfaceRestCaller;
 import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
 import id.base.app.rest.RestServiceConstant;
+import id.base.app.rest.SpecificRestCaller;
 import id.base.app.site.controller.BaseSiteController;
 import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.util.dao.SearchOrder.Sort;
+import id.base.app.valueobject.Category;
 import id.base.app.valueobject.Lookup;
 import id.base.app.valueobject.contact.Contact;
 import id.base.app.valueobject.learning.LearningItem;
@@ -72,23 +75,25 @@ public class ContactUsWebController extends BaseSiteController<Contact>{
 		return new RestCaller<LearningItem>(RestConstant.REST_SERVICE, RestServiceConstant.LEARNING_ITEM_SERVICE);
 	}
 	
-	protected void setDefaultData(ModelMap model){
-		setCommonData(model);
+	protected void setDefaultData(HttpServletRequest request, ModelMap model){
+		setCommonData(request,model);
 		List<SearchFilter> filterCH = new ArrayList<SearchFilter>();
 		List<SearchOrder> orderCH = new ArrayList<SearchOrder>();
 		filterCH.add(new SearchFilter(Lookup.LOOKUP_GROUP_STRING, Operator.EQUALS, ILookupGroupConstant.CATEGORY_HELP));
 		filterCH.add(new SearchFilter(Lookup.USAGE, Operator.LIKE, SystemConstant.LookupUsage.CONTACT));
 		orderCH.add(new SearchOrder(Lookup.ORDER_NO_STRING, Sort.ASC));
-		model.addAttribute("category", getRestCallerLookup().findAll(filterCH, orderCH));
-		
-		List<LearningItem> courses = getRestCallerCourse().findAll(new ArrayList<SearchFilter>(), new ArrayList<SearchOrder>());
-		model.addAttribute("courses", courses);
+		model.addAttribute("categoryHelps", getRestCallerLookup().findAll(filterCH, orderCH));
+		List<Category> categories = getCategoryList();
+		model.addAttribute("categories", categories);
+		if(!categories.isEmpty()){
+			model.addAttribute("learningItems", getLearningItemList(categories.get(0).getPkCategory()));
+		}
 	}
 	
 	
 	@RequestMapping(method=RequestMethod.GET, value="/{type}")
 	public String view(ModelMap model, HttpServletRequest request, HttpServletResponse response, @PathVariable(value="type") String type){
-		setDefaultData(model);
+		setDefaultData(request, model);
 		List<SearchFilter> filter = new ArrayList<SearchFilter>();
 		List<SearchOrder> order = new ArrayList<SearchOrder>();
 		filter.add(new SearchFilter(Lookup.LOOKUP_GROUP_STRING, Operator.EQUALS, ILookupGroupConstant.CATEGORY_HELP));
@@ -103,8 +108,23 @@ public class ContactUsWebController extends BaseSiteController<Contact>{
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public String view(ModelMap model, HttpServletRequest request, HttpServletResponse response){
-		setDefaultData(model);
+		setDefaultData(request, model);
 		return "/contact/main";
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/{categoryPermalink}/{permalink}")
+	public String view(ModelMap model, HttpServletRequest request, HttpServletResponse response
+			, @PathVariable(value="categoryPermalink") String categoryPermalink, @PathVariable(value="permalink") String permalink){
+		setDefaultData(request, model);
+		model.addAttribute("categoryPermalink", categoryPermalink);
+		model.addAttribute("permalink", permalink);
+		return "/contact/main";
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/getLearningItemsByCategory")
+	@ResponseBody
+	public List<LearningItem> getLearningItemsByCategory(@RequestParam("pkCategory") final Long pkCategory){
+		return getLearningItemList(pkCategory);
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/testEmail")
@@ -293,4 +313,41 @@ public class ContactUsWebController extends BaseSiteController<Contact>{
 		return resultMap;
 	}
 	
+	private List<Category> getCategoryList(){
+		SpecificRestCaller<Category> rc = new SpecificRestCaller<Category>(RestConstant.REST_SERVICE, RestServiceConstant.CATEGORY_SERVICE);
+		List<Category> list = rc.executeGetList(new PathInterfaceRestCaller() {
+			
+			@Override
+			public String getPath() {
+				return "/findSimpleDataForSelect/{type}";
+			}
+			
+			@Override
+			public Map<String, Object> getParameters() {
+				Map<String,Object> map = new HashMap<String, Object>();
+				map.put("type", SystemConstant.CategoryType.LEARNING);
+				return map;
+			}
+		});
+		return list;
+	}
+	
+	private List<LearningItem> getLearningItemList(final Long pkCategory){
+		SpecificRestCaller<LearningItem> rc = new SpecificRestCaller<LearningItem>(RestConstant.REST_SERVICE, RestServiceConstant.LEARNING_ITEM_SERVICE);
+		List<LearningItem> list = rc.executeGetList(new PathInterfaceRestCaller() {
+			
+			@Override
+			public String getPath() {
+				return "/findForSelectEligibleReg/{pkCategory}";
+			}
+			
+			@Override
+			public Map<String, Object> getParameters() {
+				Map<String,Object> map = new HashMap<String, Object>();
+				map.put("pkCategory", pkCategory);
+				return map;
+			}
+		});
+		return list;
+	}
 }

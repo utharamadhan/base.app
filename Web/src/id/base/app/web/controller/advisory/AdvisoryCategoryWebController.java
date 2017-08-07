@@ -68,7 +68,7 @@ public class AdvisoryCategoryWebController extends BaseController<Category> {
 		if(orders != null) {
 			orders.clear();
 		}
-		orders.add(new SearchOrder(Category.PK_CATEGORY, SearchOrder.Sort.DESC));
+		orders.add(new SearchOrder(Category.ORDER_NO, SearchOrder.Sort.ASC));
 		return orders;
 	}
 	

@@ -67,7 +67,7 @@ public class LearningWebController extends BaseSiteController<LearningItem>{
 			@RequestParam(value="startNo",defaultValue="1") int startNo, 
 			@RequestParam(value="offset",defaultValue="6") int offset,
 			@RequestParam(value="filter", defaultValue="", required=false) String filterJson){
-		setCommonData(model);
+		setCommonData(request,model);
 		LookupRestCaller lrc = new LookupRestCaller();
 		model.addAttribute("permalink", permalink);
 		List<Category> categoryList = getCategoryList();
@@ -140,12 +140,14 @@ public class LearningWebController extends BaseSiteController<LearningItem>{
 		return resultMap;
 	}
 	
-	@RequestMapping(method=RequestMethod.GET, value="detail/{permalink}")
+	@RequestMapping(method=RequestMethod.GET, value="{categoryPermalink}/{permalink}")
 	public String detail(ModelMap model, HttpServletRequest request, HttpServletResponse response,
+			@PathVariable(value="categoryPermalink") String categoryPermalink,
 			@PathVariable(value="permalink") String permalink){
 		LearningItem detail = findItemByPermalink(permalink);
 		if(detail!=null){
-			setCommonData(model);
+			setCommonData(request,model);
+			model.addAttribute("categoryPermalink", categoryPermalink);
 			model.addAttribute("detail", detail);
 			return "/learning/detail";
 		}
@@ -216,5 +218,4 @@ public class LearningWebController extends BaseSiteController<LearningItem>{
 		}
 		return detail;
 	}
-	
 }

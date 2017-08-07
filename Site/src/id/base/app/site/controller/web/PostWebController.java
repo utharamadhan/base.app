@@ -42,7 +42,7 @@ public class PostWebController extends BaseSiteController<Pages>{
 			if(detail.getTitle()!=null){
 				String dataTitle = detail.getTitle().replace(" ", "-");
 				if(dataTitle.equals(title)){
-					setCommonData(model);
+					setCommonData(request,model);
 					model.addAttribute("detail", detail);
 					return "/post/main";
 				}
