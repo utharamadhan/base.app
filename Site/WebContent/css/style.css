@@ -3286,7 +3286,7 @@ ul.contact_info li a:hover {
   border: none;
   padding: 10px 20px;
   background-color:white;
-  max-height: 140px;
+  max-height: 500px;
   overflow-y: scroll;
   overflow-x: hidden;
 }
