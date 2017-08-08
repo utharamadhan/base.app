@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface IFaqDAO extends IBaseDAO<Faq>{
 
-	public List<Faq> findFaqListForView() throws SystemException;
+	public List<Faq> findByCategory(Long pkCategory) throws SystemException;
 	
 }

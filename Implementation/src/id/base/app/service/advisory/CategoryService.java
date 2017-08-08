@@ -1,11 +1,14 @@
 package id.base.app.service.advisory;
 
+import id.base.app.SystemConstant;
 import id.base.app.dao.advisory.ICategoryDAO;
+import id.base.app.dao.faq.IFaqDAO;
 import id.base.app.exception.SystemException;
 import id.base.app.paging.PagingWrapper;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.valueobject.Category;
+import id.base.app.valueobject.Faq;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +23,9 @@ public class CategoryService implements ICategoryService {
 
 	@Autowired
 	private ICategoryDAO categoryDAO;
+	
+	@Autowired
+	private IFaqDAO faqDAO;
     
 	public PagingWrapper<Category> findAll(int startNo, int offset) throws SystemException {
 		return null;
@@ -91,4 +97,15 @@ public class CategoryService implements ICategoryService {
 	public void updateThumb(Long pkCategory, String thumbURL) throws SystemException {
 		categoryDAO.updateThumb(pkCategory, thumbURL);
 	}
+	
+	@Override
+	public List<Category> findCategoryWithFaqList() throws SystemException{
+		List<Category> catList = categoryDAO.findSimpleDataForSelect(SystemConstant.CategoryType.FAQ);
+		for (Category cat : catList) {
+			List<Faq> faqList = faqDAO.findByCategory(cat.getPkCategory());
+			cat.setFaqs(faqList);
+		}
+		return catList;
+	}
+
 }

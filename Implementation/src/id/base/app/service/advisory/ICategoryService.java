@@ -22,4 +22,6 @@ public interface ICategoryService extends MaintenanceService<Category> {
 	
 	public void updateThumb(Long pkCategory, String thumbURL) throws SystemException;
 
+	public List<Category> findCategoryWithFaqList() throws SystemException;
+
 }

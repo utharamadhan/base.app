@@ -21,144 +21,24 @@
 						<div class="bottom-right-blue"></div>
 						<div class="clear"></div>
 						<div class="content_wrapper">
-							<h2>Tentang Housing Finance Center</h2>
+						<th:block th:each="data , i : ${catList}">
+							<h2 th:text="${data.title}"></h2>
 							<br/>
-							<div class="panel-group" id="accordion1">
+							<div class="panel-group" th:attr="id='acc'+${i.count}">
+								<th:block th:each="dataFaq , j : ${data.faqs}">
 								<div class="panel panel-default">
 								  <div class="panel-heading">
 									<h5 class="panel-title">
-									  <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion1" href="#accordion1_1">Siapakah Housing Finance Center?</a>
+									  <a class="accordion-toggle collapsed" data-toggle="collapse" th:attr="data-parent='#acc'+${i.count},href='#acc'+${i.count}+'_'+${j.count}" th:text="${dataFaq.question}"></a>
 									</h5>
 								  </div>
-								  <div id="accordion1_1" class="panel-collapse collapse">
-									<div class="panel-body">
-									  <p>Housing Finance Center (HFC) merupakan suatu unit bisnis strategis dari BTN yang dapat memberikan kebangkitan bagi BTN sehingga diharapkan pemimpin utama di bidang pembiayaan perumahan. Rencana usaha jangka panjang telah diwujudkan dalam roadmap BTN dimana terdapat program Quick Wins diantaranya program riset, pendidikan property dan advisory dalam bentuk coaching clinic. Dampak dari Quick Wins ini memberikan exposure dalam meningkatkan esksistensi dari HFC ini.</p>
-									  <p>Lebih detail mengenai Housing Finance Center dapat dilihat di menu <a href="http://216.250.96.14:8181/Site/page/about-us/siapa-kami-">Tentang Kami - Siapa Kami</a></p>
-									</div>
+								  <div th:attr="id='acc'+${i.count}+'_'+${j.count}" class="panel-collapse collapse">
+									<div class="panel-body" th:utext="${dataFaq.answer}"></div>
 								  </div>
 								</div>
-								<div class="panel panel-default">
-								  <div class="panel-heading">
-									<h5 class="panel-title">
-									  <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion1" href="#accordion1_2">Siapa saja yang bisa belajar di Housing Finance Center?</a>
-									</h5>
-								  </div>
-								  <div id="accordion1_2" class="panel-collapse collapse">
-									<div class="panel-body">
-									  <p>Housing Finance Center terbuka untuk umum. Semua orang dapat bergabung dan belajar aneka kecakapan, keterampilan, dan pengetahuan menarik dari para pengajar terbaik kami. Yang Anda butuhkan hanya koneksi internet.</p>
-									</div>
-								  </div>
-								</div>
-								<div class="panel panel-default">
-								  <div class="panel-heading">
-									<h5 class="panel-title">
-									  <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion1" href="#accordion1_3">Universitas dan instansi mana saja yang bermitra dengan Housing Finance Center?</a>
-									</h5>
-								  </div>
-								  <div id="accordion1_3" class="panel-collapse collapse">
-									<div class="panel-body">
-									  <p>Housing Finance Center bekerjasama dengan Universitas dan Instansi terbaik untuk memberikan pelayanan terbaik bagi semua orang yang ingin belajar di Housing Finance Center. Berikut adalah daftar Universitas dan Instansi yang telah bekerja sama dengan Housing Finance Center : </p>
-									  <ol>
-									  	<li>MoU BTN - HDFC India</li>
-									  	<li>MoU BTN dengan Pengembang 21-22 April 2015</li>
-									  	<li>MoU BTN - SBM ITB 24 Oktober 2015</li>
-									  	<li>MoU BTN - IAEI 3 Maret 2016</li>
-									  	<li>PKS BTN dengan UNDIP Semarang, 20 April 2017</li>
-									  	<li>MoU BTN dengan Balai Pustaka, 2 Mei 2017</li>
-									  </ol>
-									</div>
-								  </div>
-								</div>
+								</th:block>
 							</div>
-							
-							<h2>Tentang Kursus</h2>
-							<br/>
-							<div class="panel-group" id="accordion4">
-								<div class="panel panel-default">
-								  <div class="panel-heading">
-									<h5 class="panel-title">
-									  <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion4" href="#accordion1_4">Pendaftaran Program Mini MBA In Property</a>
-									</h5>
-								  </div>
-								  <div id="accordion1_4" class="panel-collapse collapse">
-									<div class="panel-body">
-									  
-									  
-									  <p><strong>PENGERTIAN MINI MBA PROPERTY</strong></p>
-<p>Merupakan program (lembaga pendidikan) di bidang property yang merupakan hasil kerjasama antara Housing Finance Center (HFC) Bank BTN dan Scool of Business and Management Institut&nbsp; Teknologi Bandung ( SBM-ITB ) dalam rangka menciptakan enterpreneur (wirausaha) baru pada industry property.<br /><br /><strong><u>1. JADWAL PELAKSANAAN ( BATCH 6 )</u></strong></p>
-<p>Tanggal&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 15 Juli &ndash; 12 Agustus 2017 (tentative)<br />Durasi Program &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 26 sesi pengajaran atau 8 kali pertemuan&nbsp; ( +/- 1 &nbsp;bulan )<br />Hari&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Setiap Sabtu dan Minggu<br />Waktu&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 08.00&nbsp; sd&nbsp; 17.30<br />Tempat&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Learning Center Lantai 15, Menara BTN,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Jl. Gajah Mada No. 1 Jakarta Pusat<br /><br /><strong>2. PESERTA</strong> :&nbsp;&nbsp;&nbsp;&nbsp; Masyarakat Umum<br /><strong>3. BIAYA</strong> :&nbsp;&nbsp;&nbsp;&nbsp; 10.000.000,- / peserta</p>
-<p>Biaya program termasuk snack, makan siang, modul, alat tulis dan souvenir.<br /><u>Note</u> :</p>
-<ol>
-<li>Harga bisa berubah sewaktu-waktu</li>
-<li>Harga bisa disesuaikan/ diskon, jika melakukan pendaftaran secara massal atau kelompok</li>
-</ol>
-<strong><br />4. MATERI </strong><br />
-<p>Hal-hal yang berkaitan dengan bisnis properti mulai dari&nbsp; kebijakan umum, legalitas, pembebasan lahan, pembangunan proyek, pembiayaan properti, serta strategi penjualan dan pemasaran properti, dengan rincian :</p>
-<ol>
-<li>Kebijakan Umum Properti</li>
-<li>Mindset Bisnis Properti</li>
-<li>Lahan dan Lingkungan Bisnis Properti</li>
-<li>Pembiayaan Bisnis Properti</li>
-<li>Legal dan Perijinan</li>
-<li>Manajemen Properti</li>
-<li>Studi Lapangan</li>
-</ol>
-<strong>5. PENGAJAR </strong><br />
-<p>Tenaga pengajar berasal dari kalangan akademisi dan praktisi ternama yang sangat kompeten dan berpengalaman di masing-masing bidang.<br />Tenaga pengajar : 70 % praktisi,&nbsp; 30 %&nbsp; Akademisi ITB</p>
-<ol>
-<li>Dr. Sudarso Kaderi Wiryono ( Dekan SBM ITB )</li>
-<li>Wawan Dewanto, Phd ( SBM ITB )</li>
-<li>Ir. Tri Utomo Wiganarto, MM ( SMB ITB )</li>
-<li>Mustika Sufiati Purwanegara ( SBM ITB )</li>
-<li>Yuliani Dwi Lestari, Phd ( SBM ITB )</li>
-<li>Praktisi Appraisal ( KJPP / MAPPI )</li>
-<li>Praktisi Perbankan</li>
-<li>Praktisi Legal / Notaris</li>
-<li>Praktisi Tanah / Lahan</li>
-<li>Praktisi Developer Kelas MBR / Menengah</li>
-<li>Praktisi Developer Kawasan</li>
-<li>Praktisi Riset Property</li>
-<li>Praktisi Sales Property</li>
-<li>Praktisi Perpajakan</li>
-<li>Badan Pertanahan Nasional</li>
-<li>Dinas Perijinan</li>
-</ol>
-<strong>6. SERTIFIKAT </strong><br />
-<p>Setiap peserta yang mengikuti pelatihan akan diberikan Sertifikat Mini MBA in Property yang ditanda tangani oleh Pihak BTN dan SBM ITB.</p>
-<strong>7. REGISTRASI &amp; PENDAFTARAN</strong><br />
-<p>Housing Finance Center &ndash; Bank BTN<br />Gedung Menara BTN Lantai 18<br />Jl. Gajah Mada No. 1, Jakarta Pusat<br />Telp. (021) 633 6789&nbsp; ext. 1803 / 1831&nbsp; atau <br />HP. 0815 1958 5338 ( Arief ), 0856 1586 009&nbsp; ( Rini )<br />Email :&nbsp; <a href="mailto:mbaminiproperti@gmail.com"><strong>mbaminiproperti@gmail.com</strong></a><strong>,&nbsp;&nbsp; atau hfc@btn.co.id</strong></p>
-<strong>8. KELEBIHAN PROGRAM</strong><br />
-<ol>
-<li>SKS (Kredit program) MBA Mini properti yang setara dengan 3 SKS, bisa diakui pada perhitungan SKS Program MBA Reguler SBM ITB (<strong>sesuai dengan syarat dan ketentuan yang berlaku di SBM ITB)</strong></li>
-<li>Peserta berpeluang mendapat prioritas dalam kredit/pembiayaan properti dari Bank BTN bagi Peserta Terbaik dalam program Mini MBA in Property ( <strong>sesuai dengan syarat dan ketentuan yang berlaku di Bank BTN ).</strong></li>
-<li>Peserta berkesempatan mendapatkan advisory/konsultasi gratis ( <em>Couching clinic</em> ) di bidang property.</li>
-</ol>
-<strong>9. CARA PENDAFTARAN</strong><br />
-<ol>
-<li>Calon peserta melakukan pendaftaran ke daftar kontak sesuai dengan daftar diatas (butir 7) atau melalui website&nbsp;<a href="http://www.btnproperti.co.id">btnproperti.co.id</a></li>
-<li>Calon peserta melakukan pembayaran biaya Program Mini MBA in Property sebesar yang tertera pada butir 3 diatas ( secara lunas / bisa dicicil ) dengan cara melakukan transfer ke rekening berikut :</li>
-</ol>
-<p><strong>Nama rekening&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PT Pesona Adi Batara<br /></strong><strong>Nomor rekening&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 00014 01 30 001875 8<br /></strong><strong>Bank&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Bank Tabungan Negara KC Jakarta Harmoni</strong></p>
-<ol start="3">
-<li>Calon peserta melakukan konfirmasi pembayaran kepada daftar kontak ( sesuai poin 7 : Registrasi dan Pendaftaran ) setelah melakukan pembayaran (dengan memfoto/scan bukti transfer kemudian kirim via Whats App ke nomor HP kontak person) atau via email : <a href="mailto:mbaminiproperti@gmail.com"><strong>mbaminiproperti@gmail.com</strong></a>.</li>
-<li>Calon peserta mengumpulkan Pasfoto ukuran 3 x 4 (2 buah) dan 4 x 6 (2buah), serta formulir pendaftaran.</li>
-<li>Calon peserta akan menerima kartu (name tag) pada saat program dimulai.</li>
-</ol>
-									  			  
-									  
-									  
-									  
-									  
-									  
-									  
-									  
-									  
-									  
-									  
-									</div>
-								  </div>
-								</div>
-							</div>
+						</th:block>
 						</div>
 					</div>
 				</div>

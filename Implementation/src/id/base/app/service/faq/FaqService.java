@@ -1,5 +1,6 @@
 package id.base.app.service.faq;
 
+import id.base.app.dao.advisory.ICategoryDAO;
 import id.base.app.dao.faq.IFaqDAO;
 import id.base.app.exception.SystemException;
 import id.base.app.paging.PagingWrapper;
@@ -19,6 +20,9 @@ public class FaqService implements IFaqService {
 
 	@Autowired
 	protected  IFaqDAO faqDAO;	
+	
+	@Autowired
+	protected  ICategoryDAO categoryDAO;
     
 	@Override
 	public Faq findById(Long id) throws SystemException {
@@ -45,11 +49,5 @@ public class FaqService implements IFaqService {
 
 	@Override
 	public List<Faq> findObjects(Long[] objectPKs) throws SystemException {return null;}
-	
-	@Override
-	public List<Faq> findFaqListForView() throws SystemException{
-		return faqDAO.findFaqListForView();
-	}
-
 
 }

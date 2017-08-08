@@ -123,4 +123,10 @@ public class CategoryController extends SuperController<Category>{
 	private List<Category> findSimpleDataForSelect(@PathVariable("type") String type){
 		return categoryService.findSimpleDataForSelect(type);
 	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/findCategoryWithFaqList")
+	@ResponseBody
+	public List<Category> findCategoryWithFaqList() throws SystemException {
+		return categoryService.findCategoryWithFaqList();
+	}
 }

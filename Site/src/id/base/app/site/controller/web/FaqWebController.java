@@ -39,26 +39,16 @@ public class FaqWebController extends BaseSiteController<Faq>{
 	@RequestMapping(method=RequestMethod.GET)
 	public String view(ModelMap model, HttpServletRequest request, HttpServletResponse response){
 		setCommonData(request,model);
-		/*List<Faq> faqList = findFaqListForView();
-		List<Category> catList = new ArrayList<>();
-		Long pkCategory = 0L;
-		for (Faq faq : faqList) {
-			if(!pkCategory.equals(faq.getFaqCategory().getPkCategory())){
-				pkCategory = faq.getFaqCategory().getPkCategory();
-				catList.add(faq.getFaqCategory());
-			}
-			
-		}
-		model.addAttribute("faq", );*/
+		model.addAttribute("catList", findCategoryWithFaqList());
 		return "/faq/main";
 	}
 	
-	private List<Faq> findFaqListForView(){
-		List<Faq> faqList = new ArrayList<>();
-		faqList = (List<Faq>) new SpecificRestCaller<Faq>(RestConstant.REST_SERVICE, RestServiceConstant.FAQ_SERVICE).executeGetList(new PathInterfaceRestCaller() {
+	private List<Category> findCategoryWithFaqList(){
+		List<Category> catList = new ArrayList<>();
+		catList = (List<Category>) new SpecificRestCaller<Category>(RestConstant.REST_SERVICE, RestServiceConstant.CATEGORY_SERVICE).executeGetList(new PathInterfaceRestCaller() {
 			@Override
 			public String getPath() {
-				return "/findFaqListForView";
+				return "/findCategoryWithFaqList";
 			}
 
 			@Override
@@ -67,6 +57,6 @@ public class FaqWebController extends BaseSiteController<Faq>{
 				return map;
 			}
 		});
-		return faqList;
+		return catList;
 	}
 }

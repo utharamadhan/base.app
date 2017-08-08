@@ -6,7 +6,6 @@ import id.base.app.exception.SystemException;
 import id.base.app.paging.PagingWrapper;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
-import id.base.app.valueobject.Category;
 import id.base.app.valueobject.Faq;
 
 import java.util.ArrayList;
@@ -64,31 +63,24 @@ public class FaqDAO extends AbstractHibernateDAO<Faq,Long> implements IFaqDAO {
 	}
 	
 	@Override
-	public List<Faq> findFaqListForView() throws SystemException {
-		Criteria crit = getSession().createCriteria(Category.class);
+	public List<Faq> findByCategory(Long pkCategory) throws SystemException {
+		Criteria crit = getSession().createCriteria(Faq.class);
 		crit.createAlias("faqCategory", "faqCategory");
 		crit.add(Restrictions.eq(Faq.STATUS, ILookupConstant.Status.PUBLISH));
-		crit.addOrder(Order.asc("faqCategory.orderNo"));
+		crit.add(Restrictions.eq("faqCategory.pkCategory", pkCategory));
 		crit.addOrder(Order.asc(Faq.QUESTION));
 		ProjectionList projectionList = Projections.projectionList();
-		projectionList.add(Projections.property("faqCategory.pkCategory"));
-		projectionList.add(Projections.property("faqCategory.title"));
 		projectionList.add(Projections.property(Faq.QUESTION));
 		projectionList.add(Projections.property(Faq.ANSWER));
 		crit.setProjection(projectionList);
 		crit.setResultTransformer(new ResultTransformer() {
-			private static final long serialVersionUID = -4871271162174076095L;
-
+			
 			@Override
 			public Object transformTuple(Object[] tuple, String[] aliases) {
 				Faq faq = new Faq();
-				try{					
-					Category cat = new Category();
-					cat.setPkCategory(Long.valueOf(tuple[0].toString()));
-					cat.setTitle(tuple[1].toString());
-					faq.setFaqCategory(cat);
-					faq.setQuestion(tuple[2].toString());
-					faq.setAnswer(tuple[3].toString());
+				try{
+					faq.setQuestion(tuple[0].toString());
+					faq.setAnswer(tuple[1].toString());
 				}catch(Exception e){
 					LOGGER.error(e.getMessage());
 				}
