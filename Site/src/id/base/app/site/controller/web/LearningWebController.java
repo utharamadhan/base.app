@@ -62,14 +62,36 @@ public class LearningWebController extends BaseSiteController<LearningItem>{
 		return "redirect:/page/main-program/learning/"+getFirstPermalinkData();
 	}
 	
+	private void constructFilterAndFirstData(Boolean isShowFilter, ModelMap model, String permalink, int startNo, int offset){
+		model.addAttribute("isShowFilter", isShowFilter);
+		if(isShowFilter){
+			LookupRestCaller lrc = new LookupRestCaller();
+			List<Lookup> periodOptions = new ArrayList<>();
+			periodOptions.add(Lookup.getInstanceShort(SystemConstant.Period.FUTURE, "Periode Yang Akan Datang"));
+			periodOptions.add(Lookup.getInstanceShort(SystemConstant.Period.PAST, "Periode Yang Akan Terselenggara"));
+			model.addAttribute("periodOptions", periodOptions);
+			model.addAttribute("methodOptions", lrc.findByLookupGroup(ILookupGroupConstant.LEARNING_METHOD));
+			model.addAttribute("organizerOptions", lrc.findByLookupGroup(ILookupGroupConstant.LEARNING_ORGANIZER));
+			model.addAttribute("paymentOptions", lrc.findByLookupGroup(ILookupGroupConstant.LEARNING_PAYMENT));
+		}
+		List<SearchFilter> filter = new ArrayList<SearchFilter>();
+		filter.add(new SearchFilter(VWLearningItem.CATEGORY_PERMALINK, Operator.EQUALS, permalink, String.class));
+		filter.add(new SearchFilter(VWLearningItem.STATUS, Operator.EQUALS, ILookupConstant.Status.PUBLISH, Integer.class));
+		List<SearchOrder> order = new ArrayList<SearchOrder>();
+		order.add(new SearchOrder(VWLearningItem.DATE_FROM, Sort.DESC));
+		PagingWrapper<VWLearningItem> items = getRestCallerView().findAllByFilter(startNo, offset, filter, order);
+		model.addAttribute("itemsSize", items.getResult().size());
+		model.addAttribute("items", items);
+	}
+	
 	@RequestMapping(method=RequestMethod.GET, value="/{permalink}")
 	public String main(ModelMap model, HttpServletRequest request, HttpServletResponse response, @PathVariable(value="permalink") String permalink,
 			@RequestParam(value="startNo",defaultValue="1") int startNo, 
 			@RequestParam(value="offset",defaultValue="6") int offset,
 			@RequestParam(value="filter", defaultValue="", required=false) String filterJson){
 		setCommonData(request,model);
-		LookupRestCaller lrc = new LookupRestCaller();
 		model.addAttribute("permalink", permalink);
+		Category cat = findIsShowFilterByPermalink(permalink);
 		List<Category> categoryList = getCategoryList();
 		model.addAttribute("categories", categoryList);
 		Boolean foundPermalink = false;
@@ -81,20 +103,7 @@ public class LearningWebController extends BaseSiteController<LearningItem>{
 			}
 		}
 		if(foundPermalink){
-			List<Lookup> periodOptions = new ArrayList<>();
-			periodOptions.add(Lookup.getInstanceShort(SystemConstant.Period.FUTURE, "Periode Yang Akan Datang"));
-			periodOptions.add(Lookup.getInstanceShort(SystemConstant.Period.PAST, "Periode Yang Akan Terselenggara"));
-			model.addAttribute("periodOptions", periodOptions);
-			model.addAttribute("methodOptions", lrc.findByLookupGroup(ILookupGroupConstant.LEARNING_METHOD));
-			model.addAttribute("organizerOptions", lrc.findByLookupGroup(ILookupGroupConstant.LEARNING_ORGANIZER));
-			model.addAttribute("paymentOptions", lrc.findByLookupGroup(ILookupGroupConstant.LEARNING_PAYMENT));
-			List<SearchFilter> filter = new ArrayList<SearchFilter>();
-			filter.add(new SearchFilter(VWLearningItem.CATEGORY_PERMALINK, Operator.EQUALS, permalink, String.class));
-			filter.add(new SearchFilter(VWLearningItem.STATUS, Operator.EQUALS, ILookupConstant.Status.PUBLISH, Integer.class));
-			List<SearchOrder> order = new ArrayList<SearchOrder>();
-			order.add(new SearchOrder(VWLearningItem.DATE_FROM, Sort.DESC));
-			PagingWrapper<VWLearningItem> items = getRestCallerView().findAllByFilter(startNo, offset, filter, order);
-			model.addAttribute("items", items);
+			constructFilterAndFirstData(cat.getIsShowFilter(), model, permalink, startNo, offset);
 			return "/learning/main";
 		}else{
 			LOGGER.error("ERROR DATA NOT FOUND");
@@ -140,7 +149,7 @@ public class LearningWebController extends BaseSiteController<LearningItem>{
 		return resultMap;
 	}
 	
-	@RequestMapping(method=RequestMethod.GET, value="{categoryPermalink}/{permalink}")
+	@RequestMapping(method=RequestMethod.GET, value="/{categoryPermalink}/{permalink}")
 	public String detail(ModelMap model, HttpServletRequest request, HttpServletResponse response,
 			@PathVariable(value="categoryPermalink") String categoryPermalink,
 			@PathVariable(value="permalink") String permalink){
@@ -153,6 +162,26 @@ public class LearningWebController extends BaseSiteController<LearningItem>{
 		}
 		LOGGER.error("ERROR DATA NOT FOUND");
 		return "redirect:/page/notfound";
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/items/{categoryPermalink}")
+	public String mainItems(ModelMap model, HttpServletRequest request, HttpServletResponse response,
+			@PathVariable(value="categoryPermalink") String categoryPermalink,
+			@RequestParam(value="startNo",defaultValue="1") int startNo, 
+			@RequestParam(value="offset",defaultValue="6") int offset,
+			@RequestParam(value="filter", defaultValue="", required=false) String filterJson){
+		setCommonData(request,model);
+		Category category = findIsShowFilterByPermalink(categoryPermalink);
+		if(category!=null){
+			model.addAttribute("categoryPermalink", categoryPermalink);
+			model.addAttribute("categoryTitle", category.getTitle());
+			constructFilterAndFirstData(category.getIsShowFilter(), model, categoryPermalink, startNo, offset);
+			return "/learning/mainItems";
+			
+		}else{
+			LOGGER.error("ERROR DATA NOT FOUND");
+			return "redirect:/page/notfound";
+		}		
 	}
 	
 	@ExceptionHandler(TypeMismatchException.class)
@@ -203,6 +232,29 @@ public class LearningWebController extends BaseSiteController<LearningItem>{
 				@Override
 				public String getPath() {
 					return "/findByPermalink/{permalink}";
+				}
+				
+				@Override
+				public Map<String, Object> getParameters() {
+					Map<String,Object> map = new HashMap<String, Object>();
+					map.put("permalink", permalink);
+					return map;
+				}
+			});
+			
+		}catch(Exception e){
+			detail = null;
+		}
+		return detail;
+	}
+	
+	private Category findIsShowFilterByPermalink(final String permalink){
+		Category detail = new Category();
+		try{
+			detail = new SpecificRestCaller<Category>(RestConstant.REST_SERVICE, RestConstant.RM_CATEGORY, Category.class).executeGet(new PathInterfaceRestCaller() {	
+				@Override
+				public String getPath() {
+					return "/findIsShowFilterByPermalink/{permalink}";
 				}
 				
 				@Override

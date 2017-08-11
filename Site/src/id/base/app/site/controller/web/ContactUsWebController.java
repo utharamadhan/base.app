@@ -1,9 +1,9 @@
 package id.base.app.site.controller.web;
 
-import id.base.app.ILookupConstant;
 import id.base.app.ILookupGroupConstant;
 import id.base.app.SystemConstant;
 import id.base.app.SystemParameter;
+import id.base.app.exception.ErrorHolder;
 import id.base.app.mail.MailManager;
 import id.base.app.rest.PathInterfaceRestCaller;
 import id.base.app.rest.RestCaller;
@@ -49,8 +49,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.google.code.kaptcha.Constants;
-
 @Scope(value="request")
 @RequestMapping(value="/contact")
 @Controller
@@ -88,22 +86,6 @@ public class ContactUsWebController extends BaseSiteController<Contact>{
 		if(!categories.isEmpty()){
 			model.addAttribute("learningItems", getLearningItemList(categories.get(0).getPkCategory()));
 		}
-	}
-	
-	
-	@RequestMapping(method=RequestMethod.GET, value="/{type}")
-	public String view(ModelMap model, HttpServletRequest request, HttpServletResponse response, @PathVariable(value="type") String type){
-		setDefaultData(request, model);
-		List<SearchFilter> filter = new ArrayList<SearchFilter>();
-		List<SearchOrder> order = new ArrayList<SearchOrder>();
-		filter.add(new SearchFilter(Lookup.LOOKUP_GROUP_STRING, Operator.EQUALS, ILookupGroupConstant.CATEGORY_HELP));
-		filter.add(new SearchFilter(Lookup.USAGE, Operator.LIKE, SystemConstant.LookupUsage.CONTACT));
-		filter.add(new SearchFilter(Lookup.NAME, Operator.EQUALS, type));
-		List<Lookup> typeCodeList = getRestCallerLookup().findAll(filter, order);
-		if(!typeCodeList.isEmpty()){
-			model.addAttribute("type", typeCodeList.get(0).getCode());
-		}
-		return "/contact/main";
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)
@@ -167,149 +149,19 @@ public class ContactUsWebController extends BaseSiteController<Contact>{
 		return "/contact/main";
 	}
 	
-	@RequestMapping(method=RequestMethod.POST, value="/sendEmail")
+	@RequestMapping(method=RequestMethod.POST, value="/submit")
 	@ResponseBody
-	public Map<String, Object> sendEmail(HttpServletRequest request, HttpServletResponse response, @RequestParam Map<String,String> params){
+	public Map<String, Object> submit(final Contact anObject, HttpServletRequest request, HttpServletResponse response, @RequestParam Map<String,String> params){
 		Map<String, Object> resultMap = new HashMap<>();
-		final String username = SystemParameter.EMAIL_USERNAME;
-		final String password = SystemParameter.EMAIL_PASSWORD;
-		final String host = SystemParameter.EMAIL_HOST;
-		final String port = SystemParameter.EMAIL_PORT;
-		
-		String contactName = params.get("name");
-		String contactEmail = params.get("email");
-		String contactMessage = params.get("message");
-		String contactTelp = params.get("telp");
-		String contactAddress = params.get("address");
-		String contactInstansi = params.get("instansi");
-		String captcha = params.get("j_captcha_response");
-		String type = "".equals(params.get("type")) ? ILookupConstant.CategoryHelp.CALL_CENTER : params.get("type");
-		String learning = null;
-		String tema = null;
-		
-		if((contactName == null || "".equals(contactName)) || (contactEmail == null || "".equals(contactEmail)) || (contactMessage == null || "".equals(contactMessage)) || (captcha == null || "".equals(captcha))){
-			resultMap.put("success", false);
-	         resultMap.put("message", "Your email failed to processed, There was an empty field!");
-	         return resultMap;
-		}else{
-			if(ILookupConstant.CategoryHelp.PROGRAM.equals(type)){
-				learning = params.get("learning"); 
-				if(learning == null){
-					resultMap.put("success", false);
-			         resultMap.put("message", "Your email failed to processed, There was an empty field!");
-			         return resultMap;
-				}
-			}else if(ILookupConstant.CategoryHelp.CONSULT.equals(type)){
-				tema = params.get("tema");
-				if(tema==null){
-					resultMap.put("success", false);
-			         resultMap.put("message", "Your email failed to processed, There was an empty field!");
-			         return resultMap;
-				}
+		List<ErrorHolder> errors = new ArrayList<>();
+		try{
+			errors = new SpecificRestCaller<Contact>(RestConstant.REST_SERVICE, RestServiceConstant.CONTACT_SERVICE).performPut("/update", anObject);
+			if(errors != null && errors.size() > 0){
+				resultMap.put(SystemConstant.ERROR_LIST, errors);
 			}
+		}catch(Exception e){
+			LOGGER.error(e.getMessage(), e);
 		}
-		
-		Boolean isResponseCorrect =Boolean.FALSE;
-		String trueKaptcha = (String) request.getSession().getAttribute(Constants.KAPTCHA_SESSION_KEY);
-		
-		if(captcha.equalsIgnoreCase(trueKaptcha)){
-			isResponseCorrect = Boolean.TRUE;
-		}
-         
-	     if(isResponseCorrect){
-	    	 List<SearchFilter> filter = new ArrayList<SearchFilter>();
-	 		List<SearchOrder> order = new ArrayList<SearchOrder>();
-	 		filter.add(new SearchFilter(Lookup.CODE, Operator.EQUALS, type));
-	 		List<Lookup> lookup = getRestCallerLookup().findAll(filter, order);
-	 		
-	 		Contact contact = Contact.getInstance();
-	 		contact.setName(contactName);
-	 		contact.setEmail(contactEmail);
-	 		contact.setMessage(contactMessage);
-	 		contact.setTelp(contactTelp);
-	 		contact.setAddress(contactAddress);
-	 		contact.setInstansi(contactInstansi);
-	 		if(!lookup.isEmpty()){
-	 			contact.setHelpLookup(lookup.get(0));
-	 		}
-	 		
-	 		if(ILookupConstant.CategoryHelp.PROGRAM.equals(type)){
-	 			if(learning != null){
-	 				LearningItem course = getRestCallerCourse().findById(new Long(learning));
-	 				contact.setCourse(course);
-	 			}
-	 		}
-	 		
-	 		if(ILookupConstant.CategoryHelp.CONSULT.equals(type)){
-	 			if(tema != null){
-	 				Lookup contactTema = getRestCallerLookup().findById(new Long(tema));
-	 				contact.setTemaLookup(contactTema);
-	 			}
-	 		}
-	 		
-	 		getRestCaller().saveOrUpdate(contact);
-	 		
-	 		
-	 		String from = SystemParameter.EMAIL_SENDER;
-	 		String subject = "Housing Finance Center - Contact Us";
-	 		StringBuffer to = new StringBuffer();
-	 		to.append(contactEmail);
-	 		
-	 		Properties props = new Properties();
-	 		props.put("mail.smtp.auth", "true");
-	 		props.put("mail.smtp.starttls.enable", "true");
-	 		props.put("mail.smtp.host", host);
-	 		props.put("mail.smtp.port", port);
-	 		props.put("mail.smtp.from", from);
-
-	 		Session session = Session.getInstance(props,
-	 		  new javax.mail.Authenticator() {
-	 			protected PasswordAuthentication getPasswordAuthentication() {
-	 				return new PasswordAuthentication(username, password);
-	 			}
-	 		  });
-	 	
-	 		try{
-	 			 Message message = new MimeMessage(session);
-	 	         message.setFrom(new InternetAddress(from));
-	 	         message.setRecipients(Message.RecipientType.TO,
-	 	             InternetAddress.parse(to.toString()));
-	 	         message.setSubject(subject);
-	 	         
-	 	         String text = "Dear "+contactEmail+",\n\nThank you for contacting us. We will contact you soon, Thank you\n\nBest Regards\n\nHousing Finance Center";
-	 	        
-	 	         message.setText(text);
-	 	
-	 	         
-	 	         Transport.send(message);
-	 	         
-	 	         // Send to ourselves
-	 	         Message messageSelf = new MimeMessage(session);
-	 	         messageSelf.setFrom(new InternetAddress(from));
-	 	         messageSelf.setRecipients(Message.RecipientType.TO,
-	 	             InternetAddress.parse(from));
-	 	         messageSelf.setSubject(subject);
-	 	         
-	 	         String textSelf = contactMessage;
-	 	
-	 	         messageSelf.setText(textSelf);
-	 	
-	 	         
-	 	         Transport.send(messageSelf);
-	 	         
-	 	         
-	 	         resultMap.put("success", true);
-	 	         resultMap.put("message", "Thank you for contacting us. We will contact you soon.");
-	 		}catch(MessagingException e) {
-	 			resultMap.put("success", false);
-	 	         resultMap.put("message", "Your email failed to processed");
-	 	         return resultMap;
-	 		}
-	     }else{
-	    	 resultMap.put("success", false);
- 	         resultMap.put("message", "The captcha was not entered correctly, please try it again");
-	     }
-		
 		return resultMap;
 	}
 	

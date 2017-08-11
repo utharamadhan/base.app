@@ -817,40 +817,40 @@
 .learning_text{
 	font-size: 36px;
 	z-index: 999;
-   	color: #99ff66;
+   	color: #b9d7ff;
    	position: absolute;
    	left: 9.5%;
     top: 31%;
-  	-webkit-animation: neon-green 1.5s ease-in-out infinite alternate;
-  	-moz-animation: neon-green 1.5s ease-in-out infinite alternate;
-  	animation: neon-green 1.5s ease-in-out infinite alternate;
+  	-webkit-animation: neon-blue 1.5s ease-in-out infinite alternate;
+  	-moz-animation: neon-blue 1.5s ease-in-out infinite alternate;
+  	animation: neon-blue 1.5s ease-in-out infinite alternate;
 }		
-@-webkit-keyframes neon-green {
+@-webkit-keyframes neon-blue {
   from {
-    text-shadow: 0 0 10px #74f967, 0 0 20px #74f967, 0 0 30px #74f967, 0 0 40px #2d7926, 0 0 70px #2d7926, 0 0 80px #2d7926, 0 0 100px #2d7926, 0 0 150px #2d7926;
+  	text-shadow: 0 0 10px #004196, 0 0 20px #004196, 0 0 30px #004196, 0 0 40px #a3c7f7, 0 0 70px #a3c7f7, 0 0 80px #a3c7f7, 0 0 100px #a3c7f7, 0 0 150px #a3c7f7;
   }
   to {
-    text-shadow: 0 0 5px #419639, 0 0 10px #419639, 0 0 15px #419639, 0 0 20px #2d7926, 0 0 35px #2d7926, 0 0 40px #2d7926, 0 0 50px #2d7926, 0 0 75px #2d7926;
+   	text-shadow: 0 0 10px #9ec8ff, 0 0 20px #9ec8ff, 0 0 30px #9ec8ff, 0 0 40px #a3c7f7, 0 0 70px #a3c7f7, 0 0 80px #a3c7f7, 0 0 100px #a3c7f7, 0 0 150px #a3c7f7;
   }
 }
 
 .advisory_text{
 	font-size: 36px;
 	z-index: 999;
-    color: #ead096;
+    color: #ffc5c5;
     position: absolute;
     top: 66%;
     left: 28%;
-    -webkit-animation: neon-orange 1.5s ease-in-out infinite alternate;
-  	-moz-animation: neon-orange 1.5s ease-in-out infinite alternate;
-  	animation: neon-orange 1.5s ease-in-out infinite alternate;
+    -webkit-animation: neon-red 1.5s ease-in-out infinite alternate;
+  	-moz-animation: neon-red 1.5s ease-in-out infinite alternate;
+  	animation: neon-red 1.5s ease-in-out infinite alternate;
 }
-@-webkit-keyframes neon-orange {
+@-webkit-keyframes neon-red {
   from {
-    text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 30px #ff0000, 0 0 40px #dbac63, 0 0 70px #dbac63, 0 0 80px #dbac63, 0 0 100px #dbac63, 0 0 150px #dbac63;
+    text-shadow: 0 0 10px #da0000, 0 0 20px #da0000, 0 0 30px #da0000, 0 0 40px #ffabab, 0 0 70px #ffabab, 0 0 80px #ffabab, 0 0 100px #ffabab, 0 0 150px #ffabab;
   }
   to {
-    text-shadow: 0 0 5px #f7941d, 0 0 10px #f7941d, 0 0 15px #f7941d, 0 0 20px #dbac63, 0 0 35px #dbac63, 0 0 40px #dbac63, 0 0 50px #dbac63, 0 0 75px #dbac63;
+    text-shadow: 0 0 5px #ff8888, 0 0 10px #ff8888, 0 0 15px #ff8888, 0 0 20px #ffabab, 0 0 35px #ffabab, 0 0 40px #ffabab, 0 0 50px #ffabab, 0 0 75px #ffabab;
   }
 }	
 

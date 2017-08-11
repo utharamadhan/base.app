@@ -198,7 +198,7 @@ public class ContactUserContactUsWebController extends BaseController<Contact> {
 						valueCell.setCellValue(contacts.get(j-1).getTelp());
 						break;
 					case 3:
-						valueCell.setCellValue(contacts.get(j-1).getAddress());
+						/*valueCell.setCellValue(contacts.get(j-1).getAddress());*/
 						break;
 					case 4:
 						valueCell.setCellValue(contacts.get(j-1).getInstansi());
@@ -207,10 +207,10 @@ public class ContactUserContactUsWebController extends BaseController<Contact> {
 						valueCell.setCellValue(contacts.get(j-1).getHelpLookup().getDescr());
 						break;
 					case 6:
-						valueCell.setCellValue(contacts.get(j-1).getCourse() !=null ? contacts.get(j-1).getCourse().getTitle() : "");
+						/*valueCell.setCellValue(contacts.get(j-1).getCourse() !=null ? contacts.get(j-1).getCourse().getTitle() : "");*/
 						break;
 					case 7:
-						valueCell.setCellValue(contacts.get(j-1).getTemaLookup() !=null ? contacts.get(j-1).getTemaLookup().getName() : "");
+						/*valueCell.setCellValue(contacts.get(j-1).getTemaLookup() !=null ? contacts.get(j-1).getTemaLookup().getName() : "");*/
 						break;
 					case 8:
 						valueCell.setCellValue(contacts.get(j-1).getMessage());

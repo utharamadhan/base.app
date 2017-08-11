@@ -105,6 +105,7 @@ public class LearningItemWebController extends BaseController<LearningItem> {
 		model.addAttribute("methodOptions", lrc.findByLookupGroup(ILookupGroupConstant.LEARNING_METHOD));
 		model.addAttribute("organizerOptions", lrc.findByLookupGroup(ILookupGroupConstant.LEARNING_ORGANIZER));
 		model.addAttribute("paymentOptions", lrc.findByLookupGroup(ILookupGroupConstant.LEARNING_PAYMENT));
+		model.addAttribute("displayOptions", lrc.findByLookupGroup(ILookupGroupConstant.LEARNING_DISPLAY));
 		model.addAttribute("statusOptions", lrc.findByLookupGroup(ILookupGroupConstant.STATUS));
 		List<Lookup> booleanList = new ArrayList<>();
 		booleanList.add(new Lookup().getInstanceShort("0", "No"));

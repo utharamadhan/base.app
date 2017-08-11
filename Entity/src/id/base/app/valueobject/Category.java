@@ -30,6 +30,8 @@ public class Category extends BaseEntity implements Serializable {
 	public static final String IMAGE_THUMB_URL = "imageThumbURL";
 	public static final String DESCRIPTION	= "description";
 	public static final String ORDER_NO		= "orderNo";
+	public static final String IS_ITEMS_NEW_PAGE = "isItemsNewPage";
+	public static final String IS_SHOW_FILTER = "isShowFilter";
 	public static final String STATUS		= "status";
 	
 	public static Category getInstance() {
@@ -70,6 +72,12 @@ public class Category extends BaseEntity implements Serializable {
 	
 	@Transient
 	public String encodedPicture;
+	
+	@Column(name = "IS_ITEMS_NEW_PAGE")
+	private Boolean isItemsNewPage;
+	
+	@Column(name = "IS_SHOW_FILTER")
+	private Boolean isShowFilter;
 	
 	@Column(name="STATUS")
 	private Integer status;
@@ -145,6 +153,22 @@ public class Category extends BaseEntity implements Serializable {
 
 	public void setImageThumbURL(String imageThumbURL) {
 		this.imageThumbURL = imageThumbURL;
+	}
+	
+	public Boolean getIsItemsNewPage() {
+		return isItemsNewPage;
+	}
+
+	public void setIsItemsNewPage(Boolean isItemsNewPage) {
+		this.isItemsNewPage = isItemsNewPage;
+	}
+	
+	public Boolean getIsShowFilter() {
+		return isShowFilter;
+	}
+
+	public void setIsShowFilter(Boolean isShowFilter) {
+		this.isShowFilter = isShowFilter;
 	}
 
 	public Integer getStatus() {

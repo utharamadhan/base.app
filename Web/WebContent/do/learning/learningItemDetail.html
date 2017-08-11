@@ -240,7 +240,7 @@
 						<div class="form-group">
 							<label class="col-sm-2 control-label" th:text="'Admission Requirement'">Admission Requirement</label>
 							<div class="col-sm-9 form-input-container">
-								<div class="panel-group" id="acc-adm-req">
+								<div class="panel-group" id="acc-admission">
 								  <div class="panel panel-default">
 								    <div class="panel-heading" data-toggle="collapse" data-parent="#acc-admission" data-target="#acc-admission-one">
 								      <h4 class="panel-title">
@@ -251,6 +251,26 @@
 								        <input id="tinyMCE-adm-hidden" name="admissionRequirement" type="hidden"/>
 										<div id="tinyMCE-adm-parent">					
 											<textarea id="tinyMCE-adm-area" th:text="*{admissionRequirement}"></textarea>
+										</div>
+								    </div>
+								  </div>
+								</div>	
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" th:text="'Silabus Program'">Silabus Program</label>
+							<div class="col-sm-9 form-input-container">
+								<div class="panel-group" id="acc-sil-prog">
+								  <div class="panel panel-default">
+								    <div class="panel-heading" data-toggle="collapse" data-parent="#acc-sil-prog" data-target="#acc-sil-prog-one">
+								      <h4 class="panel-title">
+								        <a class="accordion-toggle">[Insert Silabus Program]</a>
+								      </h4>
+								    </div>
+								    <div id="acc-sil-prog-one" class="panel-collapse collapse">
+								        <input id="tinyMCE-sil-prog-hidden" name="silabusDesc" type="hidden"/>
+										<div id="tinyMCE-sil-prog-parent">					
+											<textarea id="tinyMCE-sil-prog-area" th:text="*{silabusDesc}"></textarea>
 										</div>
 								    </div>
 								  </div>
@@ -274,7 +294,7 @@
 							<div class="col-sm-9 form-input-container">
 								<div class="panel-group" id="acc-pay-desc">
 								  <div class="panel panel-default">
-								    <div class="panel-heading" data-toggle="collapse" data-parent="#acc-payment" data-target="#acc-payment-one">
+								    <div class="panel-heading" data-toggle="collapse" data-parent="#acc-pay-desc" data-target="#acc-payment-one">
 								      <h4 class="panel-title">
 								        <a class="accordion-toggle">[Insert Payment Description]</a>
 								      </h4>
@@ -290,10 +310,38 @@
 							</div>
 						</div>
 						<div class="form-group">
+							<label class="col-sm-2 control-label" th:text="'Contact Us'">Contact Us</label>
+							<div class="col-sm-9 form-input-container">
+								<div class="panel-group" id="acc-cu">
+								  <div class="panel panel-default">
+								    <div class="panel-heading" data-toggle="collapse" data-parent="#acc-cu" data-target="#acc-cu-one">
+								      <h4 class="panel-title">
+								        <a class="accordion-toggle">[Insert Contact Us]</a>
+								      </h4>
+								    </div>
+								    <div id="acc-cu-one" class="panel-collapse collapse">
+								        <input id="tinyMCE-cu-hidden" name="contactUsDesc" type="hidden"/>
+										<div id="tinyMCE-cu-parent">					
+											<textarea id="tinyMCE-cu-area" th:text="*{contactUsDesc}"></textarea>
+										</div>
+								    </div>
+								  </div>
+								</div>	
+							</div>
+						</div>
+						<div class="form-group">
 							<label class="col-sm-2 control-label" th:text="'Get Certificate'">Get Certificate</label>
 							<div class="col-sm-9 form-input-container">
 								<select class="chosen-select form-control" th:field="*{isCertification}">
 									<option th:each="opt : ${booleanOptions}" th:value="${opt.code}" th:text="${opt.descr}">Name</option>
+                           		</select>
+                           	</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" th:text="'Display'">Display</label>
+							<div class="col-sm-9 form-input-container">
+								<select class="chosen-select form-control" th:field="*{learningDisplayLookup.pkLookup}">
+									<option th:each="opt : ${displayOptions}" th:value="${opt.pkLookup}" th:text="${opt.name}">Name</option>
                            		</select>
                            	</div>
 						</div>
@@ -352,13 +400,17 @@
 	    	initTextEditorWithoutP('#tinyMCE-loc-area', '#tinyMCE-loc-parent', uploadURL);
 	    	initTextEditorWithoutP('#tinyMCE-desc-area', '#tinyMCE-desc-parent', uploadURL);
 	    	initTextEditorWithoutP('#tinyMCE-adm-area', '#tinyMCE-adm-parent', uploadURL);
+	    	initTextEditorWithoutP('#tinyMCE-sil-prog-area', '#tinyMCE-sil-prog-parent', uploadURL);
 	    	initTextEditorWithoutP('#tinyMCE-pay-area', '#tinyMCE-pay-parent', uploadURL);
+	    	initTextEditorWithoutP('#tinyMCE-cu-area', '#tinyMCE-cu-parent', uploadURL);
 	    	
 	    	var backToList = function(){
 	    		removeTextEditor("tinyMCE-loc-area", "tinyMCE-loc-parent");
 	    		removeTextEditor("tinyMCE-desc-area", "tinyMCE-desc-parent");
 	    		removeTextEditor("tinyMCE-adm-area", "tinyMCE-adm-parent");
+	    		removeTextEditor("tinyMCE-sil-prog-area", "tinyMCE-sil-prog-parent");
 	    		removeTextEditor("tinyMCE-pay-area", "tinyMCE-pay-parent");
+	    		removeTextEditor("tinyMCE-cu-area", "tinyMCE-cu-parent");
 				returnToList('item-detail-container', 'item-list-container', true);
 			};
 			
@@ -381,8 +433,10 @@
 				cleanErrorParsley();
 				$('#tinyMCE-loc-hidden').val(tinymce.get('tinyMCE-loc-area').getContent());
 				$('#tinyMCE-desc-hidden').val(tinymce.get('tinyMCE-desc-area').getContent());
-				$('#tinyMCE-pay-hidden').val(tinymce.get('tinyMCE-pay-area').getContent());
 				$('#tinyMCE-adm-hidden').val(tinymce.get('tinyMCE-adm-area').getContent());
+				$('#tinyMCE-sil-prog-hidden').val(tinymce.get('tinyMCE-sil-prog-area').getContent());
+				$('#tinyMCE-pay-hidden').val(tinymce.get('tinyMCE-pay-area').getContent());
+				$('#tinyMCE-cu-hidden').val(tinymce.get('tinyMCE-cu-area').getContent());
 				preSerializeForm();
 				var sURL = /*[[@{/do/learning/item/saveItem/}]]*/ #;
 				$.post(sURL, $("#item-detail-form").serialize(), function(data) {

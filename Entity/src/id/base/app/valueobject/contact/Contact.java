@@ -2,6 +2,7 @@ package id.base.app.valueobject.contact;
 
 import id.base.app.util.DateTimeFunction;
 import id.base.app.valueobject.BaseEntity;
+import id.base.app.valueobject.Category;
 import id.base.app.valueobject.Lookup;
 import id.base.app.valueobject.learning.LearningItem;
 
@@ -27,9 +28,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @Table(name="CONTACT")
 @JsonIdentityInfo(generator=ObjectIdGenerators.UUIDGenerator.class, property="contactJid", scope=Contact.class)
 public class Contact extends BaseEntity implements Serializable {
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 727318892302903192L;
 	
 	public static final String PK_CONTACT 				= "pkContact";
@@ -67,12 +66,12 @@ public class Contact extends BaseEntity implements Serializable {
 	private Lookup helpLookup;
 	
 	@ManyToOne
-	@JoinColumn(name="FK_LOOKUP_CONTACT_TEMA")
-	private Lookup temaLookup;
+	@JoinColumn(name="FK_CATEGORY")
+	private Category category;
 	
 	@ManyToOne
-	@JoinColumn(name="FK_COURSE")
-	private LearningItem course;
+	@JoinColumn(name="FK_LEARNING_ITEM")
+	private LearningItem learningItem;
 	
 	@Column(name="NAME")
 	private String name;
@@ -83,8 +82,14 @@ public class Contact extends BaseEntity implements Serializable {
 	@Column(name="EMAIL")
 	private String email;
 	
-	@Column(name="ADDRESS")
-	private String address;
+	@Column(name="BIRTH_PLACE")
+	private String birthPlace;
+	
+	@Column(name="BIRTH_DATE")
+	private Date birthDate;
+	
+	@Column(name="JOB")
+	private String job;
 	
 	@Column(name="INSTANSI")
 	private String instansi;
@@ -94,6 +99,12 @@ public class Contact extends BaseEntity implements Serializable {
 	
 	@Column(name="ANSWER")
 	private String answer;
+	
+	@Column(name="ANSWERED_BY")
+	private String answeredBy;
+	
+	@Column(name="STATUS")
+	private Integer status;
 	
 	@Transient
 	private Date activityDate;
@@ -117,12 +128,20 @@ public class Contact extends BaseEntity implements Serializable {
 		this.helpLookup = helpLookup;
 	}
 
-	public Lookup getTemaLookup() {
-		return temaLookup;
+	public Category getCategory() {
+		return category;
 	}
 
-	public void setTemaLookup(Lookup temaLookup) {
-		this.temaLookup = temaLookup;
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
+	public LearningItem getLearningItem() {
+		return learningItem;
+	}
+
+	public void setLearningItem(LearningItem learningItem) {
+		this.learningItem = learningItem;
 	}
 
 	public String getName() {
@@ -149,12 +168,28 @@ public class Contact extends BaseEntity implements Serializable {
 		this.email = email;
 	}
 
-	public String getAddress() {
-		return address;
+	public String getBirthPlace() {
+		return birthPlace;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
+	public void setBirthPlace(String birthPlace) {
+		this.birthPlace = birthPlace;
+	}
+
+	public Date getBirthDate() {
+		return birthDate;
+	}
+
+	public void setBirthDate(Date birthDate) {
+		this.birthDate = birthDate;
+	}
+
+	public String getJob() {
+		return job;
+	}
+
+	public void setJob(String job) {
+		this.job = job;
 	}
 
 	public String getInstansi() {
@@ -168,23 +203,33 @@ public class Contact extends BaseEntity implements Serializable {
 	public String getMessage() {
 		return message;
 	}
+
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	
+
 	public String getAnswer() {
 		return answer;
 	}
+
 	public void setAnswer(String answer) {
 		this.answer = answer;
 	}
-
-	public LearningItem getCourse() {
-		return course;
+	
+	public String getAnsweredBy() {
+		return answeredBy;
 	}
 
-	public void setCourse(LearningItem course) {
-		this.course = course;
+	public void setAnsweredBy(String answeredBy) {
+		this.answeredBy = answeredBy;
+	}
+	
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 
 	@Transient

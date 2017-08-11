@@ -14,6 +14,7 @@ import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.valueobject.Category;
+import id.base.app.valueobject.util.SelectHelper;
 import id.base.app.web.DataTableCriterias;
 import id.base.app.web.controller.BaseController;
 import id.base.app.web.rest.LookupRestCaller;
@@ -88,6 +89,10 @@ public class LearningCategoryWebController extends BaseController<Category> {
 	public void setDefaultData(ModelMap model) {
 		LookupRestCaller lrc = new LookupRestCaller();
 		model.addAttribute("statusOptions", lrc.findByLookupGroup(ILookupGroupConstant.STATUS));
+		List<SelectHelper> booleanOptions = new ArrayList<>();
+		booleanOptions.add(new SelectHelper().getInstanceValueBoolean(false, "No"));
+		booleanOptions.add(new SelectHelper().getInstanceValueBoolean(true, "Yes"));
+		model.addAttribute("booleanOptions", booleanOptions);
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="showAdd")

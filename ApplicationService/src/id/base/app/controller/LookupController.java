@@ -105,9 +105,9 @@ public class LookupController extends SuperController<Lookup>{
 	public Lookup preUpdate(Lookup anObject) throws SystemException {
 		Lookup dbObject = maintenanceService.findById(anObject.getPkLookup());
 		//start set unchanged property of object, if massive set, please create private method
+		anObject.setUsage(dbObject.getUsage());
 		anObject.setStatus(dbObject.getStatus());
 		anObject.setLookupGroupString(dbObject.getLookupGroupString());
-		anObject.setOrderNo(dbObject.getOrderNo());
 		//finish
 		return validate(anObject);
 	}

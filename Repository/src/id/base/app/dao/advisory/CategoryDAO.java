@@ -7,7 +7,6 @@ import id.base.app.paging.PagingWrapper;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.valueobject.Category;
-import id.base.app.valueobject.Pages;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -147,7 +146,7 @@ public class CategoryDAO extends AbstractHibernateDAO<Category, Long> implements
 		crit.setResultTransformer(new ResultTransformer() {
 			@Override
 			public Object transformTuple(Object[] tuple, String[] aliases) {
-				Pages obj = new Pages();
+				Category obj = new Category();
 				try {
 					BeanUtils.copyProperty(obj, Category.TITLE, tuple[0]);
 					BeanUtils.copyProperty(obj, Category.PERMALINK, tuple[1]);
@@ -184,7 +183,9 @@ public class CategoryDAO extends AbstractHibernateDAO<Category, Long> implements
 				add(Projections.property(Category.PERMALINK)).
 				add(Projections.property(Category.IMAGE_URL)).
 				add(Projections.property(Category.IMAGE_THUMB_URL)).
-				add(Projections.property(Category.DESCRIPTION)));
+				add(Projections.property(Category.DESCRIPTION)).
+				add(Projections.property(Category.IS_ITEMS_NEW_PAGE)).
+				add(Projections.property(Category.IS_SHOW_FILTER)));
 		crit.setResultTransformer(new ResultTransformer() {
 			@Override
 			public Object transformTuple(Object[] tuple, String[] aliases) {
@@ -195,6 +196,8 @@ public class CategoryDAO extends AbstractHibernateDAO<Category, Long> implements
 					BeanUtils.copyProperty(obj, Category.IMAGE_URL, tuple[2]);
 					BeanUtils.copyProperty(obj, Category.IMAGE_THUMB_URL, tuple[3]);
 					BeanUtils.copyProperty(obj, Category.DESCRIPTION, tuple[4]);
+					BeanUtils.copyProperty(obj, Category.IS_ITEMS_NEW_PAGE, tuple[5]);
+					BeanUtils.copyProperty(obj, Category.IS_SHOW_FILTER, tuple[6]);
 				} catch (Exception e) {
 					LOGGER.error(e.getMessage(), e);
 				}
@@ -246,5 +249,42 @@ public class CategoryDAO extends AbstractHibernateDAO<Category, Long> implements
 		sqlQuery.setLong("pkCategory", pkCategory);
 		sqlQuery.setString("thumbURL", thumbURL);
 		sqlQuery.executeUpdate();
+	}
+	
+	@Override
+	public Category findIsShowFilterByPermalink(String permalink) throws SystemException {
+		Criteria crit = this.getSession().createCriteria(domainClass);
+		crit.add(Restrictions.eq(Category.STATUS, ILookupConstant.Status.PUBLISH));
+		crit.add(Restrictions.eq(Category.PERMALINK, permalink));
+		crit.addOrder(Order.desc(Category.PK_CATEGORY));
+		crit.setProjection(Projections.projectionList().
+				add(Projections.property(Category.PK_CATEGORY)).
+				add(Projections.property(Category.TITLE)).
+				add(Projections.property(Category.IS_SHOW_FILTER)));
+		crit.setResultTransformer(new ResultTransformer() {
+			@Override
+			public Object transformTuple(Object[] tuple, String[] aliases) {
+				Category obj = new Category();
+				try {
+					BeanUtils.copyProperty(obj, Category.PK_CATEGORY, tuple[0]);
+					BeanUtils.copyProperty(obj, Category.TITLE, tuple[1]);
+					BeanUtils.copyProperty(obj, Category.IS_SHOW_FILTER, tuple[2]);
+				} catch (Exception e) {
+					LOGGER.error(e.getMessage(), e);
+				}
+				return obj;
+			}
+			
+			@Override
+			public List transformList(List collection) {
+				return collection;
+			}
+		});
+		List<Category> list = crit.list();
+		if(list!=null && !list.isEmpty()){
+			return list.get(0);
+		}else{
+			return null;
+		}
 	}
 }

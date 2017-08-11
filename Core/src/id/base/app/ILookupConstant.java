@@ -48,6 +48,12 @@ public interface ILookupConstant {
 		}
 	}
 	
+	public static final class StatusContact {
+		public static final Integer NEW = 0;
+		public static final Integer READ = 1;
+		public static final Integer ANSWER = 2;
+	}
+	
 	public static final class EnrollmentStatus {
 		public static final String ENROLLED 	= "EN";
 		public static final String PASSED 		= "PA";
@@ -95,6 +101,12 @@ public interface ILookupConstant {
 		public static final String CALL_CENTER = "CC";
 		public static final String PROGRAM = "PR";
 		public static final String CONSULT = "CO";
+	}
+    
+    public static final class LearningDisplay {
+		public static final String FULL_SCREEN_WITHOUT_SIDEBAR = "FWS";
+		public static final String FULL_SCREEN_SIDEBAR_RIGHT_DESCRIPTION = "FSR";
+		public static final String NOT_FULL_SCREEN_SIDEBAR_RIGHT = "NFSR";
 	}
     
 }

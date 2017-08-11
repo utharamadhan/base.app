@@ -85,3 +85,67 @@ CREATE TABLE faq
 
 DELETE FROM LOOKUP WHERE LOOKUP_GROUP = 'FAQ_TYPE';
 COMMIT;
+
+
+DROP TABLE contact;
+DROP SEQUENCE CONTACT_PK_CONTACT_SEQ;
+CREATE SEQUENCE CONTACT_PK_CONTACT_SEQ
+  INCREMENT 1
+  MINVALUE 1
+  MAXVALUE 9223372036854775807
+  START 1
+  CACHE 1;
+  
+CREATE TABLE contact
+(
+  pk_contact bigint NOT NULL DEFAULT nextval('contact_pk_contact_seq'::regclass),
+  fk_lookup_category_help bigint,
+  fk_category bigint,
+  fk_learning_item bigint,
+  name character varying(200),
+  telp character varying(50),
+  email text,
+  birth_place character varying(100),
+  birth_date TIMESTAMP WITH TIME ZONE,
+  job text,
+  instansi text,
+  message text,
+  answer text,
+  answered_by text,
+  status int,
+  created_by character varying(200) NOT NULL,
+  creation_time timestamp with time zone NOT NULL DEFAULT now(),
+  modified_by character varying(200) NOT NULL,
+  modification_time timestamp with time zone NOT NULL DEFAULT now(),
+  CONSTRAINT pk_contact PRIMARY KEY (pk_contact),
+  CONSTRAINT contact_fk_lookup_category_help_fkey FOREIGN KEY (fk_lookup_category_help)
+      REFERENCES lookup (pk_lookup) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT contact_fk_category_fkey FOREIGN KEY (fk_category)
+      REFERENCES category (pk_category) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+);
+
+DELETE FROM LOOKUP WHERE LOOKUP_GROUP = 'CONTACT_TEMA';
+DELETE FROM LOOKUP_GROUP WHERE LOOKUP_GROUP = 'CONTACT_TEMA';
+
+ALTER TABLE CATEGORY ADD COLUMN IS_ITEMS_NEW_PAGE BOOLEAN DEFAULT FALSE;
+ALTER TABLE CATEGORY ADD COLUMN IS_SHOW_FILTER BOOLEAN DEFAULT TRUE;
+
+INSERT INTO LOOKUP_GROUP (LOOKUP_GROUP, GROUP_DESCR, IS_UPDATEABLE, IS_VIEWABLE)
+VALUES ('LEARNING_DISPLAY', 'LEARNING_DISPLAY', 'f', 'f');
+INSERT INTO LOOKUP (LOOKUP_GROUP, CODE, NAME, DESCR, ORDER_NO, STATUS, CREATED_BY, MODIFIED_BY) 
+VALUES ('LEARNING_DISPLAY', 'FWS', 'Full screen without sidebar', 'Full screen without sidebar', 1, 1, 'SYSTEM', 'SYSTEM');
+INSERT INTO LOOKUP (LOOKUP_GROUP, CODE, NAME, DESCR, ORDER_NO, STATUS, CREATED_BY, MODIFIED_BY) 
+VALUES ('LEARNING_DISPLAY', 'FSR', 'Full screen + sidebar right in the description', 'Full screen + sidebar right in the description', 2, 1, 'SYSTEM', 'SYSTEM');
+INSERT INTO LOOKUP (LOOKUP_GROUP, CODE, NAME, DESCR, ORDER_NO, STATUS, CREATED_BY, MODIFIED_BY) 
+VALUES ('LEARNING_DISPLAY', 'NFSR', 'Not full screen + sidebar right', 'Not full screen + sidebar right', 3, 1, 'SYSTEM', 'SYSTEM');
+
+ALTER TABLE LEARNING_ITEM ADD COLUMN SILABUS_DESC TEXT;
+ALTER TABLE LEARNING_ITEM ADD COLUMN CONTACT_US_DESC TEXT;
+ALTER TABLE LEARNING_ITEM ADD COLUMN FK_LOOKUP_LEARNING_DISPLAY bigint;
+ALTER TABLE LEARNING_ITEM ADD CONSTRAINT learning_item_fk_lookup_learning_display_fkey FOREIGN KEY (FK_LOOKUP_LEARNING_DISPLAY)
+      REFERENCES lookup (pk_lookup) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+UPDATE LEARNING_ITEM SET FK_LOOKUP_LEARNING_DISPLAY = (SELECT PK_LOOKUP FROM LOOKUP WHERE LOOKUP_GROUP = 'LEARNING_DISPLAY' AND CODE = 'NFSR');

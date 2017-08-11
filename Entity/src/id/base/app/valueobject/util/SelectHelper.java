@@ -3,6 +3,13 @@ package id.base.app.valueobject.util;
 
 public class SelectHelper {
 
+	public static SelectHelper getInstanceValueBoolean(Boolean valueBoolean, String label) {
+		SelectHelper obj = new SelectHelper();
+		obj.setValueBoolean(valueBoolean);
+		obj.setLabel(label);
+		return obj;
+	}
+	
 	public static SelectHelper getInstanceValueInteger(Integer valueInteger, String label) {
 		SelectHelper obj = new SelectHelper();
 		obj.setValueInteger(valueInteger);
@@ -24,11 +31,20 @@ public class SelectHelper {
 		return obj;
 	}
 	
+	private Boolean valueBoolean;
 	private Integer valueInteger;
 	private Long valueLong;
 	private String valueString;
 	private String label;
 	
+	public Boolean getValueBoolean() {
+		return valueBoolean;
+	}
+
+	public void setValueBoolean(Boolean valueBoolean) {
+		this.valueBoolean = valueBoolean;
+	}
+
 	public Integer getValueInteger() {
 		return valueInteger;
 	}

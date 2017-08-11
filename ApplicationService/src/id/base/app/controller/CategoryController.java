@@ -102,25 +102,25 @@ public class CategoryController extends SuperController<Category>{
 	
 	@RequestMapping(method=RequestMethod.GET, value="/getFirstPermalinkData/{type}")
 	@ResponseBody
-	private String getFirstPermalinkData(@PathVariable("type") String type){
+	public String getFirstPermalinkData(@PathVariable("type") String type){
 		return categoryService.getFirstPermalinkData(type);
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/findSimpleDataByPermalink/{permalink}")
 	@ResponseBody
-	private Category findSimpleDataByPermalink(@PathVariable("permalink") String permalink){
+	public Category findSimpleDataByPermalink(@PathVariable("permalink") String permalink){
 		return categoryService.findSimpleDataByPermalink(permalink);
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/findSimpleDataForList/{type}")
 	@ResponseBody
-	private List<Category> findSimpleDataForList(@PathVariable("type") String type){
+	public List<Category> findSimpleDataForList(@PathVariable("type") String type){
 		return categoryService.findSimpleDataForList(type);
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/findSimpleDataForSelect/{type}")
 	@ResponseBody
-	private List<Category> findSimpleDataForSelect(@PathVariable("type") String type){
+	public List<Category> findSimpleDataForSelect(@PathVariable("type") String type){
 		return categoryService.findSimpleDataForSelect(type);
 	}
 	
@@ -128,5 +128,11 @@ public class CategoryController extends SuperController<Category>{
 	@ResponseBody
 	public List<Category> findCategoryWithFaqList() throws SystemException {
 		return categoryService.findCategoryWithFaqList();
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/findIsShowFilterByPermalink/{permalink}")
+	@ResponseBody
+	public Category findIsShowFilterByPermalink(@PathVariable("permalink") String permalink){
+		return categoryService.findIsShowFilterByPermalink(permalink);
 	}
 }

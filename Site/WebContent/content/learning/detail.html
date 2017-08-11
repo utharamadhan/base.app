@@ -40,6 +40,7 @@
 										</span>
 									</div>
 								</div>
+								<th:block th:if="${detail.learningDisplayLookup.code == T(id.base.app.ILookupConstant.LearningDisplay).NOT_FULL_SCREEN_SIDEBAR_RIGHT}">
 								<div class="col-md-2" th:if="${!detail.eligibleRegistration}">
 									<div class="enroll-wrap">
 										<span class="enroll-title">Galeri Foto</span>
@@ -50,6 +51,7 @@
 										<span class="enroll-title">Galeri Video</span>
 									</div>
 								</div>
+								</th:block>
 							</div><!--end single caption-->
 						</div>
 					</div>
@@ -60,10 +62,11 @@
 		<div class="single_content">
 			<div class="container large">
 				<div class="row">
-					<div class="col-xs-12 col-sm-8 col-md-8 custom_right">
+					<div th:class="${detail.learningDisplayLookup.code == T(id.base.app.ILookupConstant.LearningDisplay).NOT_FULL_SCREEN_SIDEBAR_RIGHT}? 'col-xs-12 col-sm-8 col-md-8' : 'col-xs-12 col-sm-12 col-md-12'">
 						<div class="single_content_left">
 							<div class="tab_menu">
-								<ul>
+								<th:block th:if="${detail.learningDisplayLookup.code == T(id.base.app.ILookupConstant.LearningDisplay).NOT_FULL_SCREEN_SIDEBAR_RIGHT}">
+								<ul class="w-4">
 									<li class="active"><a href="#explore_program" data-toggle="tab" aria-expanded="true">Keterangan</a></li>
 									<th:block th:if="${detail.admissionRequirement!=null and detail.admissionRequirement!=''}">
 									<li class=""><a href="#admission_requirements" data-toggle="tab" aria-expanded="false">Minimal Persyaratan</a></li>
@@ -73,10 +76,30 @@
 									</th:block>
 									<li class=""><a href="#faq" data-toggle="tab" aria-expanded="false">FAQs</a></li>
 								</ul>
+								</th:block>
+								<th:block th:if="${detail.learningDisplayLookup.code != T(id.base.app.ILookupConstant.LearningDisplay).NOT_FULL_SCREEN_SIDEBAR_RIGHT}">
+								<ul class="w-6">
+									<li class="active"><a href="#explore_program" data-toggle="tab" aria-expanded="true">Beranda / Utama</a></li>
+									<th:block th:if="${detail.silabusDesc!=null and detail.silabusDesc!=''}">
+									<li class=""><a href="#silabus_desc" data-toggle="tab" aria-expanded="false">Silabus Program</a></li>
+									</th:block>
+									<li class=""><a href="#testimoni" data-toggle="tab" aria-expanded="false">Testimoni</a></li>
+									<li class=""><a href="#teacher" data-toggle="tab" aria-expanded="false">Pengajar</a></li>
+									<li class=""><a href="#galeri" data-toggle="tab" aria-expanded="false">Galeri</a></li>
+									<th:block th:if="${detail.contactUsDesc!=null and detail.contactUsDesc!=''}">
+									<li class=""><a href="#contact_us_desc" data-toggle="tab" aria-expanded="false">Kontak Kami</a></li>
+									</th:block>
+								</ul>
+								</th:block>
 							</div>
 							
 							<div class="tab-content single_tab_content">
-								<div role="tabpanel" class="tab-pane active" id="explore_program" th:utext="${detail.description}"></div>
+								<div role="tabpanel" class="tab-pane active" id="explore_program">
+									<div th:class="${detail.learningDisplayLookup.code == T(id.base.app.ILookupConstant.LearningDisplay).FULL_SCREEN_SIDEBAR_RIGHT_DESCRIPTION}? 'col-xs-12 col-sm-8 col-md-8' : 'col-xs-12 col-sm-12 col-md-12'" th:utext="${detail.description}"></div>
+									<th:block th:if="${detail.learningDisplayLookup.code == T(id.base.app.ILookupConstant.LearningDisplay).FULL_SCREEN_SIDEBAR_RIGHT_DESCRIPTION}">
+										<div class="col-xs-12 col-sm-4 col-md-4 short-desc-content"></div>
+									</th:block>
+								</div>
 								<div role="tabpanel" class="tab-pane" id="admission_requirements" th:utext="${detail.admissionRequirement}"></div>
 								<div role="tabpanel" class="tab-pane" id="cost" th:utext="${detail.paymentDesc}"></div>
 								<div role="tabpanel" class="tab-pane" id="faq">
@@ -167,65 +190,73 @@
 										<h6>HFC</h6>
 										<p>Team<br/>(021) 6336789, ext. 1824<br/><a href="mailto:hfc@btn.co.id">hfc@btn.co.id</a></p>
 									</div>
-									  
-									  
 								</div>
-							</div>
-							
-							
-						</div><!--end single content left-->
-					</div>
-					
-					<div class="col-xs-12 col-sm-4 col-md-4 custom_left">
-						<div class="sidebar">
-							<div class="sidebar_item">
-								<div class="item_inner program">
-									<h4>Keterangan Singkat</h4>
-									<ul>
-										<th:block th:if="${detail.code!=null and detail.code!=''}">
-											<li><span>Kode:</span><br/><th:block th:text="${detail.code}"></th:block></li>
+								<div role="tabpanel" class="tab-pane" id="silabus_desc" th:utext="${detail.silabusDesc}"></div>
+								<div role="tabpanel" class="tab-pane" id="testimoni"></div>
+								<div role="tabpanel" class="tab-pane" id="teacher">
+									<ul class="default-list">
+										<th:block th:each="t, i : ${detail.teachers}">
+											<li th:text="${t.teacherName}"></li>
 										</th:block>
-										<li><span>Tanggal:</span><br/><th:block th:text="${detail.eventDate}"></th:block></li>
-										<th:block th:if="${detail.location!=null and detail.location!=''}">
-											<li><span>Tempat:</span><br/><th:block th:utext="${detail.location}"></th:block></li>
-										</th:block>
-										<li><span>Pengajar/Pembicara:</span><br/>
-										<ul class="default-list">
-											<th:block th:each="t, i : ${detail.teachers}">
-												<li th:text="${t.teacherName}"></li>
-											</th:block>
-										</ul>
-										</li>
-										<li><span>Metode:</span><br/><th:block th:text="${detail.methodLookup.descr}"></th:block></li>
-										<li><span>Penyelenggara:</span><br/>
-										<th:block th:if="${detail.organizerDetail!=null and detail.organizerDetail!=''}">
-											<th:block th:text="${detail.organizerDetail}"></th:block>
-										</th:block>
-										<th:block th:if="${detail.organizerDetail==null or detail.organizerDetail==''}">
-											<th:block th:text="${detail.organizerLookup.descr}"></th:block>
-										</th:block>
-										</li>
-										<li><span>Pembayaran:</span><br/>
-										<th:block th:if="${detail.paymentDetail!=null and detail.paymentDetail!=''}">
-											<th:block th:text="${detail.paymentDetail}"></th:block>
-										</th:block>
-										<th:block th:if="${detail.paymentDetail==null or detail.paymentDetail==''}">
-											<th:block th:text="${detail.paymentLookup.descr}"></th:block>
-										</th:block>
-										</li>
-										<li><span>Sertifikasi:</span><br/><th:block th:text="${detail.isCertification?'Yes':'No'}"></th:block></li>
 									</ul>
 								</div>
-							</div><!--end sidebar item-->
-							
-									<!--end banner-->
-								</div>
-							</div><!--end sidebar item-->
-							
-						</div><!--end sidebar-->
+								<div role="tabpanel" class="tab-pane" id="galeri"></div>
+								<div role="tabpanel" class="tab-pane" id="contact_us_desc" th:utext="${detail.contactUsDesc}"></div>
+							</div>
+						</div><!--end single content left-->
 					</div>
-					
-				</div><!--end row-->
+					<th:block th:if="${detail.learningDisplayLookup.code == T(id.base.app.ILookupConstant.LearningDisplay).NOT_FULL_SCREEN_SIDEBAR_RIGHT}">
+						<div class="col-xs-12 col-sm-4 col-md-4 short-desc-content"></div>
+					</th:block>		
+				</div><!--end sidebar-->
+			</div>	
+		</div>
+		
+	<div class="hidden">
+		<div id="short-desc">
+			<div class="sidebar">
+				<div class="sidebar_item">
+					<div class="item_inner program">
+						<h4>Keterangan Singkat</h4>
+						<ul>
+							<th:block th:if="${detail.code!=null and detail.code!=''}">
+								<li><span>Kode:</span><br/><th:block th:text="${detail.code}"></th:block></li>
+							</th:block>
+							<li><span>Tanggal:</span><br/><th:block th:text="${detail.eventDate}"></th:block></li>
+							<th:block th:if="${detail.location!=null and detail.location!=''}">
+								<li><span>Tempat:</span><br/><th:block th:utext="${detail.location}"></th:block></li>
+							</th:block>
+							<li><span>Pengajar/Pembicara:</span><br/>
+							<ul class="default-list">
+								<th:block th:each="t, i : ${detail.teachers}">
+									<li th:text="${t.teacherName}"></li>
+								</th:block>
+							</ul>
+							</li>
+							<li><span>Metode:</span><br/><th:block th:text="${detail.methodLookup.descr}"></th:block></li>
+							<li><span>Penyelenggara:</span><br/>
+							<th:block th:if="${detail.organizerDetail!=null and detail.organizerDetail!=''}">
+								<th:block th:text="${detail.organizerDetail}"></th:block>
+							</th:block>
+							<th:block th:if="${detail.organizerDetail==null or detail.organizerDetail==''}">
+								<th:block th:text="${detail.organizerLookup.descr}"></th:block>
+							</th:block>
+							</li>
+							<li><span>Pembayaran:</span><br/>
+							<th:block th:if="${detail.paymentDetail!=null and detail.paymentDetail!=''}">
+								<th:block th:text="${detail.paymentDetail}"></th:block>
+							</th:block>
+							<th:block th:if="${detail.paymentDetail==null or detail.paymentDetail==''}">
+								<th:block th:text="${detail.paymentLookup.descr}"></th:block>
+							</th:block>
+							</li>
+							<li><span>Sertifikasi:</span><br/><th:block th:text="${detail.isCertification?'Yes':'No'}"></th:block></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 <script th:inline="javascript">
 	/*<![CDATA[*/
 	setNavbarActive('program');
@@ -235,6 +266,10 @@
 			var link = /*[[@{/page/contact/}]]*/;
 			window.location.href = link + $(this).attr('categoryPermalink')+'/'+$(this).attr('permalink');
 		});
+		
+		if($('.short-desc-content').length>0){
+			$('.short-desc-content').html($('#short-desc').html());
+		}
 	})
 	/*]]>*/
 </script>           

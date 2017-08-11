@@ -107,5 +107,10 @@ public class CategoryService implements ICategoryService {
 		}
 		return catList;
 	}
+	
+	@Override
+	public Category findIsShowFilterByPermalink(String permalink) throws SystemException {
+		return categoryDAO.findIsShowFilterByPermalink(permalink);
+	}
 
 }

@@ -24,4 +24,6 @@ public interface ICategoryService extends MaintenanceService<Category> {
 
 	public List<Category> findCategoryWithFaqList() throws SystemException;
 
+	public Category findIsShowFilterByPermalink(String permalink) throws SystemException;
+
 }

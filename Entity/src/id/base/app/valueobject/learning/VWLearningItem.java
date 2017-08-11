@@ -26,7 +26,7 @@ public class VWLearningItem implements Serializable {
 	public static final String PK = "pk";
 	public static final String TITLE = "title";
 	public static final String PK_CATEGORY = "pkCategory";
-	public static final String CATEGORY_PERMALINK = "categoyPermalink";
+	public static final String CATEGORY_PERMALINK = "categoryPermalink";
 	public static final String DATE_FROM = "dateFrom";
 	public static final String FK_LOOKUP_METHOD = "fkLookupMethod";
 	public static final String FK_LOOKUP_ORGANIZER = "fkLookupOrganizer";
@@ -42,7 +42,7 @@ public class VWLearningItem implements Serializable {
 	private Long pkCategory;
 	
 	@Column(name="CATEGORY_PERMALINK")
-	private String categoyPermalink;
+	private String categoryPermalink;
 	
 	@Column(name="PK_LEARNING_ITEM")
 	private Long pkLearningItem;
@@ -102,12 +102,12 @@ public class VWLearningItem implements Serializable {
 		this.pkCategory = pkCategory;
 	}
 
-	public String getCategoyPermalink() {
-		return categoyPermalink;
+	public String getCategoryPermalink() {
+		return categoryPermalink;
 	}
 
-	public void setCategoyPermalink(String categoyPermalink) {
-		this.categoyPermalink = categoyPermalink;
+	public void setCategoryPermalink(String categoryPermalink) {
+		this.categoryPermalink = categoryPermalink;
 	}
 
 	public Long getPkLearningItem() {

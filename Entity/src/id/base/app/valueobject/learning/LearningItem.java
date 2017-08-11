@@ -137,6 +137,16 @@ public class LearningItem extends BaseEntity implements Serializable {
 	@Column(name="ORGANIZER_DETAIL")
 	private String organizerDetail;
 	
+	@Column(name="SILABUS_DESC")
+	private String silabusDesc;
+	
+	@Column(name="CONTACT_US_DESC")
+	private String contactUsDesc;
+	
+	@OneToOne
+	@JoinColumn(name="FK_LOOKUP_LEARNING_DISPLAY")
+	private Lookup learningDisplayLookup;
+	
 	@Column(name="STATUS")
 	private Integer status;
 	
@@ -325,6 +335,34 @@ public class LearningItem extends BaseEntity implements Serializable {
 
 	public void setOrganizerDetail(String organizerDetail) {
 		this.organizerDetail = organizerDetail;
+	}
+
+	public String getSilabusDesc() {
+		return silabusDesc;
+	}
+
+	public void setSilabusDesc(String silabusDesc) {
+		this.silabusDesc = silabusDesc;
+	}
+	
+	public String getContactUsDesc() {
+		return contactUsDesc;
+	}
+
+	public void setContactUsDesc(String contactUsDesc) {
+		this.contactUsDesc = contactUsDesc;
+	}
+
+	public Lookup getLearningDisplayLookup() {
+		return learningDisplayLookup;
+	}
+
+	public void setLearningDisplayLookup(Lookup learningDisplayLookup) {
+		this.learningDisplayLookup = learningDisplayLookup;
+	}
+
+	public void setStatusStr(String statusStr) {
+		this.statusStr = statusStr;
 	}
 
 	public Integer getStatus() {
