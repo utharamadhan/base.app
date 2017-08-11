@@ -152,7 +152,7 @@
 								                    <a data-toggle="collapse" data-parent="#accordion" href="#cHFC">BTN HOUSING FINANCE CENTER</a>
 								                </h4>
 								            </div>
-								            <div id="cHFC" class="panel-collapse collapse in">
+								            <div id="cHFC" class="panel-collapse panel-collapse-small collapse in">
 								                <div class="panel-body">
 								                    <p>Sebagai leader pembiayaan perumahan di Indonesia, BTN HFC menjadi motor penggerak dan pusat referensi property di Indonesia. Sesuai dengan tujuan didirikannya BTN HFC akan menjadi pengelola pusat pembelajaraan perbankan dan riset  perumahan yang profesional dan terkemuka di Indonesia. BTN HFC akan menjadi sumber inspirasi para pelaku bisnis di bidang pembiayaan perumahan. Menjawab kebutuhan bisnis pembiayaan perumahan apakah itu dari dunia perbankan ataupun para pelaku pembangunan perumahan, BTN HFC adalah tempatnya. Ini akan menjadi pusat menjawab kebutuhan masalah perumahan di Indonesia.</p>
 								                </div>
@@ -164,7 +164,7 @@
 								                    <a data-toggle="collapse" data-parent="#accordion" href="#cTujuan">Tujuan</a>
 								                </h4>
 								            </div>
-								            <div id="cTujuan" class="panel-collapse collapse">
+								            <div id="cTujuan" class="panel-collapse panel-collapse-small collapse">
 								                <div class="panel-body">
 								                    <p>Housing Finance Center BTN yang selaras dengan tujuan didirikannya, yakni :</p>
 													<ul>
@@ -181,7 +181,7 @@
 								                    <a data-toggle="collapse" data-parent="#accordion" href="#cProgram">Program</a>
 								                </h4>
 								            </div>
-								            <div id="cProgram" class="panel-collapse collapse">
+								            <div id="cProgram" class="panel-collapse panel-collapse-small collapse">
 								                <div class="panel-body">
 								                    <p>Program kerja di bidang  Learning :</p>
 													<ol>
@@ -198,7 +198,7 @@
 								                    <a data-toggle="collapse" data-parent="#accordion" href="#cKerjasama">Kerjasama</a>
 								                </h4>
 								            </div>
-								            <div id="cKerjasama" class="panel-collapse collapse">
+								            <div id="cKerjasama" class="panel-collapse panel-collapse-small collapse">
 								                <div class="panel-body">
 								                    <ol>
 													<li>MoU BTN - HDFC India</li>
