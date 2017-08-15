@@ -4823,6 +4823,9 @@ blockquote span {
 .download-pdf{
 	cursor:pointer;
 }
+.content_post ol li ol{
+	margin-left:45px!important;
+}
 @media only screen and (min-width: 1200px) {
     body.bodyColor .header {
         max-width: 1170px;
