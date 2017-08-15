@@ -44,7 +44,12 @@
 							<div class="top-desc">
 								<div class="col-md-9" th:utext="${category.description}"></div>
 								<div class="col-md-3">
+									<th:block th:if="${permalink!='inkubator-bisnis'}">
 									<a th:href="@{/page/main-program/advisory/consulting}"><img th:src="@{/images/consult-pos.png}"/></a>
+									</th:block>
+									<th:block th:if="${permalink=='inkubator-bisnis'}">
+									<a th:href="@{/page/main-program/learning/kursus/master-development-indonesia-mdi-}"><img th:src="@{/images/program-mdi.png}"/></a>
+									</th:block>
 								</div>
 								<div class="clear"></div>
 							</div>
