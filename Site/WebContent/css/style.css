@@ -4820,6 +4820,9 @@ blockquote span {
   	background-repeat: no-repeat;
   	background-position: bottom right;
 }
+.download-pdf{
+	cursor:pointer;
+}
 @media only screen and (min-width: 1200px) {
     body.bodyColor .header {
         max-width: 1170px;

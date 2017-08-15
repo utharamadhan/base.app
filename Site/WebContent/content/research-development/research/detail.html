@@ -29,6 +29,8 @@
 							<div>
 								<div th:utext="${detail.description}"></div>
 							</div>
+							<div class="clear"></div>
+							<img th:src="@{/images/download-pdf-button.png}" id="download" class="download-pdf"/>
 						</div>
 					</div>
 					<div class="col-md-4">
@@ -55,15 +57,39 @@
 				</div>
 			</div><!--end content top-->
 		</div>
-		
+		<div class="hidden">
+			<div id="content-pdf">
+				<h1 th:text="${detail.title}"></h1><br/><br/>
+				<div th:utext="${detail.description}"></div>
+				<div>
+					<h2>Peneliti</h2>
+					<th:block th:each="data , i : ${detail.officers}">
+						<p th:text="${data.officerName}"></p>
+					</th:block>
+					
+				</div>
+				<div>
+					<h2>Tahun Penelitian</h2>
+					<p th:text="${detail.yearFrom}">2015</p>
+				</div>
+				<div>
+					<h2>Kata Kunci</h2>
+					<th:block th:each="data , i : ${detail.keywords}">
+						<p th:text="${data.keyword}"></p>
+					</th:block>
+				</div>
+			</div>
+		</div>
 		<script type="text/javascript" th:inline="javascript">
 		/*<![CDATA[*/
         $(function(){
-			$("#download").unbind('click').click(function(){
-				var sURL = /*[[@{/page/research-development/downloadFile/}]]*/ #;
-				var param = $('input[name="identity"]').val();
-				sURL = sURL + param;
-				downloadFile(sURL);
+        	$('#download').click(function () {
+        		var title = /*[[${detail.title}]]*/
+        		var doc = new jsPDF();
+        		doc.fromHTML($('#content-pdf').html(), 15, 15, {
+			        'width': 180
+			    });
+			    doc.save(title);
 			});
 		})
 		
