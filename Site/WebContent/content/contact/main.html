@@ -31,15 +31,15 @@
 							<p>Silakan isi kolom berikut untuk mendaftar program : </p>
 							<div class="contact_form">
 									
-								<form method="post" action="#" id="email_form">
+								<form method="post" action="#" id="contact_form">
 									<div class="row">
 										<div class="col-xs-12">
 											<div class="form-group">
 												<label>Learning <span class="error">*</span></label>
-												<select class="form-control" name="learningCategory" id="learningCategory">
+												<select class="form-control" name="category.pkCategory" id="learningCategory">
 													<option th:each="data, i : ${categories}" th:text="${data.title}" th:value="${data.pkCategory}"></option>
 												</select><br/>
-												<select class="form-control" name="learningItem" id="learningItem">
+												<select class="form-control" name="learningItem.pkLearningItem" id="learningItem">
 													<option value="">-- Pilih Seminar --</option>
 													<option th:each="data, i : ${learningItems}" th:text="${data.title}" th:value="${data.pkLearningItem}"></option>
 												</select>
@@ -132,7 +132,7 @@
 									<div class="row">
 										<div class="col-xs-12">
 											<input type="hidden" name="type" th:value="${type}"/>
-											<input type="button" value="Send" class="button-blue submit_btn" id="sendEmail" />
+											<input type="button" value="Send" class="button-blue submit_btn" id="submitForm" />
 										</div>
 									</div>
 								</form>
@@ -144,7 +144,7 @@
 							<p>Silakan tuliskan masukan Anda di dalam kolom berikut : </p>
 							<div class="contact_form">
 									
-								<form method="post" action="#" id="email_form">
+								<form method="post" action="#" id="contact_form">
 									<div class="row">
 										<div class="col-xs-12">
 											<div class="form-group">
@@ -299,48 +299,48 @@
 				});
 			});
 			
-			$("#sendEmail").unbind('click').click(function(){
-				var sURL = /*[[@{/page/contact/sendEmail}]]*/ #;
-				sendEmail(sURL);
+			var submitForm = function(sURL){
+				var img_url = /*[[@{/images/gif/loading_gear.gif}]]*/;
+				$.ajax({ 
+				    type: "POST",
+				    url: sURL,
+				    data:$('#contact_form').serialize(),
+				    dataType: 'json',
+				    success: function(data){
+				    	if(data.success){
+				    		alert(data.message);
+				    		location.reload();
+				    	}else{
+				    		alert(data.message);
+				    	}
+				    	var generateCaptcha = /*[[@{/kaptcha}]]*/;
+			    		$('.captchaImage').attr('src',generateCaptcha);
+				    },beforeSend: function($jqXHR, $textStatus){
+				    	var generateCaptcha = /*[[@{/kaptcha}]]*/;
+			    		$('.captchaImage').attr('src',generateCaptcha);
+						$('.submit_btn').setOverlay({enabled:false});
+						$('.mrdy_overlay').html('<div class="col-md-12 loading_reload" style="display: block; margin-left: auto; margin-right: auto;text-align: center;top: 40%;"><img src="'+img_url+'" /></div>');
+					},
+					error: function ($jqXHR, $textStatus, $errorThrown) {
+						var generateCaptcha = /*[[@{/kaptcha}]]*/;
+			    		$('.captchaImage').attr('src',generateCaptcha);
+						$('.loading_reload').remove();
+						$('.submit_btn').setOverlay({enabled:true});
+					},
+					complete: function($jqXHR, $textStatus){
+						var generateCaptcha = /*[[@{/kaptcha}]]*/;
+			    		$('.captchaImage').attr('src',generateCaptcha);
+						$('.loading_reload').remove();
+						$('.submit_btn').setOverlay({enabled:true});
+					} 
+				});
+			}
+			
+			$("#submitForm").unbind('click').click(function(){
+				var sURL = /*[[@{/page/contact/submit}]]*/ #;
+				submitForm(sURL);
 			});
 		})      
-		
-		function sendEmail(sURL){
-			var img_url = /*[[@{/images/gif/loading_gear.gif}]]*/;
-			$.ajax({ 
-			    type: "POST",
-			    url: sURL,
-			    data:$('#email_form').serialize(),
-			    dataType: 'json',
-			    success: function(data){
-			    	if(data.success){
-			    		alert(data.message);
-			    		location.reload();
-			    	}else{
-			    		alert(data.message);
-			    	}
-			    	var generateCaptcha = /*[[@{/kaptcha}]]*/;
-		    		$('.captchaImage').attr('src',generateCaptcha);
-			    },beforeSend: function($jqXHR, $textStatus){
-			    	var generateCaptcha = /*[[@{/kaptcha}]]*/;
-		    		$('.captchaImage').attr('src',generateCaptcha);
-					$('.submit_btn').setOverlay({enabled:false});
-					$('.mrdy_overlay').html('<div class="col-md-12 loading_reload" style="display: block; margin-left: auto; margin-right: auto;text-align: center;top: 40%;"><img src="'+img_url+'" /></div>');
-				},
-				error: function ($jqXHR, $textStatus, $errorThrown) {
-					var generateCaptcha = /*[[@{/kaptcha}]]*/;
-		    		$('.captchaImage').attr('src',generateCaptcha);
-					$('.loading_reload').remove();
-					$('.submit_btn').setOverlay({enabled:true});
-				},
-				complete: function($jqXHR, $textStatus){
-					var generateCaptcha = /*[[@{/kaptcha}]]*/;
-		    		$('.captchaImage').attr('src',generateCaptcha);
-					$('.loading_reload').remove();
-					$('.submit_btn').setOverlay({enabled:true});
-				} 
-			});
-		}
 		/*]]>*/
 		</script>
 </body>

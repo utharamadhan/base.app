@@ -159,6 +159,10 @@ public class ContactUsWebController extends BaseSiteController<Contact>{
 			if(errors != null && errors.size() > 0){
 				resultMap.put(SystemConstant.ERROR_LIST, errors);
 			}
+			else{
+				resultMap.put("success", true);
+				resultMap.put("message", "Terima kasih telah mendaftarkan diri dalam program kami. Kami akan segera mengubungi anda.");
+			}
 		}catch(Exception e){
 			LOGGER.error(e.getMessage(), e);
 		}
