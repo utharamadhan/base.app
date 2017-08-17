@@ -26,7 +26,7 @@
 		  			<h4>Tentang Website</h4>
 		  			<ul>
 		  				<li><a href="<%=request.getContextPath()%>/page/${toc}">${tocTitle}</a></li>
-		  				<li><a href="<%=request.getContextPath()%>/page/faq">Pertanyaan Sering Ditanyakan</a></li>
+		  				<li><a href="<%=request.getContextPath()%>/page/faq">Pertanyaan Yang Sering Ditanyakan</a></li>
 		  				<li><a href="<%=request.getContextPath()%>/page/sitemap"">Peta Situs</a></li>
 		  				<li><a href="<%=request.getContextPath()%>/page/contact/MM">Memberi Masukan</a></li>
 		  			</ul>

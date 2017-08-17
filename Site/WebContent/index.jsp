@@ -252,7 +252,7 @@
 				    	<div>
 				      		<img src="${news.encodedPicture}" alt="" />
 				      		<h1>${news.title}</h1>
-				      		<p><a href="${ctx}/page/engagement/list" class="btn btn-third btn-medium">selengkapnya</a></p>
+				      		<p><a href="${ctx}/page/news/${news.permalink}" class="btn btn-third btn-medium">selengkapnya</a></p>
 				    	</div>
 				  	</li>
 				  </c:forEach>

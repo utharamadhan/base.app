@@ -35,12 +35,12 @@
 									<div class="row">
 										<div class="col-xs-12">
 											<div class="form-group">
-												<label>Learning <span class="error">*</span></label>
 												<select class="form-control" name="category.pkCategory" id="learningCategory">
+													<option value="">-- Pilih Category Program --</option>
 													<option th:each="data, i : ${categories}" th:text="${data.title}" th:value="${data.pkCategory}"></option>
 												</select><br/>
 												<select class="form-control" name="learningItem.pkLearningItem" id="learningItem">
-													<option value="">-- Pilih Seminar --</option>
+													<option value="">-- Pilih Category Program Terlebih Dahulu --</option>
 													<option th:each="data, i : ${learningItems}" th:text="${data.title}" th:value="${data.pkLearningItem}"></option>
 												</select>
 											</div>
@@ -224,7 +224,7 @@
 										<li>
 											<div class="row">
 												<div class="col-md-1"><i class="fa fa-phone"></i></div>
-												<div class="col-md-11">Telp. 021 - 6336789 ext. 1831</div>
+												<div class="col-md-11">Telp. 021 - 6336789 ext. 1831 atau 021 - 6332711</div>
 											</div>
 										</li>
 									</ul>
@@ -242,7 +242,7 @@
 										<li>
 											<div class="row">
 												<div class="col-md-1"><i class="fa fa-envelope"></i></div>
-												<div class="col-md-11"><a href="mailto:bona.dvent@gmail.com">HFC@btn.co.id</a></div>
+												<div class="col-md-11"><a href="mailto:bona.dvent@gmail.com">hfc@btn.co.id</a></div>
 											</div>
 										</li>
 									</ul>
@@ -286,17 +286,22 @@
 				var sURL = /*[[@{/page/contact/getLearningItemsByCategory}]]*/ #;
 				var html = '';
 				var txtSelected = $(this).find('option:selected').text();
-				$.get( sURL, {pkCategory:$('#learningCategory').val()}, function( data ) {
-					if(data.length>0){
-						html += '<option value="">-- Pilih '+capitalizeFirstLetter(txtSelected)+' --</option>';
-					}else{
-						html += '<option value="">-- Tidak ada '+txtSelected.toLowerCase()+' yang dapat di pilih --</option>';
-					}
-					for(var i=0;i<data.length;i++){
-						html += '<option value="'+data[i].pkLearningItem+'">'+data[i].title+'</option>';
-					};
+				if($(this).val()==''){
+					html += '<option value="">-- Pilih Category Program Terlebih Dahulu --</option>';
 					$('#learningItem').html(html);
-				});
+				}else{
+					$.get( sURL, {pkCategory:$('#learningCategory').val()}, function( data ) {
+						if(data.length>0){
+							html += '<option value="">-- Pilih '+capitalizeFirstLetter(txtSelected)+' --</option>';
+						}else{
+							html += '<option value="">-- Tidak ada '+txtSelected.toLowerCase()+' yang dapat di pilih --</option>';
+						}
+						for(var i=0;i<data.length;i++){
+							html += '<option value="'+data[i].pkLearningItem+'">'+data[i].title+'</option>';
+						};
+						$('#learningItem').html(html);
+					});
+				}
 			});
 			
 			var submitForm = function(sURL){

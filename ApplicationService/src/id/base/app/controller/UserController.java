@@ -198,25 +198,17 @@ public class UserController extends SuperController<AppUser>{
 	
 	@Override
 	public AppUser preCreate(AppUser anObject) throws SystemException {
-		if(anObject.getUserName() != null){
-			if (anObject.getParty() != null) {
-				anObject.getParty().setName(anObject.getUserName());
-				anObject.getParty().setStatus(SystemConstant.ValidFlag.VALID);
-				if(anObject.getParty().getPartyContacts() != null && anObject.getParty().getPartyContacts().size() > 0) {
-					for(PartyContact contact : anObject.getParty().getPartyContacts()) {
-						contact.setParty(anObject.getParty());
-						contact.setContactType(lookupService.findByCode(ILookupConstant.PartyContact.HANDPHONE, ILookupGroupConstant.CONTACT_TYPE));
-					}
-				}
-			} else {
-				if(anObject.getParty() == null) {					
-					anObject.setParty(Party.getInstance(anObject.getUserName()));
-				} else {
-					anObject.getParty().setStatus(SystemConstant.ValidFlag.VALID);
+		
+		if (anObject.getParty() != null) {
+			anObject.getParty().setStatus(SystemConstant.ValidFlag.VALID);
+			if(anObject.getParty().getPartyContacts() != null && anObject.getParty().getPartyContacts().size() > 0) {
+				for(PartyContact contact : anObject.getParty().getPartyContacts()) {
+					contact.setParty(anObject.getParty());
+					contact.setContactType(lookupService.findByCode(ILookupConstant.PartyContact.HANDPHONE, ILookupGroupConstant.CONTACT_TYPE));
 				}
 			}
 		} else {
-			if(anObject.getParty() == null) {
+			if(anObject.getParty() == null) {					
 				anObject.setParty(Party.getInstance(anObject.getUserName()));
 			} else {
 				anObject.getParty().setStatus(SystemConstant.ValidFlag.VALID);
@@ -236,7 +228,7 @@ public class UserController extends SuperController<AppUser>{
 		if(anObject.getPkAppUser() == null){
 			throw new SystemException(new ArrayList<ErrorHolder>(Arrays.asList(new ErrorHolder("pkAppUser is required"))));
 		}
-		AppUser appUser = userService.findByUserName(anObject.getUserName());
+		AppUser appUser = userService.findById(anObject.getPkAppUser());
 		if(appUser != null) {
 			if(appUser.getParty() != null && anObject.getParty() != null) {				
 				appUser.getParty().setName(anObject.getParty().getName());
@@ -249,7 +241,7 @@ public class UserController extends SuperController<AppUser>{
 					}
 				}
 				appUser.getParty().setProfileDescription(anObject.getParty().getProfileDescription());
-				appUser.getParty().setTitle(anObject.getParty().getTitle());
+				appUser.getParty().setAgency(anObject.getParty().getAgency());
 				appUser.getParty().setBasicPictureURL(anObject.getParty().getBasicPictureURL());
 			}
 			appUser.setUserName(anObject.getUserName());
@@ -297,9 +289,7 @@ public class UserController extends SuperController<AppUser>{
 			errors.add(new ErrorHolder(AppUser.PARTY_NAME, messageSource.getMessage("error.user.name.mandatory", null, Locale.ENGLISH)));
 		}
 		
-		if(StringFunction.isEmpty(anObject.getUserName())) {
-			errors.add(new ErrorHolder(AppUser.USER_NAME, messageSource.getMessage("error.user.username.mandatory", null, Locale.ENGLISH)));
-		} else {
+		if(StringFunction.isNotEmpty(anObject.getUserName())) {
 			if(userService.isUserNameAlreadyInUsed(anObject.getPkAppUser(), anObject.getUserName())) {
 				errors.add(new ErrorHolder(AppUser.USER_NAME, messageSource.getMessage("error.user.username.already.inused", null, Locale.ENGLISH)));	
 			}
