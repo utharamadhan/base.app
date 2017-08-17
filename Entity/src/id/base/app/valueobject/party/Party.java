@@ -99,8 +99,8 @@ public class Party extends BaseEntity implements Serializable{
 	@Column(name = "NAME")
 	private String name;
 	
-	@Column(name="TITLE")
-	private String title;
+	@Column(name="AGENCY")
+	private String agency;
 	
 	@Column(name = "NPWP")
 	private String npwp;
@@ -157,12 +157,12 @@ public class Party extends BaseEntity implements Serializable{
 		this.name = name;
 	}
 	
-	public String getTitle() {
-		return title;
+	public String getAgency() {
+		return agency;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setAgency(String agency) {
+		this.agency = agency;
 	}
 
 	public String getNpwp() {
