@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:ifs="http://btn.co.id">
 <head>
 <meta charset="ISO-8859-1"/>
-<title>Learning Item Detail</title>
+<title>Advisory Item Detail</title>
 </head>
 <style>
 .itemDetail-image {
@@ -19,7 +19,7 @@
 <body>
 	<div class="pageheader">
 		<div class="row col-md-8">
-			<h4><i class="fa fa-tachometer"></i> Learning / Item List / Item Detail
+			<h4><i class="fa fa-tachometer"></i> Advisory / Item List / Item Detail
 			<span></span></h4>
 		</div>
 	</div>
@@ -42,36 +42,6 @@
 							&nbsp;
 						</div>
 						<input id="learningItem-detail-maintenancePk" type="hidden" th:field="*{pkLearningItem}"/>
-						<div class="form-group">
-							<label class="col-sm-2 control-label required" th:text="'Category'">Category</label>
-							<div class="col-sm-9 form-input-container">
-								<div class="panel-group" id="acc-category">
-								  <div class="panel panel-default">
-								    <div class="panel-heading" data-toggle="collapse" data-parent="#acc-category" data-target="#acc-category-one">
-								      <h4 class="panel-title">
-								        <a class="accordion-toggle">[Select category]</a>
-								      </h4>
-								    </div>
-								    <div id="acc-category-one" class="panel-collapse collapse">
-								    	<div class="collapse-content">
-								    	<th:block th:each="cat, i : ${categoryOptions}">
-											<div class="checkbox">
-												<th:block th:if="${cat.checked}">		
-											    	<input type="checkbox" class="categories" th:attr="id='cat-'+${cat.pkCategory}" th:value="${cat.pkCategory}" checked="checked"/>
-											    </th:block>
-											    <th:block th:if="${!cat.checked}">
-											    	<input type="checkbox" class="categories" th:attr="id='cat-'+${cat.pkCategory}" th:value="${cat.pkCategory}"/>
-											    </th:block>
-											    <label th:attr="for='cat-'+${cat.pkCategory}" th:text="${cat.title}"></label>
-											  </div>
-										</th:block>
-										</div>
-								    </div>
-								    <div id="category-hidden"></div>
-								  </div>
-								</div>
-                           	</div>
-						</div>
 						<div class="form-group">
 							<label class="col-sm-2 control-label" th:text="'Code'">Code</label>
 							<div class="col-sm-9 form-input-container">
@@ -455,12 +425,6 @@
 			var preSerializeForm = function() {
 				var html = "";
 				var idx = 0;
-				$('#acc-category-one .categories:checkbox:checked').each(function(){
-					html += "<input type='text' name='categories["+idx+"].pkCategory' value='"+$(this).val()+"'/>";
-					idx++;
-				});
-				$('#category-hidden').html(html);
-				var idx = 0;
 				$('#teacherTable').find('tbody').find('tr').each(function(){
 					$(this).find('.name').attr('name', 'teachers['+idx+'].teacherName');
 					idx++;
@@ -476,7 +440,7 @@
 				$('#tinyMCE-pay-hidden').val(tinymce.get('tinyMCE-pay-area').getContent());
 				$('#tinyMCE-cu-hidden').val(tinymce.get('tinyMCE-cu-area').getContent());
 				preSerializeForm();
-				var sURL = /*[[@{/do/learning/item/saveItem/}]]*/ #;
+				var sURL = /*[[@{/do/advisory/item/saveItem/}]]*/ #;
 				$.post(sURL, $("#item-detail-form").serialize(), function(data) {
 					if(data.errorList!=null){
 						displayErrorParsley(data.errorList);

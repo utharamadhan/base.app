@@ -1,5 +1,4 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <c:set var="rq" value="${pageContext.request }" scope="request" />
 <c:set var="ctx" value="${rq.contextPath }" scope="request" />
 <div class="header fixed-top">
@@ -12,9 +11,7 @@
 							<div class="navbar-header">
 							  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar-collapse-1" aria-expanded="false">
 								<span class="sr-only">Toggle navigation</span>
-								<span class="icon-bar"></span>
-								<span class="icon-bar"></span>
-								<span class="icon-bar"></span>
+								<span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
 							  </button>
 							  <a class="navbar-brand logo clearfix" href="<%=request.getContextPath()%>"><img src="<%=request.getContextPath()%>/images/logo-btn.png" alt="" class="img-responsive logo-btn"></a>
 							  <a class="navbar-brand logo clearfix" href="<%=request.getContextPath()%>"><img src="<%=request.getContextPath()%>/images/logo-hfc.png" alt="" class="img-responsive"></a>
@@ -178,20 +175,11 @@
 					$('.signin-button').show();
 					$('.reg-button').hide();
 				});
-				$('.btn-signup a').click(function(){
-					$('.warning-sign-first').hide();
-				});
-				$('.do-signin').click(function(){
-				});
-				$('.do-signup').click(function(){
-					window.location.href = "#";
-				});
-				$('.do-enroll').click(function(){
-					window.location.href = "#";
-				});
-				$('.do-wishlist').click(function(){
-					window.location.href = "#";
-				});
+				$('.btn-signup a').click(function(){$('.warning-sign-first').hide();});
+				$('.do-signin').click(function(){});
+				$('.do-signup').click(function(){window.location.href = "#";});
+				$('.do-enroll').click(function(){window.location.href = "#";});
+				$('.do-wishlist').click(function(){window.location.href = "#";});
 			});
 		</script>
 		<!-- div class="inlineMenu margin-top" -->

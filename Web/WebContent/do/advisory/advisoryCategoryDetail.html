@@ -9,7 +9,7 @@
 	max-height : 250px;
 }
 
-.image-delete {
+.image-delete, .detailLinkImageURL-delete {
 	position:absolute;
 	left:25px;
 	top:10px;
@@ -82,6 +82,34 @@
 							</div>
 						</div>
 						<div class="form-group">
+							<label class="col-sm-2 control-label" th:text="'Icon Link Detail'">Icon Link Detail</label>
+							<div class="col-sm-9 form-input-container">
+								<th:block th:if="${detail.detailLinkImageURL != null}">
+									<input type="hidden" id="input-hidden-detailLinkImageURL" th:field="*{detailLinkImageURL}"/>
+									<input type="file" class="form-control" id="input-file-detailLinkImageURL" style="display:none;"/>
+									<div id="container-detailLinkImageURL">
+										<img th:src="${detail.detailLinkImageURL}" class="gcDetail-image"/>
+										<a href="#" class="btn btn-primary btn-xs margin-bottom-20 detailLinkImageURL-delete" data-toggle="tooltip" title="Delete"><i class="fa fa-trash"></i></a>
+									</div>
+								</th:block>
+								<th:block th:if="${detail.detailLinkImageURL == null}">
+									<input type="hidden" id="input-hidden-detailLinkImageURL" name="detailLinkImageURL"/>
+									<input type="file" class="form-control" id="input-file-detailLinkImageURL"/>
+									<div id="container-detailLinkImageURL" style='display:none;'>
+									</div>
+								</th:block>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" th:text="'Item Detail'">Item Detail</label>
+							<div class="col-sm-9 form-input-container">
+								<select class="chosen-select form-control" th:field="*{items[0].pkLearningItem}">
+									<option value="">[Please Select Item]</option>
+									<option th:each="opt : ${itemOptions}" th:value="${opt.pkLearningItem}" th:text="${opt.title}">Title</option>
+                           		</select>
+                           	</div>
+						</div>
+						<div class="form-group">
 							<label class="col-sm-2 control-label" th:text="'Status'">Status</label>
 							<div class="col-sm-9 form-input-container">
 								<select class="chosen-select form-control" th:field="*{status}">
@@ -112,10 +140,21 @@
 			});
 		}
 	
+		function initDeleteLinkDetailImage() {
+			$('.detailLinkImageURL-delete').click(function(e){
+				e.preventDefault();
+				$('#input-file-detailLinkImageURL').show();
+				$('#container-detailLinkImageURL').html("");
+				$('#input-hidden-detailLinkImageURL, #input-file-detailLinkImageURL').val("");
+				$('#container-detailLinkImageURL').hide();
+			});
+		}
+	
 	    $(function(){
 	    	var fileManagerURL = /*[[@{/do/fileManager/upload/}]]*/ #;
 	    	
 	    	initDeletePicture();
+	    	initDeleteLinkDetailImage()
 	    	initTextEditor('#textEditor-description-area', '#textEditor-description-parent', fileManagerURL);
 	    	
 			var backToList = function(){
@@ -146,7 +185,17 @@
 				initDeletePicture();
 			}
 			
-			var uploadFile = function(image, uploadURL) {
+			var showLinkDetailImage = function(imageURL) {
+				$('#input-file-detailLinkImageURL').hide();
+				var htmlContent = '<image src="'+imageURL+'" style="max-height:250px;"></image>';
+				htmlContent += '<a href="#" class="btn btn-primary btn-xs margin-bottom-20 detailLinkImageURL-delete" data-toggle="tooltip" title="Delete" style="position:absolute; left:25px; top:10px;"><i class="fa fa-trash"></i></a>';
+				$('#container-detailLinkImageURL').html(htmlContent);
+				$('#input-hidden-detailLinkImageURL').val(imageURL);
+				$('#container-detailLinkImageURL').show();
+				initDeleteLinkDetailImage();
+			}
+			
+			var uploadFile = function(image, uploadURL, type) {
 				var data = new FormData();
 				data.append('file', image);
 				var xhr = new XMLHttpRequest();
@@ -155,7 +204,11 @@
 				  if (xhr.readyState === 4) {
 				    var response = JSON.parse(xhr.responseText);
 				    if (response) {
-				      	showImage(response);
+				    	if(type==1){
+				    		showImage(response);	
+				    	}else if(type==2){
+				    		showLinkDetailImage(response);	
+				    	}
 				    } else {
 				      	var reader = new FileReader();
 				      	reader.onload = function(e) {
@@ -172,7 +225,13 @@
 			$(document).unbind('change').on('change', '#input-file-imageURL', function(){
 				var sURL = /*[[@{/do/fileManager/uploadFeaturedImage/}]]*/ #;
 				var thisObj = $('#input-file-imageURL')[0];
-				uploadFile(thisObj.files[0], sURL);
+				uploadFile(thisObj.files[0], sURL, 1);
+			});
+			
+			$(document).unbind('change').on('change', '#input-file-detailLinkImageURL', function(){
+				var sURL = /*[[@{/do/fileManager/uploadFeaturedImage/}]]*/ #;
+				var thisObj = $('#input-file-detailLinkImageURL')[0];
+				uploadFile(thisObj.files[0], sURL, 2);
 			});
 			
 			$('#advisoryCategory-detail-btn-save').click(function(e){

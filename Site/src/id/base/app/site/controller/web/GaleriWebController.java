@@ -113,7 +113,7 @@ public class GaleriWebController extends BaseSiteController<LearningItem>{
 			@Override
 			public Map<String, Object> getParameters() {
 				Map<String,Object> map = new HashMap<String, Object>();
-				map.put("type", SystemConstant.CategoryType.LEARNING);
+				map.put("type", SystemConstant.CategoryType.ALL);
 				return map;
 			}
 		});

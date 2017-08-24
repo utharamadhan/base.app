@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta name="author" content="Mardy Jonathan"/>
-<title></title>
-</head>
+<head></head>
 <body>
 	<div class="breadcrumb-wrapper">
 			<div class="breadcrumb">
@@ -16,17 +13,6 @@
 			</div>
 		</div>
 		<div class="advisory_section">
-			<!-- <div class="advisory_banner">
-				<video id="videoelement0977b1e3-87b3-ef9b-d22c-74ce31b4144e" class="sectionvideo" data-parallax="false" th:attr="poster=@{/images/consulting-hero-image.jpg}" autoplay="" muted="" loop="">
-			        <source th:src="@{/videos/consulting-hero-video.mp4}" type="video/mp4" />
-			    </video>
-				<div class="parallax-window" data-parallax="scroll" th:attr="data-image-src=@{/images/consulting-services2-resize.jpg}" ></div>
-				<div class="info_consulting_banner">
-					<h1 class="title_consulting_service">Consulting Services</h1>
-					<p class="consulting_service_detail">Lorem Ipsum adalah contoh teks atau dummy dalam industri percetakan dan penataan huruf atau typesetting. Lorem Ipsum telah menjadi standar contoh teks sejak tahun 1500an, saat seorang tukang cetak yang tidak dikenal mengambil sebuah kumpulan teks dan mengacaknya untuk menjadi sebuah buku contoh huruf.</p>
-				</div>
-			</div> -->
-			
 			<section class="consulting_main_part">
 				<!-- Start Advisor Data -->
 				<div class="category_advisory_selection">
@@ -52,12 +38,6 @@
 			                    </div>
 								<div class="row article_category_list"> 
 									<div class="col-md-12">
-										<!-- <select class="select_tema">
-											<option>Select Category</option>
-											<option>Make a Concept House</option>
-											<option>How to Get Best Quality</option>
-										</select> -->
-										<!-- <input type="text" name="" class="input_text_custom article_label" placeholder="Research &amp; Insight" /> -->
 										<select class="select_tema article_label">
 											<option value="">Select Article</option>
 											<option th:each="article, i : ${articles}" th:value="${article.pkArticle}" th:text="${article.name}">Concept House</option>
@@ -211,67 +191,34 @@
 											<div class="form-group">
 												<select class="form-control" id="kc-btn" name="kc-btn">
 												<option value="0">-- Pilih Kantor Cabang BTN Terdekat Anda --</option>
-												<option value="1">Kantor Cabang Jakarta Harmoni</option>
-												<option value="2">Kantor Cabang Kelapa Gading Square</option>
-												<option value="3">Kantor Cabang Depok</option>
-												<option value="4">Kantor Cabang Bekasi</option>
-												<option value="5">Kantor Cabang Bogor</option>
+												<option value="1">Kantor Pusat BTN</option>
+												<option value="2">Kantor Cabang A</option>
+												<option value="3">Kantor Cabang B</option>
+												<option value="4">Kantor Cabang C</option>
+												<option value="5">Kantor Cabang D</option>
+												<option value="5">Kantor Cabang E</option>
 												</select>
 											</div>
 											<div class="ct" id="ct-1" style="display:none">
-												Menara Bank BTN Jln. Gajah Mada No. 1 Jakarta Pusat 10130, Jakarta<br/>
-												Telepon: 021 - 6336789; 6332666<br/>
-												Fax: 021 - 6386593; 6332676; 6333021<br/>
-												Email: kc.jakartaharmoni@btn.co.id<br/>
+												Menara BTN Lt. 18, Jl. Gajah Mada 1 Jakarta 10130<br/>
+												Telp. 021 - 6336789 ext. 1831 atau 021 - 6332711<br/>
 												<br/>
 												<div>
-												<h3 style="margin-bottom:10px">Jam Layanan</h3>
-												<p>Layanan Konsultasi Housing Finance Center setiap hari kerja Pukul 09:00-16:30, Sabtu/Minggu sesuai jadwal Program atau dengan perjanjian.</p>
+												<h3 style="margin-bottom:10px">Sekretariat</h3>
+												<p>Jl. HOS Cokroaminoto 95, Menteng, Jakarta Pusat</p>
 												</div>
-											</div>
-											<div class="ct" id="ct-2" style="display:none">
-												Gedung Emerald Tower Jl. Boulevard Barat Blok XB No.3 Jakarta 14240, Jakarta<br/>
-												Telepon: (021) 45866883, 45866884<br/>
-												Fax: (021) 45866885<br/>
-												<br/>
 												<div>
-												<h3 style="margin-bottom:10px">Jam Layanan</h3>
-												<p>Layanan Konsultasi Housing Finance Center setiap hari kerja Pukul 09:00-16:30, Sabtu/Minggu sesuai jadwal Program atau dengan perjanjian.</p>
+												<h3 style="margin-bottom:10px">Email Contact Center</h3>
+												<p>hfc@btn.co.id</p>
 												</div>
-											</div>
-											<div class="ct" id="ct-3" style="display:none">
-												Jl. Margonda Raya No. 186 Depok 16423, Depok<br/>
-												Telepon: 021-7751236<br/>
-												Fax: 021-7772927<br/>
-												Email: kc.depok@btn.co.id<br/>
-												<br/>
-												<div>
 												<h3 style="margin-bottom:10px">Jam Layanan</h3>
-												<p>Layanan Konsultasi Housing Finance Center setiap hari kerja Pukul 09:00-16:30, Sabtu/Minggu sesuai jadwal Program atau dengan perjanjian.</p>
-												</div>
+												Senin s/d Jumat : 08.00 - 17.00 WIB<br/>
+												Sabtu dan Minggu : Tutup
 											</div>
-											<div class="ct" id="ct-4" style="display:none">
-												Jl. Jend. Sudirman No. 19 Bekasi 17143, Bekasi<br/>
-												Telepon: (021) 8840649<br/>
-												Fax: (021) 8849519<br/>
-												Email: kc.bekasi@btn.co.id<br/>
-												<br/>
-												<div>
-												<h3 style="margin-bottom:10px">Jam Layanan</h3>
-												<p>Layanan Konsultasi Housing Finance Center setiap hari kerja Pukul 09:00-16:30, Sabtu/Minggu sesuai jadwal Program atau dengan perjanjian.</p>
-												</div>
-											</div>
-											<div class="ct" id="ct-5" style="display:none">
-												Jl. Pengadilan No. 13-15 Bogor 16121, Bogor<br/>
-												Telepon: 0251 - 8311700<br/>
-												Fax: 0251 - 8323007<br/>
-												Email: kc.bogor@btn.co.id<br/>
-												<br/>
-												<div>
-												<h3 style="margin-bottom:10px">Jam Layanan</h3>
-												<p>Layanan Konsultasi Housing Finance Center setiap hari kerja Pukul 09:00-16:30, Sabtu/Minggu sesuai jadwal Program atau dengan perjanjian.</p>
-												</div>
-											</div>
+											<div class="ct" id="ct-2" style="display:none"></div>
+											<div class="ct" id="ct-3" style="display:none"></div>
+											<div class="ct" id="ct-4" style="display:none"></div>
+											<div class="ct" id="ct-5" style="display:none"></div>
 										</form>
 									</div>  
 									

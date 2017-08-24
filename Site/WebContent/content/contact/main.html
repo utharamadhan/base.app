@@ -37,11 +37,30 @@
 											<div class="form-group">
 												<select class="form-control" name="category.pkCategory" id="learningCategory">
 													<option value="">-- Pilih Category Program --</option>
-													<option th:each="data, i : ${categories}" th:text="${data.title}" th:value="${data.pkCategory}"></option>
+													<th:block th:each="data, i : ${categories}">
+														<th:block th:if="${data.permalink==categoryPermalink}">
+															<option th:text="${data.title}" th:value="${data.pkCategory}" selected="selected"></option>
+														</th:block>
+														<th:block th:if="${data.permalink!=categoryPermalink}">
+															<option th:text="${data.title}" th:value="${data.pkCategory}"></option>
+														</th:block>
+													</th:block>
 												</select><br/>
 												<select class="form-control" name="learningItem.pkLearningItem" id="learningItem">
-													<option value="">-- Pilih Category Program Terlebih Dahulu --</option>
-													<option th:each="data, i : ${learningItems}" th:text="${data.title}" th:value="${data.pkLearningItem}"></option>
+													<th:block th:if="${titleCategorySelected==null}">
+														<option value="">-- Pilih Category Program Terlebih Dahulu --</option>
+													</th:block>
+													<th:block th:if="${titleCategorySelected!=null}">
+														<option value="" th:text="${'-- Pilih '+titleCategorySelected+' --'}"></option>
+													</th:block>
+													<th:block th:each="data, i : ${learningItems}">
+														<th:block th:if="${data.permalink==permalink}">
+															<option th:text="${data.title}" th:value="${data.pkLearningItem}" selected="selected"></option>
+														</th:block>
+														<th:block th:if="${data.permalink!=permalink}">
+															<option th:text="${data.title}" th:value="${data.pkLearningItem}"></option>
+														</th:block>
+													</th:block>
 												</select>
 											</div>
 										</div>

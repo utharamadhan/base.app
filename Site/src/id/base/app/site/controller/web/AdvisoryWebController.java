@@ -19,6 +19,7 @@ import id.base.app.valueobject.AppUser;
 import id.base.app.valueobject.Category;
 import id.base.app.valueobject.Pages;
 import id.base.app.valueobject.advisory.AdvisoryConsulting;
+import id.base.app.valueobject.learning.LearningItem;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -88,6 +89,14 @@ public class AdvisoryWebController extends BaseSiteController<Pages>{
 		for (Category category : categoryList) {
 			if(permalink.equalsIgnoreCase(category.getPermalink())){
 				model.addAttribute("category", category);
+				if(category.getItems()!=null && category.getItems().size()>0 && category.getItems().get(0).getPermalink()!=null){
+					model.addAttribute("itemPermalink", category.getItems().get(0).getPermalink());
+				}
+				try {
+					model.addAttribute("encodedDetailLinkImageURL", category.getEncodedDetailLinkImageURL());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 				foundPermalink = true;
 				break;
 			}
@@ -199,6 +208,21 @@ public class AdvisoryWebController extends BaseSiteController<Pages>{
 			}
 		}
 		LOGGER.error("ERROR DATA NOT VALID");
+		return "redirect:/page/notfound";
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/{categoryPermalink}/{permalink}")
+	public String detail(ModelMap model, HttpServletRequest request, HttpServletResponse response,
+			@PathVariable(value="categoryPermalink") String categoryPermalink,
+			@PathVariable(value="permalink") String permalink){
+		LearningItem detail = findItemByPermalink(permalink);
+		if(detail!=null){
+			setCommonData(request,model);
+			model.addAttribute("categoryPermalink", categoryPermalink);
+			model.addAttribute("detail", detail);
+			return "/advisory/itemDetail";
+		}
+		LOGGER.error("ERROR DATA NOT FOUND");
 		return "redirect:/page/notfound";
 	}
 	
@@ -380,7 +404,7 @@ public class AdvisoryWebController extends BaseSiteController<Pages>{
 			
 			@Override
 			public String getPath() {
-				return "/findSimpleDataForList/{type}";
+				return "/findSimpleDataWithItemsForList/{type}";
 			}
 			
 			@Override
@@ -391,6 +415,29 @@ public class AdvisoryWebController extends BaseSiteController<Pages>{
 			}
 		});
 		return list;
+	}
+	
+	private LearningItem findItemByPermalink(final String permalink){
+		LearningItem detail = new LearningItem();
+		try{
+			detail = new SpecificRestCaller<LearningItem>(RestConstant.REST_SERVICE, RestConstant.RM_LEARNING_ITEM, LearningItem.class).executeGet(new PathInterfaceRestCaller() {	
+				@Override
+				public String getPath() {
+					return "/findByPermalink/{permalink}";
+				}
+				
+				@Override
+				public Map<String, Object> getParameters() {
+					Map<String,Object> map = new HashMap<String, Object>();
+					map.put("permalink", permalink);
+					return map;
+				}
+			});
+			
+		}catch(Exception e){
+			detail = null;
+		}
+		return detail;
 	}
 	
 }

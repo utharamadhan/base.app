@@ -23,5 +23,7 @@ public interface ICategoryDAO extends IBaseDAO<Category> {
 	public void updateThumb(Long pkCategory, String thumbURL) throws SystemException;
 
 	public Category findIsShowFilterByPermalink(String permalink) throws SystemException;
+
+	public List<Category> findSimpleDataWithItemsForList(String type) throws SystemException;
 	
 }

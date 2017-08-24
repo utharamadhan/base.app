@@ -19,6 +19,7 @@ import id.base.app.valueobject.AppUser;
 import id.base.app.valueobject.Category;
 import id.base.app.valueobject.Lookup;
 import id.base.app.valueobject.learning.LearningItem;
+import id.base.app.valueobject.util.SelectHelper;
 import id.base.app.web.DataTableCriterias;
 import id.base.app.web.controller.BaseController;
 import id.base.app.web.rest.LookupRestCaller;
@@ -57,6 +58,7 @@ public class LearningItemWebController extends BaseController<LearningItem> {
 	}
 	
 	private void setDefaultFilter(HttpServletRequest request, List<SearchFilter> filters) {
+		filters.add(new SearchFilter(LearningItem.TYPE, Operator.EQUALS, SystemConstant.CategoryType.LEARNING, String.class));
 		filters.add(new SearchFilter(LearningItem.STATUS, Operator.NOT_EQUAL, ILookupConstant.Status.DELETE, Integer.class));
 	}
 
@@ -111,6 +113,10 @@ public class LearningItemWebController extends BaseController<LearningItem> {
 		booleanList.add(new Lookup().getInstanceShort("0", "No"));
 		booleanList.add(new Lookup().getInstanceShort("1", "Yes"));
 		model.addAttribute("booleanOptions", booleanList);
+		List<SelectHelper> backImageSizeList = new ArrayList<>();
+		backImageSizeList.add(new SelectHelper().getInstanceValueInteger(SystemConstant.BackgroundImageSize.SMALL, SystemConstant.BackgroundImageSize.SMALL_STR));
+		backImageSizeList.add(new SelectHelper().getInstanceValueInteger(SystemConstant.BackgroundImageSize.BIG, SystemConstant.BackgroundImageSize.BIG_STR));
+		model.addAttribute("backImageSizeOptions", backImageSizeList);
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="showAdd")
@@ -134,6 +140,7 @@ public class LearningItemWebController extends BaseController<LearningItem> {
 		Map<String, Object> resultMap = new HashMap<>();
 		List<ErrorHolder> errors = new ArrayList<>();
 		try{
+			anObject.setType(SystemConstant.CategoryType.LEARNING);
 			errors = new SpecificRestCaller<LearningItem>(RestConstant.REST_SERVICE, RestServiceConstant.LEARNING_ITEM_SERVICE).performPut("/update", anObject);
 			if(errors != null && errors.size() > 0){
 				resultMap.put(SystemConstant.ERROR_LIST, errors);

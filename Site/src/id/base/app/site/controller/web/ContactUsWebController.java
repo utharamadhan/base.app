@@ -73,7 +73,7 @@ public class ContactUsWebController extends BaseSiteController<Contact>{
 		return new RestCaller<LearningItem>(RestConstant.REST_SERVICE, RestServiceConstant.LEARNING_ITEM_SERVICE);
 	}
 	
-	protected void setDefaultData(HttpServletRequest request, ModelMap model){
+	protected void setDefaultData(HttpServletRequest request, ModelMap model, String categoryPermalink){
 		setCommonData(request,model);
 		List<SearchFilter> filterCH = new ArrayList<SearchFilter>();
 		List<SearchOrder> orderCH = new ArrayList<SearchOrder>();
@@ -83,21 +83,30 @@ public class ContactUsWebController extends BaseSiteController<Contact>{
 		model.addAttribute("categoryHelps", getRestCallerLookup().findAll(filterCH, orderCH));
 		List<Category> categories = getCategoryList();
 		model.addAttribute("categories", categories);
-		if(!categories.isEmpty()){
-			model.addAttribute("learningItems", getLearningItemList(categories.get(0).getPkCategory()));
+		if(categoryPermalink==null){
+			if(!categories.isEmpty()){
+				model.addAttribute("learningItems", getLearningItemList(categories.get(0).getPkCategory()));
+			}
+		}else{
+			for (Category category : categories) {
+				if(categoryPermalink.equalsIgnoreCase(category.getPermalink())){
+					model.addAttribute("titleCategorySelected", category.getTitle());		
+				}
+			}
+			model.addAttribute("learningItems", getLearningItemListByCategoryPermalink(categoryPermalink));
 		}
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public String view(ModelMap model, HttpServletRequest request, HttpServletResponse response){
-		setDefaultData(request, model);
+		setDefaultData(request, model, null);
 		return "/contact/main";
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/{categoryPermalink}/{permalink}")
 	public String view(ModelMap model, HttpServletRequest request, HttpServletResponse response
 			, @PathVariable(value="categoryPermalink") String categoryPermalink, @PathVariable(value="permalink") String permalink){
-		setDefaultData(request, model);
+		setDefaultData(request, model, categoryPermalink);
 		model.addAttribute("categoryPermalink", categoryPermalink);
 		model.addAttribute("permalink", permalink);
 		return "/contact/main";
@@ -181,7 +190,7 @@ public class ContactUsWebController extends BaseSiteController<Contact>{
 			@Override
 			public Map<String, Object> getParameters() {
 				Map<String,Object> map = new HashMap<String, Object>();
-				map.put("type", SystemConstant.CategoryType.LEARNING);
+				map.put("type", SystemConstant.CategoryType.ALL);
 				return map;
 			}
 		});
@@ -206,4 +215,24 @@ public class ContactUsWebController extends BaseSiteController<Contact>{
 		});
 		return list;
 	}
+	
+	private List<LearningItem> getLearningItemListByCategoryPermalink(final String categoryPermalink){
+		SpecificRestCaller<LearningItem> rc = new SpecificRestCaller<LearningItem>(RestConstant.REST_SERVICE, RestServiceConstant.LEARNING_ITEM_SERVICE);
+		List<LearningItem> list = rc.executeGetList(new PathInterfaceRestCaller() {
+			
+			@Override
+			public String getPath() {
+				return "/findForSelectEligibleRegByCategoryPermalink/{categoryPermalink}";
+			}
+			
+			@Override
+			public Map<String, Object> getParameters() {
+				Map<String,Object> map = new HashMap<String, Object>();
+				map.put("categoryPermalink", categoryPermalink);
+				return map;
+			}
+		});
+		return list;
+	}
+	
 }

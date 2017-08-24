@@ -2,6 +2,7 @@ package id.base.app.valueobject;
 
 import id.base.app.ILookupConstant;
 import id.base.app.encryptor.EncodeDecode;
+import id.base.app.valueobject.learning.LearningItem;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -12,6 +13,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -32,6 +36,7 @@ public class Category extends BaseEntity implements Serializable {
 	public static final String ORDER_NO		= "orderNo";
 	public static final String IS_ITEMS_NEW_PAGE = "isItemsNewPage";
 	public static final String IS_SHOW_FILTER = "isShowFilter";
+	public static final String DETAIL_LINK_IMAGE_URL = "detailLinkImageURL";
 	public static final String STATUS		= "status";
 	
 	public static Category getInstance() {
@@ -79,11 +84,23 @@ public class Category extends BaseEntity implements Serializable {
 	@Column(name = "IS_SHOW_FILTER")
 	private Boolean isShowFilter;
 	
+	@Column(name = "DETAIL_LINK_IMAGE_URL")
+	private String detailLinkImageURL;
+	
+	@Transient
+	public String encodedDetailLinkImageURL;
+	
 	@Column(name="STATUS")
 	private Integer status;
 	
 	@Transient
 	private String statusStr;
+	
+	@ManyToMany
+	@JoinTable(name="LEARNING_ITEM_CATEGORY",
+			joinColumns=@JoinColumn(name="FK_CATEGORY"),
+			inverseJoinColumns=@JoinColumn(name="FK_LEARNING_ITEM"))
+	private List<LearningItem> items;
 	
 	@Transient
 	private boolean checked;
@@ -170,6 +187,14 @@ public class Category extends BaseEntity implements Serializable {
 	public void setIsShowFilter(Boolean isShowFilter) {
 		this.isShowFilter = isShowFilter;
 	}
+	
+	public String getDetailLinkImageURL() {
+		return detailLinkImageURL;
+	}
+
+	public void setDetailLinkImageURL(String detailLinkImageURL) {
+		this.detailLinkImageURL = detailLinkImageURL;
+	}
 
 	public Integer getStatus() {
 		return status;
@@ -183,6 +208,21 @@ public class Category extends BaseEntity implements Serializable {
 		return ILookupConstant.Status.STATUS_MAP.get(status);
 	}
 	
+	public List<LearningItem> getItems() {
+		return items;
+	}
+
+	public void setItems(List<LearningItem> items) {
+		if(this.items == null){
+			this.items = new ArrayList<LearningItem>();
+		}else{
+			this.items.clear();	
+		}
+		if(null != items){
+			this.items.addAll(items);
+		}
+	}
+
 	public boolean isChecked() {
 		return checked;
 	}
@@ -211,5 +251,18 @@ public class Category extends BaseEntity implements Serializable {
 	public void setEncodedPicture(String encodedPicture) {
 		this.encodedPicture = encodedPicture;
 	}
-		
+
+	public String getEncodedDetailLinkImageURL() throws Exception {
+		if(getDetailLinkImageURL()!=null && !"".equals(getDetailLinkImageURL())){
+			encodedDetailLinkImageURL = EncodeDecode.getBase64FromLink(getDetailLinkImageURL());
+		}else if(getDetailLinkImageURL()!=null && !"".equals(getDetailLinkImageURL())){
+			encodedDetailLinkImageURL = EncodeDecode.getBase64FromLink(getDetailLinkImageURL());
+		}
+		return encodedDetailLinkImageURL;
+	}
+
+	public void setEncodedDetailLinkImageURL(String encodedDetailLinkImageURL) {
+		this.encodedDetailLinkImageURL = encodedDetailLinkImageURL;
+	}
+			
 }

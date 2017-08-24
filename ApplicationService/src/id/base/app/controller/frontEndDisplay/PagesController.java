@@ -116,5 +116,15 @@ public class PagesController extends SuperController<Pages>{
 		return pagesService.getLatestPages(types);
 	}
 	
+	@RequestMapping(method=RequestMethod.GET, value="/getTocLink")
+	@ResponseBody
+	public List<Pages> getTocLink() throws SystemException {
+		List<String> types = new ArrayList<>();
+		types.add(SystemConstant.PagesType.TERM_CONDITION);
+		return pagesService.getLatestPages(types);
+	}
+	
+	
+	
 	
 }

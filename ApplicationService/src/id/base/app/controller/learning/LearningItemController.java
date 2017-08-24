@@ -71,11 +71,18 @@ public class LearningItemController extends SuperController<LearningItem> {
 	}
 
 	private void preProcessUpdate(LearningItem anObject) throws SystemException {
+		if(anObject.getPkLearningItem()!=null){
+			if(SystemConstant.CategoryType.ADVISORY.equalsIgnoreCase(anObject.getType())){
+				LearningItem oldObject = findById(anObject.getPkLearningItem());
+				anObject.setCategories(oldObject.getCategories());
+			}
+		}
 		if(anObject.getTeachers()!=null && !anObject.getTeachers().isEmpty()){
 			for (LearningItemTeacher teacher : anObject.getTeachers()) {
 				teacher.setLearningItem(anObject);
 			}
 		}
+		
 	}
 	
 	@Override
@@ -87,16 +94,39 @@ public class LearningItemController extends SuperController<LearningItem> {
 	@Override
 	public void postUpdate(Object oldObject, LearningItem newObject) {
 		try {
-			if(oldObject != null && oldObject instanceof LearningItem && newObject != null && StringFunction.isNotEmpty(newObject.getImageURL())) {
-				if (!((LearningItem)oldObject).getImageURL().equalsIgnoreCase(newObject.getImageURL())) {
-					String oldURL = ((LearningItem)oldObject).getImageURL();
-					deleteOldImage(oldURL);
+			if(oldObject != null && oldObject instanceof LearningItem && newObject != null){
+				LearningItem objUpdate = new LearningItem();
+				Boolean isUpdate = false;
+				if(StringFunction.isNotEmpty(newObject.getImageURL())){
+					if (!((LearningItem)oldObject).getImageURL().equalsIgnoreCase(newObject.getImageURL())) {
+						String oldURL = ((LearningItem)oldObject).getImageURL();
+						deleteOldImage(oldURL);
+						String thumbURL = ImageFunction.createThumbnails(newObject.getImageURL(), SystemConstant.ThumbnailsDimension.FeatureImage.WIDTH, SystemConstant.ThumbnailsDimension.FeatureImage.HEIGHT);
+						objUpdate.setImageURL(thumbURL);
+						isUpdate = true;
+					}
+				}else{
 					String thumbURL = ImageFunction.createThumbnails(newObject.getImageURL(), SystemConstant.ThumbnailsDimension.FeatureImage.WIDTH, SystemConstant.ThumbnailsDimension.FeatureImage.HEIGHT);
-					learningItemService.updateThumb(newObject.getPkLearningItem(), thumbURL);
+					objUpdate.setImageURL(thumbURL);
+					isUpdate = true;
 				}
-			}else{
-				String thumbURL = ImageFunction.createThumbnails(newObject.getImageURL(), SystemConstant.ThumbnailsDimension.FeatureImage.WIDTH, SystemConstant.ThumbnailsDimension.FeatureImage.HEIGHT);
-				learningItemService.updateThumb(newObject.getPkLearningItem(), thumbURL);
+				
+				if(StringFunction.isNotEmpty(newObject.getBrochureURL())){
+					if (!((LearningItem)oldObject).getBrochureURL().equalsIgnoreCase(newObject.getBrochureURL())) {
+						String oldURL = ((LearningItem)oldObject).getBrochureURL();
+						deleteOldImage(oldURL);
+						String brochureURL = ImageFunction.createThumbnails(newObject.getBrochureURL(), SystemConstant.ThumbnailsDimension.FeatureImage.WIDTH, SystemConstant.ThumbnailsDimension.FeatureImage.HEIGHT);
+						objUpdate.setBrochureURL(brochureURL);
+						isUpdate = true;
+					}
+				}else{
+					String brochureURL = ImageFunction.createThumbnails(newObject.getBrochureURL(), SystemConstant.ThumbnailsDimension.FeatureImage.WIDTH, SystemConstant.ThumbnailsDimension.FeatureImage.HEIGHT);
+					objUpdate.setBrochureURL(brochureURL);
+					isUpdate = true;
+				}
+				if(isUpdate){
+					learningItemService.updateAnyUrl(newObject.getPkLearningItem(), objUpdate);
+				}
 			}
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage(), e);
@@ -106,8 +136,13 @@ public class LearningItemController extends SuperController<LearningItem> {
 	@Override
 	public void postDelete(LearningItem oldObject) {
 		try {
-			if(oldObject!=null && StringFunction.isNotEmpty(oldObject.getImageURL())) {
-				deleteOldImage(oldObject.getImageURL());
+			if(oldObject!=null){
+				if(StringFunction.isNotEmpty(oldObject.getImageURL())) {
+					deleteOldImage(oldObject.getImageURL());
+				}
+				if(StringFunction.isNotEmpty(oldObject.getBrochureURL())) {
+					deleteOldImage(oldObject.getBrochureURL());
+				}
 			}
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage(), e);
@@ -142,6 +177,18 @@ public class LearningItemController extends SuperController<LearningItem> {
 	@ResponseBody
 	public List<LearningItem> findForSelectEligibleReg(@PathVariable(value="pkcategory") Long pkcategory) throws SystemException {
 		return learningItemService.findForSelectEligibleReg(pkcategory);
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/findForSelectEligibleRegByCategoryPermalink/{categoryPermalink}")
+	@ResponseBody
+	public List<LearningItem> findForSelectEligibleRegByCategoryPermalink(@PathVariable(value="categoryPermalink") String categoryPermalink) throws SystemException {
+		return learningItemService.findForSelectEligibleRegByCategoryPermalink(categoryPermalink);
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/findForSelectByType/{type}")
+	@ResponseBody
+	public List<LearningItem> findForSelectByType(@PathVariable(value="type") String type) throws SystemException {
+		return learningItemService.findForSelectByType(type);
 	}
 
 }

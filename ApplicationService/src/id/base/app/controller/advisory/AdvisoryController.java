@@ -1,6 +1,5 @@
 package id.base.app.controller.advisory;
 
-import id.base.app.SystemConstant;
 import id.base.app.controller.SuperController;
 import id.base.app.exception.ErrorHolder;
 import id.base.app.exception.SystemException;

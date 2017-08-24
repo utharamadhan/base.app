@@ -2,11 +2,13 @@ package id.base.app.dao.advisory;
 
 import id.base.app.AbstractHibernateDAO;
 import id.base.app.ILookupConstant;
+import id.base.app.SystemConstant;
 import id.base.app.exception.SystemException;
 import id.base.app.paging.PagingWrapper;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.valueobject.Category;
+import id.base.app.valueobject.learning.LearningItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +22,7 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.sql.JoinType;
 import org.hibernate.transform.ResultTransformer;
 import org.springframework.stereotype.Repository;
 
@@ -212,26 +215,34 @@ public class CategoryDAO extends AbstractHibernateDAO<Category, Long> implements
 		return crit.list();
 	}
 	
-	@Override
-	public List<Category> findSimpleDataForSelect(String type) throws SystemException {
-		Criteria crit = this.getSession().createCriteria(domainClass);
-		crit.add(Restrictions.eq(Category.STATUS, ILookupConstant.Status.PUBLISH));
-		crit.add(Restrictions.eq(Category.TYPE, type));
-		crit.addOrder(Order.asc(Category.ORDER_NO));
-		crit.setProjection(Projections.projectionList().
-				add(Projections.property(Category.PK_CATEGORY)).
-				add(Projections.property(Category.TITLE)));
-		crit.setResultTransformer(new ResultTransformer() {
+	public static String QUERY_SIMPLE_DATA_ALL = "SELECT * FROM ( "
+			+ "SELECT CL.PK_CATEGORY, CL.PERMALINK, 'Learning -> '||initcap(lower(CL.TITLE)) AS TITLE FROM CATEGORY CL "
+			+ "WHERE CL.TYPE = 'LG' AND CL.STATUS = 2 "
+			+ "GROUP BY CL.PK_CATEGORY, CL.TITLE "
+			+ "ORDER BY CL.ORDER_NO ASC  "
+			+ ")C1 "
+			+ "UNION "
+			+ "SELECT * FROM ( "
+			+ "SELECT C.PK_CATEGORY, C.PERMALINK, 'Advisory -> '||initcap(lower(C.TITLE)) AS TITLE FROM LEARNING_ITEM_CATEGORY LIC  "
+			+ "INNER JOIN CATEGORY C ON C.PK_CATEGORY = LIC.FK_CATEGORY "
+			+ "WHERE C.TYPE = 'ADV' AND C.STATUS = 2 "
+			+ "GROUP BY C.PK_CATEGORY, C.TITLE "
+			+ ")C2";
+			
+	private List<Category> findSimpleDataForSelectAll() throws SystemException {
+		Query query = getSession().createSQLQuery(QUERY_SIMPLE_DATA_ALL);
+		query.setResultTransformer(new ResultTransformer() {
 			@Override
 			public Object transformTuple(Object[] tuple, String[] aliases) {
-				Category obj = new Category();
-				try {
-					BeanUtils.copyProperty(obj, Category.PK_CATEGORY, tuple[0]);
-					BeanUtils.copyProperty(obj, Category.TITLE, tuple[1]);
-				} catch (Exception e) {
+				Category cat = new Category();
+				try{
+					cat.setPkCategory(Long.valueOf(tuple[0].toString()));
+					cat.setPermalink(tuple[1].toString());
+					cat.setTitle(tuple[2].toString());
+				}catch(Exception e){
 					LOGGER.error(e.getMessage(), e);
 				}
-				return obj;
+				return cat;
 			}
 			
 			@Override
@@ -239,7 +250,43 @@ public class CategoryDAO extends AbstractHibernateDAO<Category, Long> implements
 				return collection;
 			}
 		});
-		return crit.list();
+		return query.list();
+	}
+	
+	@Override
+	public List<Category> findSimpleDataForSelect(String type) throws SystemException {
+		if(type.equalsIgnoreCase(SystemConstant.CategoryType.ALL)){
+			return findSimpleDataForSelectAll();
+		}else{
+			Criteria crit = this.getSession().createCriteria(domainClass);
+			crit.add(Restrictions.eq(Category.STATUS, ILookupConstant.Status.PUBLISH));
+			crit.add(Restrictions.eq(Category.TYPE, type));
+			crit.addOrder(Order.asc(Category.ORDER_NO));
+			crit.setProjection(Projections.projectionList().
+					add(Projections.property(Category.PK_CATEGORY)).
+					add(Projections.property(Category.TITLE)).
+					add(Projections.property(Category.PERMALINK)));
+			crit.setResultTransformer(new ResultTransformer() {
+				@Override
+				public Object transformTuple(Object[] tuple, String[] aliases) {
+					Category obj = new Category();
+					try {
+						BeanUtils.copyProperty(obj, Category.PK_CATEGORY, tuple[0]);
+						BeanUtils.copyProperty(obj, Category.TITLE, tuple[1]);
+						BeanUtils.copyProperty(obj, Category.PERMALINK, tuple[1]);
+					} catch (Exception e) {
+						LOGGER.error(e.getMessage(), e);
+					}
+					return obj;
+				}
+				
+				@Override
+				public List transformList(List collection) {
+					return collection;
+				}
+			});
+			return crit.list();
+		}
 	}
 	
 	@Override
@@ -286,5 +333,52 @@ public class CategoryDAO extends AbstractHibernateDAO<Category, Long> implements
 		}else{
 			return null;
 		}
+	}
+	
+	@Override
+	public List<Category> findSimpleDataWithItemsForList(String type) throws SystemException {
+		Criteria crit = this.getSession().createCriteria(domainClass);
+		crit.createAlias("items", "items", JoinType.LEFT_OUTER_JOIN);
+		crit.add(Restrictions.eq(Category.STATUS, ILookupConstant.Status.PUBLISH));
+		crit.add(Restrictions.eq(Category.TYPE, type));
+		crit.addOrder(Order.asc(Category.ORDER_NO));
+		crit.setProjection(Projections.projectionList().
+				add(Projections.property(Category.TITLE)).
+				add(Projections.property(Category.PERMALINK)).
+				add(Projections.property(Category.IMAGE_URL)).
+				add(Projections.property(Category.IMAGE_THUMB_URL)).
+				add(Projections.property(Category.DESCRIPTION)).
+				add(Projections.property(Category.DETAIL_LINK_IMAGE_URL)).
+				add(Projections.property("items.permalink")));
+		crit.setResultTransformer(new ResultTransformer() {
+			@Override
+			public Object transformTuple(Object[] tuple, String[] aliases) {
+				Category obj = new Category();
+				try {
+					BeanUtils.copyProperty(obj, Category.TITLE, tuple[0]);
+					BeanUtils.copyProperty(obj, Category.PERMALINK, tuple[1]);
+					BeanUtils.copyProperty(obj, Category.IMAGE_URL, tuple[2]);
+					BeanUtils.copyProperty(obj, Category.IMAGE_THUMB_URL, tuple[3]);
+					BeanUtils.copyProperty(obj, Category.DESCRIPTION, tuple[4]);
+					BeanUtils.copyProperty(obj, Category.DETAIL_LINK_IMAGE_URL, tuple[5]);
+					if(tuple[6]!=null){
+						List<LearningItem> liList = new ArrayList<>(); 
+						LearningItem li = new LearningItem();
+						BeanUtils.copyProperty(li, LearningItem.PERMALINK, tuple[6]);
+						liList.add(li);
+						obj.setItems(liList);
+					}
+				} catch (Exception e) {
+					LOGGER.error(e.getMessage(), e);
+				}
+				return obj;
+			}
+			
+			@Override
+			public List transformList(List collection) {
+				return collection;
+			}
+		});
+		return crit.list();
 	}
 }

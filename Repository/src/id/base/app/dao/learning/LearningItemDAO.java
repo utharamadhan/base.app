@@ -7,7 +7,6 @@ import id.base.app.paging.PagingWrapper;
 import id.base.app.util.DateTimeFunction;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
-import id.base.app.valueobject.Category;
 import id.base.app.valueobject.learning.LearningItem;
 
 import java.util.ArrayList;
@@ -147,11 +146,12 @@ public class LearningItemDAO extends AbstractHibernateDAO<LearningItem, Long> im
 	}
 	
 	@Override
-	public void updateThumb(Long pkLearningItem, String thumbURL) throws SystemException {
-		String updateQuery = "UPDATE LEARNING_ITEM SET IMAGE_THUMB_URL = :thumbURL WHERE PK_LEARNING_ITEM = :pk";
+	public void updateAnyUrl(Long pkLearningItem, LearningItem learningItem) throws SystemException {
+		String updateQuery = "UPDATE LEARNING_ITEM SET IMAGE_THUMB_URL = :thumbURL, BROCHURE_URL = :brochureURL  WHERE PK_LEARNING_ITEM = :pk";
 		SQLQuery sqlQuery = getSession().createSQLQuery(updateQuery);
 		sqlQuery.setLong("pk", pkLearningItem);
-		sqlQuery.setString("thumbURL", thumbURL);
+		sqlQuery.setString("thumbURL", learningItem.getImageURL());
+		sqlQuery.setString("brochureURL", learningItem.getBrochureURL());
 		sqlQuery.executeUpdate();
 	}
 	
@@ -160,6 +160,73 @@ public class LearningItemDAO extends AbstractHibernateDAO<LearningItem, Long> im
 		Criteria crit = this.getSession().createCriteria(domainClass);
 		crit.createAlias("categories", "categories");
 		crit.add(Restrictions.eq("categories.pkCategory", pkCategory));
+		crit.add(Restrictions.eq(LearningItem.STATUS, ILookupConstant.Status.PUBLISH));
+		crit.add(Restrictions.ge(LearningItem.CLOSING_DATE_REG, DateTimeFunction.getCurrentDateWithoutTime()));
+		crit.addOrder(Order.asc(LearningItem.TITLE));
+		crit.setProjection(Projections.projectionList().
+				add(Projections.property(LearningItem.PK_LEARNING_ITEM)).
+				add(Projections.property(LearningItem.TITLE)).
+				add(Projections.property(LearningItem.PERMALINK)));
+		crit.setResultTransformer(new ResultTransformer() {
+			@Override
+			public Object transformTuple(Object[] tuple, String[] aliases) {
+				LearningItem obj = new LearningItem();
+				try {
+					BeanUtils.copyProperty(obj, LearningItem.PK_LEARNING_ITEM, tuple[0]);
+					BeanUtils.copyProperty(obj, LearningItem.TITLE, tuple[1]);
+					BeanUtils.copyProperty(obj, LearningItem.PERMALINK, tuple[2]);
+				} catch (Exception e) {
+					LOGGER.error(e.getMessage(), e);
+				}
+				return obj;
+			}
+			
+			@Override
+			public List transformList(List collection) {
+				return collection;
+			}
+		});
+		return crit.list();
+	}
+	
+	@Override
+	public List<LearningItem> findForSelectEligibleRegByCategoryPermalink(String categoryPermalink) throws SystemException {
+		Criteria crit = this.getSession().createCriteria(domainClass);
+		crit.createAlias("categories", "categories");
+		crit.add(Restrictions.eq("categories.permalink", categoryPermalink));
+		crit.add(Restrictions.eq(LearningItem.STATUS, ILookupConstant.Status.PUBLISH));
+		crit.add(Restrictions.ge(LearningItem.CLOSING_DATE_REG, DateTimeFunction.getCurrentDateWithoutTime()));
+		crit.addOrder(Order.asc(LearningItem.TITLE));
+		crit.setProjection(Projections.projectionList().
+				add(Projections.property(LearningItem.PK_LEARNING_ITEM)).
+				add(Projections.property(LearningItem.TITLE)).
+				add(Projections.property(LearningItem.PERMALINK)));
+		crit.setResultTransformer(new ResultTransformer() {
+			@Override
+			public Object transformTuple(Object[] tuple, String[] aliases) {
+				LearningItem obj = new LearningItem();
+				try {
+					BeanUtils.copyProperty(obj, LearningItem.PK_LEARNING_ITEM, tuple[0]);
+					BeanUtils.copyProperty(obj, LearningItem.TITLE, tuple[1]);
+					BeanUtils.copyProperty(obj, LearningItem.PERMALINK, tuple[2]);
+				} catch (Exception e) {
+					LOGGER.error(e.getMessage(), e);
+				}
+				return obj;
+			}
+			
+			@Override
+			public List transformList(List collection) {
+				return collection;
+			}
+		});
+		return crit.list();
+	}
+
+	@Override
+	public List<LearningItem> findForSelectByType(String type) throws SystemException {
+		Criteria crit = this.getSession().createCriteria(domainClass);
+		crit.add(Restrictions.eq("type", type));
 		crit.add(Restrictions.eq(LearningItem.STATUS, ILookupConstant.Status.PUBLISH));
 		crit.add(Restrictions.ge(LearningItem.CLOSING_DATE_REG, DateTimeFunction.getCurrentDateWithoutTime()));
 		crit.addOrder(Order.asc(LearningItem.TITLE));

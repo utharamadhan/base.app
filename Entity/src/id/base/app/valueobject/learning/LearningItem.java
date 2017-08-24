@@ -56,6 +56,7 @@ public class LearningItem extends BaseEntity implements Serializable {
 	public static final String DESCRIPTION		= "description";
 	public static final String ADMISSION_REQUIREMENT = "admissionRequirement";
 	public static final String PAYMENT_DETAIL	= "paymentDetail";
+	public static final String TYPE				= "type";
 	public static final String STATUS			= "status";
 	
 	public static LearningItem getInstance() {
@@ -147,6 +148,15 @@ public class LearningItem extends BaseEntity implements Serializable {
 	@JoinColumn(name="FK_LOOKUP_LEARNING_DISPLAY")
 	private Lookup learningDisplayLookup;
 	
+	@Column(name="BROCHURE_URL")
+	private String brochureURL;
+	
+	@Column(name="TYPE")
+	private String type;
+	
+	@Column(name="BACKGROUND_IMAGE_SIZE")
+	private Integer backgroundImageSize;
+	
 	@Column(name="STATUS")
 	private Integer status;
 	
@@ -170,6 +180,9 @@ public class LearningItem extends BaseEntity implements Serializable {
 	
 	@Transient
 	public String encodedBackgroundImage;
+	
+	@Transient
+	public String encodedBrochureImage;
 	
 	@Transient
 	public String eventDate;
@@ -360,6 +373,30 @@ public class LearningItem extends BaseEntity implements Serializable {
 	public void setLearningDisplayLookup(Lookup learningDisplayLookup) {
 		this.learningDisplayLookup = learningDisplayLookup;
 	}
+	
+	public String getBrochureURL() {
+		return brochureURL;
+	}
+
+	public void setBrochureURL(String brochureURL) {
+		this.brochureURL = brochureURL;
+	}
+	
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+	
+	public Integer getBackgroundImageSize() {
+		return backgroundImageSize;
+	}
+
+	public void setBackgroundImageSize(Integer backgroundImageSize) {
+		this.backgroundImageSize = backgroundImageSize;
+	}
 
 	public void setStatusStr(String statusStr) {
 		this.statusStr = statusStr;
@@ -429,6 +466,13 @@ public class LearningItem extends BaseEntity implements Serializable {
 			encodedBackgroundImage = EncodeDecode.getBase64FromLink(getImageBackgroundURL());
 		}
 		return encodedBackgroundImage;
+	}
+	
+	public String getEncodedBrochureImage() throws Exception {
+		if(getBrochureURL()!=null && !"".equals(getBrochureURL())){
+			encodedBrochureImage = EncodeDecode.getBase64FromLink(getBrochureURL());
+		}
+		return encodedBrochureImage;
 	}
 	
 	public String getEventDate() {

@@ -58,8 +58,9 @@ public class IAccessibilityConstant {
 
 	public static int INT_ADVISORY = 900;
 		public static int INT_ADV_CATEGORY = 910;
-		public static int INT_ADV_CONTACT = 920;
-		public static int INT_ADV_CONSULTING = 930;
+		public static int INT_ADV_ITEM = 920;
+		public static int INT_ADV_CONTACT = 930;
+		public static int INT_ADV_CONSULTING = 940;
 
 	public static int INT_STUDENT_DATABASE = 1000;
 		public static int INT_SD_MAINTENANCE = 1010;

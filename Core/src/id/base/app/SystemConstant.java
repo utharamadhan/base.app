@@ -384,6 +384,7 @@ public class SystemConstant  {
 	}
 	
 	public static final class CategoryType{
+		public static final String ALL = "ALL";
 		public static final String LEARNING = "LG";
 		public static final String ADVISORY = "ADV";
 		public static final String RESEARCH_DEVELOPMENT = "RND";
@@ -422,5 +423,11 @@ public class SystemConstant  {
 			POSITION_MAP.put(FOOTER, FOOTER_STR);
 		}
 	}
-}
 	
+	public static final class BackgroundImageSize{
+		public static final Integer SMALL = 1;
+		public static final Integer BIG = 2;
+		public static final String SMALL_STR = "Small";
+		public static final String BIG_STR = "Big";
+	}
+}

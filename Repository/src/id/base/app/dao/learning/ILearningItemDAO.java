@@ -18,8 +18,12 @@ public interface ILearningItemDAO extends IBaseDAO<LearningItem> {
 
 	public LearningItem findByPermalink(String permalink) throws SystemException;
 
-	public void updateThumb(Long pkLearningItem, String thumbURL) throws SystemException;
+	public void updateAnyUrl(Long pkLearningItem, LearningItem learningItem) throws SystemException;
 
 	public List<LearningItem> findForSelectEligibleReg(Long pkCategory) throws SystemException;
+	
+	public List<LearningItem> findForSelectEligibleRegByCategoryPermalink(String categoryPermalink) throws SystemException;
+
+	public List<LearningItem> findForSelectByType(String type) throws SystemException;
 
 }

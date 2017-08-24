@@ -9,13 +9,13 @@
 					<ul>
 					<li><a th:href="@{/}">Beranda</a></li>
 					<li><a th:href="@{/page/main-program}">Program</a></li>
-					<li><a th:href="@{/page/main-program/learning/}+${categoryPermalink}" th:text="${categoryPermalink}"></a></li>
+					<li><a th:href="@{/page/main-program/advisory/}+${categoryPermalink}" th:text="${categoryPermalink}"></a></li>
 					<li><a href="#" th:text="${detail.title}"></a></li>
 					</ul>
 				</div>
 			</div>
 		</div>
-		<div class="single_banner" th:classappend="${detail.backgroundImageSize==2} ? 'big_size'">
+		<div class="single_banner red" th:classappend="${detail.backgroundImageSize==2} ? 'big_size'">
 			<div th:style="'background-image:url('+ @{/images/banner_01.jpg} +')'" class="banner_img_background"></div>
 			<div class="container large">
 				<div class="row">
@@ -47,7 +47,7 @@
 			</div><!--end container-->
 		</div><!--end single banner-->
 		
-		<div class="single_content content_post">
+		<div class="single_content content_post red">
 			<div class="container large">
 				<div class="row">
 					<div th:class="${detail.learningDisplayLookup.code == T(id.base.app.ILookupConstant.LearningDisplay).NOT_FULL_SCREEN_SIDEBAR_RIGHT}? 'col-xs-12 col-sm-8 col-md-8' : 'col-xs-12 col-sm-12 col-md-12'">

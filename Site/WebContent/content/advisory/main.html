@@ -37,18 +37,18 @@
 								<div class="card-clear"></div>
 							</div>
 						</div>
-						</th:block>
+					</th:block>
 					</div>
 					<div class="row">
 						<div class="col-md-12">
 							<div class="top-desc">
 								<div class="col-md-9" th:utext="${category.description}"></div>
 								<div class="col-md-3">
-									<th:block th:if="${permalink!='layanan-inkubator-bisnis-perumahan'}">
-									<a th:href="@{/page/main-program/advisory/consulting}"><img th:src="@{/images/consult-pos.png}"/></a>
+									<th:block th:if="${itemPermalink!=null}">
+										<a th:href="@{/page/main-program/advisory/}+${permalink}+'/'+${itemPermalink}"><img th:src="${encodedDetailLinkImageURL}" /></a>
 									</th:block>
-									<th:block th:if="${permalink=='layanan-inkubator-bisnis-perumahan'}">
-									<a th:href="@{/page/main-program/learning/kursus/master-development-indonesia-mdi-}"><img th:src="@{/images/program-mdi.png}"/></a>
+									<th:block th:if="${itemPermalink==null}">
+										<a th:href="@{/page/main-program/advisory/consulting}"><img th:src="${encodedDetailLinkImageURL}" /></a>
 									</th:block>
 								</div>
 								<div class="clear"></div>

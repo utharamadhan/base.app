@@ -44,6 +44,11 @@ public abstract class BaseSiteController<T> {
 		model.addAttribute("newsList", getNewsList(5));
 		model.addAttribute("eventList", getEventList());
 		model.addAttribute("linkUrlList", getLinkUrlList());
+		List<Pages> pages = getTocLink();
+		if(pages!=null && !pages.isEmpty()){
+			request.setAttribute("toc", pages.get(0).getPermalink());
+			request.setAttribute("tocTitle", pages.get(0).getTitle());
+		}
 	}
 	
 	private void setDataForScript(HttpServletRequest request, ModelMap model){
@@ -195,5 +200,23 @@ public abstract class BaseSiteController<T> {
 		List<SearchOrder> orderFLU = new ArrayList<SearchOrder>();
 		orderFLU.add(new SearchOrder(LinkUrl.ORDER_NO, Sort.ASC));
 		return restCallFLU.findAll(filterFLU, orderFLU);
+	}
+	
+	private List<Pages> getTocLink(){
+		SpecificRestCaller<Pages> rcPages = new SpecificRestCaller<Pages>(RestConstant.REST_SERVICE, RestServiceConstant.PAGES_SERVICE);
+		List<Pages> pages = rcPages.executeGetList(new QueryParamInterfaceRestCaller() {
+			
+			@Override
+			public String getPath() {
+				return "/getTocLink";
+			}
+			
+			@Override
+			public Map<String, Object> getParameters() {
+				Map<String,Object> map = new HashMap<String, Object>();
+				return map;
+			}
+		});
+		return pages;
 	}
 }

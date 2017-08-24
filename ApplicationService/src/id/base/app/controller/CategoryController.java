@@ -135,4 +135,11 @@ public class CategoryController extends SuperController<Category>{
 	public Category findIsShowFilterByPermalink(@PathVariable("permalink") String permalink){
 		return categoryService.findIsShowFilterByPermalink(permalink);
 	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/findSimpleDataWithItemsForList/{type}")
+	@ResponseBody
+	public List<Category> findSimpleDataWithItemsForList(@PathVariable("type") String type){
+		return categoryService.findSimpleDataWithItemsForList(type);
+	}
+	
 }

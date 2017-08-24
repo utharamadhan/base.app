@@ -13,6 +13,8 @@ import id.base.app.valueobject.Faq;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.collection.internal.PersistentBag;
+import org.hibernate.collection.spi.PersistentCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,7 +34,11 @@ public class CategoryService implements ICategoryService {
 	}
 
 	public Category findById(Long id) throws SystemException {
-		return categoryDAO.findById(id);
+		Category obj = categoryDAO.findById(id);
+		if(obj.getItems() instanceof PersistentBag) {
+			((PersistentCollection) obj.getItems() ).forceInitialization();
+		}
+		return obj;
 	}
 
 	public void saveOrUpdate(Category anObject) throws SystemException {
@@ -111,6 +117,11 @@ public class CategoryService implements ICategoryService {
 	@Override
 	public Category findIsShowFilterByPermalink(String permalink) throws SystemException {
 		return categoryDAO.findIsShowFilterByPermalink(permalink);
+	}
+	
+	@Override
+	public List<Category> findSimpleDataWithItemsForList(String type) throws SystemException {
+		return categoryDAO.findSimpleDataWithItemsForList(type);
 	}
 
 }
