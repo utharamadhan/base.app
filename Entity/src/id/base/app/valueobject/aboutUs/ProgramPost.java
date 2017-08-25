@@ -17,6 +17,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 @Table(name = "PROGRAM_POST")
 public class ProgramPost extends BaseEntity implements Serializable {
@@ -46,6 +48,7 @@ public class ProgramPost extends BaseEntity implements Serializable {
 	private String permalink;
 	
 	@Column(name="PUBLISH_DATE")
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date publishDate;
 
 	@Column(name="CONTENT")

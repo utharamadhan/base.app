@@ -14,6 +14,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import id.base.app.ILookupConstant;
@@ -63,6 +65,7 @@ public class Event extends BaseEntity implements Serializable {
 	
 	@JsonProperty(value="start")
 	@Column(name="EVENT_DATE")
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date eventDate;
 	
 	@Column(name="COVER_IMAGE_URL")

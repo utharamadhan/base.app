@@ -17,6 +17,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -54,6 +56,7 @@ public class News extends BaseEntity implements Serializable {
 	private String permalink;
 	
 	@Column(name="PUBLISH_DATE")
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date publishDate;
 
 	@Column(name="CONTENT")

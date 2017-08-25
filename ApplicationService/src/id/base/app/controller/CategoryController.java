@@ -61,15 +61,32 @@ public class CategoryController extends SuperController<Category>{
 	@Override
 	public void postUpdate(Object oldObject, Category newObject) {
 		try {
-			if(oldObject != null && oldObject instanceof Category && newObject != null && StringFunction.isNotEmpty(newObject.getImageURL())) {
-				if (!((Category)oldObject).getImageURL().equalsIgnoreCase(newObject.getImageURL())) {
-					String oldURL = ((Category)oldObject).getImageURL();
-					deleteOldImage(oldURL);
-					String thumbURL = ImageFunction.createThumbnails(newObject.getImageURL(), SystemConstant.ThumbnailsDimension.FeatureImage.WIDTH, SystemConstant.ThumbnailsDimension.FeatureImage.HEIGHT);
-					categoryService.updateThumb(newObject.getPkCategory(), thumbURL);
-				}else if(StringFunction.isEmpty(newObject.getImageThumbURL())){
-					String thumbURL = ImageFunction.createThumbnails(newObject.getImageURL(), SystemConstant.ThumbnailsDimension.FeatureImage.WIDTH, SystemConstant.ThumbnailsDimension.FeatureImage.HEIGHT);
-					categoryService.updateThumb(newObject.getPkCategory(), thumbURL);
+			if(oldObject != null && oldObject instanceof Category){ 
+				if(newObject != null){
+					if(StringFunction.isNotEmpty(newObject.getImageURL())) {
+						if (!((Category)oldObject).getImageURL().equalsIgnoreCase(newObject.getImageURL())) {
+							String oldURL = ((Category)oldObject).getImageURL();
+							deleteOldImage(oldURL);
+							String thumbURL = ImageFunction.createThumbnails(newObject.getImageURL(), SystemConstant.ThumbnailsDimension.FeatureImage.WIDTH, SystemConstant.ThumbnailsDimension.FeatureImage.HEIGHT);
+							categoryService.updateThumb(newObject.getPkCategory(), thumbURL);
+						}else if(StringFunction.isEmpty(newObject.getImageThumbURL())){
+							String thumbURL = ImageFunction.createThumbnails(newObject.getImageURL(), SystemConstant.ThumbnailsDimension.FeatureImage.WIDTH, SystemConstant.ThumbnailsDimension.FeatureImage.HEIGHT);
+							categoryService.updateThumb(newObject.getPkCategory(), thumbURL);
+						}
+					}else{
+						String oldURL = ((Category)oldObject).getImageURL();
+						deleteOldImage(oldURL);
+					}
+					
+					if(StringFunction.isNotEmpty(newObject.getDetailLinkImageURL())) {
+						if (!((Category)oldObject).getDetailLinkImageURL().equalsIgnoreCase(newObject.getDetailLinkImageURL())) {
+							String oldURL = ((Category)oldObject).getDetailLinkImageURL();
+							deleteOldImage(oldURL);
+						}
+					}else{
+						String oldURL = ((Category)oldObject).getDetailLinkImageURL();
+						deleteOldImage(oldURL);
+					}
 				}
 			}
 		} catch (Exception e) {

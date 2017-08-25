@@ -221,14 +221,13 @@
 				xhr.send(data);
 			};
 		
-			var thisObj = '';
-			$(document).unbind('change').on('change', '#input-file-imageURL', function(){
+			$(document).on('change', '#input-file-imageURL', function(){
 				var sURL = /*[[@{/do/fileManager/uploadFeaturedImage/}]]*/ #;
 				var thisObj = $('#input-file-imageURL')[0];
 				uploadFile(thisObj.files[0], sURL, 1);
 			});
 			
-			$(document).unbind('change').on('change', '#input-file-detailLinkImageURL', function(){
+			$(document).on('change', '#input-file-detailLinkImageURL', function(){
 				var sURL = /*[[@{/do/fileManager/uploadFeaturedImage/}]]*/ #;
 				var thisObj = $('#input-file-detailLinkImageURL')[0];
 				uploadFile(thisObj.files[0], sURL, 2);
