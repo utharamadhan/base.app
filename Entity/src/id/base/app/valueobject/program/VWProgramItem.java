@@ -1,4 +1,4 @@
-package id.base.app.valueobject.learning;
+package id.base.app.valueobject.program;
 
 import id.base.app.SystemConstant;
 import id.base.app.encryptor.EncodeDecode;
@@ -17,9 +17,9 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
-@Table(name="VW_LEARNING_ITEM")
-@JsonIdentityInfo(generator=ObjectIdGenerators.UUIDGenerator.class, property="VWLearningItemJid", scope=VWLearningItem.class)
-public class VWLearningItem implements Serializable {
+@Table(name="VW_PROGRAM_ITEM")
+@JsonIdentityInfo(generator=ObjectIdGenerators.UUIDGenerator.class, property="VWProgramItemJid", scope=VWProgramItem.class)
+public class VWProgramItem implements Serializable {
 	
 	private static final long serialVersionUID = 6537519455353080348L;
 
@@ -44,14 +44,14 @@ public class VWLearningItem implements Serializable {
 	@Column(name="CATEGORY_PERMALINK")
 	private String categoryPermalink;
 	
-	@Column(name="PK_LEARNING_ITEM")
-	private Long pkLearningItem;
+	@Column(name="PK_PROGRAM_ITEM")
+	private Long pkProgramItem;
 	
 	@Column(name="TITLE")
 	private String title;
 	
-	@Column(name="LEARNING_PERMALINK")
-	private String learningPermalink;
+	@Column(name="PROGRAM_PERMALINK")
+	private String programPermalink;
 	
 	@Column(name="IMAGE_URL")
 	private String imageURL;
@@ -110,12 +110,12 @@ public class VWLearningItem implements Serializable {
 		this.categoryPermalink = categoryPermalink;
 	}
 
-	public Long getPkLearningItem() {
-		return pkLearningItem;
+	public Long getPkProgramItem() {
+		return pkProgramItem;
 	}
 
-	public void setPkLearningItem(Long pkLearningItem) {
-		this.pkLearningItem = pkLearningItem;
+	public void setPkProgramItem(Long pkProgramItem) {
+		this.pkProgramItem = pkProgramItem;
 	}
 
 	public String getTitle() {
@@ -126,12 +126,12 @@ public class VWLearningItem implements Serializable {
 		this.title = title;
 	}
 
-	public String getLearningPermalink() {
-		return learningPermalink;
+	public String getProgramPermalink() {
+		return programPermalink;
 	}
 
-	public void setLearningPermalink(String learningPermalink) {
-		this.learningPermalink = learningPermalink;
+	public void setProgramPermalink(String programPermalink) {
+		this.programPermalink = programPermalink;
 	}
 
 	public String getImageURL() {

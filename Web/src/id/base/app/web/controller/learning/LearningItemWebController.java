@@ -18,7 +18,7 @@ import id.base.app.util.dao.SearchOrder;
 import id.base.app.valueobject.AppUser;
 import id.base.app.valueobject.Category;
 import id.base.app.valueobject.Lookup;
-import id.base.app.valueobject.learning.LearningItem;
+import id.base.app.valueobject.program.ProgramItem;
 import id.base.app.valueobject.util.SelectHelper;
 import id.base.app.web.DataTableCriterias;
 import id.base.app.web.controller.BaseController;
@@ -42,14 +42,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Scope(value="request")
 @Controller
 @RequestMapping("/learning/item")
-public class LearningItemWebController extends BaseController<LearningItem> {
+public class LearningItemWebController extends BaseController<ProgramItem> {
 
 	private final String PATH_LIST = "/learning/learningItemList";
 	private final String PATH_DETAIL = "/learning/learningItemDetail";
 	
 	@Override
-	protected RestCaller<LearningItem> getRestCaller() {
-		return new RestCaller<LearningItem>(RestConstant.REST_SERVICE, RestServiceConstant.LEARNING_ITEM_SERVICE);
+	protected RestCaller<ProgramItem> getRestCaller() {
+		return new RestCaller<ProgramItem>(RestConstant.REST_SERVICE, RestServiceConstant.PROGRAM_ITEM_SERVICE);
 	}
 	
 	@Override
@@ -58,8 +58,8 @@ public class LearningItemWebController extends BaseController<LearningItem> {
 	}
 	
 	private void setDefaultFilter(HttpServletRequest request, List<SearchFilter> filters) {
-		filters.add(new SearchFilter(LearningItem.TYPE, Operator.EQUALS, SystemConstant.CategoryType.LEARNING, String.class));
-		filters.add(new SearchFilter(LearningItem.STATUS, Operator.NOT_EQUAL, ILookupConstant.Status.DELETE, Integer.class));
+		filters.add(new SearchFilter(ProgramItem.TYPE, Operator.EQUALS, SystemConstant.CategoryType.LEARNING, String.class));
+		filters.add(new SearchFilter(ProgramItem.STATUS, Operator.NOT_EQUAL, ILookupConstant.Status.DELETE, Integer.class));
 	}
 
 	@Override
@@ -67,7 +67,7 @@ public class LearningItemWebController extends BaseController<LearningItem> {
 		List<SearchFilter> filters = new ArrayList<>();
 		setDefaultFilter(request, filters);
 		if(StringFunction.isNotEmpty(columns.getSearch().get(DataTableCriterias.SearchCriterias.value))){
-			filters.add(new SearchFilter(LearningItem.TITLE, Operator.LIKE, columns.getSearch().get(DataTableCriterias.SearchCriterias.value)));
+			filters.add(new SearchFilter(ProgramItem.TITLE, Operator.LIKE, columns.getSearch().get(DataTableCriterias.SearchCriterias.value)));
 		}
 		return filters;
 	}
@@ -77,7 +77,7 @@ public class LearningItemWebController extends BaseController<LearningItem> {
 		if(orders != null) {
 			orders.clear();
 		}
-		orders.add(new SearchOrder(LearningItem.PK_LEARNING_ITEM, SearchOrder.Sort.DESC));
+		orders.add(new SearchOrder(ProgramItem.PK_PROGRAM_ITEM, SearchOrder.Sort.DESC));
 		return orders;
 	}
 	
@@ -87,7 +87,7 @@ public class LearningItemWebController extends BaseController<LearningItem> {
 		return getListPath();
 	}
 	
-	public void setDefaultData(ModelMap model, LearningItem obj) {
+	public void setDefaultData(ModelMap model, ProgramItem obj) {
 		LookupRestCaller lrc = new LookupRestCaller();
 		List<Category> categories = getCategory();
 		List<Long> pkCategories = new ArrayList<>();
@@ -104,10 +104,11 @@ public class LearningItemWebController extends BaseController<LearningItem> {
 			}
 		}
 		model.addAttribute("categoryOptions", categories);
-		model.addAttribute("methodOptions", lrc.findByLookupGroup(ILookupGroupConstant.LEARNING_METHOD));
-		model.addAttribute("organizerOptions", lrc.findByLookupGroup(ILookupGroupConstant.LEARNING_ORGANIZER));
-		model.addAttribute("paymentOptions", lrc.findByLookupGroup(ILookupGroupConstant.LEARNING_PAYMENT));
-		model.addAttribute("displayOptions", lrc.findByLookupGroup(ILookupGroupConstant.LEARNING_DISPLAY));
+		model.addAttribute("methodOptions", lrc.findByLookupGroup(ILookupGroupConstant.PROGRAM_METHOD));
+		model.addAttribute("organizerOptions", lrc.findByLookupGroup(ILookupGroupConstant.PROGRAM_ORGANIZER));
+		model.addAttribute("paymentOptions", lrc.findByLookupGroup(ILookupGroupConstant.PROGRAM_PAYMENT));
+		model.addAttribute("displayOptions", lrc.findByLookupGroup(ILookupGroupConstant.PROGRAM_DISPLAY));
+		model.addAttribute("menuOptions", lrc.findByLookupGroup(ILookupGroupConstant.ITEM_MENU));
 		model.addAttribute("statusOptions", lrc.findByLookupGroup(ILookupGroupConstant.STATUS));
 		List<Lookup> booleanList = new ArrayList<>();
 		booleanList.add(new Lookup().getInstanceShort("0", "No"));
@@ -121,14 +122,14 @@ public class LearningItemWebController extends BaseController<LearningItem> {
 	
 	@RequestMapping(method=RequestMethod.GET, value="showAdd")
 	public String showAdd(ModelMap model, HttpServletRequest request){
-		model.addAttribute("detail", LearningItem.getInstance());
+		model.addAttribute("detail", ProgramItem.getInstance());
 		setDefaultData(model, null);
 		return PATH_DETAIL;
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="showEdit")
 	public String showEdit(@RequestParam(value="maintenancePK") final Long maintenancePK, @RequestParam Map<String, String> paramWrapper, ModelMap model, HttpServletRequest request){
-		LearningItem detail = getRestCaller().findById(maintenancePK);
+		ProgramItem detail = getRestCaller().findById(maintenancePK);
 		setDefaultData(model, detail);
 		model.addAttribute("detail", detail);
 		return PATH_DETAIL;
@@ -136,12 +137,12 @@ public class LearningItemWebController extends BaseController<LearningItem> {
 	
 	@RequestMapping(method=RequestMethod.POST, value="saveItem")
 	@ResponseBody
-	public Map<String, Object> saveItem(final LearningItem anObject, HttpServletRequest request) {
+	public Map<String, Object> saveItem(final ProgramItem anObject, HttpServletRequest request) {
 		Map<String, Object> resultMap = new HashMap<>();
 		List<ErrorHolder> errors = new ArrayList<>();
 		try{
 			anObject.setType(SystemConstant.CategoryType.LEARNING);
-			errors = new SpecificRestCaller<LearningItem>(RestConstant.REST_SERVICE, RestServiceConstant.LEARNING_ITEM_SERVICE).performPut("/update", anObject);
+			errors = new SpecificRestCaller<ProgramItem>(RestConstant.REST_SERVICE, RestServiceConstant.PROGRAM_ITEM_SERVICE).performPut("/update", anObject);
 			if(errors != null && errors.size() > 0){
 				resultMap.put(SystemConstant.ERROR_LIST, errors);
 			}

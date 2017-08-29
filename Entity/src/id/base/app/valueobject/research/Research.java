@@ -70,7 +70,7 @@ public class Research extends BaseEntity implements Serializable {
 	@Column(name="YEAR_FROM")
 	private Integer yearFrom;
 	
-	@Column(name="YEAR_To")
+	@Column(name="YEAR_TO")
 	private Integer yearTo;
 	
 	@Column(name="IMAGE_URL")

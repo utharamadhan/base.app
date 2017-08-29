@@ -1,4 +1,4 @@
-package id.base.app.valueobject.learning;
+package id.base.app.valueobject.program;
 
 import java.io.Serializable;
 import java.util.Set;

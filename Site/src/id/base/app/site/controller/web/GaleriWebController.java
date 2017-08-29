@@ -13,8 +13,8 @@ import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.valueobject.Category;
-import id.base.app.valueobject.learning.LearningItem;
-import id.base.app.valueobject.learning.VWLearningItem;
+import id.base.app.valueobject.program.ProgramItem;
+import id.base.app.valueobject.program.VWProgramItem;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,12 +38,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Scope(value="request")
 @RequestMapping(value="/galeri")
 @Controller
-public class GaleriWebController extends BaseSiteController<LearningItem>{
+public class GaleriWebController extends BaseSiteController<ProgramItem>{
 
 	static Logger LOGGER = LoggerFactory.getLogger(MainProgramWebController.class);
 	
-	protected RestCaller<VWLearningItem> getRestCallerView() {
-		return new RestCaller<VWLearningItem>(RestConstant.REST_SERVICE, RestServiceConstant.VW_LEARNING_ITEM_SERVICE);
+	protected RestCaller<VWProgramItem> getRestCallerView() {
+		return new RestCaller<VWProgramItem>(RestConstant.REST_SERVICE, RestServiceConstant.VW_PROGRAM_ITEM_SERVICE);
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)
@@ -53,32 +53,32 @@ public class GaleriWebController extends BaseSiteController<LearningItem>{
 		setCommonData(request,model);
 		List<Category> categoryList = getCategoryList();
 		model.addAttribute("categories", categoryList);
-		PagingWrapper<VWLearningItem> items = getRestCallerView().findAllByFilter(startNo, offset, getDefaultFilter(), getDefaultOrder());
+		PagingWrapper<VWProgramItem> items = getRestCallerView().findAllByFilter(startNo, offset, getDefaultFilter(), getDefaultOrder());
 		model.addAttribute("items", items);
 		return "/galeri/main";
 	}
 	
 	private List<SearchFilter> getDefaultFilter(){
 		List<SearchFilter> filter = new ArrayList<SearchFilter>();
-		filter.add(new SearchFilter(VWLearningItem.PERIOD, Operator.EQUALS, SystemConstant.Period.PAST, String.class));
-		filter.add(new SearchFilter(VWLearningItem.STATUS, Operator.EQUALS, ILookupConstant.Status.PUBLISH, Integer.class));
+		filter.add(new SearchFilter(VWProgramItem.PERIOD, Operator.EQUALS, SystemConstant.Period.PAST, String.class));
+		filter.add(new SearchFilter(VWProgramItem.STATUS, Operator.EQUALS, ILookupConstant.Status.PUBLISH, Integer.class));
 		return filter;
 	}
 	
 	private List<SearchFilter> convertForFilter(Map<String, String> paramWrapper) {
 		List<SearchFilter> filter = getDefaultFilter();
 		if(StringUtils.isNotEmpty(paramWrapper.get("category"))){
-			filter.add(new SearchFilter(VWLearningItem.PK_CATEGORY, Operator.EQUALS, paramWrapper.get("category"), Long.class));
+			filter.add(new SearchFilter(VWProgramItem.PK_CATEGORY, Operator.EQUALS, paramWrapper.get("category"), Long.class));
 		}
 		if(StringUtils.isNotEmpty(paramWrapper.get("title"))){	
-			filter.add(new SearchFilter(VWLearningItem.TITLE, Operator.LIKE, "%"+paramWrapper.get("title")+"%", String.class));
+			filter.add(new SearchFilter(VWProgramItem.TITLE, Operator.LIKE, "%"+paramWrapper.get("title")+"%", String.class));
 		}
 		return filter;
 	}
 	
 	private List<SearchOrder> getDefaultOrder() {
 		List<SearchOrder> orders = new ArrayList<SearchOrder>();
-		orders.add(new SearchOrder(VWLearningItem.DATE_FROM, SearchOrder.Sort.DESC));
+		orders.add(new SearchOrder(VWProgramItem.DATE_FROM, SearchOrder.Sort.DESC));
 		return orders;
 	}
 	
@@ -90,7 +90,7 @@ public class GaleriWebController extends BaseSiteController<LearningItem>{
 			@RequestParam Map<String,String> paramWrapper
 		){
 		Map<String, Object> resultMap = new HashMap<>();
-		PagingWrapper<VWLearningItem> items = getRestCallerView().findAllByFilter(startNo, offset, convertForFilter(paramWrapper), getDefaultOrder());
+		PagingWrapper<VWProgramItem> items = getRestCallerView().findAllByFilter(startNo, offset, convertForFilter(paramWrapper), getDefaultOrder());
 		resultMap.put("items", items);
 		return resultMap;
 	}

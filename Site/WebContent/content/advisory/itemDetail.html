@@ -50,10 +50,10 @@
 		<div class="single_content content_post red">
 			<div class="container large">
 				<div class="row">
-					<div th:class="${detail.learningDisplayLookup.code == T(id.base.app.ILookupConstant.LearningDisplay).NOT_FULL_SCREEN_SIDEBAR_RIGHT}? 'col-xs-12 col-sm-8 col-md-8' : 'col-xs-12 col-sm-12 col-md-12'">
+					<div th:class="${detail.programDisplayLookup.code == T(id.base.app.ILookupConstant.LearningDisplay).NOT_FULL_SCREEN_SIDEBAR_RIGHT}? 'col-xs-12 col-sm-8 col-md-8' : 'col-xs-12 col-sm-12 col-md-12'">
 						<div class="single_content_left">
 							<div class="tab_menu">
-								<th:block th:if="${detail.learningDisplayLookup.code == T(id.base.app.ILookupConstant.LearningDisplay).NOT_FULL_SCREEN_SIDEBAR_RIGHT}">
+								<th:block th:if="${detail.programDisplayLookup.code == T(id.base.app.ILookupConstant.LearningDisplay).NOT_FULL_SCREEN_SIDEBAR_RIGHT}">
 								<ul class="w-4">
 									<li class="active"><a href="#explore_program" data-toggle="tab" aria-expanded="true">Keterangan</a></li>
 									<th:block th:if="${detail.admissionRequirement!=null and detail.admissionRequirement!=''}">
@@ -66,7 +66,7 @@
 									<li class=""><a href="#faq" data-toggle="tab" aria-expanded="false">FAQ</a></li>
 								</ul>
 								</th:block>
-								<th:block th:if="${detail.learningDisplayLookup.code != T(id.base.app.ILookupConstant.LearningDisplay).NOT_FULL_SCREEN_SIDEBAR_RIGHT}">
+								<th:block th:if="${detail.programDisplayLookup.code != T(id.base.app.ILookupConstant.LearningDisplay).NOT_FULL_SCREEN_SIDEBAR_RIGHT}">
 								<ul class="w-6">
 									<li class="active"><a href="#explore_program" data-toggle="tab" aria-expanded="true">Beranda / Utama</a></li>
 									<th:block th:if="${detail.silabusDesc!=null and detail.silabusDesc!=''}">
@@ -84,8 +84,8 @@
 							
 							<div class="tab-content single_tab_content">
 								<div role="tabpanel" class="tab-pane active" id="explore_program">
-									<div th:class="${detail.learningDisplayLookup.code == T(id.base.app.ILookupConstant.LearningDisplay).FULL_SCREEN_SIDEBAR_RIGHT_DESCRIPTION}? 'col-xs-12 col-sm-8 col-md-8' : 'col-xs-12 col-sm-12 col-md-12'" th:utext="${detail.description}"></div>
-									<th:block th:if="${detail.learningDisplayLookup.code == T(id.base.app.ILookupConstant.LearningDisplay).FULL_SCREEN_SIDEBAR_RIGHT_DESCRIPTION}">
+									<div th:class="${detail.programDisplayLookup.code == T(id.base.app.ILookupConstant.LearningDisplay).FULL_SCREEN_SIDEBAR_RIGHT_DESCRIPTION}? 'col-xs-12 col-sm-8 col-md-8' : 'col-xs-12 col-sm-12 col-md-12'" th:utext="${detail.description}"></div>
+									<th:block th:if="${detail.programDisplayLookup.code == T(id.base.app.ILookupConstant.LearningDisplay).FULL_SCREEN_SIDEBAR_RIGHT_DESCRIPTION}">
 										<div class="col-xs-12 col-sm-4 col-md-4 short-desc-content"></div>
 									</th:block>
 								</div>
@@ -194,7 +194,7 @@
 							</div>
 						</div><!--end single content left-->
 					</div>
-					<th:block th:if="${detail.learningDisplayLookup.code == T(id.base.app.ILookupConstant.LearningDisplay).NOT_FULL_SCREEN_SIDEBAR_RIGHT}">
+					<th:block th:if="${detail.programDisplayLookup.code == T(id.base.app.ILookupConstant.LearningDisplay).NOT_FULL_SCREEN_SIDEBAR_RIGHT}">
 						<div class="col-xs-12 col-sm-4 col-md-4 short-desc-content"></div>
 					</th:block>		
 				</div><!--end sidebar-->

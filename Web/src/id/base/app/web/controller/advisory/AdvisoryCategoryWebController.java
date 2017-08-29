@@ -16,7 +16,7 @@ import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.valueobject.Category;
-import id.base.app.valueobject.learning.LearningItem;
+import id.base.app.valueobject.program.ProgramItem;
 import id.base.app.web.DataTableCriterias;
 import id.base.app.web.controller.BaseController;
 import id.base.app.web.rest.LookupRestCaller;
@@ -114,7 +114,7 @@ public class AdvisoryCategoryWebController extends BaseController<Category> {
 		Map<String, Object> resultMap = new HashMap<>();
 		List<ErrorHolder> errors = new ArrayList<>();
 		try{
-			if(anObject.getItems().get(0).getPkLearningItem()==null){
+			if(anObject.getItems().get(0).getPkProgramItem()==null){
 				anObject.setItems(null);
 			}
 			anObject.setType(SystemConstant.CategoryType.ADVISORY);
@@ -128,8 +128,8 @@ public class AdvisoryCategoryWebController extends BaseController<Category> {
 		return resultMap;
 	}
 	
-	private List<LearningItem> getItemList() throws SystemException {
-		return new SpecificRestCaller<LearningItem>(RestConstant.REST_SERVICE, RestConstant.RM_LEARNING_ITEM, LearningItem.class).executeGetList(new PathInterfaceRestCaller() {
+	private List<ProgramItem> getItemList() throws SystemException {
+		return new SpecificRestCaller<ProgramItem>(RestConstant.REST_SERVICE, RestConstant.RM_PROGRAM_ITEM, ProgramItem.class).executeGetList(new PathInterfaceRestCaller() {
 			@Override
 			public String getPath() {
 				return "/findForSelectByType/{type}";

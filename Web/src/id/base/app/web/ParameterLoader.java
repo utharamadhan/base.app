@@ -28,10 +28,10 @@ import id.base.app.valueobject.contact.Contact;
 import id.base.app.valueobject.contact.ContactSetting;
 import id.base.app.valueobject.frontend.HomeSetting;
 import id.base.app.valueobject.frontend.IntegrationScript;
-import id.base.app.valueobject.learning.LearningItem;
 import id.base.app.valueobject.notification.Notification;
 import id.base.app.valueobject.party.Party;
 import id.base.app.valueobject.party.Student;
+import id.base.app.valueobject.program.ProgramItem;
 import id.base.app.valueobject.publication.DigitalBook;
 import id.base.app.valueobject.publication.Event;
 import id.base.app.valueobject.publication.HousingIndex;
@@ -212,8 +212,8 @@ public class ParameterLoader extends ContextLoader implements ServletContextList
 		RestCaller.BASE_CLASS.put(RestServiceConstant.EVENT_SERVICE, Event.class);
 		
 		// learning item
-		RestCaller.BASE_URL.put(RestServiceConstant.LEARNING_ITEM_SERVICE, RestConstant.RM_LEARNING_ITEM);
-		RestCaller.BASE_CLASS.put(RestServiceConstant.LEARNING_ITEM_SERVICE,  LearningItem.class);
+		RestCaller.BASE_URL.put(RestServiceConstant.PROGRAM_ITEM_SERVICE, RestConstant.RM_PROGRAM_ITEM);
+		RestCaller.BASE_CLASS.put(RestServiceConstant.PROGRAM_ITEM_SERVICE,  ProgramItem.class);
 		
 		// research
 		RestCaller.BASE_URL.put(RestServiceConstant.RESEARCH_SERVICE, RestConstant.RM_RESEARCH);

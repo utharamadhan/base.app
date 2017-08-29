@@ -4,14 +4,6 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="form-group">
-					<label class="col-sm-2 control-label" th:text="'Theme'">Theme</label>
-					<div class="col-sm-9 form-input-container">
-						<select class="chosen-select form-control" th:field="*{researchTheme.pkResearchTheme}">
-							<option th:each="opt : ${themeOptions}" th:value="${opt.pkResearchTheme}" th:text="${opt.title}">Title</option>
-                        </select>
-                   	</div>
-				</div>
-				<div class="form-group">
 					<label class="col-sm-2 control-label" th:text="'Research Title'">Research Title</label>
 					<div class="col-sm-9 form-input-container">
 						<th:block th:if="${detail.title == T(id.base.app.SystemConstant).DEFAULT_TITLE_RESEARCH}">
@@ -177,7 +169,7 @@
 				    var content = tinyMCE.editors[i].getContent();
 				    $('#'+tinyMCE.editors[i].id+"-hidden").val(content);
 				}
-				var sURL = /*[[@{/do/research/researchManagement/saveResearch/}]]*/ #;
+				var sURL = /*[[@{/do/researchDev/management/saveResearch/}]]*/ #;
 				var fromTab = /*[[${T(id.base.app.SystemConstant.TabResearchManagement).PRE}]]*/;
 				var dataPush = $('#rm-pre-detail-form').serializeArray();
 				dataPush.push({name: 'pkResearch', value: $('#maintenancePK').val()});

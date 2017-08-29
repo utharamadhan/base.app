@@ -58,7 +58,7 @@
 			
 			var submitFormOfficer = function(){
 				cleanErrorParsley();
-				var sURL = /*[[@{/do/research/researchManagement/saveOfficer/}]]*/ #;
+				var sURL = /*[[@{/do/researchDev/management/saveOfficer/}]]*/ #;
 				$.post(sURL, {fkResearch:$('#maintenancePK').val(),officerName:$('#rm-officer-detail-form input[name=officerName]').val(), 
 					officerPosition:$('#rm-officer-detail-form input[name=officerPosition]').val()}, function(data) {
 					if(data.errorList!=null){

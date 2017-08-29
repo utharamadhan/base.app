@@ -63,14 +63,14 @@
 										</div>
 									</div>
 									<div class="col-md-6">
-										<h2><a th:href="@{/page/main-program/learning/}+${data.categoryPermalink}+'/'+${data.learningPermalink}"><label class="title_engagement show_detail my_link" th:text="${data.title}"></label></a></h2>
+										<h2><a th:href="@{/page/main-program/learning/}+${data.categoryPermalink}+'/'+${data.programPermalink}"><label class="title_engagement show_detail my_link" th:text="${data.title}"></label></a></h2>
 										<span class="date-wrapper"><i class="fa fa-calendar date-icon" aria-hidden="true"></i><span class="date" th:text="${data.eventDate}"></span></span>
 									</div>
 								</div>
 								<div class="bottom-left-yellow"></div>
 								<div class="bottom-right-blue"></div>
 								<input type="hidden" name="categoryPermalink" th:value="${data.categoryPermalink}"/>
-								<input type="hidden" name="identity" th:value="${data.learningPermalink}"/>
+								<input type="hidden" name="identity" th:value="${data.programPermalink}"/>
 							</div>
 						</div>					
 						</th:block>

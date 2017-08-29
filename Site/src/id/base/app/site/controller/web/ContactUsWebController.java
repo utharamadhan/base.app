@@ -18,7 +18,7 @@ import id.base.app.util.dao.SearchOrder.Sort;
 import id.base.app.valueobject.Category;
 import id.base.app.valueobject.Lookup;
 import id.base.app.valueobject.contact.Contact;
-import id.base.app.valueobject.learning.LearningItem;
+import id.base.app.valueobject.program.ProgramItem;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -69,8 +69,8 @@ public class ContactUsWebController extends BaseSiteController<Contact>{
 		return new RestCaller<Lookup>(RestConstant.REST_SERVICE, RestServiceConstant.LOOKUP_SERVICE);
 	}
 	
-	protected RestCaller<LearningItem> getRestCallerCourse() {
-		return new RestCaller<LearningItem>(RestConstant.REST_SERVICE, RestServiceConstant.LEARNING_ITEM_SERVICE);
+	protected RestCaller<ProgramItem> getRestCallerCourse() {
+		return new RestCaller<ProgramItem>(RestConstant.REST_SERVICE, RestServiceConstant.PROGRAM_ITEM_SERVICE);
 	}
 	
 	protected void setDefaultData(HttpServletRequest request, ModelMap model, String categoryPermalink){
@@ -85,7 +85,7 @@ public class ContactUsWebController extends BaseSiteController<Contact>{
 		model.addAttribute("categories", categories);
 		if(categoryPermalink==null){
 			if(!categories.isEmpty()){
-				model.addAttribute("learningItems", getLearningItemList(categories.get(0).getPkCategory()));
+				model.addAttribute("programItems", getProgramItemList(categories.get(0).getPkCategory()));
 			}
 		}else{
 			for (Category category : categories) {
@@ -93,7 +93,7 @@ public class ContactUsWebController extends BaseSiteController<Contact>{
 					model.addAttribute("titleCategorySelected", category.getTitle());		
 				}
 			}
-			model.addAttribute("learningItems", getLearningItemListByCategoryPermalink(categoryPermalink));
+			model.addAttribute("programItems", getProgramItemListByCategoryPermalink(categoryPermalink));
 		}
 	}
 	
@@ -112,10 +112,10 @@ public class ContactUsWebController extends BaseSiteController<Contact>{
 		return "/contact/main";
 	}
 	
-	@RequestMapping(method=RequestMethod.GET, value="/getLearningItemsByCategory")
+	@RequestMapping(method=RequestMethod.GET, value="/getProgramItemsByCategory")
 	@ResponseBody
-	public List<LearningItem> getLearningItemsByCategory(@RequestParam("pkCategory") final Long pkCategory){
-		return getLearningItemList(pkCategory);
+	public List<ProgramItem> getProgramItemsByCategory(@RequestParam("pkCategory") final Long pkCategory){
+		return getProgramItemList(pkCategory);
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/testEmail")
@@ -197,9 +197,9 @@ public class ContactUsWebController extends BaseSiteController<Contact>{
 		return list;
 	}
 	
-	private List<LearningItem> getLearningItemList(final Long pkCategory){
-		SpecificRestCaller<LearningItem> rc = new SpecificRestCaller<LearningItem>(RestConstant.REST_SERVICE, RestServiceConstant.LEARNING_ITEM_SERVICE);
-		List<LearningItem> list = rc.executeGetList(new PathInterfaceRestCaller() {
+	private List<ProgramItem> getProgramItemList(final Long pkCategory){
+		SpecificRestCaller<ProgramItem> rc = new SpecificRestCaller<ProgramItem>(RestConstant.REST_SERVICE, RestServiceConstant.PROGRAM_ITEM_SERVICE);
+		List<ProgramItem> list = rc.executeGetList(new PathInterfaceRestCaller() {
 			
 			@Override
 			public String getPath() {
@@ -216,9 +216,9 @@ public class ContactUsWebController extends BaseSiteController<Contact>{
 		return list;
 	}
 	
-	private List<LearningItem> getLearningItemListByCategoryPermalink(final String categoryPermalink){
-		SpecificRestCaller<LearningItem> rc = new SpecificRestCaller<LearningItem>(RestConstant.REST_SERVICE, RestServiceConstant.LEARNING_ITEM_SERVICE);
-		List<LearningItem> list = rc.executeGetList(new PathInterfaceRestCaller() {
+	private List<ProgramItem> getProgramItemListByCategoryPermalink(final String categoryPermalink){
+		SpecificRestCaller<ProgramItem> rc = new SpecificRestCaller<ProgramItem>(RestConstant.REST_SERVICE, RestServiceConstant.PROGRAM_ITEM_SERVICE);
+		List<ProgramItem> list = rc.executeGetList(new PathInterfaceRestCaller() {
 			
 			@Override
 			public String getPath() {

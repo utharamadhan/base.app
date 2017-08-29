@@ -166,3 +166,116 @@ INSERT INTO APP_FUNCTION (PK_APP_FUNCTION, FK_APP_FUNCTION_PARENT, NAME, DESCR, 
 VALUES (940, 900, 'A. Consulting', 'INT_ADV_CONSULTING', '/do/advisory/consulting/showList', true, 1, 4);
 
 ALTER TABLE LEARNING_ITEM ADD COLUMN background_image_size int NOT NULL DEFAULT 1;
+
+ALTER TABLE LEARNING_ITEM RENAME TO PROGRAM_ITEM;
+ALTER TABLE LEARNING_ITEM_CATEGORY RENAME TO PROGRAM_ITEM_CATEGORY;
+ALTER TABLE LEARNING_ITEM_IMAGE RENAME TO PROGRAM_ITEM_IMAGE;
+ALTER TABLE LEARNING_ITEM_TEACHER RENAME TO PROGRAM_ITEM_TEACHER;
+
+ALTER TABLE PROGRAM_ITEM RENAME COLUMN pk_learning_item TO pk_program_item;
+ALTER TABLE PROGRAM_ITEM_CATEGORY RENAME COLUMN fk_learning_item TO fk_program_item;
+ALTER TABLE PROGRAM_ITEM_IMAGE RENAME COLUMN pk_learning_item_image TO fk_learning_item_image;
+ALTER TABLE PROGRAM_ITEM_IMAGE RENAME COLUMN fk_learning_item TO fk_program_item;
+ALTER TABLE PROGRAM_ITEM_TEACHER RENAME COLUMN pk_learning_item_teacher TO pk_program_item_teacher;
+ALTER TABLE PROGRAM_ITEM_TEACHER RENAME COLUMN fk_learning_item TO fk_program_item;
+
+ALTER TABLE PROGRAM_ITEM RENAME CONSTRAINT pk_learning_item TO pk_program_item;
+ALTER TABLE PROGRAM_ITEM RENAME CONSTRAINT learning_item_fk_lookup_learning_display_fkey TO program_item_fk_lookup_program_display_fkey;
+ALTER TABLE PROGRAM_ITEM RENAME CONSTRAINT learning_item_fk_lookup_method_fkey TO program_item_fk_lookup_method_fkey;
+ALTER TABLE PROGRAM_ITEM RENAME CONSTRAINT learning_item_fk_lookup_organizer_fkey TO program_item_fk_lookup_organizer_fkey;
+ALTER TABLE PROGRAM_ITEM RENAME CONSTRAINT learning_item_fk_lookup_payment_fkey TO program_item_fk_lookup_payment_fkey;
+ALTER TABLE PROGRAM_ITEM RENAME CONSTRAINT learning_item_permalink_key TO program_item_permalink_key;
+ALTER TABLE PROGRAM_ITEM_CATEGORY RENAME CONSTRAINT learning_item_category_fk_category_fkey TO program_item_category_fk_category_fkey;
+ALTER TABLE PROGRAM_ITEM_CATEGORY RENAME CONSTRAINT learning_item_category_fk_learning_item_fkey TO program_item_category_fk_program_item_fkey;
+ALTER TABLE PROGRAM_ITEM_IMAGE RENAME COLUMN fk_learning_item_image TO pk_program_item_image;
+ALTER TABLE PROGRAM_ITEM_IMAGE RENAME CONSTRAINT pk_learning_item_image TO pk_program_item_image;
+ALTER TABLE PROGRAM_ITEM_IMAGE RENAME CONSTRAINT learning_item_image_fk_learning_item_fkey TO program_item_image_fk_program_item_fkey;
+ALTER TABLE PROGRAM_ITEM_TEACHER RENAME CONSTRAINT pk_learning_item_teacher TO pk_program_item_teacher;
+ALTER TABLE PROGRAM_ITEM_TEACHER RENAME CONSTRAINT learning_item_teacher_fk_learning_item_fkey TO program_item_teacher_fk_program_item_fkey;
+ALTER TABLE PROGRAM_ITEM_TEACHER RENAME CONSTRAINT learning_item_teacher_fk_p_teacher_fkey TO program_item_teacher_fk_p_teacher_fkey;
+
+ALTER TABLE PROGRAM_ITEM RENAME COLUMN fk_lookup_learning_display TO fk_lookup_program_display;
+
+ALTER SEQUENCE learning_item_pk_learning_item_seq RENAME TO program_item_pk_program_item_seq;
+ALTER SEQUENCE learning_item_image_pk_learning_item_image_seq RENAME TO program_item_image_pk_program_item_image_seq;
+ALTER SEQUENCE learning_item_teacher_pk_learning_item_teacher_seq RENAME TO program_item_teacher_pk_program_item_teacher_seq;
+
+UPDATE LOOKUP_GROUP SET LOOKUP_GROUP = 'PROGRAM_DISPLAY', GROUP_DESCR = 'PROGRAM_DISPLAY' WHERE LOOKUP_GROUP = 'LEARNING_DISPLAY';
+UPDATE LOOKUP SET LOOKUP_GROUP = 'PROGRAM_DISPLAY' WHERE LOOKUP_GROUP = 'LEARNING_DISPLAY';
+UPDATE LOOKUP_GROUP SET LOOKUP_GROUP = 'PROGRAM_METHOD', GROUP_DESCR = 'PROGRAM_METHOD' WHERE LOOKUP_GROUP = 'LEARNING_METHOD';
+UPDATE LOOKUP SET LOOKUP_GROUP = 'PROGRAM_METHOD' WHERE LOOKUP_GROUP = 'LEARNING_METHOD';
+UPDATE LOOKUP_GROUP SET LOOKUP_GROUP = 'PROGRAM_ORGANIZER', GROUP_DESCR = 'PROGRAM_ORGANIZER' WHERE LOOKUP_GROUP = 'LEARNING_ORGANIZER';
+UPDATE LOOKUP SET LOOKUP_GROUP = 'PROGRAM_ORGANIZER' WHERE LOOKUP_GROUP = 'LEARNING_ORGANIZER';
+UPDATE LOOKUP_GROUP SET LOOKUP_GROUP = 'PROGRAM_PAYMENT', GROUP_DESCR = 'PROGRAM_PAYMENT' WHERE LOOKUP_GROUP = 'LEARNING_PAYMENT';
+UPDATE LOOKUP SET LOOKUP_GROUP = 'PROGRAM_PAYMENT' WHERE LOOKUP_GROUP = 'LEARNING_PAYMENT';
+
+DROP VIEW vw_learning_item;
+
+CREATE OR REPLACE VIEW vw_program_item AS 
+ SELECT row_number() OVER () AS pk,
+    c.pk_category,
+    c.permalink AS category_permalink,
+    li.pk_program_item,
+    li.title,
+    li.permalink AS program_permalink,
+    li.image_url,
+    li.image_thumb_url,
+    li.date_from,
+    li.date_to,
+    li.fk_lookup_method,
+    li.fk_lookup_organizer,
+    li.fk_lookup_payment,
+        CASE
+            WHEN li.date_from < now() THEN 'P'::text
+            WHEN li.date_from >= now() THEN 'F'::text
+            ELSE NULL::text
+        END AS period,
+    li.status
+   FROM program_item li
+     JOIN program_item_category lic ON lic.fk_program_item = li.pk_program_item
+     JOIN category c ON c.pk_category = lic.fk_category;
+     
+DROP TABLE research_theme;
+
+ALTER TABLE PROGRAM_ITEM ADD COLUMN FACILITY_DESC text;
+
+CREATE SEQUENCE PROGRAM_ITEM_MENU_PK_PROGRAM_ITEM_MENU_SEQ
+  INCREMENT 1
+  MINVALUE 1
+  MAXVALUE 9223372036854775807
+  START 1
+  CACHE 1;
+  
+CREATE TABLE PROGRAM_ITEM_MENU
+(
+  PK_PROGRAM_ITEM_MENU BIGINT NOT NULL DEFAULT nextval('PROGRAM_ITEM_MENU_PK_PROGRAM_ITEM_MENU_SEQ'::regclass),
+  fk_program_item bigint NOT NULL,
+  title text,
+  fk_lookup_item_menu bigint,
+  order_no integer,
+  CONSTRAINT PK_PROGRAM_ITEM_MENU PRIMARY KEY (PK_PROGRAM_ITEM_MENU)
+);
+
+INSERT INTO LOOKUP_GROUP (LOOKUP_GROUP, GROUP_DESCR, IS_UPDATEABLE, IS_VIEWABLE)
+VALUES ('ITEM_MENU', 'Item Menu', 'f', 'f');
+
+INSERT INTO LOOKUP (LOOKUP_GROUP, CODE, NAME, DESCR, ORDER_NO, STATUS, CREATED_BY, MODIFIED_BY) 
+VALUES ('ITEM_MENU', '1', 'Description', 'Description', 1, 1, 'SYSTEM', 'SYSTEM');
+INSERT INTO LOOKUP (LOOKUP_GROUP, CODE, NAME, DESCR, ORDER_NO, STATUS, CREATED_BY, MODIFIED_BY) 
+VALUES ('ITEM_MENU', '2', 'Admission Requirement', 'Admission RequirementProgram', 2, 1, 'SYSTEM', 'SYSTEM');
+INSERT INTO LOOKUP (LOOKUP_GROUP, CODE, NAME, DESCR, ORDER_NO, STATUS, CREATED_BY, MODIFIED_BY) 
+VALUES ('ITEM_MENU', '3', 'Silabus Program', 'Silabus Program', 3, 1, 'SYSTEM', 'SYSTEM');
+INSERT INTO LOOKUP (LOOKUP_GROUP, CODE, NAME, DESCR, ORDER_NO, STATUS, CREATED_BY, MODIFIED_BY) 
+VALUES ('ITEM_MENU', '4', 'Facility', 'Facility', 4, 1, 'SYSTEM', 'SYSTEM');
+INSERT INTO LOOKUP (LOOKUP_GROUP, CODE, NAME, DESCR, ORDER_NO, STATUS, CREATED_BY, MODIFIED_BY) 
+VALUES ('ITEM_MENU', '5', 'Payment Description', 'Payment Description', 5, 1, 'SYSTEM', 'SYSTEM');
+INSERT INTO LOOKUP (LOOKUP_GROUP, CODE, NAME, DESCR, ORDER_NO, STATUS, CREATED_BY, MODIFIED_BY) 
+VALUES ('ITEM_MENU', '6', 'Testimonial', 'Testimonial', 6, 1, 'SYSTEM', 'SYSTEM');
+INSERT INTO LOOKUP (LOOKUP_GROUP, CODE, NAME, DESCR, ORDER_NO, STATUS, CREATED_BY, MODIFIED_BY) 
+VALUES ('ITEM_MENU', '7', 'Teacher / Speaker', 'Teacher / Speaker', 7, 1, 'SYSTEM', 'SYSTEM');
+INSERT INTO LOOKUP (LOOKUP_GROUP, CODE, NAME, DESCR, ORDER_NO, STATUS, CREATED_BY, MODIFIED_BY) 
+VALUES ('ITEM_MENU', '8', 'Galeri', 'Galeri', 8, 1, 'SYSTEM', 'SYSTEM');
+INSERT INTO LOOKUP (LOOKUP_GROUP, CODE, NAME, DESCR, ORDER_NO, STATUS, CREATED_BY, MODIFIED_BY)
+VALUES ('ITEM_MENU', '9', 'Download Brochure', 'Download Brochure', 9, 1, 'SYSTEM', 'SYSTEM');
+INSERT INTO LOOKUP (LOOKUP_GROUP, CODE, NAME, DESCR, ORDER_NO, STATUS, CREATED_BY, MODIFIED_BY)
+VALUES ('ITEM_MENU', '10', 'Contact Us', 'Contact Us', 10, 1, 'SYSTEM', 'SYSTEM');

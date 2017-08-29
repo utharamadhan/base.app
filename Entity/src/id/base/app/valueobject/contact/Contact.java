@@ -4,7 +4,7 @@ import id.base.app.util.DateTimeFunction;
 import id.base.app.valueobject.BaseEntity;
 import id.base.app.valueobject.Category;
 import id.base.app.valueobject.Lookup;
-import id.base.app.valueobject.learning.LearningItem;
+import id.base.app.valueobject.program.ProgramItem;
 
 import java.io.Serializable;
 import java.util.Calendar;
@@ -72,8 +72,8 @@ public class Contact extends BaseEntity implements Serializable {
 	private Category category;
 	
 	@ManyToOne
-	@JoinColumn(name="FK_LEARNING_ITEM")
-	private LearningItem learningItem;
+	@JoinColumn(name="FK_PROGRAM_ITEM")
+	private ProgramItem programItem;
 	
 	@Column(name="NAME")
 	private String name;
@@ -139,12 +139,12 @@ public class Contact extends BaseEntity implements Serializable {
 		this.category = category;
 	}
 
-	public LearningItem getLearningItem() {
-		return learningItem;
+	public ProgramItem getProgramItem() {
+		return programItem;
 	}
 
-	public void setLearningItem(LearningItem learningItem) {
-		this.learningItem = learningItem;
+	public void setProgramItem(ProgramItem programItem) {
+		this.programItem = programItem;
 	}
 
 	public String getName() {

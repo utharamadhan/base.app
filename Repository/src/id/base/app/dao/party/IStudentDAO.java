@@ -2,8 +2,8 @@ package id.base.app.dao.party;
 
 import id.base.app.IBaseDAO;
 import id.base.app.exception.SystemException;
-import id.base.app.valueobject.learning.StudentCourse;
 import id.base.app.valueobject.party.Student;
+import id.base.app.valueobject.program.StudentCourse;
 
 import java.util.List;
 

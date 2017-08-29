@@ -1,5 +1,6 @@
 package id.base.app.controller.research;
 
+import id.base.app.ILookupConstant;
 import id.base.app.SystemConstant;
 import id.base.app.controller.SuperController;
 import id.base.app.exception.ErrorHolder;
@@ -95,6 +96,7 @@ public class ResearchController extends SuperController<Research>{
 			}
 			
 		} else if(StringFunction.isEmpty(anObject.getTitle())){
+			anObject.setStatus(ILookupConstant.Status.DRAFT);
 			anObject.setTitle(SystemConstant.DEFAULT_TITLE_RESEARCH);
 		}
 		if(anObject.getOfficers()!=null && !anObject.getOfficers().isEmpty()){

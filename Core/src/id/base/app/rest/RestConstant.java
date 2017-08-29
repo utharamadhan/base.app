@@ -80,8 +80,8 @@ public class RestConstant {
 	public static final String RM_CATEGORY = "/category";
 	
 	//learning
-	public static final String RM_LEARNING_ITEM = "/learning/item";
-	public static final String RM_VW_LEARNING_ITEM = "/view/learning/item";
+	public static final String RM_PROGRAM_ITEM = "/learning/item";
+	public static final String RM_VW_PROGRAM_ITEM = "/view/learning/item";
 	
 	//research
 	public static final String RM_RESEARCH = "/research/research";

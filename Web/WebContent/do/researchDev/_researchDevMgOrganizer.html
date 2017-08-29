@@ -46,7 +46,7 @@
 		$(function(){
 			var submitFormOrganizer = function(){
 				cleanErrorParsley();
-				var sURL = /*[[@{/do/research/researchManagement/saveResearch/}]]*/ #;
+				var sURL = /*[[@{/do/researchDev/management/saveResearch/}]]*/ #;
 				var fromTab = /*[[${T(id.base.app.SystemConstant.TabResearchManagement).ORGANIZER}]]*/;
 				$.post(sURL, {pkResearch:$('#maintenancePK').val(), isInternal:$('input[name=isInternal]:checked').val(), fromTab:fromTab}, function(data) {
 					if(data.errorList!=null){

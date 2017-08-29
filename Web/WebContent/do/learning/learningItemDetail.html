@@ -41,7 +41,7 @@
 							</div>									
 							&nbsp;
 						</div>
-						<input id="learningItem-detail-maintenancePk" type="hidden" th:field="*{pkLearningItem}"/>
+						<input id="programItem-detail-maintenancePk" type="hidden" th:field="*{pkProgramItem}"/>
 						<div class="form-group">
 							<label class="col-sm-2 control-label required" th:text="'Category'">Category</label>
 							<div class="col-sm-9 form-input-container">
@@ -187,7 +187,7 @@
 								  <div class="panel panel-default">
 								    <div class="panel-heading" data-toggle="collapse" data-parent="#acc-teacher" data-target="#acc-teacher-one">
 								      <h4 class="panel-title">
-								        <a class="accordion-toggle">[Insert teacher]</a>
+								        <a class="accordion-toggle">[Insert Teacher]</a>
 								      </h4>
 								    </div>
 								    <div id="acc-teacher-one" class="panel-collapse collapse">
@@ -226,6 +226,97 @@
 													<td>
 														<a href="#" class="btn btn-primary btn-xs btn-delete" data-toggle="tooltip" title="" data-original-title="Delete"><i class="fa fa-trash"></i></a>
 														<a href="#" class="btn btn-primary btn-xs btn-add" data-toggle="tooltip" title="" data-original-title="Add"><i class="fa fa-plus"></i></a>
+													</td>
+												</tr>
+						                    </tbody>
+                  						</table>
+                  						</div>
+								    </div>
+								  </div>
+								</div>	
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label required" th:text="'Menu'">Menu</label>
+							<div class="col-sm-9 form-input-container">
+								<div class="panel-group" id="acc-menu">
+								  <div class="panel panel-default">
+								    <div class="panel-heading" data-toggle="collapse" data-parent="#acc-menu" data-target="#acc-menu-one">
+								      <h4 class="panel-title">
+								        <a class="accordion-toggle">[Insert Menu]</a>
+								      </h4>
+								    </div>
+								    <div id="acc-menu-one" class="panel-collapse collapse">
+								    	<div class="collapse-content">
+								        <table id="menuTable" class="table table-custom table-sortable" style="width:100%;">
+			 								<thead>
+						                        <tr>
+						                          <th style="width:40%">Title</th>
+						                          <th style="width:40%">Value</th>
+						                          <th style="width:10%">Order No</th>
+						                          <th style="width:10%">Action</th>
+						                        </tr>
+						                    </thead>
+						                    <tbody th:if="${detail.menus!=null and !detail.menus.empty}">
+							                    <th:block th:each="menu, i : ${detail.menus}">
+							                    	<tr>
+							                    		<td>
+							                    			<div class="input-group">
+																<input type="text" class="form-control title" th:value="${menu.title}"/>
+															</div>
+														</td>
+														<td>
+							                    			<div class="input-group">
+																<select class="chosen-select form-control item-menu">
+																	<option value="">[Please Select Get Value From]</option>
+																	<th:block th:each="opt : ${menuOptions}">
+																		<th:block th:if="${menu.itemMenuLookup?.pkLookup == opt.pkLookup}">
+																			<option th:value="${opt.pkLookup}" th:text="${opt.name}" selected="selected">Name</option>
+																		</th:block>
+																		<th:block th:if="${menu.itemMenuLookup?.pkLookup != opt.pkLookup}">
+																			<option th:value="${opt.pkLookup}" th:text="${opt.name}">Name</option>
+																		</th:block>
+																	</th:block>
+								                           		</select>
+															</div>
+														</td>
+														<td>
+							                    			<div class="input-group">
+																<input type="text" class="form-control order-no" th:value="${menu.orderNo}"/>
+															</div>
+														</td>
+														<td>
+															<a href="#" class="btn btn-primary btn-xs btn-delete-menu" data-toggle="tooltip" title="" data-original-title="Delete"><i class="fa fa-trash"></i></a>
+															<th:block th:if="${i.count==#lists.size(detail.menus)}">
+																<a href="#" class="btn btn-primary btn-xs btn-add-menu" data-toggle="tooltip" title="" data-original-title="Add"><i class="fa fa-plus"></i></a>
+															</th:block>
+														</td>
+													</tr>
+							                    </th:block>
+						                    </tbody>
+						                    <tbody th:if="${detail.menus==null or detail.menus.empty}">
+						                    	<tr>
+					                    			<td>
+						                    			<div class="input-group">
+															<input type="text" class="form-control title"/>
+														</div>
+													</td>
+													<td>
+						                    			<div class="input-group">
+															<select class="chosen-select form-control item-menu">
+																<option value="">[Please Select Get Value From]</option>
+																<option th:each="opt : ${menuOptions}" th:value="${opt.pkLookup}" th:text="${opt.name}">Name</option>
+							                           		</select>
+														</div>
+													</td>
+													<td>
+						                    			<div class="input-group">
+															<input type="text" class="form-control order-no" />
+														</div>
+													</td>
+													<td>
+														<a href="#" class="btn btn-primary btn-xs btn-delete-menu" data-toggle="tooltip" title="" data-original-title="Delete"><i class="fa fa-trash"></i></a>
+														<a href="#" class="btn btn-primary btn-xs btn-add-menu" data-toggle="tooltip" title="" data-original-title="Add"><i class="fa fa-plus"></i></a>
 													</td>
 												</tr>
 						                    </tbody>
@@ -290,6 +381,26 @@
 								        <input id="tinyMCE-sil-prog-hidden" name="silabusDesc" type="hidden"/>
 										<div id="tinyMCE-sil-prog-parent">					
 											<textarea id="tinyMCE-sil-prog-area" th:text="*{silabusDesc}"></textarea>
+										</div>
+								    </div>
+								  </div>
+								</div>	
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" th:text="'Facility'">Facility</label>
+							<div class="col-sm-9 form-input-container">
+								<div class="panel-group" id="acc-fac">
+								  <div class="panel panel-default">
+								    <div class="panel-heading" data-toggle="collapse" data-parent="#acc-fac" data-target="#acc-fac-one">
+								      <h4 class="panel-title">
+								        <a class="accordion-toggle">[Insert Facility]</a>
+								      </h4>
+								    </div>
+								    <div id="acc-fac-one" class="panel-collapse collapse">
+								        <input id="tinyMCE-fac-hidden" name="facilityDesc" type="hidden"/>
+										<div id="tinyMCE-fac-parent">					
+											<textarea id="tinyMCE-fac-area" th:text="*{facilityDesc}"></textarea>
 										</div>
 								    </div>
 								  </div>
@@ -367,7 +478,7 @@
 						<div class="form-group">
 							<label class="col-sm-2 control-label" th:text="'Display'">Display</label>
 							<div class="col-sm-9 form-input-container">
-								<select class="chosen-select form-control" th:field="*{learningDisplayLookup.pkLookup}">
+								<select class="chosen-select form-control" th:field="*{programDisplayLookup.pkLookup}">
 									<option th:each="opt : ${displayOptions}" th:value="${opt.pkLookup}" th:text="${opt.name}">Name</option>
                            		</select>
                            	</div>
@@ -407,6 +518,34 @@
 			</tr>
        	</tbody>
   	</table>
+  	<table id="menuTableData">
+       	<tbody>
+       		<tr>
+       			<td>
+       				<div class="input-group">
+       					<input type="text" class="form-control title"/>
+       				</div>
+       			</td>
+       			<td>
+       				<div class="input-group">
+       					<select class="chosen-select form-control item-menu">
+       						<option value="">[Please Select Get Value From]</option>
+       						<option th:each="opt : ${menuOptions}" th:value="${opt.pkLookup}" th:text="${opt.name}">Name</option>
+       					</select>
+       				</div>
+       			</td>
+       			<td>
+       				<div class="input-group">
+       					<input type="text" class="form-control order-no" />
+       				</div>
+       			</td>
+       			<td>
+       				<a href="#" class="btn btn-primary btn-xs btn-delete-menu" data-toggle="tooltip" title="" data-original-title="Delete"><i class="fa fa-trash"></i></a>
+       				<a href="#" class="btn btn-primary btn-xs btn-add-menu" data-toggle="tooltip" title="" data-original-title="Add"><i class="fa fa-plus"></i></a>
+       			</td>
+       		</tr>
+       	</tbody>
+  	</table>
   	</div>
 	<script th:inline="javascript">
 	/*<![CDATA[*/
@@ -439,6 +578,7 @@
 	    	initTextEditorWithoutP('#tinyMCE-desc-area', '#tinyMCE-desc-parent', uploadURL);
 	    	initTextEditorWithoutP('#tinyMCE-adm-area', '#tinyMCE-adm-parent', uploadURL);
 	    	initTextEditorWithoutP('#tinyMCE-sil-prog-area', '#tinyMCE-sil-prog-parent', uploadURL);
+	    	initTextEditorWithoutP('#tinyMCE-fac-area', '#tinyMCE-fac-parent', uploadURL);
 	    	initTextEditorWithoutP('#tinyMCE-pay-area', '#tinyMCE-pay-parent', uploadURL);
 	    	initTextEditorWithoutP('#tinyMCE-cu-area', '#tinyMCE-cu-parent', uploadURL);
 	    	
@@ -447,6 +587,7 @@
 	    		removeTextEditor("tinyMCE-desc-area", "tinyMCE-desc-parent");
 	    		removeTextEditor("tinyMCE-adm-area", "tinyMCE-adm-parent");
 	    		removeTextEditor("tinyMCE-sil-prog-area", "tinyMCE-sil-prog-parent");
+	    		removeTextEditor("tinyMCE-fac-area", "tinyMCE-fac-parent");
 	    		removeTextEditor("tinyMCE-pay-area", "tinyMCE-pay-parent");
 	    		removeTextEditor("tinyMCE-cu-area", "tinyMCE-cu-parent");
 				returnToList('item-detail-container', 'item-list-container', true);
@@ -465,6 +606,13 @@
 					$(this).find('.name').attr('name', 'teachers['+idx+'].teacherName');
 					idx++;
 				});
+				var idx = 0;
+				$('#menuTable').find('tbody').find('tr').each(function(){
+					$(this).find('.title').attr('name', 'menus['+idx+'].title');
+					$(this).find('.item-menu').attr('name', 'menus['+idx+'].itemMenuLookup.pkLookup');
+					$(this).find('.order-no').attr('name', 'menus['+idx+'].orderNo');
+					idx++;
+				});
 			};
 			
 			var submitForm = function(){
@@ -473,6 +621,7 @@
 				$('#tinyMCE-desc-hidden').val(tinymce.get('tinyMCE-desc-area').getContent());
 				$('#tinyMCE-adm-hidden').val(tinymce.get('tinyMCE-adm-area').getContent());
 				$('#tinyMCE-sil-prog-hidden').val(tinymce.get('tinyMCE-sil-prog-area').getContent());
+				$('#tinyMCE-fac-hidden').val(tinymce.get('tinyMCE-fac-area').getContent());
 				$('#tinyMCE-pay-hidden').val(tinymce.get('tinyMCE-pay-area').getContent());
 				$('#tinyMCE-cu-hidden').val(tinymce.get('tinyMCE-cu-area').getContent());
 				preSerializeForm();
@@ -554,20 +703,26 @@
 				backToList();
 			});
 			
-			var addRowTable = function(str){
-				$('#'+str+'Table tbody .btn-add').remove();
+			var addRowTable = function(str, suffix){
+				$('#'+str+'Table tbody .btn-add'+suffix).remove();
 				$('#'+str+'Table tbody tr').last().parent().append($('#'+str+'TableData tbody').html());
 			};
-			var deleteRowTable = function(str,obj){
-				$('#'+str+'Table tbody .btn-add').remove();
+			var deleteRowTable = function(str,obj,suffix){
+				$('#'+str+'Table tbody .btn-add'+suffix).remove();
 				obj.closest('tr').remove();
 				$('#'+str+'Table tbody tr td').last().html($('#'+str+'TableData tbody tr td').last().html());
 			};
 			$('#teacherTable').on('click','.btn-add',function(){
-				addRowTable('teacher');
+				addRowTable('teacher', '');
 			});
 			$('#teacherTable').on('click','.btn-delete',function(){
-				deleteRowTable('teacher',$(this));
+				deleteRowTable('teacher',$(this), '');
+			});
+			$('#menuTable').on('click','.btn-add-menu',function(){
+				addRowTable('menu','-menu');
+			});
+			$('#menuTable').on('click','.btn-delete-menu',function(){
+				deleteRowTable('menu',$(this),'-menu');
 			});
 	    });
 	/*]]>*/

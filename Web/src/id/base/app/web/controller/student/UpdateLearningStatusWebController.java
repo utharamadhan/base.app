@@ -28,10 +28,10 @@ import id.base.app.rest.SpecificRestCaller;
 import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
-import id.base.app.valueobject.learning.LearningItem;
-import id.base.app.valueobject.learning.StudentCourse;
 import id.base.app.valueobject.party.Student;
 import id.base.app.valueobject.party.VWStudentList;
+import id.base.app.valueobject.program.ProgramItem;
+import id.base.app.valueobject.program.StudentCourse;
 import id.base.app.web.DataTableCriterias;
 import id.base.app.web.controller.BaseController;
 
@@ -120,8 +120,8 @@ public class UpdateLearningStatusWebController extends BaseController<Student> {
 		return pw;
 	}
 	
-	private List<LearningItem> getAllLearning() {
-		return new SpecificRestCaller<LearningItem>(RestConstant.REST_SERVICE, RestConstant.RM_LEARNING_ITEM, LearningItem.class).executeGetList(new PathInterfaceRestCaller() {
+	private List<ProgramItem> getAllLearning() {
+		return new SpecificRestCaller<ProgramItem>(RestConstant.REST_SERVICE, RestConstant.RM_PROGRAM_ITEM, ProgramItem.class).executeGetList(new PathInterfaceRestCaller() {
 			@Override
 			public String getPath() {
 				return "/findAllCourseCodeName";
@@ -143,7 +143,7 @@ public class UpdateLearningStatusWebController extends BaseController<Student> {
 			Student student = getRestCaller().findById(itemPK);
 			if(student!=null && student.getStudentCourses()!=null){
 				for(StudentCourse studentCourse : student.getStudentCourses()){
-					if(studentCourse.getCourse()!=null && studentCourse.getCourse().getPkLearningItem()!=null && studentCourse.getCourse().getPkLearningItem().compareTo(courseId)==0){
+					if(studentCourse.getCourse()!=null && studentCourse.getCourse().getPkProgramItem()!=null && studentCourse.getCourse().getPkProgramItem().compareTo(courseId)==0){
 						errors = new SpecificRestCaller<StudentCourse>(RestConstant.REST_SERVICE, RestConstant.RM_STUDENT, StudentCourse.class).performPut("/processLearning", StudentCourse.getProcessInstance(studentCourse.getPkStudentCourse(), actionType));
 						if(errors != null && errors.size() > 0) {
 							resultMap.put(SystemConstant.ERROR_LIST, errors);

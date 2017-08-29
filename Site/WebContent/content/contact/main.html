@@ -46,19 +46,19 @@
 														</th:block>
 													</th:block>
 												</select><br/>
-												<select class="form-control" name="learningItem.pkLearningItem" id="learningItem">
+												<select class="form-control" name="programItem.pkProgramItem" id="programItem">
 													<th:block th:if="${titleCategorySelected==null}">
 														<option value="">-- Pilih Category Program Terlebih Dahulu --</option>
 													</th:block>
 													<th:block th:if="${titleCategorySelected!=null}">
 														<option value="" th:text="${'-- Pilih '+titleCategorySelected+' --'}"></option>
 													</th:block>
-													<th:block th:each="data, i : ${learningItems}">
+													<th:block th:each="data, i : ${programItems}">
 														<th:block th:if="${data.permalink==permalink}">
-															<option th:text="${data.title}" th:value="${data.pkLearningItem}" selected="selected"></option>
+															<option th:text="${data.title}" th:value="${data.pkProgramItem}" selected="selected"></option>
 														</th:block>
 														<th:block th:if="${data.permalink!=permalink}">
-															<option th:text="${data.title}" th:value="${data.pkLearningItem}"></option>
+															<option th:text="${data.title}" th:value="${data.pkProgramItem}"></option>
 														</th:block>
 													</th:block>
 												</select>
@@ -302,12 +302,12 @@
 			});
 			
 			$('#learningCategory').change(function(){
-				var sURL = /*[[@{/page/contact/getLearningItemsByCategory}]]*/ #;
+				var sURL = /*[[@{/page/contact/getProgramItemsByCategory}]]*/ #;
 				var html = '';
 				var txtSelected = $(this).find('option:selected').text();
 				if($(this).val()==''){
 					html += '<option value="">-- Pilih Category Program Terlebih Dahulu --</option>';
-					$('#learningItem').html(html);
+					$('#programItem').html(html);
 				}else{
 					$.get( sURL, {pkCategory:$('#learningCategory').val()}, function( data ) {
 						if(data.length>0){
@@ -316,9 +316,9 @@
 							html += '<option value="">-- Tidak ada '+txtSelected.toLowerCase()+' yang dapat di pilih --</option>';
 						}
 						for(var i=0;i<data.length;i++){
-							html += '<option value="'+data[i].pkLearningItem+'">'+data[i].title+'</option>';
+							html += '<option value="'+data[i].pkProgramItem+'">'+data[i].title+'</option>';
 						};
-						$('#learningItem').html(html);
+						$('#programItem').html(html);
 					});
 				}
 			});

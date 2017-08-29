@@ -2,7 +2,7 @@ package id.base.app.valueobject;
 
 import id.base.app.ILookupConstant;
 import id.base.app.encryptor.EncodeDecode;
-import id.base.app.valueobject.learning.LearningItem;
+import id.base.app.valueobject.program.ProgramItem;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -97,10 +97,10 @@ public class Category extends BaseEntity implements Serializable {
 	private String statusStr;
 	
 	@ManyToMany
-	@JoinTable(name="LEARNING_ITEM_CATEGORY",
+	@JoinTable(name="PROGRAM_ITEM_CATEGORY",
 			joinColumns=@JoinColumn(name="FK_CATEGORY"),
-			inverseJoinColumns=@JoinColumn(name="FK_LEARNING_ITEM"))
-	private List<LearningItem> items;
+			inverseJoinColumns=@JoinColumn(name="FK_PROGRAM_ITEM"))
+	private List<ProgramItem> items;
 	
 	@Transient
 	private boolean checked;
@@ -208,13 +208,13 @@ public class Category extends BaseEntity implements Serializable {
 		return ILookupConstant.Status.STATUS_MAP.get(status);
 	}
 	
-	public List<LearningItem> getItems() {
+	public List<ProgramItem> getItems() {
 		return items;
 	}
 
-	public void setItems(List<LearningItem> items) {
+	public void setItems(List<ProgramItem> items) {
 		if(this.items == null){
-			this.items = new ArrayList<LearningItem>();
+			this.items = new ArrayList<ProgramItem>();
 		}else{
 			this.items.clear();	
 		}

@@ -19,7 +19,7 @@ import id.base.app.valueobject.AppUser;
 import id.base.app.valueobject.Category;
 import id.base.app.valueobject.Pages;
 import id.base.app.valueobject.advisory.AdvisoryConsulting;
-import id.base.app.valueobject.learning.LearningItem;
+import id.base.app.valueobject.program.ProgramItem;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -215,7 +215,7 @@ public class AdvisoryWebController extends BaseSiteController<Pages>{
 	public String detail(ModelMap model, HttpServletRequest request, HttpServletResponse response,
 			@PathVariable(value="categoryPermalink") String categoryPermalink,
 			@PathVariable(value="permalink") String permalink){
-		LearningItem detail = findItemByPermalink(permalink);
+		ProgramItem detail = findItemByPermalink(permalink);
 		if(detail!=null){
 			setCommonData(request,model);
 			model.addAttribute("categoryPermalink", categoryPermalink);
@@ -417,10 +417,10 @@ public class AdvisoryWebController extends BaseSiteController<Pages>{
 		return list;
 	}
 	
-	private LearningItem findItemByPermalink(final String permalink){
-		LearningItem detail = new LearningItem();
+	private ProgramItem findItemByPermalink(final String permalink){
+		ProgramItem detail = new ProgramItem();
 		try{
-			detail = new SpecificRestCaller<LearningItem>(RestConstant.REST_SERVICE, RestConstant.RM_LEARNING_ITEM, LearningItem.class).executeGet(new PathInterfaceRestCaller() {	
+			detail = new SpecificRestCaller<ProgramItem>(RestConstant.REST_SERVICE, RestConstant.RM_PROGRAM_ITEM, ProgramItem.class).executeGet(new PathInterfaceRestCaller() {	
 				@Override
 				public String getPath() {
 					return "/findByPermalink/{permalink}";

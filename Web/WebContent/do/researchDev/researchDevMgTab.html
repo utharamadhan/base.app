@@ -35,22 +35,22 @@
 	</div>
 	<section class="tile transparent tab-content" th:object="${detail}">
 		<div id="organizerTab" class="tab-pane fade in active">
-			<div id="organizerContent" th:replace="research/_researchMgOrganizer :: organizer(${detail})"></div>
+			<div id="organizerContent" th:replace="researchDev/_researchDevMgOrganizer :: organizer(${detail})"></div>
 		</div>
 		<div id="projectOfficerTab" class="tab-pane fade">
-			<div id="projectOfficerContent" th:replace="research/_researchMgProjectOfficer :: projectOfficer(${detail})" ></div>
+			<div id="projectOfficerContent" th:replace="researchDev/_researchDevMgProjectOfficer :: projectOfficer(${detail})" ></div>
 		</div>
 		<div id="praResearchTab" class="tab-pane fade">
-			<div id="praResearchContent" th:replace="research/_researchMgPraResearch :: praResearch(${detail})"></div>
+			<div id="praResearchContent" th:replace="researchDev/_researchDevMgPraResearch :: praResearch(${detail})"></div>
 		</div>
 		<div id="implementationTab" class="tab-pane fade">
-			<div id="implementationContent" th:replace="research/_researchMgImplementation :: implementation(${detail})"></div>
+			<div id="implementationContent" th:replace="researchDev/_researchDevMgImplementation :: implementation(${detail})"></div>
 		</div>
 		<div id="pascaResearchTab" class="tab-pane fade">
-			<div id="pascaResearchContent" th:replace="research/_researchMgPascaResearch :: pascaResearch(${detail})"></div>
+			<div id="pascaResearchContent" th:replace="researchDev/_researchDevMgPascaResearch :: pascaResearch(${detail})"></div>
 		</div>
 		<div id="summaryTab" class="tab-pane fade">
-			<div id="summaryContent" th:replace="research/_researchMgSummary :: summary(${detail})"></div>
+			<div id="summaryContent" th:replace="researchDev/_researchDevMgSummary :: summary(${detail})"></div>
 		</div>
 	</section>
 	</div>
@@ -62,7 +62,7 @@
 		};
 		
 		function setListOfficer(){
-			var listURL = /*[[@{/do/research/researchManagement/listOfficer}]]*/ #;
+			var listURL = /*[[@{/do/researchDev/management/listOfficer}]]*/ #;
 			$.get(listURL, {maintenancePK:$('#maintenancePK').val()}, function(data){
 				var container = $('#projectOfficerContent');
 				var bodyTable = $('#officer-list-table tbody');

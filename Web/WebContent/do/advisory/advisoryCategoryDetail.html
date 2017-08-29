@@ -103,9 +103,9 @@
 						<div class="form-group">
 							<label class="col-sm-2 control-label" th:text="'Item Detail'">Item Detail</label>
 							<div class="col-sm-9 form-input-container">
-								<select class="chosen-select form-control" th:field="*{items[0].pkLearningItem}">
+								<select class="chosen-select form-control" th:field="*{items[0].pkProgramItem}">
 									<option value="">[Please Select Item]</option>
-									<option th:each="opt : ${itemOptions}" th:value="${opt.pkLearningItem}" th:text="${opt.title}">Title</option>
+									<option th:each="opt : ${itemOptions}" th:value="${opt.pkProgramItem}" th:text="${opt.title}">Title</option>
                            		</select>
                            	</div>
 						</div>

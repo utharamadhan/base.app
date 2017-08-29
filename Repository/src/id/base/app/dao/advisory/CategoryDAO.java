@@ -8,7 +8,7 @@ import id.base.app.paging.PagingWrapper;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.valueobject.Category;
-import id.base.app.valueobject.learning.LearningItem;
+import id.base.app.valueobject.program.ProgramItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -223,7 +223,7 @@ public class CategoryDAO extends AbstractHibernateDAO<Category, Long> implements
 			+ ")C1 "
 			+ "UNION "
 			+ "SELECT * FROM ( "
-			+ "SELECT C.PK_CATEGORY, C.PERMALINK, 'Advisory -> '||initcap(lower(C.TITLE)) AS TITLE FROM LEARNING_ITEM_CATEGORY LIC  "
+			+ "SELECT C.PK_CATEGORY, C.PERMALINK, 'Advisory -> '||initcap(lower(C.TITLE)) AS TITLE FROM PROGRAM_ITEM_CATEGORY LIC  "
 			+ "INNER JOIN CATEGORY C ON C.PK_CATEGORY = LIC.FK_CATEGORY "
 			+ "WHERE C.TYPE = 'ADV' AND C.STATUS = 2 "
 			+ "GROUP BY C.PK_CATEGORY, C.TITLE "
@@ -362,9 +362,9 @@ public class CategoryDAO extends AbstractHibernateDAO<Category, Long> implements
 					BeanUtils.copyProperty(obj, Category.DESCRIPTION, tuple[4]);
 					BeanUtils.copyProperty(obj, Category.DETAIL_LINK_IMAGE_URL, tuple[5]);
 					if(tuple[6]!=null){
-						List<LearningItem> liList = new ArrayList<>(); 
-						LearningItem li = new LearningItem();
-						BeanUtils.copyProperty(li, LearningItem.PERMALINK, tuple[6]);
+						List<ProgramItem> liList = new ArrayList<>(); 
+						ProgramItem li = new ProgramItem();
+						BeanUtils.copyProperty(li, ProgramItem.PERMALINK, tuple[6]);
 						liList.add(li);
 						obj.setItems(liList);
 					}

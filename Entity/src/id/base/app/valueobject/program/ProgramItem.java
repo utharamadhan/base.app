@@ -1,4 +1,4 @@
-package id.base.app.valueobject.learning;
+package id.base.app.valueobject.program;
 
 import id.base.app.ILookupConstant;
 import id.base.app.SystemConstant;
@@ -34,13 +34,13 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
-@Table(name = "LEARNING_ITEM")
-@JsonIdentityInfo(generator=ObjectIdGenerators.UUIDGenerator.class, property="learningItemJid", scope=LearningItem.class)
-public class LearningItem extends BaseEntity implements Serializable {
+@Table(name = "PROGRAM_ITEM")
+@JsonIdentityInfo(generator=ObjectIdGenerators.UUIDGenerator.class, property="programItemJid", scope=ProgramItem.class)
+public class ProgramItem extends BaseEntity implements Serializable {
 	
 	private static final long serialVersionUID = -8415773929940728045L;
 	
-	public static final String PK_LEARNING_ITEM = "pkLearningItem";
+	public static final String PK_PROGRAM_ITEM = "pkProgramItem";
 	public static final String CODE 			= "code";
 	public static final String TITLE 			= "title";
 	public static final String SUBTITLE 		= "subtitle";
@@ -59,21 +59,21 @@ public class LearningItem extends BaseEntity implements Serializable {
 	public static final String TYPE				= "type";
 	public static final String STATUS			= "status";
 	
-	public static LearningItem getInstance() {
-		return new LearningItem();
+	public static ProgramItem getInstance() {
+		return new ProgramItem();
 	}
 	
-	public static LearningItem getInstance(Long pkLearningItem) {
-		LearningItem obj = new LearningItem();
-		obj.setPkLearningItem(pkLearningItem);
+	public static ProgramItem getInstance(Long pkProgramItem) {
+		ProgramItem obj = new ProgramItem();
+		obj.setPkProgramItem(pkProgramItem);
 		return obj;
 	}
 	
 	@Id
-	@SequenceGenerator(name="LEARNING_ITEM_PK_LEARNING_ITEM_SEQ", sequenceName="LEARNING_ITEM_PK_LEARNING_ITEM_SEQ", allocationSize=1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="LEARNING_ITEM_PK_LEARNING_ITEM_SEQ")
-	@Column(name = "PK_LEARNING_ITEM", unique = true ,nullable = false)
-	private Long pkLearningItem;
+	@SequenceGenerator(name="PROGRAM_ITEM_PK_PROGRAM_ITEM_SEQ", sequenceName="PROGRAM_ITEM_PK_PROGRAM_ITEM_SEQ", allocationSize=1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="PROGRAM_ITEM_PK_PROGRAM_ITEM_SEQ")
+	@Column(name = "PK_PROGRAM_ITEM", unique = true ,nullable = false)
+	private Long pkProgramItem;
 		
 	@Column(name="CODE")
 	private String code;
@@ -144,9 +144,12 @@ public class LearningItem extends BaseEntity implements Serializable {
 	@Column(name="CONTACT_US_DESC")
 	private String contactUsDesc;
 	
+	@Column(name="FACILITY_DESC")
+	private String facilityDesc;
+	
 	@OneToOne
-	@JoinColumn(name="FK_LOOKUP_LEARNING_DISPLAY")
-	private Lookup learningDisplayLookup;
+	@JoinColumn(name="FK_LOOKUP_PROGRAM_DISPLAY")
+	private Lookup programDisplayLookup;
 	
 	@Column(name="BROCHURE_URL")
 	private String brochureURL;
@@ -164,16 +167,19 @@ public class LearningItem extends BaseEntity implements Serializable {
 	private String statusStr;
 
 	@ManyToMany
-	@JoinTable(name="LEARNING_ITEM_CATEGORY",
-			joinColumns=@JoinColumn(name="FK_LEARNING_ITEM"),
+	@JoinTable(name="PROGRAM_ITEM_CATEGORY",
+			joinColumns=@JoinColumn(name="FK_PROGRAM_ITEM"),
 			inverseJoinColumns=@JoinColumn(name="FK_CATEGORY"))
 	private List<Category> categories;
 	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="learningItem", orphanRemoval = true)
-	private List<LearningItemImage> images;
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="programItem", orphanRemoval = true)
+	private List<ProgramItemImage> images;
 	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="learningItem", orphanRemoval = true)
-	private List<LearningItemTeacher> teachers;
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="programItem", orphanRemoval = true)
+	private List<ProgramItemTeacher> teachers;
+	
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="programItem", orphanRemoval = true)
+	private List<ProgramItemMenu> menus;
 	
 	@Transient
 	public String encodedImage;
@@ -190,12 +196,12 @@ public class LearningItem extends BaseEntity implements Serializable {
 	@Transient
 	public Boolean eligibleRegistration;
 
-	public Long getPkLearningItem() {
-		return pkLearningItem;
+	public Long getPkProgramItem() {
+		return pkProgramItem;
 	}
 
-	public void setPkLearningItem(Long pkLearningItem) {
-		this.pkLearningItem = pkLearningItem;
+	public void setPkProgramItem(Long pkProgramItem) {
+		this.pkProgramItem = pkProgramItem;
 	}
 
 	public String getCode() {
@@ -365,13 +371,21 @@ public class LearningItem extends BaseEntity implements Serializable {
 	public void setContactUsDesc(String contactUsDesc) {
 		this.contactUsDesc = contactUsDesc;
 	}
-
-	public Lookup getLearningDisplayLookup() {
-		return learningDisplayLookup;
+	
+	public String getFacilityDesc() {
+		return facilityDesc;
 	}
 
-	public void setLearningDisplayLookup(Lookup learningDisplayLookup) {
-		this.learningDisplayLookup = learningDisplayLookup;
+	public void setFacilityDesc(String facilityDesc) {
+		this.facilityDesc = facilityDesc;
+	}
+
+	public Lookup getProgramDisplayLookup() {
+		return programDisplayLookup;
+	}
+
+	public void setProgramDisplayLookup(Lookup programDisplayLookup) {
+		this.programDisplayLookup = programDisplayLookup;
 	}
 	
 	public String getBrochureURL() {
@@ -422,13 +436,13 @@ public class LearningItem extends BaseEntity implements Serializable {
 		this.categories = categories;
 	}
 	
-	public List<LearningItemImage> getImages() {
+	public List<ProgramItemImage> getImages() {
 		return images;
 	}
 
-	public void setImages(List<LearningItemImage> images) {
+	public void setImages(List<ProgramItemImage> images) {
 		if(this.images == null){
-			this.images = new ArrayList<LearningItemImage>();
+			this.images = new ArrayList<ProgramItemImage>();
 		}else{
 			this.images.clear();	
 		}
@@ -437,18 +451,33 @@ public class LearningItem extends BaseEntity implements Serializable {
 		}
 	}
 
-	public List<LearningItemTeacher> getTeachers() {
+	public List<ProgramItemTeacher> getTeachers() {
 		return teachers;
 	}
 
-	public void setTeachers(List<LearningItemTeacher> teachers) {
+	public void setTeachers(List<ProgramItemTeacher> teachers) {
 		if(this.teachers == null){
-			this.teachers= new ArrayList<LearningItemTeacher>();
+			this.teachers= new ArrayList<ProgramItemTeacher>();
 		}else{
 			this.teachers.clear();	
 		}
 		if(null != teachers){
 			this.teachers.addAll(teachers);
+		}
+	}
+	
+	public List<ProgramItemMenu> getMenus() {
+		return menus;
+	}
+
+	public void setMenus(List<ProgramItemMenu> menus) {
+		if(this.menus == null){
+			this.menus= new ArrayList<ProgramItemMenu>();
+		}else{
+			this.menus.clear();	
+		}
+		if(null != menus){
+			this.menus.addAll(menus);
 		}
 	}
 

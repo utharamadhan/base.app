@@ -1,4 +1,4 @@
-package id.base.app.valueobject.learning;
+package id.base.app.valueobject.program;
 
 import id.base.app.encryptor.EncodeDecode;
 
@@ -20,21 +20,21 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
-@Table(name = "LEARNING_ITEM_IMAGE")
-@JsonIdentityInfo(generator=ObjectIdGenerators.UUIDGenerator.class, property="learningItemImageJid", scope=LearningItemImage.class)
-public class LearningItemImage implements Serializable{
+@Table(name = "PROGRAM_ITEM_IMAGE")
+@JsonIdentityInfo(generator=ObjectIdGenerators.UUIDGenerator.class, property="programItemImageJid", scope=ProgramItemImage.class)
+public class ProgramItemImage implements Serializable{
 
 	private static final long serialVersionUID = -4352824404094265090L;
 	
 	@Id
-	@SequenceGenerator(name="LEARNING_ITEM_IMAGE_PK_LEARNING_ITEM_IMAGE_SEQ", sequenceName="LEARNING_ITEM_IMAGE_PK_LEARNING_ITEM_IMAGE_SEQ", allocationSize=1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="LEARNING_ITEM_IMAGE_PK_LEARNING_ITEM_IMAGE_SEQ")
-	@Column(name = "PK_LEARNING_ITEM_IMAGE", unique = true ,nullable = false)
-	private Long pkLearningItemImage;
+	@SequenceGenerator(name="PROGRAM_ITEM_IMAGE_PK_PROGRAM_ITEM_IMAGE_SEQ", sequenceName="PROGRAM_ITEM_IMAGE_PK_PROGRAM_ITEM_IMAGE_SEQ", allocationSize=1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="PROGRAM_ITEM_IMAGE_PK_PROGRAM_ITEM_IMAGE_SEQ")
+	@Column(name = "PK_PROGRAM_ITEM_IMAGE", unique = true ,nullable = false)
+	private Long pkProgramItemImage;
 
 	@ManyToOne(cascade=CascadeType.DETACH)
-	@JoinColumn(name="FK_LEARNING_ITEM")
-	private LearningItem learningItem;
+	@JoinColumn(name="FK_PROGRAM_ITEM")
+	private ProgramItem programItem;
 	
 	@Column(name="IMAGE_URL")
 	private String imageURL;
@@ -45,20 +45,20 @@ public class LearningItemImage implements Serializable{
 	@Transient
 	public String encodedImage;
 	
-	public Long getPkLearningItemImage() {
-		return pkLearningItemImage;
+	public Long getPkProgramItemImage() {
+		return pkProgramItemImage;
 	}
 
-	public void setPkLearningItemImage(Long pkLearningItemImage) {
-		this.pkLearningItemImage = pkLearningItemImage;
+	public void setPkProgramItemImage(Long pkProgramItemImage) {
+		this.pkProgramItemImage = pkProgramItemImage;
 	}
 
-	public LearningItem getLearningItem() {
-		return learningItem;
+	public ProgramItem getProgramItem() {
+		return programItem;
 	}
 
-	public void setLearningItem(LearningItem learningItem) {
-		this.learningItem = learningItem;
+	public void setProgramItem(ProgramItem programItem) {
+		this.programItem = programItem;
 	}
 
 	public String getImageURL() {

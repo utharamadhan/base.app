@@ -5,9 +5,9 @@ import id.base.app.paging.PagingWrapper;
 import id.base.app.service.MaintenanceService;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
-import id.base.app.valueobject.learning.StudentCourse;
 import id.base.app.valueobject.party.Student;
 import id.base.app.valueobject.party.VWStudentList;
+import id.base.app.valueobject.program.StudentCourse;
 
 import java.util.List;
 

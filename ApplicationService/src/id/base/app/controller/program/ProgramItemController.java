@@ -1,4 +1,4 @@
-package id.base.app.controller.learning;
+package id.base.app.controller.program;
 
 import id.base.app.SystemConstant;
 import id.base.app.controller.SuperController;
@@ -6,11 +6,12 @@ import id.base.app.exception.ErrorHolder;
 import id.base.app.exception.SystemException;
 import id.base.app.rest.RestConstant;
 import id.base.app.service.MaintenanceService;
-import id.base.app.service.learning.ILearningItemService;
+import id.base.app.service.program.IProgramItemService;
 import id.base.app.util.ImageFunction;
 import id.base.app.util.StringFunction;
-import id.base.app.valueobject.learning.LearningItem;
-import id.base.app.valueobject.learning.LearningItemTeacher;
+import id.base.app.valueobject.program.ProgramItem;
+import id.base.app.valueobject.program.ProgramItemMenu;
+import id.base.app.valueobject.program.ProgramItemTeacher;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,38 +27,38 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(RestConstant.RM_LEARNING_ITEM)
-public class LearningItemController extends SuperController<LearningItem> {
+@RequestMapping(RestConstant.RM_PROGRAM_ITEM)
+public class ProgramItemController extends SuperController<ProgramItem> {
 
 	@Autowired
-	private ILearningItemService learningItemService;
+	private IProgramItemService programItemService;
 
 	@Override
-	public LearningItem validate(LearningItem anObject) throws SystemException {
+	public ProgramItem validate(ProgramItem anObject) throws SystemException {
 		List<ErrorHolder> errorList = new ArrayList<>();
 		if (StringFunction.isEmpty(anObject.getTitle())) {
-			errorList.add(new ErrorHolder(LearningItem.TITLE,
+			errorList.add(new ErrorHolder(ProgramItem.TITLE,
 					messageSource.getMessage("error.mandatory", new String[] { "title" }, Locale.ENGLISH)));
 		}else{
 			String permalink = StringFunction.toPrettyURL(anObject.getTitle());
-			List<String> permalinkDBList = learningItemService.getSamePermalink(anObject.getPkLearningItem(), permalink);
+			List<String> permalinkDBList = programItemService.getSamePermalink(anObject.getPkProgramItem(), permalink);
 			permalink = StringFunction.generatePermalink(permalinkDBList, permalink);
 			anObject.setPermalink(permalink);
 		}
 		if(anObject.getDateFrom()==null) {
-			errorList.add(new ErrorHolder(LearningItem.DATE_FROM, messageSource.getMessage("error.mandatory", new String[]{"Event Date From"}, Locale.ENGLISH)));
+			errorList.add(new ErrorHolder(ProgramItem.DATE_FROM, messageSource.getMessage("error.mandatory", new String[]{"Event Date From"}, Locale.ENGLISH)));
 		}
 		if(anObject.getMethodLookup()==null || anObject.getMethodLookup().getPkLookup()==null) {
-			errorList.add(new ErrorHolder(LearningItem.METHOD_LOOKUP_PK, messageSource.getMessage("error.mandatory", new String[]{"Method"}, Locale.ENGLISH)));
+			errorList.add(new ErrorHolder(ProgramItem.METHOD_LOOKUP_PK, messageSource.getMessage("error.mandatory", new String[]{"Method"}, Locale.ENGLISH)));
 		}
 		if(anObject.getOrganizerLookup()==null || anObject.getOrganizerLookup().getPkLookup()==null) {
-			errorList.add(new ErrorHolder(LearningItem.ORGANIZER_LOOKUP_PK, messageSource.getMessage("error.mandatory", new String[]{"Organizer"}, Locale.ENGLISH)));
+			errorList.add(new ErrorHolder(ProgramItem.ORGANIZER_LOOKUP_PK, messageSource.getMessage("error.mandatory", new String[]{"Organizer"}, Locale.ENGLISH)));
 		}
 		if(anObject.getPaymentLookup()==null || anObject.getPaymentLookup().getPkLookup()==null) {
-			errorList.add(new ErrorHolder(LearningItem.PAYMENT_LOOKUP_PK, messageSource.getMessage("error.mandatory", new String[]{"Payment"}, Locale.ENGLISH)));
+			errorList.add(new ErrorHolder(ProgramItem.PAYMENT_LOOKUP_PK, messageSource.getMessage("error.mandatory", new String[]{"Payment"}, Locale.ENGLISH)));
 		}
 		if (StringFunction.isEmpty(anObject.getDescription())) {
-			errorList.add(new ErrorHolder(LearningItem.DESCRIPTION, messageSource.getMessage("error.mandatory", new String[] { "Description" }, Locale.ENGLISH)));
+			errorList.add(new ErrorHolder(ProgramItem.DESCRIPTION, messageSource.getMessage("error.mandatory", new String[] { "Description" }, Locale.ENGLISH)));
 		}
 		if (errorList.size() > 0) {
 			throw new SystemException(errorList);
@@ -66,40 +67,45 @@ public class LearningItemController extends SuperController<LearningItem> {
 	}
 
 	@Override
-	public MaintenanceService<LearningItem> getMaintenanceService() {
-		return learningItemService;
+	public MaintenanceService<ProgramItem> getMaintenanceService() {
+		return programItemService;
 	}
 
-	private void preProcessUpdate(LearningItem anObject) throws SystemException {
-		if(anObject.getPkLearningItem()!=null){
+	private void preProcessUpdate(ProgramItem anObject) throws SystemException {
+		if(anObject.getPkProgramItem()!=null){
 			if(SystemConstant.CategoryType.ADVISORY.equalsIgnoreCase(anObject.getType())){
-				LearningItem oldObject = findById(anObject.getPkLearningItem());
+				ProgramItem oldObject = findById(anObject.getPkProgramItem());
 				anObject.setCategories(oldObject.getCategories());
 			}
 		}
 		if(anObject.getTeachers()!=null && !anObject.getTeachers().isEmpty()){
-			for (LearningItemTeacher teacher : anObject.getTeachers()) {
-				teacher.setLearningItem(anObject);
+			for (ProgramItemTeacher teacher : anObject.getTeachers()) {
+				teacher.setProgramItem(anObject);
+			}
+		}
+		if(anObject.getMenus()!=null && !anObject.getMenus().isEmpty()){
+			for (ProgramItemMenu menu : anObject.getMenus()) {
+				menu.setProgramItem(anObject);
 			}
 		}
 		
 	}
 	
 	@Override
-	public LearningItem preUpdate(LearningItem anObject) throws SystemException {
+	public ProgramItem preUpdate(ProgramItem anObject) throws SystemException {
 		preProcessUpdate(anObject);
 		return validate(anObject);
 	}
 	
 	@Override
-	public void postUpdate(Object oldObject, LearningItem newObject) {
+	public void postUpdate(Object oldObject, ProgramItem newObject) {
 		try {
-			if(oldObject != null && oldObject instanceof LearningItem && newObject != null){
-				LearningItem objUpdate = new LearningItem();
+			if(oldObject != null && oldObject instanceof ProgramItem && newObject != null){
+				ProgramItem objUpdate = new ProgramItem();
 				Boolean isUpdate = false;
 				if(StringFunction.isNotEmpty(newObject.getImageURL())){
-					if (!((LearningItem)oldObject).getImageURL().equalsIgnoreCase(newObject.getImageURL())) {
-						String oldURL = ((LearningItem)oldObject).getImageURL();
+					if (!((ProgramItem)oldObject).getImageURL().equalsIgnoreCase(newObject.getImageURL())) {
+						String oldURL = ((ProgramItem)oldObject).getImageURL();
 						deleteOldImage(oldURL);
 						String thumbURL = ImageFunction.createThumbnails(newObject.getImageURL(), SystemConstant.ThumbnailsDimension.FeatureImage.WIDTH, SystemConstant.ThumbnailsDimension.FeatureImage.HEIGHT);
 						objUpdate.setImageURL(thumbURL);
@@ -112,8 +118,8 @@ public class LearningItemController extends SuperController<LearningItem> {
 				}
 				
 				if(StringFunction.isNotEmpty(newObject.getBrochureURL())){
-					if (!((LearningItem)oldObject).getBrochureURL().equalsIgnoreCase(newObject.getBrochureURL())) {
-						String oldURL = ((LearningItem)oldObject).getBrochureURL();
+					if (!((ProgramItem)oldObject).getBrochureURL().equalsIgnoreCase(newObject.getBrochureURL())) {
+						String oldURL = ((ProgramItem)oldObject).getBrochureURL();
 						deleteOldImage(oldURL);
 						String brochureURL = ImageFunction.createThumbnails(newObject.getBrochureURL(), SystemConstant.ThumbnailsDimension.FeatureImage.WIDTH, SystemConstant.ThumbnailsDimension.FeatureImage.HEIGHT);
 						objUpdate.setBrochureURL(brochureURL);
@@ -125,7 +131,7 @@ public class LearningItemController extends SuperController<LearningItem> {
 					isUpdate = true;
 				}
 				if(isUpdate){
-					learningItemService.updateAnyUrl(newObject.getPkLearningItem(), objUpdate);
+					programItemService.updateAnyUrl(newObject.getPkProgramItem(), objUpdate);
 				}
 			}
 		} catch (Exception e) {
@@ -134,7 +140,7 @@ public class LearningItemController extends SuperController<LearningItem> {
 	}
 	
 	@Override
-	public void postDelete(LearningItem oldObject) {
+	public void postDelete(ProgramItem oldObject) {
 		try {
 			if(oldObject!=null){
 				if(StringFunction.isNotEmpty(oldObject.getImageURL())) {
@@ -150,45 +156,45 @@ public class LearningItemController extends SuperController<LearningItem> {
 	}
 	
 	@Override
-	public LearningItem getOldObject(LearningItem object) throws SystemException {
-		LearningItem oldObject = new LearningItem();
-		return object.getPkLearningItem() != null ? cloneObject(oldObject, findById(object.getPkLearningItem())) : null;
+	public ProgramItem getOldObject(ProgramItem object) throws SystemException {
+		ProgramItem oldObject = new ProgramItem();
+		return object.getPkProgramItem() != null ? cloneObject(oldObject, findById(object.getPkProgramItem())) : null;
 	}
 	
 	@RequestMapping(value = "/findAllCourseCodeName")
 	@ResponseBody
-	public List<LearningItem> findAllCourseCodeName() throws SystemException {
-		return learningItemService.findAllCourseCodeName();
+	public List<ProgramItem> findAllCourseCodeName() throws SystemException {
+		return programItemService.findAllCourseCodeName();
 	}
 
 	@RequestMapping(value = "/findAllCourseAndTags")
 	@ResponseBody
-	public List<LearningItem> findAllCourseAndTags(@RequestParam Map<String, Object> paramWrapper) throws SystemException {
-		return learningItemService.findAllCourseAndTags(paramWrapper);
+	public List<ProgramItem> findAllCourseAndTags(@RequestParam Map<String, Object> paramWrapper) throws SystemException {
+		return programItemService.findAllCourseAndTags(paramWrapper);
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/findByPermalink/{permalink}")
 	@ResponseBody
-	public LearningItem findByPermalink(@PathVariable(value="permalink") String permalink) throws SystemException {
-		return learningItemService.findByPermalink(permalink);
+	public ProgramItem findByPermalink(@PathVariable(value="permalink") String permalink) throws SystemException {
+		return programItemService.findByPermalink(permalink);
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/findForSelectEligibleReg/{pkcategory}")
 	@ResponseBody
-	public List<LearningItem> findForSelectEligibleReg(@PathVariable(value="pkcategory") Long pkcategory) throws SystemException {
-		return learningItemService.findForSelectEligibleReg(pkcategory);
+	public List<ProgramItem> findForSelectEligibleReg(@PathVariable(value="pkcategory") Long pkcategory) throws SystemException {
+		return programItemService.findForSelectEligibleReg(pkcategory);
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/findForSelectEligibleRegByCategoryPermalink/{categoryPermalink}")
 	@ResponseBody
-	public List<LearningItem> findForSelectEligibleRegByCategoryPermalink(@PathVariable(value="categoryPermalink") String categoryPermalink) throws SystemException {
-		return learningItemService.findForSelectEligibleRegByCategoryPermalink(categoryPermalink);
+	public List<ProgramItem> findForSelectEligibleRegByCategoryPermalink(@PathVariable(value="categoryPermalink") String categoryPermalink) throws SystemException {
+		return programItemService.findForSelectEligibleRegByCategoryPermalink(categoryPermalink);
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/findForSelectByType/{type}")
 	@ResponseBody
-	public List<LearningItem> findForSelectByType(@PathVariable(value="type") String type) throws SystemException {
-		return learningItemService.findForSelectByType(type);
+	public List<ProgramItem> findForSelectByType(@PathVariable(value="type") String type) throws SystemException {
+		return programItemService.findForSelectByType(type);
 	}
 
 }

@@ -1,26 +1,26 @@
-package id.base.app.dao.learning;
+package id.base.app.dao.program;
 
 import id.base.app.AbstractHibernateDAO;
 import id.base.app.exception.SystemException;
 import id.base.app.paging.PagingWrapper;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
-import id.base.app.valueobject.learning.VWLearningItem;
+import id.base.app.valueobject.program.VWProgramItem;
 
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class VWLearningItemDAO extends AbstractHibernateDAO<VWLearningItem, Long> implements IVWLearningItemDAO {
+public class VWProgramItemDAO extends AbstractHibernateDAO<VWProgramItem, Long> implements IVWProgramItemDAO {
 
 	@Override
-	public VWLearningItem findById(Long id) throws SystemException {
+	public VWProgramItem findById(Long id) throws SystemException {
 		return super.findByPK(id);
 	}
 
 	@Override
-	public void saveOrUpdate(VWLearningItem anObject) throws SystemException {
+	public void saveOrUpdate(VWProgramItem anObject) throws SystemException {
 	}
 
 	@Override
@@ -28,13 +28,13 @@ public class VWLearningItemDAO extends AbstractHibernateDAO<VWLearningItem, Long
 	}
 
 	@Override
-	public List<VWLearningItem> findObjects(Long[] objectPKs)
+	public List<VWProgramItem> findObjects(Long[] objectPKs)
 			throws SystemException {
 		return null;
 	}
 
 	@Override
-	public PagingWrapper<VWLearningItem> findAllByFilter(int startNo,
+	public PagingWrapper<VWProgramItem> findAllByFilter(int startNo,
 			int offset, List<SearchFilter> filter, List<SearchOrder> order)
 			throws SystemException {
 		return super.findAllWithPagingWrapper(startNo, offset, filter, order, null);

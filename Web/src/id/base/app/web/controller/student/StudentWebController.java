@@ -15,10 +15,10 @@ import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.valueobject.AppUser;
-import id.base.app.valueobject.learning.LearningItem;
-import id.base.app.valueobject.learning.StudentCourse;
 import id.base.app.valueobject.party.Student;
 import id.base.app.valueobject.party.VWStudentList;
+import id.base.app.valueobject.program.ProgramItem;
+import id.base.app.valueobject.program.StudentCourse;
 import id.base.app.web.DataTableCriterias;
 import id.base.app.web.controller.BaseController;
 import id.base.app.web.rest.LookupRestCaller;
@@ -101,8 +101,8 @@ public class StudentWebController extends BaseController<Student> {
 		return orders;
 	}
 	
-	private List<LearningItem> getAllLearning() {
-		return new SpecificRestCaller<LearningItem>(RestConstant.REST_SERVICE, RestConstant.RM_LEARNING_ITEM, LearningItem.class).executeGetList(new PathInterfaceRestCaller() {
+	private List<ProgramItem> getAllLearning() {
+		return new SpecificRestCaller<ProgramItem>(RestConstant.REST_SERVICE, RestConstant.RM_PROGRAM_ITEM, ProgramItem.class).executeGetList(new PathInterfaceRestCaller() {
 			@Override
 			public String getPath() {
 				return "/findAllCourseCodeName";

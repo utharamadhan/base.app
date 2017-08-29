@@ -18,8 +18,8 @@ import id.base.app.util.dao.SearchOrder;
 import id.base.app.util.dao.SearchOrder.Sort;
 import id.base.app.valueobject.Category;
 import id.base.app.valueobject.Lookup;
-import id.base.app.valueobject.learning.LearningItem;
-import id.base.app.valueobject.learning.VWLearningItem;
+import id.base.app.valueobject.program.ProgramItem;
+import id.base.app.valueobject.program.VWProgramItem;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,15 +46,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Scope(value="request")
 @RequestMapping(value="/main-program/learning")
 @Controller
-public class LearningWebController extends BaseSiteController<LearningItem>{
+public class LearningWebController extends BaseSiteController<ProgramItem>{
 	
 	static Logger LOGGER = LoggerFactory.getLogger(LearningWebController.class);
 	
-	protected RestCaller<LearningItem> getRestCaller() {
-		return new RestCaller<LearningItem>(RestConstant.REST_SERVICE, RestServiceConstant.LEARNING_ITEM_SERVICE);
+	protected RestCaller<ProgramItem> getRestCaller() {
+		return new RestCaller<ProgramItem>(RestConstant.REST_SERVICE, RestServiceConstant.PROGRAM_ITEM_SERVICE);
 	}
-	protected RestCaller<VWLearningItem> getRestCallerView() {
-		return new RestCaller<VWLearningItem>(RestConstant.REST_SERVICE, RestServiceConstant.VW_LEARNING_ITEM_SERVICE);
+	protected RestCaller<VWProgramItem> getRestCallerView() {
+		return new RestCaller<VWProgramItem>(RestConstant.REST_SERVICE, RestServiceConstant.VW_PROGRAM_ITEM_SERVICE);
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)
@@ -70,16 +70,16 @@ public class LearningWebController extends BaseSiteController<LearningItem>{
 			periodOptions.add(Lookup.getInstanceShort(SystemConstant.Period.FUTURE, "Periode Yang Akan Datang"));
 			periodOptions.add(Lookup.getInstanceShort(SystemConstant.Period.PAST, "Periode Yang Akan Terselenggara"));
 			model.addAttribute("periodOptions", periodOptions);
-			model.addAttribute("methodOptions", lrc.findByLookupGroup(ILookupGroupConstant.LEARNING_METHOD));
-			model.addAttribute("organizerOptions", lrc.findByLookupGroup(ILookupGroupConstant.LEARNING_ORGANIZER));
-			model.addAttribute("paymentOptions", lrc.findByLookupGroup(ILookupGroupConstant.LEARNING_PAYMENT));
+			model.addAttribute("methodOptions", lrc.findByLookupGroup(ILookupGroupConstant.PROGRAM_METHOD));
+			model.addAttribute("organizerOptions", lrc.findByLookupGroup(ILookupGroupConstant.PROGRAM_ORGANIZER));
+			model.addAttribute("paymentOptions", lrc.findByLookupGroup(ILookupGroupConstant.PROGRAM_PAYMENT));
 		}
 		List<SearchFilter> filter = new ArrayList<SearchFilter>();
-		filter.add(new SearchFilter(VWLearningItem.CATEGORY_PERMALINK, Operator.EQUALS, permalink, String.class));
-		filter.add(new SearchFilter(VWLearningItem.STATUS, Operator.EQUALS, ILookupConstant.Status.PUBLISH, Integer.class));
+		filter.add(new SearchFilter(VWProgramItem.CATEGORY_PERMALINK, Operator.EQUALS, permalink, String.class));
+		filter.add(new SearchFilter(VWProgramItem.STATUS, Operator.EQUALS, ILookupConstant.Status.PUBLISH, Integer.class));
 		List<SearchOrder> order = new ArrayList<SearchOrder>();
-		order.add(new SearchOrder(VWLearningItem.DATE_FROM, Sort.DESC));
-		PagingWrapper<VWLearningItem> items = getRestCallerView().findAllByFilter(startNo, offset, filter, order);
+		order.add(new SearchOrder(VWProgramItem.DATE_FROM, Sort.DESC));
+		PagingWrapper<VWProgramItem> items = getRestCallerView().findAllByFilter(startNo, offset, filter, order);
 		model.addAttribute("itemsSize", items.getResult().size());
 		model.addAttribute("items", items);
 	}
@@ -113,26 +113,26 @@ public class LearningWebController extends BaseSiteController<LearningItem>{
 	
 	private List<SearchFilter> convertForFilter(String permalink, Map<String, String> paramWrapper) {
 		List<SearchFilter> filter = new ArrayList<SearchFilter>();
-		filter.add(new SearchFilter(VWLearningItem.CATEGORY_PERMALINK, Operator.EQUALS, permalink, String.class));
-		filter.add(new SearchFilter(VWLearningItem.STATUS, Operator.EQUALS, ILookupConstant.Status.PUBLISH, Integer.class));
+		filter.add(new SearchFilter(VWProgramItem.CATEGORY_PERMALINK, Operator.EQUALS, permalink, String.class));
+		filter.add(new SearchFilter(VWProgramItem.STATUS, Operator.EQUALS, ILookupConstant.Status.PUBLISH, Integer.class));
 		if(StringUtils.isNotEmpty(paramWrapper.get("period"))){	
-			filter.add(new SearchFilter(VWLearningItem.PERIOD, Operator.EQUALS, paramWrapper.get("period"), String.class));
+			filter.add(new SearchFilter(VWProgramItem.PERIOD, Operator.EQUALS, paramWrapper.get("period"), String.class));
 		}
 		if(StringUtils.isNotEmpty(paramWrapper.get("method"))){	
-			filter.add(new SearchFilter(VWLearningItem.FK_LOOKUP_METHOD, Operator.EQUALS, paramWrapper.get("method"), Long.class));
+			filter.add(new SearchFilter(VWProgramItem.FK_LOOKUP_METHOD, Operator.EQUALS, paramWrapper.get("method"), Long.class));
 		}
 		if(StringUtils.isNotEmpty(paramWrapper.get("organizer"))){	
-			filter.add(new SearchFilter(VWLearningItem.FK_LOOKUP_ORGANIZER, Operator.EQUALS, paramWrapper.get("organizer"), Long.class));
+			filter.add(new SearchFilter(VWProgramItem.FK_LOOKUP_ORGANIZER, Operator.EQUALS, paramWrapper.get("organizer"), Long.class));
 		}
 		if(StringUtils.isNotEmpty(paramWrapper.get("payment"))){	
-			filter.add(new SearchFilter(VWLearningItem.FK_LOOKUP_PAYMENT, Operator.EQUALS, paramWrapper.get("payment"), Long.class));
+			filter.add(new SearchFilter(VWProgramItem.FK_LOOKUP_PAYMENT, Operator.EQUALS, paramWrapper.get("payment"), Long.class));
 		}
 		return filter;
 	}
 	
 	private List<SearchOrder> convertForOrder(Map<String, String> paramWrapper) {
 		List<SearchOrder> orders = new ArrayList<SearchOrder>();
-		orders.add(new SearchOrder(VWLearningItem.DATE_FROM, SearchOrder.Sort.DESC));
+		orders.add(new SearchOrder(VWProgramItem.DATE_FROM, SearchOrder.Sort.DESC));
 		return orders;
 	}
 	
@@ -144,7 +144,7 @@ public class LearningWebController extends BaseSiteController<LearningItem>{
 			@RequestParam Map<String,String> paramWrapper
 		){
 		Map<String, Object> resultMap = new HashMap<>();
-		PagingWrapper<VWLearningItem> items = getRestCallerView().findAllByFilter(startNo, offset, convertForFilter(permalink, paramWrapper), convertForOrder(paramWrapper));
+		PagingWrapper<VWProgramItem> items = getRestCallerView().findAllByFilter(startNo, offset, convertForFilter(permalink, paramWrapper), convertForOrder(paramWrapper));
 		resultMap.put("items", items);
 		return resultMap;
 	}
@@ -153,7 +153,7 @@ public class LearningWebController extends BaseSiteController<LearningItem>{
 	public String detail(ModelMap model, HttpServletRequest request, HttpServletResponse response,
 			@PathVariable(value="categoryPermalink") String categoryPermalink,
 			@PathVariable(value="permalink") String permalink){
-		LearningItem detail = findItemByPermalink(permalink);
+		ProgramItem detail = findItemByPermalink(permalink);
 		if(detail!=null){
 			setCommonData(request,model);
 			model.addAttribute("categoryPermalink", categoryPermalink);
@@ -225,10 +225,10 @@ public class LearningWebController extends BaseSiteController<LearningItem>{
 		return list;
 	}
 	
-	private LearningItem findItemByPermalink(final String permalink){
-		LearningItem detail = new LearningItem();
+	private ProgramItem findItemByPermalink(final String permalink){
+		ProgramItem detail = new ProgramItem();
 		try{
-			detail = new SpecificRestCaller<LearningItem>(RestConstant.REST_SERVICE, RestConstant.RM_LEARNING_ITEM, LearningItem.class).executeGet(new PathInterfaceRestCaller() {	
+			detail = new SpecificRestCaller<ProgramItem>(RestConstant.REST_SERVICE, RestConstant.RM_PROGRAM_ITEM, ProgramItem.class).executeGet(new PathInterfaceRestCaller() {	
 				@Override
 				public String getPath() {
 					return "/findByPermalink/{permalink}";
