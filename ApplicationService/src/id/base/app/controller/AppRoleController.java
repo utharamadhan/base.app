@@ -9,26 +9,17 @@ import id.base.app.service.role.IRoleService;
 import id.base.app.util.StringFunction;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
-import id.base.app.validation.InvalidRequestException;
 import id.base.app.valueobject.AppRole;
-import id.base.app.valueobject.CreateEntity;
-import id.base.app.valueobject.UpdateEntity;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -135,6 +126,11 @@ public class AppRoleController extends SuperController<AppRole>{
 		}
 		if(StringFunction.isEmpty(anObject.getName())){
 			errorHolders.add(new ErrorHolder(messageSource.getMessage("error.message.user.role.name.mandatory", null, Locale.ENGLISH)));
+		}else{
+			String permalink = StringFunction.toPrettyURL(anObject.getName());
+			List<String> permalinkDBList = service.getSamePermalink(anObject.getPkAppRole(), permalink);
+			permalink = StringFunction.generatePermalink(permalinkDBList, permalink);
+			anObject.setPermalink(permalink);
 		}
 		if(errorHolders.size()>0){
 			throw new SystemException(errorHolders);

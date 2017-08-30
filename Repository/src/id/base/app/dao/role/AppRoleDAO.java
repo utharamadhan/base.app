@@ -19,6 +19,8 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.transform.ResultTransformer;
@@ -191,6 +193,43 @@ public class AppRoleDAO extends AbstractHibernateDAO<AppRole, Long> implements I
 		AppRole result = (AppRole) roleCriteria.uniqueResult();
 
 		return result;
+	}
+	
+	@Override
+	public List<String> getSamePermalink(Long pk, String permalink) throws SystemException {
+		Criteria crit = getSession().createCriteria(AppRole.class);
+		crit.add(Restrictions.like(AppRole.PERMALINK, permalink, MatchMode.START));
+		if(pk!=null){
+			crit.add(Restrictions.ne(AppRole.PK_APP_ROLE, pk));
+		}
+		crit.setProjection(Projections.projectionList().add(Projections.property("permalink")));
+		crit.setResultTransformer(new ResultTransformer() {
+			@Override
+			public Object transformTuple(Object[] tuple, String[] aliases) {
+				String r = null;
+				try{
+					r = tuple[0].toString();
+				}catch(Exception e){
+					LOGGER.error(e.getMessage(), e);
+				}
+				return r;
+			}
+			
+			@Override
+			public List<?> transformList(List collection) {
+				return collection;
+			}
+		});
+		return crit.list();
+	}
+	
+	@Override
+	public void updatePermalink(Long pkAppRole, String permalink) throws SystemException {
+		String updateQuery = "UPDATE APP_ROLE SET PERMALINK = :permalink WHERE PK_APP_ROLE = :pkAppRole";
+		SQLQuery sqlQuery = getSession().createSQLQuery(updateQuery);
+		sqlQuery.setLong("pkAppRole", pkAppRole);
+		sqlQuery.setString("permalink", permalink);
+		sqlQuery.executeUpdate();
 	}
 	
 }

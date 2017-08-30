@@ -48,4 +48,9 @@ public interface IAppRoleDAO {
 	
 	public List<AppRole> findAppRolesByAppUserId(Long pkAppUser)
 			throws SystemException;
+
+	public List<String> getSamePermalink(Long pk, String permalink)
+			throws SystemException;
+
+	public void updatePermalink(Long pkAppRole, String permalink) throws SystemException;
 }

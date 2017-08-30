@@ -31,6 +31,7 @@ public class AppRole extends BaseEntity implements Serializable {
 	public static final String PK_APP_ROLE = "pkAppRole";
 	public static final String USERS = "users";
 	public static final String USERS_ID = "users.pkAppUser";
+	public static final String PERMALINK = "permalink";
 	
 	public static final String OP_EDIT = "edit";
 	public static final String OP_ADD = "add";
@@ -52,6 +53,9 @@ public class AppRole extends BaseEntity implements Serializable {
 	
 	@Column(name = "USER_TYPE", length = 1)
 	private Integer type;
+	
+	@Column(name="PERMALINK")
+	private String permalink;
 	
 	@JsonIgnore
 	@ManyToMany(mappedBy="appRoles")
@@ -101,6 +105,14 @@ public class AppRole extends BaseEntity implements Serializable {
 
 	public void setType(Integer type) {
 		this.type = type;
+	}
+
+	public String getPermalink() {
+		return permalink;
+	}
+
+	public void setPermalink(String permalink) {
+		this.permalink = permalink;
 	}
 
 	@JsonIgnore

@@ -4,6 +4,7 @@ import id.base.app.util.FileManager;
 
 import java.io.File;
 import java.math.RoundingMode;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -429,5 +430,13 @@ public class SystemConstant  {
 		public static final Integer BIG = 2;
 		public static final String SMALL_STR = "Small";
 		public static final String BIG_STR = "Big";
+	}
+	
+	public static final class AcceptedAccessSite{
+		public static final List<String> ROLE_LIST = new ArrayList<>();
+		static{
+			ROLE_LIST.add("teacher");
+			ROLE_LIST.add("advisor");
+		}
 	}
 }

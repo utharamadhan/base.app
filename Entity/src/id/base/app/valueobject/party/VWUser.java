@@ -20,9 +20,9 @@ public class VWUser implements Serializable {
 	
 	private static final long serialVersionUID = -1914332810746831970L;
 	
-	public static final String ROLE_CODE 			= "roleCode";
 	public static final String PK_APP_USER 			= "pkAppUser";
 	public static final String PK_PARTY 			= "pkParty";
+	public static final String ROLE_PERMALINK 		= "rolePermalink";
 	public static final String PERMALINK			= "permalink";
 	public static final String NAME					= "name";
 	public static final String BASIC_PICTURE_URL	= "basicPictureURL";
@@ -34,8 +34,8 @@ public class VWUser implements Serializable {
 	@Column(name="PK_PARTY")
 	private Long pkParty;
 	
-	@Column(name="ROLE_CODE")
-	private String roleCode;
+	@Column(name="ROLE_PERMALINK")
+	private String rolePermalink;
 
 	@Column(name="PERMALINK")
 	private String permalink;
@@ -65,12 +65,12 @@ public class VWUser implements Serializable {
 		this.pkParty = pkParty;
 	}
 
-	public String getRoleCode() {
-		return roleCode;
+	public String getRolePermalink() {
+		return rolePermalink;
 	}
 
-	public void setRoleCode(String roleCode) {
-		this.roleCode = roleCode;
+	public void setRolePermalink(String rolePermalink) {
+		this.rolePermalink = rolePermalink;
 	}
 
 	public String getPermalink() {

@@ -30,8 +30,8 @@
 											</c:forEach>
 										</ul>
 										<ul>
-											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/page/lecturer">TIM PENGAJAR</a></li>
-											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/page/advisory/sub/advisor">TIM ADVISOR</a></li>
+											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/page/team/teacher">TIM PENGAJAR</a></li>
+											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/page/team/advisor">TIM ADVISOR</a></li>
 										</ul>
 									</li>
 									<li class="col-sm-4">

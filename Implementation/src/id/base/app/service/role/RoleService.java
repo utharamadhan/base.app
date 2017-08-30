@@ -7,6 +7,7 @@ import id.base.app.exception.ErrorHolder;
 import id.base.app.exception.SystemException;
 import id.base.app.paging.PagingWrapper;
 import id.base.app.service.MaintenanceService;
+import id.base.app.util.StringFunction;
 import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
@@ -155,7 +156,18 @@ public class RoleService implements MaintenanceService<AppRole>,IRoleService {
 			order.add(new SearchOrder(AppRole.TYPE, Sort.ASC));
 			order.add(new SearchOrder(AppRole.NAME, Sort.ASC));
 		}
-		return roleDAO.findAllAppRole(startNo, offset, filter, order);
+		PagingWrapper<AppRole> list = roleDAO.findAllAppRole(startNo, offset, filter, order);
+		List<AppRole> appRoleList = list.getResult();
+		for (AppRole appRole : appRoleList) {
+			if(StringFunction.isEmpty(appRole.getPermalink())){
+				String permalink = StringFunction.toPrettyURL(appRole.getName());
+				List<String> permalinkDBList = getSamePermalink(appRole.getPkAppRole(), permalink);
+				permalink = StringFunction.generatePermalink(permalinkDBList, permalink);
+				updatePermalink(appRole.getPkAppRole(), permalink);
+				appRole.setPermalink(permalink);
+			}
+		}
+		return list;
 	}
 
 	@Override
@@ -222,6 +234,16 @@ public class RoleService implements MaintenanceService<AppRole>,IRoleService {
 	public List<AppRole> findAppRolesByAppUserId(Long pkAppUser)
 			throws SystemException {
 		return roleDAO.findAppRolesByAppUserId(pkAppUser);
+	}
+	
+	@Override
+	public List<String> getSamePermalink(Long pk, String permalink) throws SystemException {
+		return roleDAO.getSamePermalink(pk, permalink);
+	}
+	
+	@Override
+	public void updatePermalink(Long pkAppRole, String permalink) throws SystemException {
+		roleDAO.updatePermalink(pkAppRole, permalink);
 	}
 	
 }

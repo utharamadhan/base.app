@@ -8,14 +8,24 @@
 				<div class="container">
 					<ul>
 					<li><a th:href="@{/}">Beranda</a></li>
-					<li><a href="">Pengajar</a></li>
+					<th:block th:if="${rolePermalink == 'teacher'}">
+						<li><a href="">Tim Pengajar</a></li>
+					</th:block>
+					<th:block th:if="${rolePermalink == 'advisor'}">
+						<li><a href="">Tim Advisor</a></li>
+					</th:block>
 					</ul>
 				</div>
 			</div>
 		</div>
 		<div class="post_section ebook_section">
 			<div class="container">
-				<h1 style="text-align:center">Tim Pengajar</h1>
+				<th:block th:if="${rolePermalink == 'teacher'}">
+					<h1 style="text-align:center">Tim Pengajar</h1>
+				</th:block>
+				<th:block th:if="${rolePermalink == 'advisor'}">
+					<h1 style="text-align:center">Tim Advisor</h1>
+				</th:block>
 				<br/>
 				<form style="background:#eeeeee;padding:10px 0px;">
 				<div class="row">

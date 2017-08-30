@@ -1,5 +1,6 @@
 package id.base.app.site.controller.web;
 
+import id.base.app.SystemConstant;
 import id.base.app.paging.PagingWrapper;
 import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
@@ -39,16 +40,21 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Scope(value="request")
-@RequestMapping(value="/lecturer")
+@RequestMapping(value="/team")
 @Controller
-public class LecturerWebController extends BaseSiteController<VWUser>{
+public class TeamWebController extends BaseSiteController<VWUser>{
 	
-	static Logger LOGGER = LoggerFactory.getLogger(LecturerWebController.class);
+	static Logger LOGGER = LoggerFactory.getLogger(TeamWebController.class);
 	
 	protected ObjectMapper mapper = new ObjectMapper();
 	
 	protected RestCaller<VWUser> getRestCaller() {
 		return new RestCaller<VWUser>(RestConstant.REST_SERVICE, RestServiceConstant.VW_USER_SERVICE);
+	}
+	
+	@RequestMapping(method=RequestMethod.GET)
+	public String view(ModelMap model, HttpServletRequest request, HttpServletResponse response){
+		return "redirect:/page/notfound";
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/{id}/{name}")
@@ -71,42 +77,54 @@ public class LecturerWebController extends BaseSiteController<VWUser>{
 		return "redirect:/page/notfound";
 	}
 	
-	@RequestMapping(method=RequestMethod.GET)
+	@RequestMapping(method=RequestMethod.GET, value="/{rolePermalink}")
 	public String view(ModelMap model, HttpServletRequest request, HttpServletResponse response,
+			@PathVariable(value="rolePermalink") String rolePermalink,
 			@RequestParam(value="startNo",defaultValue="1") int startNo, 
 			@RequestParam(value="offset",defaultValue="12") int offset,
 			@RequestParam(value="filter", defaultValue="", required=false) String filterJson
 		) throws JsonParseException, JsonMappingException, IOException{
 		setCommonData(request,model);
-		List<SearchFilter> filter = new ArrayList<SearchFilter>();
-		filter.add(new SearchFilter(VWUser.ROLE_CODE, Operator.EQUALS, "TC"));
-		if(StringUtils.isNotEmpty(filterJson)){
-			filter.add(new SearchFilter(VWUser.NAME, Operator.LIKE, filterJson));
+		if(rolePermalink!=null && SystemConstant.AcceptedAccessSite.ROLE_LIST.contains(rolePermalink)){
+			model.addAttribute("rolePermalink", rolePermalink);
+			List<SearchFilter> filter = new ArrayList<SearchFilter>();
+			filter.add(new SearchFilter(VWUser.ROLE_PERMALINK, Operator.EQUALS, rolePermalink));
+			if(StringUtils.isNotEmpty(filterJson)){
+				filter.add(new SearchFilter(VWUser.NAME, Operator.LIKE, filterJson));
+			}
+			List<SearchOrder> order = new ArrayList<SearchOrder>();
+			order.add(new SearchOrder(VWUser.NAME, Sort.ASC));
+			PagingWrapper<VWUser> users = getRestCaller().findAllByFilter(startNo, offset, filter, order);
+			model.addAttribute("users", users);
+			return "/team/main";
+		}else{
+			return "redirect:/page/notfound";	
 		}
-		List<SearchOrder> order = new ArrayList<SearchOrder>();
-		order.add(new SearchOrder(VWUser.NAME, Sort.ASC));
-		PagingWrapper<VWUser> users = getRestCaller().findAllByFilter(startNo, offset, filter, order);
-		model.addAttribute("users", users);
-		return "/lecturer/main";
 	}
 	
-	@RequestMapping(method=RequestMethod.GET, value="/load")
+	@RequestMapping(method=RequestMethod.GET, value="/load/{rolePermalink}")
 	@ResponseBody
 	public Map<String, Object> load(ModelMap model, HttpServletRequest request, HttpServletResponse response,
+			@PathVariable(value="rolePermalink") String rolePermalink,
 			@RequestParam(value="startNo",defaultValue="1") int startNo, 
 			@RequestParam(value="offset",defaultValue="12") int offset,
 			@RequestParam(value="filter", defaultValue="", required=false) String filterJson
 		) throws JsonParseException, JsonMappingException, IOException{
 		Map<String, Object> resultMap = new HashMap<>();
-		List<SearchFilter> filter = new ArrayList<SearchFilter>();
-		filter.add(new SearchFilter(VWUser.ROLE_CODE, Operator.EQUALS, "TC"));
-		if(StringUtils.isNotEmpty(filterJson)){
-			filter.add(new SearchFilter(VWUser.NAME, Operator.LIKE, filterJson));
+		if(rolePermalink!=null && SystemConstant.AcceptedAccessSite.ROLE_LIST.contains(rolePermalink)){
+			List<SearchFilter> filter = new ArrayList<SearchFilter>();
+			filter.add(new SearchFilter(VWUser.ROLE_PERMALINK, Operator.EQUALS, rolePermalink));
+			if(StringUtils.isNotEmpty(filterJson)){
+				filter.add(new SearchFilter(VWUser.NAME, Operator.LIKE, filterJson));
+			}
+			List<SearchOrder> order = new ArrayList<SearchOrder>();
+			order.add(new SearchOrder(VWUser.NAME, Sort.ASC));
+			PagingWrapper<VWUser> users = getRestCaller().findAllByFilter(startNo, offset, filter, order);
+			model.addAttribute("users", users);
+		}else{
+			PagingWrapper<VWUser> users = new PagingWrapper<>();
+			model.addAttribute("users", users);
 		}
-		List<SearchOrder> order = new ArrayList<SearchOrder>();
-		order.add(new SearchOrder(VWUser.NAME, Sort.ASC));
-		PagingWrapper<VWUser> users = getRestCaller().findAllByFilter(startNo, offset, filter, order);
-		model.addAttribute("users", users);
 		return resultMap;
 	}
 	
