@@ -140,7 +140,7 @@
 							<div class="row middleContent">
 								<div class="col-md-8 main-content-left">
 								<video id="intro-hfc-video" width="100%" controls preload="metadata">
-							  	<source src="<%=request.getContextPath()%>/fileStorage/video/intro.mp4#t=0.05" type="video/mp4">
+							  	<source src="<%=request.getContextPath()%>/resource/video/intro.mp4#t=0.05" type="video/mp4">
 							  	Your browser does not support HTML5 video.
 								</video>
 								</div>
