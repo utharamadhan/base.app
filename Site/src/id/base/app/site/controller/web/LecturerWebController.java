@@ -8,7 +8,8 @@ import id.base.app.site.controller.BaseSiteController;
 import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
-import id.base.app.valueobject.aboutUs.Tutor;
+import id.base.app.util.dao.SearchOrder.Sort;
+import id.base.app.valueobject.party.VWUser;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -40,21 +41,21 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Scope(value="request")
 @RequestMapping(value="/lecturer")
 @Controller
-public class LecturerWebController extends BaseSiteController<Tutor>{
+public class LecturerWebController extends BaseSiteController<VWUser>{
 	
 	static Logger LOGGER = LoggerFactory.getLogger(LecturerWebController.class);
 	
 	protected ObjectMapper mapper = new ObjectMapper();
 	
-	protected RestCaller<Tutor> getRestCaller() {
-		return new RestCaller<Tutor>(RestConstant.REST_SERVICE, RestServiceConstant.TUTOR_SERVICE);
+	protected RestCaller<VWUser> getRestCaller() {
+		return new RestCaller<VWUser>(RestConstant.REST_SERVICE, RestServiceConstant.VW_USER_SERVICE);
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/{id}/{name}")
 	public String view(ModelMap model, HttpServletRequest request, HttpServletResponse response,
 			@PathVariable(value="id") Long id,
 			@PathVariable(value="title") String title){
-		Tutor detail = Tutor.getInstance();
+		VWUser detail = new VWUser();
 		detail = getRestCaller().findById(id);
 		if(detail!=null){
 			if(detail.getName()!=null){
@@ -78,12 +79,14 @@ public class LecturerWebController extends BaseSiteController<Tutor>{
 		) throws JsonParseException, JsonMappingException, IOException{
 		setCommonData(request,model);
 		List<SearchFilter> filter = new ArrayList<SearchFilter>();
+		filter.add(new SearchFilter(VWUser.ROLE_CODE, Operator.EQUALS, "TC"));
 		if(StringUtils.isNotEmpty(filterJson)){
-			filter.add(new SearchFilter(Tutor.NAME, Operator.LIKE, filterJson));
+			filter.add(new SearchFilter(VWUser.NAME, Operator.LIKE, filterJson));
 		}
 		List<SearchOrder> order = new ArrayList<SearchOrder>();
-		PagingWrapper<Tutor> tutors = getRestCaller().findAllByFilter(startNo, offset, filter, order);
-		model.addAttribute("tutors", tutors);
+		order.add(new SearchOrder(VWUser.NAME, Sort.ASC));
+		PagingWrapper<VWUser> users = getRestCaller().findAllByFilter(startNo, offset, filter, order);
+		model.addAttribute("users", users);
 		return "/lecturer/main";
 	}
 	
@@ -96,12 +99,14 @@ public class LecturerWebController extends BaseSiteController<Tutor>{
 		) throws JsonParseException, JsonMappingException, IOException{
 		Map<String, Object> resultMap = new HashMap<>();
 		List<SearchFilter> filter = new ArrayList<SearchFilter>();
+		filter.add(new SearchFilter(VWUser.ROLE_CODE, Operator.EQUALS, "TC"));
 		if(StringUtils.isNotEmpty(filterJson)){
-			filter.add(new SearchFilter(Tutor.NAME, Operator.LIKE, filterJson));
+			filter.add(new SearchFilter(VWUser.NAME, Operator.LIKE, filterJson));
 		}
 		List<SearchOrder> order = new ArrayList<SearchOrder>();
-		PagingWrapper<Tutor> tutors = getRestCaller().findAllByFilter(startNo, offset, filter, order);
-		resultMap.put("tutors", tutors);
+		order.add(new SearchOrder(VWUser.NAME, Sort.ASC));
+		PagingWrapper<VWUser> users = getRestCaller().findAllByFilter(startNo, offset, filter, order);
+		model.addAttribute("users", users);
 		return resultMap;
 	}
 	

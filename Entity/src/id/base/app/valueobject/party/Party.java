@@ -65,6 +65,7 @@ public class Party extends BaseEntity implements Serializable{
 	public static final String CODE = "code";
 	public static final String NAME	= "name";
 	public static final String NPWP = "npwp";
+	public static final String PERMALINK = "permalink";
 	public static final String PARTY_ADDRESS = "partyAddresses";
 	public static final String PARTY_ADDRESS_KODEPOS = PARTY_ADDRESS + ".kodepos";
 	public static final String PARTY_ADDRESS_ALAMAT_VALFIELD = PARTY_ADDRESS + "[%d].alamat";
@@ -125,6 +126,9 @@ public class Party extends BaseEntity implements Serializable{
 	@OneToMany(mappedBy="party", cascade=CascadeType.ALL, orphanRemoval = true)
 	@Column
 	private List<PartyContact> partyContacts = new ArrayList<PartyContact>();
+	
+	@Column(name="PERMALINK")
+	private String permalink;
 	
 	@Column(name = "STATUS")
 	private Integer status;
@@ -228,6 +232,14 @@ public class Party extends BaseEntity implements Serializable{
 		}
 	}
 	
+	public String getPermalink() {
+		return permalink;
+	}
+
+	public void setPermalink(String permalink) {
+		this.permalink = permalink;
+	}
+
 	public Integer getStatus() {
 		return status;
 	}
@@ -246,9 +258,4 @@ public class Party extends BaseEntity implements Serializable{
 		this.encodedPicture = encodedPicture;
 	}
 	
-	
-	public static void main(String[] args) {
-		final String data  = "Mardy %s";
-		System.out.println(String.format(data, "Ganteng"));
-	}
 }

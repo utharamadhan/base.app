@@ -33,30 +33,30 @@
 					<img src="<%=request.getContextPath()%>/images/pcb-learning-small.png" class="pcb-learning mobile-content"/>
 					<img src="<%=request.getContextPath()%>/images/pcb-advisory-small.png" class="pcb-advisory mobile-content"/>
 					<img src="<%=request.getContextPath()%>/images/pcb-rnd-small.png" class="pcb-rnd mobile-content"/>
-					<div class="hexagon_learning hexagon_bg_top hexagon_learning" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/main-program/learning/seminar'">
+					<div class="hexagon_learning hexagon_bg_top hexagon_learning" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/main-program/learning'">
 						<div class="hb-1">
 							<div class="hb-2">
 								<img src="<%=request.getContextPath()%>/images/learning_.jpg"/>
 							</div>
 						</div>
 					</div>
-					<label class="learning_text">Learning</label>
-					<div class="hexagon_advisory hexagon_bg_top hexagon_advisory" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/advisory/advisory1'">
+					<label class="learning_text" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/main-program/learning'">Learning</label>
+					<div class="hexagon_advisory hexagon_bg_top hexagon_advisory" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/main-program/advisory'">
 						<div class="hb-1">
 							<div class="hb-2">
 								<img src="<%=request.getContextPath()%>/images/advisory_.jpg"/>
 							</div>
 						</div>
 					</div>
-					<label class="advisory_text">Advisory</label>
-					<div class="hexagon_rnd hexagon_bg_top" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/main-program/research-development/research'">
+					<label class="advisory_text" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/main-program/advisory'">Advisory</label>
+					<div class="hexagon_rnd hexagon_bg_top" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/main-program/research-development'">
 						<div class="hb-1">
 							<div class="hb-2">
 								<img src="<%=request.getContextPath()%>/images/rnd_.jpg"/>
 							</div>
 						</div>
 					</div>
-					<label class="rnd_text">Research<br/>&#38;<br/>Development</label>
+					<label class="rnd_text" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/main-program/research-development'">Research<br/>&#38;<br/>Development</label>
 					<div class="housing_index">
 						<div class="breakingNews bn-yellow" id="bn1">
 					    	<div class="bn-title"><h2>BTN Housing Index</h2><span></span></div>
@@ -92,14 +92,14 @@
 								<div class="col-md-3">
 									<div class="step-expert-icon-wrapper">
 										<div class="step-expert-content">
-											<a href="page/contact"><span>Akses Website<br/>Housing Finance<br/>Center</span></a>
+											<a href="<%=request.getContextPath()%>"><span>Akses Website<br/>Housing Finance<br/>Center</span></a>
 										</div>
 									</div>
 								</div>
 								<div class="col-md-3">
 									<div class="step-expert-icon-wrapper">
 										<div class="step-expert-content">
-											<a href="#"><span>Browser<br/>Publikasi<br/>Kami</span></a>
+											<a href="#publikasi"><span>Browser<br/>Publikasi<br/>Kami</span></a>
 										</div>
 									</div>
 								</div>
@@ -244,7 +244,7 @@
 			<div class="clear"></div>
 			<div class="newsArea back-gradient-transparent">
 				<div class="title-center">
-					<h2>BERITA TERKINI</h2>
+					<h2><a href="${ctx}/page/news">BERITA TERKINI</a></h2>
 				</div>
 				<ul id="latest-news" class="hexas latest-news clr">
 				  <c:forEach items="${newsHomeList}" var="news">

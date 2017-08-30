@@ -30,6 +30,7 @@ public class RestServiceConstant {
 	public static final String HELPER_SERVICE = "helperService";
 	
 	public static final String STUDENT_SERVICE = "studentService";
+	public static final String VW_USER_SERVICE = "vwUserService";
 	
 	public static final String PAGES_SERVICE = "pagesService";
 	

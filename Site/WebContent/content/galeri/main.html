@@ -24,13 +24,13 @@
 									<div class="col-md-2">
 									</div>
 									<div class="col-md-4">
-										<select class="form-control param">
-											<option>-- Learning --</option>
+										<select name="category" class="form-control param">
+											<option>-- Layanan --</option>
 											<option th:each="opt : ${categories}" th:value="${opt.pkCategory}" th:text="${opt.title}"></option>
 										</select>
 									</div>
 									<div class="col-md-4">
-										<input type="text" class="form-control param" placeholder="Masukan Kata Kunci..."/>
+										<input type="text" name="title" class="form-control param" placeholder="Masukan Kata Kunci..."/>
 									</div>
 									<div class="col-md-2">
 										<button type="button" class="btn btn-danger mrdy_btn search">Cari Galeri</button>

@@ -339,8 +339,8 @@ body{
 .aboutUsArea{
 	padding:30px 0px;
 }
-.newsArea .title-center h2, .testimonialArea .title-center h2{
-	font-size:32px;
+.newsArea .title-center h2, .testimonialArea .title-center h2, .newsArea .title-center h2 a, .testimonialArea .title-center h2 a{
+	font-size:32px!important;
 	color:#004fb6;
 }
 .testimonialArea{

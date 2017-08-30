@@ -27,6 +27,7 @@ import id.base.app.valueobject.advisory.AdvisoryConsulting;
 import id.base.app.valueobject.contact.Contact;
 import id.base.app.valueobject.frontend.IntegrationScript;
 import id.base.app.valueobject.party.Party;
+import id.base.app.valueobject.party.VWUser;
 import id.base.app.valueobject.program.ProgramItem;
 import id.base.app.valueobject.program.VWProgramItem;
 import id.base.app.valueobject.publication.DigitalBook;
@@ -181,6 +182,9 @@ public class ParameterLoader extends ContextLoader implements ServletContextList
 		
 		RestCaller.BASE_URL.put(RestServiceConstant.PARTY, RestConstant.RM_PARTY);
 		RestCaller.BASE_CLASS.put(RestServiceConstant.PARTY, Party.class);
+		
+		RestCaller.BASE_URL.put(RestServiceConstant.VW_USER_SERVICE, RestConstant.RM_VW_USER);
+		RestCaller.BASE_CLASS.put(RestServiceConstant.VW_USER_SERVICE, VWUser.class);
 		
 		RestCaller.BASE_URL.put(RestServiceConstant.MAIL_SERVICE, RestConstant.RM_MAIL);
 		RestCaller.BASE_CLASS.put(RestServiceConstant.MAIL_SERVICE, Object.class);

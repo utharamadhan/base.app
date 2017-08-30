@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="ISO-8859-1"/>
-<meta name="author" content="Mardy Jonathan"/>
-<title></title>
 </head>
 <body>
 		<div class="breadcrumb-wrapper">
@@ -33,12 +30,12 @@
 				</form>
 				<br/>
 				<div class="row list_data">
-					<div id="template" class="col-md-2 data_result" th:each="tutor, i : ${tutors.result}">
+					<div id="template" class="col-md-2 data_result" th:each="dt, i : ${users.result}">
 						<div class="post">
 								<div class="post_thumb">
-									<img th:src="${tutor.encodedPicture}" alt="" />
+									<img th:src="${dt.encodedPicture}" alt="" />
 								</div><!-- end post thumb -->
-								<h1><a  th:href="@{/page/lecturer/}+${tutor.pkTutor}+'/'+${#strings.replace(tutor.name, ' ', '-')}"><label th:text="${tutor.name}" class="post_title">Roy</label></a></h1>
+								<h1><a th:href="@{/page/lecturer/}+${dt.permalink}"><label th:text="${dt.name}" class="post_title"></label></a></h1>
 							</div><!-- end post -->
 					</div>	
 				</div>
@@ -56,12 +53,12 @@
 							<ul class="pagination_section">
 								<li style="width:100%;text-align:center"><a href="#" class="load_more mrdy_btn">Pengajar Lain</a></li>
 							</ul><!--end pagination section-->		
-							<input type="hidden" th:value="${tutors.startRecordIndex}" class="startNo"/>
-							<input type="hidden" th:value="${tutors.recordsPerPage}" class="offset"/>
+							<input type="hidden" th:value="${users.startRecordIndex}" class="startNo"/>
+							<input type="hidden" th:value="${users.recordsPerPage}" class="offset"/>
 						</div>
 						<div class="col-md-4"></div>
-					</div><!--end post left section-->
-				</div><!--end post_left-->	
+					</div>
+				</div>
 			</div>
 		</div>
 		
@@ -95,8 +92,8 @@
 		}
 		           
 		$(function(){
-			var maxRecord = /*[[${tutors.maxRecord}]]*/;
-			var currentRecord = /*[[${tutors.currentRecord}]]*/;
+			var maxRecord = /*[[${users.maxRecord}]]*/;
+			var currentRecord = /*[[${users.currentRecord}]]*/;
 			
 			showPaging(maxRecord, currentRecord);
 			
@@ -113,11 +110,11 @@
 		            success: function (data) {
 		            	$('.load_pagination').hide();
 		            	$('.mrdy_btn').setOverlay({enabled:true});
-		            	processData(data.tutors.result, false);		
-		            	var newMaxRecord = data.tutors.maxRecord;
-		            	var newCurrentRecord = data.tutors.currentRecord;
+		            	processData(data.users.result, false);		
+		            	var newMaxRecord = data.users.maxRecord;
+		            	var newCurrentRecord = data.users.currentRecord;
 		            	showPaging(newMaxRecord, newCurrentRecord);
-		            	$('.startNo').val(data.tutors.startRecordIndex);
+		            	$('.startNo').val(data.users.startRecordIndex);
 		            },
 		            beforeSend: function($jqXHR, $textStatus){
 						$('.load_pagination').show();
@@ -147,11 +144,11 @@
 		            	$('.pagination_part').hide();
 		            	$('.loading_reload').remove();
 		            	$('.mrdy_btn').setOverlay({enabled:true});
-		            	processData(data.tutors.result, true);
-		            	var newMaxRecord = data.tutors.maxRecord;
-		            	var newCurrentRecord = data.tutors.currentRecord;
+		            	processData(data.users.result, true);
+		            	var newMaxRecord = data.users.maxRecord;
+		            	var newCurrentRecord = data.users.currentRecord;
 		            	showPaging(newMaxRecord, newCurrentRecord);
-		            	$('.startNo').val(data.tutors.startRecordIndex);
+		            	$('.startNo').val(data.users.startRecordIndex);
 		            },
 		            beforeSend: function($jqXHR, $textStatus){
 		            	$('.list_data').html('<div class="col-md-12 loading_reload" style="display: block; margin-left: auto; margin-right: auto;text-align: center;"><img src="'+img_url+'" /></div>');

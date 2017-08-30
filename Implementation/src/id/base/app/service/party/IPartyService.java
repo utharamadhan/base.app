@@ -15,4 +15,8 @@ public interface IPartyService extends MaintenanceService<Party>{
 	
 	public PartyRole findPartyRole(String partyRoleCode, Long pkParty) throws SystemException;
 
+	public List<String> getSamePermalink(Long pk, String permalink) throws SystemException;
+
+	public void updatePermalink(Long pkParty, String permalink) throws SystemException;
+
 }

@@ -68,4 +68,14 @@ public class PartyService implements IPartyService {
 		return partyDAO.findPartyRole(pkParty);
 	}
 	
+	@Override
+	public List<String> getSamePermalink(Long pk, String permalink) throws SystemException {
+		return partyDAO.getSamePermalink(pk, permalink);
+	}
+	
+	@Override
+	public void updatePermalink(Long pkParty, String permalink) throws SystemException {
+		partyDAO.updatePermalink(pkParty, permalink);
+	}
+	
 }

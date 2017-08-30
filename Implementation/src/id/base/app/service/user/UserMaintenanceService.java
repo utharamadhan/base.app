@@ -14,6 +14,7 @@ import id.base.app.service.MaintenanceService;
 import id.base.app.service.email.IEmailTemplateService;
 import id.base.app.service.mail.EmailAPI;
 import id.base.app.service.message.ShortMessageServiceAPI;
+import id.base.app.service.party.IPartyService;
 import id.base.app.util.DateTimeFunction;
 import id.base.app.util.StringFunction;
 import id.base.app.util.dao.SearchFilter;
@@ -74,6 +75,8 @@ public class UserMaintenanceService implements MaintenanceService<AppUser>, IUse
 	private ResourceBundleMessageSource messageSource;
 	@Autowired
 	private IUserDAO userDao;
+	@Autowired
+	private IPartyService partyService;
 	
 	public UserMaintenanceService(){}
 	
@@ -220,11 +223,6 @@ public class UserMaintenanceService implements MaintenanceService<AppUser>, IUse
 		return returnValue.toUpperCase();
 	}
 	
-	public static void main(String[] args) {
-		UserMaintenanceService ser = new UserMaintenanceService();
-		System.out.println(ser.generateActivationCode("tes"));
-	}
-	
 	private boolean isCreateMode(AppUser appUser) {
 		return (appUser.getPkAppUser() == null || appUser.getPkAppUser() == 0);
 	}
@@ -237,7 +235,18 @@ public class UserMaintenanceService implements MaintenanceService<AppUser>, IUse
 			order.add(new SearchOrder(AppUser.USER_TYPE, Sort.ASC));
 			order.add(new SearchOrder(AppUser.USER_NAME, Sort.ASC));
 		}
-		return userDao.findAllAppUserByFilter(startNo, offset,  filter, order);
+		PagingWrapper<AppUser> list = userDao.findAllAppUserByFilter(startNo, offset,  filter, order);
+		List<AppUser> appUserList = list.getResult();
+		for (AppUser appUser : appUserList) {
+			if(appUser.getParty()!=null && StringFunction.isEmpty(appUser.getParty().getPermalink())){
+				String permalink = StringFunction.toPrettyURL(appUser.getParty().getName());
+				List<String> permalinkDBList = partyService.getSamePermalink(appUser.getParty().getPkParty(), permalink);
+				permalink = StringFunction.generatePermalink(permalinkDBList, permalink);
+				partyService.updatePermalink(appUser.getParty().getPkParty(), permalink);
+				appUser.getParty().setPermalink(permalink);
+			}
+		}
+		return list;
 	}
 
 	public AppUser findByUserName(String username) throws SystemException {

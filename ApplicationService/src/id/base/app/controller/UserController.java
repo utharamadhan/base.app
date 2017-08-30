@@ -48,10 +48,8 @@ public class UserController extends SuperController<AppUser>{
 	@Autowired
 	@Qualifier("userMaintenanceService")
 	private MaintenanceService<AppUser> maintenanceService;
-	
 	@Autowired
 	private IUserService userService;
-	
 	@Autowired
 	private ILookupService lookupService;
 	@Autowired
@@ -214,6 +212,7 @@ public class UserController extends SuperController<AppUser>{
 				anObject.getParty().setStatus(SystemConstant.ValidFlag.VALID);
 			}
 		}
+		
 		anObject.setSuperUser(Boolean.FALSE);
 		anObject.setUserType(SystemConstant.USER_TYPE_INTERNAL);
 		anObject.setLoginFailed(0);
@@ -287,6 +286,11 @@ public class UserController extends SuperController<AppUser>{
 		
 		if (StringFunction.isEmpty(anObject.getParty().getName())) {
 			errors.add(new ErrorHolder(AppUser.PARTY_NAME, messageSource.getMessage("error.user.name.mandatory", null, Locale.ENGLISH)));
+		}else{
+			String permalink = StringFunction.toPrettyURL(anObject.getParty().getName());
+			List<String> permalinkDBList = partyService.getSamePermalink(anObject.getParty().getPkParty(), permalink);
+			permalink = StringFunction.generatePermalink(permalinkDBList, permalink);
+			anObject.getParty().setPermalink(permalink);
 		}
 		
 		if(StringFunction.isNotEmpty(anObject.getUserName())) {
