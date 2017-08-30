@@ -120,10 +120,10 @@ public class TeamWebController extends BaseSiteController<VWUser>{
 			List<SearchOrder> order = new ArrayList<SearchOrder>();
 			order.add(new SearchOrder(VWUser.NAME, Sort.ASC));
 			PagingWrapper<VWUser> users = getRestCaller().findAllByFilter(startNo, offset, filter, order);
-			model.addAttribute("users", users);
+			resultMap.put("users", users);
 		}else{
 			PagingWrapper<VWUser> users = new PagingWrapper<>();
-			model.addAttribute("users", users);
+			resultMap.put("users", users);
 		}
 		return resultMap;
 	}
