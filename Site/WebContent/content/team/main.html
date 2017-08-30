@@ -43,7 +43,12 @@
 					<div id="template" class="col-md-2 data_result" th:each="dt, i : ${users.result}">
 						<div class="post">
 								<div class="post_thumb">
-									<img th:src="${dt.encodedPicture}" alt="" />
+									<th:block th:if="${dt.encodedPicture!=null}">
+										<img th:src="${dt.encodedPicture}" alt="" />
+									</th:block>
+									<th:block th:if="${dt.encodedPicture==null}">
+										<img th:src="@{/images/default-image-user.png}" alt="" />
+									</th:block>
 								</div><!-- end post thumb -->
 								<h1><a th:href="@{/page/lecturer/}+${dt.permalink}"><label th:text="${dt.name}" class="post_title"></label></a></h1>
 							</div><!-- end post -->
@@ -174,6 +179,8 @@
 					}
 		        });				
 			});
+			
+			heightsEqualizer('.data_result .post');
 		});           
 		/*]]>*/
 		</script>
