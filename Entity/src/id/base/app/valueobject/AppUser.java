@@ -59,6 +59,10 @@ public class AppUser extends BaseEntity implements Serializable {
 	public static final String PARTY = "party";
 	public static final String PARTY_PK = "party.pkParty";
 	public static final String PARTY_NAME = PARTY + ".name";
+	public static final String PARTY_PERMALINK = PARTY + "."+Party.PERMALINK;
+	public static final String PARTY_AGENCY = PARTY + "."+Party.AGENCY;
+	public static final String PARTY_PROFILE_DESCRIPTION = PARTY + "."+Party.PROFILE_DESCRIPTION;
+	public static final String PARTY_BASIC_PICTURE_URL = PARTY + "."+Party.BASIC_PICTURE_URL;
 	public static final String PARTY_CONTACTS = PARTY + ".partyContacts";
 	public static final String PARTY_CONTACTS_CONTACT = PARTY_CONTACTS + "[%d].contact";
 	public static final String ACTIVATION_CODE = "activationCode";

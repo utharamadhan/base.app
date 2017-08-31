@@ -50,7 +50,7 @@
 										<img th:src="@{/images/default-image-user.png}" alt="" />
 									</th:block>
 								</div><!-- end post thumb -->
-								<h1><a th:href="@{/page/lecturer/}+${dt.permalink}"><label th:text="${dt.name}" class="post_title"></label></a></h1>
+								<h1><a th:href="@{/page/team/}+${dt.rolePermalink}+'/'+${dt.permalink}"><label th:text="${dt.name}" class="post_title"></label></a></h1>
 							</div><!-- end post -->
 					</div>	
 				</div>

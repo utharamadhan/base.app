@@ -97,7 +97,7 @@ public class UserController extends SuperController<AppUser>{
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="/findByUserNameAndPassword/{username}/{type}/{unencryptedPassword}")
-	public AppUser findByUserNameAndType(@PathVariable("username") String username, @PathVariable("type") int type, @PathVariable("unencryptedPassword") String unencryptedPassword) throws SystemException {
+	public AppUser findByUserNameAndPassword(@PathVariable("username") String username, @PathVariable("type") int type, @PathVariable("unencryptedPassword") String unencryptedPassword) throws SystemException {
 		return userService.findByUserNameTypeAndPassword(username, type, unencryptedPassword);
 	}
 	
@@ -337,6 +337,11 @@ public class UserController extends SuperController<AppUser>{
 		}
 		
 		return anObject;
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/findDetailByPermalink/{permalink}")
+	public AppUser findDetailByPermalink(@PathVariable("permalink") String permalink) throws SystemException {
+		return userService.findDetailByPermalink(permalink);
 	}
 	
 }

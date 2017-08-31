@@ -11,8 +11,14 @@
 				<div class="container">
 					<ul>
 					<li><a th:href="@{/}">Beranda</a></li>
-					<li><a th:href="@{/page/lecturer}">Pengajar</a></li>
-					<li><a href="#">Pengajar Detail</a></li>
+					<th:block th:if="${rolePermalink == 'teacher'}">
+						<li><a th:href="@{/page/team/}+${rolePermalink}">Tim Pengajar</a></li>
+						<li><a href="#">Tim Pengajar Detail</a></li>
+					</th:block>
+					<th:block th:if="${rolePermalink == 'advisor'}">
+						<li><a th:href="@{/page/team/}+${rolePermalink}">Tim Advisor</a></li>
+						<li><a href="#">Tim Advisor Detail</a></li>
+					</th:block>
 					</ul>
 				</div>
 			</div>
@@ -21,11 +27,15 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-xs-12 col-sm-2 content_left">
-						<img th:src="${detail.encodedPicture}" style="width:100%;height:auto"/>
+						<img th:src="${detail.party.encodedPicture}" style="width:100%;height:auto"/>
 					</div>
 					<div class="col-xs-12 col-sm-10">
-						<h1 th:utext="${detail.name}"></h1>
-						<span th:utext="${detail.profileDescription}"></span>
+						<h1 th:utext="${detail.party.name}"></h1>
+						<label>Email</label> : <span th:utext="${detail.email}"></span><br/>
+						<th:block th:if="${!detail.party.partyContacts.empty}">
+							<label>No. Telp</label> : <span th:utext="${detail.party.partyContacts[0].contact}"></span><br/>
+						</th:block>
+						<span th:utext="${detail.party.profileDescription}"></span>
 					</div>
 				</div>
 			</div>

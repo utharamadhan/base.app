@@ -324,5 +324,16 @@ public class UserDAO extends AbstractHibernateDAO<AppUser, Long> implements IUse
 		Long rowCount = (Long) crit.uniqueResult();
 		return rowCount != null && rowCount > 0 ? Boolean.TRUE : Boolean.FALSE;
 	}
+	
+	@Override
+	public AppUser findDetailByPermalink(String permalink) throws SystemException {
+		Criteria crit = this.getSession().createCriteria(domainClass);
+		crit.createAlias("party","party");
+		crit.createAlias("party.partyContacts","partyContacts");
+		crit.add(Restrictions.ne(AppUser.STATUS, ILookupConstant.UserStatus.INACTIVE));
+		crit.add(Restrictions.eq(AppUser.PARTY_PERMALINK, permalink));
+		crit.setMaxResults(1);
+		return (AppUser) crit.uniqueResult();
+	}
 
 }

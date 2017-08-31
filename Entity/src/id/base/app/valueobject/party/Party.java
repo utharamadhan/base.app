@@ -65,7 +65,10 @@ public class Party extends BaseEntity implements Serializable{
 	public static final String CODE = "code";
 	public static final String NAME	= "name";
 	public static final String NPWP = "npwp";
+	public static final String AGENCY = "agency";
 	public static final String PERMALINK = "permalink";
+	public static final String PROFILE_DESCRIPTION = "profileDescription";
+	public static final String BASIC_PICTURE_URL = "basicPictureURL";
 	public static final String PARTY_ADDRESS = "partyAddresses";
 	public static final String PARTY_ADDRESS_KODEPOS = PARTY_ADDRESS + ".kodepos";
 	public static final String PARTY_ADDRESS_ALAMAT_VALFIELD = PARTY_ADDRESS + "[%d].alamat";

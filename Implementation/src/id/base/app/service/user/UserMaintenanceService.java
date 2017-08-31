@@ -44,6 +44,7 @@ import java.util.regex.Pattern;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
+import org.hibernate.collection.internal.PersistentBag;
 import org.hibernate.collection.spi.PersistentCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -660,4 +661,12 @@ public class UserMaintenanceService implements MaintenanceService<AppUser>, IUse
 		return userDao.validateResetPasswordToken(email, token);
 	}
 
+	@Override
+	public AppUser findDetailByPermalink(String permalink) throws SystemException {
+		AppUser appUser = userDao.findDetailByPermalink(permalink);
+		if(appUser.getParty().getPartyContacts() instanceof PersistentBag) {
+			((PersistentCollection) appUser.getParty().getPartyContacts() ).forceInitialization();
+		}
+		return appUser;
+	}
 }

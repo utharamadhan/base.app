@@ -2,14 +2,17 @@ package id.base.app.site.controller.web;
 
 import id.base.app.SystemConstant;
 import id.base.app.paging.PagingWrapper;
+import id.base.app.rest.PathInterfaceRestCaller;
 import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
 import id.base.app.rest.RestServiceConstant;
+import id.base.app.rest.SpecificRestCaller;
 import id.base.app.site.controller.BaseSiteController;
 import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.util.dao.SearchOrder.Sort;
+import id.base.app.valueobject.AppUser;
 import id.base.app.valueobject.party.VWUser;
 
 import java.io.IOException;
@@ -57,21 +60,16 @@ public class TeamWebController extends BaseSiteController<VWUser>{
 		return "redirect:/page/notfound";
 	}
 	
-	@RequestMapping(method=RequestMethod.GET, value="/{id}/{name}")
+	@RequestMapping(method=RequestMethod.GET, value="/{rolePermalink}/{permalink}")
 	public String view(ModelMap model, HttpServletRequest request, HttpServletResponse response,
-			@PathVariable(value="id") Long id,
-			@PathVariable(value="title") String title){
-		VWUser detail = new VWUser();
-		detail = getRestCaller().findById(id);
+			@PathVariable(value="rolePermalink") String rolePermalink,
+			@PathVariable(value="permalink") String permalink){
+		AppUser detail = findDetailByPermalink(permalink);
 		if(detail!=null){
-			if(detail.getName()!=null){
-				String dataTitle = detail.getName().replace(" ", "-");
-				if(dataTitle.equals(title)){
-					setCommonData(request,model);
-					model.addAttribute("detail", detail);
-					return "/lecturer/detail";
-				}
-			}
+			setCommonData(request,model);
+			model.addAttribute("rolePermalink", rolePermalink);
+			model.addAttribute("detail", detail);
+			return "/team/detail";
 		}
 		LOGGER.error("ERROR DATA NOT VALID");
 		return "redirect:/page/notfound";
@@ -134,4 +132,22 @@ public class TeamWebController extends BaseSiteController<VWUser>{
 		return "redirect:/page/notfound";
 	}
 	
+	private AppUser findDetailByPermalink(final String permalink){
+		SpecificRestCaller<AppUser> userService = new SpecificRestCaller<AppUser>(RestConstant.REST_SERVICE, RestServiceConstant.USER_SERVICE);
+		AppUser user = userService.executeGet(new PathInterfaceRestCaller() {
+			
+			@Override
+			public String getPath() {								
+				return "/findDetailByPermalink/{permalink}";
+			}
+			
+			@Override
+			public Map<String, Object> getParameters() {
+				Map<String,Object> map = new HashMap<String, Object>();
+				map.put("permalink", permalink);
+				return map;
+			}
+		});
+		return user;
+	}
 }

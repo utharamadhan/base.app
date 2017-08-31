@@ -1189,6 +1189,10 @@ h4.modal-title{
     font-family: inherit;
     color: #282428;
     font-size: inherit;
+    cursor:pointer;
+}
+.post h1>a>label {
+	cursor:pointer;
 }
 .post_desc {
     width: 100%;
