@@ -30,7 +30,9 @@
 	                      	<table id="userMaintenance-list-table" class="table table-datatable table-custom">
 		                        <thead>
 		                          <tr>
-		                            <th>User Name</th>
+		                          	<th>Role</th>
+		                          	<th>Name</th>
+		                          	<th>User Name</th>
 									<th>Email</th>
 									<th>Status</th>
 									<th>E/D</th>
@@ -84,7 +86,9 @@
 	
 	    $(function(){
 		    setMenuActive('userMaintenance');
-		    var colDefs = [{ name : "userName" }, 
+		    var colDefs = [{ name : "appRoles[0].name" },
+		                   { name : "party.name" },
+		                   { name : "userName" }, 
 	    	               { name : "email" },
 	    	               { name : "statusStr"},
 	    	               { type : "edit" , param : [ "pkAppUser" ] }

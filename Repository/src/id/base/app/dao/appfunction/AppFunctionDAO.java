@@ -5,7 +5,6 @@ import id.base.app.IAccessibilityConstant;
 import id.base.app.exception.SystemException;
 import id.base.app.valueobject.AppFunction;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.hibernate.Criteria;

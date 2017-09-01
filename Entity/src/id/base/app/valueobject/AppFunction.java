@@ -86,6 +86,9 @@ public class AppFunction implements Serializable  {
 	@Column(name = "ORDER_NO")
 	private Long orderNo;
 	
+	@Column(name = "IS_MENU")
+	private Boolean isMenu;
+	
 	@JsonIgnore
 	@OneToMany(mappedBy="appFunction",fetch=FetchType.LAZY)
 	private List<AppRoleFunction> appRoleFunctions;
@@ -160,6 +163,14 @@ public class AppFunction implements Serializable  {
 		this.orderNo = orderNo;
 	}
 	
+	public Boolean getIsMenu() {
+		return isMenu;
+	}
+
+	public void setIsMenu(Boolean isMenu) {
+		this.isMenu = isMenu;
+	}
+
 	public List<AppRoleFunction> getAppRoleFunctions() {
 		return appRoleFunctions;
 	}

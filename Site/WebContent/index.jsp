@@ -34,27 +34,15 @@
 					<img src="<%=request.getContextPath()%>/images/pcb-advisory-small.png" class="pcb-advisory mobile-content"/>
 					<img src="<%=request.getContextPath()%>/images/pcb-rnd-small.png" class="pcb-rnd mobile-content"/>
 					<div class="hexagon_learning hexagon_bg_top hexagon_learning" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/main-program/learning'">
-						<div class="hb-1">
-							<div class="hb-2">
-								<img src="<%=request.getContextPath()%>/images/learning_.jpg"/>
-							</div>
-						</div>
+						<div class="hb-1"><div class="hb-2"><img src="<%=request.getContextPath()%>/images/learning_.jpg"/></div></div>
 					</div>
 					<label class="learning_text" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/main-program/learning'">Learning</label>
 					<div class="hexagon_advisory hexagon_bg_top hexagon_advisory" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/main-program/advisory'">
-						<div class="hb-1">
-							<div class="hb-2">
-								<img src="<%=request.getContextPath()%>/images/advisory_.jpg"/>
-							</div>
-						</div>
+						<div class="hb-1"><div class="hb-2"><img src="<%=request.getContextPath()%>/images/advisory_.jpg"/></div></div>
 					</div>
 					<label class="advisory_text" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/main-program/advisory'">Advisory</label>
 					<div class="hexagon_rnd hexagon_bg_top" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/main-program/research-development'">
-						<div class="hb-1">
-							<div class="hb-2">
-								<img src="<%=request.getContextPath()%>/images/rnd_.jpg"/>
-							</div>
-						</div>
+						<div class="hb-1"><div class="hb-2"><img src="<%=request.getContextPath()%>/images/rnd_.jpg"/></div></div>
 					</div>
 					<label class="rnd_text" onclick="javascript:window.location.href='<%=request.getContextPath()%>/page/main-program/research-development'">Research<br/>&#38;<br/>Development</label>
 					<div class="housing_index">
@@ -316,65 +304,33 @@
 		<script>
 		setNavbarActive('beranda');
 		$(document).ready(function(){
-			$('.link-pilar').click(function(){
-				location.href='/Site/page/${pilar}';
-			});
-			$('.arrowBottom').click(function(){
-				scrollToBottom('aboutUsArea', 72);
-			});
-			
-			$("#bn1").breakingNews({
-				effect		:"slide-h",
-				autoplay	:true,
-				timer		:3000,
-				color		:"yellow",
-				border		:true
-			});
-			
-			var colors = new Array(
-			  [255,255,255],
-			  [209,215,223],
-			  [255,255,255],
-			  [244,236,184],
-			  [255,255,255],
-			  [240,226,131],
-			  [255,255,255],
-			  [250,222,30],
-			  [255,255,255],
-			  [253,237,133]);
-
+			$('.link-pilar').click(function(){location.href='/Site/page/${pilar}';});
+			$('.arrowBottom').click(function(){scrollToBottom('aboutUsArea', 72);});
+			$("#bn1").breakingNews({effect:"slide-h",autoplay:true,timer:3000,color:"yellow",border:true});
+			var colors = new Array([255,255,255],[209,215,223],[255,255,255],[244,236,184],[255,255,255],[240,226,131],[255,255,255],[250,222,30],[255,255,255],[253,237,133]);
 			var step = 0;
 			var colorIndices = [0,1,2,3];
 			var gradientSpeed = 0.002;
-
 			function updateGradient()
-			{
-			  
-			  if ( $===undefined ) return;
-			  
+			{if ( $===undefined ) return;
 			var c0_0 = colors[colorIndices[0]];
 			var c0_1 = colors[colorIndices[1]];
 			var c1_0 = colors[colorIndices[2]];
 			var c1_1 = colors[colorIndices[3]];
-
 			var istep = 1 - step;
 			var r1 = Math.round(istep * c0_0[0] + step * c0_1[0]);
 			var g1 = Math.round(istep * c0_0[1] + step * c0_1[1]);
 			var b1 = Math.round(istep * c0_0[2] + step * c0_1[2]);
 			var color1 = "rgba("+r1+","+g1+","+b1+",0.9)";
-
 			var r2 = Math.round(istep * c1_0[0] + step * c1_1[0]);
 			var g2 = Math.round(istep * c1_0[1] + step * c1_1[1]);
 			var b2 = Math.round(istep * c1_0[2] + step * c1_1[2]);
 			var color2 = "rgba("+r2+","+g2+","+b2+",0.9)";
-
 			 $('.banner-wrapper').css({
-			   background: "-webkit-gradient(linear, left top, right top, from("+color1+"), to("+color2+"))"}).css({
-			    background: "-moz-linear-gradient(left, "+color1+" 0%, "+color2+" 100%)"});
-			  
+			  	background: "-webkit-gradient(linear, left top, right top, from("+color1+"), to("+color2+"))"}).css({
+			    background: "-moz-linear-gradient(left, "+color1+" 0%, "+color2+" 100%)"});	  
 			  step += gradientSpeed;
-			  if ( step >= 1 )
-			  {
+			  if ( step >= 1 ){
 			    step %= 1;
 			    colorIndices[0] = colorIndices[1];
 			    colorIndices[2] = colorIndices[3];
@@ -382,18 +338,11 @@
 			    colorIndices[3] = ( colorIndices[3] + Math.floor( 1 + Math.random() * (colors.length - 1))) % colors.length;
 			  }
 			}
-
 			setInterval(updateGradient,10);
-			
 			var video = document.getElementById("intro-hfc-video");
-
 			$(video).on({
-			    mouseenter: function () {
-			      video.setAttribute("controls","controls")
-			    },
-			    mouseleave: function () {
-			      video.removeAttribute("controls");
-			    }
+			    mouseenter: function () {video.setAttribute("controls","controls")},
+			    mouseleave: function () {video.removeAttribute("controls");}
 			});
 		});
 	</script>

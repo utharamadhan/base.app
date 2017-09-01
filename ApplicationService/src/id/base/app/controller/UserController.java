@@ -198,7 +198,6 @@ public class UserController extends SuperController<AppUser>{
 	public AppUser preCreate(AppUser anObject) throws SystemException {
 		
 		if (anObject.getParty() != null) {
-			anObject.getParty().setStatus(SystemConstant.ValidFlag.VALID);
 			if(anObject.getParty().getPartyContacts() != null && anObject.getParty().getPartyContacts().size() > 0) {
 				for(PartyContact contact : anObject.getParty().getPartyContacts()) {
 					contact.setParty(anObject.getParty());
@@ -208,9 +207,12 @@ public class UserController extends SuperController<AppUser>{
 		} else {
 			if(anObject.getParty() == null) {					
 				anObject.setParty(Party.getInstance(anObject.getUserName()));
-			} else {
-				anObject.getParty().setStatus(SystemConstant.ValidFlag.VALID);
 			}
+		}
+		if(!anObject.getStatus().equals(ILookupConstant.UserStatus.INACTIVE)){
+			anObject.getParty().setStatus(SystemConstant.ValidFlag.VALID);	
+		}else{
+			anObject.getParty().setStatus(SystemConstant.ValidFlag.INVALID);
 		}
 		
 		anObject.setSuperUser(Boolean.FALSE);
@@ -250,6 +252,12 @@ public class UserController extends SuperController<AppUser>{
 			}
 
 			appUser.setIsNewPassword(Boolean.FALSE);
+			appUser.setStatus(anObject.getStatus());
+			if(!appUser.getStatus().equals(ILookupConstant.UserStatus.INACTIVE)){
+				appUser.getParty().setStatus(SystemConstant.ValidFlag.VALID);	
+			}else{
+				appUser.getParty().setStatus(SystemConstant.ValidFlag.INVALID);
+			}
 		}
 		return validate(appUser);
 	}
@@ -299,25 +307,21 @@ public class UserController extends SuperController<AppUser>{
 			}
 		}
 		
-		if(StringFunction.isEmpty(anObject.getEmail()) && isPhoneNumberNull(anObject)){
-			errors.add(new ErrorHolder(AppUser.EMAIL, messageSource.getMessage("error.user.email.mandatory", null, Locale.ENGLISH)));
-		} else {
-			if(StringFunction.isNotEmpty(anObject.getEmail()) && !EmailFunction.isAddressValidRegex(anObject.getEmail())){
+		if(StringFunction.isNotEmpty(anObject.getEmail())){
+			if(!EmailFunction.isAddressValidRegex(anObject.getEmail())){
 				errors.add(new ErrorHolder(AppUser.EMAIL, messageSource.getMessage("error.user.email.invalid", null, Locale.ENGLISH)));
-			} else if(StringFunction.isNotEmpty(anObject.getEmail()) && userService.isEmailAlreadyInUsed(anObject.getPkAppUser(), anObject.getEmail())) {
+			}/* else if(StringFunction.isNotEmpty(anObject.getEmail()) && userService.isEmailAlreadyInUsed(anObject.getPkAppUser(), anObject.getEmail())) {
 				errors.add(new ErrorHolder(AppUser.EMAIL, messageSource.getMessage("error.user.email.already.inused", null, Locale.ENGLISH)));
-			}
+			}*/
 		}
-		if (anObject.getParty() == null || anObject.getParty().getPartyContacts() == null || anObject.getParty().getPartyContacts().size() < 1) {
-			errors.add(new ErrorHolder(String.format(AppUser.PARTY_CONTACTS_CONTACT, 0), messageSource.getMessage("error.user.phoneNumber.mandatory", null, Locale.ENGLISH)));
-		} else {
-			if (isPhoneNumberNull(anObject)) {
-				errors.add(new ErrorHolder(String.format(AppUser.PARTY_CONTACTS_CONTACT, 0), messageSource.getMessage("error.user.phoneNumber.mandatory", null, Locale.ENGLISH)));
-			} else if ( userService.isPhoneAlreadyInUsed(getPhoneNumber(anObject)) ) {
+		if (anObject.getParty() != null && anObject.getParty().getPartyContacts() != null && anObject.getParty().getPartyContacts().size() > 0) {
+			if (!isPhoneNumberNull(anObject)){
+				if ( userService.isPhoneAlreadyInUsed(getPhoneNumber(anObject)) ) {
 				errors.add(new ErrorHolder(String.format(AppUser.PARTY_CONTACTS_CONTACT, 0), messageSource.getMessage("error.user.phoneNumber.inused", null, Locale.ENGLISH)));
-			} else {
-				for(PartyContact contact : anObject.getParty().getPartyContacts()) {
-					contact.setParty(anObject.getParty());
+				} else {
+					for(PartyContact contact : anObject.getParty().getPartyContacts()) {
+						contact.setParty(anObject.getParty());
+					}
 				}
 			}
 		}

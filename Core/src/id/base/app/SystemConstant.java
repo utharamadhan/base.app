@@ -302,13 +302,6 @@ public class SystemConstant  {
 		public static int SCALE = 4;
 	}
 	
-	public static final class UserRole {
-		public static final String SUPER_ADMIN 			= "SA";
-		public static final String HEAD_MEMBER 			= "HM";
-		public static final String TRANSACTION_MEMBER 	= "MT";
-		public static final String ADVISOR			 	= "AD";
-	}
-	
 	public static final String EMPTY_KEYWORD = "";
 	
 	public static final class NotificationConstant {
@@ -439,4 +432,5 @@ public class SystemConstant  {
 			ROLE_LIST.add("advisor");
 		}
 	}
+	
 }

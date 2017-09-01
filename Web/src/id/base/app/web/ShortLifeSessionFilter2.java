@@ -44,7 +44,6 @@ public class ShortLifeSessionFilter2 implements Filter{
 		BYPASS_TOKEN.add("/do/registration/submit");
 		BYPASS_TOKEN.add("/do/login/loginFromActivation");
 		BYPASS_TOKEN.add("/do/login/registerCompany");
-		BYPASS_TOKEN.add("/do/login/setCompanySelected");
 		BYPASS_TOKEN.add("/do/registration/activationPage");
 		BYPASS_TOKEN.add("/do/registration/activationSubmit");
 	}

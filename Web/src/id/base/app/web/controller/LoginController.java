@@ -183,15 +183,15 @@ public class LoginController {
 				Map<String, Object[]> cookieMenus = new LinkedHashMap<>();
 				
 				//List<AppFunction> permissions = appFunctionService.findAppFunctionByPermission(user.getAppRole().getPkAppRole());
-				List<AppFunction> permissions = appFunctionService.findAppFunctionByPermissionList(user.getAppRoles());
-				Map<Integer, Boolean> cookiePermissions = new HashMap<Integer, Boolean>();
+				/*List<AppFunction> permissions = appFunctionService.findAppFunctionByPermissionList(user.getAppRoles());
+				Map<Integer, Boolean> cookiePermissions = new HashMap<Integer, Boolean>();*/
 				/*for(AppFunction appFunction: permissions) {
 					loginSession.addPermission(appFunction.getPkAppFunction(), appFunction.getIsTransactional());
 					cookiePermissions.put(appFunction.getPkAppFunction(), appFunction.getIsTransactional());
 				}*/
 				
 				Map<String,Object> accessInfos = new HashMap<String, Object>();
-				accessInfos.put("accessibility", cookiePermissions);
+				/*accessInfos.put("accessibility", cookiePermissions);*/
 				
 				
 				List<AppFunction> listMenu =appFunctionService.findAppFunctionMenuByUserRoles(user.getAppRoles());

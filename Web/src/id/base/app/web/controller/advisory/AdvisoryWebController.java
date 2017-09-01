@@ -119,9 +119,9 @@ public class AdvisoryWebController extends BaseController<AdvisoryConsulting> {
 			if(userLogin.getUserRoles()!=null){
 				for(Long pkRoles : userLogin.getUserRoles()){
 					AppRole role = getRestCallerRole().findById(pkRoles);
-					if(SystemConstant.UserRole.ADVISOR.equals(role.getCode())){
+					/*if(SystemConstant.UserRole.ADVISOR.equals(role.getCode())){
 						return false;
-					}
+					}*/
 				}
 			}
 		}

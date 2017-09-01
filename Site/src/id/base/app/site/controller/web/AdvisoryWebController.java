@@ -14,8 +14,6 @@ import id.base.app.site.controller.BaseSiteController;
 import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
-import id.base.app.util.dao.SearchOrder.Sort;
-import id.base.app.valueobject.AppUser;
 import id.base.app.valueobject.Category;
 import id.base.app.valueobject.Pages;
 import id.base.app.valueobject.advisory.AdvisoryConsulting;
@@ -65,10 +63,6 @@ public class AdvisoryWebController extends BaseSiteController<Pages>{
 	
 	protected RestCaller<Category> getRestCallerCategory() {
 		return new RestCaller<Category>(RestConstant.REST_SERVICE, RestServiceConstant.CATEGORY_SERVICE);
-	}
-	
-	protected RestCaller<AppUser> getRestCallerUser() {
-		return new RestCaller<AppUser>(RestConstant.REST_SERVICE, RestServiceConstant.USER_SERVICE);
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)
@@ -152,65 +146,6 @@ public class AdvisoryWebController extends BaseSiteController<Pages>{
 		return "/advisory/stories";
 	}
 	
-	@RequestMapping(method=RequestMethod.GET, value="/sub/advisor")
-	public String advisor(ModelMap model, HttpServletRequest request, HttpServletResponse response,
-			@RequestParam(value="startNo",defaultValue="1") int startNo, 
-			@RequestParam(value="offset",defaultValue="12") int offset,
-			@RequestParam(value="filter", defaultValue="", required=false) String filterJson
-		){
-		setCommonData(request,model);
-		List<SearchFilter> filter = new ArrayList<SearchFilter>();
-		filter.add(new SearchFilter(AppUser.APP_ROLES_CODE, Operator.EQUALS, SystemConstant.UserRole.ADVISOR));
-		if(filterJson!=null && !"".equals(filterJson)){
-			filter.add(new SearchFilter(AppUser.PARTY_NAME, Operator.LIKE, filterJson));
-		}
-		//Category
-		List<Category> categories = new ArrayList<Category>();
-		categories = getRestCallerCategory().findAll(new ArrayList<SearchFilter>(), new ArrayList<SearchOrder>());
-		model.addAttribute("categories", categories);
-		return "/advisory/advisor";
-	}
-	
-	@RequestMapping(method=RequestMethod.GET, value="/sub/advisor/load")
-	@ResponseBody
-	public Map<String, Object> advisorLoad(ModelMap model, HttpServletRequest request, HttpServletResponse response,
-			@RequestParam(value="startNo",defaultValue="1") int startNo, 
-			@RequestParam(value="offset",defaultValue="12") int offset,
-			@RequestParam(value="filter", defaultValue="", required=false) String filterJson
-		){
-		Map<String, Object> resultMap = new HashMap<>();
-		List<SearchFilter> filter = new ArrayList<SearchFilter>();
-		filter.add(new SearchFilter(AppUser.APP_ROLES_CODE, Operator.EQUALS, SystemConstant.UserRole.ADVISOR));
-		if(filterJson!=null && !"".equals(filterJson)){
-			filter.add(new SearchFilter(AppUser.PARTY_NAME, Operator.LIKE, filterJson));
-		}
-		List<SearchOrder> order = new ArrayList<SearchOrder>();
-		PagingWrapper<AppUser> advisors = getRestCallerUser().findAllByFilter(startNo, offset, filter, order);
-		resultMap.put("advisors", advisors);
-		return resultMap;
-	}
-	
-	@RequestMapping(method=RequestMethod.GET, value="/sub/advisor/detail/{id}/{name}")
-	public String detailAdvisor(ModelMap model, HttpServletRequest request, HttpServletResponse response,
-			@PathVariable(value="id") Long pkAppUser,
-			@RequestParam(value="filter", defaultValue="", required=false) String filterJson,
-			@PathVariable(value="name") String name
-		){
-		AppUser advisor = getRestCallerUser().findById(pkAppUser);
-		if(advisor!=null){
-			if(advisor.getParty()!=null && advisor.getParty().getName()!=null){
-				String dataTitle = advisor.getParty().getName().replace(" ", "-");
-				if(dataTitle.equals(name)){
-					setCommonData(request,model);
-					model.addAttribute("advisor", advisor);
-					return "/advisory/advisorDetail";
-				}
-			}
-		}
-		LOGGER.error("ERROR DATA NOT VALID");
-		return "redirect:/page/notfound";
-	}
-	
 	@RequestMapping(method=RequestMethod.GET, value="/{categoryPermalink}/{permalink}")
 	public String detail(ModelMap model, HttpServletRequest request, HttpServletResponse response,
 			@PathVariable(value="categoryPermalink") String categoryPermalink,
@@ -234,13 +169,6 @@ public class AdvisoryWebController extends BaseSiteController<Pages>{
 			@RequestParam Map<String,String> params
 		){
 		setCommonData(request,model);
-		List<SearchFilter> filter = new ArrayList<SearchFilter>();
-		filter.add(new SearchFilter(AppUser.APP_ROLES_CODE, Operator.EQUALS, SystemConstant.UserRole.ADVISOR));
-		List<SearchOrder> order = new ArrayList<SearchOrder>();
-		order.add(new SearchOrder(AppUser.PK_APP_USER, Sort.ASC));
-		List<AppUser> advisors = new ArrayList<AppUser>();
-		advisors = getRestCallerUser().findAll(filter, order);
-		model.addAttribute("advisors", advisors);
 		
 		//Category
 		List<Category> categories = new ArrayList<Category>();
@@ -319,10 +247,6 @@ public class AdvisoryWebController extends BaseSiteController<Pages>{
 			if(category.compareTo(0L)>0){
 				Category dataCategory = getRestCallerCategory().findById(category);
 				advisory.setCategory(dataCategory);
-			}
-			if(advisor.compareTo(0L)>0){
-				AppUser dataAppUser = getRestCallerUser().findById(advisor);
-				advisory.setTutor(dataAppUser);
 			}
 			List<ErrorHolder> errors = getRestCaller().create(advisory);
 			if(!errors.isEmpty()){

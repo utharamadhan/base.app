@@ -4,6 +4,17 @@
 <meta charset="ISO-8859-1"/>
 <title>User Detail</title>
 </head>
+<style>
+.gcDetail-basicPicture {
+	max-height : 250px;
+}
+
+.basicPicture-delete {
+	position:absolute;
+	left:25px;
+	top:10px;
+}
+</style>
 <body>
 	<div class="pageheader">
 		<div class="row col-md-8">
@@ -30,7 +41,7 @@
 					</div>
 					<input id="userMaintenance-detail-maintenancePk" type="hidden" th:field="*{pkAppUser}"/>
 					<div class="form-group">
-						<label class="col-sm-2 control-label" th:text="'Role'">Role</label>
+						<label class="col-sm-2 control-label required" th:text="'Role'">Role</label>
 						<div class="col-sm-6 form-input-container">
 							<select class="course-detail-topicSelect chosen-select form-control roleSelection" th:field="*{appRoles[0].pkAppRole}">
 								<option th:each="opt : ${roleOptions}" th:value="${opt.pkAppRole}" th:text="${opt.name}">Name</option>
@@ -38,7 +49,7 @@
                           	</div>
 					</div>
 					<div class="form-group">
-						<label class="col-sm-2 control-label" th:text="'Name'">Name</label>
+						<label class="col-sm-2 control-label required" th:text="'Name'">Name</label>
 						<div class="col-sm-6 form-input-container">
 							<input type="text" class="form-control" placeholder="Name" name="srch-term" id="input-text-name" th:field="*{party.name}"/>
 						</div>

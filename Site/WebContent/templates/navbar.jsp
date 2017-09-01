@@ -159,35 +159,10 @@
 			  </div><!-- /.container -->
 			</nav><!-- navbar -->
 		</div>
-		<script>
-			jQuery(function($){
-				$('.no-account').click(function(e){
-					e.preventDefault();
-					$('.signin-content').fadeOut(500);
-					$('.reg-content').fadeIn(500);
-					$('.signin-button').hide();
-					$('.reg-button').show();
-				});
-				$('.signin-button-back').click(function(e){
-					e.preventDefault();
-					$('.signin-content').fadeIn(500);
-					$('.reg-content').fadeOut(500);
-					$('.signin-button').show();
-					$('.reg-button').hide();
-				});
-				$('.btn-signup a').click(function(){$('.warning-sign-first').hide();});
-				$('.do-signin').click(function(){});
-				$('.do-signup').click(function(){window.location.href = "#";});
-				$('.do-enroll').click(function(){window.location.href = "#";});
-				$('.do-wishlist').click(function(){window.location.href = "#";});
-			});
-		</script>
-		<!-- div class="inlineMenu margin-top" -->
 		<div class="margin-top">
 		  <div class="container">
 			<div class="row clearfix">
-			  <div class="col-xs-12">
-			  </div><!-- col-xs-12 -->
-			</div><!-- row clearfix-->
-		  </div><!-- container  -->
-		</div><!-- inlineMenu -->
+			  <div class="col-xs-12"></div>
+			</div>
+		  </div>
+		</div>

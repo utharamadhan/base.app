@@ -57,7 +57,6 @@ public class UserWebController extends BaseController<AppUser> {
 	}
 	
 	private void setDefaultFilter(HttpServletRequest request, List<SearchFilter> filters) {
-		filters.add(new SearchFilter(AppUser.STATUS, Operator.EQUALS, SystemConstant.ValidFlag.VALID));
 	}
 
 	@Override

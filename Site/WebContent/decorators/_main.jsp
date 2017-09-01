@@ -26,7 +26,7 @@
 		<script src="<%=request.getContextPath()%>/js/jquery.magnific-popup.js" type="text/javascript" charset="utf-8"></script>
 		<script src="<%=request.getContextPath()%>/js/jspdf.min.js"></script>
 		<script src="<%=request.getContextPath()%>/js/running-text/breakingNews.js.download"></script>
-		<script src="<%=request.getContextPath()%>/js/parallax.min.js" type="text/javascript" charset="utf-8"></script>
+		<%-- <script src="<%=request.getContextPath()%>/js/parallax.min.js" type="text/javascript" charset="utf-8"></script> --%>
 		<script src="<%=request.getContextPath()%>/js/mrdy-plugin.js"></script>
 		<script src="<%=request.getContextPath()%>/js/custom.js"></script>
 	</body>

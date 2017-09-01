@@ -1,5 +1,6 @@
 package id.base.app.service.user;
 
+import id.base.app.ILookupConstant;
 import id.base.app.SystemConstant;
 import id.base.app.SystemParameter;
 import id.base.app.dao.passwordhistory.IPasswordHistoryDAO;
@@ -136,7 +137,12 @@ public class UserMaintenanceService implements MaintenanceService<AppUser>, IUse
 		c.add(Calendar.DATE, SystemParameter.PASSWORD_LIFETIME);
 		if(isCreateMode(appUser) || appUser.getIsNewPassword()){
 			appUser.setPassword(encryptPassword(appUser.getPassword()));
-			appUser.setStatus(1);
+		}
+		if(appUser.getStatus()==null){
+			appUser.setStatus(ILookupConstant.UserStatus.NEW);
+		}
+		if(appUser.getParty()!=null && appUser.getParty().getStatus()==null){
+			appUser.getParty().setStatus(SystemConstant.ValidFlag.VALID);
 		}
 		userDao.saveOrUpdate(appUser);
 		if (isShouldUpdatePwdHistory) {
@@ -246,6 +252,10 @@ public class UserMaintenanceService implements MaintenanceService<AppUser>, IUse
 				partyService.updatePermalink(appUser.getParty().getPkParty(), permalink);
 				appUser.getParty().setPermalink(permalink);
 			}
+			if(appUser.getAppRoles() instanceof PersistentBag) {
+				((PersistentCollection) appUser.getAppRoles() ).forceInitialization();
+			}
+			
 		}
 		return list;
 	}
