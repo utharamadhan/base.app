@@ -308,7 +308,7 @@ public class UserController extends SuperController<AppUser>{
 		}
 		
 		if(StringFunction.isNotEmpty(anObject.getEmail())){
-			if(!EmailFunction.isAddressValidRegex(anObject.getEmail())){
+			if(!EmailFunction.isAddressValid(anObject.getEmail())){
 				errors.add(new ErrorHolder(AppUser.EMAIL, messageSource.getMessage("error.user.email.invalid", null, Locale.ENGLISH)));
 			}/* else if(StringFunction.isNotEmpty(anObject.getEmail()) && userService.isEmailAlreadyInUsed(anObject.getPkAppUser(), anObject.getEmail())) {
 				errors.add(new ErrorHolder(AppUser.EMAIL, messageSource.getMessage("error.user.email.already.inused", null, Locale.ENGLISH)));

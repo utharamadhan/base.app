@@ -321,6 +321,18 @@ public class SystemConstant  {
 		public static final Integer FOOTER_MENU = 14;
 	}
 	
+	public static final class SettingDataFrom {
+		public static final String TOP_BERANDA = "TOP_BERANDA";
+		public static final String TOP_TENTANG_KAMI = "TOP_TENTANG_KAMI";
+		public static final String TOP_PUBLIKASI = "TOP_PUBLIKASI";
+		public static final String TOP_LAYANAN = "TOP_LAYANAN";
+		public static final String TOP_GALERI = "TOP_GALERI";
+		public static final String TOP_KONTAK_KAMI = "TOP_KONTAK_KAMI";
+		public static final String FOOTER_ABOUT = "FOOTER_ABOUT";
+		public static final String FOOTER_OTHER_SITE = "FOOTER_OTHER_SITE";
+		public static final String FOOTER_FOLLOW_US = "FOOTER_FOLLOW_US";
+	}
+	
 	public static final class NotificationConstant {
 		public static final Integer UNREAD = 0;
 		public static final Integer READ = 1;
