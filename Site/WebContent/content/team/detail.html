@@ -32,9 +32,6 @@
 					<div class="col-xs-12 col-sm-10">
 						<h1 th:utext="${detail.party.name}"></h1>
 						<label>Email</label> : <span th:utext="${detail.email}"></span><br/>
-						<th:block th:if="${!detail.party.partyContacts.empty}">
-							<label>No. Telp</label> : <span th:utext="${detail.party.partyContacts[0].contact}"></span><br/>
-						</th:block>
 						<span th:utext="${detail.party.profileDescription}"></span>
 					</div>
 				</div>

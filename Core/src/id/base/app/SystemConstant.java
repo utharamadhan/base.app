@@ -304,6 +304,23 @@ public class SystemConstant  {
 	
 	public static final String EMPTY_KEYWORD = "";
 	
+	public static final class SettingType {
+		public static final Integer HOME_BANNER = 1;
+		public static final Integer HOME_TOP_INFO = 2;
+		public static final Integer HOME_TOP_INFO_STEP = 3;
+		public static final Integer HOME_WHO_AM_I = 4;
+		public static final Integer HOME_WHO_AM_I_RIGHT = 5;
+		public static final Integer HOME_WHO_AM_I_F_CAPITAL = 6;
+		public static final Integer HOME_WHO_AM_I_F_LAND = 7;
+		public static final Integer HOME_WHO_AM_I_F_LEGAL = 8;
+		public static final Integer HOME_WHO_AM_I_F_SKILLS = 9;
+		public static final Integer HOME_NEWS = 10;
+		public static final Integer HOME_TESTIMONIAL = 11;
+		public static final Integer HOME_TAGLINE = 12;
+		public static final Integer HEADER_MENU = 13;
+		public static final Integer FOOTER_MENU = 14;
+	}
+	
 	public static final class NotificationConstant {
 		public static final Integer UNREAD = 0;
 		public static final Integer READ = 1;

@@ -79,7 +79,7 @@ public class RestServiceConstant {
 	public static final String RESEARCH_DEVELOPMENT_REPORT_SERVICE = "researchDevelopmentReportService";
 	
 	//front end 
-	public static final String HOME_SETTING_SERVICE = "homeSettingService";
+	public static final String SETTING_SERVICE = "settingService";
 	public static final String CONTACT_SETTING_SERVICE = "contactSettingService";
 	public static final String INTEGRATION_SCRIPT_SERVICE = "integrationScriptService";
 }

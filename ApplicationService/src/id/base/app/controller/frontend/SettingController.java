@@ -1,12 +1,12 @@
-package id.base.app.controller.contact;
+package id.base.app.controller.frontend;
 
 import id.base.app.controller.SuperController;
 import id.base.app.exception.ErrorHolder;
 import id.base.app.exception.SystemException;
 import id.base.app.rest.RestConstant;
 import id.base.app.service.MaintenanceService;
-import id.base.app.service.contact.IContactSettingService;
-import id.base.app.valueobject.contact.ContactSetting;
+import id.base.app.service.frontEndDisplay.ISettingService;
+import id.base.app.valueobject.frontend.Setting;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,15 +16,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(RestConstant.RM_CONTACT_SETTING)
-public class ContactSettingController extends SuperController<ContactSetting>{
+@RequestMapping(RestConstant.RM_SETTING)
+public class SettingController extends SuperController<Setting>{
 	
 	@Autowired
-	private IContactSettingService contactSettingService;
+	private ISettingService settingService;
 	
 
 	@Override
-	public ContactSetting validate(ContactSetting anObject) throws SystemException {
+	public Setting validate(Setting anObject) throws SystemException {
 		List<ErrorHolder> errorList = new ArrayList<>();
 		if(errorList.size() > 0) {
 			throw new SystemException(errorList);
@@ -33,12 +33,12 @@ public class ContactSettingController extends SuperController<ContactSetting>{
 	}
 	
 	@Override
-	public MaintenanceService<ContactSetting> getMaintenanceService() {
-		return contactSettingService;
+	public MaintenanceService<Setting> getMaintenanceService() {
+		return settingService;
 	}
 	
 	@Override
-	public ContactSetting preUpdate(ContactSetting anObject) throws SystemException{
+	public Setting preUpdate(Setting anObject) throws SystemException{
 		return validate(anObject);
 	}
 	

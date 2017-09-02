@@ -4,6 +4,17 @@
 <meta charset="ISO-8859-1"/>
 <title>Program Detail</title>
 </head>
+<style>
+.detail-image {
+	max-height : 250px;
+}
+
+.image-delete {
+	position:absolute;
+	left:25px;
+	top:10px;
+}
+</style>
 <body>
 	<div class="pageheader">
 		<div class="row col-md-8">
@@ -44,7 +55,7 @@
 									<input type="hidden" id="input-hidden-imageURL" th:field="*{imageURL}"/>
 									<input type="file" class="form-control" id="input-file-imageURL" style="display:none;"/>
 									<div id="container-imageURL">
-										<img th:src="${detail.imageURL}" class="newsDetail-image"/>
+										<img th:src="${detail.imageURL}" class="detail-image"/>
 										<a href="#" class="btn btn-primary btn-xs margin-bottom-20 image-delete" data-toggle="tooltip" title="Delete"><i class="fa fa-trash"></i></a>
 									</div>
 								</th:block>

@@ -26,8 +26,8 @@ import id.base.app.valueobject.aboutUs.Tutor;
 import id.base.app.valueobject.advisory.AdvisoryConsulting;
 import id.base.app.valueobject.contact.Contact;
 import id.base.app.valueobject.contact.ContactSetting;
-import id.base.app.valueobject.frontend.HomeSetting;
 import id.base.app.valueobject.frontend.IntegrationScript;
+import id.base.app.valueobject.frontend.Setting;
 import id.base.app.valueobject.notification.Notification;
 import id.base.app.valueobject.party.Party;
 import id.base.app.valueobject.party.Student;
@@ -53,8 +53,6 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
-
-
 public class ParameterLoader extends ContextLoader implements ServletContextListener  {
 	
 	private Logger logger=LoggerFactory.getLogger(ParameterLoader.class);
@@ -261,8 +259,8 @@ public class ParameterLoader extends ContextLoader implements ServletContextList
 		RestCaller.BASE_CLASS.put(RestServiceConstant.RESEARCH_DEVELOPMENT_REPORT_SERVICE, VWResearchDevelopmentReport.class);
 		
 		//Front End
-		RestCaller.BASE_URL.put(RestServiceConstant.HOME_SETTING_SERVICE, RestConstant.RM_HOME_SETTING);
-		RestCaller.BASE_CLASS.put(RestServiceConstant.HOME_SETTING_SERVICE, HomeSetting.class);
+		RestCaller.BASE_URL.put(RestServiceConstant.SETTING_SERVICE, RestConstant.RM_SETTING);
+		RestCaller.BASE_CLASS.put(RestServiceConstant.SETTING_SERVICE, Setting.class);
 		
 		RestCaller.BASE_URL.put(RestServiceConstant.CONTACT_SETTING_SERVICE, RestConstant.RM_CONTACT_SETTING);
 		RestCaller.BASE_CLASS.put(RestServiceConstant.CONTACT_SETTING_SERVICE, ContactSetting.class);

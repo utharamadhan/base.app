@@ -1,5 +1,6 @@
-package id.base.app.controller;
+package id.base.app.controller.publication;
 
+import id.base.app.controller.SuperController;
 import id.base.app.exception.ErrorHolder;
 import id.base.app.exception.SystemException;
 import id.base.app.rest.RestConstant;

@@ -673,10 +673,6 @@ public class UserMaintenanceService implements MaintenanceService<AppUser>, IUse
 
 	@Override
 	public AppUser findDetailByPermalink(String permalink) throws SystemException {
-		AppUser appUser = userDao.findDetailByPermalink(permalink);
-		if(appUser.getParty().getPartyContacts() instanceof PersistentBag) {
-			((PersistentCollection) appUser.getParty().getPartyContacts() ).forceInitialization();
-		}
-		return appUser;
+		return userDao.findDetailByPermalink(permalink);
 	}
 }

@@ -9,7 +9,7 @@ import id.base.app.rest.RestServiceConstant;
 import id.base.app.rest.SpecificRestCaller;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
-import id.base.app.valueobject.frontend.HomeSetting;
+import id.base.app.valueobject.frontend.Setting;
 import id.base.app.web.DataTableCriterias;
 import id.base.app.web.controller.BaseController;
 
@@ -31,14 +31,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Scope(value="request")
 @Controller
 @RequestMapping("/fed/homeSetting")
-public class HomeSettingWebController extends BaseController<HomeSetting>{
+public class HomeSettingWebController extends BaseController<Setting>{
 
 	private final String PATH_LIST = "/fed/homeSetting/homeSettingList";
 	private final String PATH_DETAIL = "/fed/homeSetting/homeSettingDetail";
 	
 	@Override
-	protected RestCaller<HomeSetting> getRestCaller() {
-		return new RestCaller<HomeSetting>(RestConstant.REST_SERVICE, RestServiceConstant.HOME_SETTING_SERVICE);
+	protected RestCaller<Setting> getRestCaller() {
+		return new RestCaller<Setting>(RestConstant.REST_SERVICE, RestServiceConstant.SETTING_SERVICE);
 	}
 	
 	@Override
@@ -66,35 +66,28 @@ public class HomeSettingWebController extends BaseController<HomeSetting>{
 	
 	@RequestMapping(method=RequestMethod.GET, value="showList")
 	public String showList(ModelMap model, HttpServletRequest request){
-		model.addAttribute("pagingWrapper", new PagingWrapper<HomeSetting>());
+		model.addAttribute("pagingWrapper", new PagingWrapper<Setting>());
 		return getListPath();
 	}
 	
 	public void setDefaultData(ModelMap model) {
 	}
 	
-	@RequestMapping(method=RequestMethod.GET, value="showAdd")
-	public String showAdd(ModelMap model, HttpServletRequest request){
-		model.addAttribute("detail", HomeSetting.getInstance());
-		setDefaultData(model);
-		return PATH_DETAIL;
-	}
-	
 	@RequestMapping(method=RequestMethod.GET, value="showEdit")
 	public String showEdit(@RequestParam(value="maintenancePK") final Long maintenancePK, @RequestParam Map<String, String> paramWrapper, ModelMap model, HttpServletRequest request){
 		setDefaultData(model);
-		HomeSetting detail = getRestCaller().findById(maintenancePK);
+		Setting detail = getRestCaller().findById(maintenancePK);
 		model.addAttribute("detail", detail);
 		return PATH_DETAIL;
 	}
 	
 	@RequestMapping(method=RequestMethod.POST, value="saveHomeSetting")
 	@ResponseBody
-	public Map<String, Object> saveHomeSetting(final HomeSetting anObject, HttpServletRequest request) {
+	public Map<String, Object> saveHomeSetting(final Setting anObject, HttpServletRequest request) {
 		Map<String, Object> resultMap = new HashMap<>();
 		List<ErrorHolder> errors = new ArrayList<>();
 		try{
-			errors = new SpecificRestCaller<HomeSetting>(RestConstant.REST_SERVICE, RestServiceConstant.HOME_SETTING_SERVICE).performPut("/update", anObject);
+			errors = new SpecificRestCaller<Setting>(RestConstant.REST_SERVICE, RestServiceConstant.SETTING_SERVICE).performPut("/update", anObject);
 			if(errors != null && errors.size() > 0){
 				resultMap.put(SystemConstant.ERROR_LIST, errors);
 			}
