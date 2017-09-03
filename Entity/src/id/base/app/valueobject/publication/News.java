@@ -164,9 +164,11 @@ public class News extends BaseEntity implements Serializable {
 	
 	public String getEncodedPicture() throws Exception {
 		if(getImageThumbURL()!=null && !"".equals(getImageThumbURL())){
-			encodedPicture = EncodeDecode.getBase64FromLink(getImageThumbURL());
+			/*encodedPicture = EncodeDecode.getBase64FromLink(getImageThumbURL());*/
+			encodedPicture = getImageThumbURL();
 		}else if(getImageURL()!=null && !"".equals(getImageURL())){
-			encodedPicture = EncodeDecode.getBase64FromLink(getImageURL());
+			/*encodedPicture = EncodeDecode.getBase64FromLink(getImageURL());*/
+			encodedPicture = getImageURL();
 		}
 		return encodedPicture;
 	}

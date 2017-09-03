@@ -157,7 +157,8 @@ public class Engagement extends BaseEntity implements Serializable {
 	
 	public String getEncodedPicture() throws Exception {
 		if(getImageURL()!=null && !"".equals(getImageURL())){
-			encodedPicture = EncodeDecode.getBase64FromLink(getImageURL());
+			/*encodedPicture = EncodeDecode.getBase64FromLink(getImageURL());*/
+			encodedPicture = getImageURL();
 		}
 		return encodedPicture;
 	}

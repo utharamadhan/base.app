@@ -18,9 +18,7 @@ import javax.persistence.Transient;
 @Entity
 @Table(name = "DIGITAL_BOOK")
 public class DigitalBook extends BaseEntity implements Serializable {
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 7698703933226904281L;
 	
 	public static final String PK_DIGITAL_BOOK = "pkDigitalBook";
@@ -143,10 +141,10 @@ public class DigitalBook extends BaseEntity implements Serializable {
 		return ILookupConstant.Status.STATUS_MAP.get(status);
 	}
 	public String getEncodedPicture() throws Exception {
-		if(getCoverImageURL()!=null && !"".equals(getCoverImageURL())){
+		/*if(getCoverImageURL()!=null && !"".equals(getCoverImageURL())){
 			encodedPicture = EncodeDecode.getBase64FromLink(getCoverImageURL());
-		}
-		return encodedPicture;
+		}*/
+		return getCoverImageURL();
 	}
 	public void setEncodedPicture(String encodedPicture) {
 		this.encodedPicture = encodedPicture;

@@ -149,7 +149,8 @@ public class Event extends BaseEntity implements Serializable {
 	}
 	public String getEncodedPicture() throws Exception {
 		if(getCoverImageURL()!=null && !"".equals(getCoverImageURL())){
-			encodedPicture = EncodeDecode.getBase64FromLink(getCoverImageURL());
+			/*encodedPicture = EncodeDecode.getBase64FromLink(getCoverImageURL());*/
+			encodedPicture = getCoverImageURL();
 		}
 		return encodedPicture;
 	}
