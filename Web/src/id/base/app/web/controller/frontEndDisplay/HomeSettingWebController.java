@@ -2,13 +2,14 @@ package id.base.app.web.controller.frontEndDisplay;
 
 import id.base.app.SystemConstant;
 import id.base.app.exception.ErrorHolder;
-import id.base.app.paging.PagingWrapper;
+import id.base.app.rest.PathInterfaceRestCaller;
 import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
 import id.base.app.rest.RestServiceConstant;
 import id.base.app.rest.SpecificRestCaller;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
+import id.base.app.valueobject.frontend.HomeSettingHelper;
 import id.base.app.valueobject.frontend.Setting;
 import id.base.app.web.DataTableCriterias;
 import id.base.app.web.controller.BaseController;
@@ -33,8 +34,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/fed/homeSetting")
 public class HomeSettingWebController extends BaseController<Setting>{
 
-	private final String PATH_LIST = "/fed/homeSetting/homeSettingList";
-	private final String PATH_DETAIL = "/fed/homeSetting/homeSettingDetail";
+	private final String PATH_DETAIL = "/fed/homeSettingDetail";
 	
 	@Override
 	protected RestCaller<Setting> getRestCaller() {
@@ -46,38 +46,20 @@ public class HomeSettingWebController extends BaseController<Setting>{
 		return null;
 	}
 	
-	private void setDefaultFilter(HttpServletRequest request, List<SearchFilter> filters) {
-	}
-
 	@Override
 	protected List<SearchFilter> convertForFilter(HttpServletRequest request, Map<String, String> paramWrapper, DataTableCriterias columns) {
-		List<SearchFilter> filters = new ArrayList<>();
-		setDefaultFilter(request, filters);
-		return filters;
+		return null;
 	}
 
 	@Override
 	protected List<SearchOrder> getSearchOrder() {
-		if(orders != null) {
-			orders.clear();
-		}
-		return orders;
-	}
-	
-	@RequestMapping(method=RequestMethod.GET, value="showList")
-	public String showList(ModelMap model, HttpServletRequest request){
-		model.addAttribute("pagingWrapper", new PagingWrapper<Setting>());
-		return getListPath();
-	}
-	
-	public void setDefaultData(ModelMap model) {
+		return null;
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="showEdit")
-	public String showEdit(@RequestParam(value="maintenancePK") final Long maintenancePK, @RequestParam Map<String, String> paramWrapper, ModelMap model, HttpServletRequest request){
-		setDefaultData(model);
-		Setting detail = getRestCaller().findById(maintenancePK);
-		model.addAttribute("detail", detail);
+	public String showEdit(@RequestParam Map<String, String> paramWrapper, ModelMap model, HttpServletRequest request){
+		HomeSettingHelper setting = getHomeSettingList();
+		model.addAttribute("setting", setting);
 		return PATH_DETAIL;
 	}
 	
@@ -99,6 +81,24 @@ public class HomeSettingWebController extends BaseController<Setting>{
 	
 	@Override
 	protected String getListPath() {
-		return PATH_LIST;
+		return PATH_DETAIL;
+	}
+	
+	private HomeSettingHelper getHomeSettingList(){
+		SpecificRestCaller<HomeSettingHelper> rc = new SpecificRestCaller<HomeSettingHelper>(RestConstant.REST_SERVICE, RestServiceConstant.HOME_SETTING_SERVICE);
+		HomeSettingHelper obj = rc.executeGet(new PathInterfaceRestCaller() {
+			
+			@Override
+			public String getPath() {
+				return "/findAllSettingHome";
+			}
+			
+			@Override
+			public Map<String, Object> getParameters() {
+				Map<String,Object> map = new HashMap<String, Object>();
+				return map;
+			}
+		});
+		return obj;
 	}
 }

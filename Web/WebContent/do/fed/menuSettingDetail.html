@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:ifs="http://btn.co.id">
+<head>
+<meta charset="ISO-8859-1"/>
+<title>Home Setting Detail</title>
+</head>
+<style>
+.background-image {
+	max-height : 250px;
+}
+
+.background-delete {
+	position:absolute;
+	left:25px;
+	top:10px;
+}
+</style>
+<body>
+<div id="content" class="col-md-12">
+	<div class="pageheader">
+		<div class="row col-md-8">
+			<h4><i class="fa fa-tachometer"></i> Home Setting Detail
+			<span></span></h4>
+		</div>
+	</div>
+	<div class="main">
+	<div class="row col-md-12">
+		<section class="tile transparent">
+			<div class="tile-body rounded-corners">
+				<form action="#" id="homeSetting-detail-form" class="form-horizontal" method="POST" novalidate="novalidate">
+					<div class="stockTypeStyle">
+						<div class="form-group">
+							<div class="col-md-12">
+								<div id="errorFragmentList">
+									<th:block th:if="${message}">
+										<div class='alert alert-success'>
+											<a href='#' class='close' data-dismiss='alert' aria-label='close' title='close'>&#10006;</a>			
+											<label th:text="${message}"></label>
+										</div>
+									</th:block>
+								</div>
+							</div>									
+							&nbsp;
+						</div>
+						<fieldset>
+							<legend>Menu Top</legend>
+							<table class="table table-bordered">
+								<tr>
+									<td></td>
+									<td><label class="control-label" th:text="'Label'">Label</label></td>
+									<td><label class="control-label" th:text="'Order No'">Order No</label></td>
+								</tr>
+								<tr>
+									<td><label class="control-label" th:text="'Beranda'">Beranda</label></td>
+									<td><input type="text" class="form-control" th:value="${menuTop[0].label1}"/></td>
+									<td><input type="text" class="form-control" th:value="${menuTop[0].orderNo}"/></td>
+								</tr>
+								<tr>
+									<td><label class="control-label" th:text="'Tentang Kami'">Tentang Kami</label></td>
+									<td><input type="text" class="form-control" th:value="${menuTop[1].label1}"/></td>
+									<td><input type="text" class="form-control" th:value="${menuTop[1].orderNo}"/></td>
+								</tr>
+								<tr>
+									<td><label class="control-label" th:text="'Publikasi'">Publikasi</label></td>
+									<td><input type="text" class="form-control" th:value="${menuTop[2].label1}"/></td>
+									<td><input type="text" class="form-control" th:value="${menuTop[2].orderNo}"/></td>
+								</tr>
+								<tr>
+									<td><label class="control-label" th:text="'Publikasi'">Layanan</label></td>
+									<td><input type="text" class="form-control" th:value="${menuTop[3].label1}"/></td>
+									<td><input type="text" class="form-control" th:value="${menuTop[3].orderNo}"/></td>
+								</tr>
+								<tr>
+									<td><label class="control-label" th:text="'Galeri'">Galeri</label></td>
+									<td><input type="text" class="form-control" th:value="${menuTop[4].label1}"/></td>
+									<td><input type="text" class="form-control" th:value="${menuTop[4].orderNo}"/></td>
+								</tr>
+								<tr>
+									<td><label class="control-label" th:text="'Kontak Kami'">Kontak Kami</label></td>
+									<td><input type="text" class="form-control" th:value="${menuTop[5].label1}"/></td>
+									<td><input type="text" class="form-control" th:value="${menuTop[5].orderNo}"/></td>
+								</tr>
+							</table>
+						</fieldset>
+						<br/>
+						<fieldset>
+							<legend>Menu Bottom</legend>
+							<table class="table table-bordered">
+								<tr>
+									<td></td>
+									<td><label class="control-label" th:text="'Label'">Label</label></td>
+									<td><label class="control-label" th:text="'Order No'">Order No</label></td>
+								</tr>
+								<tr>
+									<td><label class="control-label" th:text="'Tentang Website'">Tentang Website</label></td>
+									<td><input type="text" class="form-control" th:value="${menuBottom[0].label1}"/></td>
+									<td><input type="text" class="form-control" th:value="${menuBottom[0].orderNo}"/></td>
+								</tr>
+								<tr>
+									<td><label class="control-label" th:text="'Situs Lain'">Situs Lain</label></td>
+									<td><input type="text" class="form-control" th:value="${menuBottom[1].label1}"/></td>
+									<td><input type="text" class="form-control" th:value="${menuBottom[1].orderNo}"/></td>
+								</tr>
+								<tr>
+									<td><label class="control-label" th:text="'Ikuti Kami'">Ikuti Kami</label></td>
+									<td><input type="text" class="form-control" th:value="${menuBottom[2].label1}"/></td>
+									<td><input type="text" class="form-control" th:value="${menuBottom[2].orderNo}"/></td>
+								</tr>
+							</table>
+						</fieldset>
+						<div class="form-group form-footer">				
+							<div class="col-sm-offset-2 col-sm-10">
+								<a href="#" id="news-detail-btn-cancel" class="btn btn-default" type="reset" data-toggle="tooltip" title="" th:text="#{button.cancel}">Cancel</a>
+								<button id="news-detail-btn-save" class="btn btn-primary" type="submit" data-toggle="tooltip" title="" th:text="#{button.save}">Save</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</section>
+	</div>
+	</div>
+</div>
+<script th:inline="javascript">
+/*<![CDATA[*/
+function initDeletePicture() {
+	$('.background-delete').click(function(e){
+		e.preventDefault();
+		$('#input-file-background').show();
+		$('#container-background').html("");
+		$('#input-hidden-background, #input-file-background').val("");
+		$('#container-background').hide();
+	});
+}
+
+$(function(){
+	var uploadURL = /*[[@{/do/fileManager/upload/}]]*/ #;
+	initDatePicker("datepicker", "dd/mm/yy");
+	initTextEditorWithoutP('#tinyMCEs1-area', '#tinyMCEs1-parent', uploadURL);
+	initTextEditorWithoutP('#tinyMCEs2-area', '#tinyMCEs2-parent', uploadURL);
+	initTextEditorWithoutP('#tinyMCEs3-area', '#tinyMCEs3-parent', uploadURL);
+	initTextEditorWithoutP('#tinyMCEs4-area', '#tinyMCEs4-parent', uploadURL);
+	initTextEditorWithoutP('#tinyMCEr1-area', '#tinyMCEr1-parent', uploadURL);
+	initTextEditorWithoutP('#tinyMCEr2-area', '#tinyMCEr2-parent', uploadURL);
+	initTextEditorWithoutP('#tinyMCEr3-area', '#tinyMCEr3-parent', uploadURL);
+	initTextEditorWithoutP('#tinyMCEr4-area', '#tinyMCEr4-parent', uploadURL);
+	initDeletePicture();
+	
+	var submitForm = function(){
+		cleanErrorParsley();
+		$('#tinyMCEs1-hidden').val(tinymce.get('tinyMCEs1-area').getContent());
+		$('#tinyMCEs2-hidden').val(tinymce.get('tinyMCEs2-area').getContent());
+		$('#tinyMCEs3-hidden').val(tinymce.get('tinyMCEs3-area').getContent());
+		$('#tinyMCEs4-hidden').val(tinymce.get('tinyMCEs4-area').getContent());
+		$('#tinyMCEr1-hidden').val(tinymce.get('tinyMCEr1-area').getContent());
+		$('#tinyMCEr2-hidden').val(tinymce.get('tinyMCEr2-area').getContent());
+		$('#tinyMCEr3-hidden').val(tinymce.get('tinyMCEr3-area').getContent());
+		$('#tinyMCEr4-hidden').val(tinymce.get('tinyMCEr4-area').getContent());
+		var sURL = /*[[@{/do/publication/news/saveNews/}]]*/ #;
+		$.post(sURL, $("#news-detail-form").serialize(), function(data) {
+			if(data.errorList!=null){
+				displayErrorParsley(data.errorList);
+			}else{
+				bootBoxSuccessSave('News Successfully Saved', backToList);
+			}
+		});
+	};
+	
+	var showImage = function(imageURL) {
+		$('#input-file-background').hide();
+		var htmlContent = '<image src="'+imageURL+'" style="max-height:250px;"></image>';
+		htmlContent += '<a href="#" class="btn btn-primary btn-xs margin-bottom-20 image-delete" data-toggle="tooltip" title="Delete" style="position:absolute; left:25px; top:10px;"><i class="fa fa-trash"></i></a>';
+		$('#container-background').html(htmlContent);
+		$('#input-hidden-background').val(imageURL);
+		$('#container-background').show();
+		initDeletePicture();
+	}
+	
+	var uploadFile = function(image, uploadURL) {
+		var data = new FormData();
+		data.append('file', image);
+		var xhr = new XMLHttpRequest();
+		xhr.open('POST', uploadURL, true);
+		xhr.onreadystatechange = function() {
+		  if (xhr.readyState === 4) {
+		    var response = JSON.parse(xhr.responseText);
+		    if (response) {
+		      	showImage(response);
+		    } else {
+		      	var reader = new FileReader();
+		      	reader.onload = function(e) {
+		        	callback(e.target.result);
+		      	};
+		      	reader.readAsDataURL(image);
+		    }
+		  }
+		}
+		xhr.send(data);
+	};
+	
+	$('#news-detail-btn-save').click(function(e){
+		e.preventDefault();
+		submitForm();
+	});
+	
+	$('#news-detail-btn-cancel').click(function(e){
+		e.preventDefault();
+		backToList();
+	});
+	
+	$('#input-file-background').change(function(){
+		var sURL = /*[[@{/do/fileManager/uploadFeaturedImage/}]]*/ #;
+		var thisObj = $('#input-file-background')[0];
+		uploadFile(thisObj.files[0], sURL);
+	});
+	
+});
+/*]]>*/
+</script>
+</body>
+</html>

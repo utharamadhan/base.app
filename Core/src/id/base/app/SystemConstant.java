@@ -319,6 +319,32 @@ public class SystemConstant  {
 		public static final Integer HOME_TAGLINE = 12;
 		public static final Integer HEADER_MENU = 13;
 		public static final Integer FOOTER_MENU = 14;
+		
+		public static final List<Integer> HOME_LIST = new ArrayList<>();
+		static{
+			HOME_LIST.add(HOME_BANNER);
+			HOME_LIST.add(HOME_TOP_INFO);
+			HOME_LIST.add(HOME_TOP_INFO_STEP);
+			HOME_LIST.add(HOME_WHO_AM_I);
+			HOME_LIST.add(HOME_WHO_AM_I_RIGHT);
+			HOME_LIST.add(HOME_WHO_AM_I_F_CAPITAL);
+			HOME_LIST.add(HOME_WHO_AM_I_F_LAND);
+			HOME_LIST.add(HOME_WHO_AM_I_F_LEGAL);
+			HOME_LIST.add(HOME_WHO_AM_I_F_SKILLS);
+			HOME_LIST.add(HOME_NEWS);
+			HOME_LIST.add(HOME_TESTIMONIAL);
+			HOME_LIST.add(HOME_TAGLINE);
+		}
+		
+		public static final List<Integer> MENU_TOP_LIST = new ArrayList<>();
+		static{
+			MENU_TOP_LIST.add(HEADER_MENU);
+		}
+		
+		public static final List<Integer> MENU_BOTTOM_LIST = new ArrayList<>();
+		static{
+			MENU_BOTTOM_LIST.add(FOOTER_MENU);
+		}
 	}
 	
 	public static final class SettingDataFrom {

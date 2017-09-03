@@ -1,5 +1,6 @@
 package id.base.app.controller.frontend;
 
+import id.base.app.SystemConstant;
 import id.base.app.controller.SuperController;
 import id.base.app.exception.ErrorHolder;
 import id.base.app.exception.SystemException;
@@ -13,6 +14,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -40,6 +43,18 @@ public class SettingController extends SuperController<Setting>{
 	@Override
 	public Setting preUpdate(Setting anObject) throws SystemException{
 		return validate(anObject);
+	}	
+	
+	@RequestMapping(method=RequestMethod.GET, value="/findAllSettingMenuTop")
+	@ResponseBody
+	public List<Setting> findAllSettingMenuTop() throws SystemException {
+		return settingService.findAllSetting(SystemConstant.SettingType.MENU_TOP_LIST);
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/findAllSettingMenuBottom")
+	@ResponseBody
+	public List<Setting> findAllSettingMenuBottom() throws SystemException {
+		return settingService.findAllSetting(SystemConstant.SettingType.MENU_BOTTOM_LIST);
 	}
 	
 }

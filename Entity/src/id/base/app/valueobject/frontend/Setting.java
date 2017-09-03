@@ -19,8 +19,17 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @Table(name = "SETTING")
 @JsonIdentityInfo(generator=ObjectIdGenerators.UUIDGenerator.class, property="settingJid", scope=Setting.class)
 public class Setting extends BaseEntity implements Serializable {
+	
+	private static final long serialVersionUID = 1034664739896623253L;
 
-	private static final long serialVersionUID = 3509921433000253496L;
+	public static final String PK_SETTING = "pkSetting";
+	public static final String TYPE = "type";
+	public static final String DATA_FROM = "dataFrom";
+	public static final String LABEL1 = "label1";
+	public static final String LABEL2 = "label2";
+	public static final String VALUE = "value";
+	public static final String ORDER_NO = "orderNo";
+	public static final String STATUS = "status";
 	
 	@Id
 	@SequenceGenerator(name="SETTING_PK_SETTING_SEQ", sequenceName="SETTING_PK_SETTING_SEQ", allocationSize=1)
@@ -29,7 +38,7 @@ public class Setting extends BaseEntity implements Serializable {
 	private Long pkSetting;
 	
 	@Column(name="TYPE")
-	private String type;
+	private Integer type;
 	
 	@Column(name="DATA_FROM")
 	private String dataFrom;
@@ -44,7 +53,7 @@ public class Setting extends BaseEntity implements Serializable {
 	private String value;
 	
 	@Column(name="ORDER_NO")
-	private String orderNo;
+	private Integer orderNo;
 	
 	@Column(name="STATUS")
 	private Integer status;
@@ -57,14 +66,14 @@ public class Setting extends BaseEntity implements Serializable {
 		this.pkSetting = pkSetting;
 	}
 
-	public String getType() {
+	public Integer getType() {
 		return type;
 	}
 
-	public void setType(String type) {
+	public void setType(Integer type) {
 		this.type = type;
 	}
-	
+
 	public String getDataFrom() {
 		return dataFrom;
 	}
@@ -97,11 +106,11 @@ public class Setting extends BaseEntity implements Serializable {
 		this.value = value;
 	}
 
-	public String getOrderNo() {
+	public Integer getOrderNo() {
 		return orderNo;
 	}
 
-	public void setOrderNo(String orderNo) {
+	public void setOrderNo(Integer orderNo) {
 		this.orderNo = orderNo;
 	}
 
