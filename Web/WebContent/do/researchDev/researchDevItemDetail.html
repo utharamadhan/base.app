@@ -442,6 +442,8 @@
 				deleteRowTable('keyword',$(this));
 			});
 			
+			$('.download-yes').hide();
+			$('.download-type-password').hide();
 			var checkIsDownload = function(obj){
 				if(obj.val()=='1'){
 					$('.download-yes').show();
@@ -464,7 +466,6 @@
 			$('.download-type').change(function(){
 				checkDownloadType($(this));
 			})
-			checkDownloadType($('.download-type'));
 	    });
 	/*]]>*/
 	</script>

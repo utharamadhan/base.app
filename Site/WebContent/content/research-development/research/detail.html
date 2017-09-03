@@ -31,7 +31,9 @@
 							</div>
 							<div class="clear"></div>
 							<br/>
-							<img th:src="@{/images/download-pdf.png}" id="download" class="download-button"/>
+							<th:block th:if="${detail.isDownload}">
+								<div><img th:src="@{/images/download-pdf.png}" id="download" class="download-button"/></div>
+							</th:block>
 						</div>
 					</div>
 					<div class="col-md-4">
@@ -81,7 +83,7 @@
 				</div>
 			</div>
 		</div>
-		<script type="text/javascript" th:inline="javascript">
+		<script type="text/javascript" th:inline="javascript" th:if="${detail.isDownload and detail.downloadType==0}">
 		/*<![CDATA[*/
         $(function(){
         	$('#download').click(function () {
@@ -110,6 +112,58 @@
 			    } 
 			});
 		}
+		/*]]>*/
+		</script>
+		<script type="text/javascript" th:inline="javascript" th:if="${detail.isDownload and detail.downloadType==1}">
+		/*<![CDATA[*/
+        $(function(){
+        	$('#download').click(function () {
+        		var password = prompt("Please enter the password, before download this file", "");
+				var passwordDB = /*[[${detail.password}]]*/ #;
+				if (password != passwordDB) {
+				    alert('Incorrect password')
+				}else{
+	        		var title = /*[[${detail.title}]]*/
+	        		var doc = new jsPDF();
+	        		doc.fromHTML($('#content-pdf').html(), 15, 15, {
+				        'width': 180
+				    });
+				    doc.save(title);
+				}
+			});
+		})
+		
+		function downloadFile(sURL){
+			$.ajax({ 
+			    type: "GET",
+			    url: sURL,
+			    cache: false,
+			    contentType: false,
+			    processData: false,
+			    success: function(data){
+			    	if(data.errorList != null){
+			    		displayErrorJson(data.errorList, 4);
+			        }else{
+			        	window.location.href = sURL;
+			        }
+			    } 
+			});
+		}
+		/*]]>*/
+		</script>
+		<script type="text/javascript" th:inline="javascript" th:if="${detail.isDownload and detail.downloadType==2}">
+		/*<![CDATA[*/
+        $(function(){
+			$("#download").unbind('click').click(function(){
+				var sURL = /*[[@{/page/contact}]]*/ #;
+				window.location=sURL;
+			});
+		})
+		/*]]>*/
+		</script>
+		<script type="text/javascript" th:inline="javascript">
+		/*<![CDATA[*/
+		setNavbarActive('program');
 		/*]]>*/
 		</script>
 </body>
