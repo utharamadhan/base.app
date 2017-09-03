@@ -16,7 +16,9 @@ import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.valueobject.Category;
+import id.base.app.valueobject.Lookup;
 import id.base.app.valueobject.research.Research;
+import id.base.app.valueobject.util.SelectHelper;
 import id.base.app.web.DataTableCriterias;
 import id.base.app.web.controller.BaseController;
 import id.base.app.web.rest.LookupRestCaller;
@@ -88,6 +90,15 @@ public class ResearchDevItemWebController extends BaseController<Research> {
 		LookupRestCaller lrc = new LookupRestCaller();
 		model.addAttribute("categoryOptions", getCategory());
 		model.addAttribute("statusOptions", lrc.findByLookupGroup(ILookupGroupConstant.STATUS));
+		List<Lookup> booleanList = new ArrayList<>();
+		booleanList.add(new Lookup().getInstanceShort("0", "No"));
+		booleanList.add(new Lookup().getInstanceShort("1", "Yes"));
+		model.addAttribute("booleanOptions", booleanList);
+		List<SelectHelper> downloadTypeList = new ArrayList<>();
+		downloadTypeList.add(new SelectHelper().getInstanceValueInteger(SystemConstant.DownloadType.NORMAL, SystemConstant.DownloadType.NORMAL_STR));
+		downloadTypeList.add(new SelectHelper().getInstanceValueInteger(SystemConstant.DownloadType.POPUP, SystemConstant.DownloadType.POPUP_STR));
+		downloadTypeList.add(new SelectHelper().getInstanceValueInteger(SystemConstant.DownloadType.KONTAK_KAMI, SystemConstant.DownloadType.KONTAK_KAMI_STR));
+		model.addAttribute("downloadTypeOptions", downloadTypeList);
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="showAdd")

@@ -112,6 +112,15 @@ public class Research extends BaseEntity implements Serializable {
 	@Column(name = "IS_ITEM")
 	private Boolean isItem;
 	
+	@Column(name = "IS_DOWNLOAD")
+	private Boolean isDownload;
+	
+	@Column(name = "DOWNLOAD_TYPE")
+	private Integer downloadType;
+	
+	@Column(name = "PASSWORD")
+	private String password;
+	
 	@Transient
 	private String statusStr;
 	
@@ -305,6 +314,30 @@ public class Research extends BaseEntity implements Serializable {
 
 	public void setIsItem(Boolean isItem) {
 		this.isItem = isItem;
+	}
+	
+	public Boolean getIsDownload() {
+		return isDownload;
+	}
+
+	public void setIsDownload(Boolean isDownload) {
+		this.isDownload = isDownload;
+	}
+
+	public Integer getDownloadType() {
+		return downloadType;
+	}
+
+	public void setDownloadType(Integer downloadType) {
+		this.downloadType = downloadType;
+	}
+	
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public void setPermalink(String permalink) {

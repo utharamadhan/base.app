@@ -94,6 +94,28 @@
 							</div>
 						</div>
 						<div class="form-group">
+							<label class="col-sm-2 control-label" th:text="'Download File?'">Download File?</label>
+							<div class="col-sm-9 form-input-container">
+								<select class="chosen-select form-control is-download" th:field="*{isDownload}">
+									<option th:each="opt : ${booleanOptions}" th:value="${opt.code}" th:text="${opt.descr}"></option>
+                           		</select>
+                           	</div>
+						</div>
+						<div class="form-group download-yes">
+							<label class="col-sm-2 control-label" th:text="'Download Type'">Download Type</label>
+							<div class="col-sm-9 form-input-container">
+								<select class="chosen-select form-control download-type" th:field="*{downloadType}">
+									<option th:each="opt : ${downloadTypeOptions}" th:value="${opt.valueInteger}" th:text="${opt.label}"></option>
+                           		</select>
+                           	</div>
+						</div>
+						<div class="form-group download-yes download-type-password">
+							<label class="col-sm-2 control-label" th:text="'Password'">Password</label>
+							<div class="col-sm-9 form-input-container">
+								<input type="text" class="form-control" placeholder="Password" id="input-text-title" th:field="*{password}"/>
+							</div>
+						</div>
+						<div class="form-group">
 							<label class="col-sm-2 control-label" th:text="'Status'">Status</label>
 							<div class="col-sm-9 form-input-container">
 								<select class="chosen-select form-control" th:field="*{status}">
@@ -219,6 +241,30 @@
 				var thisObj = $('#input-file-fileURL')[0];
 				uploadFile(thisObj.files[0], sURL, false);
 			});
+			
+			var checkIsDownload = function(obj){
+				if(obj.val()=='1'){
+					$('.download-yes').show();
+					checkDownloadType($('.download-type'));
+				}else{
+					$('.download-yes').hide();
+				}
+			}
+			var checkDownloadType = function(obj){
+				if(obj.val()=='1'){
+					$('.download-type-password').show();
+				}else{
+					$('.download-type-password').hide();
+				}
+			}
+			$('.is-download').change(function(){
+				checkIsDownload($(this));
+			})
+			checkIsDownload($('.is-download'));
+			$('.download-type').change(function(){
+				checkDownloadType($(this));
+			})
+			checkDownloadType($('.download-type'));
 			
 			$('#digitalBook-detail-btn-save').click(function(e){
 				e.preventDefault();

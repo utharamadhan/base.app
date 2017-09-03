@@ -1,5 +1,9 @@
 package id.base.app.valueobject.publication;
 
+import id.base.app.ILookupConstant;
+import id.base.app.encryptor.EncodeDecode;
+import id.base.app.valueobject.BaseEntity;
+
 import java.io.Serializable;
 
 import javax.persistence.Column;
@@ -10,10 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-
-import id.base.app.ILookupConstant;
-import id.base.app.encryptor.EncodeDecode;
-import id.base.app.valueobject.BaseEntity;
 
 @Entity
 @Table(name = "DIGITAL_BOOK")
@@ -55,6 +55,15 @@ public class DigitalBook extends BaseEntity implements Serializable {
 	
 	@Column(name="DESCRIPTION")
 	private String description;
+	
+	@Column(name = "IS_DOWNLOAD")
+	private Boolean isDownload;
+	
+	@Column(name = "DOWNLOAD_TYPE")
+	private Integer downloadType;
+	
+	@Column(name = "PASSWORD")
+	private String password;
 	
 	@Column(name="STATUS")
 	private Integer status;
@@ -105,7 +114,25 @@ public class DigitalBook extends BaseEntity implements Serializable {
 	public void setFileURL(String fileURL) {
 		this.fileURL = fileURL;
 	}
-	
+
+	public Boolean getIsDownload() {
+		return isDownload;
+	}
+	public void setIsDownload(Boolean isDownload) {
+		this.isDownload = isDownload;
+	}
+	public Integer getDownloadType() {
+		return downloadType;
+	}
+	public void setDownloadType(Integer downloadType) {
+		this.downloadType = downloadType;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
 	public Integer getStatus() {
 		return status;
 	}

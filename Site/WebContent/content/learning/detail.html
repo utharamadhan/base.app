@@ -194,6 +194,7 @@
 								<div role="tabpanel" class="tab-pane" id="download_brochure_desc">
 									<th:block th:if="${detail.brochureURL!=null}">
 										<img th:src="${detail.encodedBrochureImage}"/>
+										<a th:href="${detail.encodedBrochureImage}" th:attr="download=${detail.title}"><img th:src="@{/images/download-now.png}" id="download" class="download-button"/></a>
 									</th:block>
 								</div>
 							</div>

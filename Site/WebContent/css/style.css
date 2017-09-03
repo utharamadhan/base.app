@@ -4842,11 +4842,15 @@ blockquote span {
   	background-repeat: no-repeat;
   	background-position: bottom right;
 }
-.download-pdf{
+.download-button{
 	cursor:pointer;
+	height: 60px;
 }
 .content_post ol li ol{
 	margin-left:45px!important;
+}
+#download_brochure_desc{
+	text-align:center;
 }
 @media only screen and (min-width: 1200px) {
     body.bodyColor .header {

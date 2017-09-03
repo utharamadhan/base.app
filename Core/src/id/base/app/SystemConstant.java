@@ -488,4 +488,21 @@ public class SystemConstant  {
 		}
 	}
 	
+	public static final class DownloadType{
+		public static final Integer NORMAL = 0;
+		public static final Integer POPUP = 1;
+		public static final Integer KONTAK_KAMI = 2;
+		
+		public static final String NORMAL_STR = "Normal";
+		public static final String POPUP_STR = "Popup Password";
+		public static final String KONTAK_KAMI_STR = "Hubungi Kontak Kami";
+		
+		public static final Map<Integer, String> TYPE_MAP = new HashMap<>();
+		static {
+			TYPE_MAP.put(NORMAL, NORMAL_STR);
+			TYPE_MAP.put(POPUP, POPUP_STR);
+			TYPE_MAP.put(KONTAK_KAMI, KONTAK_KAMI_STR);
+		}
+	}
+	
 }
