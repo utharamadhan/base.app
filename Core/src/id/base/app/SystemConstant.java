@@ -459,6 +459,13 @@ public class SystemConstant  {
 	public static final class IntegrationScriptType{
 		public static final Integer GLOBAL = 0;
 		public static final Integer SPESIFIC = 1;
+		public static final String GLOBAL_STR = "Global";
+		public static final String SPESIFIC_STR = "Specific";
+		public static final Map<Integer, String> TYPE_MAP = new HashMap<>();
+		static {
+			TYPE_MAP.put(GLOBAL, GLOBAL_STR);
+			TYPE_MAP.put(SPESIFIC, SPESIFIC_STR);
+		}
 	}
 	
 	public static final class IntegrationScriptPosition{

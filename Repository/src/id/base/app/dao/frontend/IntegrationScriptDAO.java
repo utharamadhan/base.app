@@ -2,6 +2,7 @@ package id.base.app.dao.frontend;
 
 import id.base.app.AbstractHibernateDAO;
 import id.base.app.ILookupConstant;
+import id.base.app.SystemConstant;
 import id.base.app.exception.SystemException;
 import id.base.app.paging.PagingWrapper;
 import id.base.app.util.dao.SearchFilter;
@@ -61,7 +62,16 @@ public class IntegrationScriptDAO extends AbstractHibernateDAO<IntegrationScript
 	public List<IntegrationScript> findByUrl(String url) throws SystemException {
 		Criteria criteria = getSession().createCriteria(IntegrationScript.class);
 		criteria.add(Restrictions.eq(IntegrationScript.URL, url));
-		criteria.add(Restrictions.eq(News.STATUS, ILookupConstant.Status.PUBLISH));
+		criteria.add(Restrictions.eq(IntegrationScript.STATUS, ILookupConstant.Status.PUBLISH));
 		return criteria.list();
 	}
+	
+	@Override
+	public List<IntegrationScript> findGlobalScript() throws SystemException {
+		Criteria criteria = getSession().createCriteria(IntegrationScript.class);
+		criteria.add(Restrictions.eq(IntegrationScript.TYPE, SystemConstant.IntegrationScriptType.GLOBAL));
+		return criteria.list();
+	}
+	
+	
 }

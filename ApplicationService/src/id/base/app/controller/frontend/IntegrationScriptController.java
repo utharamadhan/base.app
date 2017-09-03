@@ -7,13 +7,11 @@ import id.base.app.exception.SystemException;
 import id.base.app.rest.RestConstant;
 import id.base.app.service.MaintenanceService;
 import id.base.app.service.frontend.IIntegrationScriptService;
-import id.base.app.util.StringFunction;
 import id.base.app.valueobject.frontend.IntegrationScript;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,9 +37,6 @@ public class IntegrationScriptController extends SuperController<IntegrationScri
 	public IntegrationScript validate(IntegrationScript anObject)
 			throws SystemException {
 		List<ErrorHolder> errorList = new ArrayList<>();
-		if(StringFunction.isEmpty(anObject.getUrl())) {
-			errorList.add(new ErrorHolder(IntegrationScript.URL, messageSource.getMessage("error.mandatory", new String[]{"URL"}, Locale.ENGLISH)));
-		}
 		if(!errorList.isEmpty()) {
 			throw new SystemException(errorList);
 		}
@@ -57,14 +52,26 @@ public class IntegrationScriptController extends SuperController<IntegrationScri
 	@ResponseBody
 	public Map<String, Object> findByUrl(@RequestParam Map<String, Object> mapUrl) throws SystemException {
 		List<IntegrationScript> isList = integrationScriptService.findByUrl(String.valueOf(mapUrl.get("url")));
+		List<IntegrationScript> globalList = integrationScriptService.findGlobalScript();
 		Map<String, Object> resultMap = new HashMap<>();
+		String header = "";
+		String footer = "";
 		for (IntegrationScript is : isList) {
 			if(SystemConstant.IntegrationScriptPosition.HEADER.equals(is.getPosition())){
-				resultMap.put("header", is.getScript());	
+				header = is.getScript();	
 			}else{
-				resultMap.put("footer", is.getScript());
+				footer = is.getScript();
 			}	
 		}
+		for (IntegrationScript is : globalList) {
+			if(SystemConstant.IntegrationScriptPosition.HEADER.equals(is.getPosition())){
+				header += " "+ is.getScript();
+			}else{
+				footer += " "+ is.getScript();
+			}	
+		}
+		resultMap.put("header", header);
+		resultMap.put("footer", footer);
 		return resultMap;
 	}
 }

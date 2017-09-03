@@ -4,6 +4,7 @@ import id.base.app.ILookupGroupConstant;
 import id.base.app.SystemConstant;
 import id.base.app.exception.ErrorHolder;
 import id.base.app.paging.PagingWrapper;
+import id.base.app.rest.PathInterfaceRestCaller;
 import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
 import id.base.app.rest.RestServiceConstant;
@@ -78,6 +79,7 @@ public class IntegrationScriptWebController extends BaseController<IntegrationSc
 	@RequestMapping(method=RequestMethod.GET, value="showList")
 	public String showList(ModelMap model, HttpServletRequest request){
 		model.addAttribute("pagingWrapper", new PagingWrapper<IntegrationScript>());
+		model.addAttribute("detail",findGlobalScript());
 		return getListPath();
 	}
 	
@@ -88,6 +90,10 @@ public class IntegrationScriptWebController extends BaseController<IntegrationSc
 		positionOptions.add(new SelectHelper().getInstanceValueInteger(SystemConstant.IntegrationScriptPosition.HEADER, "Header"));
 		positionOptions.add(new SelectHelper().getInstanceValueInteger(SystemConstant.IntegrationScriptPosition.FOOTER, "Footer"));
 		model.addAttribute("positionOptions", positionOptions);
+		List<SelectHelper> typeOptions = new ArrayList<>();
+		typeOptions.add(new SelectHelper().getInstanceValueInteger(SystemConstant.IntegrationScriptType.GLOBAL, SystemConstant.IntegrationScriptType.GLOBAL_STR));
+		typeOptions.add(new SelectHelper().getInstanceValueInteger(SystemConstant.IntegrationScriptType.SPESIFIC, SystemConstant.IntegrationScriptType.SPESIFIC_STR));
+		model.addAttribute("typeOptions", typeOptions);
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="showAdd")
@@ -105,32 +111,12 @@ public class IntegrationScriptWebController extends BaseController<IntegrationSc
 		return PATH_DETAIL;
 	}
 	
-	@RequestMapping(method=RequestMethod.POST, value="saveGlobal")
+	@RequestMapping(method=RequestMethod.POST, value="saveScript")
 	@ResponseBody
-	public Map<String, Object> saveGlobal(final List<IntegrationScript> anObjects, final BindingResult bindingResult, final ModelMap model, HttpServletRequest request) {
-		Map<String, Object> resultMap = new HashMap<>();
-		List<ErrorHolder> errors = new ArrayList<>();
-		for (IntegrationScript anObject : anObjects) {
-			try{
-				anObject.setType(SystemConstant.IntegrationScriptType.GLOBAL);
-				errors = new SpecificRestCaller<IntegrationScript>(RestConstant.REST_SERVICE, RestServiceConstant.INTEGRATION_SCRIPT_SERVICE).performPut("/update", anObject);
-				if(errors != null && errors.size() > 0){
-					resultMap.put(SystemConstant.ERROR_LIST, errors);
-				}
-			}catch(Exception e){
-				LOGGER.error(e.getMessage(), e);
-			}
-		}
-		return resultMap;
-	}
-	
-	@RequestMapping(method=RequestMethod.POST, value="saveSpesific")
-	@ResponseBody
-	public Map<String, Object> saveSpesific(final IntegrationScript anObject, final BindingResult bindingResult, final ModelMap model, HttpServletRequest request) {
+	public Map<String, Object> saveScript(final IntegrationScript anObject, final BindingResult bindingResult, final ModelMap model, HttpServletRequest request) {
 		Map<String, Object> resultMap = new HashMap<>();
 		List<ErrorHolder> errors = new ArrayList<>();
 		try{
-			anObject.setType(SystemConstant.IntegrationScriptType.SPESIFIC);
 			errors = new SpecificRestCaller<IntegrationScript>(RestConstant.REST_SERVICE, RestServiceConstant.INTEGRATION_SCRIPT_SERVICE).performPut("/update", anObject);
 			if(errors != null && errors.size() > 0){
 				resultMap.put(SystemConstant.ERROR_LIST, errors);
@@ -139,5 +125,27 @@ public class IntegrationScriptWebController extends BaseController<IntegrationSc
 			LOGGER.error(e.getMessage(), e);
 		}
 		return resultMap;
+	}
+	
+	private IntegrationScript findGlobalScript(){
+		IntegrationScript detail = new IntegrationScript();
+		try{
+			detail = new SpecificRestCaller<IntegrationScript>(RestConstant.REST_SERVICE, RestConstant.RM_INTEGRATION_SCRIPT, IntegrationScript.class).executeGet(new PathInterfaceRestCaller() {	
+				@Override
+				public String getPath() {
+					return "/findGlobalScript";
+				}
+				
+				@Override
+				public Map<String, Object> getParameters() {
+					Map<String,Object> map = new HashMap<String, Object>();
+					return map;
+				}
+			});
+			
+		}catch(Exception e){
+			detail = null;
+		}
+		return detail;
 	}
 }

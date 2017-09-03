@@ -58,4 +58,9 @@ public class IntegrationScriptService implements IIntegrationScriptService {
 	public List<IntegrationScript> findByUrl(String url) throws SystemException {
 		return integrationScriptDAO.findByUrl(url);
 	}
+	
+	@Override
+	public List<IntegrationScript> findGlobalScript() throws SystemException {
+		return integrationScriptDAO.findGlobalScript();
+	}
 }

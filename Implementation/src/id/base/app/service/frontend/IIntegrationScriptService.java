@@ -15,4 +15,6 @@ public interface IIntegrationScriptService extends MaintenanceService<Integratio
 
 	public List<IntegrationScript> findByUrl(String url) throws SystemException;
 
+	public List<IntegrationScript> findGlobalScript() throws SystemException;
+
 }

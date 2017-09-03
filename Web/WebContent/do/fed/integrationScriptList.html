@@ -30,6 +30,7 @@
 	                      	<table id="integrationScript-list-table" class="table table-datatable table-custom">
 		                        <thead>
 		                          <tr>
+		                          	<th>Type</th>
 		                            <th>URL</th>
 		                            <th>Position</th>
 									<th>Status</th>	
@@ -89,7 +90,8 @@
 	
 		$(function(){
 		    setMenuActive('integrationScript');
-		    var colDefs = [{ name : "url" },
+		    var colDefs = [{ name : "typeStr" },
+		                   { name : "url" },
 		                   { name : "positionStr" },
 	    	               { name : "statusStr" },
 	    	               { type : "deleteAndEdit" , param : [ "pkIntegrationScript" ] }

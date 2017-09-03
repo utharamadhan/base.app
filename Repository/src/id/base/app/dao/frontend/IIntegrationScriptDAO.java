@@ -10,4 +10,6 @@ public interface IIntegrationScriptDAO extends IBaseDAO<IntegrationScript> {
 
 	public List<IntegrationScript> findByUrl(String url) throws SystemException;
 
+	public List<IntegrationScript> findGlobalScript() throws SystemException;
+
 }

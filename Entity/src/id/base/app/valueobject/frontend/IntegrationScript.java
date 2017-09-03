@@ -44,6 +44,9 @@ public class IntegrationScript extends BaseEntity implements Serializable {
 	@Column(name="TYPE")
 	private Integer type;
 	
+	@Transient
+	private String typeStr;
+	
 	@Column(name="URL")
 	private String url;
 	
@@ -76,6 +79,10 @@ public class IntegrationScript extends BaseEntity implements Serializable {
 
 	public void setType(Integer type) {
 		this.type = type;
+	}
+	
+	public String getTypeStr() {
+		return SystemConstant.IntegrationScriptType.TYPE_MAP.get(type);
 	}
 
 	public String getUrl() {
