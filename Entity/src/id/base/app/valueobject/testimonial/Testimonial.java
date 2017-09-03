@@ -158,9 +158,11 @@ public class Testimonial extends BaseEntity implements Serializable {
 	
 	public String getEncodedPicture() throws Exception {
 		if(getPhotoThumbURL()!=null && !"".equals(getPhotoThumbURL())){
-			encodedPicture = EncodeDecode.getBase64FromLink(getPhotoThumbURL());
+			/*encodedPicture = EncodeDecode.getBase64FromLink(getPhotoThumbURL());*/
+			encodedPicture = getPhotoThumbURL();
 		}else if(getPhotoURL()!=null && !"".equals(getPhotoURL())){
-			encodedPicture = EncodeDecode.getBase64FromLink(getPhotoURL());
+			/*encodedPicture = EncodeDecode.getBase64FromLink(getPhotoURL());*/
+			encodedPicture = getPhotoURL();
 		}
 		return encodedPicture;
 	}
