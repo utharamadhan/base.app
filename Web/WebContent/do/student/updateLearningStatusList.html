@@ -17,7 +17,7 @@
 			<span>
 				<select class="select_box_inline selectCourse" name="courseFilter">
 					<option value="0">-Please Select-</option>
-					<option th:each="course, i : ${courseOptions}" th:value="${course.pkCourse}" th:text="${course.name}">Make a Concept House</option>
+					<option th:each="course, i : ${courseOptions}" th:value="${course.pkProgramItem}" th:text="${course.title}">Make a Concept House</option>
 				</select>
 			</span>
 		</div>

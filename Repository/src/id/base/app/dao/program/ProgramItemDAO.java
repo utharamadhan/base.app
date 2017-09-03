@@ -66,15 +66,15 @@ public class ProgramItemDAO extends AbstractHibernateDAO<ProgramItem, Long> impl
 	public List<ProgramItem> findAllCourseCodeName() throws SystemException {
 		Criteria crit = getSession().createCriteria(domainClass);
 			crit.setProjection(Projections.projectionList().
-					add(Projections.property("pkCourse")).
-					add(Projections.property("name")));
+					add(Projections.property("pkProgramItem")).
+					add(Projections.property("title")));
 			crit.setResultTransformer(new ResultTransformer() {
 				@Override
 				public Object transformTuple(Object[] tuple, String[] aliases) {
 					ProgramItem course = new ProgramItem();
 					try {
-						BeanUtils.copyProperty(course, "pkCourse", tuple[0]);
-						BeanUtils.copyProperty(course, "name", tuple[1]);
+						BeanUtils.copyProperty(course, "pkProgramItem", tuple[0]);
+						BeanUtils.copyProperty(course, "title", tuple[1]);
 					} catch (Exception e) {
 						LOGGER.error(e.getMessage(), e);
 					}

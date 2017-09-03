@@ -3,9 +3,9 @@
 	<div class="form-group">
 		<label class="col-sm-2 pull-left" th:text="'Enroll Course'" style="margin-top:5px;">Enroll Course</label>
 		<div class="col-sm-4 form-input-container">
-			<select name="pkCourse" class="student-detail-courseSelect chosen-select form-control enroll-data">
+			<select name="pkProgramItem" class="student-detail-courseSelect chosen-select form-control enroll-data">
 				<option value="" th:text="'[Select Course]'"></option>
-				<option th:each="opt : ${courseOptions}" th:value="${opt.pkCourse}" th:text="${opt.name}">Name</option>
+				<option th:each="opt : ${courseOptions}" th:value="${opt.pkProgramItem}" th:text="${opt.title}">Name</option>
 			</select>
 		</div>
 		<div class="col-sm-4 form-input-container">

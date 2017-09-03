@@ -68,8 +68,8 @@
 									<td style="width: 50%;">
 										<h3 class="course-title">
 											<a href="#" class="show_detail course_name" th:text="${course.name}"></a>
-											<input type="hidden" class="identity" name="identity" th:value="${course.pkCourse}" />
-											<input type="hidden" class="title" name="title" th:value="${course.name}" />
+											<input type="hidden" class="identity" name="identity" th:value="${course.pkProgramItem}" />
+											<input type="hidden" class="title" name="title" th:value="${course.title}" />
 										</h3>
 										<span class="tag" th:each="tag, i : ${course.listTags}" th:text="${tag}">property</span>
 									</td>

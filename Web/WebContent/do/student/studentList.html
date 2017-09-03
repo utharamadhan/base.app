@@ -82,13 +82,13 @@
                     <div class="col-sm-4" style="padding-bottom: 10px;">
                      	<select id="filter-currentLearning" th:attr="customFilterKey='filterCurrentLearning'" class="filter chosen-select form-control modal-student-filter-item">
 							<option value="" th:text="'[Select Current Learning]'"></option>
-							<option th:each="opt : ${learningOptions}" th:value="${opt.pkCourse}" th:text="${opt.name}">Title</option>
+							<option th:each="opt : ${learningOptions}" th:value="${opt.pkProgramItem}" th:text="${opt.title}">Title</option>
                    		</select>
                     </div>
                     <div class="col-sm-4" style="padding-bottom: 10px;">
                      	<select id="filter-passedLearning" th:attr="customFilterKey='filterPassedLearning'" class="filter chosen-select form-control modal-student-filter-item">
 							<option value="" th:text="'[Select Passed Learning]'"></option>
-							<option th:each="opt : ${learningOptions}" th:value="${opt.pkCourse}" th:text="${opt.name}">Title</option>
+							<option th:each="opt : ${learningOptions}" th:value="${opt.pkProgramItem}" th:text="${opt.title}">Title</option>
                    		</select>
                     </div>
                 </div>

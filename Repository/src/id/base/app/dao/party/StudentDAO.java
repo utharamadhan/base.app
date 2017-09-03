@@ -108,8 +108,8 @@ public class StudentDAO extends AbstractHibernateDAO<Student,Long> implements IS
 			crit.add(Restrictions.eq("student.pkStudent", pkStudent));
 			crit.setProjection(Projections.projectionList().
 					add(Projections.property("pkStudentCourse")).
-					add(Projections.property("course.pkCourse")).
-					add(Projections.property("course.name")).
+					add(Projections.property("course.pkProgramItem")).
+					add(Projections.property("course.title")).
 					add(Projections.property("enrollDate")).
 					add(Projections.property("studentCourseStatusLookup.pkLookup")).
 					add(Projections.property("studentCourseStatusLookup.code")).
@@ -123,8 +123,8 @@ public class StudentDAO extends AbstractHibernateDAO<Student,Long> implements IS
 						BeanUtils.copyProperty(sc, "pkStudentCourse", tuple[0]);
 						if(tuple[1]!=null) {
 							ProgramItem c = ProgramItem.getInstance();
-							BeanUtils.copyProperty(c, "pkCourse", tuple[1]);
-							BeanUtils.copyProperty(c, "name", tuple[2]);
+							BeanUtils.copyProperty(c, "pkProgramItem", tuple[1]);
+							BeanUtils.copyProperty(c, "title", tuple[2]);
 							BeanUtils.copyProperty(sc, "course", c);
 						}
 						BeanUtils.copyProperty(sc, "enrollDate", tuple[3]);
