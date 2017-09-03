@@ -349,6 +349,7 @@ public class CategoryDAO extends AbstractHibernateDAO<Category, Long> implements
 				add(Projections.property(Category.IMAGE_THUMB_URL)).
 				add(Projections.property(Category.DESCRIPTION)).
 				add(Projections.property(Category.DETAIL_LINK_IMAGE_URL)).
+				add(Projections.property(Category.IS_ITEMS_NEW_PAGE)).
 				add(Projections.property("items.permalink")));
 		crit.setResultTransformer(new ResultTransformer() {
 			@Override
@@ -361,10 +362,11 @@ public class CategoryDAO extends AbstractHibernateDAO<Category, Long> implements
 					BeanUtils.copyProperty(obj, Category.IMAGE_THUMB_URL, tuple[3]);
 					BeanUtils.copyProperty(obj, Category.DESCRIPTION, tuple[4]);
 					BeanUtils.copyProperty(obj, Category.DETAIL_LINK_IMAGE_URL, tuple[5]);
-					if(tuple[6]!=null){
+					BeanUtils.copyProperty(obj, Category.IS_ITEMS_NEW_PAGE, tuple[6]);
+					if(tuple[7]!=null){
 						List<ProgramItem> liList = new ArrayList<>(); 
 						ProgramItem li = new ProgramItem();
-						BeanUtils.copyProperty(li, ProgramItem.PERMALINK, tuple[6]);
+						BeanUtils.copyProperty(li, ProgramItem.PERMALINK, tuple[7]);
 						liList.add(li);
 						obj.setItems(liList);
 					}

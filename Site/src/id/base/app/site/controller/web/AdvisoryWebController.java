@@ -83,8 +83,17 @@ public class AdvisoryWebController extends BaseSiteController<Pages>{
 		for (Category category : categoryList) {
 			if(permalink.equalsIgnoreCase(category.getPermalink())){
 				model.addAttribute("category", category);
-				if(category.getItems()!=null && category.getItems().size()>0 && category.getItems().get(0).getPermalink()!=null){
+				Boolean hasItemPermalink = false; 
+				if(category.getItems()!=null && category.getItems().size()>0 && category.getItems().get(0).getPermalink()!=null){	
 					model.addAttribute("itemPermalink", category.getItems().get(0).getPermalink());
+					hasItemPermalink = true;
+				}
+				if(category.getIsItemsNewPage()!=null && category.getIsItemsNewPage()){
+					if(hasItemPermalink){
+						return "redirect:/page/main-program/advisory/"+permalink+"/"+category.getItems().get(0).getPermalink();
+					}else{
+						return "redirect:/page/main-program/advisory/consulting";		
+					}
 				}
 				try {
 					model.addAttribute("encodedDetailLinkImageURL", category.getEncodedDetailLinkImageURL());

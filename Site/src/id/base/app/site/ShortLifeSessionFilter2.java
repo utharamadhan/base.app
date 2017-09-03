@@ -3,6 +3,7 @@ package id.base.app.site;
 import id.base.app.ILookupConstant;
 import id.base.app.SystemConstant;
 import id.base.app.rest.MapRestCaller;
+import id.base.app.rest.PathInterfaceRestCaller;
 import id.base.app.rest.QueryParamInterfaceRestCaller;
 import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
@@ -15,6 +16,8 @@ import id.base.app.util.dao.SearchOrder.Sort;
 import id.base.app.valueobject.Pages;
 import id.base.app.valueobject.aboutUs.Engagement;
 import id.base.app.valueobject.aboutUs.ProgramPost;
+import id.base.app.valueobject.frontend.HomeSettingHelper;
+import id.base.app.valueobject.frontend.Setting;
 import id.base.app.valueobject.publication.DigitalBook;
 import id.base.app.valueobject.publication.Event;
 import id.base.app.valueobject.publication.HousingIndex;
@@ -124,6 +127,9 @@ public class ShortLifeSessionFilter2 implements Filter{
 		request.setAttribute("newsList", getNewsList(5));
 		request.setAttribute("eventList", getEventList());
 		request.setAttribute("linkUrlList", getLinkUrlList());
+		request.setAttribute("menuTop", getMenuSettingList(true));
+		request.setAttribute("menuBottom", getMenuSettingList(false));
+		request.setAttribute("home", getHomeSettingList());
 		List<Pages> pages = getTocAndPilarLink();
 		for (Pages p : pages) {
 			if(SystemConstant.PagesType.PILAR.equals(p.getType())){
@@ -314,6 +320,45 @@ public class ShortLifeSessionFilter2 implements Filter{
 		return pages;
 	}
 	
+	private HomeSettingHelper getHomeSettingList(){
+		SpecificRestCaller<HomeSettingHelper> rc = new SpecificRestCaller<HomeSettingHelper>(RestConstant.REST_SERVICE, RestServiceConstant.HOME_SETTING_SERVICE);
+		HomeSettingHelper obj = rc.executeGet(new PathInterfaceRestCaller() {
+			
+			@Override
+			public String getPath() {
+				return "/findAllSettingHome";
+			}
+			
+			@Override
+			public Map<String, Object> getParameters() {
+				Map<String,Object> map = new HashMap<String, Object>();
+				return map;
+			}
+		});
+		return obj;
+	}
+	
+	private List<Setting> getMenuSettingList(final Boolean isTop){
+		SpecificRestCaller<Setting> rc = new SpecificRestCaller<Setting>(RestConstant.REST_SERVICE, RestServiceConstant.SETTING_SERVICE);
+		List<Setting> list = rc.executeGetList(new PathInterfaceRestCaller() {
+			
+			@Override
+			public String getPath() {
+				if(isTop){
+					return "/findAllSettingMenuTop";
+				}else{
+					return "/findAllSettingMenuBottom";
+				}
+			}
+			
+			@Override
+			public Map<String, Object> getParameters() {
+				Map<String,Object> map = new HashMap<String, Object>();
+				return map;
+			}
+		});
+		return list;
+	}
 	private Cookie getCookie(Cookie[] cookies, HttpServletRequest request) {
 		Cookie cookie = null;
 		if(cookies!=null){

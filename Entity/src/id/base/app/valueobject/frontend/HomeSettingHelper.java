@@ -9,6 +9,7 @@ public class HomeSettingHelper {
 	private String homeTopInfo2;
 	private List<SettingArticleHelper> homeTopInfoStep;
 	private String homeWhoAmI;
+	private String homeWhoAmIVideo;
 	private List<SettingArticleHelper> homeWhoAmRight;
 	private String homeWhoAmIFCapital;
 	private String homeWhoAmIFLand;
@@ -45,6 +46,12 @@ public class HomeSettingHelper {
 	}
 	public void setHomeWhoAmI(String homeWhoAmI) {
 		this.homeWhoAmI = homeWhoAmI;
+	}
+	public String getHomeWhoAmIVideo() {
+		return homeWhoAmIVideo;
+	}
+	public void setHomeWhoAmIVideo(String homeWhoAmIVideo) {
+		this.homeWhoAmIVideo = homeWhoAmIVideo;
 	}
 	public List<SettingArticleHelper> getHomeWhoAmRight() {
 		return homeWhoAmRight;

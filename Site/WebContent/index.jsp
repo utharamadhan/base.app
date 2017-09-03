@@ -66,8 +66,8 @@
 					<div class="container">
 						<div class="form-wrapper">
 							<div class="banner-header">
-								<h2 class="top-header">SEMUA INFORMASI PEMBIAYAAN PERUMAHAN ADA DISINI</h2>
-								<h2 class="sub-header">Ikuti 4 Langkah Berikut Ini</h2>
+								<h2 class="top-header">${home.homeTopInfo1}</h2>
+								<h2 class="sub-header">${home.homeTopInfo2}</h2>
 							</div>
 							<div class="clear"></div>
 							<div class="row step-number">
@@ -121,7 +121,7 @@
 							<div class="row circle-top">
 								<div class="col-md-12">
 									<div class="title-center">
-										<h2>SIAPAKAH KAMI?</h2>
+										<h2>${home.homeWhoAmI}</h2>
 									</div>
 								</div>
 							</div>
@@ -205,22 +205,22 @@
 							<div class="row circle-bottom-wrapper">
 								<div class="circle-bottom1">
 									<div class="title-center link-pilar">
-										<h2>Land &#38; Environment</h2>
+										<h2>${home.homeWhoAmIFLand}</h2>
 									</div>
 								</div>
 								<div class="circle-bottom2">
 									<div class="title-center link-pilar">
-										<h2>Capital</h2>
+										<h2>${home.homeWhoAmIFCapital}</h2>
 									</div>
 								</div>
 								<div class="circle-bottom3">
 									<div class="title-center link-pilar">
-										<h2>Legal</h2>
+										<h2>${home.homeWhoAmIFLegal}</h2>
 									</div>
 								</div>
 								<div class="circle-bottom4">
 									<div class="title-center link-pilar">
-										<h2>Skills</h2>
+										<h2>${home.homeWhoAmIFSkills}</h2>
 									</div>
 								</div>
 							</div>
@@ -232,7 +232,7 @@
 			<div class="clear"></div>
 			<div class="newsArea back-gradient-transparent">
 				<div class="title-center">
-					<h2><a href="${ctx}/page/news">BERITA TERKINI</a></h2>
+					<h2><a href="${ctx}/page/news">${home.homeNews}</a></h2>
 				</div>
 				<ul id="latest-news" class="hexas latest-news clr">
 				  <c:forEach items="${newsHomeList}" var="news">
@@ -253,7 +253,7 @@
 		  <div class="container">
 			<div class="row">
 				<div class="title-center">
-					<h2>APA KATA MEREKA?</h2>
+					<h2>${home.homeTestimonial}</h2>
 				</div>
 			</div>
 			<div class="row">
