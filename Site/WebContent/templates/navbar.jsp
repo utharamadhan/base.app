@@ -29,10 +29,10 @@
 											<li class="dropdown-header"><a href="${ctx}/page/about-us/${post.permalink}">${post.title}</a></li>
 											</c:forEach>
 										</ul>
-										<ul>
+										<%-- <ul>
 											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/page/team/teacher">TIM PENGAJAR</a></li>
 											<li class="dropdown-header"><a href="<%=request.getContextPath()%>/page/team/advisor">TIM ADVISOR</a></li>
-										</ul>
+										</ul> --%>
 									</li>
 									<li class="col-sm-4">
 										<ul>
