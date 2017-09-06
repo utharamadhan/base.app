@@ -99,7 +99,7 @@
 											<div class="row">
 												<div class="col-xs-6">
 													<div class="form-group">
-														<label>Tempat Lahir  <span class="error">*</span></label>
+														<label>Tempat Lahir <span class="error">*</span></label>
 														<input type="text" class="form-control" name="birthPlace" />
 													</div>
 												</div>
@@ -113,12 +113,11 @@
 										</div>
 									</div>
 									
-									
 									<div class="row">
 										<div class="col-xs-12">
 											<div class="form-group">
-												<label>Pekerjaan <span class="error">*</span></label>
-												<input type="text" class="form-control" name="job" />
+												<label>Instansi <span class="error">*</span></label>
+												<input type="text" class="form-control" name="instansi" />
 											</div>
 										</div>
 									</div>
@@ -126,8 +125,21 @@
 									<div class="row">
 										<div class="col-xs-12">
 											<div class="form-group">
-												<label>Instansi <span class="error">*</span></label>
-												<input type="text" class="form-control" name="instansi" />
+												<label>Pekerjaan <span class="error">*</span></label>
+												<select class="form-control" name="job" >
+													<option th:each="opt : ${professionOptions}" th:value="${opt.name}" th:text="${opt.name}">Name</option>
+				                           		</select>
+											</div>
+										</div>
+									</div>
+									
+									<div class="row">
+										<div class="col-xs-12">
+											<div class="form-group">
+												<label>Sumber Informasi <span class="error">*</span></label>
+												<select class="form-control" name="informationFrom" >
+													<option th:each="opt : ${informationFromOptions}" th:value="${opt.name}" th:text="${opt.name}">Name</option>
+				                           		</select>
 											</div>
 										</div>
 									</div>
@@ -152,6 +164,86 @@
 										<div class="col-xs-12">
 											<input type="hidden" name="type" th:value="${type}"/>
 											<input type="button" value="Send" class="button-blue submit_btn" id="submitForm" />
+										</div>
+									</div>
+								</form>
+							</div>  
+						</div>
+						
+						<div id="RD-content" class="single_content_right">
+							<h3>Mengajukan Download File</h3>
+							<p>Silakan isi kolom berikut untuk mengajukan download file : </p>
+							<div class="contact_form">
+									
+								<form method="post" action="#" id="contact_form">
+									<div class="row">
+										<div class="col-xs-12">
+											<div class="form-group">
+												<select class="form-control" name="category.pkCategory" id="learningCategory">
+												</select><br/>
+												<select class="form-control" name="programItem.pkProgramItem" id="programItem">
+												</select>
+											</div>
+										</div>
+									</div>
+								
+									<div class="row">
+										<div class="col-xs-12">
+											<div class="form-group">
+												<label>Nama <span class="error">*</span></label>
+												<input type="text" class="form-control" name="name" />
+											</div>
+										</div>
+									</div>
+									
+									<div class="row">
+										<div class="col-xs-12">
+											<div class="row">
+												<div class="col-xs-6">
+													<div class="form-group">
+														<label>No. Telp  <span class="error">*</span></label>
+														<input type="text" class="form-control" name="telp" />
+													</div>
+												</div>
+												<div class="col-xs-6">
+													<div class="form-group">
+														<label>Email <span class="error">*</span></label>
+														<input type="text" class="form-control" name="email" />
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									
+									<div class="row">
+										<div class="col-xs-12">
+											<div class="form-group">
+												<label>Alasan Download <span class="error">*</span></label>
+												<textarea class="form-control" name="message" rows="5"></textarea>
+											</div>
+										</div>
+									</div>
+									
+									<div class="row">
+										<div class="col-xs-12">
+											<div class="form-group">
+												<img th:src="@{/kaptcha}" class="captchaImage"/>
+											</div>
+										</div>
+									</div>	
+									
+									<div class="row">
+										<div class="col-xs-12">
+											<div class="form-group">
+												<input type='text' name='j_captcha_response' value='' />
+											</div>
+										</div>
+									</div>	
+									
+									<div class="row">
+										<div class="col-xs-12">
+											<input type="hidden" name="type" th:value="${type}"/>
+											<input type="button" value="Send" class="button-blue submit_btn" id="sendEmail" />
 										</div>
 									</div>
 								</form>

@@ -94,7 +94,7 @@ public class ResearchDevWebController extends BaseSiteController<Pages>{
 		return "/research-development/research/list";
 	}
 	
-	@RequestMapping(method=RequestMethod.GET, value="/research/detail/{permalink}")
+	@RequestMapping(method=RequestMethod.GET, value="/research/{permalink}")
 	public String detail(ModelMap model, HttpServletRequest request, HttpServletResponse response,
 			@PathVariable(value="permalink") String permalink){
 		Research detail = findByPermalink(permalink);

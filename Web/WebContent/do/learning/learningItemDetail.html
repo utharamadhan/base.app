@@ -195,6 +195,7 @@
 								        <table id="teacherTable" class="table table-custom table-sortable" style="width:100%;">
 			 								<thead>
 						                        <tr>
+						                          <th style="width:45%">Data From</th>
 						                          <th style="width:45%">Name</th>
 						                          <th style="width:10%">Action</th>
 						                        </tr>
@@ -202,6 +203,14 @@
 						                    <tbody th:if="${detail.teachers!=null and !detail.teachers.empty}">
 							                    <th:block th:each="teacher, i : ${detail.teachers}">
 							                    	<tr>
+							                    		<td>
+							                    			<div class="input-group">
+																<select class="form-control">
+																	<option>New</option>
+																	<option>User</option>
+																</select>
+															</div>
+														</td>
 							                    		<td>
 							                    			<div class="input-group">
 																<input type="text" class="form-control name" th:value="${teacher.teacherName}"/>

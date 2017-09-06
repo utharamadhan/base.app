@@ -20,6 +20,7 @@ import id.base.app.valueobject.LookupGroup;
 import id.base.app.valueobject.MasterAddress;
 import id.base.app.valueobject.Pages;
 import id.base.app.valueobject.RuntimeUserLogin;
+import id.base.app.valueobject.VWSearch;
 import id.base.app.valueobject.aboutUs.Engagement;
 import id.base.app.valueobject.aboutUs.ProgramPost;
 import id.base.app.valueobject.aboutUs.Tutor;
@@ -257,5 +258,8 @@ public class ParameterLoader extends ContextLoader implements ServletContextList
 		
 		RestCaller.BASE_URL.put(RestServiceConstant.INTEGRATION_SCRIPT_SERVICE, RestConstant.RM_INTEGRATION_SCRIPT);
 		RestCaller.BASE_CLASS.put(RestServiceConstant.INTEGRATION_SCRIPT_SERVICE, IntegrationScript.class);
+		
+		RestCaller.BASE_URL.put(RestServiceConstant.VW_SEARCH_SERVICE, RestConstant.RM_VW_SEARCH);
+		RestCaller.BASE_CLASS.put(RestServiceConstant.VW_SEARCH_SERVICE, VWSearch.class);
 	}
 }

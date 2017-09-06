@@ -108,5 +108,7 @@ public class RestConstant {
 	public static final String RM_HOME_SETTING = "/homeSetting";
 	public static final String RM_CONTACT_SETTING = "/contactSetting";
 	public static final String RM_INTEGRATION_SCRIPT = "/integrationScript";
+	
+	public static final String RM_VW_SEARCH = "/view/search";
 
 }

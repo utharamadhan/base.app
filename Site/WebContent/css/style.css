@@ -4852,6 +4852,18 @@ blockquote span {
 #download_brochure_desc{
 	text-align:center;
 }
+.main-search-icon, .main-search-close-icon{
+    height: 41px;
+    margin-left: 10px;
+    cursor:pointer;
+}
+.main-search-wrapper{
+	margin: 25px 0px;
+}
+.main-search-wrapper .input-search{
+	font-size: 22px;
+    padding: 22px;
+}
 @media only screen and (min-width: 1200px) {
     body.bodyColor .header {
         max-width: 1170px;
