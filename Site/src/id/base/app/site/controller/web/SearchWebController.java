@@ -1,5 +1,6 @@
 package id.base.app.site.controller.web;
 
+import id.base.app.SystemConstant;
 import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
 import id.base.app.rest.RestServiceConstant;
@@ -11,7 +12,9 @@ import id.base.app.util.dao.SearchOrder.Sort;
 import id.base.app.valueobject.VWSearch;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -48,8 +51,23 @@ public class SearchWebController extends BaseSiteController<VWSearch>{
 		List<SearchOrder> order = new ArrayList<SearchOrder>();
 		order.add(new SearchOrder(VWSearch.ORDER_NO, Sort.ASC));
 		order.add(new SearchOrder(VWSearch.TITLE, Sort.ASC));
+		Map<String, List<VWSearch>> map = new HashMap<>();
+		map.put(SystemConstant.SearchType.ENGAGEMENT, new ArrayList<VWSearch>());
+		map.put(SystemConstant.SearchType.PROGRAM_POST, new ArrayList<VWSearch>());
+		map.put(SystemConstant.SearchType.DIGITAL_BOOK, new ArrayList<VWSearch>());
+		map.put(SystemConstant.SearchType.NEWS, new ArrayList<VWSearch>());
+		map.put(SystemConstant.SearchType.EVENT, new ArrayList<VWSearch>());
+		map.put(SystemConstant.SearchType.LEARNING, new ArrayList<VWSearch>());
+		map.put(SystemConstant.SearchType.ADVISORY, new ArrayList<VWSearch>());
+		map.put(SystemConstant.SearchType.RESEARCH, new ArrayList<VWSearch>());
 		List<VWSearch> searches = getRestCaller().findAll(filter, order);
-		model.addAttribute("searches", searches);
+		for (VWSearch vwSearch : searches) {
+			List<VWSearch> list = map.get(vwSearch.getType());
+			list.add(vwSearch);
+		}
+		for (Map.Entry<String, List<VWSearch>> entry : map.entrySet()) {
+			model.addAttribute(entry.getKey(), entry.getValue());
+		}
 		return "/search/main";
 	}	
 }
