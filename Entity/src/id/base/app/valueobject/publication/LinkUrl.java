@@ -22,13 +22,16 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @JsonIdentityInfo(generator=ObjectIdGenerators.UUIDGenerator.class, property="linkUrlJid", scope=LinkUrl.class)
 public class LinkUrl extends BaseEntity implements Serializable {
 
-	private static final long serialVersionUID = -5286993108604013813L;
+	private static final long serialVersionUID = 6811461220098084167L;
 	
 	public static final String PK_LINK_URL = "pkLinkUrl";
 	public static final String TYPE = "type";
 	public static final String ORDER_NO = "orderNo";
 	public static final String TITLE = "title";
 	public static final String URL = "url";
+	public static final String IS_PARENT = "isParent";
+	public static final String PERMALINK = "permalink";
+	public static final String FK_LINK_URL_PARENT = "fkLinkUrlParent";
 	public static final String STATUS = "status";
 	
 	public static LinkUrl getInstance() {
@@ -52,6 +55,18 @@ public class LinkUrl extends BaseEntity implements Serializable {
 	
 	@Column(name="URL")
 	private String url;
+	
+	@Column(name="IS_PARENT")
+	private Boolean isParent;
+	
+	@Transient
+	private String isParentStr;
+	
+	@Column(name="FK_LINK_URL_PARENT")
+	private Long fkLinkUrlParent;
+	
+	@Column(name="PERMALINK")
+	private String permalink;
 	
 	@Column(name="STATUS")
     private Integer status;
@@ -97,6 +112,38 @@ public class LinkUrl extends BaseEntity implements Serializable {
 
 	public void setUrl(String url) {
 		this.url = url;
+	}
+	
+	public Boolean getIsParent() {
+		return isParent;
+	}
+
+	public void setIsParent(Boolean isParent) {
+		this.isParent = isParent;
+	}
+	
+	public String getIsParentStr() {
+		if(isParent){
+			return "Yes";	
+		}else{
+			return "No";
+		}
+	}
+
+	public Long getFkLinkUrlParent() {
+		return fkLinkUrlParent;
+	}
+
+	public void setFkLinkUrlParent(Long fkLinkUrlParent) {
+		this.fkLinkUrlParent = fkLinkUrlParent;
+	}
+
+	public String getPermalink() {
+		return permalink;
+	}
+
+	public void setPermalink(String permalink) {
+		this.permalink = permalink;
 	}
 
 	public Integer getStatus() {

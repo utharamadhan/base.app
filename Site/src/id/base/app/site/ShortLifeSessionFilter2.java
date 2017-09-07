@@ -296,6 +296,7 @@ public class ShortLifeSessionFilter2 implements Filter{
 		RestCaller<LinkUrl> restCallFLU = new RestCaller<LinkUrl>(RestConstant.REST_SERVICE, RestServiceConstant.LINK_URL_SERVICE);
 		List<SearchFilter> filterFLU = new ArrayList<SearchFilter>();
 		filterFLU.add(new SearchFilter(LinkUrl.TYPE, Operator.EQUALS, SystemConstant.LinkUrlType.FOOTER, String.class));
+		filterFLU.add(new SearchFilter(LinkUrl.FK_LINK_URL_PARENT, Operator.IS_NULL, null));
 		filterFLU.add(new SearchFilter(LinkUrl.STATUS, Operator.EQUALS, ILookupConstant.Status.PUBLISH, Integer.class));
 		List<SearchOrder> orderFLU = new ArrayList<SearchOrder>();
 		orderFLU.add(new SearchOrder(LinkUrl.ORDER_NO, Sort.ASC));

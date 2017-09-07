@@ -161,13 +161,13 @@
 					</div>
 				</div>
 				<div class="main-search-wrapper" style="display:none">
-					<form>
+					<form action="${ctx}/page/search" method="GET">
 						<div class="row">
 							<div class="col-md-10">
 								<input type="text" name="s" class="form-control input-search" placeholder="Masukkan Kata Kunci" value="">
 							</div>
 							<div class="col-md-2">
-								<a href="${ctx}/page/search/?s="><span class="button-blue">Search</span></a>
+								<input type="submit" class="button-blue" value="Search"/>
 							</div>
 						</div>
 					</form>

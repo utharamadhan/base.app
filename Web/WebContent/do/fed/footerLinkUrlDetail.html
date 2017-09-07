@@ -43,6 +43,23 @@
 							</div>
 						</div>
 						<div class="form-group">
+							<label class="col-sm-2 control-label" th:text="'Is Parent?'">Is Parent?</label>
+							<div class="col-sm-9 form-input-container">
+								<select class="chosen-select form-control is-parent" th:field="*{isParent}">
+									<option th:each="opt : ${booleanOptions}" th:value="${opt.code}" th:text="${opt.descr}">Name</option>
+                           		</select>
+                           	</div>
+                        </div>
+                        <div class="form-group is-parent-no">
+							<label class="col-sm-2 control-label" th:text="'Parent URL'">Parent URL</label>
+							<div class="col-sm-9 form-input-container">
+								<select class="chosen-select form-control" th:field="*{fkLinkUrlParent}">
+									<option value="" >-- Choose Parent URL --</option>
+									<option th:each="opt : ${parentOptions}" th:value="${opt.pkLinkUrl}" th:text="${opt.title}">Title</option>
+                           		</select>
+                           	</div>
+                        </div>
+						<div class="form-group is-parent-no">
 							<label class="col-sm-2 control-label" th:text="'Link URL'">Link URL</label>
 							<div class="col-sm-9 form-input-container">
 								<input type="text" class="form-control" placeholder="Link URL" name="srch-term" id="input-text-title" th:field="*{url}"/>
@@ -101,6 +118,18 @@
 				e.preventDefault();
 				backToList();
 			});
+			
+			var isParentChange = function(obj){
+				if(obj.val()==0){
+					$('.is-parent-no').show();
+				}else{
+					$('.is-parent-no').hide();
+				}
+			};
+			$('.is-parent').change(function(){
+				isParentChange($(this));
+			});
+			isParentChange($('.is-parent'));
 	    });
 	/*]]>*/
 	</script>

@@ -65,29 +65,38 @@
 						<div class="col-md-12">
 							<form class="filter">
 								<div class="row">
-									<div class="col-md-3">
-										<select class="form-control param" name="period">
-											<option value="">-- Periode --</option>
-											<option th:each="opt : ${periodOptions}" th:value="${opt.code}" th:text="${opt.descr}">Name</option>
-										</select>
-									</div>
-									<div class="col-md-2">
-										<select class="form-control param" name="method">
-											<option value="">-- Metode --</option>
-											<option th:each="opt : ${methodOptions}" th:value="${opt.pkLookup}" th:text="${opt.name}">Name</option>
-	                           			</select>
-									</div>
-									<div class="col-md-3">
-										<select class="form-control param" name="organizer">
-											<option value="">-- Penyelenggara --</option>
-											<option th:each="opt : ${organizerOptions}" th:value="${opt.pkLookup}" th:text="${opt.name}">Name</option>
-	                           			</select>
-									</div>
-									<div class="col-md-3">
-										<select class="form-control param" name="payment">
-											<option value="">-- Jenis Pembayaran --</option>
-											<option th:each="opt : ${paymentOptions}" th:value="${opt.pkLookup}" th:text="${opt.name}">Name</option>
-	                           			</select>
+									<div class="col-md-11">
+										<div class="row">
+											<div class="col-md-3">
+												<select class="form-control param" name="period">
+													<option value="">-- Periode --</option>
+													<option th:each="opt : ${periodOptions}" th:value="${opt.code}" th:text="${opt.descr}">Name</option>
+												</select>
+											</div>
+											<div class="col-md-3">
+												<select class="form-control param" name="method">
+													<option value="">-- Metode --</option>
+													<option th:each="opt : ${methodOptions}" th:value="${opt.pkLookup}" th:text="${opt.name}">Name</option>
+			                           			</select>
+											</div>
+											<div class="col-md-3">
+												<select class="form-control param" name="organizer">
+													<option value="">-- Penyelenggara --</option>
+													<option th:each="opt : ${organizerOptions}" th:value="${opt.pkLookup}" th:text="${opt.name}">Name</option>
+			                           			</select>
+											</div>
+											<div class="col-md-3">
+												<select class="form-control param" name="payment">
+													<option value="">-- Jenis Pembayaran --</option>
+													<option th:each="opt : ${paymentOptions}" th:value="${opt.pkLookup}" th:text="${opt.name}">Name</option>
+			                           			</select>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-12">
+												<input type="text" class="form-control param input-text-advanced" name="title" placeholder="Masukkan Kata Kunci..."/>
+											</div>
+										</div>
 									</div>
 									<div class="col-md-1">
 										<button type="button" class="btn btn-danger mrdy_btn search">Cari</button>

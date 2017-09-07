@@ -21,6 +21,7 @@ public class VWSearch implements Serializable {
 	public static final String PERMALINK = "permalink";
 	public static final String LINK_DETAIL = "linkDetail";
 	public static final String TITLE = "title";
+	public static final String IMAGE_URL = "imageUrl";
 	public static final String TYPE = "type";
 	public static final String ORDER_NO = "orderNo";
 	
@@ -36,6 +37,9 @@ public class VWSearch implements Serializable {
 	
 	@Column(name="TITLE")
 	private String title;
+	
+	@Column(name="IMAGE_URL")
+	private String imageUrl;
 	
 	@Column(name="TYPE")
 	private String type;
@@ -73,6 +77,14 @@ public class VWSearch implements Serializable {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+	
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 
 	public String getType() {

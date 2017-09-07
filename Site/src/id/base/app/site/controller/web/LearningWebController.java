@@ -127,6 +127,9 @@ public class LearningWebController extends BaseSiteController<ProgramItem>{
 		if(StringUtils.isNotEmpty(paramWrapper.get("payment"))){	
 			filter.add(new SearchFilter(VWProgramItem.FK_LOOKUP_PAYMENT, Operator.EQUALS, paramWrapper.get("payment"), Long.class));
 		}
+		if(StringUtils.isNotEmpty(paramWrapper.get("title"))){	
+			filter.add(new SearchFilter(VWProgramItem.TITLE, Operator.LIKE, "%"+paramWrapper.get("title")+"%", String.class));
+		}
 		return filter;
 	}
 	

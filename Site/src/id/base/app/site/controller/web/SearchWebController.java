@@ -1,6 +1,6 @@
 package id.base.app.site.controller.web;
 
-import id.base.app.SystemConstant;
+import id.base.app.paging.PagingWrapper;
 import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
 import id.base.app.rest.RestServiceConstant;
@@ -28,6 +28,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Scope(value="request")
 @RequestMapping(value="/search")
@@ -42,8 +43,11 @@ public class SearchWebController extends BaseSiteController<VWSearch>{
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public String search(ModelMap model, HttpServletRequest request, HttpServletResponse response,
-			@RequestParam(value="s", required=false) String s){
+			@RequestParam(value="startNo",defaultValue="1") int startNo, 
+			@RequestParam(value="offset",defaultValue="6") int offset,
+			@RequestParam(value="s", defaultValue="", required=false) String s){
 		setCommonData(request,model);
+		model.addAttribute("s", s);
 		List<SearchFilter> filter = new ArrayList<SearchFilter>();
 		if(StringUtils.isNotEmpty(s)){
 			filter.add(new SearchFilter(VWSearch.TITLE, Operator.LIKE, '%'+s+'%', String.class));
@@ -51,23 +55,27 @@ public class SearchWebController extends BaseSiteController<VWSearch>{
 		List<SearchOrder> order = new ArrayList<SearchOrder>();
 		order.add(new SearchOrder(VWSearch.ORDER_NO, Sort.ASC));
 		order.add(new SearchOrder(VWSearch.TITLE, Sort.ASC));
-		Map<String, List<VWSearch>> map = new HashMap<>();
-		map.put(SystemConstant.SearchType.ENGAGEMENT, new ArrayList<VWSearch>());
-		map.put(SystemConstant.SearchType.PROGRAM_POST, new ArrayList<VWSearch>());
-		map.put(SystemConstant.SearchType.DIGITAL_BOOK, new ArrayList<VWSearch>());
-		map.put(SystemConstant.SearchType.NEWS, new ArrayList<VWSearch>());
-		map.put(SystemConstant.SearchType.EVENT, new ArrayList<VWSearch>());
-		map.put(SystemConstant.SearchType.LEARNING, new ArrayList<VWSearch>());
-		map.put(SystemConstant.SearchType.ADVISORY, new ArrayList<VWSearch>());
-		map.put(SystemConstant.SearchType.RESEARCH, new ArrayList<VWSearch>());
-		List<VWSearch> searches = getRestCaller().findAll(filter, order);
-		for (VWSearch vwSearch : searches) {
-			List<VWSearch> list = map.get(vwSearch.getType());
-			list.add(vwSearch);
-		}
-		for (Map.Entry<String, List<VWSearch>> entry : map.entrySet()) {
-			model.addAttribute(entry.getKey(), entry.getValue());
-		}
+		PagingWrapper<VWSearch> vwSearch = getRestCaller().findAllByFilter(startNo, offset, filter, order);
+		model.addAttribute("vwSearch", vwSearch);
 		return "/search/main";
-	}	
+	}
+	
+	@RequestMapping(method=RequestMethod.POST, value="/load")
+	@ResponseBody
+	public Map<String, Object> load(ModelMap model, HttpServletRequest request, HttpServletResponse response,
+			@RequestParam(value="startNo",defaultValue="1") int startNo, 
+			@RequestParam(value="offset",defaultValue="6") int offset,
+			@RequestParam(value="s", defaultValue="", required=false) String s){
+		Map<String, Object> resultMap = new HashMap<>();
+		List<SearchFilter> filter = new ArrayList<SearchFilter>();
+		if(StringUtils.isNotEmpty(s)){
+			filter.add(new SearchFilter(VWSearch.TITLE, Operator.LIKE, '%'+s+'%', String.class));
+		}
+		List<SearchOrder> order = new ArrayList<SearchOrder>();
+		order.add(new SearchOrder(VWSearch.ORDER_NO, Sort.ASC));
+		order.add(new SearchOrder(VWSearch.TITLE, Sort.ASC));
+		PagingWrapper<VWSearch> vwSearch = getRestCaller().findAllByFilter(startNo, offset, filter, order);
+		resultMap.put("vwSearch", vwSearch);
+		return resultMap;
+	}
 }

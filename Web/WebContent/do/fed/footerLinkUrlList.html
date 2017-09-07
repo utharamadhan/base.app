@@ -31,6 +31,7 @@
 		                        <thead>
 		                          <tr>
 		                            <th>Title</th>
+		                            <th>Is Parent</th>
 		                            <th>Link URL</th>
 		                            <th>Order No</th>
 									<th>Status</th>	
@@ -91,6 +92,7 @@
 	    $(function(){
 		    setMenuActive('footerLinkUrl');
 		    var colDefs = [{ name : "title" },
+		                   { name : "isParentStr" },
 		                   { name : "url" },
 		                   { name : "orderNo" },
 	    	               { name : "statusStr" },
