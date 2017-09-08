@@ -11,6 +11,7 @@ import id.base.app.rest.RestConstant;
 import id.base.app.rest.RestServiceConstant;
 import id.base.app.rest.SpecificRestCaller;
 import id.base.app.site.controller.BaseSiteController;
+import id.base.app.site.rest.LookupRestCaller;
 import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
@@ -75,6 +76,7 @@ public class ContactUsWebController extends BaseSiteController<Contact>{
 	
 	protected void setDefaultData(HttpServletRequest request, ModelMap model, String categoryPermalink){
 		setCommonData(request,model);
+		LookupRestCaller lrc = new LookupRestCaller();
 		List<SearchFilter> filterCH = new ArrayList<SearchFilter>();
 		List<SearchOrder> orderCH = new ArrayList<SearchOrder>();
 		filterCH.add(new SearchFilter(Lookup.LOOKUP_GROUP_STRING, Operator.EQUALS, ILookupGroupConstant.CATEGORY_HELP));
@@ -95,6 +97,8 @@ public class ContactUsWebController extends BaseSiteController<Contact>{
 			}
 			model.addAttribute("programItems", getProgramItemListByCategoryPermalink(categoryPermalink));
 		}
+		model.addAttribute("professionOptions", lrc.findByLookupGroup(ILookupGroupConstant.PROFESSION));
+		model.addAttribute("informationFromOptions", lrc.findByLookupGroup(ILookupGroupConstant.INFORMATION_FROM));
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)

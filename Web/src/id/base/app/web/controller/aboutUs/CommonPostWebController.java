@@ -88,6 +88,7 @@ public class CommonPostWebController extends BaseController<Pages> {
 	
 	@RequestMapping(method=RequestMethod.GET, value="showAdd")
 	public String showAdd(ModelMap model, HttpServletRequest request){
+		setDefaultData(model);
 		model.addAttribute("detail", Pages.getInstance());
 		return PATH_DETAIL;
 	}

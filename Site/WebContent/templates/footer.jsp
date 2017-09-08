@@ -35,7 +35,12 @@
 		  			<h4>Situs Lain</h4>
 		  			<ul id="link-url-content">
 			  			<c:forEach items="${linkUrlList}" var="flu">
-							<li><a href="${flu.url}">${flu.title}</a></li>
+			  				<c:if test="${flu.isParent}">
+								<li><a href="${ctx}/page/other-site/${flu.permalink}">${flu.title}</a></li>
+							</c:if>
+							<c:if test="${!flu.isParent}">
+								<li><a href="${flu.url}">${flu.title}</a></li>
+							</c:if>
 						</c:forEach>
 		  			</ul>
 		  		</div>

@@ -83,4 +83,6 @@ public class RestServiceConstant {
 	public static final String HOME_SETTING_SERVICE = "homeSettingService";
 	public static final String CONTACT_SETTING_SERVICE = "contactSettingService";
 	public static final String INTEGRATION_SCRIPT_SERVICE = "integrationScriptService";
+	
+	public static final String VW_SEARCH_SERVICE = "vwSearchService";
 }

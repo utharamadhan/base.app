@@ -22,6 +22,8 @@ public class ILookupGroupConstant {
 	public static final String PROGRAM_PAYMENT			= "PROGRAM_PAYMENT";
 	public static final String PROGRAM_DISPLAY			= "PROGRAM_DISPLAY";
 	public static final String ITEM_MENU				= "ITEM_MENU";
+	public static final String PROFESSION				= "PROFESSION";
+	public static final String INFORMATION_FROM			= "INFORMATION_FROM";
 	
 	public static List<String> LOOKUP_GROUP_LIST = new ArrayList<>();
 	static {
@@ -40,5 +42,7 @@ public class ILookupGroupConstant {
 		LOOKUP_GROUP_LIST.add(PROGRAM_PAYMENT);
 		LOOKUP_GROUP_LIST.add(PROGRAM_DISPLAY);
 		LOOKUP_GROUP_LIST.add(ITEM_MENU);
+		LOOKUP_GROUP_LIST.add(PROFESSION);
+		LOOKUP_GROUP_LIST.add(INFORMATION_FROM);
 	}	
 }

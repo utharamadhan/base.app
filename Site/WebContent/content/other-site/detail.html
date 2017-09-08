@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head></head>
+<body>
+		<div class="breadcrumb-wrapper">
+			<div class="breadcrumb">
+				<div class="container">
+					<ul>
+					<li><a th:href="@{/}">Beranda</a></li>
+					<li><a href="#" th:text="${title}"></a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="content_top">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<h1 th:text="${title}"></h1>
+						<div class="bottom-left-yellow"></div>
+						<div class="bottom-right-blue"></div>
+						<div class="clear"></div>
+						<div class="content_wrapper">
+							<ul>
+								<th:block th:each="data, i : ${list}">
+									<li><a th:href="${data.url}" th:text="${data.title}"></a></li>
+								</th:block>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div><!--end content top-->
+		</div>
+		
+		<script type="text/javascript" th:inline="javascript">
+		/*<![CDATA[*/
+        /*]]>*/
+		</script>
+</body>
+</html>

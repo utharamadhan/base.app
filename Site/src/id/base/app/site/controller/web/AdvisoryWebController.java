@@ -90,9 +90,9 @@ public class AdvisoryWebController extends BaseSiteController<Pages>{
 				}
 				if(category.getIsItemsNewPage()!=null && category.getIsItemsNewPage()){
 					if(hasItemPermalink){
-						return "redirect:/page/main-program/advisory/"+permalink+"/"+category.getItems().get(0).getPermalink();
+						return "forward:/page/main-program/advisory/"+permalink+"/"+category.getItems().get(0).getPermalink();
 					}else{
-						return "redirect:/page/main-program/advisory/consulting";		
+						return "forward:/page/main-program/advisory/consulting";		
 					}
 				}
 				try {

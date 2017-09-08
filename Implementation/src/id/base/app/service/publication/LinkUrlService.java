@@ -56,4 +56,25 @@ public class LinkUrlService implements ILinkUrlService {
 	public List<LinkUrl> findAll(List<SearchFilter> filter, List<SearchOrder> order) throws SystemException {
 		return linkUrlDAO.findAll(filter, order);
 	}
+	
+	@Override
+	public List<String> getSamePermalink(Long pk, String permalink) throws SystemException {
+		return linkUrlDAO.getSamePermalink(pk, permalink);
+	}
+	
+	@Override
+	public List<LinkUrl> findByPermalinkParent(String permalink) throws SystemException {
+		return linkUrlDAO.findByPermalinkParent(permalink);
+	}
+	
+	@Override
+	public String getTitleByPermalink(String permalink) throws SystemException {
+		return linkUrlDAO.getTitleByPermalink(permalink);
+	}
+	
+	@Override
+	public Long getPkByPermalink(String permalink) throws SystemException {
+		return linkUrlDAO.getPkByPermalink(permalink);
+	}
+	
 }

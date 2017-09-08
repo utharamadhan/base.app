@@ -1,5 +1,6 @@
 package id.base.app.web.controller.frontEndDisplay;
 
+import id.base.app.ILookupConstant;
 import id.base.app.ILookupGroupConstant;
 import id.base.app.SystemConstant;
 import id.base.app.exception.ErrorHolder;
@@ -13,6 +14,7 @@ import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.valueobject.Faq;
+import id.base.app.valueobject.Lookup;
 import id.base.app.valueobject.publication.LinkUrl;
 import id.base.app.web.DataTableCriterias;
 import id.base.app.web.controller.BaseController;
@@ -86,6 +88,24 @@ public class FooterLinkUrlWebController extends BaseController<LinkUrl> {
 	public void setDefaultData(ModelMap model, LinkUrl obj) {
 		LookupRestCaller lrc = new LookupRestCaller();
 		model.addAttribute("statusOptions", lrc.findByLookupGroup(ILookupGroupConstant.STATUS));
+		List<Lookup> booleanList = new ArrayList<>();
+		booleanList.add(new Lookup().getInstanceShort("0", "No"));
+		booleanList.add(new Lookup().getInstanceShort("1", "Yes"));
+		model.addAttribute("booleanOptions", booleanList);
+		model.addAttribute("parentOptions", getDataParent(obj.getPkLinkUrl()));
+	}
+	
+	private List<LinkUrl> getDataParent(Long pkLinkUrl){
+		List<SearchFilter> f = new ArrayList<>();
+		f.add(new SearchFilter(LinkUrl.TYPE, Operator.EQUALS, SystemConstant.LinkUrlType.FOOTER, String.class));
+		f.add(new SearchFilter(LinkUrl.IS_PARENT, Operator.EQUALS, Boolean.TRUE, Boolean.class));
+		f.add(new SearchFilter(LinkUrl.STATUS, Operator.EQUALS, ILookupConstant.Status.PUBLISH, Integer.class));
+		if(pkLinkUrl!=null){
+			f.add(new SearchFilter(LinkUrl.PK_LINK_URL, Operator.NOT_EQUAL, pkLinkUrl, Long.class));
+		}
+		List<SearchOrder> o = new ArrayList<>();
+		o.add(new SearchOrder(LinkUrl.TITLE, SearchOrder.Sort.ASC));
+		return getRestCaller().findAll(f, o);
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="showAdd")

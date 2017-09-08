@@ -97,6 +97,9 @@ public class Contact extends BaseEntity implements Serializable {
 	@Column(name="INSTANSI")
 	private String instansi;
 	
+	@Column(name="INFORMATION_FROM")
+	private String informationFrom;
+	
 	@Column(name="MESSAGE")
 	private String message;
 	
@@ -201,6 +204,14 @@ public class Contact extends BaseEntity implements Serializable {
 
 	public void setInstansi(String instansi) {
 		this.instansi = instansi;
+	}
+
+	public String getInformationFrom() {
+		return informationFrom;
+	}
+
+	public void setInformationFrom(String informationFrom) {
+		this.informationFrom = informationFrom;
 	}
 
 	public String getMessage() {

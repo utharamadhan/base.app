@@ -105,13 +105,13 @@
 												<!-- <img alt="" class="show_detail my_link" src="/Site/images/ebook/ebook1.jpg"/> -->
 												<div class="cover-empty" th:text="${data.title}"></div>
 												<div class="overlay">
-												    <div class="text show_detail my_link"><i class="fa fa-align-left"></i> <a th:href="@{detail/__${data.permalink}__}">Baca</a></div>
+												    <div class="text show_detail my_link"><i class="fa fa-align-left"></i> <a th:href="@{__${data.permalink}__}">Baca</a></div>
 												</div>
 											</div>
 										</div>
 										<div class="clear"></div>
 										<div class="info">
-											<h2><a th:href="@{detail/__${data.permalink}__}"><label class="post_title show_detail my_link" th:text="${data.title}"></label></a></h2>
+											<h2><a th:href="@{__${data.permalink}__}"><label class="post_title show_detail my_link" th:text="${data.title}"></label></a></h2>
 											<div class="date"><label th:text="${data.yearFrom}"></label></div>
 										</div>
 									</div>

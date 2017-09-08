@@ -512,4 +512,15 @@ public class SystemConstant  {
 		}
 	}
 	
+	public static final class SearchType{
+		public static final String ENGAGEMENT = "ENGAGEMENT";
+		public static final String PROGRAM_POST = "PROGRAM_POST";
+		public static final String DIGITAL_BOOK = "DIGITAL_BOOK";
+		public static final String NEWS = "NEWS";
+		public static final String EVENT = "EVENT";
+		public static final String LEARNING = "LEARNING";
+		public static final String ADVISORY = "ADVISORY";
+		public static final String RESEARCH = "RESEARCH";
+	}
+	
 }
