@@ -41,7 +41,7 @@ body{
 	color: white;padding-top: 7%;font-size: 24px;
 }
 .aboutUsArea .middleContent{
-	height:365.61px;	
+	/* height:365.61px; */	
 }
 .aboutUsArea .circle-top{
 	height:230px;
@@ -358,8 +358,9 @@ body{
     background-size: 100% auto;
     background-repeat: no-repeat;
     background-position: left top;
-    height: 500px;
+    /* height: 500px; */
     text-align: center;
+    padding-bottom: 40px;
 }
 .contactArea-overlay{
 	width:100%;
@@ -1026,7 +1027,7 @@ body{
 		font-size:20px;
 	}
 	.aboutUsArea .circle-bottom-wrapper{
-		margin-top: 385px;
+		/* margin-top: 385px; */
 	}
 	.step-number .col-md-3,.step-expert .col-md-3{
 		width:25%;
@@ -1241,7 +1242,7 @@ body{
 	    padding-top: 18%;
 	}
 	.aboutUsArea .circle-bottom-wrapper {
-	    margin-top: 385px;
+	    /* margin-top: 385px; */
 	    height: 160px;
     	background-size: 100% 160px;
 	}

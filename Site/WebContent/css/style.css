@@ -156,22 +156,43 @@ iframe {
 .navbar-brand>img {
     margin: 6px 0;
 }
-.header .navbar-nav>li>.dropdown-menu {
-    width: 100%;
-    padding: 24px 60px;
-    border: 1px solid #e0e1e2;
-    -webkit-box-shadow: 0 4px 10px rgba(0, 0, 0, 0.33);
-    -moz-box-shadow: 0 4px 10px rgba(0, 0, 0, 0.33);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.33);
-    -webkit-border-radius: 2px!important;
-    -moz-border-radius: 2px!important;
-    border-radius: 2px!important;
-    left: 0px;
-    top: 72px;
-    position: fixed;
-    border-top: 3px solid #fcdb00;
-    height:100%;
+
+@media screen and (min-width: 767px) {
+	.header .navbar-nav>li>.dropdown-menu {
+	    width: 100%;
+	    padding: 24px 60px;
+	    border: 1px solid #e0e1e2;
+	    -webkit-box-shadow: 0 4px 10px rgba(0, 0, 0, 0.33);
+	    -moz-box-shadow: 0 4px 10px rgba(0, 0, 0, 0.33);
+	    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.33);
+	    -webkit-border-radius: 2px!important;
+	    -moz-border-radius: 2px!important;
+	    border-radius: 2px!important;
+	    left: 0px;
+	    top: 72px;
+	    position: fixed;
+	    border-top: 3px solid #fcdb00;
+	    height:100%;
+	}
 }
+
+@media screen and (max-width: 767px) {
+	.header .navbar-nav>li>.dropdown-menu {
+	    width: 100%;
+	    border: 1px solid #e0e1e2;
+	    -webkit-box-shadow: 0 4px 10px rgba(0, 0, 0, 0.33);
+	    -moz-box-shadow: 0 4px 10px rgba(0, 0, 0, 0.33);
+	    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.33);
+	    -webkit-border-radius: 2px!important;
+	    -moz-border-radius: 2px!important;
+	    border-radius: 2px!important;
+	    left: 0px;
+	    top: 72px;
+	    border-top: 3px solid #fcdb00;
+	    height:100%;
+	}
+}
+
 .navbar-default .navbar-nav>.open .dropdown-menu>li>a:hover {
     color: #0056a1;
 }
@@ -1470,11 +1491,18 @@ ul.channel-links li{
     padding-top: 25px!important;
     padding-bottom: 25px!important;
 }
+
+.navbar-nav li{
+	background-color:#e7e7e7;
+	color:black;	
+}
+
 .navbar-nav li.navbar-active, .menu_left li.menu_left_active{
 	background-color:#0056a1;
 	color:white;
-	border-top: 6px solid #FFDE00;	
+	border-top: 6px solid #0056a1;	
 }
+
 .header .navbar-default .navbar-nav>li.navbar-active>a{
 	padding:5px 14px 11px 14px!important
 }
@@ -5347,6 +5375,7 @@ blockquote span {
         box-shadow: none;
         border: none;
         width: 100%;
+        height: 400px;
     }
     .header .navbar-nav>li>.dropdown-menu::before {
         background: none;
