@@ -44,12 +44,6 @@ public class NewsController extends SuperController<News>{
 			permalink = StringFunction.generatePermalink(permalinkDBList, permalink);
 			anObject.setPermalink(permalink);
 		}
-		if(StringFunction.isEmpty(anObject.getContent())) {
-			errorList.add(new ErrorHolder(News.CONTENT, messageSource.getMessage("error.mandatory", new String[]{"content"}, Locale.ENGLISH)));
-		}
-		if(StringFunction.isEmpty(anObject.getExcerpt())) {
-			errorList.add(new ErrorHolder(News.EXCERPT, messageSource.getMessage("error.mandatory", new String[]{"excerpt"}, Locale.ENGLISH)));
-		}
 		if(!errorList.isEmpty()) {
 			throw new SystemException(errorList);
 		}

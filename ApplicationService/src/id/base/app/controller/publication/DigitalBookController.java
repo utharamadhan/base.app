@@ -36,9 +36,6 @@ public class DigitalBookController extends SuperController<DigitalBook>{
 	@Override
 	public DigitalBook validate(DigitalBook anObject) throws SystemException {
 		List<ErrorHolder> errorList = new ArrayList<>();
-		if(StringFunction.isEmpty(anObject.getDescription())) {
-			errorList.add(new ErrorHolder(DigitalBook.DESCRIPTION, messageSource.getMessage("error.mandatory", new String[]{"description"}, Locale.ENGLISH)));
-		}
 		if(StringFunction.isEmpty(anObject.getTitle())) {
 			errorList.add(new ErrorHolder(DigitalBook.TITLE, messageSource.getMessage("error.mandatory", new String[]{"title"}, Locale.ENGLISH)));
 		}else{
@@ -46,15 +43,6 @@ public class DigitalBookController extends SuperController<DigitalBook>{
 			List<String> permalinkDBList = digitalBookService.getSamePermalink(anObject.getPkDigitalBook(), permalink);
 			permalink = StringFunction.generatePermalink(permalinkDBList, permalink);
 			anObject.setPermalink(permalink);
-		}
-		if(StringFunction.isEmpty(anObject.getCoverImageURL())) {
-			errorList.add(new ErrorHolder(DigitalBook.COVER_IMAGE_URL, messageSource.getMessage("error.mandatory", new String[]{"cover"}, Locale.ENGLISH)));
-		}
-		if(StringFunction.isEmpty(anObject.getFileURL())) {
-			errorList.add(new ErrorHolder(DigitalBook.FILE_URL, messageSource.getMessage("error.mandatory", new String[]{"file"}, Locale.ENGLISH)));
-		}
-		if(StringFunction.isEmpty(anObject.getDescription())) {
-			errorList.add(new ErrorHolder(DigitalBook.DESCRIPTION, messageSource.getMessage("error.mandatory", new String[]{"description"}, Locale.ENGLISH)));
 		}
 		if(errorList.size() > 0) {
 			throw new SystemException(errorList);

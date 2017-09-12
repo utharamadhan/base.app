@@ -53,9 +53,6 @@ public class EventController extends SuperController<Event>{
 			permalink = StringFunction.generatePermalink(permalinkDBList, permalink);
 			anObject.setPermalink(permalink);
 		}
-		if(StringFunction.isEmpty(anObject.getDescription())) {
-			errorList.add(new ErrorHolder(Event.DESCRIPTION, messageSource.getMessage("error.mandatory", new String[]{"description"}, Locale.ENGLISH)));
-		}
 		if(errorList.size() > 0) {
 			throw new SystemException(errorList);
 		}
