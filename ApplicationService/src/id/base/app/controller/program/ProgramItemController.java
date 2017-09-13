@@ -117,17 +117,17 @@ public class ProgramItemController extends SuperController<ProgramItem> {
 					isUpdate = true;
 				}
 				
-				if(StringFunction.isNotEmpty(newObject.getBrochureURL())){
-					if (!((ProgramItem)oldObject).getBrochureURL().equalsIgnoreCase(newObject.getBrochureURL())) {
-						String oldURL = ((ProgramItem)oldObject).getBrochureURL();
+				if(StringFunction.isNotEmpty(newObject.getBrochureURL1())){
+					if (!((ProgramItem)oldObject).getBrochureURL1().equalsIgnoreCase(newObject.getBrochureURL1())) {
+						String oldURL = ((ProgramItem)oldObject).getBrochureURL1();
 						deleteOldImage(oldURL);
-						String brochureURL = ImageFunction.createThumbnails(newObject.getBrochureURL(), SystemConstant.ThumbnailsDimension.FeatureImage.WIDTH, SystemConstant.ThumbnailsDimension.FeatureImage.HEIGHT);
-						objUpdate.setBrochureURL(brochureURL);
+						String brochureURL = ImageFunction.createThumbnails(newObject.getBrochureURL1(), SystemConstant.ThumbnailsDimension.FeatureImage.WIDTH, SystemConstant.ThumbnailsDimension.FeatureImage.HEIGHT);
+						objUpdate.setBrochureURL1(brochureURL);
 						isUpdate = true;
 					}
 				}else{
-					String brochureURL = ImageFunction.createThumbnails(newObject.getBrochureURL(), SystemConstant.ThumbnailsDimension.FeatureImage.WIDTH, SystemConstant.ThumbnailsDimension.FeatureImage.HEIGHT);
-					objUpdate.setBrochureURL(brochureURL);
+					String brochureURL = ImageFunction.createThumbnails(newObject.getBrochureURL1(), SystemConstant.ThumbnailsDimension.FeatureImage.WIDTH, SystemConstant.ThumbnailsDimension.FeatureImage.HEIGHT);
+					objUpdate.setBrochureURL1(brochureURL);
 					isUpdate = true;
 				}
 				if(isUpdate){
@@ -146,8 +146,11 @@ public class ProgramItemController extends SuperController<ProgramItem> {
 				if(StringFunction.isNotEmpty(oldObject.getImageURL())) {
 					deleteOldImage(oldObject.getImageURL());
 				}
-				if(StringFunction.isNotEmpty(oldObject.getBrochureURL())) {
-					deleteOldImage(oldObject.getBrochureURL());
+				if(StringFunction.isNotEmpty(oldObject.getBrochureURL1())) {
+					deleteOldImage(oldObject.getBrochureURL1());
+				}
+				if(StringFunction.isNotEmpty(oldObject.getBrochureURL2())) {
+					deleteOldImage(oldObject.getBrochureURL2());
 				}
 			}
 		} catch (Exception e) {

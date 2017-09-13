@@ -8,11 +8,14 @@ import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.valueobject.AppParameter;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.hibernate.Criteria;
+import org.hibernate.SQLQuery;
 import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
@@ -22,9 +25,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class AppParameterDAO extends AbstractHibernateDAO<AppParameter,Long> implements IAppParameterDAO {
 
-	
 	public void delete(Long[] objectPKs) throws SystemException {
-		// TODO Auto-generated method stub
 	}
 	
 	public List<AppParameter> findAll(){
@@ -65,6 +66,8 @@ public class AppParameterDAO extends AbstractHibernateDAO<AppParameter,Long> imp
 		crit.setProjection(projectionList);
 		crit.setResultTransformer(new ResultTransformer() {
 			
+			private static final long serialVersionUID = 1023277533183757027L;
+
 			@Override
 			public AppParameter transformTuple(Object[] arg0, String[] arg1) {
 				return AppParameter.getInstance(String.valueOf(arg0[0]), String.valueOf(arg0[1]));
@@ -90,5 +93,37 @@ public class AppParameterDAO extends AbstractHibernateDAO<AppParameter,Long> imp
 		return super.findAll(names, null);
 	}
 	
+	@Override
+	public List<AppParameter> getAllSocialMedia() throws SystemException {
+		String query = "SELECT NAME, VALUE, ATTRIBUTE FROM APP_PARAMETER WHERE NAME LIKE 'SOCMED_URL%' AND VALUE IS NOT NULL AND VALUE != '' ORDER BY ORDER_NO ASC";
+		SQLQuery sqlQuery = getSession().createSQLQuery(query);
+			sqlQuery.setResultTransformer(new ResultTransformer() {
+
+				private static final long serialVersionUID = 4589424464717278992L;
+
+				@Override
+				public Object transformTuple(Object[] tuple, String[] aliases) {
+					AppParameter ap = new AppParameter();
+					try {
+						BeanUtils.copyProperty(ap, "name", tuple[0]);
+						BeanUtils.copyProperty(ap, "value", tuple[1]);
+						BeanUtils.copyProperty(ap, "attribute", tuple[2]);
+					} catch (IllegalAccessException e) {
+						e.printStackTrace();
+					} catch (InvocationTargetException e) {
+						e.printStackTrace();
+					}
+					return ap;
+				}
+				
+				@SuppressWarnings("rawtypes")
+				@Override
+				public List transformList(List collection) {
+					return collection;
+				}
+			});
+
+		return sqlQuery.list();
+	}
 	
 }

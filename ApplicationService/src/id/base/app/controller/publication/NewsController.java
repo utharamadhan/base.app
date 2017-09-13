@@ -7,6 +7,7 @@ import id.base.app.exception.SystemException;
 import id.base.app.rest.RestConstant;
 import id.base.app.service.MaintenanceService;
 import id.base.app.service.news.INewsService;
+import id.base.app.util.DateTimeFunction;
 import id.base.app.util.ImageFunction;
 import id.base.app.util.StringFunction;
 import id.base.app.valueobject.publication.News;
@@ -37,7 +38,7 @@ public class NewsController extends SuperController<News>{
 	public News validate(News anObject) throws SystemException {
 		List<ErrorHolder> errorList = new ArrayList<>();
 		if(StringFunction.isEmpty(anObject.getTitle())) {
-			errorList.add(new ErrorHolder(News.TITLE, messageSource.getMessage("error.mandatory", new String[]{"title"}, Locale.ENGLISH)));
+			errorList.add(new ErrorHolder(News.TITLE, messageSource.getMessage("error.mandatory", new String[]{"Title"}, Locale.ENGLISH)));
 		}else{
 			String permalink = StringFunction.toPrettyURL(anObject.getTitle());
 			List<String> permalinkDBList = newsService.getSamePermalink(anObject.getPkNews(), permalink);
@@ -57,6 +58,9 @@ public class NewsController extends SuperController<News>{
 	
 	@Override
 	public News preUpdate(News anObject) throws SystemException{
+		if(anObject.getPublishDate()==null){
+			anObject.setPublishDate(DateTimeFunction.getCurrentDate());
+		}
 		return validate(anObject);
 	}
 	

@@ -24,7 +24,7 @@
 		  		</div>
 		  		<div class="col-md-3">
 		  			<h4>Tentang Website</h4>
-		  			<ul>
+		  			<ul class="type-none">
 		  				<li><a href="<%=request.getContextPath()%>/page/${toc}">${tocTitle}</a></li>
 		  				<li><a href="<%=request.getContextPath()%>/page/faq">Pertanyaan Yang Sering Ditanyakan</a></li>
 		  				<li><a href="<%=request.getContextPath()%>/page/sitemap"">Peta Situs</a></li>
@@ -33,7 +33,7 @@
 		  		</div>
 		  		<div class="col-md-3">
 		  			<h4>Situs Lain</h4>
-		  			<ul id="link-url-content">
+		  			<ul id="link-url-content" class="type-none">
 			  			<c:forEach items="${linkUrlList}" var="flu">
 			  				<c:if test="${flu.isParent}">
 								<li><a href="${ctx}/page/other-site/${flu.permalink}">${flu.title}</a></li>
@@ -47,11 +47,9 @@
 		  		<div class="col-md-3">
 		  			<h4>Ikuti Kami</h4>
 		  			<div class="socialFollow">
-		  				<a href="http://www.facebook.com/hfcbtn"><i class="fa fa-facebook"></i></a>
-			  			<a href="https://www.instagram.com/hfcbtn"><i class="fa fa-instagram"></i></a>
-			  			<a href="https://plus.google.com/+hfcbtn"><i class="fa fa-google-plus"></i></a>
-			  			<a href="https://twitter.com/hfcbtn"><i class="fa fa-twitter"></i></a>
-						<a href="https://www.youtube.com/user/hfcbtn"><i class="fa fa-youtube-play"></i></a>
+		  				<c:forEach items="${socialMedia}" var="sm">
+		  					<a href="${sm.value}"><i class="fa ${sm.attribute}"></i></a>
+		  				</c:forEach>
 					</div>
 		  		</div>
 		  	</div>

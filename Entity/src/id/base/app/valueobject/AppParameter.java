@@ -80,6 +80,15 @@ public class AppParameter extends BaseEntity {
 	@Column(name = "DATATYPE")
 	private Integer datatype;
 	
+	@Column(name="ORDER_NO")
+	private Integer orderNo;
+	
+	@Column(name="ATTRIBUTE")
+	private String attribute;
+	
+	@Column(name="IS_UPDATE_ORDER_NO")
+	private Boolean isUpdateOrderNo;
+	
 	@Transient
 	private String dataTypeDescr;
 	
@@ -124,6 +133,30 @@ public class AppParameter extends BaseEntity {
 	}
 	public void setDatatype(Integer datatype) {
 		this.datatype = datatype;
+	}
+	
+	public Integer getOrderNo() {
+		return orderNo;
+	}
+
+	public void setOrderNo(Integer orderNo) {
+		this.orderNo = orderNo;
+	}
+	
+	public String getAttribute() {
+		return attribute;
+	}
+
+	public void setAttribute(String attribute) {
+		this.attribute = attribute;
+	}
+	
+	public Boolean getIsUpdateOrderNo() {
+		return isUpdateOrderNo;
+	}
+
+	public void setIsUpdateOrderNo(Boolean isUpdateOrderNo) {
+		this.isUpdateOrderNo = isUpdateOrderNo;
 	}
 
 	@Transient

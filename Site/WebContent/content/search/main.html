@@ -17,11 +17,11 @@
 		<div class="hexa-top-right-long">
 		<div class="top_post_section back-gradient-transparent">
 			<div class="container">
-				<form class="back-gradient-transparent" style="padding:10px 0px;">
+				<form class="back-gradient-transparent" style="padding:10px 0px;" method="GET">
 				<div class="row">
 					<div class="col-md-4"></div>
 					<div class="col-md-4">
-						<input type="text" class="form-control param" placeholder="Masukan Kata Kunci..." th:value="${s}"/>
+						<input type="text" class="form-control param" placeholder="Masukan Kata Kunci..." name="s" th:value="${s}"/>
 					</div>
 					<div class="col-md-4">
 						<button type="button" class="btn btn-danger mrdy_btn search">Cari</button>
@@ -103,12 +103,13 @@
 		
 		function processData(datas, load){
 			var load_content = '';
+			var ln = $('.post_thumb').length;
 			for(var i=0;i<datas.length;i++){
-				if(i%2==0){
-					load_content = load_content + "<div class='clear'></div>";
-				}
 				var cloning = $('.template_part .data_result').eq(0).clone();
+				cloning.find('.post_thumb svg pattern').attr('id',(i+ln));
 				cloning.find('.post_thumb svg image').attr('xlink:href',datas[i].imageUrl);
+				cloning.find('.post_thumb svg polygon').attr('id','hex'+(i+ln));
+				cloning.find('.post_thumb svg polygon').attr('fill','url(#'+(i+ln)+')');
 				cloning.find('.title').html(datas[i].title);
 				cloning.find('input[name="linkDetail"]').val(datas[i].linkDetail);
 				cloning.wrap('<div></div>');
@@ -130,32 +131,33 @@
 			
 			showPaging(maxRecord, currentRecord);
 			
-			$('.load_more').unbind('click').click(function(){
+			$('.load_more').unbind('click').click(function(e){
+				e.preventDefault();
 				var sURL = /*[[@{/page/search/load}]]*/
 				var param = $('.param').val();
 				var nextStartNo = parseInt($('.startNo').val()) + parseInt($('.offset').val());
 				var offset = $('.offset').val();
 				$.ajax({
-		            type: 'GET',
+		            type: 'POST',
 		            url: sURL,
 		            data: {s : param, startNo : nextStartNo, offset : offset},
 		            dataType: 'json',
 		            success: function (data) {
 		            	$('.load_pagination').hide();
-		            	$('.mrdy_btn').setOverlay({enabled:true});
-		            	processData(data.engagement.result, false);		
-		            	var newMaxRecord = data.engagement.maxRecord;
-		            	var newCurrentRecord = data.engagement.currentRecord;
+		            	$('.mrdy_btn').setOverlay({enabled:false});
+		            	processData(data.vwSearch.result, false);		
+		            	var newMaxRecord = data.vwSearch.maxRecord;
+		            	var newCurrentRecord = data.vwSearch.currentRecord;
 		            	showPaging(newMaxRecord, newCurrentRecord);
-		            	$('.startNo').val(data.engagement.startRecordIndex);
+		            	$('.startNo').val(data.vwSearch.startRecordIndex);
 		            },
 		            beforeSend: function($jqXHR, $textStatus){
 						$('.load_pagination').show();
-						$('.mrdy_btn').setOverlay({enabled:false});
+						$('.mrdy_btn').setOverlay({enabled:true});
 					},
 					error: function ($jqXHR, $textStatus, $errorThrown) {
 						$('.load_pagination').hide();
-						$('.mrdy_btn').setOverlay({enabled:true});
+						$('.mrdy_btn').setOverlay({enabled:false});
 					},
 					complete: function($jqXHR, $textStatus){
 						$('.load_pagination').hide();
@@ -169,31 +171,31 @@
 				var param = $('.param').val();
 				var img_url = /*[[@{/images/gif/hex-loader.gif}]]*/;
 				$.ajax({
-		            type: 'GET',
+		            type: 'POST',
 		            url: sURL,
 		            data: {s : param},
 		            dataType: 'json',
 		            success: function (data) {
 		            	$('.pagination_part').hide();
 		            	$('.loading_reload').remove();
-		            	$('.mrdy_btn').setOverlay({enabled:true});
-		            	processData(data.engagement.result, true);
-		            	var newMaxRecord = data.engagement.maxRecord;
-		            	var newCurrentRecord = data.engagement.currentRecord;
+		            	$('.mrdy_btn').setOverlay({enabled:false});
+		            	processData(data.vwSearch.result, true);
+		            	var newMaxRecord = data.vwSearch.maxRecord;
+		            	var newCurrentRecord = data.vwSearch.currentRecord;
 		            	showPaging(newMaxRecord, newCurrentRecord);
-		            	$('.startNo').val(data.engagement.startRecordIndex);
+		            	$('.startNo').val(data.vwSearch.startRecordIndex);
 		            },
 		            beforeSend: function($jqXHR, $textStatus){
 		            	$('.list_data').html('<div class="col-md-12 loading_reload" style="display: block; margin-left: auto; margin-right: auto;text-align: center;"><img src="'+img_url+'" /></div>');
-						$('.mrdy_btn').setOverlay({enabled:false});
+						$('.mrdy_btn').setOverlay({enabled:true});
 					},
 					error: function ($jqXHR, $textStatus, $errorThrown) {
 						$('.loading_reload').remove();
-						$('.mrdy_btn').setOverlay({enabled:true});
+						$('.mrdy_btn').setOverlay({enabled:false});
 					},
 					complete: function($jqXHR, $textStatus){
 						$('.loading_reload').remove();
-						$('.mrdy_btn').setOverlay({enabled:true});
+						$('.mrdy_btn').setOverlay({enabled:false});
 					}
 		        });				
 			});

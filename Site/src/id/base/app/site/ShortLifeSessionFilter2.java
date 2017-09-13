@@ -13,6 +13,7 @@ import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.util.dao.SearchOrder.Sort;
+import id.base.app.valueobject.AppParameter;
 import id.base.app.valueobject.Pages;
 import id.base.app.valueobject.aboutUs.Engagement;
 import id.base.app.valueobject.aboutUs.ProgramPost;
@@ -43,13 +44,10 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ShortLifeSessionFilter2 implements Filter{
-	private final static Logger LOGGER = LoggerFactory.getLogger(ShortLifeSessionFilter2.class);
 	
 	private static final Set<String> BYPASS_TOKEN = new HashSet<String>();
 	static{
@@ -129,6 +127,7 @@ public class ShortLifeSessionFilter2 implements Filter{
 		request.setAttribute("linkUrlList", getLinkUrlList());
 		request.setAttribute("menuTop", getMenuSettingList(true));
 		request.setAttribute("menuBottom", getMenuSettingList(false));
+		request.setAttribute("socialMedia", getSocialMediaList());
 		request.setAttribute("home", getHomeSettingList());
 		List<Pages> pages = getTocAndPilarLink();
 		for (Pages p : pages) {
@@ -143,7 +142,7 @@ public class ShortLifeSessionFilter2 implements Filter{
 	
 	private List<HousingIndex> getHousingIndexList(){
 		SpecificRestCaller<HousingIndex> rcHI = new SpecificRestCaller<HousingIndex>(RestConstant.REST_SERVICE, RestServiceConstant.HOUSING_INDEX_SERVICE);
-		List<HousingIndex> hi = rcHI.executeGetList(new QueryParamInterfaceRestCaller() {
+		return rcHI.executeGetList(new QueryParamInterfaceRestCaller() {
 			
 			@Override
 			public String getPath() {
@@ -156,12 +155,11 @@ public class ShortLifeSessionFilter2 implements Filter{
 				return map;
 			}
 		});
-		return hi;
 	}
 	
 	private List<Testimonial> getTestimonialList(){
 		SpecificRestCaller<Testimonial> rcEngagement = new SpecificRestCaller<Testimonial>(RestConstant.REST_SERVICE, RestServiceConstant.TESTIMONIAL_SERVICE);
-		List<Testimonial> testimonials = rcEngagement.executeGetList(new QueryParamInterfaceRestCaller() {
+		return rcEngagement.executeGetList(new QueryParamInterfaceRestCaller() {
 			
 			@Override
 			public String getPath() {
@@ -175,12 +173,11 @@ public class ShortLifeSessionFilter2 implements Filter{
 				return map;
 			}
 		});
-		return testimonials;
 	}
 	
 	private List<Pages> getCommonPostList(){
 		SpecificRestCaller<Pages> rcPages = new SpecificRestCaller<Pages>(RestConstant.REST_SERVICE, RestServiceConstant.PAGES_SERVICE);
-		List<Pages> pages = rcPages.executeGetList(new QueryParamInterfaceRestCaller() {
+		return rcPages.executeGetList(new QueryParamInterfaceRestCaller() {
 			
 			@Override
 			public String getPath() {
@@ -194,12 +191,11 @@ public class ShortLifeSessionFilter2 implements Filter{
 				return map;
 			}
 		});
-		return pages;
 	}
 			 
 	private List<Engagement> getEngagementList(){
 		SpecificRestCaller<Engagement> rcEngagement = new SpecificRestCaller<Engagement>(RestConstant.REST_SERVICE, RestServiceConstant.ENGAGEMENT_SERVICE);
-		List<Engagement> engages = rcEngagement.executeGetList(new QueryParamInterfaceRestCaller() {
+		return rcEngagement.executeGetList(new QueryParamInterfaceRestCaller() {
 			
 			@Override
 			public String getPath() {
@@ -213,12 +209,11 @@ public class ShortLifeSessionFilter2 implements Filter{
 				return map;
 			}
 		});
-		return engages;
 	}
 	
 	private List<ProgramPost> getProgramList(){
 		SpecificRestCaller<ProgramPost> rcProgram = new SpecificRestCaller<ProgramPost>(RestConstant.REST_SERVICE, RestServiceConstant.PROGRAM_POST_SERVICE);
-		List<ProgramPost> programs = rcProgram.executeGetList(new QueryParamInterfaceRestCaller() {
+		return rcProgram.executeGetList(new QueryParamInterfaceRestCaller() {
 			
 			@Override
 			public String getPath() {
@@ -232,12 +227,11 @@ public class ShortLifeSessionFilter2 implements Filter{
 				return map;
 			}
 		});
-		return programs;
 	}
 			
 	private List<DigitalBook> getDigitalBookList(){
 		SpecificRestCaller<DigitalBook> rcEbook = new SpecificRestCaller<DigitalBook>(RestConstant.REST_SERVICE, RestServiceConstant.DIGITAL_BOOK_SERVICE);
-		List<DigitalBook> ebooks = rcEbook.executeGetList(new QueryParamInterfaceRestCaller() {
+		return rcEbook.executeGetList(new QueryParamInterfaceRestCaller() {
 			
 			@Override
 			public String getPath() {
@@ -251,12 +245,11 @@ public class ShortLifeSessionFilter2 implements Filter{
 				return map;
 			}
 		});
-		return ebooks;
 	}
 	
 	private List<News> getNewsList(final int number){
 		SpecificRestCaller<News> rcNews = new SpecificRestCaller<News>(RestConstant.REST_SERVICE, RestServiceConstant.NEWS_SERVICE);
-		List<News> news = rcNews.executeGetList(new QueryParamInterfaceRestCaller() {
+		return rcNews.executeGetList(new QueryParamInterfaceRestCaller() {
 			
 			@Override
 			public String getPath() {
@@ -270,12 +263,11 @@ public class ShortLifeSessionFilter2 implements Filter{
 				return map;
 			}
 		});
-		return news;
 	}
 			
 	private List<Event> getEventList(){
 		SpecificRestCaller<Event> rcEvent = new SpecificRestCaller<Event>(RestConstant.REST_SERVICE, RestServiceConstant.EVENT_SERVICE);
-		List<Event> events = rcEvent.executeGetList(new QueryParamInterfaceRestCaller() {
+		return rcEvent.executeGetList(new QueryParamInterfaceRestCaller() {
 			
 			@Override
 			public String getPath() {
@@ -289,7 +281,6 @@ public class ShortLifeSessionFilter2 implements Filter{
 				return map;
 			}
 		});
-		return events;
 	}
 			
 	private List<LinkUrl> getLinkUrlList(){
@@ -305,7 +296,7 @@ public class ShortLifeSessionFilter2 implements Filter{
 	
 	private List<Pages> getTocAndPilarLink(){
 		SpecificRestCaller<Pages> rcPages = new SpecificRestCaller<Pages>(RestConstant.REST_SERVICE, RestServiceConstant.PAGES_SERVICE);
-		List<Pages> pages = rcPages.executeGetList(new QueryParamInterfaceRestCaller() {
+		return rcPages.executeGetList(new QueryParamInterfaceRestCaller() {
 			
 			@Override
 			public String getPath() {
@@ -314,16 +305,14 @@ public class ShortLifeSessionFilter2 implements Filter{
 			
 			@Override
 			public Map<String, Object> getParameters() {
-				Map<String,Object> map = new HashMap<String, Object>();
-				return map;
+				return new HashMap<>();
 			}
 		});
-		return pages;
 	}
 	
 	private HomeSettingHelper getHomeSettingList(){
 		SpecificRestCaller<HomeSettingHelper> rc = new SpecificRestCaller<HomeSettingHelper>(RestConstant.REST_SERVICE, RestServiceConstant.HOME_SETTING_SERVICE);
-		HomeSettingHelper obj = rc.executeGet(new PathInterfaceRestCaller() {
+		return rc.executeGet(new PathInterfaceRestCaller() {
 			
 			@Override
 			public String getPath() {
@@ -332,16 +321,14 @@ public class ShortLifeSessionFilter2 implements Filter{
 			
 			@Override
 			public Map<String, Object> getParameters() {
-				Map<String,Object> map = new HashMap<String, Object>();
-				return map;
+				return new HashMap<>();
 			}
 		});
-		return obj;
 	}
 	
 	private List<Setting> getMenuSettingList(final Boolean isTop){
 		SpecificRestCaller<Setting> rc = new SpecificRestCaller<Setting>(RestConstant.REST_SERVICE, RestServiceConstant.SETTING_SERVICE);
-		List<Setting> list = rc.executeGetList(new PathInterfaceRestCaller() {
+		return rc.executeGetList(new PathInterfaceRestCaller() {
 			
 			@Override
 			public String getPath() {
@@ -354,12 +341,27 @@ public class ShortLifeSessionFilter2 implements Filter{
 			
 			@Override
 			public Map<String, Object> getParameters() {
-				Map<String,Object> map = new HashMap<String, Object>();
-				return map;
+				return new HashMap<>();
 			}
 		});
-		return list;
 	}
+	
+	private List<AppParameter> getSocialMediaList(){
+		SpecificRestCaller<AppParameter> rc = new SpecificRestCaller<AppParameter>(RestConstant.REST_SERVICE, RestServiceConstant.SYSTEM_PARAMETER_SERVICE);
+		return rc.executeGetList(new PathInterfaceRestCaller() {
+			
+			@Override
+			public String getPath() {
+				return "/getAllSocialMedia";
+			}
+			
+			@Override
+			public Map<String, Object> getParameters() {
+				return new HashMap<>();
+			}
+		});
+	}
+	
 	private Cookie getCookie(Cookie[] cookies, HttpServletRequest request) {
 		Cookie cookie = null;
 		if(cookies!=null){

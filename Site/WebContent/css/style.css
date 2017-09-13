@@ -58,7 +58,7 @@ h5 {
     color: #282428;
     line-height: 30px;
 }
-ul {
+ul.type-none{
     list-style-type: none;
     margin: 0;
 }
@@ -2479,6 +2479,12 @@ ul.channel-links li{
     height: auto;
     display: table;
 }
+.post-content ul, .post-content ol{
+	padding: 0px 30px;
+}
+.post-content table td{
+	padding:5px 20px;
+} 
 #post_list {
     width: 100%;
     float: left;
@@ -4880,9 +4886,10 @@ blockquote span {
 	text-align:center;
 }
 .main-search-icon, .main-search-close-icon{
-    height: 41px;
+    height: 35px;
+    margin-top: 4px;
     margin-left: 10px;
-    cursor:pointer;
+    cursor: pointer;
 }
 .main-search-wrapper{
 	margin: 25px 0px;
@@ -5079,6 +5086,11 @@ blockquote span {
         height: 45px;
     }
 }
+@media screen and (max-width: 1199px) {
+	.container {
+	    width: 1070px;
+	}
+}
 @media screen and (max-width: 1023px) {
 	.header .navbar-brand img.logo-btn {
 	    height: 35px;
@@ -5098,6 +5110,9 @@ blockquote span {
 	    width: 95%;
 	    padding-left:0px;
 	    padding-right:0px;
+	}
+	.post-content table td{
+		padding:5px 10px;
 	}
 }
 @media screen and (max-width: 959px) {

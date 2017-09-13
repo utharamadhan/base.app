@@ -46,12 +46,21 @@ public class EventController extends SuperController<Event>{
 	public Event validate(Event anObject) throws SystemException {
 		List<ErrorHolder> errorList = new ArrayList<>();
 		if(StringFunction.isEmpty(anObject.getTitle())) {
-			errorList.add(new ErrorHolder(Event.TITLE, messageSource.getMessage("error.mandatory", new String[]{"title"}, Locale.ENGLISH)));
+			errorList.add(new ErrorHolder(Event.TITLE, messageSource.getMessage("error.mandatory", new String[]{"Title"}, Locale.ENGLISH)));
 		}else{
 			String permalink = StringFunction.toPrettyURL(anObject.getTitle());
 			List<String> permalinkDBList = eventService.getSamePermalink(anObject.getPkEvent(), permalink);
 			permalink = StringFunction.generatePermalink(permalinkDBList, permalink);
 			anObject.setPermalink(permalink);
+		}
+		if(anObject.getEventDateStart()==null) {
+			errorList.add(new ErrorHolder(Event.EVENT_DATE_START, messageSource.getMessage("error.mandatory", new String[]{"Event Date Start"}, Locale.ENGLISH)));
+		}else{
+			if(anObject.getEventDateEnd()==null) {
+				anObject.setEventDateEnd(anObject.getEventDateStart());
+			}else if(anObject.getEventDateStart().compareTo(anObject.getEventDateEnd())>0){
+				errorList.add(new ErrorHolder(Event.EVENT_DATE_START, messageSource.getMessage("error.exceed", new String[]{"Event Date Start","Event Date End"}, Locale.ENGLISH)));	
+			}
 		}
 		if(errorList.size() > 0) {
 			throw new SystemException(errorList);
@@ -126,8 +135,8 @@ public class EventController extends SuperController<Event>{
 			}
 			Date startDate = DateTimeFunction.string2Date(params.get("start"), SystemConstant.WEB_SERVICE_DATE);
 			Date endDate = DateTimeFunction.string2Date(params.get("end"), SystemConstant.WEB_SERVICE_DATE);
-			filter.add(new SearchFilter(Event.EVENT_DATE, Operator.EQUALS_OR_GREATER_THAN, startDate));
-			filter.add(new SearchFilter(Event.EVENT_DATE, Operator.EQUALS_OR_LESS_THAN, endDate));
+			filter.add(new SearchFilter(Event.EVENT_DATE_START, Operator.EQUALS_OR_GREATER_THAN, startDate));
+			filter.add(new SearchFilter(Event.EVENT_DATE_END, Operator.EQUALS_OR_LESS_THAN, endDate));
 			return eventService.findUpcoming(filter, order);
 		} catch (Exception e) {
 			e.printStackTrace();

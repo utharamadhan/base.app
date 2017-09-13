@@ -120,7 +120,7 @@ public class EventWebController extends BaseSiteController<Event>{
 		for(Event e : events){
 			EventJson json = new EventJson();
 			json.setTitle(e.getTitle());
-			json.setEventDate(DateTimeFunction.date2String(e.getEventDate(), SystemConstant.WEB_SERVICE_DATE));
+			json.setEventDate(DateTimeFunction.date2String(e.getEventDateStart(), SystemConstant.WEB_SERVICE_DATE));
 			String url = request.getContextPath() + "/page/event/" + e.getPermalink() + "?f=upcoming";
 			json.setUrl(url);
 			jsons.add(json);

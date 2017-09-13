@@ -2,11 +2,11 @@ package id.base.app.valueobject.program;
 
 import id.base.app.ILookupConstant;
 import id.base.app.SystemConstant;
-import id.base.app.encryptor.EncodeDecode;
 import id.base.app.util.DateTimeFunction;
 import id.base.app.valueobject.BaseEntity;
 import id.base.app.valueobject.Category;
 import id.base.app.valueobject.Lookup;
+import id.base.app.valueobject.testimonial.Testimonial;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -151,14 +151,20 @@ public class ProgramItem extends BaseEntity implements Serializable {
 	@JoinColumn(name="FK_LOOKUP_PROGRAM_DISPLAY")
 	private Lookup programDisplayLookup;
 	
-	@Column(name="BROCHURE_URL")
-	private String brochureURL;
+	@Column(name="BROCHURE_URL1")
+	private String brochureURL1;
+	
+	@Column(name="BROCHURE_URL2")
+	private String brochureURL2;
 	
 	@Column(name="TYPE")
 	private String type;
 	
 	@Column(name="BACKGROUND_IMAGE_SIZE")
 	private Integer backgroundImageSize;
+	
+	@Column(name="IS_BACKGROUND_SLIDESHOW")
+	private Boolean isBackgroundSlideshow;
 	
 	@Column(name="STATUS")
 	private Integer status;
@@ -181,14 +187,11 @@ public class ProgramItem extends BaseEntity implements Serializable {
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="programItem", orphanRemoval = true)
 	private List<ProgramItemMenu> menus;
 	
-	@Transient
-	public String encodedImage;
-	
-	@Transient
-	public String encodedBackgroundImage;
-	
-	@Transient
-	public String encodedBrochureImage;
+	@ManyToMany
+	@JoinTable(name="PROGRAM_ITEM_TESTIMONIAL",
+			joinColumns=@JoinColumn(name="FK_PROGRAM_ITEM"),
+			inverseJoinColumns=@JoinColumn(name="FK_TESTIMONIAL"))
+	private List<Testimonial> testimonials;
 	
 	@Transient
 	public String eventDate;
@@ -388,14 +391,22 @@ public class ProgramItem extends BaseEntity implements Serializable {
 		this.programDisplayLookup = programDisplayLookup;
 	}
 	
-	public String getBrochureURL() {
-		return brochureURL;
+	public String getBrochureURL1() {
+		return brochureURL1;
 	}
 
-	public void setBrochureURL(String brochureURL) {
-		this.brochureURL = brochureURL;
+	public void setBrochureURL1(String brochureURL1) {
+		this.brochureURL1 = brochureURL1;
 	}
-	
+
+	public String getBrochureURL2() {
+		return brochureURL2;
+	}
+
+	public void setBrochureURL2(String brochureURL2) {
+		this.brochureURL2 = brochureURL2;
+	}
+
 	public String getType() {
 		return type;
 	}
@@ -410,6 +421,14 @@ public class ProgramItem extends BaseEntity implements Serializable {
 
 	public void setBackgroundImageSize(Integer backgroundImageSize) {
 		this.backgroundImageSize = backgroundImageSize;
+	}
+	
+	public Boolean getIsBackgroundSlideshow() {
+		return isBackgroundSlideshow;
+	}
+
+	public void setIsBackgroundSlideshow(Boolean isBackgroundSlideshow) {
+		this.isBackgroundSlideshow = isBackgroundSlideshow;
 	}
 
 	public void setStatusStr(String statusStr) {
@@ -480,30 +499,15 @@ public class ProgramItem extends BaseEntity implements Serializable {
 			this.menus.addAll(menus);
 		}
 	}
-
-	public String getEncodedImage() throws Exception {
-		if(getImageThumbURL()!=null && !"".equals(getImageThumbURL())){
-			encodedImage = EncodeDecode.getBase64FromLink(getImageThumbURL());
-		}else if(getImageURL()!=null && !"".equals(getImageURL())){
-			encodedImage = EncodeDecode.getBase64FromLink(getImageURL());
-		}
-		return encodedImage;
+	
+	public List<Testimonial> getTestimonials() {
+		return testimonials;
 	}
 
-	public String getEncodedBackgroundImage() throws Exception {
-		if(getImageBackgroundURL()!=null && !"".equals(getImageBackgroundURL())){
-			encodedBackgroundImage = EncodeDecode.getBase64FromLink(getImageBackgroundURL());
-		}
-		return encodedBackgroundImage;
+	public void setTestimonials(List<Testimonial> testimonials) {
+		this.testimonials = testimonials;
 	}
-	
-	public String getEncodedBrochureImage() throws Exception {
-		if(getBrochureURL()!=null && !"".equals(getBrochureURL())){
-			encodedBrochureImage = EncodeDecode.getBase64FromLink(getBrochureURL());
-		}
-		return encodedBrochureImage;
-	}
-	
+
 	public String getEventDate() {
 		if(dateTo==null){
 			return DateTimeFunction.date2String(dateFrom, SystemConstant.SYSTEM_DATE_MASK);

@@ -41,6 +41,15 @@ public class ProgramItemImage implements Serializable{
 	
 	@Column(name="IMAGE_THUMB_URL")
 	private String imageThumbURL;
+	
+	@Column(name="TYPE")
+	private Integer type;
+	
+	@Column(name="ORDER_NO")
+	private Integer orderNo;
+	
+	@Column(name="STATUS")
+	private Integer status;
 
 	@Transient
 	public String encodedImage;
@@ -77,6 +86,30 @@ public class ProgramItemImage implements Serializable{
 		this.imageThumbURL = imageThumbURL;
 	}
 	
+	public Integer getType() {
+		return type;
+	}
+
+	public void setType(Integer type) {
+		this.type = type;
+	}
+
+	public Integer getOrderNo() {
+		return orderNo;
+	}
+
+	public void setOrderNo(Integer orderNo) {
+		this.orderNo = orderNo;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
 	public String getEncodedImage() throws Exception {
 		if(getImageThumbURL()!=null && !"".equals(getImageThumbURL())){
 			encodedImage = EncodeDecode.getBase64FromLink(getImageThumbURL());

@@ -48,7 +48,7 @@
 					<div class="housing_index">
 						<div class="breakingNews bn-yellow" id="bn1">
 					    	<div class="bn-title"><h2>BTN Housing Index</h2><span></span></div>
-					        <ul id="btnHIContent">
+					        <ul id="btnHIContent" class="type-none">
 						        <c:forEach items="${housingIndexList}" var="hi">
 						        	<li><label>${hi.title}</label>&nbsp;: &nbsp;<span>${hi.value}</span></li>
 								</c:forEach>
@@ -288,7 +288,7 @@
 						<br/>
 						<h2>HOUSING FINANCE CENTER</h2>
 						<hr/>
-						<ul>
+						<ul class="type-none">
 							<li>Memberikan pelayanan unggul, inovatif dan terintegrasi yang bisa diandalkan</li>
 							<li>Fokus pada bidang riset, konsultasi dan edukasi</li>
 							<li>Menjadi pusat riset, edukasi dan konsultasi terkait pembiayaan perumahan yang terdepan dengan pelayanan <i>CEPAT</i></li>

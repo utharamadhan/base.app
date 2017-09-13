@@ -1,8 +1,4 @@
-/*
- * Created on Apr 8, 2004
- */
 package id.base.app.service.parameter;
-
 
 import id.base.app.dao.parameter.IAppParameterDAO;
 import id.base.app.exception.SystemException;
@@ -36,7 +32,6 @@ public class ParameterService  implements MaintenanceService<AppParameter>, IPar
     }
     
 	public void delete(Long[] objectPKs) throws SystemException {
-		// TODO Auto-generated method stub
 	}
 	
 	public List<AppParameter> findAllAppParameter() throws SystemException {
@@ -86,7 +81,6 @@ public class ParameterService  implements MaintenanceService<AppParameter>, IPar
 	@Override
 	public List<AppParameter> findAll(List<SearchFilter> filter,
 			List<SearchOrder> order) throws SystemException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	
@@ -101,6 +95,11 @@ public class ParameterService  implements MaintenanceService<AppParameter>, IPar
 			map.put(appParameter.getName(), appParameter.getValue());
 		}
 		return map;
+	}
+	
+	@Override
+	public List<AppParameter> getAllSocialMedia() throws SystemException {
+		return parameterDAO.getAllSocialMedia();
 	}
 	
 }

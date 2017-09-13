@@ -37,7 +37,7 @@ public class DigitalBookController extends SuperController<DigitalBook>{
 	public DigitalBook validate(DigitalBook anObject) throws SystemException {
 		List<ErrorHolder> errorList = new ArrayList<>();
 		if(StringFunction.isEmpty(anObject.getTitle())) {
-			errorList.add(new ErrorHolder(DigitalBook.TITLE, messageSource.getMessage("error.mandatory", new String[]{"title"}, Locale.ENGLISH)));
+			errorList.add(new ErrorHolder(DigitalBook.TITLE, messageSource.getMessage("error.mandatory", new String[]{"Title"}, Locale.ENGLISH)));
 		}else{
 			String permalink = StringFunction.toPrettyURL(anObject.getTitle());
 			List<String> permalinkDBList = digitalBookService.getSamePermalink(anObject.getPkDigitalBook(), permalink);

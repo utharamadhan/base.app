@@ -33,4 +33,6 @@ public interface IAppParameterDAO {
 
 	public abstract List<AppParameter> findParametersByNames(List<SearchFilter> names)
 			throws SystemException;
+
+	public List<AppParameter> getAllSocialMedia() throws SystemException;
 }

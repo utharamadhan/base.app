@@ -263,3 +263,12 @@
 
 -- 2017-Juli-18
 \i DDL/SCRIPT_ALL_20170718.sql;
+
+-- 2017-September-01
+\i DDL/SCRIPT_ALL_20170901.sql;
+
+-- 2017-September-05
+\i DDL/SCRIPT_ALL_20170905.sql;
+
+-- 2017-September-13
+\i DDL/SCRIPT_ALL_20170913.sql;
