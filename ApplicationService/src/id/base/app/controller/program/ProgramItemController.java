@@ -10,6 +10,7 @@ import id.base.app.service.program.IProgramItemService;
 import id.base.app.util.ImageFunction;
 import id.base.app.util.StringFunction;
 import id.base.app.valueobject.program.ProgramItem;
+import id.base.app.valueobject.program.ProgramItemImage;
 import id.base.app.valueobject.program.ProgramItemMenu;
 import id.base.app.valueobject.program.ProgramItemTeacher;
 
@@ -89,6 +90,19 @@ public class ProgramItemController extends SuperController<ProgramItem> {
 			}
 		}
 		
+		Boolean isEmptyImage = true;
+		int i = 1; 
+		for (ProgramItemImage pii : anObject.getImages()) {
+			if(pii.getImageURL()!=null){
+				isEmptyImage = false;
+			}
+			pii.setProgramItem(anObject);
+			pii.setOrderNo(i);
+			i++;
+		}
+		if(isEmptyImage){
+			anObject.setImages(null);
+		}
 	}
 	
 	@Override
@@ -130,6 +144,7 @@ public class ProgramItemController extends SuperController<ProgramItem> {
 					objUpdate.setBrochureURL1(brochureURL);
 					isUpdate = true;
 				}
+				
 				if(isUpdate){
 					programItemService.updateAnyUrl(newObject.getPkProgramItem(), objUpdate);
 				}

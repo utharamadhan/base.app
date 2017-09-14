@@ -9,7 +9,9 @@
 	max-height : 250px;
 }
 
-.image-delete, .image-brochure-delete1, .image-brochure-delete2 {
+.image-delete, .image-brochure-delete1, .image-brochure-delete2,
+.backImage-delete0, .backImage-delete1, .backImage-delete2, 
+.backImage-delete3, .backImage-delete4 {
 	position:absolute;
 	left:25px;
 	top:10px;
@@ -451,6 +453,97 @@
 						                           		</select>
 						                           	</div>
 												</div>
+									    		<div class="form-group">
+													<label class="col-sm-2 control-label" th:text="'Image 1'">Image 1</label>
+													<div class="col-sm-10 form-input-container">
+											    		<th:block th:if="${detail.images[0].imageURL != null}">
+															<input type="hidden" id="input-hidden-backImageURL0" th:field="*{images[0].imageURL}"/>
+															<input type="file" class="form-control" id="input-file-backImageURL0" style="display:none;"/>
+															<div id="container-backImageURL0">
+																<img th:src="${detail.images[0].imageURL}" class="itemDetail-image"/>
+																<a href="#" class="btn btn-primary btn-xs margin-bottom-20 backImage-delete0" data-toggle="tooltip" title="Delete"><i class="fa fa-trash"></i></a>
+															</div>
+														</th:block>
+														<th:block th:if="${detail.images[0].imageURL == null}">
+															<input type="hidden" id="input-hidden-backImageURL0" name="images[0].imageURL"/>
+															<input type="file" class="form-control" id="input-file-backImageURL0"/>
+															<div id="container-backImageURL0" style='display:none;'></div>
+														</th:block>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-sm-2 control-label" th:text="'Image 2'">Image 2</label>
+													<div class="col-sm-10 form-input-container">
+											    		<th:block th:if="${detail.images[1].imageURL != null}">
+															<input type="hidden" id="input-hidden-backImageURL1" th:field="*{images[1].imageURL}"/>
+															<input type="file" class="form-control" id="input-file-backImageURL1" style="display:none;"/>
+															<div id="container-backImageURL1">
+																<img th:src="${detail.images[1].imageURL}" class="itemDetail-image"/>
+																<a href="#" class="btn btn-primary btn-xs margin-bottom-20 backImage-delete1" data-toggle="tooltip" title="Delete"><i class="fa fa-trash"></i></a>
+															</div>
+														</th:block>
+														<th:block th:if="${detail.images[1].imageURL == null}">
+															<input type="hidden" id="input-hidden-backImageURL1" name="images[1].imageURL"/>
+															<input type="file" class="form-control" id="input-file-backImageURL1"/>
+															<div id="container-backImageURL1" style='display:none;'></div>
+														</th:block>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-sm-2 control-label" th:text="'Image 3'">Image 3</label>
+													<div class="col-sm-10 form-input-container">
+											    		<th:block th:if="${detail.images[2].imageURL != null}">
+															<input type="hidden" id="input-hidden-backImageURL2" th:field="*{images[2].imageURL}"/>
+															<input type="file" class="form-control" id="input-file-backImageURL2" style="display:none;"/>
+															<div id="container-backImageURL2">
+																<img th:src="${detail.images[2].imageURL}" class="itemDetail-image"/>
+																<a href="#" class="btn btn-primary btn-xs margin-bottom-20 backImage-delete2" data-toggle="tooltip" title="Delete"><i class="fa fa-trash"></i></a>
+															</div>
+														</th:block>
+														<th:block th:if="${detail.images[2].imageURL == null}">
+															<input type="hidden" id="input-hidden-backImageURL2" name="images[2].imageURL"/>
+															<input type="file" class="form-control" id="input-file-backImageURL2"/>
+															<div id="container-backImageURL2" style='display:none;'></div>
+														</th:block>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-sm-2 control-label" th:text="'Image 4'">Image 4</label>
+													<div class="col-sm-10 form-input-container">
+											    		<th:block th:if="${detail.images[3].imageURL != null}">
+															<input type="hidden" id="input-hidden-backImageURL3" th:field="*{images[3].imageURL}"/>
+															<input type="file" class="form-control" id="input-file-backImageURL3" style="display:none;"/>
+															<div id="container-backImageURL3">
+																<img th:src="${detail.images[3].imageURL}" class="itemDetail-image"/>
+																<a href="#" class="btn btn-primary btn-xs margin-bottom-20 backImage-delete3" data-toggle="tooltip" title="Delete"><i class="fa fa-trash"></i></a>
+															</div>
+														</th:block>
+														<th:block th:if="${detail.images[3].imageURL == null}">
+															<input type="hidden" id="input-hidden-backImageURL3" name="images[3].imageURL"/>
+															<input type="file" class="form-control" id="input-file-backImageURL3"/>
+															<div id="container-backImageURL3" style='display:none;'></div>
+														</th:block>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-sm-2 control-label" th:text="'Image 5'">Image 5</label>
+													<div class="col-sm-10 form-input-container">
+											    		<th:block th:if="${detail.images[4].imageURL != null}">
+															<input type="hidden" id="input-hidden-backImageURL4" th:field="*{images[4].imageURL}"/>
+															<input type="file" class="form-control" id="input-file-backImageURL4" style="display:none;"/>
+															<div id="container-backImageURL4">
+																<img th:src="${detail.images[4].imageURL}" class="itemDetail-image"/>
+																<a href="#" class="btn btn-primary btn-xs margin-bottom-20 backImage-delete4" data-toggle="tooltip" title="Delete"><i class="fa fa-trash"></i></a>
+															</div>
+														</th:block>
+														<th:block th:if="${detail.images[4].imageURL == null}">
+															<input type="hidden" id="input-hidden-backImageURL4" name="images[4].imageURL"/>
+															<input type="file" class="form-control" id="input-file-backImageURL4"/>
+															<div id="container-backImageURL4" style='display:none;'></div>
+														</th:block>
+													</div>
+												</div>
+												
 									    	</div>
 									    </div>
 									  </div>
@@ -649,10 +742,40 @@
 				doInitDeleteBrochure(2);
 			});
 		}
+	  	
+	  	function doInitDeleteBackImage(idx){
+			$('#input-file-backImageURL'+idx).show();
+			$('#container-backImageURL'+idx).html("");
+			$('#input-hidden-backImageURL'+idx+', #input-file-backImageURL'+idx).val("");
+			$('#container-backImageURL'+idx).hide();
+		}
+	  	function initDeleteBackImage() {
+			$('.backImage-delete0').click(function(e){
+				e.preventDefault();
+				doInitDeleteBackImage(0);
+			});
+			$('.backImage-delete1').click(function(e){
+				e.preventDefault();
+				doInitDeleteBackImage(1);
+			});
+			$('.backImage-delete2').click(function(e){
+				e.preventDefault();
+				doInitDeleteBackImage(2);
+			});
+			$('.backImage-delete3').click(function(e){
+				e.preventDefault();
+				doInitDeleteBackImage(3);
+			});
+			$('.backImage-delete4').click(function(e){
+				e.preventDefault();
+				doInitDeleteBackImage(4);
+			});
+		}
 	
 	    $(function(){
 	    	initDeletePicture();
 	    	initDeleteBrochure();
+	    	initDeleteBackImage();
 	    	var uploadURL = /*[[@{/do/fileManager/upload/}]]*/ #;
 	    	initDatePicker("datepickerInput", "dd/mm/yy");
 	    	initTextEditorWithoutP('#tinyMCE-loc-area', '#tinyMCE-loc-parent', uploadURL);
@@ -716,27 +839,45 @@
 				});
 			};
 			
+			var sURL = /*[[@{/do/fileManager/uploadFeaturedImage/}]]*/ #;
 			$('#input-file-imageURL').change(function(){
-				var sURL = /*[[@{/do/fileManager/uploadFeaturedImage/}]]*/ #;
 				var thisObj = $('#input-file-imageURL')[0];
 				uploadFile(thisObj.files[0], sURL, 1, null);
 			});
 			
 			$('#input-file-brochureURL1').change(function(){
-				var sURL = /*[[@{/do/fileManager/uploadFeaturedImage/}]]*/ #;
 				var thisObj = $('#input-file-brochureURL1')[0];
 				uploadFile(thisObj.files[0], sURL, 2, 1);
 			});
 			
 			$('#input-file-brochureURL2').change(function(){
-				var sURL = /*[[@{/do/fileManager/uploadFeaturedImage/}]]*/ #;
 				var thisObj = $('#input-file-brochureURL2')[0];
 				uploadFile(thisObj.files[0], sURL, 2, 2);
+			});
+			$('#input-file-backImageURL0').change(function(){
+				var thisObj = $('#input-file-backImageURL0')[0];
+				uploadFile(thisObj.files[0], sURL, 3, 0);
+			});
+			$('#input-file-backImageURL1').change(function(){
+				var thisObj = $('#input-file-backImageURL1')[0];
+				uploadFile(thisObj.files[0], sURL, 3, 1);
+			});
+			$('#input-file-backImageURL2').change(function(){
+				var thisObj = $('#input-file-backImageURL2')[0];
+				uploadFile(thisObj.files[0], sURL, 3, 2);
+			});
+			$('#input-file-backImageURL3').change(function(){
+				var thisObj = $('#input-file-backImageURL3')[0];
+				uploadFile(thisObj.files[0], sURL, 3, 3);
+			});
+			$('#input-file-backImageURL4').change(function(){
+				var thisObj = $('#input-file-backImageURL4')[0];
+				uploadFile(thisObj.files[0], sURL, 3, 4);
 			});
 			
 			var showImage = function(imageURL) {
 				$('#input-file-imageURL').hide();
-				var htmlContent = '<image src="'+imageURL+'" style="max-height:250px;"></image>';
+				var htmlContent = '<img src="'+imageURL+'" style="max-height:250px;"/>';
 				htmlContent += '<a href="#" class="btn btn-primary btn-xs margin-bottom-20 image-delete" data-toggle="tooltip" title="Delete" style="position:absolute; left:25px; top:10px;"><i class="fa fa-trash"></i></a>';
 				$('#container-imageURL').html(htmlContent);
 				$('#input-hidden-imageURL').val(imageURL);
@@ -746,12 +887,22 @@
 			
 			var showBrochureImage = function(brochureURL, idx) {
 				$('#input-file-brochureURL'+idx).hide();
-				var htmlContent = '<image src="'+brochureURL+'" style="max-height:250px;"></image>';
-				htmlContent += '<a href="#" class="btn btn-primary btn-xs margin-bottom-20 image-delete" data-toggle="tooltip" title="Delete" style="position:absolute; left:25px; top:10px;"><i class="fa fa-trash"></i></a>';
+				var htmlContent = '<img src="'+brochureURL+'" style="max-height:250px;"/>';
+				htmlContent += '<a href="#" class="btn btn-primary btn-xs margin-bottom-20 image-brochure-delete'+idx+'" data-toggle="tooltip" title="Delete" style="position:absolute; left:25px; top:10px;"><i class="fa fa-trash"></i></a>';
 				$('#container-brochureURL'+idx).html(htmlContent);
 				$('#input-hidden-brochureURL'+idx).val(brochureURL);
 				$('#container-brochureURL'+idx).show();
 				initDeleteBrochure();
+			}
+			
+			var showBackImage = function(imageURL, idx) {
+				$('#input-file-backImageURL'+idx).hide();
+				var htmlContent = '<img src="'+imageURL+'" style="max-height:250px;"/>';
+				htmlContent += '<a href="#" class="btn btn-primary btn-xs margin-bottom-20 backImage-delete'+idx+'" data-toggle="tooltip" title="Delete" style="position:absolute; left:25px; top:10px;"><i class="fa fa-trash"></i></a>';
+				$('#container-backImageURL'+idx).html(htmlContent);
+				$('#input-hidden-backImageURL'+idx).val(imageURL);
+				$('#container-backImageURL'+idx).show();
+				initDeleteBackImage();
 			}
 		
 			var uploadFile = function(image, uploadURL, type, idx) {
@@ -767,6 +918,8 @@
 				      		showImage(response);
 				    	}else if(type==2){
 				    		showBrochureImage(response, idx);
+				    	}else if(type==3){
+				    		showBackImage(response, idx);
 				    	}
 				    } else {
 				      	var reader = new FileReader();
