@@ -58,7 +58,7 @@ h5 {
     color: #282428;
     line-height: 30px;
 }
-ul.type-none{
+ul.type-none, .breadcrumb ul{
     list-style-type: none;
     margin: 0;
 }
