@@ -403,9 +403,10 @@ h4.modal-title{
 }
 .banner .slides {
 	max-height:200px!important;
+	background-color: black;
 }
 .big_size .banner .slides {
-	max-height:580px!important;
+	max-height:475px!important
 }
 .banner .slides img.hover-gray:hover{
   -webkit-filter: grayscale(0%);
@@ -1833,10 +1834,10 @@ ul.channel-links li{
     position: relative;
 }
 .banner_img_background{
-	width:100%;background-size: 100%;	
+	width:auto;height:200px!important;background-size: 100%;	
 }
 .big_size .banner_img_background{
-	width:100%;background-size: 100%;
+	width:auto;height:475px!important;background-size: 100%;
 }
 .course-detail-title{
 	padding: 20px 28px 28px;
@@ -3077,6 +3078,7 @@ ul.list h5 {
 }
 .carousel-inner img {
     width: 100%;
+    margin: 0px auto;
 }
 .carousel-inner .back-carousel-video{
 	position:absolute;
