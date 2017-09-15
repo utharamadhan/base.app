@@ -32,10 +32,10 @@ public class CategoryController extends SuperController<Category>{
 	public Category validate(Category anObject) throws SystemException {
 		List<ErrorHolder> errorList = new ArrayList<>();
 		if(StringFunction.isEmpty(anObject.getType())) {
-			errorList.add(new ErrorHolder(Category.TYPE, messageSource.getMessage("error.mandatory", new String[]{"type"}, Locale.ENGLISH)));
+			errorList.add(new ErrorHolder(Category.TYPE, messageSource.getMessage("error.mandatory", new String[]{"Type"}, Locale.ENGLISH)));
 		}
 		if(StringFunction.isEmpty(anObject.getTitle())) {
-			errorList.add(new ErrorHolder(Category.TITLE, messageSource.getMessage("error.mandatory", new String[]{"title"}, Locale.ENGLISH)));
+			errorList.add(new ErrorHolder(Category.TITLE, messageSource.getMessage("error.mandatory", new String[]{"Title"}, Locale.ENGLISH)));
 		}else{
 			String permalink = StringFunction.toPrettyURL(anObject.getTitle());
 			List<String> permalinkDBList = categoryService.getSamePermalink(anObject.getPkCategory(), permalink);

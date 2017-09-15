@@ -3,6 +3,7 @@ package id.base.app.site.controller;
 import id.base.app.ILookupConstant;
 import id.base.app.SystemConstant;
 import id.base.app.rest.MapRestCaller;
+import id.base.app.rest.PathInterfaceRestCaller;
 import id.base.app.rest.QueryParamInterfaceRestCaller;
 import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
@@ -12,9 +13,11 @@ import id.base.app.util.dao.Operator;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.util.dao.SearchOrder.Sort;
+import id.base.app.valueobject.AppParameter;
 import id.base.app.valueobject.Pages;
 import id.base.app.valueobject.aboutUs.Engagement;
 import id.base.app.valueobject.aboutUs.ProgramPost;
+import id.base.app.valueobject.frontend.Setting;
 import id.base.app.valueobject.publication.DigitalBook;
 import id.base.app.valueobject.publication.Event;
 import id.base.app.valueobject.publication.LinkUrl;
@@ -44,6 +47,9 @@ public abstract class BaseSiteController<T> {
 		model.addAttribute("newsList", getNewsList(5));
 		model.addAttribute("eventList", getEventList());
 		model.addAttribute("linkUrlList", getLinkUrlList());
+		model.addAttribute("menuTop", getMenuSettingList(true));
+		model.addAttribute("menuBottom", getMenuSettingList(false));
+		model.addAttribute("socialMedia", getSocialMediaList());
 		List<Pages> pages = getTocLink();
 		if(pages!=null && !pages.isEmpty()){
 			request.setAttribute("toc", pages.get(0).getPermalink());
@@ -80,7 +86,7 @@ public abstract class BaseSiteController<T> {
 	
 	private List<Pages> getCommonPostList(){
 		SpecificRestCaller<Pages> rcPages = new SpecificRestCaller<Pages>(RestConstant.REST_SERVICE, RestServiceConstant.PAGES_SERVICE);
-		List<Pages> pages = rcPages.executeGetList(new QueryParamInterfaceRestCaller() {
+		return rcPages.executeGetList(new QueryParamInterfaceRestCaller() {
 			
 			@Override
 			public String getPath() {
@@ -94,12 +100,11 @@ public abstract class BaseSiteController<T> {
 				return map;
 			}
 		});
-		return pages;
 	}
 			 
 	private List<Engagement> getEngagementList(){
 		SpecificRestCaller<Engagement> rcEngagement = new SpecificRestCaller<Engagement>(RestConstant.REST_SERVICE, RestServiceConstant.ENGAGEMENT_SERVICE);
-		List<Engagement> engages = rcEngagement.executeGetList(new QueryParamInterfaceRestCaller() {
+		return rcEngagement.executeGetList(new QueryParamInterfaceRestCaller() {
 			
 			@Override
 			public String getPath() {
@@ -113,12 +118,11 @@ public abstract class BaseSiteController<T> {
 				return map;
 			}
 		});
-		return engages;
 	}
 	
 	private List<ProgramPost> getProgramList(){
 		SpecificRestCaller<ProgramPost> rcProgram = new SpecificRestCaller<ProgramPost>(RestConstant.REST_SERVICE, RestServiceConstant.PROGRAM_POST_SERVICE);
-		List<ProgramPost> programs = rcProgram.executeGetList(new QueryParamInterfaceRestCaller() {
+		return rcProgram.executeGetList(new QueryParamInterfaceRestCaller() {
 			
 			@Override
 			public String getPath() {
@@ -132,12 +136,11 @@ public abstract class BaseSiteController<T> {
 				return map;
 			}
 		});
-		return programs;
 	}
 			
 	private List<DigitalBook> getDigitalBookList(){
 		SpecificRestCaller<DigitalBook> rcEbook = new SpecificRestCaller<DigitalBook>(RestConstant.REST_SERVICE, RestServiceConstant.DIGITAL_BOOK_SERVICE);
-		List<DigitalBook> ebooks = rcEbook.executeGetList(new QueryParamInterfaceRestCaller() {
+		return rcEbook.executeGetList(new QueryParamInterfaceRestCaller() {
 			
 			@Override
 			public String getPath() {
@@ -151,12 +154,11 @@ public abstract class BaseSiteController<T> {
 				return map;
 			}
 		});
-		return ebooks;
 	}
 	
 	private List<News> getNewsList(final int number){
 		SpecificRestCaller<News> rcNews = new SpecificRestCaller<News>(RestConstant.REST_SERVICE, RestServiceConstant.NEWS_SERVICE);
-		List<News> news = rcNews.executeGetList(new QueryParamInterfaceRestCaller() {
+		return rcNews.executeGetList(new QueryParamInterfaceRestCaller() {
 			
 			@Override
 			public String getPath() {
@@ -170,12 +172,11 @@ public abstract class BaseSiteController<T> {
 				return map;
 			}
 		});
-		return news;
 	}
 			
 	private List<Event> getEventList(){
 		SpecificRestCaller<Event> rcEvent = new SpecificRestCaller<Event>(RestConstant.REST_SERVICE, RestServiceConstant.EVENT_SERVICE);
-		List<Event> events = rcEvent.executeGetList(new QueryParamInterfaceRestCaller() {
+		return rcEvent.executeGetList(new QueryParamInterfaceRestCaller() {
 			
 			@Override
 			public String getPath() {
@@ -189,7 +190,6 @@ public abstract class BaseSiteController<T> {
 				return map;
 			}
 		});
-		return events;
 	}
 	
 	private List<LinkUrl> getLinkUrlList(){
@@ -205,7 +205,7 @@ public abstract class BaseSiteController<T> {
 	
 	private List<Pages> getTocLink(){
 		SpecificRestCaller<Pages> rcPages = new SpecificRestCaller<Pages>(RestConstant.REST_SERVICE, RestServiceConstant.PAGES_SERVICE);
-		List<Pages> pages = rcPages.executeGetList(new QueryParamInterfaceRestCaller() {
+		return rcPages.executeGetList(new QueryParamInterfaceRestCaller() {
 			
 			@Override
 			public String getPath() {
@@ -214,10 +214,44 @@ public abstract class BaseSiteController<T> {
 			
 			@Override
 			public Map<String, Object> getParameters() {
-				Map<String,Object> map = new HashMap<String, Object>();
-				return map;
+				return new HashMap<>();
 			}
 		});
-		return pages;
+	}
+	
+	private List<Setting> getMenuSettingList(final Boolean isTop){
+		SpecificRestCaller<Setting> rc = new SpecificRestCaller<Setting>(RestConstant.REST_SERVICE, RestServiceConstant.SETTING_SERVICE);
+		return rc.executeGetList(new PathInterfaceRestCaller() {
+			
+			@Override
+			public String getPath() {
+				if(isTop){
+					return "/findAllSettingMenuTop";
+				}else{
+					return "/findAllSettingMenuBottom";
+				}
+			}
+			
+			@Override
+			public Map<String, Object> getParameters() {
+				return new HashMap<>();
+			}
+		});
+	}
+	
+	private List<AppParameter> getSocialMediaList(){
+		SpecificRestCaller<AppParameter> rc = new SpecificRestCaller<AppParameter>(RestConstant.REST_SERVICE, RestServiceConstant.SYSTEM_PARAMETER_SERVICE);
+		return rc.executeGetList(new PathInterfaceRestCaller() {
+			
+			@Override
+			public String getPath() {
+				return "/getAllSocialMedia";
+			}
+			
+			@Override
+			public Map<String, Object> getParameters() {
+				return new HashMap<>();
+			}
+		});
 	}
 }

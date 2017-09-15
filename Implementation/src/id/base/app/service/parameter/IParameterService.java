@@ -14,4 +14,5 @@ public interface IParameterService {
 			throws SystemException;
 
 	public abstract Map<String,Object> findAppParametersByNames(List<String> names) throws SystemException;
+	public List<AppParameter> getAllSocialMedia() throws SystemException;
 }

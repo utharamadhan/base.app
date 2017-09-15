@@ -1,5 +1,11 @@
 package id.base.app.valueobject.publication;
 
+import id.base.app.ILookupConstant;
+import id.base.app.SystemConstant;
+import id.base.app.util.DateTimeFunction;
+import id.base.app.valueobject.BaseEntity;
+import id.base.app.valueobject.Lookup;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -18,17 +24,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import id.base.app.ILookupConstant;
-import id.base.app.encryptor.EncodeDecode;
-import id.base.app.valueobject.BaseEntity;
-import id.base.app.valueobject.Lookup;
-
 @Entity
 @Table(name = "EVENT")
 public class Event extends BaseEntity implements Serializable {
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = -2512890745160322636L;
 	
 	public static final String PK_EVENT = "pkEvent";
@@ -36,7 +35,8 @@ public class Event extends BaseEntity implements Serializable {
 	public static final String PERMALINK 	= "permalink";
 	public static final String DESCRIPTION 	= "description";
 	public static final String STATUS 	= "status";
-	public static final String EVENT_DATE = "eventDate";
+	public static final String EVENT_DATE_START = "eventDateStart";
+	public static final String EVENT_DATE_END = "eventDateEnd";
 	public static final String COVER_IMAGE_URL = "coverImageURL";
 	
 	public static Event getInstance() {
@@ -63,10 +63,16 @@ public class Event extends BaseEntity implements Serializable {
 	@Column(name="DESCRIPTION")
 	private String description;
 	
-	@JsonProperty(value="start")
-	@Column(name="EVENT_DATE")
+	@Column(name="EVENT_DATE_START")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	private Date eventDate;
+	private Date eventDateStart;
+	
+	@Column(name="EVENT_DATE_END")
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	private Date eventDateEnd;
+	
+	@Transient
+	private String eventDateStr;
 	
 	@Column(name="COVER_IMAGE_URL")
 	private String coverImageURL;
@@ -138,11 +144,27 @@ public class Event extends BaseEntity implements Serializable {
 		this.status = status;
 	}
 	
-	public Date getEventDate() {
-		return eventDate;
+	public Date getEventDateStart() {
+		return eventDateStart;
 	}
-	public void setEventDate(Date eventDate) {
-		this.eventDate = eventDate;
+	public void setEventDateStart(Date eventDateStart) {
+		this.eventDateStart = eventDateStart;
+	}
+	public Date getEventDateEnd() {
+		return eventDateEnd;
+	}
+	public void setEventDateEnd(Date eventDateEnd) {
+		this.eventDateEnd = eventDateEnd;
+	}
+	public String getEventDateStr() {
+		String date = "";
+		if(eventDateStart!=null){
+			date = DateTimeFunction.date2String(eventDateStart, SystemConstant.SYSTEM_DATE_MASK_2);
+		}
+		if(eventDateStart!=null){
+			date += " to "+DateTimeFunction.date2String(eventDateEnd, SystemConstant.SYSTEM_DATE_MASK_2);
+		}
+		return date;
 	}
 	public String getStatusStr() {
 		return ILookupConstant.Status.STATUS_MAP.get(status);

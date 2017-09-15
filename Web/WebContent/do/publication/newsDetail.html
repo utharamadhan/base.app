@@ -64,10 +64,11 @@
 									<div id="container-imageURL" style='display:none;'>
 									</div>
 								</th:block>
+								<small class="text-muted">Image Resolution : 600px X 400px</small>
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-2 control-label required" th:text="'Content'">Content</label>
+							<label class="col-sm-2 control-label" th:text="'Content'">Content</label>
 							<input id="tinyMCE-hidden" name="content" type="hidden"/>
 							<div id="tinyMCE-parent" class="col-sm-9 form-input-container">					
 								<textarea id="tinyMCE-area" th:text="*{content}">
@@ -75,7 +76,7 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-2 control-label required" th:text="'Excerpt'">Excerpt</label>
+							<label class="col-sm-2 control-label" th:text="'Excerpt'">Excerpt</label>
 							<div class="col-sm-9 form-input-container">							
 								<textarea th:field="*{excerpt}" class="form-control"></textarea>
 							</div>

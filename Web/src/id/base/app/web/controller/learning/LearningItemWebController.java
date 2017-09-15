@@ -19,6 +19,7 @@ import id.base.app.valueobject.AppUser;
 import id.base.app.valueobject.Category;
 import id.base.app.valueobject.Lookup;
 import id.base.app.valueobject.program.ProgramItem;
+import id.base.app.valueobject.program.ProgramItemImage;
 import id.base.app.valueobject.util.SelectHelper;
 import id.base.app.web.DataTableCriterias;
 import id.base.app.web.controller.BaseController;
@@ -122,7 +123,15 @@ public class LearningItemWebController extends BaseController<ProgramItem> {
 	
 	@RequestMapping(method=RequestMethod.GET, value="showAdd")
 	public String showAdd(ModelMap model, HttpServletRequest request){
-		model.addAttribute("detail", ProgramItem.getInstance());
+		ProgramItem pi = ProgramItem.getInstance();
+		List<ProgramItemImage> piiList = new ArrayList<>();
+		piiList.add(ProgramItemImage.getInstance());
+		piiList.add(ProgramItemImage.getInstance());
+		piiList.add(ProgramItemImage.getInstance());
+		piiList.add(ProgramItemImage.getInstance());
+		piiList.add(ProgramItemImage.getInstance());
+		pi.setImages(piiList);
+		model.addAttribute("detail", pi);
 		setDefaultData(model, null);
 		return PATH_DETAIL;
 	}
@@ -130,6 +139,15 @@ public class LearningItemWebController extends BaseController<ProgramItem> {
 	@RequestMapping(method=RequestMethod.GET, value="showEdit")
 	public String showEdit(@RequestParam(value="maintenancePK") final Long maintenancePK, @RequestParam Map<String, String> paramWrapper, ModelMap model, HttpServletRequest request){
 		ProgramItem detail = getRestCaller().findById(maintenancePK);
+		if(detail.getImages()!=null && detail.getImages().isEmpty()){
+			List<ProgramItemImage> piiList = new ArrayList<>();
+			piiList.add(ProgramItemImage.getInstance());
+			piiList.add(ProgramItemImage.getInstance());
+			piiList.add(ProgramItemImage.getInstance());
+			piiList.add(ProgramItemImage.getInstance());
+			piiList.add(ProgramItemImage.getInstance());
+			detail.setImages(piiList);
+		}
 		setDefaultData(model, detail);
 		model.addAttribute("detail", detail);
 		return PATH_DETAIL;

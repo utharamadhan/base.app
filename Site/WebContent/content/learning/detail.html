@@ -16,7 +16,27 @@
 			</div>
 		</div>
 		<div class="single_banner" th:classappend="${detail.backgroundImageSize==2} ? 'big_size'">
-			<div th:style="'background-image:url('+ @{/images/banner_01.jpg} +')'" class="banner_img_background"></div>
+			<div class="banner carousel slide" id="recommended-item-carousel" data-ride="carousel">
+				<div class="slides carousel-inner">
+					<th:block th:if="${detail.isBackgroundSlideshow==true}">
+						<th:block th:each="im, i : ${detail.images}">
+							<div class="item" th:classappend="${i.count==1} ? active : ''">
+								<img th:src="${im.imageURL}" class="banner_img_background"/>
+							</div>
+						</th:block>
+					</th:block>
+					<th:block th:if="${detail.isBackgroundSlideshow==false}">
+						<img th:src="${detail.images[0].imageURL}" class="banner_img_background"/>
+					</th:block>
+				</div>
+				<a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
+					<img th:src="@{/images/prev.png}"/>
+				</a>
+			    <a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next">
+					<img th:src="@{/images/next.png}"/>
+			    </a>		
+						
+			</div><!--end banner-->
 			<div class="container large">
 				<div class="row">
 					<div class="col-xs-12">
@@ -74,7 +94,7 @@
 									</th:block>
 									<li class=""><a href="#testimoni" data-toggle="tab" aria-expanded="false">Testimoni</a></li>
 									<li class=""><a href="#teacher" data-toggle="tab" aria-expanded="false">Pengajar</a></li>
-									<li class=""><a href="#fasilitas" data-toggle="tab" aria-expanded="false">Fasilitas</a></li>
+									<li class=""><a href="#facility_desc" data-toggle="tab" aria-expanded="false">Fasilitas</a></li>
 									<th:block th:if="${detail.contactUsDesc!=null and detail.contactUsDesc!=''}">
 									<li class=""><a href="#download_brochure_desc" data-toggle="tab" aria-expanded="false">Download Brochure</a></li>
 									</th:block>
@@ -82,7 +102,7 @@
 								</th:block>
 							</div>
 							
-							<div class="tab-content single_tab_content">
+							<div class="tab-content single_tab_content post-content">
 								<div role="tabpanel" class="tab-pane active" id="explore_program">
 									<div th:class="${detail.programDisplayLookup.code == T(id.base.app.ILookupConstant.LearningDisplay).FULL_SCREEN_SIDEBAR_RIGHT_DESCRIPTION}? 'col-xs-12 col-sm-8 col-md-8' : 'col-xs-12 col-sm-12 col-md-12'" th:utext="${detail.description}"></div>
 									<th:block th:if="${detail.programDisplayLookup.code == T(id.base.app.ILookupConstant.LearningDisplay).FULL_SCREEN_SIDEBAR_RIGHT_DESCRIPTION}">
@@ -192,9 +212,14 @@
 								<div role="tabpanel" class="tab-pane" id="galeri"></div>
 								<div role="tabpanel" class="tab-pane" id="facility_desc" th:utext="${detail.facilityDesc}"></div>
 								<div role="tabpanel" class="tab-pane" id="download_brochure_desc">
-									<th:block th:if="${detail.brochureURL!=null}">
-										<img th:src="${detail.encodedBrochureImage}"/>
-										<a th:href="${detail.encodedBrochureImage}" th:attr="download=${detail.title}"><img th:src="@{/images/download-now.png}" id="download" class="download-button"/></a>
+									<th:block th:if="${detail.brochureURL1!=null}">
+										<img th:src="${detail.brochureURL1}"/>
+										<a th:href="${detail.brochureURL1}" th:attr="download=${detail.title}+'1'"><img th:src="@{/images/download-now.png}" id="download" class="download-button"/></a>
+									</th:block>
+									<br/><br/>
+									<th:block th:if="${detail.brochureURL2!=null}">
+										<img th:src="${detail.brochureURL2}"/>
+										<a th:href="${detail.brochureURL2}" th:attr="download=${detail.title}+'2'"><img th:src="@{/images/download-now.png}" id="download" class="download-button"/></a>
 									</th:block>
 								</div>
 							</div>
@@ -210,13 +235,18 @@
 	<div class="hidden">
 		<div id="short-desc">
 			<div class="sidebar">
-				<th:block th:if="${detail.brochureURL!=null}">
-					<img th:src="${detail.encodedBrochureImage}"/>
+				<th:block th:if="${detail.brochureURL1!=null}">
+					<img th:src="${detail.brochureURL1}"/>
+					<br/><br/>
+				</th:block>
+				<th:block th:if="${detail.brochureURL2!=null}">
+					<img th:src="${detail.brochureURL2}"/>
+					<br/><br/>
 				</th:block>
 				<div class="sidebar_item">
 					<div class="item_inner program">
 						<h4>Keterangan Singkat</h4>
-						<ul>
+						<ul class="type-none">
 							<th:block th:if="${detail.code!=null and detail.code!=''}">
 								<li><span>Kode:</span><br/><th:block th:text="${detail.code}"></th:block></li>
 							</th:block>

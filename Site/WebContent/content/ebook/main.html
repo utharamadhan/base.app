@@ -35,7 +35,12 @@
 							<div class="post">
 								<div class="post_thumb_wrapper">
 									<div class="post_thumb">
-										<img th:src="${book.encodedPicture}" alt="" class="show_detail my_link"/>
+										<th:block th:if="${book.encodedPicture==''}">
+											<div class="cover-empty" th:text="${book.title}"></div>
+										</th:block>
+										<th:block th:if="${book.encodedPicture!=''}">
+											<img th:src="${book.encodedPicture}" alt="" class="show_detail my_link"/>
+										</th:block>
 										<div class="overlay">
 										    <div class="text show_detail my_link"><i class="fa fa-align-left"></i> Baca</div>
 										</div>
@@ -120,13 +125,13 @@
 				var nextStartNo = parseInt($('.startNo').val()) + parseInt($('.offset').val());
 				var offset = $('.offset').val();
 				$.ajax({
-		            type: 'GET',
+		            type: 'POST',
 		            url: sURL,
 		            data: {filter : param, startNo : nextStartNo, offset : offset},
 		            dataType: 'json',
 		            success: function (data) {
 		            	$('.load_pagination').hide();
-		            	$('.mrdy_btn').setOverlay({enabled:true});
+		            	$('.mrdy_btn').setOverlay({enabled:false});
 		            	processData(data.books.result, false);		
 		            	var newMaxRecord = data.books.maxRecord;
 		            	var newCurrentRecord = data.books.currentRecord;
@@ -135,15 +140,15 @@
 		            },
 		            beforeSend: function($jqXHR, $textStatus){
 						$('.load_pagination').show();
-						$('.mrdy_btn').setOverlay({enabled:false});
+						$('.mrdy_btn').setOverlay({enabled:true});
 					},
 					error: function ($jqXHR, $textStatus, $errorThrown) {
 						$('.load_pagination').hide();
-						$('.mrdy_btn').setOverlay({enabled:true});
+						$('.mrdy_btn').setOverlay({enabled:false});
 					},
 					complete: function($jqXHR, $textStatus){
 						$('.load_pagination').hide();
-						$('.mrdy_btn').setOverlay({enabled:true});
+						$('.mrdy_btn').setOverlay({enabled:false});
 					}
 		        });				
 			});
@@ -153,14 +158,14 @@
 				var param = $('.param').val();
 				var img_url = /*[[@{/images/gif/hex-loader.gif}]]*/;
 				$.ajax({
-		            type: 'GET',
+		            type: 'POST',
 		            url: sURL,
 		            data: {filter : param},
 		            dataType: 'json',
 		            success: function (data) {
 		            	$('.pagination_part').hide();
 		            	$('.loading_reload').remove();
-		            	$('.mrdy_btn').setOverlay({enabled:true});
+		            	$('.mrdy_btn').setOverlay({enabled:false});
 		            	processData(data.books.result, true);
 		            	var newMaxRecord = data.books.maxRecord;
 		            	var newCurrentRecord = data.books.currentRecord;
@@ -169,15 +174,15 @@
 		            },
 		            beforeSend: function($jqXHR, $textStatus){
 		            	$('.list_data').html('<div class="col-md-12 loading_reload" style="display: block; margin-left: auto; margin-right: auto;text-align: center;"><img src="'+img_url+'" /></div>');
-						$('.mrdy_btn').setOverlay({enabled:false});
+						$('.mrdy_btn').setOverlay({enabled:true});
 					},
 					error: function ($jqXHR, $textStatus, $errorThrown) {
 						$('.loading_reload').remove();
-						$('.mrdy_btn').setOverlay({enabled:true});
+						$('.mrdy_btn').setOverlay({enabled:false});
 					},
 					complete: function($jqXHR, $textStatus){
 						$('.loading_reload').remove();
-						$('.mrdy_btn').setOverlay({enabled:true});
+						$('.mrdy_btn').setOverlay({enabled:false});
 					}
 		        });				
 			});

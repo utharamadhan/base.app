@@ -9,7 +9,9 @@
 	max-height : 250px;
 }
 
-.image-delete, .image-brochure-delete {
+.image-delete, .image-brochure-delete1, .image-brochure-delete2,
+.backImage-delete0, .backImage-delete1, .backImage-delete2, 
+.backImage-delete3, .backImage-delete4 {
 	position:absolute;
 	left:25px;
 	top:10px;
@@ -143,20 +145,55 @@
 						<div class="form-group">
 							<label class="col-sm-2 control-label" th:text="'Brochure Image'">Brochure Image</label>
 							<div class="col-sm-9 form-input-container">
-								<th:block th:if="${detail.brochureURL != null}">
-									<input type="hidden" id="input-hidden-brochureURL" th:field="*{brochureURL}"/>
-									<input type="file" class="form-control" id="input-file-brochureURL" style="display:none;"/>
-									<div id="container-brochureURL">
-										<img th:src="${detail.brochureURL}" class="itemDetail-image"/>
-										<a href="#" class="btn btn-primary btn-xs margin-bottom-20 image-brochure-delete" data-toggle="tooltip" title="Delete"><i class="fa fa-trash"></i></a>
-									</div>
-								</th:block>
-								<th:block th:if="${detail.brochureURL == null}">
-									<input type="hidden" id="input-hidden-brochureURL" name="brochureURL"/>
-									<input type="file" class="form-control" id="input-file-brochureURL"/>
-									<div id="container-brochureURL" style='display:none;'>
-									</div>
-								</th:block>
+								<div class="panel-group" id="acc-teacher">
+								  <div class="panel panel-default">
+								    <div class="panel-heading" data-toggle="collapse" data-parent="#acc-teacher" data-target="#acc-teacher-one">
+								      <h4 class="panel-title">
+								        <a class="accordion-toggle">[Insert Brochure Image]</a>
+								      </h4>
+								    </div>
+								    <div id="acc-teacher-one" class="panel-collapse collapse">
+								    	<div class="collapse-content">
+								    		<div class="form-group">
+												<label class="col-sm-2 control-label" th:text="'Brochure 1'">Brochure 1</label>
+												<div class="col-sm-10 form-input-container">
+										    		<th:block th:if="${detail.brochureURL1 != null}">
+														<input type="hidden" id="input-hidden-brochureURL1" th:field="*{brochureURL1}"/>
+														<input type="file" class="form-control" id="input-file-brochureURL1" style="display:none;"/>
+														<div id="container-brochureURL1">
+															<img th:src="${detail.brochureURL1}" class="itemDetail-image"/>
+															<a href="#" class="btn btn-primary btn-xs margin-bottom-20 image-brochure-delete1" data-toggle="tooltip" title="Delete"><i class="fa fa-trash"></i></a>
+														</div>
+													</th:block>
+													<th:block th:if="${detail.brochureURL1 == null}">
+														<input type="hidden" id="input-hidden-brochureURL1" name="brochureURL1"/>
+														<input type="file" class="form-control" id="input-file-brochureURL1"/>
+														<div id="container-brochureURL1" style='display:none;'></div>
+													</th:block>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-sm-2 control-label" th:text="'Brochure 2'">Brochure 2</label>
+												<div class="col-sm-10 form-input-container">
+										    		<th:block th:if="${detail.brochureURL2 != null}">
+														<input type="hidden" id="input-hidden-brochureURL2" th:field="*{brochureURL2}"/>
+														<input type="file" class="form-control" id="input-file-brochureURL2" style="display:none;"/>
+														<div id="container-brochureURL2">
+															<img th:src="${detail.brochureURL2}" class="itemDetail-image"/>
+															<a href="#" class="btn btn-primary btn-xs margin-bottom-20 image-brochure-delete2" data-toggle="tooltip" title="Delete"><i class="fa fa-trash"></i></a>
+														</div>
+													</th:block>
+													<th:block th:if="${detail.brochureURL2 == null}">
+														<input type="hidden" id="input-hidden-brochureURL2" name="brochureURL2"/>
+														<input type="file" class="form-control" id="input-file-brochureURL2"/>
+														<div id="container-brochureURL2" style='display:none;'></div>
+													</th:block>
+												</div>
+											</div>
+								    	</div>
+								    </div>
+								  </div>
+								</div>
 							</div>
 						</div>
 						<div class="form-group">
@@ -245,97 +282,7 @@
 								</div>	
 							</div>
 						</div>
-						<div class="form-group">
-							<label class="col-sm-2 control-label required" th:text="'Menu'">Menu</label>
-							<div class="col-sm-9 form-input-container">
-								<div class="panel-group" id="acc-menu">
-								  <div class="panel panel-default">
-								    <div class="panel-heading" data-toggle="collapse" data-parent="#acc-menu" data-target="#acc-menu-one">
-								      <h4 class="panel-title">
-								        <a class="accordion-toggle">[Insert Menu]</a>
-								      </h4>
-								    </div>
-								    <div id="acc-menu-one" class="panel-collapse collapse">
-								    	<div class="collapse-content">
-								        <table id="menuTable" class="table table-custom table-sortable" style="width:100%;">
-			 								<thead>
-						                        <tr>
-						                          <th style="width:40%">Title</th>
-						                          <th style="width:40%">Value</th>
-						                          <th style="width:10%">Order No</th>
-						                          <th style="width:10%">Action</th>
-						                        </tr>
-						                    </thead>
-						                    <tbody th:if="${detail.menus!=null and !detail.menus.empty}">
-							                    <th:block th:each="menu, i : ${detail.menus}">
-							                    	<tr>
-							                    		<td>
-							                    			<div class="input-group">
-																<input type="text" class="form-control title" th:value="${menu.title}"/>
-															</div>
-														</td>
-														<td>
-							                    			<div class="input-group">
-																<select class="chosen-select form-control item-menu">
-																	<option value="">[Please Select Get Value From]</option>
-																	<th:block th:each="opt : ${menuOptions}">
-																		<th:block th:if="${menu.itemMenuLookup?.pkLookup == opt.pkLookup}">
-																			<option th:value="${opt.pkLookup}" th:text="${opt.name}" selected="selected">Name</option>
-																		</th:block>
-																		<th:block th:if="${menu.itemMenuLookup?.pkLookup != opt.pkLookup}">
-																			<option th:value="${opt.pkLookup}" th:text="${opt.name}">Name</option>
-																		</th:block>
-																	</th:block>
-								                           		</select>
-															</div>
-														</td>
-														<td>
-							                    			<div class="input-group">
-																<input type="text" class="form-control order-no" th:value="${menu.orderNo}"/>
-															</div>
-														</td>
-														<td>
-															<a href="#" class="btn btn-primary btn-xs btn-delete-menu" data-toggle="tooltip" title="" data-original-title="Delete"><i class="fa fa-trash"></i></a>
-															<th:block th:if="${i.count==#lists.size(detail.menus)}">
-																<a href="#" class="btn btn-primary btn-xs btn-add-menu" data-toggle="tooltip" title="" data-original-title="Add"><i class="fa fa-plus"></i></a>
-															</th:block>
-														</td>
-													</tr>
-							                    </th:block>
-						                    </tbody>
-						                    <tbody th:if="${detail.menus==null or detail.menus.empty}">
-						                    	<tr>
-					                    			<td>
-						                    			<div class="input-group">
-															<input type="text" class="form-control title"/>
-														</div>
-													</td>
-													<td>
-						                    			<div class="input-group">
-															<select class="chosen-select form-control item-menu">
-																<option value="">[Please Select Get Value From]</option>
-																<option th:each="opt : ${menuOptions}" th:value="${opt.pkLookup}" th:text="${opt.name}">Name</option>
-							                           		</select>
-														</div>
-													</td>
-													<td>
-						                    			<div class="input-group">
-															<input type="text" class="form-control order-no" />
-														</div>
-													</td>
-													<td>
-														<a href="#" class="btn btn-primary btn-xs btn-delete-menu" data-toggle="tooltip" title="" data-original-title="Delete"><i class="fa fa-trash"></i></a>
-														<a href="#" class="btn btn-primary btn-xs btn-add-menu" data-toggle="tooltip" title="" data-original-title="Add"><i class="fa fa-plus"></i></a>
-													</td>
-												</tr>
-						                    </tbody>
-                  						</table>
-                  						</div>
-								    </div>
-								  </div>
-								</div>	
-							</div>
-						</div>
+						
 						<div class="form-group">
 							<label class="col-sm-2 control-label required" th:text="'Description'">Description</label>
 							<div class="col-sm-9 form-input-container">
@@ -476,22 +423,233 @@
                            		</select>
                            	</div>
 						</div>
-						<div class="form-group">
-							<label class="col-sm-2 control-label" th:text="'Background Image Size'">Background Image Size</label>
-							<div class="col-sm-9 form-input-container">
-								<select class="chosen-select form-control" th:field="*{backgroundImageSize}">
-									<option th:each="opt : ${backImageSizeOptions}" th:value="${opt.valueInteger}" th:text="${opt.label}">Label</option>
-                           		</select>
-                           	</div>
-						</div>
-						<div class="form-group">
-							<label class="col-sm-2 control-label" th:text="'Display'">Display</label>
-							<div class="col-sm-9 form-input-container">
-								<select class="chosen-select form-control" th:field="*{programDisplayLookup.pkLookup}">
-									<option th:each="opt : ${displayOptions}" th:value="${opt.pkLookup}" th:text="${opt.name}">Name</option>
-                           		</select>
-                           	</div>
-						</div>
+						<fieldset>
+							<legend>Screen Display</legend>
+							<div class="form-group">
+								<label class="col-sm-2 control-label" th:text="'Background Image'">Background Image</label>
+								<div class="col-sm-9 form-input-container">
+									<div class="panel-group" id="acc-back-image">
+									  <div class="panel panel-default">
+									    <div class="panel-heading" data-toggle="collapse" data-parent="#acc-back-image" data-target="#acc-back-image-one">
+									      <h4 class="panel-title">
+									        <a class="accordion-toggle">[Insert Background Image]</a>
+									      </h4>
+									    </div>
+									    <div id="acc-back-image-one" class="panel-collapse collapse">
+									    	<div class="collapse-content">
+									    		<div class="form-group">
+													<label class="col-sm-2 control-label" th:text="'Size'">Size</label>
+													<div class="col-sm-10 form-input-container">
+														<select class="chosen-select form-control" th:field="*{backgroundImageSize}">
+															<option th:each="opt : ${backImageSizeOptions}" th:value="${opt.valueInteger}" th:text="${opt.label}">Label</option>
+						                           		</select>
+						                           	</div>
+												</div>
+												<div class="form-group">
+													<label class="col-sm-2 control-label" th:text="'Slideshow?'">Slideshow?</label>
+													<div class="col-sm-10 form-input-container">
+														<select class="chosen-select form-control" th:field="*{isBackgroundSlideshow}">
+															<option th:each="opt : ${booleanOptions}" th:value="${opt.code}" th:text="${opt.descr}">Label</option>
+						                           		</select>
+						                           	</div>
+												</div>
+									    		<div class="form-group">
+													<label class="col-sm-2 control-label" th:text="'Image 1'">Image 1</label>
+													<div class="col-sm-10 form-input-container">
+											    		<th:block th:if="${detail.images[0].imageURL != null}">
+															<input type="hidden" id="input-hidden-backImageURL0" th:field="*{images[0].imageURL}"/>
+															<input type="file" class="form-control" id="input-file-backImageURL0" style="display:none;"/>
+															<div id="container-backImageURL0">
+																<img th:src="${detail.images[0].imageURL}" class="itemDetail-image"/>
+																<a href="#" class="btn btn-primary btn-xs margin-bottom-20 backImage-delete0" data-toggle="tooltip" title="Delete"><i class="fa fa-trash"></i></a>
+															</div>
+														</th:block>
+														<th:block th:if="${detail.images[0].imageURL == null}">
+															<input type="hidden" id="input-hidden-backImageURL0" name="images[0].imageURL"/>
+															<input type="file" class="form-control" id="input-file-backImageURL0"/>
+															<div id="container-backImageURL0" style='display:none;'></div>
+														</th:block>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-sm-2 control-label" th:text="'Image 2'">Image 2</label>
+													<div class="col-sm-10 form-input-container">
+											    		<th:block th:if="${detail.images[1].imageURL != null}">
+															<input type="hidden" id="input-hidden-backImageURL1" th:field="*{images[1].imageURL}"/>
+															<input type="file" class="form-control" id="input-file-backImageURL1" style="display:none;"/>
+															<div id="container-backImageURL1">
+																<img th:src="${detail.images[1].imageURL}" class="itemDetail-image"/>
+																<a href="#" class="btn btn-primary btn-xs margin-bottom-20 backImage-delete1" data-toggle="tooltip" title="Delete"><i class="fa fa-trash"></i></a>
+															</div>
+														</th:block>
+														<th:block th:if="${detail.images[1].imageURL == null}">
+															<input type="hidden" id="input-hidden-backImageURL1" name="images[1].imageURL"/>
+															<input type="file" class="form-control" id="input-file-backImageURL1"/>
+															<div id="container-backImageURL1" style='display:none;'></div>
+														</th:block>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-sm-2 control-label" th:text="'Image 3'">Image 3</label>
+													<div class="col-sm-10 form-input-container">
+											    		<th:block th:if="${detail.images[2].imageURL != null}">
+															<input type="hidden" id="input-hidden-backImageURL2" th:field="*{images[2].imageURL}"/>
+															<input type="file" class="form-control" id="input-file-backImageURL2" style="display:none;"/>
+															<div id="container-backImageURL2">
+																<img th:src="${detail.images[2].imageURL}" class="itemDetail-image"/>
+																<a href="#" class="btn btn-primary btn-xs margin-bottom-20 backImage-delete2" data-toggle="tooltip" title="Delete"><i class="fa fa-trash"></i></a>
+															</div>
+														</th:block>
+														<th:block th:if="${detail.images[2].imageURL == null}">
+															<input type="hidden" id="input-hidden-backImageURL2" name="images[2].imageURL"/>
+															<input type="file" class="form-control" id="input-file-backImageURL2"/>
+															<div id="container-backImageURL2" style='display:none;'></div>
+														</th:block>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-sm-2 control-label" th:text="'Image 4'">Image 4</label>
+													<div class="col-sm-10 form-input-container">
+											    		<th:block th:if="${detail.images[3].imageURL != null}">
+															<input type="hidden" id="input-hidden-backImageURL3" th:field="*{images[3].imageURL}"/>
+															<input type="file" class="form-control" id="input-file-backImageURL3" style="display:none;"/>
+															<div id="container-backImageURL3">
+																<img th:src="${detail.images[3].imageURL}" class="itemDetail-image"/>
+																<a href="#" class="btn btn-primary btn-xs margin-bottom-20 backImage-delete3" data-toggle="tooltip" title="Delete"><i class="fa fa-trash"></i></a>
+															</div>
+														</th:block>
+														<th:block th:if="${detail.images[3].imageURL == null}">
+															<input type="hidden" id="input-hidden-backImageURL3" name="images[3].imageURL"/>
+															<input type="file" class="form-control" id="input-file-backImageURL3"/>
+															<div id="container-backImageURL3" style='display:none;'></div>
+														</th:block>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-sm-2 control-label" th:text="'Image 5'">Image 5</label>
+													<div class="col-sm-10 form-input-container">
+											    		<th:block th:if="${detail.images[4].imageURL != null}">
+															<input type="hidden" id="input-hidden-backImageURL4" th:field="*{images[4].imageURL}"/>
+															<input type="file" class="form-control" id="input-file-backImageURL4" style="display:none;"/>
+															<div id="container-backImageURL4">
+																<img th:src="${detail.images[4].imageURL}" class="itemDetail-image"/>
+																<a href="#" class="btn btn-primary btn-xs margin-bottom-20 backImage-delete4" data-toggle="tooltip" title="Delete"><i class="fa fa-trash"></i></a>
+															</div>
+														</th:block>
+														<th:block th:if="${detail.images[4].imageURL == null}">
+															<input type="hidden" id="input-hidden-backImageURL4" name="images[4].imageURL"/>
+															<input type="file" class="form-control" id="input-file-backImageURL4"/>
+															<div id="container-backImageURL4" style='display:none;'></div>
+														</th:block>
+													</div>
+												</div>
+												
+									    	</div>
+									    </div>
+									  </div>
+									</div> 
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label" th:text="'Display'">Display</label>
+								<div class="col-sm-9 form-input-container">
+									<select class="chosen-select form-control" th:field="*{programDisplayLookup.pkLookup}">
+										<option th:each="opt : ${displayOptions}" th:value="${opt.pkLookup}" th:text="${opt.name}">Name</option>
+	                           		</select>
+	                           	</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label required" th:text="'Menu'">Menu</label>
+								<div class="col-sm-9 form-input-container">
+									<div class="panel-group" id="acc-menu">
+									  <div class="panel panel-default">
+									    <div class="panel-heading" data-toggle="collapse" data-parent="#acc-menu" data-target="#acc-menu-one">
+									      <h4 class="panel-title">
+									        <a class="accordion-toggle">[Insert Menu]</a>
+									      </h4>
+									    </div>
+									    <div id="acc-menu-one" class="panel-collapse collapse">
+									    	<div class="collapse-content">
+									        <table id="menuTable" class="table table-custom table-sortable" style="width:100%;">
+				 								<thead>
+							                        <tr>
+							                          <th style="width:40%">Title</th>
+							                          <th style="width:40%">Value</th>
+							                          <th style="width:10%">Order No</th>
+							                          <th style="width:10%">Action</th>
+							                        </tr>
+							                    </thead>
+							                    <tbody th:if="${detail.menus!=null and !detail.menus.empty}">
+								                    <th:block th:each="menu, i : ${detail.menus}">
+								                    	<tr>
+								                    		<td>
+								                    			<div class="input-group">
+																	<input type="text" class="form-control title" th:value="${menu.title}"/>
+																</div>
+															</td>
+															<td>
+								                    			<div class="input-group">
+																	<select class="chosen-select form-control item-menu">
+																		<option value="">[Please Select Get Value From]</option>
+																		<th:block th:each="opt : ${menuOptions}">
+																			<th:block th:if="${menu.itemMenuLookup?.pkLookup == opt.pkLookup}">
+																				<option th:value="${opt.pkLookup}" th:text="${opt.name}" selected="selected">Name</option>
+																			</th:block>
+																			<th:block th:if="${menu.itemMenuLookup?.pkLookup != opt.pkLookup}">
+																				<option th:value="${opt.pkLookup}" th:text="${opt.name}">Name</option>
+																			</th:block>
+																		</th:block>
+									                           		</select>
+																</div>
+															</td>
+															<td>
+								                    			<div class="input-group">
+																	<input type="text" class="form-control order-no" th:value="${menu.orderNo}"/>
+																</div>
+															</td>
+															<td>
+																<a href="#" class="btn btn-primary btn-xs btn-delete-menu" data-toggle="tooltip" title="" data-original-title="Delete"><i class="fa fa-trash"></i></a>
+																<th:block th:if="${i.count==#lists.size(detail.menus)}">
+																	<a href="#" class="btn btn-primary btn-xs btn-add-menu" data-toggle="tooltip" title="" data-original-title="Add"><i class="fa fa-plus"></i></a>
+																</th:block>
+															</td>
+														</tr>
+								                    </th:block>
+							                    </tbody>
+							                    <tbody th:if="${detail.menus==null or detail.menus.empty}">
+							                    	<tr>
+						                    			<td>
+							                    			<div class="input-group">
+																<input type="text" class="form-control title"/>
+															</div>
+														</td>
+														<td>
+							                    			<div class="input-group">
+																<select class="chosen-select form-control item-menu">
+																	<option value="">[Please Select Get Value From]</option>
+																	<option th:each="opt : ${menuOptions}" th:value="${opt.pkLookup}" th:text="${opt.name}">Name</option>
+								                           		</select>
+															</div>
+														</td>
+														<td>
+							                    			<div class="input-group">
+																<input type="text" class="form-control order-no" />
+															</div>
+														</td>
+														<td>
+															<a href="#" class="btn btn-primary btn-xs btn-delete-menu" data-toggle="tooltip" title="" data-original-title="Delete"><i class="fa fa-trash"></i></a>
+															<a href="#" class="btn btn-primary btn-xs btn-add-menu" data-toggle="tooltip" title="" data-original-title="Add"><i class="fa fa-plus"></i></a>
+														</td>
+													</tr>
+							                    </tbody>
+	                  						</table>
+	                  						</div>
+									    </div>
+									  </div>
+									</div>	
+								</div>
+							</div>
+						</fieldset>
 						<div class="form-group">
 							<label class="col-sm-2 control-label" th:text="'Status'">Status</label>
 							<div class="col-sm-9 form-input-container">
@@ -568,19 +726,56 @@
 			});
 		}
 	
+		function doInitDeleteBrochure(idx){
+			$('#input-file-brochureURL'+idx).show();
+			$('#container-brochureURL'+idx).html("");
+			$('#input-hidden-brochureURL'+idx+', #input-file-brochureURL'+idx).val("");
+			$('#container-brochureURL'+idx).hide();
+		}
 	  	function initDeleteBrochure() {
-			$('.image-brochure-delete').click(function(e){
+			$('.image-brochure-delete1').click(function(e){
 				e.preventDefault();
-				$('#input-file-brochureURL').show();
-				$('#container-brochureURL').html("");
-				$('#input-hidden-brochureURL, #input-file-brochureURL').val("");
-				$('#container-brochureURL').hide();
+				doInitDeleteBrochure(1);
+			});
+			$('.image-brochure-delete2').click(function(e){
+				e.preventDefault();
+				doInitDeleteBrochure(2);
+			});
+		}
+	  	
+	  	function doInitDeleteBackImage(idx){
+			$('#input-file-backImageURL'+idx).show();
+			$('#container-backImageURL'+idx).html("");
+			$('#input-hidden-backImageURL'+idx+', #input-file-backImageURL'+idx).val("");
+			$('#container-backImageURL'+idx).hide();
+		}
+	  	function initDeleteBackImage() {
+			$('.backImage-delete0').click(function(e){
+				e.preventDefault();
+				doInitDeleteBackImage(0);
+			});
+			$('.backImage-delete1').click(function(e){
+				e.preventDefault();
+				doInitDeleteBackImage(1);
+			});
+			$('.backImage-delete2').click(function(e){
+				e.preventDefault();
+				doInitDeleteBackImage(2);
+			});
+			$('.backImage-delete3').click(function(e){
+				e.preventDefault();
+				doInitDeleteBackImage(3);
+			});
+			$('.backImage-delete4').click(function(e){
+				e.preventDefault();
+				doInitDeleteBackImage(4);
 			});
 		}
 	
 	    $(function(){
 	    	initDeletePicture();
 	    	initDeleteBrochure();
+	    	initDeleteBackImage();
 	    	var uploadURL = /*[[@{/do/fileManager/upload/}]]*/ #;
 	    	initDatePicker("datepickerInput", "dd/mm/yy");
 	    	initTextEditorWithoutP('#tinyMCE-loc-area', '#tinyMCE-loc-parent', uploadURL);
@@ -644,21 +839,45 @@
 				});
 			};
 			
+			var sURL = /*[[@{/do/fileManager/uploadFeaturedImage/}]]*/ #;
 			$('#input-file-imageURL').change(function(){
-				var sURL = /*[[@{/do/fileManager/uploadFeaturedImage/}]]*/ #;
 				var thisObj = $('#input-file-imageURL')[0];
-				uploadFile(thisObj.files[0], sURL, 1);
+				uploadFile(thisObj.files[0], sURL, 1, null);
 			});
 			
-			$('#input-file-brochureURL').change(function(){
-				var sURL = /*[[@{/do/fileManager/uploadFeaturedImage/}]]*/ #;
-				var thisObj = $('#input-file-brochureURL')[0];
-				uploadFile(thisObj.files[0], sURL, 2);
+			$('#input-file-brochureURL1').change(function(){
+				var thisObj = $('#input-file-brochureURL1')[0];
+				uploadFile(thisObj.files[0], sURL, 2, 1);
+			});
+			
+			$('#input-file-brochureURL2').change(function(){
+				var thisObj = $('#input-file-brochureURL2')[0];
+				uploadFile(thisObj.files[0], sURL, 2, 2);
+			});
+			$('#input-file-backImageURL0').change(function(){
+				var thisObj = $('#input-file-backImageURL0')[0];
+				uploadFile(thisObj.files[0], sURL, 3, 0);
+			});
+			$('#input-file-backImageURL1').change(function(){
+				var thisObj = $('#input-file-backImageURL1')[0];
+				uploadFile(thisObj.files[0], sURL, 3, 1);
+			});
+			$('#input-file-backImageURL2').change(function(){
+				var thisObj = $('#input-file-backImageURL2')[0];
+				uploadFile(thisObj.files[0], sURL, 3, 2);
+			});
+			$('#input-file-backImageURL3').change(function(){
+				var thisObj = $('#input-file-backImageURL3')[0];
+				uploadFile(thisObj.files[0], sURL, 3, 3);
+			});
+			$('#input-file-backImageURL4').change(function(){
+				var thisObj = $('#input-file-backImageURL4')[0];
+				uploadFile(thisObj.files[0], sURL, 3, 4);
 			});
 			
 			var showImage = function(imageURL) {
 				$('#input-file-imageURL').hide();
-				var htmlContent = '<image src="'+imageURL+'" style="max-height:250px;"></image>';
+				var htmlContent = '<img src="'+imageURL+'" style="max-height:250px;"/>';
 				htmlContent += '<a href="#" class="btn btn-primary btn-xs margin-bottom-20 image-delete" data-toggle="tooltip" title="Delete" style="position:absolute; left:25px; top:10px;"><i class="fa fa-trash"></i></a>';
 				$('#container-imageURL').html(htmlContent);
 				$('#input-hidden-imageURL').val(imageURL);
@@ -666,17 +885,27 @@
 				initDeletePicture();
 			}
 			
-			var showBrochureImage = function(brochureURL) {
-				$('#input-file-brochureURL').hide();
-				var htmlContent = '<image src="'+brochureURL+'" style="max-height:250px;"></image>';
-				htmlContent += '<a href="#" class="btn btn-primary btn-xs margin-bottom-20 image-delete" data-toggle="tooltip" title="Delete" style="position:absolute; left:25px; top:10px;"><i class="fa fa-trash"></i></a>';
-				$('#container-brochureURL').html(htmlContent);
-				$('#input-hidden-brochureURL').val(brochureURL);
-				$('#container-brochureURL').show();
+			var showBrochureImage = function(brochureURL, idx) {
+				$('#input-file-brochureURL'+idx).hide();
+				var htmlContent = '<img src="'+brochureURL+'" style="max-height:250px;"/>';
+				htmlContent += '<a href="#" class="btn btn-primary btn-xs margin-bottom-20 image-brochure-delete'+idx+'" data-toggle="tooltip" title="Delete" style="position:absolute; left:25px; top:10px;"><i class="fa fa-trash"></i></a>';
+				$('#container-brochureURL'+idx).html(htmlContent);
+				$('#input-hidden-brochureURL'+idx).val(brochureURL);
+				$('#container-brochureURL'+idx).show();
 				initDeleteBrochure();
 			}
+			
+			var showBackImage = function(imageURL, idx) {
+				$('#input-file-backImageURL'+idx).hide();
+				var htmlContent = '<img src="'+imageURL+'" style="max-height:250px;"/>';
+				htmlContent += '<a href="#" class="btn btn-primary btn-xs margin-bottom-20 backImage-delete'+idx+'" data-toggle="tooltip" title="Delete" style="position:absolute; left:25px; top:10px;"><i class="fa fa-trash"></i></a>';
+				$('#container-backImageURL'+idx).html(htmlContent);
+				$('#input-hidden-backImageURL'+idx).val(imageURL);
+				$('#container-backImageURL'+idx).show();
+				initDeleteBackImage();
+			}
 		
-			var uploadFile = function(image, uploadURL, type) {
+			var uploadFile = function(image, uploadURL, type, idx) {
 				var data = new FormData();
 				data.append('file', image);
 				var xhr = new XMLHttpRequest();
@@ -688,7 +917,9 @@
 				    	if(type==1){
 				      		showImage(response);
 				    	}else if(type==2){
-				    		showBrochureImage(response);
+				    		showBrochureImage(response, idx);
+				    	}else if(type==3){
+				    		showBackImage(response, idx);
 				    	}
 				    } else {
 				      	var reader = new FileReader();

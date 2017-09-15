@@ -57,22 +57,19 @@ public class SystemParameterController extends SuperController<AppParameter>{
 	@Override
 	public AppParameter preUpdate(AppParameter anObject) throws SystemException {
 		AppParameter dbObject = maintenanceService.findById(anObject.getPkAppParameter());
-			anObject.setIsViewable(dbObject.getIsViewable());
+		anObject.setIsViewable(dbObject.getIsViewable());
+		anObject.setDatatype(dbObject.getDatatype());
+		anObject.setName(dbObject.getName());
+		anObject.setDescr(dbObject.getDescr());
+		anObject.setAttribute(dbObject.getAttribute());
+		anObject.setIsUpdateOrderNo(dbObject.getIsUpdateOrderNo());
 		return validate(anObject);
 	}
 
 	@Override
 	public AppParameter validate(AppParameter anObject) {
 		List<ErrorHolder> errorHolders = new ArrayList<ErrorHolder>();
-		if(StringFunction.isEmpty(anObject.getName())){
-			errorHolders.add(new ErrorHolder(messageSource.getMessage("error.message.parameter.name.mandatory", null, Locale.ENGLISH)));
-		}
-		if(StringFunction.isEmpty(anObject.getDescr())){
-			errorHolders.add(new ErrorHolder(messageSource.getMessage("error.message.parameter.descr.mandatory", null, Locale.ENGLISH)));
-		}
-		if(StringFunction.isEmpty(anObject.getValue())){
-			errorHolders.add(new ErrorHolder(messageSource.getMessage("error.message.parameter.value.mandatory", null, Locale.ENGLISH)));
-		}else{
+		if(!StringFunction.isEmpty(anObject.getValue())){
 			if(anObject.getDatatype().equals(SystemConstant.FIELD_TYPE_INT) && !IntegerFunction.isInteger(anObject.getValue())){
 				errorHolders.add(new ErrorHolder(AppParameter.VALUE, messageSource.getMessage("error.message.parameter.value.invalid.integer", null, Locale.ENGLISH)));
 			}else if(anObject.getDatatype().equals(SystemConstant.FIELD_TYPE_BOOLEAN) && !StringFunction.isBoolean(anObject.getValue())){
@@ -104,4 +101,11 @@ public class SystemParameterController extends SuperController<AppParameter>{
 		}
 		return anObject;
 	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/getAllSocialMedia")
+	@ResponseBody
+	public List<AppParameter> getAllSocialMedia() throws SystemException {
+		return service.getAllSocialMedia();
+	}
+	
 }

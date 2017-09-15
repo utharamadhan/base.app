@@ -10,6 +10,7 @@ import id.base.app.service.program.IProgramItemService;
 import id.base.app.util.ImageFunction;
 import id.base.app.util.StringFunction;
 import id.base.app.valueobject.program.ProgramItem;
+import id.base.app.valueobject.program.ProgramItemImage;
 import id.base.app.valueobject.program.ProgramItemMenu;
 import id.base.app.valueobject.program.ProgramItemTeacher;
 
@@ -89,6 +90,19 @@ public class ProgramItemController extends SuperController<ProgramItem> {
 			}
 		}
 		
+		Boolean isEmptyImage = true;
+		int i = 1; 
+		for (ProgramItemImage pii : anObject.getImages()) {
+			if(pii.getImageURL()!=null){
+				isEmptyImage = false;
+			}
+			pii.setProgramItem(anObject);
+			pii.setOrderNo(i);
+			i++;
+		}
+		if(isEmptyImage){
+			anObject.setImages(null);
+		}
 	}
 	
 	@Override
@@ -117,19 +131,20 @@ public class ProgramItemController extends SuperController<ProgramItem> {
 					isUpdate = true;
 				}
 				
-				if(StringFunction.isNotEmpty(newObject.getBrochureURL())){
-					if (!((ProgramItem)oldObject).getBrochureURL().equalsIgnoreCase(newObject.getBrochureURL())) {
-						String oldURL = ((ProgramItem)oldObject).getBrochureURL();
+				if(StringFunction.isNotEmpty(newObject.getBrochureURL1())){
+					if (!((ProgramItem)oldObject).getBrochureURL1().equalsIgnoreCase(newObject.getBrochureURL1())) {
+						String oldURL = ((ProgramItem)oldObject).getBrochureURL1();
 						deleteOldImage(oldURL);
-						String brochureURL = ImageFunction.createThumbnails(newObject.getBrochureURL(), SystemConstant.ThumbnailsDimension.FeatureImage.WIDTH, SystemConstant.ThumbnailsDimension.FeatureImage.HEIGHT);
-						objUpdate.setBrochureURL(brochureURL);
+						String brochureURL = ImageFunction.createThumbnails(newObject.getBrochureURL1(), SystemConstant.ThumbnailsDimension.FeatureImage.WIDTH, SystemConstant.ThumbnailsDimension.FeatureImage.HEIGHT);
+						objUpdate.setBrochureURL1(brochureURL);
 						isUpdate = true;
 					}
 				}else{
-					String brochureURL = ImageFunction.createThumbnails(newObject.getBrochureURL(), SystemConstant.ThumbnailsDimension.FeatureImage.WIDTH, SystemConstant.ThumbnailsDimension.FeatureImage.HEIGHT);
-					objUpdate.setBrochureURL(brochureURL);
+					String brochureURL = ImageFunction.createThumbnails(newObject.getBrochureURL1(), SystemConstant.ThumbnailsDimension.FeatureImage.WIDTH, SystemConstant.ThumbnailsDimension.FeatureImage.HEIGHT);
+					objUpdate.setBrochureURL1(brochureURL);
 					isUpdate = true;
 				}
+				
 				if(isUpdate){
 					programItemService.updateAnyUrl(newObject.getPkProgramItem(), objUpdate);
 				}
@@ -146,8 +161,11 @@ public class ProgramItemController extends SuperController<ProgramItem> {
 				if(StringFunction.isNotEmpty(oldObject.getImageURL())) {
 					deleteOldImage(oldObject.getImageURL());
 				}
-				if(StringFunction.isNotEmpty(oldObject.getBrochureURL())) {
-					deleteOldImage(oldObject.getBrochureURL());
+				if(StringFunction.isNotEmpty(oldObject.getBrochureURL1())) {
+					deleteOldImage(oldObject.getBrochureURL1());
+				}
+				if(StringFunction.isNotEmpty(oldObject.getBrochureURL2())) {
+					deleteOldImage(oldObject.getBrochureURL2());
 				}
 			}
 		} catch (Exception e) {

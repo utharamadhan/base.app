@@ -42,15 +42,20 @@
 						</div>
 						<input id="event-detail-maintenancePk" type="hidden" th:field="*{pkEvent}"/>
 						<div class="form-group">
-							<label class="col-sm-2 control-label" th:text="'Title'">Title</label>
+							<label class="col-sm-2 control-label required" th:text="'Title'">Title</label>
 							<div class="col-sm-9 form-input-container">
 								<input type="text" class="form-control" placeholder="Title" name="srch-term" id="input-text-title" th:field="*{title}"/>
 							</div>
 						</div>
 						<div class="form-group">
-                          	<label class="col-sm-2 control-label">Event Date</label>
-                          	<div class="col-sm-9">
-                            	<input type='text' class="datepicker input-date form-control" th:name="eventDate" th:value="${detail.eventDate!=null?#dates.format(detail.eventDate, T(id.base.app.SystemConstant).SYSTEM_DATE_MASK_2):''}" />
+                          	<label class="col-sm-2 control-label required">Event Date</label>
+                          	<div class="col-sm-4 form-input-container">
+                            	<input type='text' class="datepicker input-date form-control" th:name="eventDateStart" th:value="${detail.eventDateStart!=null?#dates.format(detail.eventDateStart, T(id.base.app.SystemConstant).SYSTEM_DATE_MASK_2):''}" />
+                           </div>
+                           <label class="col-sm-1 control-label"> to </label>
+                           <div class="col-sm-4">
+                            	<input type='text' class="datepicker input-date form-control" th:name="eventDateEnd" th:value="${detail.eventDateEnd!=null?#dates.format(detail.eventDateEnd, T(id.base.app.SystemConstant).SYSTEM_DATE_MASK_2):''}" />
+                            	<small class="text-muted">If empty then the value will be same with Event Date Start</small>
                            </div>
                        	</div>
                        	<div class="form-group">
@@ -120,6 +125,7 @@
 	           
 	    $(function(){
 	    	var uploadURL = /*[[@{/do/fileManager/upload/}]]*/ #;
+	    	initDatePicker("datepicker", "dd/mm/yy");
 	    	initDeletePicture();
 	    	initTextEditorWithoutP('#tinyMCE-area', '#tinyMCE-parent', uploadURL);
 	    	

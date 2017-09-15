@@ -73,10 +73,10 @@
 									<li class=""><a href="#silabus_desc" data-toggle="tab" aria-expanded="false">Silabus Program</a></li>
 									</th:block>
 									<li class=""><a href="#testimoni" data-toggle="tab" aria-expanded="false">Testimoni</a></li>
-									<li class=""><a href="#teacher" data-toggle="tab" aria-expanded="false">Pengajar</a></li>
-									<li class=""><a href="#galeri" data-toggle="tab" aria-expanded="false">Galeri</a></li>
+									<li class=""><a href="#teacher" data-toggle="tab" aria-expanded="false">Tim Advisor</a></li>
+									<li class=""><a href="#fasilitas" data-toggle="tab" aria-expanded="false">Fasilitas</a></li>
 									<th:block th:if="${detail.contactUsDesc!=null and detail.contactUsDesc!=''}">
-									<li class=""><a href="#contact_us_desc" data-toggle="tab" aria-expanded="false">Download Brochure</a></li>
+									<li class=""><a href="#download_brochure_desc" data-toggle="tab" aria-expanded="false">Download Brochure</a></li>
 									</th:block>
 								</ul>
 								</th:block>
@@ -190,6 +190,18 @@
 									</ul>
 								</div>
 								<div role="tabpanel" class="tab-pane" id="galeri"></div>
+								<div role="tabpanel" class="tab-pane" id="facility_desc" th:utext="${detail.facilityDesc}"></div>
+								<div role="tabpanel" class="tab-pane" id="download_brochure_desc">
+									<th:block th:if="${detail.brochureURL1!=null}">
+										<img th:src="${detail.brochureURL1}"/>
+										<a th:href="${detail.brochureURL1}" th:attr="download=${detail.title}+'1'"><img th:src="@{/images/download-now.png}" id="download" class="download-button"/></a>
+									</th:block>
+									<br/><br/>
+									<th:block th:if="${detail.brochureURL2!=null}">
+										<img th:src="${detail.brochureURL2}"/>
+										<a th:href="${detail.brochureURL2}" th:attr="download=${detail.title}+'2'"><img th:src="@{/images/download-now.png}" id="download" class="download-button"/></a>
+									</th:block>
+								</div>
 								<div role="tabpanel" class="tab-pane" id="contact_us_desc" th:utext="${detail.contactUsDesc}"></div>
 							</div>
 						</div><!--end single content left-->
@@ -204,13 +216,18 @@
 	<div class="hidden">
 		<div id="short-desc">
 			<div class="sidebar">
-				<th:block th:if="${detail.brochureURL!=null}">
-					<img th:src="${detail.encodedBrochureImage}"/>
+				<th:block th:if="${detail.brochureURL1!=null}">
+					<img th:src="${detail.brochureURL1}"/>
+					<br/><br/>
+				</th:block>
+				<th:block th:if="${detail.brochureURL2!=null}">
+					<img th:src="${detail.brochureURL2}"/>
+					<br/><br/>
 				</th:block>
 				<div class="sidebar_item">
 					<div class="item_inner program">
 						<h4>Keterangan Singkat</h4>
-						<ul>
+						<ul class="type-none">
 							<th:block th:if="${detail.code!=null and detail.code!=''}">
 								<li><span>Kode:</span><br/><th:block th:text="${detail.code}"></th:block></li>
 							</th:block>

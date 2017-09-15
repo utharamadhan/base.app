@@ -39,6 +39,13 @@ public class ProgramItemService implements IProgramItemService {
 		if(obj.getMenus() instanceof PersistentBag) {
 			((PersistentCollection) obj.getMenus() ).forceInitialization();
 		}
+		if(obj.getImages() instanceof PersistentBag) {
+			((PersistentCollection) obj.getImages() ).forceInitialization();
+		}
+		if(obj.getTestimonials() instanceof PersistentBag) {
+			((PersistentCollection) obj.getTestimonials() ).forceInitialization();
+		}
+		
 		return obj;
 	}
 
@@ -94,6 +101,12 @@ public class ProgramItemService implements IProgramItemService {
 		if(obj.getMenus() instanceof PersistentBag) {
 			((PersistentCollection) obj.getMenus() ).forceInitialization();
 		}
+		if(obj.getImages() instanceof PersistentBag) {
+			((PersistentCollection) obj.getImages() ).forceInitialization();
+		}
+		if(obj.getTestimonials() instanceof PersistentBag) {
+			((PersistentCollection) obj.getTestimonials() ).forceInitialization();
+		}
 		return obj;
 	}
 
@@ -116,4 +129,5 @@ public class ProgramItemService implements IProgramItemService {
 	public List<ProgramItem> findForSelectByType(String type) throws SystemException {
 		return programItemDAO.findForSelectByType(type);
 	}
+	
 }

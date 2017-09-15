@@ -31,6 +31,7 @@
 		                        <thead>
 		                          <tr>
 		                            <th>Title</th>
+		                            <th>Event Date</th>
 									<th>Status</th>
 									<th>E/D</th>
 		                          </tr>
@@ -88,7 +89,8 @@
 	
 	    $(function(){
 		    setMenuActive('event');
-		    var colDefs = [{ name : "title" }, 
+		    var colDefs = [{ name : "title" },
+		                   { name : "eventDateStr" },
 	    	               { name : "statusStr" },
 	    	               { type : "deleteAndEdit" , param : [ "pkEvent" ] }
 	    	               ];

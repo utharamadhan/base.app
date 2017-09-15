@@ -1,7 +1,5 @@
 package id.base.app.valueobject.program;
 
-import id.base.app.encryptor.EncodeDecode;
-
 import java.io.Serializable;
 
 import javax.persistence.CascadeType;
@@ -14,7 +12,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -25,6 +22,11 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 public class ProgramItemImage implements Serializable{
 
 	private static final long serialVersionUID = -4352824404094265090L;
+	
+	public static ProgramItemImage getInstance() {
+		ProgramItemImage obj = new ProgramItemImage();
+		return obj;
+	}
 	
 	@Id
 	@SequenceGenerator(name="PROGRAM_ITEM_IMAGE_PK_PROGRAM_ITEM_IMAGE_SEQ", sequenceName="PROGRAM_ITEM_IMAGE_PK_PROGRAM_ITEM_IMAGE_SEQ", allocationSize=1)
@@ -39,11 +41,11 @@ public class ProgramItemImage implements Serializable{
 	@Column(name="IMAGE_URL")
 	private String imageURL;
 	
-	@Column(name="IMAGE_THUMB_URL")
-	private String imageThumbURL;
-
-	@Transient
-	public String encodedImage;
+	@Column(name="TYPE")
+	private Integer type;
+	
+	@Column(name="ORDER_NO")
+	private Integer orderNo;
 	
 	public Long getPkProgramItemImage() {
 		return pkProgramItemImage;
@@ -69,21 +71,20 @@ public class ProgramItemImage implements Serializable{
 		this.imageURL = imageURL;
 	}
 
-	public String getImageThumbURL() {
-		return imageThumbURL;
+	public Integer getType() {
+		return type;
 	}
 
-	public void setImageThumbURL(String imageThumbURL) {
-		this.imageThumbURL = imageThumbURL;
+	public void setType(Integer type) {
+		this.type = type;
 	}
-	
-	public String getEncodedImage() throws Exception {
-		if(getImageThumbURL()!=null && !"".equals(getImageThumbURL())){
-			encodedImage = EncodeDecode.getBase64FromLink(getImageThumbURL());
-		}else if(getImageURL()!=null && !"".equals(getImageURL())){
-			encodedImage = EncodeDecode.getBase64FromLink(getImageURL());
-		}
-		return encodedImage;
+
+	public Integer getOrderNo() {
+		return orderNo;
+	}
+
+	public void setOrderNo(Integer orderNo) {
+		this.orderNo = orderNo;
 	}
 
 }

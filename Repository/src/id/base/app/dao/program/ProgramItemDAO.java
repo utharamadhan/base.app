@@ -147,11 +147,12 @@ public class ProgramItemDAO extends AbstractHibernateDAO<ProgramItem, Long> impl
 	
 	@Override
 	public void updateAnyUrl(Long pkProgramItem, ProgramItem programItem) throws SystemException {
-		String updateQuery = "UPDATE PROGRAM_ITEM SET IMAGE_THUMB_URL = :thumbURL, BROCHURE_URL = :brochureURL  WHERE PK_PROGRAM_ITEM = :pk";
+		String updateQuery = "UPDATE PROGRAM_ITEM SET IMAGE_THUMB_URL = :thumbURL, BROCHURE_URL1 = :brochureURL1, BROCHURE_URL2 = :brochureURL2 WHERE PK_PROGRAM_ITEM = :pk";
 		SQLQuery sqlQuery = getSession().createSQLQuery(updateQuery);
 		sqlQuery.setLong("pk", pkProgramItem);
 		sqlQuery.setString("thumbURL", programItem.getImageURL());
-		sqlQuery.setString("brochureURL", programItem.getBrochureURL());
+		sqlQuery.setString("brochureURL1", programItem.getBrochureURL1());
+		sqlQuery.setString("brochureURL2", programItem.getBrochureURL2());
 		sqlQuery.executeUpdate();
 	}
 	
@@ -168,6 +169,9 @@ public class ProgramItemDAO extends AbstractHibernateDAO<ProgramItem, Long> impl
 				add(Projections.property(ProgramItem.TITLE)).
 				add(Projections.property(ProgramItem.PERMALINK)));
 		crit.setResultTransformer(new ResultTransformer() {
+			
+			private static final long serialVersionUID = 1108828031902870841L;
+
 			@Override
 			public Object transformTuple(Object[] tuple, String[] aliases) {
 				ProgramItem obj = new ProgramItem();
@@ -202,6 +206,9 @@ public class ProgramItemDAO extends AbstractHibernateDAO<ProgramItem, Long> impl
 				add(Projections.property(ProgramItem.TITLE)).
 				add(Projections.property(ProgramItem.PERMALINK)));
 		crit.setResultTransformer(new ResultTransformer() {
+			
+			private static final long serialVersionUID = -5905617364517529179L;
+
 			@Override
 			public Object transformTuple(Object[] tuple, String[] aliases) {
 				ProgramItem obj = new ProgramItem();
@@ -234,6 +241,9 @@ public class ProgramItemDAO extends AbstractHibernateDAO<ProgramItem, Long> impl
 				add(Projections.property(ProgramItem.PK_PROGRAM_ITEM)).
 				add(Projections.property(ProgramItem.TITLE)));
 		crit.setResultTransformer(new ResultTransformer() {
+			
+			private static final long serialVersionUID = -9137966827781177565L;
+
 			@Override
 			public Object transformTuple(Object[] tuple, String[] aliases) {
 				ProgramItem obj = new ProgramItem();
