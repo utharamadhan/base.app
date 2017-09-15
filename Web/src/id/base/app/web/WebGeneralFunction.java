@@ -326,4 +326,29 @@ public class WebGeneralFunction {
 			throw new SystemException(new ErrorHolder("Error Creating Login Session"));
 		}
     }
+    
+    public static List<AppFunction> findAppFunctionByAccessPage(HttpServletRequest request, String accessPage){
+    	SpecificRestCaller<AppFunction> functionService = new SpecificRestCaller<AppFunction>(RestConstant.REST_SERVICE, RestServiceConstant.APP_FUNCTION_SERVICE);
+		
+    	List<AppFunction> function = new ArrayList<AppFunction>();
+    	final String paramAccessPage = accessPage;
+		try{
+			function = functionService.executeGetList(new QueryParamInterfaceRestCaller() {
+				@Override
+				public String getPath() {
+					return "/findAppFunctionByAccessPage";
+				}
+				
+				@Override
+				public Map<String, Object> getParameters() {
+					Map<String,Object> map = new HashMap<String, Object>();
+					map.put("accessPage", paramAccessPage);
+					return map;
+				}
+			});
+			return function;
+		}catch(Exception e){
+			throw e;
+		}
+    }
 }

@@ -49,6 +49,15 @@ public class AppFunctionDAO extends AbstractHibernateDAO<AppFunction, Long> impl
 		return criteria.list();
 	}
 	
+	@Override
+	public List<AppFunction> findAppFunctionByAccessPage(String accessPage)
+			throws SystemException {
+		Criteria criteria = getSession().createCriteria(AppFunction.class);
+		criteria.add(Restrictions.eq("accessPage", accessPage));
+		criteria.add(Restrictions.eq(AppFunction.IS_ACTIVE, Boolean.TRUE));
+		return criteria.list();
+	}
+	
 	public List<AppFunction> findAppFunctionByAppRole(Long pkAppRole) throws SystemException {
 		Query query = getSession().createQuery(" from AppFunction where fkAppFunctionParent is null");
 		List<AppFunction> appFunctionList = query.list();

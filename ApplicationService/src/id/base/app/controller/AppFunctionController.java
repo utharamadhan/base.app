@@ -64,4 +64,18 @@ public class AppFunctionController {
 	public List<AppFunction> findAppFunctionByAppRole(@RequestParam(value="pkAppRole") Long pkAppRole) throws Exception {
 		return appFunctionService.findAppFunctionByAppRole(pkAppRole);
 	}
+	
+	@RequestMapping(value="/findAppFunctionByAccessPage")
+	@ResponseBody
+	public List<AppFunction> findAppFunctionByAccessPage(@RequestParam(value="accessPage") String accessPage) throws SystemException {
+		try {
+			if(StringUtils.isNotEmpty(accessPage)){
+				return appFunctionService.findAppFunctionByAccessPage(accessPage);
+			}
+			return new ArrayList<AppFunction>();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new SystemException(new ErrorHolder("error finding your data"));
+		}
+	}
 }

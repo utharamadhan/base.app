@@ -21,4 +21,6 @@ public interface IAppFunctionService {
 			throws SystemException;
 	
 	public abstract List<AppFunction> findAppFunctionByAppRole(Long pkAppRole) throws SystemException;
+	
+	public List<AppFunction> findAppFunctionByAccessPage(String accessPage)throws SystemException;
 }

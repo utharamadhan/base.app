@@ -87,6 +87,13 @@ public class AppFunctionService implements IAppFunctionService  {
 		return list;
 	}
 	
+	@Override
+	public List<AppFunction> findAppFunctionByAccessPage(String accessPage)throws SystemException {
+		List<AppFunction> list = new ArrayList<AppFunction>();
+		list = appFunctionDao.findAppFunctionByAccessPage(accessPage);
+		return list;
+	}
+	
 	public List<AppFunction> findAppFunctionByAppRole(Long pkAppRole) throws SystemException {
 		return appFunctionDao.findAppFunctionByAppRole(pkAppRole);
 	}

@@ -14,5 +14,7 @@ public interface IAppFunctionDAO {
 	public abstract List<AppFunction> findAppFunctionByUserRole(Long userRole) throws SystemException; 
 	
 	public abstract List<AppFunction> findAppFunctionByAppRole(Long pkAppRole) throws SystemException;
+	
+	public abstract List<AppFunction> findAppFunctionByAccessPage(String accessPage) throws SystemException;
 
 }

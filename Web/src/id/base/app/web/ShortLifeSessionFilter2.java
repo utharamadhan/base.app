@@ -6,12 +6,16 @@ import id.base.app.rest.PathInterfaceRestCaller;
 import id.base.app.rest.RestConstant;
 import id.base.app.rest.SpecificRestCaller;
 import id.base.app.util.GeneralFunctions;
+import id.base.app.valueobject.AppFunction;
 import id.base.app.valueobject.RuntimeUserLogin;
 import id.base.app.web.rest.LoginRestCaller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -28,6 +32,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Component
 public class ShortLifeSessionFilter2 implements Filter{
@@ -98,22 +105,47 @@ public class ShortLifeSessionFilter2 implements Filter{
 					login = null;
 				}
 				if(login!=null){
-					try {
-						if(SystemConstant.USER_TYPE_INTERNAL==login.getSessionType().intValue()){
-							WebGeneralFunction.buildLoginSession(login,request);
-							tokenMap.put(JSONConstant.KEY_LOGIN_SECURITY, login.getToken());
-							response.addCookie(GeneralFunctions.buildCookie(request.getContextPath(), tokenMap));
-						}else{
-							try{
-								WebGeneralFunction.createLogin(request, tokenMap, login.getToken());
+					if(null != login.getAccessInfo()){
+						try {
+							List<AppFunction> function = WebGeneralFunction.findAppFunctionByAccessPage(request, requestURIminusCtxPath);
+							if(!function.isEmpty()){
+								boolean canAccess = false;
+								Map<String, Object> accessInfos = new ObjectMapper().readValue(login.getAccessInfo(), new TypeReference<HashMap<String, Object>>(){});
+								for (Map.Entry<String, ArrayList<String>> menu : ((LinkedHashMap<String, ArrayList<String>>) accessInfos.get("menus")).entrySet()) {
+									ArrayList<String> data = menu.getValue();
+									String accessMenu = data.get(0).toString();
+									if(requestURIminusCtxPath.equals(accessMenu)){
+										canAccess = true;
+										break;
+									}
+								}
+								if(!canAccess){
+									redirect = request.getContextPath()+"/do/landingPage/blank";
+								}
+							}
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
+					
+					if(redirect == null){
+						try {
+							if(SystemConstant.USER_TYPE_INTERNAL==login.getSessionType().intValue()){
+								WebGeneralFunction.buildLoginSession(login,request);
 								tokenMap.put(JSONConstant.KEY_LOGIN_SECURITY, login.getToken());
 								response.addCookie(GeneralFunctions.buildCookie(request.getContextPath(), tokenMap));
-							}catch(Exception e){
-								redirect = request.getContextPath()+"/do/landingPage/blank";
+							}else{
+								try{
+									WebGeneralFunction.createLogin(request, tokenMap, login.getToken());
+									tokenMap.put(JSONConstant.KEY_LOGIN_SECURITY, login.getToken());
+									response.addCookie(GeneralFunctions.buildCookie(request.getContextPath(), tokenMap));
+								}catch(Exception e){
+									redirect = request.getContextPath()+"/do/landingPage/blank";
+								}
 							}
+						} catch (Exception e) {
+							redirect = SystemConstant.LOGIN_URL;
 						}
-					} catch (Exception e) {
-						redirect = SystemConstant.LOGIN_URL;
 					}
 				}else{
 					try{
