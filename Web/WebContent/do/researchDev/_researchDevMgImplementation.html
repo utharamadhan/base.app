@@ -80,7 +80,7 @@
 	<script th:inline="javascript">
 	/*<![CDATA[*/     
 		$(function(){
-			initDatePicker("datepicker", "dd/mm/yyyy");
+			initDatePicker("datepicker", "dd/mm/yy");
 			var uploadURL = /*[[@{/do/fileManager/upload/}]]*/ #;
 			initTextEditor('.tinyMCE-area', '.tinyMCE-parent', uploadURL);
 	    });
