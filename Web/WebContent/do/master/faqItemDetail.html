@@ -33,7 +33,7 @@
 						</div>
 						<input id="faq-detail-maintenancePk" type="hidden" th:field="*{pkFaq}"/>
 						<div class="form-group">
-							<label class="col-sm-2 control-label" th:text="'Category'">Category</label>
+							<label class="col-sm-2 control-label required" th:text="'Category'">Category</label>
 							<div class="col-sm-9 form-input-container">
 								<select class="chosen-select form-control" th:field="*{faqCategory.pkCategory}">
 									<option value="">[Please Select Category]</option>
@@ -42,15 +42,15 @@
                            	</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-2 control-label" th:text="'Question'">Question</label>
+							<label class="col-sm-2 control-label required" th:text="'Question'">Question</label>
 							<div class="col-sm-9 form-input-container">
 								<input type="text" class="form-control" placeholder="Question" name="srch-term" id="input-text-title" th:field="*{question}"/>
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-2 control-label" th:text="'Answer'">Answer</label>
+							<label class="col-sm-2 control-label required" th:text="'Answer'">Answer</label>
 							<input id="tinyMCE-hidden" name="answer" type="hidden"/>
-							<div id="tinyMCE-parent" class="col-sm-9">					
+							<div id="tinyMCE-parent" class="col-sm-9 form-input-container">					
 								<textarea id="tinyMCE-area" th:text="*{answer}">
 								</textarea>
 							</div>
@@ -78,7 +78,7 @@
 	/*<![CDATA[*/	
 	    $(function(){
 	    	var uploadURL = /*[[@{/do/fileManager/upload/}]]*/ #;
-	    	initDatePicker("datepicker", "dd/mm/yyyy");
+	    	initDatePicker("datepicker", "dd/mm/yy");
 	    	initTextEditorWithoutP('#tinyMCE-area', '#tinyMCE-parent', uploadURL);
 	    	
 			var backToList = function(){
@@ -92,7 +92,7 @@
 				var sURL = /*[[@{/do/master/faqItem/saveFaq/}]]*/ #;
 				$.post(sURL, $("#faq-detail-form").serialize(), function(data) {
 					if(data.errorList!=null){
-						
+						displayErrorParsley(data.errorList);
 					}else{
 						bootBoxSuccessSave('FAQ Successfully Saved', backToList);
 					}

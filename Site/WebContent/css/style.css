@@ -1834,10 +1834,9 @@ ul.channel-links li{
     position: relative;
 }
 .banner_img_background{
-	width:auto;height:200px!important;background-size: 100%;	
-}
-.big_size .banner_img_background{
-	width:auto;height:475px!important;background-size: 100%;
+	position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
 }
 .course-detail-title{
 	padding: 20px 28px 28px;
@@ -3075,6 +3074,12 @@ ul.list h5 {
 .mfp-arrow .mfp-b,
 .mfp-arrow .mfp-a {
     border: none;
+}
+.carousel-inner>.item {
+    overflow: hidden;
+    margin: 0;
+    height: 500px;
+    width: 100%;
 }
 .carousel-inner img {
     width: 100%;

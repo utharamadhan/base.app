@@ -44,6 +44,7 @@
 						<label class="col-sm-2 control-label required" th:text="'Role'">Role</label>
 						<div class="col-sm-6 form-input-container">
 							<select class="course-detail-topicSelect chosen-select form-control roleSelection" th:field="*{appRoles[0].pkAppRole}">
+								<option value="">[Please Select Role]</option>
 								<option th:each="opt : ${roleOptions}" th:value="${opt.pkAppRole}" th:text="${opt.name}">Name</option>
                           		</select>
                           	</div>

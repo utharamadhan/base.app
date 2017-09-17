@@ -1155,6 +1155,9 @@ function initTextEditor(editorArea, editorParent, uploadURL) {
 	
 	tinymce.init({
     	selector: editorArea,
+    	relative_urls : false,
+    	remove_script_host : false,
+    	convert_urls : true,
     	plugins: [
     	    'advlist autolink lists link image charmap print preview hr anchor pagebreak',
     	    'searchreplace wordcount visualblocks visualchars code fullscreen',
@@ -1189,6 +1192,9 @@ function initTextEditorWithoutP(editorArea, editorParent, uploadURL) {
 	});
 	
 	tinymce.init({
+		relative_urls : false,
+		remove_script_host : false,
+		convert_urls : true,
 		forced_root_block : "", 
 	    force_br_newlines : true,
 	    force_p_newlines : false,

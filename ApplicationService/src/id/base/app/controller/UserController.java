@@ -292,8 +292,11 @@ public class UserController extends SuperController<AppUser>{
 	public AppUser validate(AppUser anObject) throws SystemException {
 		List<ErrorHolder> errors = new ArrayList<>();
 		
+		if (anObject.getAppRoles()==null || anObject.getAppRoles().isEmpty() || anObject.getAppRoles().get(0).getPkAppRole()==null) {
+			errors.add(new ErrorHolder("appRoles[0].pkAppRole", messageSource.getMessage("error.mandatory", new String[]{"Role"}, Locale.ENGLISH)));
+		}
 		if (StringFunction.isEmpty(anObject.getParty().getName())) {
-			errors.add(new ErrorHolder(AppUser.PARTY_NAME, messageSource.getMessage("error.user.name.mandatory", null, Locale.ENGLISH)));
+			errors.add(new ErrorHolder(AppUser.PARTY_NAME, messageSource.getMessage("error.mandatory", new String[]{"Name"}, Locale.ENGLISH)));
 		}else{
 			String permalink = StringFunction.toPrettyURL(anObject.getParty().getName());
 			List<String> permalinkDBList = partyService.getSamePermalink(anObject.getParty().getPkParty(), permalink);

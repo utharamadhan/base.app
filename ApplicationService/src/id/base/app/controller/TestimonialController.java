@@ -8,7 +8,6 @@ import id.base.app.service.MaintenanceService;
 import id.base.app.service.testimonial.ITestimonialService;
 import id.base.app.util.ImageFunction;
 import id.base.app.util.StringFunction;
-import id.base.app.valueobject.aboutUs.Engagement;
 import id.base.app.valueobject.testimonial.Testimonial;
 
 import java.util.ArrayList;
@@ -37,8 +36,8 @@ public class TestimonialController extends SuperController<Testimonial>{
 	@Override
 	public Testimonial validate(Testimonial anObject) throws SystemException {
 		List<ErrorHolder> errors = new ArrayList<>();
-		if(anObject.getName() == null){
-			errors.add(new ErrorHolder("Name is Mandatory"));
+		if(StringFunction.isEmpty(anObject.getName())) {
+			errors.add(new ErrorHolder(Testimonial.NAME, messageSource.getMessage("error.mandatory", new String[]{"Name"}, Locale.ENGLISH)));
 		}else{
 			String permalink = StringFunction.toPrettyURL(anObject.getName());
 			List<String> permalinkDBList = testimonialService.getSamePermalink(anObject.getPkTestimonial(), permalink);
@@ -46,7 +45,7 @@ public class TestimonialController extends SuperController<Testimonial>{
 			anObject.setPermalink(permalink);
 		}
 		if(StringFunction.isEmpty(anObject.getContent())) {
-			errors.add(new ErrorHolder(Testimonial.CONTENT, messageSource.getMessage("error.mandatory", new String[]{"testimonial"}, Locale.ENGLISH)));
+			errors.add(new ErrorHolder(Testimonial.CONTENT, messageSource.getMessage("error.mandatory", new String[]{"Testimonial"}, Locale.ENGLISH)));
 		}
 		if(errors != null && errors.size() > 0){
 			throw new SystemException(errors);

@@ -75,7 +75,7 @@
 						<div class="form-group">
 							<label class="col-sm-2 control-label required" th:text="'Testimonial'">Testimonial</label>
 							<input id="tinyMCE-hidden" name="content" type="hidden"/>
-							<div id="tinyMCE-parent" class="col-sm-9">					
+							<div id="tinyMCE-parent" class="col-sm-9 form-input-container">					
 								<textarea id="tinyMCE-area" th:text="*{content}">
 								</textarea>
 							</div>
@@ -119,7 +119,7 @@
 	
 	    $(function(){
 	    	var uploadURL = /*[[@{/do/fileManager/upload/}]]*/ #;
-	    	initDatePicker("datepicker", "dd/mm/yyyy");
+	    	initDatePicker("datepicker", "dd/mm/yy");
 	    	initTextEditorWithoutP('#tinyMCE-area', '#tinyMCE-parent', uploadURL);
 	    	initDeletePicture();
 	    	
@@ -134,7 +134,7 @@
 				var sURL = /*[[@{/do/master/testimonial/saveTestimonial/}]]*/ #;
 				$.post(sURL, $("#testimonial-detail-form").serialize(), function(data) {
 					if(data.errorList!=null){
-						
+						displayErrorParsley(data.errorList);
 					}else{
 						bootBoxSuccessSave('Testimonial Successfully Saved', backToList);
 					}

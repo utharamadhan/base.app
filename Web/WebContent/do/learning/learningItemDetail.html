@@ -125,7 +125,7 @@
 						<div class="form-group">
 							<label class="col-sm-2 control-label" th:text="'Featured Image'">Featured Image</label>
 							<div class="col-sm-9 form-input-container">
-								<th:block th:if="${detail.imageURL != null}">
+								<th:block th:if="${detail.imageURL != ''}">
 									<input type="hidden" id="input-hidden-imageURL" th:field="*{imageURL}"/>
 									<input type="file" class="form-control" id="input-file-imageURL" style="display:none;"/>
 									<div id="container-imageURL">
@@ -133,7 +133,7 @@
 										<a href="#" class="btn btn-primary btn-xs margin-bottom-20 image-delete" data-toggle="tooltip" title="Delete"><i class="fa fa-trash"></i></a>
 									</div>
 								</th:block>
-								<th:block th:if="${detail.imageURL == null}">
+								<th:block th:if="${detail.imageURL == ''}">
 									<input type="hidden" id="input-hidden-imageURL" name="imageURL"/>
 									<input type="file" class="form-control" id="input-file-imageURL"/>
 									<div id="container-imageURL" style='display:none;'>
@@ -456,7 +456,7 @@
 									    		<div class="form-group">
 													<label class="col-sm-2 control-label" th:text="'Image 1'">Image 1</label>
 													<div class="col-sm-10 form-input-container">
-											    		<th:block th:if="${detail.images[0].imageURL != null}">
+											    		<th:block th:if="${detail.images[0].imageURL != ''}">
 															<input type="hidden" id="input-hidden-backImageURL0" th:field="*{images[0].imageURL}"/>
 															<input type="file" class="form-control" id="input-file-backImageURL0" style="display:none;"/>
 															<div id="container-backImageURL0">
@@ -464,7 +464,7 @@
 																<a href="#" class="btn btn-primary btn-xs margin-bottom-20 backImage-delete0" data-toggle="tooltip" title="Delete"><i class="fa fa-trash"></i></a>
 															</div>
 														</th:block>
-														<th:block th:if="${detail.images[0].imageURL == null}">
+														<th:block th:if="${detail.images[0].imageURL == ''}">
 															<input type="hidden" id="input-hidden-backImageURL0" name="images[0].imageURL"/>
 															<input type="file" class="form-control" id="input-file-backImageURL0"/>
 															<div id="container-backImageURL0" style='display:none;'></div>
@@ -474,7 +474,7 @@
 												<div class="form-group">
 													<label class="col-sm-2 control-label" th:text="'Image 2'">Image 2</label>
 													<div class="col-sm-10 form-input-container">
-											    		<th:block th:if="${detail.images[1].imageURL != null}">
+											    		<th:block th:if="${detail.images[1].imageURL != ''}">
 															<input type="hidden" id="input-hidden-backImageURL1" th:field="*{images[1].imageURL}"/>
 															<input type="file" class="form-control" id="input-file-backImageURL1" style="display:none;"/>
 															<div id="container-backImageURL1">
@@ -482,7 +482,7 @@
 																<a href="#" class="btn btn-primary btn-xs margin-bottom-20 backImage-delete1" data-toggle="tooltip" title="Delete"><i class="fa fa-trash"></i></a>
 															</div>
 														</th:block>
-														<th:block th:if="${detail.images[1].imageURL == null}">
+														<th:block th:if="${detail.images[1].imageURL == ''}">
 															<input type="hidden" id="input-hidden-backImageURL1" name="images[1].imageURL"/>
 															<input type="file" class="form-control" id="input-file-backImageURL1"/>
 															<div id="container-backImageURL1" style='display:none;'></div>
@@ -492,7 +492,7 @@
 												<div class="form-group">
 													<label class="col-sm-2 control-label" th:text="'Image 3'">Image 3</label>
 													<div class="col-sm-10 form-input-container">
-											    		<th:block th:if="${detail.images[2].imageURL != null}">
+											    		<th:block th:if="${detail.images[2].imageURL != ''}">
 															<input type="hidden" id="input-hidden-backImageURL2" th:field="*{images[2].imageURL}"/>
 															<input type="file" class="form-control" id="input-file-backImageURL2" style="display:none;"/>
 															<div id="container-backImageURL2">
@@ -500,7 +500,7 @@
 																<a href="#" class="btn btn-primary btn-xs margin-bottom-20 backImage-delete2" data-toggle="tooltip" title="Delete"><i class="fa fa-trash"></i></a>
 															</div>
 														</th:block>
-														<th:block th:if="${detail.images[2].imageURL == null}">
+														<th:block th:if="${detail.images[2].imageURL == ''}">
 															<input type="hidden" id="input-hidden-backImageURL2" name="images[2].imageURL"/>
 															<input type="file" class="form-control" id="input-file-backImageURL2"/>
 															<div id="container-backImageURL2" style='display:none;'></div>
@@ -510,7 +510,7 @@
 												<div class="form-group">
 													<label class="col-sm-2 control-label" th:text="'Image 4'">Image 4</label>
 													<div class="col-sm-10 form-input-container">
-											    		<th:block th:if="${detail.images[3].imageURL != null}">
+											    		<th:block th:if="${detail.images[3].imageURL != ''}">
 															<input type="hidden" id="input-hidden-backImageURL3" th:field="*{images[3].imageURL}"/>
 															<input type="file" class="form-control" id="input-file-backImageURL3" style="display:none;"/>
 															<div id="container-backImageURL3">
@@ -518,7 +518,7 @@
 																<a href="#" class="btn btn-primary btn-xs margin-bottom-20 backImage-delete3" data-toggle="tooltip" title="Delete"><i class="fa fa-trash"></i></a>
 															</div>
 														</th:block>
-														<th:block th:if="${detail.images[3].imageURL == null}">
+														<th:block th:if="${detail.images[3].imageURL == ''}">
 															<input type="hidden" id="input-hidden-backImageURL3" name="images[3].imageURL"/>
 															<input type="file" class="form-control" id="input-file-backImageURL3"/>
 															<div id="container-backImageURL3" style='display:none;'></div>
@@ -528,7 +528,7 @@
 												<div class="form-group">
 													<label class="col-sm-2 control-label" th:text="'Image 5'">Image 5</label>
 													<div class="col-sm-10 form-input-container">
-											    		<th:block th:if="${detail.images[4].imageURL != null}">
+											    		<th:block th:if="${detail.images[4].imageURL != ''}">
 															<input type="hidden" id="input-hidden-backImageURL4" th:field="*{images[4].imageURL}"/>
 															<input type="file" class="form-control" id="input-file-backImageURL4" style="display:none;"/>
 															<div id="container-backImageURL4">
@@ -536,7 +536,7 @@
 																<a href="#" class="btn btn-primary btn-xs margin-bottom-20 backImage-delete4" data-toggle="tooltip" title="Delete"><i class="fa fa-trash"></i></a>
 															</div>
 														</th:block>
-														<th:block th:if="${detail.images[4].imageURL == null}">
+														<th:block th:if="${detail.images[4].imageURL == ''}">
 															<input type="hidden" id="input-hidden-backImageURL4" name="images[4].imageURL"/>
 															<input type="file" class="form-control" id="input-file-backImageURL4"/>
 															<div id="container-backImageURL4" style='display:none;'></div>
@@ -829,8 +829,8 @@
 				$('#tinyMCE-pay-hidden').val(tinymce.get('tinyMCE-pay-area').getContent());
 				$('#tinyMCE-cu-hidden').val(tinymce.get('tinyMCE-cu-area').getContent());
 				preSerializeForm();
-				var sURL = /*[[@{/do/learning/item/saveItem/}]]*/ #;
-				$.post(sURL, $("#item-detail-form").serialize(), function(data) {
+				var sURLSubmit = /*[[@{/do/learning/item/saveItem/}]]*/ #;
+				$.post(sURLSubmit, $("#item-detail-form").serialize(), function(data) {
 					if(data.errorList!=null){
 						displayErrorParsley(data.errorList);
 					}else{

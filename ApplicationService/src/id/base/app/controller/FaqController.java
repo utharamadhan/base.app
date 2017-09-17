@@ -5,10 +5,12 @@ import id.base.app.exception.SystemException;
 import id.base.app.rest.RestConstant;
 import id.base.app.service.MaintenanceService;
 import id.base.app.service.faq.IFaqService;
+import id.base.app.util.StringFunction;
 import id.base.app.valueobject.Faq;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,11 +31,14 @@ public class FaqController extends SuperController<Faq>{
 	@Override
 	public Faq validate(Faq anObject) throws SystemException {
 		List<ErrorHolder> errors = new ArrayList<>();
-		if(anObject.getQuestion() == null){
-			errors.add(new ErrorHolder("Question is Mandatory"));
+		if(anObject.getFaqCategory()==null || anObject.getFaqCategory().getPkCategory()==null) {
+			errors.add(new ErrorHolder(Faq.FAQ_CATEGORY_PK, messageSource.getMessage("error.mandatory", new String[]{"Category"}, Locale.ENGLISH)));
 		}
-		if(anObject.getAnswer() == null){
-			errors.add(new ErrorHolder("Answer is Mandatory"));
+		if(StringFunction.isEmpty(anObject.getQuestion())) {
+			errors.add(new ErrorHolder(Faq.QUESTION, messageSource.getMessage("error.mandatory", new String[]{"Question"}, Locale.ENGLISH)));
+		}
+		if(StringFunction.isEmpty(anObject.getAnswer())) {
+			errors.add(new ErrorHolder(Faq.ANSWER, messageSource.getMessage("error.mandatory", new String[]{"Answer"}, Locale.ENGLISH)));
 		}
 		if(errors != null && errors.size() > 0){
 			throw new SystemException(errors);
