@@ -26,6 +26,13 @@ public class Faq extends BaseEntity implements Serializable {
 		return new Faq();
 	}
 	
+	public static final String FAQ_CATEGORY = "faqCategory" ;
+	public static final String FAQ_CATEGORY_PK = FAQ_CATEGORY+".pkCategory" ;
+	public static final String PK_FAQ = "pkFaq" ;
+	public static final String QUESTION = "question" ;
+	public static final String ANSWER = "answer" ;
+	public static final String STATUS = "status" ;
+	
 	@Id
 	@SequenceGenerator(name="FAQ_PK_FAQ_SEQ", sequenceName="FAQ_PK_FAQ_SEQ", allocationSize=1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="FAQ_PK_FAQ_SEQ")
@@ -47,11 +54,6 @@ public class Faq extends BaseEntity implements Serializable {
 	
 	@Transient
 	private String statusStr;
-	
-	public static final String PK_FAQ = "pkFaq" ;
-	public static final String QUESTION = "question" ;
-	public static final String ANSWER = "answer" ;
-	public static final String STATUS = "status" ;
 	
 	public Long getPkFaq() {
 		return pkFaq;
