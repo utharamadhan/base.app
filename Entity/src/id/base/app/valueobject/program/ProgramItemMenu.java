@@ -3,6 +3,7 @@ package id.base.app.valueobject.program;
 import id.base.app.valueobject.Lookup;
 
 import java.io.Serializable;
+import java.util.Comparator;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -22,7 +23,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @Entity
 @Table(name = "PROGRAM_ITEM_MENU")
 @JsonIdentityInfo(generator=ObjectIdGenerators.UUIDGenerator.class, property="programItemMenuJid", scope=ProgramItemMenu.class)
-public class ProgramItemMenu implements Serializable{
+public class ProgramItemMenu implements Serializable, Comparator<ProgramItemMenu> {
 
 	private static final long serialVersionUID = -6102507969542032743L;
 	
@@ -84,5 +85,18 @@ public class ProgramItemMenu implements Serializable{
 
 	public void setOrderNo(Integer orderNo) {
 		this.orderNo = orderNo;
+	}
+
+	@Override
+	public int compare(ProgramItemMenu o1, ProgramItemMenu o2) {
+		Integer orderNoO1 = o1.getOrderNo();
+		Integer orderNoO2 = o2.getOrderNo();
+		if(orderNoO1==null){
+			orderNoO1 = Integer.MAX_VALUE;
+		}
+		if(orderNoO2==null){
+			orderNoO2 = Integer.MAX_VALUE;
+		}
+		return orderNoO1 - orderNoO2;
 	}
 }

@@ -19,9 +19,11 @@ import id.base.app.util.dao.SearchOrder.Sort;
 import id.base.app.valueobject.Category;
 import id.base.app.valueobject.Lookup;
 import id.base.app.valueobject.program.ProgramItem;
+import id.base.app.valueobject.program.ProgramItemMenu;
 import id.base.app.valueobject.program.VWProgramItem;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -159,6 +161,9 @@ public class LearningWebController extends BaseSiteController<ProgramItem>{
 		ProgramItem detail = findItemByPermalink(permalink);
 		if(detail!=null){
 			setCommonData(request,model);
+			List<ProgramItemMenu> menus = detail.getMenus();
+			Collections.sort(menus, new ProgramItemMenu());
+			model.addAttribute("menus", menus);
 			model.addAttribute("categoryPermalink", categoryPermalink);
 			model.addAttribute("detail", detail);
 			return "/learning/detail";
