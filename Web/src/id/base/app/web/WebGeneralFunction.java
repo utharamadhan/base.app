@@ -1,24 +1,6 @@
 
 package id.base.app.web;
 
-import id.base.app.IPersonConstant;
-import id.base.app.LoginSession;
-import id.base.app.SystemConstant;
-import id.base.app.exception.ErrorHolder;
-import id.base.app.exception.SystemException;
-import id.base.app.rest.QueryParamInterfaceRestCaller;
-import id.base.app.rest.RestConstant;
-import id.base.app.rest.RestServiceConstant;
-import id.base.app.rest.SpecificRestCaller;
-import id.base.app.util.DateTimeFunction;
-import id.base.app.util.StringFunction;
-import id.base.app.valueobject.AppFunction;
-import id.base.app.valueobject.AppRole;
-import id.base.app.valueobject.AppUser;
-import id.base.app.valueobject.RuntimeUserLogin;
-import id.base.app.web.rest.AppFunctionRestCaller;
-import id.base.app.web.rest.LoginRestCaller;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -39,6 +21,29 @@ import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import id.base.app.IPersonConstant;
+import id.base.app.LoginSession;
+import id.base.app.SystemConstant;
+import id.base.app.exception.ErrorHolder;
+import id.base.app.exception.SystemException;
+import id.base.app.rest.QueryParamInterfaceRestCaller;
+import id.base.app.rest.RestCaller;
+import id.base.app.rest.RestConstant;
+import id.base.app.rest.RestServiceConstant;
+import id.base.app.rest.SpecificRestCaller;
+import id.base.app.util.DateTimeFunction;
+import id.base.app.util.StringFunction;
+import id.base.app.util.dao.Operator;
+import id.base.app.util.dao.SearchFilter;
+import id.base.app.util.dao.SearchOrder;
+import id.base.app.valueobject.AppFunction;
+import id.base.app.valueobject.AppRole;
+import id.base.app.valueobject.AppUser;
+import id.base.app.valueobject.RuntimeUserLogin;
+import id.base.app.valueobject.advisory.AdvisoryConsulting;
+import id.base.app.web.rest.AppFunctionRestCaller;
+import id.base.app.web.rest.LoginRestCaller;
 
 
 public class WebGeneralFunction {
@@ -343,6 +348,30 @@ public class WebGeneralFunction {
 				public Map<String, Object> getParameters() {
 					Map<String,Object> map = new HashMap<String, Object>();
 					map.put("accessPage", paramAccessPage);
+					return map;
+				}
+			});
+			return function;
+		}catch(Exception e){
+			throw e;
+		}
+    }
+    
+    @SuppressWarnings("unchecked")
+	public static List<AppFunction> findAllAppFunction(HttpServletRequest request){
+    	SpecificRestCaller<AppFunction> functionService = new SpecificRestCaller<AppFunction>(RestConstant.REST_SERVICE, RestServiceConstant.APP_FUNCTION_SERVICE);
+		
+    	List<AppFunction> function = new ArrayList<AppFunction>();
+		try{
+			function = functionService.executeGetList(new QueryParamInterfaceRestCaller() {
+				@Override
+				public String getPath() {
+					return "/findAllAppFunction";
+				}
+				
+				@Override
+				public Map<String, Object> getParameters() {
+					Map<String,Object> map = new HashMap<String, Object>();
 					return map;
 				}
 			});
