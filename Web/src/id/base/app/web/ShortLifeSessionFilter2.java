@@ -41,6 +41,8 @@ public class ShortLifeSessionFilter2 implements Filter{
 	private final static Logger LOGGER = LoggerFactory.getLogger(ShortLifeSessionFilter2.class);
 	
 	private static final Set<String> BYPASS_TOKEN = new HashSet<String>();
+	private static final List<String> APP_FUNCTION = new ArrayList<String>();
+			
 	static{
 		BYPASS_TOKEN.add("/do/landingPage");
 		BYPASS_TOKEN.add("/do/landingPage/loginPost");
@@ -107,8 +109,13 @@ public class ShortLifeSessionFilter2 implements Filter{
 				if(login!=null){
 					if(null != login.getAccessInfo()){
 						try {
-							List<AppFunction> function = WebGeneralFunction.findAppFunctionByAccessPage(request, requestURIminusCtxPath);
-							if(!function.isEmpty()){
+							if(APP_FUNCTION.isEmpty()){
+								List<AppFunction> functions = WebGeneralFunction.findAllAppFunction(request);
+								for(AppFunction function : functions){
+									APP_FUNCTION.add(function.getAccessPage());
+								}
+							}
+							if(APP_FUNCTION.contains(requestURIminusCtxPath)){
 								boolean canAccess = false;
 								Map<String, Object> accessInfos = new ObjectMapper().readValue(login.getAccessInfo(), new TypeReference<HashMap<String, Object>>(){});
 								for (Map.Entry<String, ArrayList<String>> menu : ((LinkedHashMap<String, ArrayList<String>>) accessInfos.get("menus")).entrySet()) {
