@@ -272,3 +272,6 @@
 
 -- 2017-September-13
 \i DDL/SCRIPT_ALL_20170913.sql;
+
+-- 2017-September-18
+\i DDL/SCRIPT_ALL_20170918.sql;

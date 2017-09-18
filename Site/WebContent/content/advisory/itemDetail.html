@@ -16,7 +16,27 @@
 			</div>
 		</div>
 		<div class="single_banner red" th:classappend="${detail.backgroundImageSize==2} ? 'big_size'">
-			<div th:style="'background-image:url('+ @{/images/banner_01.jpg} +')'" class="banner_img_background"></div>
+			<div class="banner carousel slide" id="recommended-item-carousel" data-ride="carousel">
+				<div class="slides carousel-inner">
+					<th:block th:if="${detail.isBackgroundSlideshow==true}">
+						<th:block th:each="im, i : ${detail.images}">
+							<div class="item" th:classappend="${i.count==1} ? active : ''">
+								<img th:src="${im.imageURL}" class="banner_img_background"/>
+							</div>
+						</th:block>
+					</th:block>
+					<th:block th:if="${detail.isBackgroundSlideshow==false}">
+						<img th:src="${detail.images[0].imageURL}" class="banner_img_background"/>
+					</th:block>
+				</div>
+				<a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
+					<img th:src="@{/images/prev.png}"/>
+				</a>
+			    <a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next">
+					<img th:src="@{/images/next.png}"/>
+			    </a>		
+						
+			</div><!--end banner-->
 			<div class="container large">
 				<div class="row">
 					<div class="col-xs-12">

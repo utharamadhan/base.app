@@ -18,8 +18,10 @@ import id.base.app.valueobject.Category;
 import id.base.app.valueobject.Pages;
 import id.base.app.valueobject.advisory.AdvisoryConsulting;
 import id.base.app.valueobject.program.ProgramItem;
+import id.base.app.valueobject.program.ProgramItemMenu;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -162,6 +164,9 @@ public class AdvisoryWebController extends BaseSiteController<Pages>{
 		ProgramItem detail = findItemByPermalink(permalink);
 		if(detail!=null){
 			setCommonData(request,model);
+			List<ProgramItemMenu> menus = detail.getMenus();
+			Collections.sort(menus, new ProgramItemMenu());
+			model.addAttribute("menus", menus);
 			model.addAttribute("categoryPermalink", categoryPermalink);
 			model.addAttribute("detail", detail);
 			return "/advisory/itemDetail";

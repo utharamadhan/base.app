@@ -110,8 +110,8 @@
 									<th:block th:if="${detail.brochureURL1!=null}">
 										<img th:src="${detail.brochureURL1}"/>
 										<a th:href="${detail.brochureURL1}" th:attr="download=${detail.title}+'1'"><img th:src="@{/images/download-now.png}" id="download" class="download-button"/></a>
+										<br/><br/>
 									</th:block>
-									<br/><br/>
 									<th:block th:if="${detail.brochureURL2!=null}">
 										<img th:src="${detail.brochureURL2}"/>
 										<a th:href="${detail.brochureURL2}" th:attr="download=${detail.title}+'2'"><img th:src="@{/images/download-now.png}" id="download" class="download-button"/></a>
@@ -131,11 +131,11 @@
 	<div class="hidden">
 		<div id="short-desc">
 			<div class="sidebar">
-				<th:block th:if="${detail.brochureURL1!=null}">
+				<th:block th:if="${detail.brochureURL1!=''}">
 					<img th:src="${detail.brochureURL1}"/>
 					<br/><br/>
 				</th:block>
-				<th:block th:if="${detail.brochureURL2!=null}">
+				<th:block th:if="${detail.brochureURL2!=''}">
 					<img th:src="${detail.brochureURL2}"/>
 					<br/><br/>
 				</th:block>

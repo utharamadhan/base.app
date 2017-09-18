@@ -41,6 +41,9 @@ public class ProgramItemTeacher implements Serializable{
 	@ManyToOne(cascade={CascadeType.DETACH})
 	@JoinColumn(name="FK_PARTY_TEACHER", nullable=true)
 	private Party partyTeacher;
+	
+	@Column(name="ORDER_NO")
+	private Integer orderNo;
 
 	public Long getPkProgramItemTeacher() {
 		return pkProgramItemTeacher;
@@ -72,6 +75,14 @@ public class ProgramItemTeacher implements Serializable{
 
 	public void setPartyTeacher(Party partyTeacher) {
 		this.partyTeacher = partyTeacher;
+	}
+
+	public Integer getOrderNo() {
+		return orderNo;
+	}
+
+	public void setOrderNo(Integer orderNo) {
+		this.orderNo = orderNo;
 	}
 	
 }
