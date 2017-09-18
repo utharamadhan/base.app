@@ -57,6 +57,7 @@ public class ProgramItem extends BaseEntity implements Serializable {
 	public static final String ADMISSION_REQUIREMENT = "admissionRequirement";
 	public static final String PAYMENT_DETAIL	= "paymentDetail";
 	public static final String TYPE				= "type";
+	public static final String IS_TEACHER_IN_PROFILE_DISPLAY = "isTeacherInProfileDisplay";
 	public static final String STATUS			= "status";
 	
 	public static ProgramItem getInstance() {
@@ -165,6 +166,9 @@ public class ProgramItem extends BaseEntity implements Serializable {
 	
 	@Column(name="IS_BACKGROUND_SLIDESHOW")
 	private Boolean isBackgroundSlideshow;
+	
+	@Column(name="IS_TEACHER_IN_PROFILE_DISPLAY")
+	private Boolean isTeacherInProfileDisplay;
 	
 	@Column(name="STATUS")
 	private Integer status;
@@ -429,6 +433,14 @@ public class ProgramItem extends BaseEntity implements Serializable {
 
 	public void setIsBackgroundSlideshow(Boolean isBackgroundSlideshow) {
 		this.isBackgroundSlideshow = isBackgroundSlideshow;
+	}
+
+	public Boolean getIsTeacherInProfileDisplay() {
+		return isTeacherInProfileDisplay;
+	}
+
+	public void setIsTeacherInProfileDisplay(Boolean isTeacherInProfileDisplay) {
+		this.isTeacherInProfileDisplay = isTeacherInProfileDisplay;
 	}
 
 	public void setStatusStr(String statusStr) {

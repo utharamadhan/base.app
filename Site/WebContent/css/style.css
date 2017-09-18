@@ -5455,6 +5455,9 @@ blockquote span {
     .navbar-default .navbar-nav>.apply_now.active>a:focus {
         color: #0056a1!important;
     }
+    .hexa-top-right{
+    	background-image: none;
+    }
     .inlineMenu .list-inline>li {
         margin: 0 15px 0 0;
     }
@@ -5769,6 +5772,15 @@ blockquote span {
     .fc-event-container .tooltip-inner p span {
         font-size: 10px;
     }
+    .logo-footer .logo-btn{
+    	width:15%;
+    }
+    .menuFooter h4 {
+	    margin: 20px 0px 0px 0px;
+	}
+	.md-3 .card-box {
+    	margin-top: 0px;
+	}
 }
 @media screen and (max-width: 639px) {
 	.header .navbar-brand img {
@@ -5953,6 +5965,13 @@ blockquote span {
         font-size: 10px;
         line-height: 16px;
     }
+    .menuFooter {
+	    background-image: url(/Site/images/background_footer.png);
+	    background-size: 35%;
+    }
+    .logo-footer .logo-btn {
+	    width: 20%;
+	}
 }
 @media screen and (max-width: 479px) {
     .header .navbar-brand img.logo-btn {
