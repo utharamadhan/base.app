@@ -103,7 +103,12 @@
 											<div class="col-md-6 item-testimonial">
 												<div class="row">
 													<div class="col-md-4 item-image">	
-														<img th:src="${t.testimonial.encodedPicture}"/>
+														<th:block th:if="${t.testimonial.encodedPicture!=null}">
+															<img th:src="${t.testimonial.encodedPicture}"/>
+														</th:block>
+														<th:block th:if="${t.testimonial.encodedPicture==null}">
+															<img th:src="@{/images/default-image-user.png}" alt="" />
+														</th:block>
 													</div>
 													<div class="col-md-8 item-content">
 														<div class="item-content-testi" th:utext="${t.testimonial.content}"></div>

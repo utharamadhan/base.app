@@ -263,7 +263,12 @@
 					  <c:forEach items="${testimonialHomeList}" var="testi">
 					  	<li>
 					    	<div>
-					    		<img src="${testi.encodedPicture}" alt="" />
+					    		<c:if test = "${testi.encodedPicture!=null}">
+					    			<img src="${testi.encodedPicture}"/>
+					    		</c:if>
+					    		<c:if test = "${testi.encodedPicture==null}">
+					    			<img src="<%=request.getContextPath()%>/images/default-image-user.png"/>
+					    		</c:if>
 					    		<h1>${testi.name}<br/>${testi.jobTitle}</h1>
 				      			<p><a href="page/testimonial/detail/${testi.pkTestimonial}/${testi.name}" class="btn btn-third btn-medium">selengkapnya</a></p>
 					    	</div>
