@@ -78,4 +78,9 @@ public class PartyService implements IPartyService {
 		partyDAO.updatePermalink(pkParty, permalink);
 	}
 	
+	@Override
+	public List<Party> getAllLearningAdvisoryUser() throws SystemException {
+		return partyDAO.getAllLearningAdvisoryUser();
+	}
+	
 }

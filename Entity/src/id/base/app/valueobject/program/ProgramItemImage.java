@@ -1,6 +1,7 @@
 package id.base.app.valueobject.program;
 
 import java.io.Serializable;
+import java.util.Comparator;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -19,7 +20,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @Entity
 @Table(name = "PROGRAM_ITEM_IMAGE")
 @JsonIdentityInfo(generator=ObjectIdGenerators.UUIDGenerator.class, property="programItemImageJid", scope=ProgramItemImage.class)
-public class ProgramItemImage implements Serializable{
+public class ProgramItemImage implements Serializable, Comparator<ProgramItemImage> {
 
 	private static final long serialVersionUID = -4352824404094265090L;
 	
@@ -85,6 +86,19 @@ public class ProgramItemImage implements Serializable{
 
 	public void setOrderNo(Integer orderNo) {
 		this.orderNo = orderNo;
+	}
+	
+	@Override
+	public int compare(ProgramItemImage o1, ProgramItemImage o2) {
+		Integer orderNoO1 = o1.getOrderNo();
+		Integer orderNoO2 = o2.getOrderNo();
+		if(orderNoO1==null){
+			orderNoO1 = Integer.MAX_VALUE;
+		}
+		if(orderNoO2==null){
+			orderNoO2 = Integer.MAX_VALUE;
+		}
+		return orderNoO1 - orderNoO2;
 	}
 
 }

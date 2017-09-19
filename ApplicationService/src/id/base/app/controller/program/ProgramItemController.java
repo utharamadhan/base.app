@@ -13,6 +13,7 @@ import id.base.app.valueobject.program.ProgramItem;
 import id.base.app.valueobject.program.ProgramItemImage;
 import id.base.app.valueobject.program.ProgramItemMenu;
 import id.base.app.valueobject.program.ProgramItemTeacher;
+import id.base.app.valueobject.program.ProgramItemTestimonial;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,7 +82,15 @@ public class ProgramItemController extends SuperController<ProgramItem> {
 		}
 		if(anObject.getTeachers()!=null && !anObject.getTeachers().isEmpty()){
 			for (ProgramItemTeacher teacher : anObject.getTeachers()) {
+				if(teacher.getPartyTeacher()!=null && teacher.getPartyTeacher().getPkParty()==null){
+					teacher.setPartyTeacher(null);
+				}
 				teacher.setProgramItem(anObject);
+			}
+		}
+		if(anObject.getTestimonials()!=null && !anObject.getTestimonials().isEmpty()){
+			for (ProgramItemTestimonial testimonial : anObject.getTestimonials()) {
+				testimonial.setProgramItem(anObject);
 			}
 		}
 		if(anObject.getMenus()!=null && !anObject.getMenus().isEmpty()){

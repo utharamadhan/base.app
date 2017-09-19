@@ -12,6 +12,7 @@ import id.base.app.valueobject.AppParameter;
 import id.base.app.valueobject.party.Party;
 import id.base.app.valueobject.party.PartyRole;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import org.apache.commons.beanutils.BeanUtils;
@@ -168,6 +169,44 @@ public class PartyDAO extends AbstractHibernateDAO<Party,Long> implements IParty
 		sqlQuery.setLong("pkParty", pkParty);
 		sqlQuery.setString("permalink", permalink);
 		sqlQuery.executeUpdate();
+	}
+	
+	@Override
+	public List<Party> getAllLearningAdvisoryUser() throws SystemException {
+		String query = "SELECT P.PK_PARTY, P.NAME FROM APP_USER AP "
+				+ "INNER JOIN PARTY P ON P.PK_PARTY = AP.FK_PARTY "
+				+ "INNER JOIN APP_USER_ROLE AUR ON AUR.FK_APP_USER = AP.PK_APP_USER "
+				+ "INNER JOIN APP_ROLE AR ON AR.PK_APP_ROLE = AUR.FK_APP_ROLE "
+				+ "WHERE AP.STATUS = 1 AND "
+				+ "AR.CODE IN ( SELECT unnest (string_to_array(VALUE,  ',')) FROM APP_PARAMETER WHERE NAME = 'LEARNING_ADVISORY_USER_DATA_FROM') "
+				+ "ORDER BY P.NAME ASC";
+		SQLQuery sqlQuery = getSession().createSQLQuery(query);
+			sqlQuery.setResultTransformer(new ResultTransformer() {
+
+				private static final long serialVersionUID = 8778133987760783932L;
+
+				@Override
+				public Object transformTuple(Object[] tuple, String[] aliases) {
+					Party p = new Party();
+					try {
+						BeanUtils.copyProperty(p, "pkParty", tuple[0]);
+						BeanUtils.copyProperty(p, "name", tuple[1]);
+					} catch (IllegalAccessException e) {
+						e.printStackTrace();
+					} catch (InvocationTargetException e) {
+						e.printStackTrace();
+					}
+					return p;
+				}
+				
+				@SuppressWarnings("rawtypes")
+				@Override
+				public List transformList(List collection) {
+					return collection;
+				}
+			});
+
+		return sqlQuery.list();
 	}
 	
 }

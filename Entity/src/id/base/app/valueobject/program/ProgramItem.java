@@ -6,7 +6,6 @@ import id.base.app.util.DateTimeFunction;
 import id.base.app.valueobject.BaseEntity;
 import id.base.app.valueobject.Category;
 import id.base.app.valueobject.Lookup;
-import id.base.app.valueobject.testimonial.Testimonial;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -191,11 +190,8 @@ public class ProgramItem extends BaseEntity implements Serializable {
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="programItem", orphanRemoval = true)
 	private List<ProgramItemMenu> menus;
 	
-	@ManyToMany
-	@JoinTable(name="PROGRAM_ITEM_TESTIMONIAL",
-			joinColumns=@JoinColumn(name="FK_PROGRAM_ITEM"),
-			inverseJoinColumns=@JoinColumn(name="FK_TESTIMONIAL"))
-	private List<Testimonial> testimonials;
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="programItem", orphanRemoval = true)
+	private List<ProgramItemTestimonial> testimonials;
 	
 	@Transient
 	public String eventDate;
@@ -512,12 +508,19 @@ public class ProgramItem extends BaseEntity implements Serializable {
 		}
 	}
 	
-	public List<Testimonial> getTestimonials() {
+	public List<ProgramItemTestimonial> getTestimonials() {
 		return testimonials;
 	}
 
-	public void setTestimonials(List<Testimonial> testimonials) {
-		this.testimonials = testimonials;
+	public void setTestimonials(List<ProgramItemTestimonial> testimonials) {
+		if(this.testimonials == null){
+			this.testimonials= new ArrayList<ProgramItemTestimonial>();
+		}else{
+			this.testimonials.clear();	
+		}
+		if(null != testimonials){
+			this.testimonials.addAll(testimonials);
+		}
 	}
 
 	public String getEventDate() {

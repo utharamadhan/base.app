@@ -3,6 +3,7 @@ package id.base.app.service.user;
 import id.base.app.ILookupConstant;
 import id.base.app.SystemConstant;
 import id.base.app.SystemParameter;
+import id.base.app.dao.parameter.IAppParameterDAO;
 import id.base.app.dao.passwordhistory.IPasswordHistoryDAO;
 import id.base.app.dao.passwordhistory.PasswordHistoryDAO;
 import id.base.app.dao.role.IAppRoleDAO;
@@ -79,6 +80,8 @@ public class UserMaintenanceService implements MaintenanceService<AppUser>, IUse
 	private IUserDAO userDao;
 	@Autowired
 	private IPartyService partyService;
+	@Autowired
+	private IAppParameterDAO appParameterDAO;
 	
 	public UserMaintenanceService(){}
 	
@@ -675,4 +678,6 @@ public class UserMaintenanceService implements MaintenanceService<AppUser>, IUse
 	public AppUser findDetailByPermalink(String permalink) throws SystemException {
 		return userDao.findDetailByPermalink(permalink);
 	}
+	
+	
 }

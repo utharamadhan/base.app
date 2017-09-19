@@ -19,4 +19,6 @@ public interface IPartyService extends MaintenanceService<Party>{
 
 	public void updatePermalink(Long pkParty, String permalink) throws SystemException;
 
+	public List<Party> getAllLearningAdvisoryUser() throws SystemException;
+
 }

@@ -18,5 +18,7 @@ public interface IPartyDAO extends IBaseDAO<Party> {
 	public List<String> getSamePermalink(Long pk, String permalink) throws SystemException;
 
 	public void updatePermalink(Long pkParty, String permalink) throws SystemException;
+
+	public List<Party> getAllLearningAdvisoryUser() throws SystemException;
 	
 }

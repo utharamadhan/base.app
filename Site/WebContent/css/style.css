@@ -4911,6 +4911,26 @@ blockquote span {
 	margin-top: 10px;
     margin-bottom: 5px;
 }
+.item-testimonial-wrapper .item-testimonial{
+	margin-bottom:20px;	
+}
+.item-testimonial .item-image img{
+	with:100%;
+	height:auto;
+}
+.item-testimonial .item-content-testi{
+	font-style: italic;
+    margin-bottom: 10px;	
+}
+.item-testimonial .item-content-name{
+	margin-bottom: 0px;
+}
+.item-testimonial .item-content-job{
+	font-weight: 400;
+    font-size: 12px;
+    display: block;
+    line-height: 16px;
+}
 @media only screen and (min-width: 1200px) {
     body.bodyColor .header {
         max-width: 1170px;

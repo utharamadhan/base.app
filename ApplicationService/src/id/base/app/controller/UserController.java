@@ -16,6 +16,7 @@ import id.base.app.util.StringFunction;
 import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.valueobject.AppUser;
+import id.base.app.valueobject.Category;
 import id.base.app.valueobject.party.Party;
 import id.base.app.valueobject.party.PartyContact;
 

@@ -229,11 +229,20 @@
 								    </div>
 								    <div id="acc-teacher-one" class="panel-collapse collapse">
 								    	<div class="collapse-content">
+								    	<div class="form-group">
+											<label class="col-sm-2 control-label" th:text="'In Profile Display?'">In Profile Display?</label>
+											<div class="col-sm-10 form-input-container">
+												<select class="chosen-select form-control" th:field="*{isTeacherInProfileDisplay}">
+													<option th:each="opt : ${booleanOptions}" th:value="${opt.code}" th:text="${opt.descr}">Label</option>
+				                           		</select>
+				                           	</div>
+										</div>
 								        <table id="teacherTable" class="table table-custom table-sortable" style="width:100%;">
 			 								<thead>
 						                        <tr>
-						                          <th style="width:45%">Data From</th>
-						                          <th style="width:45%">Name</th>
+						                          <th style="width:38%">Name</th>
+						                          <th style="width:38%">/ From User</th>
+						                          <th style="width:14%">Order No</th>
 						                          <th style="width:10%">Action</th>
 						                        </tr>
 						                    </thead>
@@ -242,15 +251,27 @@
 							                    	<tr>
 							                    		<td>
 							                    			<div class="input-group">
-																<select class="form-control">
-																	<option>New</option>
-																	<option>User</option>
+																<input type="text" class="form-control learning-advisory-name" th:value="${teacher.teacherName}"/>
+															</div>
+														</td>
+														<td>
+							                    			<div class="input-group">
+																<select class="form-control learning-advisory-user">
+																	<option value="">[Please Select User]</option>
+																	<th:block th:each="opt : ${learningAdvisoryUser}">
+																		<th:block th:if="${teacher.partyTeacher?.pkParty == opt.pkParty}">
+																			<option  th:value="${opt.pkParty}" th:text="${opt.name}" selected="selected">Name</option>
+																		</th:block>
+																		<th:block th:if="${teacher.partyTeacher?.pkParty != opt.pkParty}">
+																			<option  th:value="${opt.pkParty}" th:text="${opt.name}">Name</option>
+																		</th:block>
+																	</th:block>
 																</select>
 															</div>
 														</td>
-							                    		<td>
-							                    			<div class="input-group">
-																<input type="text" class="form-control name" th:value="${teacher.teacherName}"/>
+														<td>
+															<div class="input-group">
+																<input type="text" class="form-control learning-advisory-order-no" th:value="${teacher.orderNo}"/>
 															</div>
 														</td>
 														<td>
@@ -266,7 +287,100 @@
 						                    	<tr>
 						                    		<td>
 						                    			<div class="input-group">
-															<input type="text" class="form-control name"/>
+						                    				<input type="text" class="form-control name learning-advisory-name"/>
+														</div>
+													</td>
+													<td>
+						                    			<div class="input-group">
+															<select class="form-control learning-advisory-user">
+																<option value="">[Please Select User]</option>
+																<option th:each="opt : ${learningAdvisoryUser}" th:value="${opt.pkParty}" th:text="${opt.name}">Name</option>
+															</select>
+														</div>
+													</td>
+													<td>
+														<div class="input-group">
+															<input type="text" class="form-control learning-advisory-order-no"/>
+														</div>
+													</td>
+													<td>
+														<a href="#" class="btn btn-primary btn-xs btn-delete" data-toggle="tooltip" title="" data-original-title="Delete"><i class="fa fa-trash"></i></a>
+														<a href="#" class="btn btn-primary btn-xs btn-add" data-toggle="tooltip" title="" data-original-title="Add"><i class="fa fa-plus"></i></a>
+													</td>
+												</tr>
+						                    </tbody>
+                  						</table>
+                  						</div>
+								    </div>
+								  </div>
+								</div>	
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" th:text="'Testimonial'">Testimonial</label>
+							<div class="col-sm-9 form-input-container">
+								<div class="panel-group" id="acc-testi">
+								  <div class="panel panel-default">
+								    <div class="panel-heading" data-toggle="collapse" data-parent="#acc-testi" data-target="#acc-testi-one">
+								      <h4 class="panel-title">
+								        <a class="accordion-toggle">[Insert Testimonial]</a>
+								      </h4>
+								    </div>
+								    <div id="acc-testi-one" class="panel-collapse collapse">
+								    	<div class="collapse-content">
+								        <table id="testimonialTable" class="table table-custom table-sortable" style="width:100%;">
+			 								<thead>
+						                        <tr>
+						                          <th style="width:76%">Testimonial By</th>
+						                          <th style="width:14%">Order No</th>
+						                          <th style="width:10%">Action</th>
+						                        </tr>
+						                    </thead>
+						                    <tbody th:if="${detail.testimonials!=null and !detail.testimonials.empty}">
+							                    <th:block th:each="testi, i : ${detail.testimonials}">
+							                    	<tr>
+														<td>
+							                    			<div class="input-group">
+																<select class="form-control testimonial-by">
+																	<option value="">[Please Select Testimonial By]</option>
+																	<th:block th:each="opt : ${testimonials}">
+																		<th:block th:if="${testi.testimonial.pkTestimonial == opt.pkTestimonial}">
+																			<option  th:value="${opt.pkTestimonial}" th:text="${opt.name}" selected="selected">Name</option>
+																		</th:block>
+																		<th:block th:if="${testi.testimonial.pkTestimonial != opt.pkTestimonial}">
+																			<option  th:value="${opt.pkTestimonial}" th:text="${opt.name}">Name</option>
+																		</th:block>
+																	</th:block>
+																</select>
+															</div>
+														</td>
+														<td>
+															<div class="input-group">
+																<input type="text" class="form-control testimonial-order-no" th:value="${testi.orderNo}"/>
+															</div>
+														</td>
+														<td>
+															<a href="#" class="btn btn-primary btn-xs btn-delete" data-toggle="tooltip" title="" data-original-title="Delete"><i class="fa fa-trash"></i></a>
+															<th:block th:if="${i.count==#lists.size(detail.testimonials)}">
+																<a href="#" class="btn btn-primary btn-xs btn-add" data-toggle="tooltip" title="" data-original-title="Add"><i class="fa fa-plus"></i></a>
+															</th:block>
+														</td>
+													</tr>
+							                    </th:block>
+						                    </tbody>
+						                    <tbody th:if="${detail.testimonials==null or detail.testimonials.empty}">
+						                    	<tr>
+						                    		<td>
+						                    			<div class="input-group">
+															<select class="form-control testimonial-by">
+																<option value="">[Please Select Testimonial By]</option>
+																<option th:each="opt : ${testimonials}" th:value="${opt.pkTestimonial}" th:text="${opt.name}">Name</option>
+															</select>
+														</div>
+													</td>
+													<td>
+														<div class="input-group">
+															<input type="text" class="form-control testimonial-order-no"/>
 														</div>
 													</td>
 													<td>
@@ -573,9 +687,9 @@
 									        <table id="menuTable" class="table table-custom table-sortable" style="width:100%;">
 				 								<thead>
 							                        <tr>
-							                          <th style="width:40%">Title</th>
-							                          <th style="width:40%">Value</th>
-							                          <th style="width:10%">Order No</th>
+							                          <th style="width:38%">Title</th>
+							                          <th style="width:38%">Value</th>
+							                          <th style="width:14%">Order No</th>
 							                          <th style="width:10%">Action</th>
 							                        </tr>
 							                    </thead>
@@ -674,10 +788,23 @@
        	<tbody>
        		<tr>
        			<td>
-       				<div class="input-group">
-       					<input type="text" class="form-control name"/>
-       				</div>
-       			</td>
+           			<div class="input-group">
+           				<input type="text" class="form-control name learning-advisory-name"/>
+					</div>
+				</td>
+				<td>
+			        <div class="input-group">
+						<select class="form-control learning-advisory-user">
+							<option value="">[Please Select User]</option>
+							<option th:each="opt : ${learningAdvisoryUser}" th:value="${opt.pkParty}" th:text="${opt.name}">Name</option>
+						</select>
+					</div>
+				</td>
+				<td>
+					<div class="input-group">
+						<input type="text" class="form-control learning-advisory-order-no"/>
+					</div>
+				</td>
 				<td>
 					<a href="#" class="btn btn-primary btn-xs btn-delete" data-toggle="tooltip" title="" data-original-title="Delete"><i class="fa fa-trash"></i></a>
 					<a href="#" class="btn btn-primary btn-xs btn-add" data-toggle="tooltip" title="" data-original-title="Add"><i class="fa fa-plus"></i></a>
@@ -685,6 +812,29 @@
 			</tr>
        	</tbody>
   	</table>
+  	<table id="testimonialTableData">
+       	<tbody>
+       		<tr>
+       			<td>
+       				<div class="input-group">
+						<select class="form-control testimonial-by">
+							<option value="">[Please Select Testimonial By]</option>
+							<option th:each="opt : ${testimonials}" th:value="${opt.pkTestimonial}" th:text="${opt.name}">Name</option>
+						</select>
+					</div>
+				</td>
+				<td>
+					<div class="input-group">
+						<input type="text" class="form-control testimonial-order-no"/>
+					</div>
+				</td>
+				<td>
+					<a href="#" class="btn btn-primary btn-xs btn-delete" data-toggle="tooltip" title="" data-original-title="Delete"><i class="fa fa-trash"></i></a>
+					<a href="#" class="btn btn-primary btn-xs btn-add" data-toggle="tooltip" title="" data-original-title="Add"><i class="fa fa-plus"></i></a>
+				</td>
+       		</tr>
+       	</tbody>
+  	</table>									
   	<table id="menuTableData">
        	<tbody>
        		<tr>
@@ -807,8 +957,20 @@
 				$('#category-hidden').html(html);
 				var idx = 0;
 				$('#teacherTable').find('tbody').find('tr').each(function(){
-					$(this).find('.name').attr('name', 'teachers['+idx+'].teacherName');
+					if($(this).find('.learning-advisory-user').val()==''){
+						$(this).find('.learning-advisory-name').attr('name', 'teachers['+idx+'].teacherName');
+					}
+					$(this).find('.learning-advisory-user').attr('name', 'teachers['+idx+'].partyTeacher.pkParty');
+					$(this).find('.learning-advisory-order-no').attr('name', 'teachers['+idx+'].orderNo');
 					idx++;
+				});
+				var idx = 0;
+				$('#testimonialTable').find('tbody').find('tr').each(function(){
+					if($(this).find('.testimonial-by').val()!=''){
+						$(this).find('.testimonial-by').attr('name', 'testimonials['+idx+'].testimonial.pkTestimonial');
+						$(this).find('.testimonial-order-no').attr('name', 'testimonials['+idx+'].orderNo');
+						idx++;
+					}
 				});
 				var idx = 0;
 				$('#menuTable').find('tbody').find('tr').each(function(){
@@ -943,9 +1105,21 @@
 				backToList();
 			});
 			
+			var learningAdvisoryUserChange = function(){  
+				$('.learning-advisory-user').change(function(){
+					if($(this).val()==''){
+						$(this).closest('tr').find('.learning-advisory-name').removeAttr('disabled');
+					}else{
+						$(this).closest('tr').find('.learning-advisory-name').attr('disabled','disabled');
+					}
+				});
+			}
+			learningAdvisoryUserChange();
+			
 			var addRowTable = function(str, suffix){
 				$('#'+str+'Table tbody .btn-add'+suffix).remove();
 				$('#'+str+'Table tbody tr').last().parent().append($('#'+str+'TableData tbody').html());
+				learningAdvisoryUserChange();
 			};
 			var deleteRowTable = function(str,obj,suffix){
 				$('#'+str+'Table tbody .btn-add'+suffix).remove();
@@ -957,6 +1131,12 @@
 			});
 			$('#teacherTable').on('click','.btn-delete',function(){
 				deleteRowTable('teacher',$(this), '');
+			});
+			$('#testimonialTable').on('click','.btn-add',function(){
+				addRowTable('testimonial', '');
+			});
+			$('#testimonialTable').on('click','.btn-delete',function(){
+				deleteRowTable('testimonial',$(this), '');
 			});
 			$('#menuTable').on('click','.btn-add-menu',function(){
 				addRowTable('menu','-menu');

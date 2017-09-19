@@ -334,5 +334,5 @@ public class UserDAO extends AbstractHibernateDAO<AppUser, Long> implements IUse
 		crit.setMaxResults(1);
 		return (AppUser) crit.uniqueResult();
 	}
-
+	
 }

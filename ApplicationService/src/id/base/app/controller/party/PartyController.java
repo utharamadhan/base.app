@@ -50,4 +50,11 @@ public class PartyController extends SuperController<Party> {
 		return partyService.findAllPartyByRole(pkCompany, roleCode, keyword);
 	}
 	
+
+	@RequestMapping(method=RequestMethod.GET, value="/getAllLearningAdvisoryUser")
+	@ResponseBody
+	public List<Party> getAllLearningAdvisoryUser() throws SystemException {
+		return partyService.getAllLearningAdvisoryUser();
+	}
+	
 }
