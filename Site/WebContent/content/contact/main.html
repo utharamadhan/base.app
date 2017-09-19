@@ -16,7 +16,7 @@
 				<div class="row">
 					<div class="col-md-4 no-pad-right">
 						<div class="list_block back-gradient-transparent-menu no-border-right">
-							<ul class="menu_left">
+							<ul class="menu_left type-none">
 								<th:block th:each="cat, i : ${categoryHelps}">
 									<li th:attr="id=${cat.code}" th:class="${cat.code=='PR'}? 'menu_left_active' : ''" th:classappend="${cat.code}">
 										<span th:text="${cat.descr}"></span>

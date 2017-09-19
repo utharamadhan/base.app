@@ -164,7 +164,7 @@
 					<form action="${ctx}/page/search" method="GET">
 						<div class="row">
 							<div class="col-md-10">
-								<input type="text" name="s" class="form-control input-search" placeholder="Masukkan Kata Kunci" value="">
+								<input type="text" name="s" class="form-control input-search" placeholder="Masukkan Kata Kunci" value="${s}">
 							</div>
 							<div class="col-md-2">
 								<input type="submit" class="button-blue" value="Search"/>

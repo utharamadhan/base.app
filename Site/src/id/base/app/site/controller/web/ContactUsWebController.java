@@ -107,6 +107,12 @@ public class ContactUsWebController extends BaseSiteController<Contact>{
 		return "/contact/main";
 	}
 	
+	@RequestMapping(method=RequestMethod.GET, value="/memberi-masukan")
+	public String memberiMasukan(ModelMap model, HttpServletRequest request, HttpServletResponse response){
+		setDefaultData(request, model, null);
+		return "/contact/main";
+	}
+	
 	@RequestMapping(method=RequestMethod.GET, value="/{categoryPermalink}/{permalink}")
 	public String view(ModelMap model, HttpServletRequest request, HttpServletResponse response
 			, @PathVariable(value="categoryPermalink") String categoryPermalink, @PathVariable(value="permalink") String permalink){

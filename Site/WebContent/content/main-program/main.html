@@ -19,7 +19,7 @@
 				<div class="container">
 					<div class="row">
 						<th:block th:each="data , i : ${programs}">
-						<div class="col-md-4 loop">
+						<div class="col-md-4 col-sm-4 loop">
 							<div class="card-image">
 								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" version="1.1">
 								  <defs>
@@ -33,7 +33,6 @@
 							<div class="card-box">
 								<h2 class="card-title"><a th:href="@{/page/main-program/}+${data.permalink}" th:text="${data.title}"></a></h2>
 								<div class="card-box-content" th:utext="${data.content}"></div>
-								<div class="card-clear"></div>
 							</div>
 						</div>
 						</th:block>	

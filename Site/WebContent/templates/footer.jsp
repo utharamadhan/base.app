@@ -28,7 +28,7 @@
 		  				<li><a href="<%=request.getContextPath()%>/page/${toc}">${tocTitle}</a></li>
 		  				<li><a href="<%=request.getContextPath()%>/page/faq">Pertanyaan Yang Sering Ditanyakan</a></li>
 		  				<li><a href="<%=request.getContextPath()%>/page/sitemap"">Peta Situs</a></li>
-		  				<li><a href="<%=request.getContextPath()%>/page/contact/MM">Memberi Masukan</a></li>
+		  				<li><a href="<%=request.getContextPath()%>/page/contact/memberi-masukan">Memberi Masukan</a></li>
 		  			</ul>
 		  		</div>
 		  		<div class="col-md-3">

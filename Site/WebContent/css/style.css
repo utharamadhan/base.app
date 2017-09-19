@@ -3633,8 +3633,8 @@ ul.contact_info li a:hover {
     margin-top: -66px;
 }
 .md-3 .card-box{
-	margin-top: -130px;
-	height: 175px;
+	margin-top: -65px;
+    height: 175px;
 }
 .green .card-box{
 	border-top:0px solid #2d7926;
@@ -3698,6 +3698,9 @@ ul.contact_info li a:hover {
 }
 .card-image{
 	height:246px;
+}
+.col-md-3 .card-image{
+	height:180px;
 }
 svg {
   width: 100%;
@@ -5117,8 +5120,8 @@ blockquote span {
     }
 }
 @media screen and (max-width: 1199px) {
-	.container {
-	    width: 1070px;
+	.card-box {
+	    margin-top: -110px;
 	}
 }
 @media screen and (max-width: 1023px) {
@@ -5144,6 +5147,9 @@ blockquote span {
 	.post-content table td{
 		padding:5px 10px;
 	}
+	.card-box {
+	    margin-top: -130px;
+	}
 }
 @media screen and (max-width: 959px) {
 	.container {
@@ -5158,6 +5164,9 @@ blockquote span {
         padding: 8px 6px!important;
         font-size: 12px;
     }
+    .header .navbar-brand img {
+	    height: 44px;
+	}
     .nav.navbar-nav.navbar-right {
         padding: 7px 0;
     }
@@ -5388,6 +5397,9 @@ blockquote span {
         font-size: 10px;
         line-height: normal;
     }
+    .card-box {
+	    margin-top: -150px;
+	}
 }
 @media screen and (max-width: 853px) {
 	.header .navbar-brand img{
@@ -5407,6 +5419,15 @@ blockquote span {
 	.container {
     	width: 98%;
 	}
+	.card-box {
+	    margin-top: -160px;
+	}
+	.header .navbar-default .navbar-nav>li>a {
+    	padding: 8px 5px!important;
+    }
+    .main-search-icon, .main-search-close-icon{
+    	margin-left: 5px;
+    }
 }
 @media screen and (max-width: 767px) {
 	.margin-top {
@@ -5819,6 +5840,9 @@ blockquote span {
 	.img-responsive {
         width: 100%;
     }
+    .card-box {
+	    margin-top: -62px;
+	}
     .aboutArea {
         padding: 30px 0 10px;
     }
