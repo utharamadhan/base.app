@@ -119,7 +119,12 @@
 									<th:block th:if="${detail.isTeacherInProfileDisplay==false}">
 										<ul class="default-list">
 											<th:block th:each="t, i : ${detail.teachers}">
-												<li th:text="${t.teacherName}"></li>
+												<th:block th:if="${t.teacherName!=null}">
+													<li th:text="${t.teacherName}"></li>
+												</th:block>
+												<th:block th:if="${t.teacherName==null}">
+													<li th:text="${t.partyTeacher.name}"></li>
+												</th:block>
 											</th:block>
 										</ul>
 									</th:block>
@@ -147,8 +152,7 @@
 												</div>
 											</div>	
 										</div>
-									</th:block>
-									
+									</th:block>	
 								</div>
 								<div role="tabpanel" class="tab-pane" id="tab8"></div>
 								<div role="tabpanel" class="tab-pane text-center" id="tab9">
@@ -198,7 +202,12 @@
 							<li><span>Pengajar/Pembicara:</span><br/>
 							<ul class="default-list">
 								<th:block th:each="t, i : ${detail.teachers}">
-									<li th:text="${t.teacherName}"></li>
+									<th:block th:if="${t.teacherName!=null}">
+										<li th:text="${t.teacherName}"></li>
+									</th:block>
+									<th:block th:if="${t.teacherName==null}">
+										<li th:text="${t.partyTeacher.name}"></li>
+									</th:block>
 								</th:block>
 							</ul>
 							</li>

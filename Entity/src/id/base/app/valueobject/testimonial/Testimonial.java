@@ -1,7 +1,6 @@
 package id.base.app.valueobject.testimonial;
 
 import id.base.app.ILookupConstant;
-import id.base.app.encryptor.EncodeDecode;
 import id.base.app.valueobject.BaseEntity;
 
 import java.io.Serializable;
@@ -15,6 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -65,6 +66,7 @@ public class Testimonial extends BaseEntity implements Serializable {
 	private String content;
 	
 	@Column(name="TESTIMONIAL_DATE")
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date testimonialDate;
 	
 	@Column(name="STATUS")

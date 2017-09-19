@@ -97,13 +97,62 @@
 								<div role="tabpanel" class="tab-pane" id="tab3" th:utext="${detail.silabusDesc}"></div>
 								<div role="tabpanel" class="tab-pane" id="tab4" th:utext="${detail.facilityDesc}"></div>
 								<div role="tabpanel" class="tab-pane" id="tab5" th:utext="${detail.paymentDesc}"></div>
-								<div role="tabpanel" class="tab-pane" id="tab6"></div>
-								<div role="tabpanel" class="tab-pane" id="tab7">
-									<ul class="default-list">
-										<th:block th:each="t, i : ${detail.teachers}">
-											<li th:text="${t.teacherName}"></li>
+								<div role="tabpanel" class="tab-pane" id="tab6">
+									<div class="row item-testimonial-wrapper">
+										<th:block th:each="t, i : ${detail.testimonials}">
+											<div class="col-md-6 item-testimonial">
+												<div class="row">
+													<div class="col-md-4 item-image">	
+														<img th:src="${t.testimonial.encodedPicture}"/>
+													</div>
+													<div class="col-md-8 item-content">
+														<div class="item-content-testi" th:utext="${t.testimonial.content}"></div>
+														<label class="item-content-name" th:text="${t.testimonial.name}"></label>
+														<label class="item-content-job" th:text="${t.testimonial.jobTitle}"></label>
+													</div>
+												</div>
+											</div>
 										</th:block>
-									</ul>
+									</div>
+								</div>
+								<div role="tabpanel" class="tab-pane" id="tab7">
+									<th:block th:if="${detail.isTeacherInProfileDisplay==false}">
+										<ul class="default-list">
+											<th:block th:each="t, i : ${detail.teachers}">
+												<th:block th:if="${t.teacherName!=null}">
+													<li th:text="${t.teacherName}"></li>
+												</th:block>
+												<th:block th:if="${t.teacherName==null}">
+													<li th:text="${t.partyTeacher.name}"></li>
+												</th:block>
+											</th:block>
+										</ul>
+									</th:block>
+									<th:block th:if="${detail.isTeacherInProfileDisplay==true}">
+										<div class="row teacher-wrapper">
+											<div class="col-md-2" th:each="t, i : ${detail.teachers}">
+												<div class="post item-teacher">
+													<th:block th:if="${t.teacherName==null}">
+														<div class="post_thumb">
+															<th:block th:if="${t.partyTeacher.encodedPicture!=null}">
+																<img th:src="${t.partyTeacher.encodedPicture}" alt="" />
+															</th:block>
+															<th:block th:if="${t.partyTeacher.encodedPicture==null}">
+																<img th:src="@{/images/default-image-user.png}" alt="" />
+															</th:block>
+														</div>
+														<label th:text="${t.partyTeacher.name}" class="post_title"></label>
+													</th:block>
+													<th:block th:if="${t.teacherName!=null}">
+														<div class="post_thumb">
+															<img th:src="@{/images/default-image-user.png}" alt="" />
+														</div>
+														<h1><label th:text="${t.teacherName}" class="post_title"></label></h1>
+													</th:block>
+												</div>
+											</div>	
+										</div>
+									</th:block>	
 								</div>
 								<div role="tabpanel" class="tab-pane" id="tab8"></div>
 								<div role="tabpanel" class="tab-pane text-center" id="tab9">
@@ -150,10 +199,15 @@
 							<th:block th:if="${detail.location!=null and detail.location!=''}">
 								<li><span>Tempat:</span><br/><th:block th:utext="${detail.location}"></th:block></li>
 							</th:block>
-							<li><span>Pengajar/Pembicara:</span><br/>
+							<li><span>Tim Advisor:</span><br/>
 							<ul class="default-list">
 								<th:block th:each="t, i : ${detail.teachers}">
-									<li th:text="${t.teacherName}"></li>
+									<th:block th:if="${t.teacherName!=null}">
+										<li th:text="${t.teacherName}"></li>
+									</th:block>
+									<th:block th:if="${t.teacherName==null}">
+										<li th:text="${t.partyTeacher.name}"></li>
+									</th:block>
 								</th:block>
 							</ul>
 							</li>
