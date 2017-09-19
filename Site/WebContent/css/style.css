@@ -157,6 +157,7 @@ iframe {
     margin: 6px 0;
 }
 
+.auto-clear .col-md-6:nth-child(2n+1){clear:left;}
 @media screen and (min-width: 767px) {
 	.header .navbar-nav>li>.dropdown-menu {
 	    width: 100%;
