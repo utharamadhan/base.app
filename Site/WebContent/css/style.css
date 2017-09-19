@@ -5560,9 +5560,6 @@ blockquote span {
     .banner_caption {
         bottom: 0;
     }
-    .banner {
-        display: none;
-    }
     .count_inner {
         margin: 0 0 20px;
     }
@@ -5820,8 +5817,8 @@ blockquote span {
     .menuFooter h4 {
 	    margin: 20px 0px 0px 0px;
 	}
-	.md-3 .card-box {
-    	margin-top: 0px;
+	.card-box {
+	    margin-top: -62px;
 	}
 }
 @media screen and (max-width: 639px) {

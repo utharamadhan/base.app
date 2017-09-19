@@ -122,8 +122,8 @@
 								</li>
 								<li id="kontak-kami" ><a class="parent-menu" href="<%=request.getContextPath()%>/page/contact">KONTAK KAMI</a></li>
 								<li class="btn-search">
-									<img src="<%=request.getContextPath()%>/images/search.png" alt="" class="img-responsive main-search-icon">
-									<img src="<%=request.getContextPath()%>/images/close.png" alt="" class="img-responsive main-search-close-icon" style="display:none">
+									<img src="<%=request.getContextPath()%>/images/search.png" alt="" class="main-search-icon">
+									<img src="<%=request.getContextPath()%>/images/close.png" alt="" class="main-search-close-icon" style="display:none">
 								</li>
 								<li class="btn-signup" style="display:none"><a href="#" data-toggle="modal" data-target="#sign-in-modal">Sign In</a></li>
 							  </ul>

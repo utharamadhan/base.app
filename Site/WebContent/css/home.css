@@ -1225,6 +1225,9 @@ body{
 	.aboutUsArea .circle-bottom-wrapper .title-center h2 {
 	    padding-top: 3%;
 	}
+	.step-expert .step-expert-content a{
+		font-size:12px;
+	}
 }
 @media screen and (max-width: 639px) {
 	.aboutUsArea .circle-top {
