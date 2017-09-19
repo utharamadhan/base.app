@@ -19,7 +19,10 @@ import id.base.app.util.dao.SearchOrder.Sort;
 import id.base.app.valueobject.Category;
 import id.base.app.valueobject.Lookup;
 import id.base.app.valueobject.program.ProgramItem;
+import id.base.app.valueobject.program.ProgramItemImage;
 import id.base.app.valueobject.program.ProgramItemMenu;
+import id.base.app.valueobject.program.ProgramItemTeacher;
+import id.base.app.valueobject.program.ProgramItemTestimonial;
 import id.base.app.valueobject.program.VWProgramItem;
 
 import java.util.ArrayList;
@@ -161,9 +164,11 @@ public class LearningWebController extends BaseSiteController<ProgramItem>{
 		ProgramItem detail = findItemByPermalink(permalink);
 		if(detail!=null){
 			setCommonData(request,model);
-			List<ProgramItemMenu> menus = detail.getMenus();
-			Collections.sort(menus, new ProgramItemMenu());
-			model.addAttribute("menus", menus);
+			Collections.sort(detail.getMenus(), new ProgramItemMenu());
+			Collections.sort(detail.getTeachers(), new ProgramItemTeacher());
+			Collections.sort(detail.getTestimonials(), new ProgramItemTestimonial());
+			Collections.sort(detail.getImages(), new ProgramItemImage());
+			model.addAttribute("menus", detail.getMenus());
 			model.addAttribute("categoryPermalink", categoryPermalink);
 			model.addAttribute("detail", detail);
 			return "/learning/detail";

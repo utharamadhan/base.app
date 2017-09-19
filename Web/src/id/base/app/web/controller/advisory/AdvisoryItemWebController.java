@@ -4,7 +4,9 @@ import id.base.app.ILookupConstant;
 import id.base.app.ILookupGroupConstant;
 import id.base.app.SystemConstant;
 import id.base.app.exception.ErrorHolder;
+import id.base.app.exception.SystemException;
 import id.base.app.paging.PagingWrapper;
+import id.base.app.rest.PathInterfaceRestCaller;
 import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
 import id.base.app.rest.RestServiceConstant;
@@ -15,14 +17,20 @@ import id.base.app.util.dao.SearchFilter;
 import id.base.app.util.dao.SearchOrder;
 import id.base.app.valueobject.AppUser;
 import id.base.app.valueobject.Lookup;
+import id.base.app.valueobject.party.Party;
 import id.base.app.valueobject.program.ProgramItem;
 import id.base.app.valueobject.program.ProgramItemImage;
+import id.base.app.valueobject.program.ProgramItemMenu;
+import id.base.app.valueobject.program.ProgramItemTeacher;
+import id.base.app.valueobject.program.ProgramItemTestimonial;
+import id.base.app.valueobject.testimonial.Testimonial;
 import id.base.app.valueobject.util.SelectHelper;
 import id.base.app.web.DataTableCriterias;
 import id.base.app.web.controller.BaseController;
 import id.base.app.web.rest.LookupRestCaller;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,6 +56,10 @@ public class AdvisoryItemWebController extends BaseController<ProgramItem> {
 	@Override
 	protected RestCaller<ProgramItem> getRestCaller() {
 		return new RestCaller<ProgramItem>(RestConstant.REST_SERVICE, RestServiceConstant.PROGRAM_ITEM_SERVICE);
+	}
+	
+	private RestCaller<Testimonial> getTestimonialRestCaller() {
+		return new RestCaller<Testimonial>(RestConstant.REST_SERVICE, RestServiceConstant.TESTIMONIAL_SERVICE);
 	}
 	
 	@Override
@@ -101,6 +113,12 @@ public class AdvisoryItemWebController extends BaseController<ProgramItem> {
 		backImageSizeList.add(new SelectHelper().getInstanceValueInteger(SystemConstant.BackgroundImageSize.SMALL, SystemConstant.BackgroundImageSize.SMALL_STR));
 		backImageSizeList.add(new SelectHelper().getInstanceValueInteger(SystemConstant.BackgroundImageSize.BIG, SystemConstant.BackgroundImageSize.BIG_STR));
 		model.addAttribute("backImageSizeOptions", backImageSizeList);
+		model.addAttribute("learningAdvisoryUser", getAllLearningAdvisoryUser());
+		List<SearchFilter> filters = new ArrayList<>();
+		List<SearchOrder> orders = new ArrayList<>();
+		filters.add(new SearchFilter(Testimonial.STATUS, Operator.EQUALS, ILookupConstant.Status.PUBLISH, Integer.class));
+		orders.add(new SearchOrder(Testimonial.NAME, SearchOrder.Sort.ASC));
+		model.addAttribute("testimonials", getTestimonialRestCaller().findAll(filters, orders));
 	}
 	
 	@RequestMapping(method=RequestMethod.GET, value="showAdd")
@@ -121,6 +139,9 @@ public class AdvisoryItemWebController extends BaseController<ProgramItem> {
 	@RequestMapping(method=RequestMethod.GET, value="showEdit")
 	public String showEdit(@RequestParam(value="maintenancePK") final Long maintenancePK, @RequestParam Map<String, String> paramWrapper, ModelMap model, HttpServletRequest request){
 		ProgramItem detail = getRestCaller().findById(maintenancePK);
+		Collections.sort(detail.getMenus(), new ProgramItemMenu());
+		Collections.sort(detail.getTeachers(), new ProgramItemTeacher());
+		Collections.sort(detail.getTestimonials(), new ProgramItemTestimonial());
 		if(detail.getImages()!=null && detail.getImages().isEmpty()){
 			List<ProgramItemImage> piiList = new ArrayList<>();
 			piiList.add(ProgramItemImage.getInstance());
@@ -129,6 +150,8 @@ public class AdvisoryItemWebController extends BaseController<ProgramItem> {
 			piiList.add(ProgramItemImage.getInstance());
 			piiList.add(ProgramItemImage.getInstance());
 			detail.setImages(piiList);
+		}else{
+			Collections.sort(detail.getImages(), new ProgramItemImage());	
 		}
 		setDefaultData(model, detail);
 		model.addAttribute("detail", detail);
@@ -155,6 +178,21 @@ public class AdvisoryItemWebController extends BaseController<ProgramItem> {
 	@Override
 	protected String getListPath() {
 		return PATH_LIST;
+	}
+	
+	private List<Party> getAllLearningAdvisoryUser() throws SystemException {
+		return new SpecificRestCaller<Party>(RestConstant.REST_SERVICE, RestConstant.RM_PARTY, Party.class).executeGetList(new PathInterfaceRestCaller() {
+			@Override
+			public String getPath() {
+				return "/getAllLearningAdvisoryUser";
+			}
+			
+			@Override
+			public Map<String, Object> getParameters() {
+				Map<String,Object> map = new HashMap<String, Object>();
+				return map;
+			}
+		});
 	}
 	
 }
