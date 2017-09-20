@@ -5823,6 +5823,12 @@ blockquote span {
 	.carousel-inner>.item {
     	height: 350px;
     }
+    .single_caption {
+	    bottom: 0px;
+	}
+	.course-detail-title {
+	    padding: 5px 28px 5px;
+	}
 }
 @media screen and (max-width: 639px) {
 	.header .navbar-brand img {
