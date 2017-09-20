@@ -5820,6 +5820,9 @@ blockquote span {
 	.card-box {
 	    margin-top: -62px;
 	}
+	.carousel-inner>.item {
+    	height: 350px;
+    }
 }
 @media screen and (max-width: 639px) {
 	.header .navbar-brand img {

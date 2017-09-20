@@ -30,7 +30,7 @@
 					<th:block th:each="data , i : ${items.result}">
 						<div class="col-md-4 loop card-active">
 							<div class="card-image">
-								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" version="1.1" preserveAspectRatio="xMidYMin slice">
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" version="1.1">
 								  <defs>
 								    <pattern th:attr="id='img'+${i.count}" patternUnits="userSpaceOnUse" width="600" height="400">
 								      <image width="600" height="400" xmlns:xlink="http://www.w3.org/1999/xlink" th:attr="'xlink:href'=${data.encodedPicture}"></image>
