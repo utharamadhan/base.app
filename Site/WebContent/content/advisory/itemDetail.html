@@ -26,16 +26,19 @@
 						</th:block>
 					</th:block>
 					<th:block th:if="${detail.isBackgroundSlideshow==false}">
-						<img th:src="${detail.images[0].imageURL}" class="banner_img_background"/>
+						<div class="item active"> 
+							<img th:src="${detail.images[0].imageURL}" class="banner_img_background"/>
+						</div>
 					</th:block>
 				</div>
+				<th:block th:if="${detail.isBackgroundSlideshow==true}">
 				<a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
 					<img th:src="@{/images/prev.png}"/>
 				</a>
 			    <a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next">
 					<img th:src="@{/images/next.png}"/>
 			    </a>		
-						
+			    </th:block>
 			</div><!--end banner-->
 			<div class="container large">
 				<div class="row">

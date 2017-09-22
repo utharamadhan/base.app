@@ -4,7 +4,6 @@ import id.base.app.ILookupGroupConstant;
 import id.base.app.SystemConstant;
 import id.base.app.SystemParameter;
 import id.base.app.exception.ErrorHolder;
-import id.base.app.mail.MailManager;
 import id.base.app.rest.PathInterfaceRestCaller;
 import id.base.app.rest.RestCaller;
 import id.base.app.rest.RestConstant;
@@ -55,10 +54,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class ContactUsWebController extends BaseSiteController<Contact>{
 	
-	MailManager mailManager;
-	
-	 @Autowired
-	 private MailSender mailSender;
+	@Autowired
+	private MailSender mailSender;
 	
 	static Logger LOGGER = LoggerFactory.getLogger(ContactUsWebController.class);
 	
@@ -107,8 +104,14 @@ public class ContactUsWebController extends BaseSiteController<Contact>{
 		return "/contact/main";
 	}
 	
-	@RequestMapping(method=RequestMethod.GET, value="/memberi-masukan")
-	public String memberiMasukan(ModelMap model, HttpServletRequest request, HttpServletResponse response){
+	@RequestMapping(method=RequestMethod.GET, value="/input")
+	public String input(ModelMap model, HttpServletRequest request, HttpServletResponse response){
+		setDefaultData(request, model, null);
+		return "/contact/main";
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/download")
+	public String download(ModelMap model, HttpServletRequest request, HttpServletResponse response){
 		setDefaultData(request, model, null);
 		return "/contact/main";
 	}
@@ -190,7 +193,7 @@ public class ContactUsWebController extends BaseSiteController<Contact>{
 	
 	private List<Category> getCategoryList(){
 		SpecificRestCaller<Category> rc = new SpecificRestCaller<Category>(RestConstant.REST_SERVICE, RestServiceConstant.CATEGORY_SERVICE);
-		List<Category> list = rc.executeGetList(new PathInterfaceRestCaller() {
+		return rc.executeGetList(new PathInterfaceRestCaller() {
 			
 			@Override
 			public String getPath() {
@@ -204,12 +207,11 @@ public class ContactUsWebController extends BaseSiteController<Contact>{
 				return map;
 			}
 		});
-		return list;
 	}
 	
 	private List<ProgramItem> getProgramItemList(final Long pkCategory){
 		SpecificRestCaller<ProgramItem> rc = new SpecificRestCaller<ProgramItem>(RestConstant.REST_SERVICE, RestServiceConstant.PROGRAM_ITEM_SERVICE);
-		List<ProgramItem> list = rc.executeGetList(new PathInterfaceRestCaller() {
+		return rc.executeGetList(new PathInterfaceRestCaller() {
 			
 			@Override
 			public String getPath() {
@@ -223,12 +225,11 @@ public class ContactUsWebController extends BaseSiteController<Contact>{
 				return map;
 			}
 		});
-		return list;
 	}
 	
 	private List<ProgramItem> getProgramItemListByCategoryPermalink(final String categoryPermalink){
 		SpecificRestCaller<ProgramItem> rc = new SpecificRestCaller<ProgramItem>(RestConstant.REST_SERVICE, RestServiceConstant.PROGRAM_ITEM_SERVICE);
-		List<ProgramItem> list = rc.executeGetList(new PathInterfaceRestCaller() {
+		return rc.executeGetList(new PathInterfaceRestCaller() {
 			
 			@Override
 			public String getPath() {
@@ -242,7 +243,6 @@ public class ContactUsWebController extends BaseSiteController<Contact>{
 				return map;
 			}
 		});
-		return list;
 	}
-	
+		
 }
